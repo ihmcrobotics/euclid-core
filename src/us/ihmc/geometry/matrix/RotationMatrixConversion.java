@@ -32,7 +32,7 @@ public abstract class RotationMatrixConversion
       matrixToPack.setUnsafe(cosYaw, -sinYaw, 0.0, sinYaw, cosYaw, 0.0, 0.0, 0.0, 1.0);
    }
 
-   public static void convertAxisAngleToMatrix(AxisAngleReadOnly axisAngle, RotationMatrix matrixToPack)
+   public static void convertAxisAngleToMatrix(AxisAngleReadOnly<?> axisAngle, RotationMatrix matrixToPack)
    {
       convertAxisAngleToMatrixImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), matrixToPack);
    }

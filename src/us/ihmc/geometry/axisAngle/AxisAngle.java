@@ -4,292 +4,192 @@ import java.io.Serializable;
 
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.geometry.interfaces.EpsilonComparable;
-import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.geometry.tuple.RotationVectorConversion;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
-public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparable<AxisAngle>, Settable<AxisAngle>
+/**
+ * An {@code AxisAngle}  is used to represent a 3D orientation by a unitary axis
+ * of components (x, y, z) and an angle of rotation usually expressed in radians.
+ * 
+ * This version of axis-angle uses double precision fields to save the value of each component.
+ * It is meant for garbage free usage.
+ * 
+ * @author Sylvain
+ */
+public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
 {
    private static final long serialVersionUID = -7238256250079419416L;
 
-   private double x, y, z;
+   /** The x-component of the unitary axis. */
+   private double x;
+   /** The y-component of the unitary axis. */
+   private double y;
+   /** The z-component of the unitary axis. */
+   private double z;
+   /** The angle component of this axis-angle. */
    private double angle;
 
+   /**
+    * Creates an axis-angle that represents a "zero" rotation.
+    * The axis is equal to (1, 0, 0) and the angle to 0.
+    */
    public AxisAngle()
    {
       setToZero();
    }
 
-   public AxisAngle(AxisAngleReadOnly other)
+   /**
+    * Creates an axis-angle that is the same as {@code other}.
+    * 
+    * @param other
+    */
+   public AxisAngle(AxisAngleReadOnly<?> other)
    {
       set(other);
    }
 
+   /**
+    * Creates an axis-angle with the given values of the axis
+    * ({@code x}, {@code y}, {@code z}) and of the angle {@code angle}.
+    * 
+    * @param x x-component of the axis.
+    * @param y y-component of the axis.
+    * @param z z-component of the axis.
+    * @param angle the angle value.
+    */
    public AxisAngle(double x, double y, double z, double angle)
    {
       set(x, y, z, angle);
    }
 
+   /**
+    * Creates an axis-angle initialized with the values contained in the given array:
+    * <ul>
+    *    <li> {@code this.setX(axisAngleArray[0]);}
+    *    <li> {@code this.setY(axisAngleArray[1]);}
+    *    <li> {@code this.setZ(axisAngleArray[2]);}
+    *    <li> {@code this.setAngle(axisAngleArray[3]);}
+    * </ul>
+    * 
+    * @param axisAngleArray the array containing the values for this axis-angle. Not modified.
+    */
    public AxisAngle(double[] axisAngleArray)
    {
       set(axisAngleArray);
    }
 
+   /**
+    * Create an axis-angle from the given axis and angle.
+    * 
+    * @param axis the axis. Not modified
+    * @param angle the angle value.
+    */
    public AxisAngle(VectorReadOnly axis, double angle)
    {
       set(axis, angle);
    }
 
+   /**
+    * Creates an axis-angle such that it represents the same
+    * orientation the quaternion represents.
+    * See {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
+    * 
+    * @param quaternion the quaternion used to create this axis-angle. Not modified.
+    */
    public AxisAngle(QuaternionReadOnly quaternion)
    {
       set(quaternion);
    }
 
+   /**
+    * Creates an axis-angle such that it represents the same
+    * orientation the rotation matrix represents.
+    * See {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
+    * 
+    * @param rotationMatrix the rotation matrix used to create this axis-angle. Not modified.
+    */
    public AxisAngle(RotationMatrixReadOnly rotationMatrix)
    {
       set(rotationMatrix);
    }
 
+   /**
+    * Creates an axis-angle such that it represents the same
+    * orientation the rotation vector represents.
+    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(VectorReadOnly, AxisAngleBasics)}.
+    * 
+    * @param rotationVector the rotation vector used to create this axis-angle. Not modified.
+    */
    public AxisAngle(VectorReadOnly rotationVector)
    {
       set(rotationVector);
    }
 
-   @Override
-   public boolean containsNaN()
-   {
-      return AxisAngleTools.containsNaN(this);
-   }
-
-   public void negate()
-   {
-      x = -x;
-      y = -y;
-      z = -z;
-      angle = -angle;
-   }
-
-   @Override
-   public void set(AxisAngle other)
-   {
-      set((AxisAngleReadOnly) other); 
-   }
-
-   @Override
-   public void setToNaN()
-   {
-      x = Double.NaN;
-      y = Double.NaN;
-      z = Double.NaN;
-      angle = Double.NaN;
-   }
-
-   @Override
-   public void setToZero()
-   {
-      x = 1.0;
-      y = 0.0;
-      z = 0.0;
-      angle = 0.0;
-   }
-
-   public final void set(AxisAngleReadOnly other)
-   {
-      x = other.getX();
-      y = other.getY();
-      z = other.getZ();
-      angle = other.getAngle();
-   }
-
-   @Override
-   public final void set(double x, double y, double z, double angle)
-   {
-      this.x = x;
-      this.y = y;
-      this.z = z;
-      this.angle = angle;
-   }
-
-   public final void set(double[] axisAngleArray)
-   {
-      set(axisAngleArray, 0);
-   }
-
-   public final void set(double[] axisAngleArray, int startIndex)
-   {
-      x = axisAngleArray[startIndex++];
-      y = axisAngleArray[startIndex++];
-      z = axisAngleArray[startIndex++];
-      angle = axisAngleArray[startIndex];
-   }
-
-   public final void set(QuaternionReadOnly quaternion)
-   {
-      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, this);
-   }
-
-   public final void set(RotationMatrixReadOnly rotationMatrix)
-   {
-      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, this);
-   }
-
-   public final void set(VectorReadOnly rotationVector)
-   {
-      AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, this);
-   }
-
-   public final void set(VectorReadOnly axis, double angle)
-   {
-      x = axis.getX();
-      y = axis.getY();
-      z = axis.getZ();
-      this.angle = angle;
-   }
-
-   public void set(int index, double value)
-   {
-      switch (index)
-      {
-      case 0:
-         x = value;
-         break;
-      case 1:
-         y = value;
-         break;
-      case 2:
-         z = value;
-         break;
-      case 3:
-         angle = value;
-         break;
-      default:
-         throw new IndexOutOfBoundsException(Integer.toString(index));
-      }
-   }
-
+   /** {@inheritDoc} */
    @Override
    public final void setX(double x)
    {
       this.x = x;
    }
 
+   /** {@inheritDoc} */
    @Override
    public final void setY(double y)
    {
       this.y = y;
    }
 
+   /** {@inheritDoc} */
    @Override
    public final void setZ(double z)
    {
       this.z = z;
    }
 
+   /** {@inheritDoc} */
    @Override
    public final void setAngle(double angle)
    {
       this.angle = angle;
    }
 
-   public final void getRotationVector(VectorBasics rotationVectorToPack)
-   {
-      RotationVectorConversion.convertAxisAngleToRotationVector(this, rotationVectorToPack);
-   }
-
-   public final void get(double[] axisAngleArrayToPack)
-   {
-      get(axisAngleArrayToPack, 0);
-   }
-
-   public final void get(double[] axisAngleArrayToPack, int startIndex)
-   {
-      axisAngleArrayToPack[startIndex++] = x;
-      axisAngleArrayToPack[startIndex++] = y;
-      axisAngleArrayToPack[startIndex++] = z;
-      axisAngleArrayToPack[startIndex] = angle;
-   }
-
-   public double get(int index)
-   {
-      switch (index)
-      {
-      case 0:
-         return x;
-      case 1:
-         return y;
-      case 2:
-         return z;
-      case 3:
-         return angle;
-      default:
-         throw new IndexOutOfBoundsException(Integer.toString(index));
-      }
-   }
-
+   /** {@inheritDoc} */
    @Override
    public double getX()
    {
       return x;
    }
 
+   /** {@inheritDoc} */
    @Override
    public double getY()
    {
       return y;
    }
 
+   /** {@inheritDoc} */
    @Override
    public double getZ()
    {
       return z;
    }
 
+   /** {@inheritDoc} */
    @Override
    public final double getAngle()
    {
       return angle;
    }
 
-   @Override
-   public boolean epsilonEquals(AxisAngle other, double epsilon)
-   {
-      double diff;
-
-      diff = x - other.x;
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
-         return false;
-
-      diff = y - other.y;
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
-         return false;
-
-      diff = z - other.z;
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
-         return false;
-
-      diff = angle - other.angle;
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
-         return false;
-
-      return true;
-   }
-
-   public boolean equals(AxisAngle other)
-   {
-      try
-      {
-         return x == other.x && y == other.y && z == other.z && angle == other.angle;
-      }
-      catch (NullPointerException e)
-      {
-         return false;
-      }
-   }
-
+   /**
+    * Tests if the given {@code object}'s class is the same as this,
+    * in which case the method returns {@link #equals(AxisAngle)}, it returns {@code false}
+    * otherwise.
+    * 
+    * @param object the object to compare against this. Not modified.
+    * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
+    */
    @Override
    public boolean equals(Object object)
    {
@@ -303,12 +203,24 @@ public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparab
       }
    }
 
+   /**
+    * Provides a {@code String} representation of this axis-angle as follows:
+    * (x, y, z, angle).
+    * 
+    * @return the {@code String} representing this axis-angle.
+    */
    @Override
    public String toString()
    {
       return "(" + x + ", " + y + ", " + z + ", " + angle + ")";
    }
 
+   /**
+    * Calculates and returns a hash code value from the value
+    * of each component of this axis-angle.
+    * 
+    * @return the hash code value for this axis-angle.
+    */
    @Override
    public int hashCode()
    {

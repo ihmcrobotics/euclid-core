@@ -69,7 +69,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       set(quaternion, translation);
    }
 
-   public QuaternionBasedTransform(AxisAngleReadOnly axisAngle, TupleReadOnly translation)
+   public QuaternionBasedTransform(AxisAngleReadOnly<?> axisAngle, TupleReadOnly translation)
    {
       set(axisAngle, translation);
    }
@@ -146,7 +146,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       translationVector.set(translation);
    }
 
-   public void set(AxisAngleReadOnly axisAngle, TupleReadOnly translation)
+   public void set(AxisAngleReadOnly<?> axisAngle, TupleReadOnly translation)
    {
       quaternion.set(axisAngle);
       translationVector.set(translation);
@@ -164,7 +164,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       translationVector.setToZero();
    }
 
-   public void setRotation(AxisAngleReadOnly axisAngle)
+   public void setRotation(AxisAngleReadOnly<?> axisAngle)
    {
       quaternion.set(axisAngle);
    }
@@ -245,7 +245,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       quaternion.get(quaternionToPack);
    }
 
-   public void getRotation(AxisAngleBasics axisAngleToPack)
+   public void getRotation(AxisAngleBasics<?> axisAngleToPack)
    {
       quaternion.get(axisAngleToPack);
    }

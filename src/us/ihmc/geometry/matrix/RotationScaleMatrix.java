@@ -60,17 +60,17 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       set(rotationScaleMatrixArray);
    }
 
-   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, double scale)
+   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, double scale)
    {
       set(axisAngle, scale);
    }
 
-   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, double scalex, double scaley, double scalez)
+   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, double scalex, double scaley, double scalez)
    {
       set(axisAngle, scalex, scaley, scalez);
    }
 
-   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, TupleReadOnly scales)
+   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, TupleReadOnly scales)
    {
       set(axisAngle, scales);
    }
@@ -238,18 +238,18 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       rotationMatrix.setUnsafe(rot00, rot01, rot02, rot10, rot11, rot12, rot20, rot21, rot22);
    }
 
-   public void set(AxisAngleReadOnly axisAngle, double scale)
+   public void set(AxisAngleReadOnly<?> axisAngle, double scale)
    {
       set(axisAngle, scale, scale, scale);
    }
 
-   public void set(AxisAngleReadOnly axisAngle, double scalex, double scaley, double scalez)
+   public void set(AxisAngleReadOnly<?> axisAngle, double scalex, double scaley, double scalez)
    {
       rotationMatrix.set(axisAngle);
       setScale(scalex, scaley, scalez);
    }
 
-   public void set(AxisAngleReadOnly axisAngle, TupleReadOnly scales)
+   public void set(AxisAngleReadOnly<?> axisAngle, TupleReadOnly scales)
    {
       set(axisAngle, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -328,7 +328,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       rotationMatrix.set(rotationMatrixArray);
    }
 
-   public void setRotation(AxisAngleReadOnly axisAngle)
+   public void setRotation(AxisAngleReadOnly<?> axisAngle)
    {
       rotationMatrix.set(axisAngle);
    }
@@ -554,7 +554,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       rotationMatrix.get(quaternionToPack);
    }
 
-   public void getRotation(AxisAngleBasics axisAngleToPack)
+   public void getRotation(AxisAngleBasics<?> axisAngleToPack)
    {
       rotationMatrix.get(axisAngleToPack);
    }

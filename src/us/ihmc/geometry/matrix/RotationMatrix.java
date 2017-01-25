@@ -58,7 +58,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       set(other);
    }
 
-   public RotationMatrix(AxisAngleReadOnly axisAngle)
+   public RotationMatrix(AxisAngleReadOnly<?> axisAngle)
    {
       set(axisAngle);
    }
@@ -267,7 +267,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       transpose();
    }
 
-   public void set(AxisAngleReadOnly axisAngle)
+   public void set(AxisAngleReadOnly<?> axisAngle)
    {
       RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, this);
    }
@@ -486,7 +486,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       normalize();
    }
 
-   public void get(AxisAngleBasics axisAngleToPack)
+   public void get(AxisAngleBasics<?> axisAngleToPack)
    {
       AxisAngleConversion.convertMatrixToAxisAngle(this, axisAngleToPack);
    }

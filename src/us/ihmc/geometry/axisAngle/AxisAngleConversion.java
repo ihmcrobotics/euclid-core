@@ -12,12 +12,43 @@ public class AxisAngleConversion
 {
    private static final double EPS = 1.0e-12;
 
-   public static void convertMatrixToAxisAngle(RotationScaleMatrixReadOnly rotationScaleMatrix, AxisAngleBasics axisAngleToPack)
+   /**
+    * Converts the rotation part of the given rotation-scale matrix into an axis-angle.
+    * After calling this method, the orientation represented by the axis-angle is the same 
+    * as the given rotation part of the rotation-scale matrix.
+    * <p>
+    * Edge case:
+    * <ul>
+    *   <li> if the rotation matrix contains at least one {@link Double#NaN}, the axis-angle is 
+    *    set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param rotationScaleMatrix a 3-by-3 matrix representing an orientation and a scale.
+    *    Only the orientation part is used during the conversion. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertMatrixToAxisAngle(RotationScaleMatrixReadOnly rotationScaleMatrix, AxisAngleBasics<?> axisAngleToPack)
    {
       convertMatrixToAxisAngle(rotationScaleMatrix.getRotationMatrix(), axisAngleToPack);
    }
 
-   public static void convertMatrixToAxisAngle(RotationMatrixReadOnly rotationMatrix, AxisAngleBasics axisAngleToPack)
+   /**
+    * Converts the given rotation matrix into an axis-angle.
+    * After calling this method, the orientation represented by the axis-angle is the same 
+    * as the given rotation matrix.
+    * <p>
+    * Edge case:
+    * <ul>
+    *   <li> if the rotation matrix contains at least one {@link Double#NaN}, the axis-angle is 
+    *    set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertMatrixToAxisAngle(RotationMatrixReadOnly rotationMatrix, AxisAngleBasics<?> axisAngleToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();
@@ -32,7 +63,7 @@ public class AxisAngleConversion
    }
 
    static void convertMatrixToAxisAngleImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-         AxisAngleBasics axisAngleToPack)
+         AxisAngleBasics<?> axisAngleToPack)
    {
       if (Matrix3DFeatures.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
@@ -95,12 +126,29 @@ public class AxisAngleConversion
       axisAngleToPack.set(x, y, z, angle);
    }
 
-   public static void convertQuaternionToAxisAngle(QuaternionReadOnly quaternion, AxisAngleBasics axisAngleToPack)
+   /**
+    * Converts the given quaternion into an axis-angle.
+    * After calling this method, the quaternion and the axis-angle represent the same orientation.
+    * <p>
+    * Edge case:
+    * <ul>
+    *   <li> if the quaternion contains at least one {@link Double#NaN}, the axis-angle is 
+    *    set to {@link Double#NaN}.
+    *   <li> if the norm of the vector part of the quaternion is less than {@value #EPS}, the axis-angle
+    *    is set to zero via {@link AxisAngleBasics#setToZero()}.
+    * </ul>
+    * </p>
+    * 
+    * 
+    * @param quaternion the unit quaternion to use for the conversion. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertQuaternionToAxisAngle(QuaternionReadOnly quaternion, AxisAngleBasics<?> axisAngleToPack)
    {
       convertQuaternionToAxisAngleImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), axisAngleToPack);
    }
 
-   static void convertQuaternionToAxisAngleImpl(double qx, double qy, double qz, double qs, AxisAngleBasics axisAngleToPack)
+   static void convertQuaternionToAxisAngleImpl(double qx, double qy, double qz, double qs, AxisAngleBasics<?> axisAngleToPack)
    {
       if (Tuple4DTools.containsNaN(qx, qy, qz, qs))
       {
@@ -124,12 +172,31 @@ public class AxisAngleConversion
       }
    }
 
-   public static void convertRotationVectorToAxisAngle(VectorReadOnly rotationVector, AxisAngleBasics axisAngleToPack)
+   /**
+    * Converts the rotation vector into an axis-angle.
+    * After calling this method, the rotation vector and the axis-angle represent the same orientation.
+    * <p>
+    * Edge case:
+    * <ul>
+    *    <li> if the rotation vector contains at least a {@link Double#NaN}, the axis-angle is set
+    *     to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    * 
+    * @param rotationVector the rotation vector to use in the conversion. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertRotationVectorToAxisAngle(VectorReadOnly rotationVector, AxisAngleBasics<?> axisAngleToPack)
    {
       convertRotationVectorToAxisAngleImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), axisAngleToPack);
    }
 
-   static void convertRotationVectorToAxisAngleImpl(double rx, double ry, double rz, AxisAngleBasics axisAngleToPack)
+   static void convertRotationVectorToAxisAngleImpl(double rx, double ry, double rz, AxisAngleBasics<?> axisAngleToPack)
    {
       if (Double.isNaN(rx) || Double.isNaN(ry) || Double.isNaN(rz))
       {
@@ -153,12 +220,56 @@ public class AxisAngleConversion
       }
    }
 
-   public static void convertYawPitchRollToAxisAngle(double[] yawPitchRoll, AxisAngleBasics axisAngleToPack)
+   /**
+    * Converts the given yaw-pitch-roll angles into an axis-angles.
+    * After calling this method, the yaw-pitch-roll and the axis-angle represent the same orientation.
+    * <p>
+    * Edge case:
+    * <ul>
+    *    <li> if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the axis-angle is set
+    *     to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds
+    * to the representation of an orientation by decomposing it by three successive rotations around
+    * the three axes: Z (yaw), Y (pitch), and X (roll).
+    * The equivalent rotation matrix of such representation is:
+    * <br> R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
+    * </p>
+    * 
+    * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertYawPitchRollToAxisAngle(double[] yawPitchRoll, AxisAngleBasics<?> axisAngleToPack)
    {
       convertYawPitchRollToAxisAngle(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], axisAngleToPack);
    }
-
-   public static void convertYawPitchRollToAxisAngle(double yaw, double pitch, double roll, AxisAngleBasics axisAngleToPack)
+   
+   /**
+    * Converts the given yaw-pitch-roll angles into an axis-angles.
+    * After calling this method, the yaw-pitch-roll and the axis-angle represent the same orientation.
+    * <p>
+    * Edge case:
+    * <ul>
+    *    <li> if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the axis-angle is set
+    *     to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds
+    * to the representation of an orientation by decomposing it by three successive rotations around
+    * the three axes: Z (yaw), Y (pitch), and X (roll).
+    * The equivalent rotation matrix of such representation is:
+    * <br> R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
+    * </p>
+    * 
+    * @param yaw the yaw angle to use in the conversion.
+    * @param pitch the pitch angle to use in the conversion.
+    * @param roll the roll angle to use in the conversion.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertYawPitchRollToAxisAngle(double yaw, double pitch, double roll, AxisAngleBasics<?> axisAngleToPack)
    {
       double halfYaw = yaw / 2.0;
       double cYaw = Math.cos(halfYaw);

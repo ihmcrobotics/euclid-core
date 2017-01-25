@@ -202,19 +202,19 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       translationVector.set(translation);
    }
 
-   public void set(AxisAngleReadOnly axisAngle, double scale, TupleReadOnly translation)
+   public void set(AxisAngleReadOnly<?> axisAngle, double scale, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(axisAngle, scale);
       translationVector.set(translation);
    }
 
-   public void set(AxisAngleReadOnly axisAngle, double scalex, double scaley, double scalez, TupleReadOnly translation)
+   public void set(AxisAngleReadOnly<?> axisAngle, double scalex, double scaley, double scalez, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(axisAngle, scalex, scaley, scalez);
       translationVector.set(translation);
    }
 
-   public void set(AxisAngleReadOnly axisAngle, TupleReadOnly scales, TupleReadOnly translation)
+   public void set(AxisAngleReadOnly<?> axisAngle, TupleReadOnly scales, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(axisAngle, scales);
       translationVector.set(translation);
@@ -238,7 +238,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       translationVector.set(translation);
    }
 
-   public void setRotation(AxisAngleReadOnly axisAngle)
+   public void setRotation(AxisAngleReadOnly<?> axisAngle)
    {
       rotationScaleMatrix.setRotation(axisAngle);
    }
@@ -559,7 +559,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       rotationScaleMatrix.getRotation(quaternionToPack);
    }
 
-   public void getRotation(AxisAngleBasics axisAngleToPack)
+   public void getRotation(AxisAngleBasics<?> axisAngleToPack)
    {
       rotationScaleMatrix.getRotation(axisAngleToPack);
    }

@@ -14,7 +14,7 @@ public abstract class QuaternionConversion
 {
    private static final double EPS = 1.0e-7;
 
-   public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly axisAngle, QuaternionBasics quaternionToPack)
+   public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly<?> axisAngle, QuaternionBasics quaternionToPack)
    {
       convertAxisAngleToQuaternionImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), quaternionToPack);
    }

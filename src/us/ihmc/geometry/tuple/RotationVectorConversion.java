@@ -13,7 +13,7 @@ public abstract class RotationVectorConversion
 {
    private static final double EPS = 1.0e-12;
 
-   public static void convertAxisAngleToRotationVector(AxisAngleReadOnly axisAngle, VectorBasics rotationVectorToPack)
+   public static void convertAxisAngleToRotationVector(AxisAngleReadOnly<?> axisAngle, VectorBasics rotationVectorToPack)
    {
       convertAxisAngleToRotationVectorImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), rotationVectorToPack);
    }

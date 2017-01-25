@@ -58,7 +58,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       set(rotationMatrix);
    }
 
-   public Quaternion(AxisAngleReadOnly axisAngle)
+   public Quaternion(AxisAngleReadOnly<?> axisAngle)
    {
       set(axisAngle);
    }
@@ -179,7 +179,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       normalizeAndLimitToPiMinusPi();
    }
 
-   public void set(AxisAngleReadOnly axisAngle)
+   public void set(AxisAngleReadOnly<?> axisAngle)
    {
       QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, this);
    }
@@ -469,7 +469,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       RotationVectorConversion.convertQuaternionToRotationVector(this, rotationVectorToPack);
    }
 
-   public void get(AxisAngleBasics axisAngleToPack)
+   public void get(AxisAngleBasics<?> axisAngleToPack)
    {
       AxisAngleConversion.convertQuaternionToAxisAngle(this, axisAngleToPack);
    }

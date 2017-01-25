@@ -317,12 +317,12 @@ public abstract class GeometryBasicsRandomTools
       return point;
    }
 
-   public static void randomizeAxisAngle(Random random, AxisAngleBasics axisAngleToRandomize)
+   public static void randomizeAxisAngle(Random random, AxisAngleBasics<?> axisAngleToRandomize)
    {
       randomizeAxisAngle(random, Math.PI, axisAngleToRandomize);
    }
 
-   public static void randomizeAxisAngle(Random random, double minMaxAngleRange, AxisAngleBasics axisAngleToRandomize)
+   public static void randomizeAxisAngle(Random random, double minMaxAngleRange, AxisAngleBasics<?> axisAngleToRandomize)
    {
       // Generate uniformly random point on unit sphere (based on http://mathworld.wolfram.com/SpherePointPicking.html )
       double height = 2.0 * random.nextDouble() - 1.0;

@@ -341,7 +341,7 @@ public abstract class YawPitchRollConversion
       return computeRollImpl(m21, m22);
    }
 
-   public static double computeYaw(AxisAngleReadOnly axisAngle)
+   public static double computeYaw(AxisAngleReadOnly<?> axisAngle)
    {
       if (AxisAngleTools.containsNaN(axisAngle))
          return Double.NaN;
@@ -367,7 +367,7 @@ public abstract class YawPitchRollConversion
          return computeYawFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static double computePitch(AxisAngleReadOnly axisAngle)
+   public static double computePitch(AxisAngleReadOnly<?> axisAngle)
    {
       if (AxisAngleTools.containsNaN(axisAngle))
          return Double.NaN;
@@ -390,7 +390,7 @@ public abstract class YawPitchRollConversion
       return computePitchFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static double computeRoll(AxisAngleReadOnly axisAngle)
+   public static double computeRoll(AxisAngleReadOnly<?> axisAngle)
    {
       if (AxisAngleTools.containsNaN(axisAngle))
          return Double.NaN;
@@ -416,7 +416,7 @@ public abstract class YawPitchRollConversion
          return computeRollFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly axisAngle, double[] yawPitchRollToPack)
+   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, double[] yawPitchRollToPack)
    {
       if (AxisAngleTools.containsNaN(axisAngle))
       {
@@ -472,7 +472,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly axisAngle, TupleBasics eulerAnglesToPack)
+   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, TupleBasics eulerAnglesToPack)
    {
       if (AxisAngleTools.containsNaN(axisAngle))
       {

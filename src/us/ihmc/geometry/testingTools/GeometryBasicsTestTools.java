@@ -234,7 +234,7 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
-   public static void assertAxisAngleEquals(AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon)
+   public static void assertAxisAngleEquals(AxisAngleReadOnly<?> expectedAxisAngle, AxisAngleReadOnly<?> actualAxisAngle, double epsilon)
    {
       try
       {
@@ -249,7 +249,7 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
-   public static void assertAxisAngleEqualsSmart(AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon)
+   public static void assertAxisAngleEqualsSmart(AxisAngleReadOnly<?> expectedAxisAngle, AxisAngleReadOnly<?> actualAxisAngle, double epsilon)
    {
       try
       {
@@ -281,7 +281,7 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
-   public static void assertAxisAngleContainsOnlyNaN(AxisAngleReadOnly axisAngleToAssert)
+   public static void assertAxisAngleContainsOnlyNaN(AxisAngleReadOnly<?> axisAngleToAssert)
    {
       assertTrue(Double.isNaN(axisAngleToAssert.getX()));
       assertTrue(Double.isNaN(axisAngleToAssert.getY()));
@@ -289,7 +289,7 @@ public abstract class GeometryBasicsTestTools
       assertTrue(Double.isNaN(axisAngleToAssert.getAngle()));
    }
 
-   public static void assertAxisAngleIsSetToZero(AxisAngleReadOnly axisAngleToAssert)
+   public static void assertAxisAngleIsSetToZero(AxisAngleReadOnly<?> axisAngleToAssert)
    {
       assertTrue(axisAngleToAssert.getX() == 1.0);
       assertTrue(axisAngleToAssert.getY() == 0.0);
@@ -297,7 +297,7 @@ public abstract class GeometryBasicsTestTools
       assertTrue(axisAngleToAssert.getAngle() == 0.0);
    }
 
-   public static void assertAxisUnitary(AxisAngleReadOnly axisAngleToAssert, double epsilon)
+   public static void assertAxisUnitary(AxisAngleReadOnly<?> axisAngleToAssert, double epsilon)
    {
       if (!AxisAngleTools.isAxisUnitary(axisAngleToAssert, epsilon))
          fail("The axis of the given AxisAngle is not unitary: " + axisAngleToAssert);

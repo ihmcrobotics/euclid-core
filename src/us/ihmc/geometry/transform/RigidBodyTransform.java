@@ -64,7 +64,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       set(quaternion, translation);
    }
 
-   public RigidBodyTransform(AxisAngleReadOnly axisAngle, TupleReadOnly translation)
+   public RigidBodyTransform(AxisAngleReadOnly<?> axisAngle, TupleReadOnly translation)
    {
       set(axisAngle, translation);
    }
@@ -198,7 +198,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       translationVector.set(translation);
    }
 
-   public void set(AxisAngleReadOnly axisAngle, TupleReadOnly translation)
+   public void set(AxisAngleReadOnly<?> axisAngle, TupleReadOnly translation)
    {
       rotationMatrix.set(axisAngle);
       translationVector.set(translation);
@@ -226,7 +226,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public void setRotation(AxisAngleReadOnly axisAngle)
+   public void setRotation(AxisAngleReadOnly<?> axisAngle)
    {
       rotationMatrix.set(axisAngle);
    }
@@ -276,7 +276,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.setEuler(rotX, rotY, rotZ);
    }
 
-   public void setRotationAndZeroTranslation(AxisAngleReadOnly axisAngle)
+   public void setRotationAndZeroTranslation(AxisAngleReadOnly<?> axisAngle)
    {
       setRotation(axisAngle);
       translationVector.setToZero();
@@ -376,7 +376,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.get(quaternionToPack);
    }
 
-   public void getRotation(AxisAngleBasics axisAngleToPack)
+   public void getRotation(AxisAngleBasics<?> axisAngleToPack)
    {
       rotationMatrix.get(axisAngleToPack);
    }

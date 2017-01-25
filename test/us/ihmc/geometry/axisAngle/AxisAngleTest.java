@@ -45,7 +45,7 @@ public class AxisAngleTest
          {
             axisAngle = expected = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
 
-            AxisAngle axisAngle2 = new AxisAngle((AxisAngleReadOnly) axisAngle);
+            AxisAngle axisAngle2 = new AxisAngle((AxisAngleReadOnly<AxisAngle>) axisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, axisAngle2, EPS);
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
@@ -108,7 +108,7 @@ public class AxisAngleTest
 
             axisAngle = new AxisAngle((QuaternionReadOnly) quaternion);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, (AxisAngleBasics) expectedAxisAngle);
+            AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
             GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
@@ -127,7 +127,7 @@ public class AxisAngleTest
 
             axisAngle = new AxisAngle(matrix);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly) matrix, (AxisAngleBasics) expectedAxisAngle);
+            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly) matrix, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
 
@@ -145,7 +145,7 @@ public class AxisAngleTest
 
             axisAngle = new AxisAngle(rotationVector);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertRotationVectorToAxisAngle((VectorReadOnly) rotationVector, (AxisAngleBasics) expectedAxisAngle);
+            AxisAngleConversion.convertRotationVectorToAxisAngle((VectorReadOnly) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
@@ -198,7 +198,7 @@ public class AxisAngleTest
             AxisAngle axisAngle2Copy;
 
             axisAngle2 = axisAngle2Copy = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-            axisAngle.set((AxisAngleReadOnly) axisAngle2);
+            axisAngle.set((AxisAngleReadOnly<AxisAngle>) axisAngle2);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, axisAngle2, EPS);
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle2, axisAngle2Copy, EPS);
@@ -262,7 +262,7 @@ public class AxisAngleTest
 
             axisAngle.set(quaternion);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, (AxisAngleBasics) expectedAxisAngle);
+            AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, axisAngle, EPS);
 
@@ -278,7 +278,7 @@ public class AxisAngleTest
 
             axisAngle.set(matrix);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly) matrix, (AxisAngleBasics) expectedAxisAngle);
+            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly) matrix, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, axisAngle, EPS);
             GeometryBasicsTestTools.assertMatrix3DEquals(matrix, matrixCopy, EPS);
@@ -293,7 +293,7 @@ public class AxisAngleTest
 
             axisAngle.set(rotationVector);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertRotationVectorToAxisAngle((VectorReadOnly) rotationVector, (AxisAngleBasics) expectedAxisAngle);
+            AxisAngleConversion.convertRotationVectorToAxisAngle((VectorReadOnly) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, axisAngle, EPS);
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
