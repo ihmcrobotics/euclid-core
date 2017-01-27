@@ -1080,7 +1080,7 @@ public class RotationMatrixTest
 
          multiplied.multiply(rotationMatrix);
 
-         Matrix3DFeatures.checkIfRotationMatrix(expected);
+         expected.checkIfRotationMatrix();
          RotationMatrixTools.multiply(expected, rotationMatrixCopy, expected);
          expected.normalize();
 
@@ -1104,7 +1104,7 @@ public class RotationMatrixTest
 
          multiplied.multiplyTransposeThis(rotationMatrix);
 
-         Matrix3DFeatures.checkIfRotationMatrix(expected);
+         expected.checkIfRotationMatrix();
          RotationMatrixTools.multiplyTransposeLeft(expected, rotationMatrixCopy, expected);
          expected.normalize();
 
@@ -1128,7 +1128,7 @@ public class RotationMatrixTest
 
          multiplied.multiplyTransposeOther(rotationMatrix);
 
-         Matrix3DFeatures.checkIfRotationMatrix(expected);
+         expected.checkIfRotationMatrix();
          RotationMatrixTools.multiplyTransposeRight(expected, rotationMatrixCopy, expected);
          expected.normalize();
 
@@ -1152,7 +1152,7 @@ public class RotationMatrixTest
 
          multiplied.multiplyTransposeBoth(rotationMatrix);
 
-         Matrix3DFeatures.checkIfRotationMatrix(expected);
+         expected.checkIfRotationMatrix();
          RotationMatrixTools.multiplyTransposeBoth(expected, rotationMatrixCopy, expected);
          expected.normalize();
 
@@ -1199,7 +1199,7 @@ public class RotationMatrixTest
 
          multiplied.preMultiply(rotationMatrix);
 
-         Matrix3DFeatures.checkIfRotationMatrix(expected);
+         expected.checkIfRotationMatrix();
          RotationMatrixTools.multiply(rotationMatrixCopy, expected, expected);
          expected.normalize();
 
@@ -1218,7 +1218,7 @@ public class RotationMatrixTest
 
          multiplied.preMultiplyTransposeThis(rotationMatrix);
 
-         Matrix3DFeatures.checkIfRotationMatrix(expected);
+         expected.checkIfRotationMatrix();
          RotationMatrixTools.multiplyTransposeRight(rotationMatrixCopy, expected, expected);
          expected.normalize();
 
@@ -1237,7 +1237,7 @@ public class RotationMatrixTest
 
          multiplied.preMultiplyTransposeOther(rotationMatrix);
 
-         Matrix3DFeatures.checkIfRotationMatrix(expected);
+         expected.checkIfRotationMatrix();
          RotationMatrixTools.multiplyTransposeLeft(rotationMatrixCopy, expected, expected);
          expected.normalize();
 
@@ -1256,7 +1256,7 @@ public class RotationMatrixTest
 
          multiplied.preMultiplyTransposeBoth(rotationMatrix);
 
-         Matrix3DFeatures.checkIfRotationMatrix(expected);
+         expected.checkIfRotationMatrix();
          RotationMatrixTools.multiplyTransposeBoth(rotationMatrixCopy, expected, expected);
          expected.normalize();
 
@@ -1389,7 +1389,7 @@ public class RotationMatrixTest
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
 
          matrixActual.setToNaN();
-         matrixActual.setAndNormalize((Matrix3DReadOnly) matrixExpected);
+         matrixActual.setAndNormalize((Matrix3DReadOnly<?>) matrixExpected);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
@@ -1418,7 +1418,7 @@ public class RotationMatrixTest
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
 
          matrixActual.setToNaN();
-         matrixActual.setAndNormalize((Matrix3DReadOnly) corrupted);
+         matrixActual.setAndNormalize((Matrix3DReadOnly<?>) corrupted);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
    }
@@ -1438,7 +1438,7 @@ public class RotationMatrixTest
       GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
 
       matrixActual.setToNaN();
-      matrixActual.setAndInvert((Matrix3DReadOnly) randomMatrix);
+      matrixActual.setAndInvert((Matrix3DReadOnly<?>) randomMatrix);
       GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
    }
 
@@ -1457,7 +1457,7 @@ public class RotationMatrixTest
       GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
 
       matrixActual.setToNaN();
-      matrixActual.setAndTranspose((Matrix3DReadOnly) randomMatrix);
+      matrixActual.setAndTranspose((Matrix3DReadOnly<?>) randomMatrix);
       GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
    }
 

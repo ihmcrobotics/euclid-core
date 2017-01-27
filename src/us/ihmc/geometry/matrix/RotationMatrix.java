@@ -2,8 +2,6 @@ package us.ihmc.geometry.matrix;
 
 import java.io.Serializable;
 
-import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
@@ -26,7 +24,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
-public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMatrixReadOnly, GeometryObject<RotationMatrix>
+public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatrix>, RotationMatrixReadOnly<RotationMatrix>, GeometryObject<RotationMatrix>
 {
    private static final long serialVersionUID = 2802307840830134164L;
 
@@ -48,12 +46,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       set(rotationMatrixArray);
    }
 
-   public RotationMatrix(Matrix3DReadOnly rotationMatrix)
+   public RotationMatrix(Matrix3DReadOnly<?> rotationMatrix)
    {
       set(rotationMatrix);
    }
 
-   public RotationMatrix(RotationMatrixReadOnly other)
+   public RotationMatrix(RotationMatrixReadOnly<?> other)
    {
       set(other);
    }
@@ -79,68 +77,15 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       setIdentity();
    }
 
-   /**
-    * @return the determinant of this matrix.
-    */
-   public double determinant()
-   {
-      return Matrix3DFeatures.determinant(this);
-   }
-
    public void checkIfMatrixProper()
    {
-      Matrix3DFeatures.checkIfRotationMatrix(this);
-   }
-
-   /**
-    * Verify if this is a rotation matrix.
-    * 
-    * @return whether this is a rotation matrix or not.
-    */
-   public boolean isRotationMatrix()
-   {
-      return Matrix3DFeatures.isRotationMatrix(this);
+      checkIfRotationMatrix();
    }
 
    @Override
    public void normalize()
    {
       Matrix3DTools.normalize(this);
-   }
-
-   /**
-    * Sets this matrix to identity:
-    * <pre>
-    *     | 1  0  0 |
-    * m = | 0  1  0 |
-    *     | 0  0  1 |
-    */
-   public void setIdentity()
-   {
-      m01 = m02 = m12 = 0.0;
-      m00 = m11 = m22 = 1.0;
-      m10 = m20 = m21 = 0.0;
-   }
-
-   /**
-    * Sets this matrix to contain only {@linkplain Double#NaN}:
-    * <pre>
-    *     | NaN  NaN  NaN |
-    * m = | NaN  NaN  NaN |
-    *     | NaN  NaN  NaN |
-    */
-   @Override
-   public void setToNaN()
-   {
-      m00 = m01 = m02 = Double.NaN;
-      m10 = m11 = m12 = Double.NaN;
-      m20 = m21 = m22 = Double.NaN;
-   }
-
-   @Override
-   public boolean containsNaN()
-   {
-      return Matrix3DFeatures.containsNaN(this);
    }
 
    /**
@@ -185,34 +130,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       normalize();
    }
 
-   public final void set(double[] matrixArray)
-   {
-      Matrix3DBasicsTools.setMatrixFromArray(matrixArray, this);
-   }
-
-   @Override
-   public final void set(Matrix3DReadOnly other)
-   {
-      Matrix3DBasicsTools.setMatrixFromOther(other, this);
-   }
-
-   public final void set(DenseMatrix64F matrix)
-   {
-      Matrix3DBasicsTools.setMatrixFromDenseMatrix(matrix, this);
-   }
-
-   public final void set(DenseMatrix64F matrix, int startRow, int startColumn)
-   {
-      Matrix3DBasicsTools.setMatrixFromDenseMatrix(matrix, startRow, startColumn, this);
-   }
-
    @Override
    public void set(RotationMatrix other)
    {
-      set((RotationMatrixReadOnly) other);
+      set((RotationMatrixReadOnly<?>) other);
    }
 
-   public void set(RotationMatrixReadOnly other)
+   public void set(RotationMatrixReadOnly<?> other)
    {
       m00 = other.getM00();
       m01 = other.getM01();
@@ -225,7 +149,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       m22 = other.getM22();
    }
 
-   public final void setAndNormalize(Matrix3DReadOnly matrix)
+   public final void setAndNormalize(Matrix3DReadOnly<?> matrix)
    {
       m00 = matrix.getM00();
       m01 = matrix.getM01();
@@ -239,29 +163,29 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       normalize();
    }
 
-   public void setAndNormalize(RotationMatrixReadOnly other)
+   public void setAndNormalize(RotationMatrixReadOnly<?> other)
    {
       set(other);
       normalize();
    }
 
-   public void setAndInvert(Matrix3DReadOnly matrix)
+   public void setAndInvert(Matrix3DReadOnly<?> matrix)
    {
       setAndTranspose(matrix);
    }
 
-   public void setAndInvert(RotationMatrixReadOnly other)
+   public void setAndInvert(RotationMatrixReadOnly<?> other)
    {
       setAndTranspose(other);
    }
    
-   public void setAndTranspose(Matrix3DReadOnly matrix)
+   public void setAndTranspose(Matrix3DReadOnly<?> matrix)
    {
       set(matrix);
       transpose();
    }
 
-   public void setAndTranspose(RotationMatrixReadOnly other)
+   public void setAndTranspose(RotationMatrixReadOnly<?> other)
    {
       set(other);
       transpose();
@@ -322,59 +246,42 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       transpose();
    }
 
-   public void transpose()
-   {
-      double temp;
-
-      temp = m10;
-      m10 = m01;
-      m01 = temp;
-
-      temp = m20;
-      m20 = m02;
-      m02 = temp;
-
-      temp = m21;
-      m21 = m12;
-      m12 = temp;
-   }
-
-   public void multiply(RotationMatrixReadOnly other)
+   public void multiply(RotationMatrixReadOnly<?> other)
    {
       RotationMatrixTools.multiply(this, other, this);
    }
 
-   public void multiplyTransposeThis(RotationMatrixReadOnly other)
+   public void multiplyTransposeThis(RotationMatrixReadOnly<?> other)
    {
       RotationMatrixTools.multiplyTransposeLeft(this, other, this);
    }
 
-   public void multiplyTransposeOther(RotationMatrixReadOnly other)
+   public void multiplyTransposeOther(RotationMatrixReadOnly<?> other)
    {
       RotationMatrixTools.multiplyTransposeRight(this, other, this);
    }
 
-   public void multiplyTransposeBoth(RotationMatrixReadOnly other)
+   public void multiplyTransposeBoth(RotationMatrixReadOnly<?> other)
    {
       RotationMatrixTools.multiplyTransposeBoth(this, other, this);
    }
 
-   public void preMultiply(RotationMatrixReadOnly other)
+   public void preMultiply(RotationMatrixReadOnly<?> other)
    {
       RotationMatrixTools.multiply(other, this, this);
    }
 
-   public void preMultiplyTransposeThis(RotationMatrixReadOnly other)
+   public void preMultiplyTransposeThis(RotationMatrixReadOnly<?> other)
    {
       RotationMatrixTools.multiplyTransposeRight(other, this, this);
    }
 
-   public void preMultiplyTransposeOther(RotationMatrixReadOnly other)
+   public void preMultiplyTransposeOther(RotationMatrixReadOnly<?> other)
    {
       RotationMatrixTools.multiplyTransposeLeft(other, this, this);
    }
 
-   public void preMultiplyTransposeBoth(RotationMatrixReadOnly other)
+   public void preMultiplyTransposeBoth(RotationMatrixReadOnly<?> other)
    {
       RotationMatrixTools.multiplyTransposeBoth(other, this, this);
    }
@@ -434,7 +341,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       RotationMatrixTools.transform(this, matrixToTransform, matrixToTransform);
    }
 
-   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
    {
       RotationMatrixTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -444,7 +351,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       RotationMatrixTools.transform(this, matrixToTransform, matrixToTransform);
    }
    
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       RotationMatrixTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -538,52 +445,6 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       return YawPitchRollConversion.computeRoll(this);
    }
 
-   public final void get(double[] matrixArrayToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsArray(this, matrixArrayToPack);
-   }
-
-   public final void get(double[] matrixArrayToPack, int startIndex)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsArray(this, matrixArrayToPack, startIndex);
-   }
-
-   public final void get(DenseMatrix64F matrixToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsDenseMatrix(this, matrixToPack);
-   }
-
-   public final void get(DenseMatrix64F matrixToPack, int startRow, int startColumn)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsDenseMatrix(this, matrixToPack, startRow, startColumn);
-   }
-
-   public final void getColumn(int column, double columnArrayToPack[])
-   {
-      Matrix3DReadOnlyTools.getMatrixColumn(this, column, columnArrayToPack);
-   }
-
-   public final void getColumn(int column, TupleBasics columnToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixColumn(this, column, columnToPack);
-   }
-
-   @Override
-   public final double getElement(int row, int column)
-   {
-      return Matrix3DReadOnlyTools.getMatrixElement(this, row, column);
-   }
-
-   public final void getRow(int row, double rowArrayToPack[])
-   {
-      Matrix3DReadOnlyTools.getMatrixRow(this, row, rowArrayToPack);
-   }
-
-   public final void getRow(int row, TupleBasics rowVectorToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixRow(this, row, rowVectorToPack);
-   }
-
    @Override
    public double getM00()
    {
@@ -639,12 +500,6 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
    }
 
    @Override
-   public boolean epsilonEquals(RotationMatrix other, double epsilon)
-   {
-      return Matrix3DFeatures.epsilonEquals(this, other, epsilon);
-   }
-
-   @Override
    public boolean equals(Object object)
    {
       try
@@ -665,7 +520,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
    @Override
    public String toString()
    {
-      return Matrix3DReadOnlyTools.toString(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      return Matrix3DReadOnlyTools.toString(this);
    }
 
    @Override
@@ -682,5 +537,17 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       bits = 31L * bits + Double.doubleToLongBits(m21);
       bits = 31L * bits + Double.doubleToLongBits(m22);
       return (int) (bits ^ bits >> 32);
+   }
+
+   /**
+    * Verify on a per coefficient basis if this matrix is equal to {@code other}.
+    * @param other the second matrix. Not modified.
+    * @param epsilon tolerance to use when comparing each coefficient.
+    * @return {@code true} if the two matrices are considered equal, {@code false} otherwise.
+    */
+   @Override
+   public boolean epsilonEquals(RotationMatrix other, double epsilon)
+   {
+      return epsilonEquals(other, epsilon);
    }
 }

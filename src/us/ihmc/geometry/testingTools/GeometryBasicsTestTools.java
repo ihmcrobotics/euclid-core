@@ -9,7 +9,6 @@ import java.util.Arrays;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
@@ -138,14 +137,14 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
-   public static void assertMatrix3DEquals(Matrix3DReadOnly expected, Matrix3DReadOnly actual, double epsilon)
+   public static void assertMatrix3DEquals(Matrix3DReadOnly<?> expected, Matrix3DReadOnly<?> actual, double epsilon)
    {
       assertMatrix3DEquals("", expected, actual, epsilon);
    }
 
-   public static void assertMatrix3DEquals(String message, Matrix3DReadOnly expected, Matrix3DReadOnly actual, double epsilon)
+   public static <T extends Matrix3DReadOnly<T>> void assertMatrix3DEquals(String message, Matrix3DReadOnly<?> expected, Matrix3DReadOnly<?> actual, double epsilon)
    {
-      if (!Matrix3DFeatures.epsilonEquals(expected, actual, epsilon))
+      if (!expected.epsilonEquals(actual, epsilon))
       {
          fail(message + " Expected =\n" + expected + "\nActual =\n" + actual);
       }
@@ -157,25 +156,25 @@ public abstract class GeometryBasicsTestTools
     * @param matrix     matrix to check for skew-symmetry
     * @param epsilon numerical tolerance
     */
-   public static void assertSkewSymmetric(Matrix3DReadOnly matrix, double epsilon)
+   public static void assertSkewSymmetric(Matrix3DReadOnly<?> matrix, double epsilon)
    {
-      if (!Matrix3DFeatures.isMatrixSkewSymmetric(matrix, epsilon))
+      if (!matrix.isMatrixSkewSymmetric(epsilon))
          fail("The matrix is not skew-symmetric:\n" + matrix);
    }
 
-   public static void assertRotationMatrix(Matrix3DReadOnly matrix, double epsilon)
+   public static void assertRotationMatrix(Matrix3DReadOnly<?> matrix, double epsilon)
    {
-      if (!Matrix3DFeatures.isRotationMatrix(matrix, epsilon))
+      if (!matrix.isRotationMatrix(epsilon))
          fail("This is not a rotation matrix:\n" + matrix);
    }
 
-   public static void assertIdentity(Matrix3DReadOnly matrix, double epsilon)
+   public static void assertIdentity(Matrix3DReadOnly<?> matrix, double epsilon)
    {
-      if (!Matrix3DFeatures.isIdentity(matrix, epsilon))
+      if (!matrix.isIdentity(epsilon))
          fail("The matrix is not identity:\n" + matrix);
    }
 
-   public static void assertMatrix3DContainsOnlyNaN(Matrix3DReadOnly matrix)
+   public static void assertMatrix3DContainsOnlyNaN(Matrix3DReadOnly<?> matrix)
    {
       for (int row = 0; row < 3; row++)
       {

@@ -2,9 +2,9 @@ package us.ihmc.geometry.matrix.interfaces;
 
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 
-public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
+public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOnly<T>> extends Matrix3DReadOnly<T>
 {
-   public RotationMatrixReadOnly getRotationMatrix();
+   public RotationMatrixReadOnly<?> getRotationMatrix();
 
    public TupleReadOnly getScale();
 

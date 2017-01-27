@@ -38,25 +38,25 @@ public class Matrix3DFeaturesTest
 
       Matrix3D matrix = new Matrix3D();
       matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertFalse(Matrix3DFeatures.containsNaN(matrix));
+      assertFalse(matrix.containsNaN());
       matrix.set(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
       matrix.set(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
       matrix.set(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
       matrix.set(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
       matrix.set(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
       matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
       matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
       matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
       matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
-      assertTrue(Matrix3DFeatures.containsNaN(matrix));
+      assertTrue(matrix.containsNaN());
    }
 
    /** This is a tough one to test. */
@@ -211,14 +211,14 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(Matrix3DReadOnly matrix, boolean isRotationMatrix)
+   private void testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(Matrix3DReadOnly<?> matrix, boolean isRotationMatrix)
    {
       Matrix3D matrixCopy = new Matrix3D(matrix);
       DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
-      Matrix3DReadOnlyTools.getMatrixAsDenseMatrix(matrix, denseMatrix);
+      matrix.get(denseMatrix);
       DenseMatrix64F denseMatrixCopy = new DenseMatrix64F(denseMatrix);
       double[] matrixArray = new double[9];
-      Matrix3DReadOnlyTools.getMatrixAsArray(matrix, matrixArray);
+      matrix.get(matrixArray);
       double[] matrixArrayCopy = new double[9];
       System.arraycopy(matrixArray, 0, matrixArrayCopy, 0, 9);
 
@@ -250,7 +250,7 @@ public class Matrix3DFeaturesTest
 
       try
       {
-         Matrix3DFeatures.checkIfRotationMatrix(matrix);
+         matrix.checkIfRotationMatrix();
          if (!isRotationMatrix)
             fail("Should have thrown a NotARotationMatrixException.");
       }
@@ -264,7 +264,7 @@ public class Matrix3DFeaturesTest
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
             assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
-      assertTrue(Matrix3DFeatures.isRotationMatrix(matrix) == isRotationMatrix);
+      assertTrue(matrix.isRotationMatrix() == isRotationMatrix);
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
             assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
@@ -353,7 +353,7 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testCheckIfMatrix2DAndIsMatrix2DMethods(Matrix3DReadOnly matrix, boolean isMatrix2D)
+   private void testCheckIfMatrix2DAndIsMatrix2DMethods(Matrix3DReadOnly<?> matrix, boolean isMatrix2D)
    {
       Matrix3D matrixCopy = new Matrix3D(matrix);
 
@@ -372,7 +372,7 @@ public class Matrix3DFeaturesTest
 
       try
       {
-         Matrix3DFeatures.checkIfMatrix2D(matrix);
+         matrix.checkIfMatrix2D();
          if (!isMatrix2D)
             fail("Should have thrown a NotAMatrix2DException.");
       }
@@ -387,7 +387,7 @@ public class Matrix3DFeaturesTest
          for (int column = 0; column < 3; column++)
             assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
 
-      assertTrue(Matrix3DFeatures.isMatrix2D(matrix) == isMatrix2D);
+      assertTrue(matrix.isMatrix2D() == isMatrix2D);
 
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
@@ -448,14 +448,14 @@ public class Matrix3DFeaturesTest
       { // Test that the identity's determinant is equal to 1.0
          Matrix3D identity = new Matrix3D();
          identity.setIdentity();
-         assertEquals(1.0, Matrix3DFeatures.determinant(identity), EPS);
+         assertEquals(1.0, identity.determinant(), EPS);
          assertEquals(1.0, Matrix3DFeatures.determinant(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0), EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test that the determinant of a random rotation matrix is also equal to 1.0
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         assertEquals(1.0, Matrix3DFeatures.determinant(rotationMatrix), EPS);
+         assertEquals(1.0, rotationMatrix.determinant(), EPS);
          double m00 = rotationMatrix.getM00();
          double m01 = rotationMatrix.getM01();
          double m02 = rotationMatrix.getM02();
@@ -473,7 +473,7 @@ public class Matrix3DFeaturesTest
          Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          matrix.get(denseMatrix);
 
-         assertEquals(CommonOps.det(denseMatrix), Matrix3DFeatures.determinant(matrix), EPS);
+         assertEquals(CommonOps.det(denseMatrix), matrix.determinant(), EPS);
 
          double m00 = matrix.getM00();
          double m01 = matrix.getM01();
@@ -535,7 +535,7 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testAllIsIdentityMethods(Matrix3DReadOnly matrix, boolean isIdentity)
+   private void testAllIsIdentityMethods(Matrix3DReadOnly<?> matrix, boolean isIdentity)
    {
       Matrix3D matrixCopy = new Matrix3D(matrix);
 
@@ -552,7 +552,7 @@ public class Matrix3DFeaturesTest
       assertTrue(Matrix3DFeatures.isIdentity(m00, m01, m02, m10, m11, m12, m20, m21, m22) == isIdentity);
       assertTrue(Matrix3DFeatures.isIdentity(m00, m01, m02, m10, m11, m12, m20, m21, m22, Matrix3DFeatures.EPS_CHECK_IDENTITY) == isIdentity);
 
-      assertTrue(Matrix3DFeatures.isIdentity(matrix, Matrix3DFeatures.EPS_CHECK_IDENTITY) == isIdentity);
+      assertTrue(matrix.isIdentity(Matrix3DFeatures.EPS_CHECK_IDENTITY) == isIdentity);
 
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
@@ -588,7 +588,7 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testAllIsZeroRotationMethods(Matrix3DReadOnly matrix, boolean isZeroRotation)
+   private void testAllIsZeroRotationMethods(Matrix3DReadOnly<?> matrix, boolean isZeroRotation)
    {
       double m00 = matrix.getM00();
       double m01 = matrix.getM01();
@@ -671,7 +671,7 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testAllIsMatrixSkewSymmetrixMethods(Matrix3DReadOnly matrix, boolean isSkewSymmetric)
+   private void testAllIsMatrixSkewSymmetrixMethods(Matrix3DReadOnly<?> matrix, boolean isSkewSymmetric)
    {
       Matrix3D matrixCopy = new Matrix3D(matrix);
 
@@ -688,7 +688,7 @@ public class Matrix3DFeaturesTest
       assertTrue(Matrix3DFeatures.isMatrixSkewSymmetric(m00, m01, m02, m10, m11, m12, m20, m21, m22) == isSkewSymmetric);
       assertTrue(Matrix3DFeatures.isMatrixSkewSymmetric(m00, m01, m02, m10, m11, m12, m20, m21, m22, Matrix3DFeatures.EPS_CHECK_SKEW) == isSkewSymmetric);
 
-      assertTrue(Matrix3DFeatures.isMatrixSkewSymmetric(matrix, Matrix3DFeatures.EPS_CHECK_SKEW) == isSkewSymmetric);
+      assertTrue(matrix.isMatrixSkewSymmetric(Matrix3DFeatures.EPS_CHECK_SKEW) == isSkewSymmetric);
 
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
@@ -711,10 +711,10 @@ public class Matrix3DFeaturesTest
          delta.fill(0.1 * epsilon);
 
          m2.add(m1, delta);
-         assertTrue(Matrix3DFeatures.epsilonEquals(m1, m2, epsilon));
+         assertTrue(m1.epsilonEquals(m2, epsilon));
 
          m2.sub(m1, delta);
-         assertTrue(Matrix3DFeatures.epsilonEquals(m1, m2, epsilon));
+         assertTrue(m1.epsilonEquals(m2, epsilon));
 
          for (int row = 0; row < 3; row++)
          {
@@ -723,10 +723,10 @@ public class Matrix3DFeaturesTest
                delta.fill(0.1 * epsilon);
                delta.setElement(row, column, 1.1 * epsilon);
                m2.add(m1, delta);
-               assertFalse(Matrix3DFeatures.epsilonEquals(m1, m2, epsilon));
+               assertFalse(m1.epsilonEquals(m2, epsilon));
 
                m2.sub(m1, delta);
-               assertFalse(Matrix3DFeatures.epsilonEquals(m1, m2, epsilon));
+               assertFalse(m1.epsilonEquals(m2, epsilon));
             }
          }
       }

@@ -7,8 +7,6 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotARotationScaleMatrixException;
-import us.ihmc.geometry.interfaces.EpsilonComparable;
-import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
@@ -25,7 +23,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
-public class RotationScaleMatrix implements Serializable, Matrix3DBasics, RotationScaleMatrixReadOnly, EpsilonComparable<RotationScaleMatrix>, Settable<RotationScaleMatrix>
+public class RotationScaleMatrix implements Serializable, Matrix3DBasics<RotationScaleMatrix>, RotationScaleMatrixReadOnly<RotationScaleMatrix>
 {
    private static final long serialVersionUID = 5012534518639484244L;
 
@@ -45,7 +43,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       set(rotationScaleMatrix);
    }
 
-   public RotationScaleMatrix(Matrix3DReadOnly rotationScaleMatrix)
+   public RotationScaleMatrix(Matrix3DReadOnly<?> rotationScaleMatrix)
    {
       set(rotationScaleMatrix);
    }
@@ -105,17 +103,17 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       set(quaternion, scales);
    }
 
-   public RotationScaleMatrix(RotationMatrixReadOnly rotationMatrix, double scale)
+   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, double scale)
    {
       set(rotationMatrix, scale);
    }
 
-   public RotationScaleMatrix(RotationMatrixReadOnly rotationMatrix, double scalex, double scaley, double scalez)
+   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, double scalex, double scaley, double scalez)
    {
       set(rotationMatrix, scalex, scaley, scalez);
    }
 
-   public RotationScaleMatrix(RotationMatrixReadOnly rotationMatrix, TupleReadOnly scales)
+   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, TupleReadOnly scales)
    {
       set(rotationMatrix, scales);
    }
@@ -176,37 +174,16 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       scale.set(other.scale);
    }
 
-   public void set(RotationScaleMatrixReadOnly other)
+   public void set(RotationScaleMatrixReadOnly<?> other)
    {
       rotationMatrix.set(other.getRotationMatrix());
       scale.set(other.getScale());
    }
 
-   public void set(RotationMatrixReadOnly rotationMatrix)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
       resetScale();
-   }
-
-   public void set(double[] rotationScaleMatrixArray)
-   {
-      Matrix3DBasicsTools.setMatrixFromArray(rotationScaleMatrixArray, this);
-   }
-
-   @Override
-   public void set(Matrix3DReadOnly rotationScaleMatrix)
-   {
-      Matrix3DBasicsTools.setMatrixFromOther(rotationScaleMatrix, this);
-   }
-
-   public void set(DenseMatrix64F rotationScaleMatrix)
-   {
-      Matrix3DBasicsTools.setMatrixFromDenseMatrix(rotationScaleMatrix, this);
-   }
-
-   public void set(DenseMatrix64F rotationScaleMatrix, int startRow, int startColumn)
-   {
-      Matrix3DBasicsTools.setMatrixFromDenseMatrix(rotationScaleMatrix, startRow, startColumn, this);
    }
 
    @Override
@@ -286,34 +263,34 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       set(quaternion, scales.getX(), scales.getY(), scales.getZ());
    }
 
-   public void set(Matrix3DReadOnly rotationMatrix, double scale)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, double scale)
    {
       set(rotationMatrix, scale, scale, scale);
    }
 
-   public void set(Matrix3DReadOnly rotationMatrix, double scalex, double scaley, double scalez)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, double scalex, double scaley, double scalez)
    {
       this.rotationMatrix.set(rotationMatrix);
       setScale(scalex, scaley, scalez);
    }
 
-   public void set(Matrix3DReadOnly rotationMatrix, TupleReadOnly scales)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, TupleReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
 
-   public void set(RotationMatrixReadOnly rotationMatrix, double scale)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix, double scale)
    {
       set(rotationMatrix, scale, scale, scale);
    }
 
-   public void set(RotationMatrixReadOnly rotationMatrix, double scalex, double scaley, double scalez)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix, double scalex, double scaley, double scalez)
    {
       this.rotationMatrix.set(rotationMatrix);
       setScale(scalex, scaley, scalez);
    }
 
-   public void set(RotationMatrixReadOnly rotationMatrix, TupleReadOnly scales)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix, TupleReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -338,12 +315,12 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       rotationMatrix.set(quaternion);
    }
 
-   public void setRotation(Matrix3DReadOnly rotationMatrix)
+   public void setRotation(Matrix3DReadOnly<?> rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
    }
 
-   public void setRotation(RotationMatrixReadOnly rotationMatrix)
+   public void setRotation(RotationMatrixReadOnly<?> rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
    }
@@ -407,12 +384,12 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       resetScale();
    }
 
-   public void preMultiply(RotationMatrixReadOnly rotationMatrix)
+   public void preMultiply(RotationMatrixReadOnly<?> rotationMatrix)
    {
       this.rotationMatrix.preMultiply(rotationMatrix);
    }
 
-   public void preMultiplyTransposeOther(RotationMatrixReadOnly rotationMatrix)
+   public void preMultiplyTransposeOther(RotationMatrixReadOnly<?> rotationMatrix)
    {
       this.rotationMatrix.preMultiplyTransposeOther(rotationMatrix);
    }
@@ -472,7 +449,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       RotationScaleMatrixTools.transform(this, matrixToTransform, matrixToTransform);
    }
 
-   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
    {
       RotationScaleMatrixTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -482,7 +459,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
       RotationScaleMatrixTools.transform(this, matrixToTransform, matrixToTransform);
    }
 
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       RotationScaleMatrixTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -590,7 +567,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
    }
 
    @Override
-   public RotationMatrixReadOnly getRotationMatrix()
+   public RotationMatrixReadOnly<?> getRotationMatrix()
    {
       return rotationMatrix;
    }
@@ -599,52 +576,6 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
    public TupleReadOnly getScale()
    {
       return scale;
-   }
-
-   public void get(double[] rotationScaleMatrixArrayToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsArray(this, rotationScaleMatrixArrayToPack);
-   }
-
-   public void get(double[] rotationScaleMatrixArrayToPack, int startIndex)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsArray(this, rotationScaleMatrixArrayToPack, startIndex);
-   }
-
-   public void get(DenseMatrix64F rotationScaleMatrixToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsDenseMatrix(this, rotationScaleMatrixToPack);
-   }
-
-   public void get(DenseMatrix64F rotationScaleMatrixToPack, int startRow, int startColumn)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsDenseMatrix(this, rotationScaleMatrixToPack, startRow, startColumn);
-   }
-
-   public void getColumn(int column, double columnArrayToPack[])
-   {
-      Matrix3DReadOnlyTools.getMatrixColumn(this, column, columnArrayToPack);
-   }
-
-   public void getColumn(int column, TupleBasics columnToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixColumn(this, column, columnToPack);
-   }
-
-   @Override
-   public double getElement(int row, int column)
-   {
-      return Matrix3DReadOnlyTools.getMatrixElement(this, row, column);
-   }
-
-   public void getRow(int row, double rowArrayToPack[])
-   {
-      Matrix3DReadOnlyTools.getMatrixRow(this, row, rowArrayToPack);
-   }
-
-   public void getRow(int row, TupleBasics rowVectorToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixRow(this, row, rowVectorToPack);
    }
 
    @Override
@@ -724,6 +655,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
    {
       return rotationMatrix.epsilonEquals(other.rotationMatrix, epsilon) && scale.epsilonEquals(other.scale, epsilon);
    }
+
    @Override
    public boolean equals(Object object)
    {
@@ -748,7 +680,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
    @Override
    public String toString()
    {
-      return Matrix3DReadOnlyTools.toString(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
+      return Matrix3DReadOnlyTools.toString(this);
    }
 
    @Override

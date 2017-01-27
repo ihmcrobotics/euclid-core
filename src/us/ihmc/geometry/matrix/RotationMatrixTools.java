@@ -14,7 +14,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
 public abstract class RotationMatrixTools
 {
-   public static void multiply(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
+   public static void multiply(RotationMatrixReadOnly<?> m1, RotationMatrixReadOnly<?> m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM10() + m1.getM02() * m2.getM20();
       double m01 = m1.getM00() * m2.getM01() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM21();
@@ -28,7 +28,7 @@ public abstract class RotationMatrixTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyTransposeBoth(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
+   public static void multiplyTransposeBoth(RotationMatrixReadOnly<?> m1, RotationMatrixReadOnly<?> m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM01() + m1.getM20() * m2.getM02();
       double m01 = m1.getM00() * m2.getM10() + m1.getM10() * m2.getM11() + m1.getM20() * m2.getM12();
@@ -42,7 +42,7 @@ public abstract class RotationMatrixTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyTransposeLeft(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
+   public static void multiplyTransposeLeft(RotationMatrixReadOnly<?> m1, RotationMatrixReadOnly<?> m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM10() + m1.getM20() * m2.getM20();
       double m01 = m1.getM00() * m2.getM01() + m1.getM10() * m2.getM11() + m1.getM20() * m2.getM21();
@@ -56,7 +56,7 @@ public abstract class RotationMatrixTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyTransposeRight(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
+   public static void multiplyTransposeRight(RotationMatrixReadOnly<?> m1, RotationMatrixReadOnly<?> m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM01() + m1.getM02() * m2.getM02();
       double m01 = m1.getM00() * m2.getM10() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM12();
@@ -70,50 +70,50 @@ public abstract class RotationMatrixTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void transform(RotationMatrixReadOnly<?> rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
       rotationMatrix.normalize();
       Matrix3DTools.transform(rotationMatrix, tupleOriginal, tupleTransformed);
    }
 
-   public static void addTransform(RotationMatrixReadOnly rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void addTransform(RotationMatrixReadOnly<?> rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
       rotationMatrix.normalize();
       Matrix3DTools.addTransform(rotationMatrix, tupleOriginal, tupleTransformed);
    }
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   public static void transform(RotationMatrixReadOnly<?> rotationMatrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       rotationMatrix.normalize();
       Matrix3DTools.transform(rotationMatrix, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public static void transform(RotationMatrixReadOnly<?> rotationMatrix, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       rotationMatrix.normalize();
       QuaternionTools.multiply(rotationMatrix, quaternionOriginal, quaternionTransformed);
    }
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public static void transform(RotationMatrixReadOnly<?> rotationMatrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       rotationMatrix.normalize();
       Matrix3DTools.transform(rotationMatrix, vectorOriginal, vectorTransformed);
    }
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+   public static void transform(RotationMatrixReadOnly<?> rotationMatrix, RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
    {
       rotationMatrix.normalize();
       multiply(rotationMatrix, matrixOriginal, matrixTransformed);
    }
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void transform(RotationMatrixReadOnly<?> rotationMatrix, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       rotationMatrix.normalize();
       Matrix3DTools.multiply(rotationMatrix, matrixOriginal, matrixTransformed);
       Matrix3DTools.multiplyTransposeRight(matrixTransformed, rotationMatrix, matrixTransformed);
    }
 
-   public static void inverseTransform(RotationMatrixReadOnly rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void inverseTransform(RotationMatrixReadOnly<?> rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
       rotationMatrix.normalize();
       double x = rotationMatrix.getM00() * tupleOriginal.getX() + rotationMatrix.getM10() * tupleOriginal.getY() + rotationMatrix.getM20() * tupleOriginal.getZ();
@@ -122,20 +122,20 @@ public abstract class RotationMatrixTools
       tupleTransformed.set(x, y, z);
    }
 
-   public static void inverseTransform(RotationMatrixReadOnly rotationMatrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
+   public static void inverseTransform(RotationMatrixReadOnly<?> rotationMatrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
          boolean checkIfTransformInXYPlane)
    {
       rotationMatrix.normalize();
 
       if (checkIfTransformInXYPlane)
-         Matrix3DFeatures.checkIfMatrix2D(rotationMatrix);
+         rotationMatrix.checkIfMatrix2D();
 
       double x = rotationMatrix.getM00() * tupleOriginal.getX() + rotationMatrix.getM10() * tupleOriginal.getY();
       double y = rotationMatrix.getM01() * tupleOriginal.getX() + rotationMatrix.getM11() * tupleOriginal.getY();
       tupleTransformed.set(x, y);
    }
 
-   public static void inverseTransform(RotationMatrixReadOnly rotationMatrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public static void inverseTransform(RotationMatrixReadOnly<?> rotationMatrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       rotationMatrix.normalize();
       double x = rotationMatrix.getM00() * vectorOriginal.getX() + rotationMatrix.getM10() * vectorOriginal.getY() + rotationMatrix.getM20() * vectorOriginal.getZ();

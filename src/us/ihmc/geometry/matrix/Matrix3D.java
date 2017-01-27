@@ -2,8 +2,6 @@ package us.ihmc.geometry.matrix;
 
 import java.io.Serializable;
 
-import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
@@ -16,7 +14,7 @@ import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 
-public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Matrix3D>
+public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, GeometryObject<Matrix3D>
 {
    private static final long serialVersionUID = -1016899240187632674L;
    /** The 9 coefficients of this matrix. */
@@ -36,7 +34,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public Matrix3D(Matrix3DReadOnly other)
+   public Matrix3D(Matrix3DReadOnly<?> other)
    {
       set(other);
    }
@@ -66,28 +64,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    @Override
    public void set(Matrix3D other)
    {
-      set((Matrix3DReadOnly) other); 
-   }
-
-   @Override
-   public void set(Matrix3DReadOnly other)
-   {
-      Matrix3DBasicsTools.setMatrixFromOther(other, this);
-   }
-
-   public void set(double[] matrixArray)
-   {
-      Matrix3DBasicsTools.setMatrixFromArray(matrixArray, this);
-   }
-
-   public void set(DenseMatrix64F matrix)
-   {
-      Matrix3DBasicsTools.setMatrixFromDenseMatrix(matrix, this);
-   }
-
-   public void set(DenseMatrix64F matrix, int startRow, int startColumn)
-   {
-      Matrix3DBasicsTools.setMatrixFromDenseMatrix(matrix, startRow, startColumn, this);
+      set((Matrix3DReadOnly<?>) other); 
    }
 
    /**
@@ -113,7 +90,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       m22 = 0.0;
    }
 
-   public void add(Matrix3DReadOnly other)
+   public void add(Matrix3DReadOnly<?> other)
    {
       m00 += other.getM00();
       m01 += other.getM01();
@@ -128,7 +105,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       m22 += other.getM22();
    }
 
-   public void add(Matrix3DReadOnly matrix1, Matrix3DReadOnly matrix2)
+   public void add(Matrix3DReadOnly<?> matrix1, Matrix3DReadOnly<?> matrix2)
    {
       m00 = matrix1.getM00() + matrix2.getM00();
       m01 = matrix1.getM01() + matrix2.getM01();
@@ -143,7 +120,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       m22 = matrix1.getM22() + matrix2.getM22();
    }
 
-   public void sub(Matrix3DReadOnly other)
+   public void sub(Matrix3DReadOnly<?> other)
    {
       m00 -= other.getM00();
       m01 -= other.getM01();
@@ -158,7 +135,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       m22 -= other.getM22();
    }
 
-   public void sub(Matrix3DReadOnly matrix1, Matrix3DReadOnly matrix2)
+   public void sub(Matrix3DReadOnly<?> matrix1, Matrix3DReadOnly<?> matrix2)
    {
       m00 = matrix1.getM00() - matrix2.getM00();
       m01 = matrix1.getM01() - matrix2.getM01();
@@ -238,7 +215,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       Matrix3DTools.multiplyTransposeRight(this, this, this);
    }
 
-   public void multiplyOuter(Matrix3DReadOnly other)
+   public void multiplyOuter(Matrix3DReadOnly<?> other)
    {
       set(other);
       multiplyOuter();
@@ -248,14 +225,6 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    public void applyTransform(Transform transform)
    {
       transform.transform(this);
-   }
-
-   /**
-    * @return the determinant of this matrix.
-    */
-   public double determinant()
-   {
-      return Matrix3DFeatures.determinant(this);
    }
 
    /**
@@ -275,20 +244,10 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
     * @param matrix the other matrix. Not modified.
     * @throws SingularMatrixException when the matrix is not invertible.
     */
-   public void setAndInvert(Matrix3DReadOnly matrix)
+   public void setAndInvert(Matrix3DReadOnly<?> matrix)
    {
       set(matrix);
       invert();
-   }
-
-   /**
-    * Verify if this is a rotation matrix.
-    * 
-    * @return whether this is a rotation matrix or not.
-    */
-   public boolean isRotationMatrix()
-   {
-      return Matrix3DFeatures.isRotationMatrix(this);
    }
 
    public void normalize()
@@ -296,146 +255,94 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       Matrix3DTools.normalize(this);
    }
 
-   public void setAndNormalize(Matrix3DReadOnly matrix)
+   public void setAndNormalize(Matrix3DReadOnly<?> matrix)
    {
       set(matrix);
       normalize();
    }
 
-   /**
-    * Sets this matrix to identity:
-    * <pre>
-    *     | 1  0  0 |
-    * m = | 0  1  0 |
-    *     | 0  0  1 |
-    */
-   public void setIdentity()
-   {
-      m01 = m02 = m12 = 0.0;
-      m00 = m11 = m22 = 1.0;
-      m10 = m20 = m21 = 0.0;
-   }
-
-   /**
-    * Sets this matrix to contain only {@linkplain Double#NaN}:
-    * <pre>
-    *     | NaN  NaN  NaN |
-    * m = | NaN  NaN  NaN |
-    *     | NaN  NaN  NaN |
-    */
-   @Override
-   public void setToNaN()
-   {
-      m00 = m01 = m02 = Double.NaN;
-      m10 = m11 = m12 = Double.NaN;
-      m20 = m21 = m22 = Double.NaN;
-   }
-
-   @Override
-   public boolean containsNaN()
-   {
-      return Matrix3DFeatures.containsNaN(this);
-   }
-
-   public void transpose()
-   {
-      double temp;
-   
-      temp = m10;
-      m10 = m01;
-      m01 = temp;
-   
-      temp = m20;
-      m20 = m02;
-      m02 = temp;
-   
-      temp = m21;
-      m21 = m12;
-      m12 = temp;
-   }
-
-   public void setAndTranspose(Matrix3DReadOnly matrix)
+   public void setAndTranspose(Matrix3DReadOnly<?> matrix)
    {
       set(matrix);
       transpose();
    }
 
-   public void multiply(Matrix3DReadOnly other)
+   public void multiply(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiply(this, other, this);
    }
 
-   public void multiplyTransposeThis(Matrix3DReadOnly other)
+   public void multiplyTransposeThis(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyTransposeLeft(this, other, this);
    }
 
-   public void multiplyTransposeOther(Matrix3DReadOnly other)
+   public void multiplyTransposeOther(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyTransposeRight(this, other, this);
    }
 
-   public void multiplyTransposeBoth(Matrix3DReadOnly other)
+   public void multiplyTransposeBoth(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyTransposeBoth(this, other, this);
    }
 
-   public void multiplyInvertThis(Matrix3DReadOnly other)
+   public void multiplyInvertThis(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyInvertLeft(this, other, this);
    }
 
-   public void multiplyInvertOther(Matrix3DReadOnly other)
+   public void multiplyInvertOther(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyInvertRight(this, other, this);
    }
 
-   public void multiplyInvertOther(RotationMatrixReadOnly other)
+   public void multiplyInvertOther(RotationMatrixReadOnly<?> other)
    {
       Matrix3DTools.multiplyInvertRight(this, other, this);
    }
 
-   public void multiplyInvertOther(RotationScaleMatrixReadOnly other)
+   public void multiplyInvertOther(RotationScaleMatrixReadOnly<?> other)
    {
       Matrix3DTools.multiplyInvertRight(this, other, this);
    }
 
-   public void preMultiply(Matrix3DReadOnly other)
+   public void preMultiply(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiply(other, this, this);
    }
 
-   public void preMultiplyTransposeThis(Matrix3DReadOnly other)
+   public void preMultiplyTransposeThis(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyTransposeRight(other, this, this);
    }
 
-   public void preMultiplyTransposeOther(Matrix3DReadOnly other)
+   public void preMultiplyTransposeOther(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyTransposeLeft(other, this, this);
    }
 
-   public void preMultiplyTransposeBoth(Matrix3DReadOnly other)
+   public void preMultiplyTransposeBoth(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyTransposeBoth(other, this, this);
    }
 
-   public void preMultiplyInvertThis(Matrix3DReadOnly other)
+   public void preMultiplyInvertThis(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyInvertRight(other, this, this);
    }
 
-   public void preMultiplyInvertOther(Matrix3DReadOnly other)
+   public void preMultiplyInvertOther(Matrix3DReadOnly<?> other)
    {
       Matrix3DTools.multiplyInvertLeft(other, this, this);
    }
    
-   public void preMultiplyInvertOther(RotationMatrixReadOnly other)
+   public void preMultiplyInvertOther(RotationMatrixReadOnly<?> other)
    {
       Matrix3DTools.multiplyInvertLeft(other, this, this);
    }
    
-   public void preMultiplyInvertOther(RotationScaleMatrixReadOnly other)
+   public void preMultiplyInvertOther(RotationScaleMatrixReadOnly<?> other)
    {
       Matrix3DTools.multiplyInvertLeft(other, this, this);
    }
@@ -475,7 +382,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       Matrix3DTools.transform(this, matrixToTransform, matrixToTransform);
    }
 
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       Matrix3DTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -775,52 +682,6 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       this.m22 *= scalar;
    }
 
-   public void get(double[] matrixArrayToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsArray(this, matrixArrayToPack);
-   }
-
-   public void get(double[] matrixArrayToPack, int startIndex)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsArray(this, matrixArrayToPack, startIndex);
-   }
-
-   public void get(DenseMatrix64F matrixToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsDenseMatrix(this, matrixToPack);
-   }
-
-   public void get(DenseMatrix64F matrixToPack, int startRow, int startColumn)
-   {
-      Matrix3DReadOnlyTools.getMatrixAsDenseMatrix(this, matrixToPack, startRow, startColumn);
-   }
-
-   public void getColumn(int column, double columnArrayToPack[])
-   {
-      Matrix3DReadOnlyTools.getMatrixColumn(this, column, columnArrayToPack);
-   }
-
-   public void getColumn(int column, TupleBasics columnToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixColumn(this, column, columnToPack);
-   }
-
-   @Override
-   public double getElement(int row, int column)
-   {
-      return Matrix3DReadOnlyTools.getMatrixElement(this, row, column);
-   }
-
-   public void getRow(int row, double rowArrayToPack[])
-   {
-      Matrix3DReadOnlyTools.getMatrixRow(this, row, rowArrayToPack);
-   }
-
-   public void getRow(int row, TupleBasics rowVectorToPack)
-   {
-      Matrix3DReadOnlyTools.getMatrixRow(this, row, rowVectorToPack);
-   }
-
    @Override
    public double getM00()
    {
@@ -876,12 +737,6 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    }
 
    @Override
-   public boolean epsilonEquals(Matrix3D other, double epsilon)
-   {
-      return Matrix3DFeatures.epsilonEquals(this, other, epsilon);
-   }
-
-   @Override
    public boolean equals(Object object)
    {
       try
@@ -902,7 +757,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    @Override
    public String toString()
    {
-      return Matrix3DReadOnlyTools.toString(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      return Matrix3DReadOnlyTools.toString(this);
    }
 
    @Override
@@ -919,5 +774,17 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
       bits = 31L * bits + Double.doubleToLongBits(m21);
       bits = 31L * bits + Double.doubleToLongBits(m22);
       return (int) (bits ^ bits >> 32);
+   }
+
+   /**
+    * Verify on a per coefficient basis if this matrix is equal to {@code other}.
+    * @param other the second matrix. Not modified.
+    * @param epsilon tolerance to use when comparing each coefficient.
+    * @return {@code true} if the two matrices are considered equal, {@code false} otherwise.
+    */
+   @Override
+   public boolean epsilonEquals(Matrix3D other, double epsilon)
+   {
+      return epsilonEquals(other, epsilon);
    }
 }

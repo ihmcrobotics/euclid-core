@@ -154,7 +154,7 @@ public class Matrix3DTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Matrix3D expectedMatrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         actualMatrix.set((Matrix3DReadOnly) expectedMatrix);
+         actualMatrix.set((Matrix3DReadOnly<?>) expectedMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
 
@@ -560,7 +560,7 @@ public class Matrix3DTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         double expectedDeterminant = Matrix3DFeatures.determinant(matrix);
+         double expectedDeterminant = matrix.determinant();
          double actualDeterminant = matrix.determinant();
          assertEquals(expectedDeterminant, actualDeterminant, EPS);
       }

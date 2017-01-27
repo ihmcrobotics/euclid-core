@@ -435,7 +435,7 @@ public class Matrix3DToolsTest
       {
          // Fill some random data in matrixActual
          matrixActual = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         RotationScaleMatrixReadOnly m1 = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 20.0);
+         RotationScaleMatrixReadOnly<?> m1 = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 20.0);
          Matrix3D m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
 
          Matrix3D m1Inverse = new Matrix3D();
@@ -556,7 +556,7 @@ public class Matrix3DToolsTest
          // Fill some random data in matrixActual
          matrixActual = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          Matrix3D m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         RotationScaleMatrixReadOnly m2 = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 20.0);
+         RotationScaleMatrixReadOnly<?> m2 = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 20.0);
 
          Matrix3D m2Inverse = new Matrix3D();
          m2Inverse.setAndInvert(m2);
@@ -1134,7 +1134,7 @@ public class Matrix3DToolsTest
       // Test with rotation scale matrix
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RotationScaleMatrixReadOnly rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         RotationScaleMatrixReadOnly<?> rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          matrix.set(rotationScaleMatrix);
          tupleOriginal = GeometryBasicsRandomTools.generateRandomVector(random);
 
@@ -1266,7 +1266,7 @@ public class Matrix3DToolsTest
          // good
       }
 
-      RotationScaleMatrixReadOnly rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      RotationScaleMatrixReadOnly<?> rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
       try
       {
          Matrix3DTools.inverseTransform(rotationScaleMatrix, tupleActual, tupleActual, true);
@@ -1339,7 +1339,7 @@ public class Matrix3DToolsTest
       // Test with rotation scale matrix
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RotationScaleMatrixReadOnly rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         RotationScaleMatrixReadOnly<?> rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          matrix.set(rotationScaleMatrix);
          vectorOriginal = GeometryBasicsRandomTools.generateRandomVector4D(random);
 

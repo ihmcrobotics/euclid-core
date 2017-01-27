@@ -43,9 +43,9 @@ public abstract class Matrix3DTools
     * @param inverseToPack the result to pack, not null, modified.
     * @return true if the inversion succeeds, false if the matrix is singular.
     */
-   public static boolean invert(Matrix3DReadOnly matrix, Matrix3D inverseToPack)
+   public static boolean invert(Matrix3DReadOnly<?> matrix, Matrix3D inverseToPack)
    {
-      double det = Matrix3DFeatures.determinant(matrix);
+      double det = matrix.determinant();
 
       if (Math.abs(det) >= EPS_INVERT)
       {
@@ -77,7 +77,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix, not null, not modified.
     * @param matrixToPack the result of the multiplication, not null, modified.
     */
-   public static void multiply(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiply(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM10() + m1.getM02() * m2.getM20();
       double m01 = m1.getM00() * m2.getM01() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM21();
@@ -102,7 +102,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix, not null, not modified.
     * @param matrixToPack the result of the multiplication, not null, modified.
     */
-   public static void multiplyTransposeBoth(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyTransposeBoth(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM01() + m1.getM20() * m2.getM02();
       double m01 = m1.getM00() * m2.getM10() + m1.getM10() * m2.getM11() + m1.getM20() * m2.getM12();
@@ -116,7 +116,7 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyInvertBoth(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertBoth(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiply(m2, m1, matrixToPack);
       boolean success = invert(matrixToPack);
@@ -135,7 +135,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix, not null, not modified.
     * @param matrixToPack the result of the multiplication, not null, modified.
     */
-   public static void multiplyTransposeLeft(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyTransposeLeft(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM10() + m1.getM20() * m2.getM20();
       double m01 = m1.getM00() * m2.getM01() + m1.getM10() * m2.getM11() + m1.getM20() * m2.getM21();
@@ -149,9 +149,9 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyInvertLeft(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeft(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
-      double det = Matrix3DFeatures.determinant(m1);
+      double det = m1.determinant();
       if (Math.abs(det) < EPS_INVERT)
          throw new SingularMatrixException(m1);
 
@@ -178,12 +178,12 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyInvertLeftUnsafe(RotationMatrixReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeftUnsafe(RotationMatrixReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiplyTransposeLeft(m1, m2, matrixToPack);
    }
 
-   public static void multiplyInvertLeft(RotationScaleMatrixReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeft(RotationScaleMatrixReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiplyTransposeLeft(m1.getRotationMatrix(), m2, matrixToPack);
       RotationScaleMatrixTools.preScaleMatrix(1.0 / m1.getScaleX(), 1.0 / m1.getScaleY(), 1.0 / m1.getScaleZ(), matrixToPack);
@@ -200,7 +200,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix, not null, not modified.
     * @param matrixToPack the result of the multiplication, not null, modified.
     */
-   public static void multiplyTransposeRight(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyTransposeRight(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM01() + m1.getM02() * m2.getM02();
       double m01 = m1.getM00() * m2.getM10() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM12();
@@ -214,9 +214,9 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyInvertRight(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertRight(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
-      double det = Matrix3DFeatures.determinant(m2);
+      double det = m2.determinant();
       if (Math.abs(det) < EPS_INVERT)
          throw new SingularMatrixException(m2);
 
@@ -243,12 +243,12 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationMatrixReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertRight(Matrix3DReadOnly<?> m1, RotationMatrixReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiplyTransposeRight(m1, m2, matrixToPack);
    }
    
-   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationScaleMatrixReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertRight(Matrix3DReadOnly<?> m1, RotationScaleMatrixReadOnly<?> m2, Matrix3D matrixToPack)
    {
       RotationScaleMatrixTools.postScaleMatrix(1.0 / m2.getScaleX(), 1.0 / m2.getScaleY(), 1.0 / m2.getScaleZ(), m1, matrixToPack);
       multiplyTransposeRight(matrixToPack, m2.getRotationMatrix(), matrixToPack);
@@ -259,7 +259,7 @@ public abstract class Matrix3DTools
     * 
     * @param matrixToNormalize the matrix to normalize, not null, modified.
     */
-   public static void normalize(Matrix3DBasics matrixToNormalize)
+   public static void normalize(Matrix3DBasics<?> matrixToNormalize)
    {
       double m00 = matrixToNormalize.getM00();
       double m01 = matrixToNormalize.getM01();
@@ -335,7 +335,7 @@ public abstract class Matrix3DTools
     * @param tupleOriginal the original tuple to use for the transformation, not null, not modified.
     * @param tupleTransformed the tuple used to store the result of the transformation, not null, modified.
     */
-   public static void transform(Matrix3DReadOnly matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void transform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
       double x = matrix.getM00() * tupleOriginal.getX() + matrix.getM01() * tupleOriginal.getY() + matrix.getM02() * tupleOriginal.getZ();
       double y = matrix.getM10() * tupleOriginal.getX() + matrix.getM11() * tupleOriginal.getY() + matrix.getM12() * tupleOriginal.getZ();
@@ -354,7 +354,7 @@ public abstract class Matrix3DTools
     * @param tupleOriginal the original tuple to use for the transformation, not null, not modified.
     * @param tupleTransformed the tuple to which the result of the transformation is added to, not null, modified.
     */
-   public static void addTransform(Matrix3DReadOnly matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void addTransform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
       double x = matrix.getM00() * tupleOriginal.getX() + matrix.getM01() * tupleOriginal.getY() + matrix.getM02() * tupleOriginal.getZ();
       double y = matrix.getM10() * tupleOriginal.getX() + matrix.getM11() * tupleOriginal.getY() + matrix.getM12() * tupleOriginal.getZ();
@@ -380,16 +380,16 @@ public abstract class Matrix3DTools
     * @param checkIfTransformInXYPlane whether {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)} needs to be called on the matrix.
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and <code>checkIfTransformInXYPlane</code> is true.
     */
-   public static void transform(Matrix3DReadOnly matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   public static void transform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
-         Matrix3DFeatures.checkIfMatrix2D(matrix);
+         matrix.checkIfMatrix2D();
       double x = matrix.getM00() * tupleOriginal.getX() + matrix.getM01() * tupleOriginal.getY();
       double y = matrix.getM10() * tupleOriginal.getX() + matrix.getM11() * tupleOriginal.getY();
       tupleTransformed.set(x, y);
    }
 
-   public static void transform(Matrix3DReadOnly matrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public static void transform(Matrix3DReadOnly<?> matrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       double x = matrix.getM00() * vectorOriginal.getX() + matrix.getM01() * vectorOriginal.getY() + matrix.getM02() * vectorOriginal.getZ();
       double y = matrix.getM10() * vectorOriginal.getX() + matrix.getM11() * vectorOriginal.getY() + matrix.getM12() * vectorOriginal.getZ();
@@ -412,15 +412,15 @@ public abstract class Matrix3DTools
     * @param matrixOriginal the original matrix to use for the transformation, not null, not modified.
     * @param matrixTransformed the matrix used to stored the result of the transformation, not null, modified.
     */
-   public static void transform(Matrix3DReadOnly matrix, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void transform(Matrix3DReadOnly<?> matrix, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       multiply(matrix, matrixOriginal, matrixTransformed);
       multiplyInvertRight(matrixTransformed, matrix, matrixTransformed);
    }
 
-   public static void inverseTransform(Matrix3DReadOnly matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void inverseTransform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
-      double det = Matrix3DFeatures.determinant(matrix);
+      double det = matrix.determinant();
       if (Math.abs(det) < EPS_INVERT)
          throw new SingularMatrixException(matrix);
 
@@ -441,10 +441,10 @@ public abstract class Matrix3DTools
       tupleTransformed.set(x, y, z);
    }
 
-   public static void inverseTransform(Matrix3DReadOnly matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
-         Matrix3DFeatures.checkIfMatrix2D(matrix);
+         matrix.checkIfMatrix2D();
 
       // Compute only the determinant of the sub matrix that transforms in the XY plane.
       double det = matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01(); //determinant(matrix);
@@ -462,9 +462,9 @@ public abstract class Matrix3DTools
       tupleTransformed.set(x, y);
    }
 
-   public static void inverseTransform(Matrix3DReadOnly matrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      double det = Matrix3DFeatures.determinant(matrix);
+      double det = matrix.determinant();
       if (Math.abs(det) < EPS_INVERT)
          throw new SingularMatrixException(matrix);
 
