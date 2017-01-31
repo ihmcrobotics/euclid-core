@@ -16,7 +16,7 @@ import us.ihmc.geometry.tuple.Vector;
 public class CompiledTransformPerformanceTest
 {
    @Test
-   public void testTransformingAVector200000Times()
+   public void testTransformingAVectorManyTimes()
    {
       Random random = new Random(1230930210L);
 
@@ -30,25 +30,34 @@ public class CompiledTransformPerformanceTest
       vector.setY(10000.0 * (random.nextDouble() - 0.5));
       vector.setZ(10000.0 * (random.nextDouble() - 0.5));
       
-      for (int i = 0; i < 20; i++)
+      int n = 20;
+      
+      String[] vectorOutput = new String[n];
+      
+      for (int i = 0; i < n; i++)
       {
-         System.out.println("Run " + i + ":");
-         tranformVector10000Times(rigidBodyTransform, vector);
+         long nanoTime = tranformVectorNTimes(rigidBodyTransform, vector, 10000);
+         vectorOutput[i] = vector.toString();
+         System.out.println(nanoTime);
+      }
+      
+      for (int i = 0; i < vectorOutput.length; i++)
+      {
+         System.out.println("Vector: " + vectorOutput[i]);
       }
    }
    
-   private void tranformVector10000Times(RigidBodyTransform rigidBodyTransform, Vector vector)
+   private long tranformVectorNTimes(RigidBodyTransform rigidBodyTransform, Vector vector, int n)
    {
       long start = System.nanoTime();
       
-      for (int i = 0; i < 10000; i++)
+      for (int i = 0; i < n; i++)
       {
          rigidBodyTransform.transform(vector);
       }
       
       long end = System.nanoTime();
       
-      System.out.println("Vector: " + vector);
-      System.out.println("Time: " + (end - start) / (double) 1e-9 + "(s)");
+      return end - start;
    }
 }
