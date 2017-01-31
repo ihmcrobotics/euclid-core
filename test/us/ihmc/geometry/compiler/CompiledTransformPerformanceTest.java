@@ -30,11 +30,11 @@ public class CompiledTransformPerformanceTest
       vector.setY(10000.0 * (random.nextDouble() - 0.5));
       vector.setZ(10000.0 * (random.nextDouble() - 0.5));
       
-      int n = 20;
+      int numberOfMeasuredRuns = 20;
       
-      String[] vectorOutput = new String[n];
+      String[] vectorOutput = new String[numberOfMeasuredRuns];
       
-      for (int i = 0; i < n; i++)
+      for (int i = 0; i < numberOfMeasuredRuns; i++)
       {
          long nanoTime = tranformVectorNTimes(rigidBodyTransform, vector, 10000);
          vectorOutput[i] = vector.toString();
@@ -47,11 +47,11 @@ public class CompiledTransformPerformanceTest
       }
    }
    
-   private long tranformVectorNTimes(RigidBodyTransform rigidBodyTransform, Vector vector, int n)
+   private long tranformVectorNTimes(RigidBodyTransform rigidBodyTransform, Vector vector, int numberOfOperationsPerMeasurement)
    {
       long start = System.nanoTime();
       
-      for (int i = 0; i < n; i++)
+      for (int i = 0; i < numberOfOperationsPerMeasurement; i++)
       {
          rigidBodyTransform.transform(vector);
       }
