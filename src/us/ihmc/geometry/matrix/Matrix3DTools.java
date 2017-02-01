@@ -110,6 +110,17 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication: {@code m1}<sup>-1</sup> * {@code m2}<sup>-1</sup> and stores the result in {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * <p>
+    * 
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    * @throws SingularMatrixException if the matrix {@code m2} * {@code m1} is not invertible.
+    */
    public static void multiplyInvertBoth(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiply(m2, m1, matrixToPack);
@@ -151,6 +162,7 @@ public abstract class Matrix3DTools
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
+    * @throws SingularMatrixException if {@code m1} is not invertible.
     */
    public static void multiplyInvertLeft(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
@@ -181,11 +193,43 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication: {@code m1}<sup>-1</sup> * {@code m2} and stores the result in {@code matrixToPack}.
+    * <p>
+    * {@code m2} and {@code matrixToPack} can be the same object.
+    * {@code m1} and {@code m2} can be the same object.
+    * <p>
+    * <p>
+    * This operation uses the property:
+    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the rotation matrix.
+    * </p>
+    * 
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiplyInvertLeft(RotationMatrixReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiplyTransposeLeft(m1, m2, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication: {@code m1}<sup>-1</sup> * {@code m2} and stores the result in {@code matrixToPack}.
+    * <p>
+    * {@code m2} and {@code matrixToPack} can be the same object.
+    * {@code m1} and {@code m2} can be the same object.
+    * <p>
+    * <p>
+    * This operation uses the property:
+    * <br> (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
+    * of the rotation-scale matrix preventing to actually compute its inverse.
+    * </p>
+    * 
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiplyInvertLeft(RotationScaleMatrixReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiplyInvertLeft(m1.getRotationMatrix(), m2, matrixToPack);
@@ -197,11 +241,10 @@ public abstract class Matrix3DTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * Before the multiplication is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on both {@code m1} and {@code m2}.
     * 
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
-    * @param matrixToPack the result of the multiplication, not null, modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
     */
    public static void multiplyTransposeRight(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
@@ -217,6 +260,17 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication: {@code m1} * {@code m2}<sup>-1</sup> and stores the result in {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * <p>
+    * 
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    * @throws SingularMatrixException if {@code m2} is not invertible.
+    */
    public static void multiplyInvertRight(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       double det = m2.determinant();
@@ -246,11 +300,43 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication: {@code m1} * {@code m2}<sup>-1</sup> and stores the result in {@code matrixToPack}.
+    * <p>
+    * {@code m1} and {@code matrixToPack} can be the same object.
+    * {@code m1} and {@code m2} can be the same object.
+    * <p>
+    * <p>
+    * This operation uses the property:
+    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the rotation matrix.
+    * </p>
+    * 
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiplyInvertRight(Matrix3DReadOnly<?> m1, RotationMatrixReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiplyTransposeRight(m1, m2, matrixToPack);
    }
-   
+
+   /**
+    * Performs the multiplication: {@code m1} * {@code m2}<sup>-1</sup> and stores the result in {@code matrixToPack}.
+    * <p>
+    * {@code m1} and {@code matrixToPack} can be the same object.
+    * {@code m1} and {@code m2} can be the same object.
+    * <p>
+    * <p>
+    * This operation uses the property:
+    * <br> (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
+    * of the rotation-scale matrix preventing to actually compute its inverse.
+    * </p>
+    * 
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiplyInvertRight(Matrix3DReadOnly<?> m1, RotationScaleMatrixReadOnly<?> m2, Matrix3D matrixToPack)
    {
       matrixToPack.set(m1);
@@ -259,9 +345,10 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Orthonormalization of the rotation matrix using Gram-Schmidt method.
+    * Orthonormalization of the given matrix using the
+    * <a href="https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process"> Gram-Schmidt method</a>.
     * 
-    * @param matrixToNormalize the matrix to normalize, not null, modified.
+    * @param matrixToNormalize the matrix to normalize. Modified.
     */
    public static void normalize(Matrix3DBasics<?> matrixToNormalize)
    {
@@ -330,14 +417,14 @@ public abstract class Matrix3DTools
     * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the result in {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code matrix} * {@code tupleOriginal}.
-    * <p>
-    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on the given matrix.
+    * </p>
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
+    * </p>
     * 
-    * @param matrix the matrix used to transform {@code tupleOriginal}, not null, not modified.
-    * @param tupleOriginal the original tuple to use for the transformation, not null, not modified.
-    * @param tupleTransformed the tuple used to store the result of the transformation, not null, modified.
+    * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
+    * @param tupleOriginal the original tuple to use for the transformation. Not modified.
+    * @param tupleTransformed the tuple used to store the result of the transformation. Modified.
     */
    public static void transform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
@@ -351,12 +438,14 @@ public abstract class Matrix3DTools
     * Performs a transformation of {@code tupleOriginal} using the given matrix and add the result to {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code tupleTransformed} + {@code matrix} * {@code tupleOriginal}.
+    * </p>
     * <p>
-    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on the given matrix.
+    * Both tuples can be the same instance to perform in-place transformation.
+    * </p>
     * 
-    * @param matrix the matrix used to transform {@code tupleOriginal}, not null, not modified.
-    * @param tupleOriginal the original tuple to use for the transformation, not null, not modified.
-    * @param tupleTransformed the tuple to which the result of the transformation is added to, not null, modified.
+    * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
+    * @param tupleOriginal the original tuple to use for the transformation. Not modified.
+    * @param tupleTransformed the tuple to which the result of the transformation is added to. Modified.
     */
    public static void addTransform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
@@ -370,19 +459,20 @@ public abstract class Matrix3DTools
     * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the result in {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code matrix} * {@code tupleOriginal}.
-    * <p>
-    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on the given matrix.
+    * </p>
     * <p>
     * Before the transformation is performed, if {@code checkIfTransformInXYPlane} equals true, this verify that the matrix is a 2D transformation matrix
-    * using {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)}.
+    * using {@link Matrix3DReadOnly#checkIfMatrix2D()}.
+    * </p>
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
+    * </p>
     * 
-    * @param matrix the matrix used to transform {@code tupleOriginal}, not null, not modified.
-    * @param tupleOriginal the original tuple to use for the transformation, not null, not modified.
-    * @param tupleTransformed the tuple used to stored the result of the transformation, not null, modified.
+    * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
+    * @param tupleOriginal the original tuple to use for the transformation. Not modified.
+    * @param tupleTransformed the tuple used to stored the result of the transformation. Modified.
     * @param checkIfTransformInXYPlane whether {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)} needs to be called on the matrix.
-    * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is true.
+    * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
     */
    public static void transform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
@@ -393,6 +483,21 @@ public abstract class Matrix3DTools
       tupleTransformed.set(x, y);
    }
 
+   /**
+    * Performs a transformation on the vector part of {@code vectorOriginal} using the given matrix and stores the result in {@code vectorTransformed}:
+    * <p>
+    * {@code vectorTransformed.s} = {@code vectorOriginal.s}.
+    * {@code vectorTransformed.xyz} = {@code matrix} * {@code vectorOriginal.xyz}.
+    * </p>
+    * <p>
+    * Both vectors can be the same instance to perform in-place transformation.
+    * </p>
+    * 
+    * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
+    * @param vectorOriginal the original vector to use for the transformation. Not modified.
+    * @param vectorTransformed the vector used to stored the result of the transformation. Modified.
+    * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
+    */
    public static void transform(Matrix3DReadOnly<?> matrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       double x = matrix.getM00() * vectorOriginal.getX() + matrix.getM01() * vectorOriginal.getY() + matrix.getM02() * vectorOriginal.getZ();
@@ -405,16 +510,17 @@ public abstract class Matrix3DTools
     * Performs a transformation of {@code matrixOriginal} using {@code matrix} and stores the result in {@code matrixTransformed}:
     * <p>
     * {@code matrixTransformed} = {@code matrix} * {@code matrixOriginal} * {@code matrix}<sup>T</sup>.
+    * </p>
     * <p>
-    * <b> This is different from concatenating orientations.</b>
-    * <p>
-    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on {@code matrixOriginal} and {@code matrix}.
+    * WARNING: <b> This is different from concatenating orientations.</b>
+    * </p>
     * <p>
     * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform in-place transformation.
+    * </p>
     * 
-    * @param matrix the matrix used to transform {@code matrixOriginal}, not null, not modified.
-    * @param matrixOriginal the original matrix to use for the transformation, not null, not modified.
-    * @param matrixTransformed the matrix used to stored the result of the transformation, not null, modified.
+    * @param matrix the matrix used to transform {@code matrixOriginal}. Not modified.
+    * @param matrixOriginal the original matrix to use for the transformation. Not modified.
+    * @param matrixTransformed the matrix used to stored the result of the transformation. Modified.
     */
    public static void transform(Matrix3DReadOnly<?> matrix, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
@@ -422,6 +528,20 @@ public abstract class Matrix3DTools
       multiplyInvertRight(matrixTransformed, matrix, matrixTransformed);
    }
 
+   /**
+    * Undoes the transformation of {@code tupleOriginal} using the given matrix and stores the result in {@code tupleTransformed}:
+    * <p>
+    * {@code tupleTransformed} = {@code matrix}<sup>-1</sup> * {@code tupleOriginal}.
+    * </p>
+    * <p>
+    * Both tuples can be the same instance to perform in-place transformation.
+    * </p>
+    * 
+    * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
+    * @param tupleOriginal the original tuple to use for the transformation. Not modified.
+    * @param tupleTransformed the tuple used to store the result of the transformation. Modified.
+    * @throws SingularMatrixException if {@code matrix} is not invertible.
+    */
    public static void inverseTransform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
       double det = matrix.determinant();
@@ -445,6 +565,26 @@ public abstract class Matrix3DTools
       tupleTransformed.set(x, y, z);
    }
 
+   /**
+    * Undoes the transformation of {@code tupleOriginal} using the given matrix and stores the result in {@code tupleTransformed}:
+    * <p>
+    * {@code tupleTransformed} = {@code matrix}<sup>-1</sup> * {@code tupleOriginal}.
+    * </p>
+    * <p>
+    * Before the transformation is performed, if {@code checkIfTransformInXYPlane} equals true, this verify that the matrix is a 2D transformation matrix
+    * using {@link Matrix3DReadOnly#checkIfMatrix2D()}.
+    * </p>
+    * <p>
+    * Both tuples can be the same instance to perform in-place transformation.
+    * </p>
+    * 
+    * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
+    * @param tupleOriginal the original tuple to use for the transformation. Not modified.
+    * @param tupleTransformed the tuple used to stored the result of the transformation. Modified.
+    * @param checkIfTransformInXYPlane whether {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)} needs to be called on the matrix.
+    * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
+    * @throws SingularMatrixException if {@code matrix} is not invertible.
+    */
    public static void inverseTransform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
@@ -466,6 +606,22 @@ public abstract class Matrix3DTools
       tupleTransformed.set(x, y);
    }
 
+   /**
+    * Undoes the transformation on the vector part of {@code vectorOriginal} using the given matrix and stores the result in {@code vectorTransformed}:
+    * <p>
+    * {@code vectorTransformed.s} = {@code vectorOriginal.s}.
+    * {@code vectorTransformed.xyz} = {@code matrix}<sup>-1</sup> * {@code vectorOriginal.xyz}.
+    * </p>
+    * <p>
+    * Both vectors can be the same instance to perform in-place transformation.
+    * </p>
+    * 
+    * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
+    * @param vectorOriginal the original vector to use for the transformation. Not modified.
+    * @param vectorTransformed the vector used to stored the result of the transformation. Modified.
+    * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
+    * @throws SingularMatrixException if {@code matrix} is not invertible.
+    */
    public static void inverseTransform(Matrix3DReadOnly<?> matrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       double det = matrix.determinant();
@@ -490,11 +646,12 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Find and return max of the three arguments.
-    * @param a
-    * @param b
-    * @param c
-    * @return
+    * Find and return maximum the argument with the maximum value.
+    * 
+    * @param a the first argument to compare.
+    * @param b the second argument to compare.
+    * @param c the third argument to compare.
+    * @return the maximum value of the three arguments.
     */
    public static final double max(double a, double b, double c)
    {

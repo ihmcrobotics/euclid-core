@@ -320,6 +320,11 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets this rotation matrix to the invert of the given {@code matrix}.
+    * <p>
+    * This operation uses the property:
+    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the matrix.
+    * </p>
     * 
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if {@code matrix} is not a
@@ -332,6 +337,11 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets this rotation matrix to the invert of the given one {@code other}.
+    * <p>
+    * This operation uses the property:
+    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the matrix.
+    * </p>
     * 
     * @param other the matrix to copy the values from. Not modified.
     */
