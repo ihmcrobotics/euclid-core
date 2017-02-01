@@ -53,7 +53,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       set(other);
    }
 
-   public Quaternion(RotationMatrixReadOnly rotationMatrix)
+   public Quaternion(RotationMatrixReadOnly<?> rotationMatrix)
    {
       set(rotationMatrix);
    }
@@ -184,7 +184,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, this);
    }
 
-   public void set(RotationMatrixReadOnly rotationMatrix)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix)
    {
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, this);
    }
@@ -314,12 +314,12 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionTools.multiplyConjugateRight(other, this, this);
    }
 
-   public void multiply(RotationMatrixReadOnly matrix)
+   public void multiply(RotationMatrixReadOnly<?> matrix)
    {
       QuaternionTools.multiply(this, matrix, this);
    }
 
-   public void preMultiply(RotationMatrixReadOnly matrix)
+   public void preMultiply(RotationMatrixReadOnly<?> matrix)
    {
       QuaternionTools.multiply(matrix, this, this);
    }
@@ -374,7 +374,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       transform(matrixToTransform, matrixToTransform);
    }
 
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -384,7 +384,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       transform(matrixToTransform, matrixToTransform);
    }
 
-   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
    {
       QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
    }

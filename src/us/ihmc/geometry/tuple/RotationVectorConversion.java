@@ -70,12 +70,12 @@ public abstract class RotationVectorConversion
       }
    }
 
-   public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly rotationScaleMatrix, VectorBasics rotationVectorToPack)
+   public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, VectorBasics rotationVectorToPack)
    {
       convertMatrixToRotationVector(rotationScaleMatrix.getRotationMatrix(), rotationVectorToPack);
    }
 
-   public static void convertMatrixToRotationVector(RotationMatrixReadOnly rotationMatrix, VectorBasics rotationVectorToPack)
+   public static void convertMatrixToRotationVector(RotationMatrixReadOnly<?> rotationMatrix, VectorBasics rotationVectorToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();

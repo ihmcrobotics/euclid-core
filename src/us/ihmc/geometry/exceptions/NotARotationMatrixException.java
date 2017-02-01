@@ -40,7 +40,7 @@ public class NotARotationMatrixException extends RuntimeException
     *
     * @param matrix the matrix to be displayed in the detail message. Not modified.
     */
-   public NotARotationMatrixException(Matrix3DReadOnly matrix)
+   public NotARotationMatrixException(Matrix3DReadOnly<?> matrix)
    {
       super("The matrix is not a rotation matrix: \n" + matrix);
    }

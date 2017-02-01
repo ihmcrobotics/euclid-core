@@ -180,7 +180,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       translationVector.set(m03, m13, m23);
    }
 
-   public void set(Matrix3DReadOnly rotationMatrix, TupleReadOnly translation)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, TupleReadOnly translation)
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
@@ -241,7 +241,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.set(quaternion);
    }
 
-   public void setRotation(Matrix3DReadOnly rotationMatrix)
+   public void setRotation(Matrix3DReadOnly<?> rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
    }
@@ -294,7 +294,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       translationVector.setToZero();
    }
 
-   public void setRotationAndZeroTranslation(Matrix3DReadOnly rotationMatrix)
+   public void setRotationAndZeroTranslation(Matrix3DReadOnly<?> rotationMatrix)
    {
       setRotation(rotationMatrix);
       translationVector.setToZero();
@@ -346,12 +346,12 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.setIdentity();
    }
 
-   public RotationMatrixReadOnly getRotationMatrix()
+   public RotationMatrixReadOnly<?> getRotationMatrix()
    {
       return rotationMatrix;
    }
 
-   public void getRotation(Matrix3DBasics rotationMatrixToPack)
+   public void getRotation(Matrix3DBasics<?> rotationMatrixToPack)
    {
       rotationMatrixToPack.set(rotationMatrix);
    }
@@ -378,7 +378,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    public void getRotation(AxisAngleBasics<?> axisAngleToPack)
    {
-      rotationMatrix.get(axisAngleToPack);
+      axisAngleToPack.set(rotationMatrix);
    }
 
    public VectorReadOnly getTranslationVector()
@@ -403,7 +403,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    public void get(DenseMatrix64F matrixToPack, int startRow, int startColumn)
    {
-      rotationMatrix.get(matrixToPack, startRow, startColumn);
+      rotationMatrix.get(startRow, startColumn, matrixToPack);
       translationVector.get(matrixToPack, startRow, startColumn + 3);
       startRow += 3;
       matrixToPack.set(startRow, startColumn++, 0.0);
@@ -438,7 +438,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       translationToPack.set(translationVector);
    }
 
-   public void get(Matrix3DBasics rotationMarixToPack, TupleBasics translationToPack)
+   public void get(Matrix3DBasics<?> rotationMarixToPack, TupleBasics translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -567,7 +567,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.transform(matrixToTransform);
    }
    
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       rotationMatrix.transform(matrixOriginal, matrixTransformed);
    }

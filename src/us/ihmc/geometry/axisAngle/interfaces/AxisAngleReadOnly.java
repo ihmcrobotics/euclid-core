@@ -7,8 +7,10 @@ import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 
 /**
  * Read-only interface for an axis-angle object.
+ * <p>
  * An axis-angle is used to represent a 3D orientation by a unitary axis
  * of components (x, y, z) and an angle of rotation usually expressed in radians.
+ * </p>
  * 
  * @author Sylvain
  */

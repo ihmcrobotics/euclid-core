@@ -4,6 +4,16 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 
 public abstract class Matrix3DReadOnlyTools
 {
+   /**
+    * Provides a {@code String} representation of the given
+    * matrix as follows:
+    * <br> m00, m01, m02
+    * <br> m10, m11, m12
+    * <br> m20, m21, m22
+    * 
+    * @param matrix the matrix to get a {@code String} representation of. Not modified.
+    * @return the {@code String} representing the given matrix.
+    */
    public static String toString(Matrix3DReadOnly<?> matrix)
    {
       double m00 = matrix.getM00();
@@ -18,21 +28,31 @@ public abstract class Matrix3DReadOnlyTools
       return Matrix3DReadOnlyTools.toString(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static String toString(double[] matrixArray)
-   {
-      return Matrix3DReadOnlyTools.toString(matrixArray[0], matrixArray[1], matrixArray[2], matrixArray[3], matrixArray[4], matrixArray[5], matrixArray[6], matrixArray[7], matrixArray[8]);
-   }
-
+   /**
+    * Provides a {@code String} representation of the given
+    * matrix as follows:
+    * <br> m00, m01, m02
+    * <br> m10, m11, m12
+    * <br> m20, m21, m22
+    * 
+    * @param m00 first matrix element in the first row.
+    * @param m01 second matrix element in the first row.
+    * @param m02 third matrix element in the first row.
+    * @param m10 first matrix element in the second row.
+    * @param m11 second matrix element in the second row.
+    * @param m12 third matrix element in the second row.
+    * @param m20 first matrix element in the third row.
+    * @param m21 second matrix element in the third row.
+    * @param m22 third matrix element in the third row.
+    * @return the {@code String} representing the given matrix.
+    */
    public static String toString(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
       return m00 + ", " + m01 + ", " + m02 + "\n" + m10 + ", " + m11 + ", " + m12 + "\n" + m20 + ", " + m21 + ", " + m22 + "\n";
    }
 
    /**
-    * Crate an {@linkplain ArrayIndexOutOfBoundsException} for a bad column index.
-    * <p>
-    * <b> This method is meant for internal use only.</b>
-    * <p>
+    * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad column index.
     * 
     * @param column the bad column index.
     * @return the exception
@@ -43,10 +63,7 @@ public abstract class Matrix3DReadOnlyTools
    }
 
    /**
-    * Crate an {@linkplain ArrayIndexOutOfBoundsException} for a bad row index.
-    * <p>
-    * <b> This method is meant for internal use only.</b>
-    * <p>
+    * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad row index.
     * 
     * @param row the bad row index.
     * @return the exception

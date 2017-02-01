@@ -41,12 +41,12 @@ public abstract class QuaternionConversion
       }
    }
 
-   public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly rotationScaleMatrix, QuaternionBasics quaternionToPack)
+   public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, QuaternionBasics quaternionToPack)
    {
       convertMatrixToQuaternion(rotationScaleMatrix.getRotationMatrix(), quaternionToPack);
    }
 
-   public static void convertMatrixToQuaternion(RotationMatrixReadOnly rotationMatrix, QuaternionBasics quaternionToPack)
+   public static void convertMatrixToQuaternion(RotationMatrixReadOnly<?> rotationMatrix, QuaternionBasics quaternionToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();

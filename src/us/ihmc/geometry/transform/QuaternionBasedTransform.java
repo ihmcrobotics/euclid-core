@@ -8,7 +8,6 @@ import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.matrix.RotationMatrixTools;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
@@ -293,7 +292,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    public void preMultiply(RigidBodyTransform rigidBodyTransform)
    {
-      RotationMatrixTools.transform(rigidBodyTransform.getRotationMatrix(), translationVector, translationVector);
+      rigidBodyTransform.transform(translationVector);
       translationVector.add(rigidBodyTransform.getTranslationVector());
       quaternion.preMultiply(rigidBodyTransform.getRotationMatrix());
    }
@@ -349,7 +348,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       quaternion.transform(matrixToTransform);
    }
 
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       quaternion.transform(matrixOriginal, matrixTransformed);
    }

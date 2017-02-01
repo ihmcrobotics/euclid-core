@@ -9,7 +9,7 @@ public abstract class TransformTools
    private static int TO_STRING_PRECISION = 3;
    private static final boolean PRINT_LAST_ROW = false;
 
-   static String toString(Matrix3DReadOnly matrix, TupleReadOnly translation)
+   static String toString(Matrix3DReadOnly<?> matrix, TupleReadOnly translation)
    {
       String ret = "";
       String format = "%" + (3 + TO_STRING_PRECISION) + "." + TO_STRING_PRECISION + "f";

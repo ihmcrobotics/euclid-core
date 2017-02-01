@@ -4,16 +4,24 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
+import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
+import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.Matrix3DReadOnlyTools;
 import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
+import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
+import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
 /**
- * Read-only interface for any type of 3D matrices.
+ * Read-only interface for any type of 3-by-3 matrices.
  * 
  * @author Sylvain
  *
+ * @param <T> the final type of matrix used.
  */
 public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends EpsilonComparable<T>
 {
@@ -174,12 +182,9 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    }
 
    /**
-    * Packs the coefficients of this matrix into 2D matrix.
-    * <p>
-    * Note: the given matrix has to be large enough to store this matrix.
-    * </p>
+    * Packs the coefficients of this matrix into a dense-matrix.
     * 
-    * @param matrixToPack the 2D matrix in which the coefficients of this are stored. Modified.
+    * @param matrixToPack the dense-matrix in which the coefficients of this matrix are stored. Modified.
     */
    default void get(DenseMatrix64F matrixToPack)
    {
@@ -194,7 +199,15 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
       matrixToPack.set(2, 2, getM22());
    }
 
-   default void get(DenseMatrix64F matrixToPack, int startRow, int startColumn)
+   /**
+    * Packs the coefficients of this matrix into a dense-matrix given
+    * index offsets for the row and the column.
+    * 
+    * @param startRow the first row index to start writing in the dense-matrix.
+    * @param startColumn the first column index to start writing in the dense-matrix.
+    * @param matrixToPack the dense-matrix in which the coefficients of this matrix are stored. Modified.
+    */
+   default void get(int startRow, int startColumn, DenseMatrix64F matrixToPack)
    {
       int row = startRow;
       int column = startColumn;
@@ -211,6 +224,13 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
       matrixToPack.set(row, column, getM22());
    }
 
+   /**
+    * Packs a column of this matrix into an array.
+    * 
+    * @param column the index of the column to pack.
+    * @param columnArrayToPack the array in which the column of this matrix is stored. Modified.
+    * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
+    */
    default void getColumn(int column, double columnArrayToPack[])
    {
       switch (column)
@@ -235,6 +255,13 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
       }
    }
 
+   /**
+    * Packs a column of this matrix into a 3D tuple.
+    * 
+    * @param column the index of the column to pack.
+    * @param columnToPack the tuple in which the column of this matrix is stored. Modified.
+    * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
+    */
    default void getColumn(int column, TupleBasics columnToPack)
    {
       switch (column)
@@ -259,6 +286,13 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
       }
    }
 
+   /**
+    * Packs a row of this matrix into an array.
+    * 
+    * @param row the index of the row to pack.
+    * @param rowArrayToPack the array in which the row of this matrix is stored. Modified.
+    * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
+    */
    default void getRow(int row, double rowArrayToPack[])
    {
       switch (row)
@@ -283,24 +317,31 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
       }
    }
 
-   default void getRow(int row, TupleBasics rowVectorToPack)
+   /**
+    * Packs a row of this matrix into a 3D tuple.
+    * 
+    * @param row the index of the row to pack.
+    * @param rowToPack the array in which the row of this matrix is stored. Modified.
+    * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
+    */
+   default void getRow(int row, TupleBasics rowToPack)
    {
       switch (row)
       {
       case 0:
-         rowVectorToPack.setX(getM00());
-         rowVectorToPack.setY(getM01());
-         rowVectorToPack.setZ(getM02());
+         rowToPack.setX(getM00());
+         rowToPack.setY(getM01());
+         rowToPack.setZ(getM02());
          return;
       case 1:
-         rowVectorToPack.setX(getM10());
-         rowVectorToPack.setY(getM11());
-         rowVectorToPack.setZ(getM12());
+         rowToPack.setX(getM10());
+         rowToPack.setY(getM11());
+         rowToPack.setZ(getM12());
          return;
       case 2:
-         rowVectorToPack.setX(getM20());
-         rowVectorToPack.setY(getM21());
-         rowVectorToPack.setZ(getM22());
+         rowToPack.setX(getM20());
+         rowToPack.setY(getM21());
+         rowToPack.setZ(getM22());
          return;
       default:
          throw Matrix3DReadOnlyTools.rowOutOfBoundsException(2, row);
@@ -308,9 +349,9 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    }
 
    /**
-    * Verify if at least on the element of this matrix is equal to {@linkplain Double#NaN}.
+    * Tests if at least one element of this matrix is equal to {@linkplain Double#NaN}.
     * 
-    * @return true if at least one element of the matrix is equal to {@linkplain Double#NaN}, false otherwise.
+    * @return {@code true} if at least one element of the matrix is equal to {@linkplain Double#NaN}, {@code false} otherwise.
     */
    default boolean containsNaN()
    {
@@ -328,13 +369,16 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    }
 
    /**
-    * Verify if this matrix is a rotation matrix.
+    * Asserts that this matrix is a rotation matrix.
     * <p>
     * This matrix is a rotation matrix if:
-    * <li> the length of each row vector is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION},
-    * <li> the dot product of each pair of row vectors is equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION},
-    * <li> the determinant of the matrix is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION}.
-    * <p>
+    * <ul>
+    *    <li> the length of each row vector is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION},
+    *    <li> the dot product of each pair of row vectors is equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION},
+    *    <li> the determinant of the matrix is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION}.
+    * </ul>
+    * </p>
+    * 
     * @throws NotARotationMatrixException if the matrix is not a rotation matrix.
     */
    default void checkIfRotationMatrix()
@@ -343,13 +387,15 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    }
 
    /**
-    * Verify if this matrix describes transformation in the XY plane.
-    * 
+    * Asserts that this matrix describes transformation in the XY plane.
     * <p>
     * This matrix is considered to be a 2D transformation in the XY plane if:
-    * <li> the last diagonal coefficient m22 is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D},
-    * <li> the sum of the two pairs of coefficients (m20, m02) and (m21, m12) are equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
-    * @param matrix the matrix to verify, not null, not modified.
+    * <ul>
+    *    <li> the last diagonal coefficient m22 is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D},
+    *    <li> the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
+    * </ul>
+    * </p>
+    * 
     * @throws NotAMatrix2DException if the matrix represents a 3D transformation.
     */
    default void checkIfMatrix2D()
@@ -359,39 +405,70 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    }
 
    /**
-    * Verify if the given matrix is equal to the identity matrix.
+    * Tests if this matrix is equal to the identity matrix.
     * <p>
-    * The assertion is done on a per coefficient basis using <code>epsilon</code> as the tolerance.
+    * The assertion is done on a per coefficient basis using {@code epsilon} as the tolerance.
+    * </p>
     * 
-    * @param matrix the matrix to verify, not null, not modified.
     * @param epsilon the tolerance as shown above. 
-    * @return {@code true} if the given matrix is considered to be equal to the identity matrix.
+    * @return {@code true} if the given matrix is considered to be equal to the identity matrix, {@code false} otherwise.
     */
    default boolean isIdentity(double epsilon)
    {
       return Matrix3DFeatures.isIdentity(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22(), epsilon);
    }
 
+   /**
+    * Tests if this matrix represents a negligible rotation.
+    * <p>
+    * This matrix represents a 'zero' rotation if:
+    * <ul>
+    *    <li> its trace is equal to {@code 3} +/- {@link Matrix3DFeatures#EPS_CHECK_ZERO_ROTATION},
+    *    <li> the sums of each pair of cross-diagonal coefficients
+    *     ({@code m10}, {@code m01}), ({@code m12}, {@code m21}), and ({@code m20}, {@code m02})
+    *     are equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ZERO_ROTATION}.
+    * </ul>
+    * </p>
+    * 
+    * @return {@code true} if this matrix represents a 'zero' rotation, {@code false} otherwise.
+    */
    default boolean isZeroRotation()
    {
       return Matrix3DFeatures.isZeroRotation(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
    }
 
+   /**
+    * Tests if this matrix represents a negligible rotation given a tolerance {@code epsilon}.
+    * <p>
+    * This matrix represents a 'zero' rotation if:
+    * <ul>
+    *    <li> its trace is equal to {@code 3} +/- {@code epsilon},
+    *    <li> the sums of each pair of cross-diagonal coefficients
+    *     ({@code m10}, {@code m01}), ({@code m12}, {@code m21}), and ({@code m20}, {@code m02})
+    *     are equal to 0.0 +/- {@code epsilon}.
+    * </ul>
+    * </p>
+    * 
+    * @param epsilon the tolerance to use.
+    * @return {@code true} if this matrix represents a 'zero' rotation, {@code false} otherwise.
+    */
    default boolean isZeroRotation(double epsilon)
    {
       return Matrix3DFeatures.isZeroRotation(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22(), epsilon);
    }
 
    /**
-    * Verify if the given matrix is a rotation matrix.
+    * Tests if this matrix is a rotation matrix.
     * <p>
-    * The given matrix is a rotation matrix if:
-    * <li> the length of each row vector is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION},
-    * <li> the dot product of each pair of row vectors is equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION},
-    * <li> the determinant of the matrix is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION}.
-    * <p>
-    * @param matrix the matrix to verify, not null, not modified.
-    * @return {@code true} if the given matrix is a rotation matrix, {@code false} otherwise.
+    * This matrix is a rotation matrix if:
+    * <ul>
+    *    <li> the length of each row vector is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION},
+    *    <li> the dot product of each pair of row vectors is equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION},
+    *    <li> the determinant of the matrix is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_ROTATION}.
+    * </ul>
+    * </p>
+    * 
+    * @return {@code true} if this matrix is a rotation matrix, {@code false} otherwise.
     */
    default boolean isRotationMatrix()
    {
@@ -399,16 +476,17 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    }
 
    /**
-    * Verify if this matrix is a rotation matrix.
+    * Tests if this matrix is a rotation matrix given a tolerance {@code epsilon}.
     * <p>
     * This matrix is a rotation matrix if:
-    * <li> the length of each row vector is equal to 1.0 +/- <code>epsilon</code>,
-    * <li> the dot product of each pair of row vectors is equal to 0.0 +/- <code>epsilon</code>,
-    * <li> the determinant of the matrix is equal to 1.0 +/- <code>epsilon</code>.
-    * <p>
-    * @param matrix the matrix to verify, not null, not modified.
-    * @param epsilon the tolerance as shown above. 
-    * @return {@code true} if the given matrix is a rotation matrix, {@code false} otherwise.
+    * <ul>
+    *    <li> the length of each row vector is equal to 1.0 +/- {@code epsilon},
+    *    <li> the dot product of each pair of row vectors is equal to 0.0 +/- {@code epsilon},
+    *    <li> the determinant of the matrix is equal to 1.0 +/- {@code epsilon}.
+    * </ul>
+    * </p>
+    * 
+    * @return {@code true} if this matrix is a rotation matrix, {@code false} otherwise.
     */
    default boolean isRotationMatrix(double epsilon)
    {
@@ -416,43 +494,344 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    }
 
    /**
-    * Verify this matrix describes transformation in the XY plane.
+    * Tests if this matrix describes transformation in the XY plane.
     * 
     * <p>
-    * A matrix is considered to be a 2D transformation in the XY plane if:
-    * <li> the last diagonal coefficient m22 is equal to 1.0 +/- {@value Matrix3DFeatures#EPS_CHECK_2D},
-    * <li> the coefficients <code>m20</code>, <code>m02</code>, <code>m21</code>, and <code>m12</code> are equal to 0.0 +/- {@value Matrix3DFeatures#EPS_CHECK_2D}.
+    * This matrix is considered to be a 2D transformation in the XY plane if:
+    * <ul>
+    *    <li> the last diagonal coefficient m22 is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D},
+    *    <li> the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
+    * </ul>
+    * </p>
     * 
-    * @param matrix the matrix to verify, not null, not modified.
     * @return {@code true} if the given matrix describes a 2D transformation in the XY plane, {@code false} otherwise.
     */
    default boolean isMatrix2D()
    {
       return Matrix3DFeatures.isMatrix2D(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22(),
-            Matrix3DFeatures.EPS_CHECK_2D);
+                                         Matrix3DFeatures.EPS_CHECK_2D);
    }
 
    /**
-    * Verify if this matrix is skew symmetric:
+    * Tests if this matrix is skew symmetric:
     * <pre>
     *     |  0 -z  y |
     * m = |  z  0 -x |
     *     | -y  x  0 |
     * </pre>
-    * 
+    * <p>
     * This matrix is considered to be skew symmetric if:
-    * <li> each diagonal coefficient is equal to 0.0 +/- {@code epsilon},
-    * <li> the sum of each pair of cross diagonal coefficients (m10, m01), (m12, m21), and (m20, m02) are equal to 0.0 +/- {@code epsilon}.
+    * <ul>
+    *    <li> each diagonal coefficient is equal to 0.0 +/- {@code epsilon},
+    *    <li> the sums of each pair of cross-diagonal coefficients
+    *     ({@code m10}, {@code m01}), ({@code m12}, {@code m21}), and ({@code m20}, {@code m02})
+    *     are equal to 0.0 +/- {@code epsilon}.
+    * </ul>
+    * </p>
     * 
-    * @param matrix to verify, not null, not modified.
-    * @param epsilon the tolerance used as shown above.
-    * @return true if the matrix is skew symmetric, false otherwise.
+    * @param epsilon the tolerance to use.
+    * @return {@code true} if the matrix is skew symmetric, {@code false} otherwise.
     */
    default boolean isMatrixSkewSymmetric(double epsilon)
    {
       return Matrix3DFeatures.isMatrixSkewSymmetric(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22(), epsilon);
    }
 
+   /**
+    * Transforms the given tuple by this matrix.
+    * <p>
+    * tupleToTransform = this * tupleToTransform
+    * </p>
+    * 
+    * @param tupleToTransform the tuple to transform. Modified.
+    */
+   default void transform(TupleBasics tupleToTransform)
+   {
+      transform(tupleToTransform, tupleToTransform);
+   }
+
+   /**
+    * Transforms the given tuple {@code tupleOriginal} by this matrix
+    * and stores the result in {@code tupleTransformed}.
+    * <p>
+    * tupleTransformed = this * tupleOriginal
+    * </p>
+    * 
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple to store the result. Modified.
+    */
+   void transform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed);
+
+   /**
+    * Transforms the given tuple by this matrix and add the
+    * result to the tuple.
+    * <p>
+    * tupleToTransform = tupleToTransform + this * tupleToTransform
+    * </p>
+    * 
+    * @param tupleToTransform the tuple to transform. Modified.
+    */
+   default void addTransform(TupleBasics tupleToTransform)
+   {
+      addTransform(tupleToTransform, tupleToTransform);
+   }
+
+   /**
+    * Transforms the given tuple {@code tupleOriginal} by this matrix
+    * and add the result to {@code tupleTransformed}.
+    * <p>
+    * tupleTransformed = tupleTransformed + this * tupleOriginal
+    * </p>
+    * 
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple to add the result to. Modified.
+    */
+   void addTransform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed);
+
+   /**
+    * Transforms the given tuple by this matrix.
+    * <p>
+    * tupleToTransform = this * tupleToTransform
+    * </p>
+    * 
+    * @param tupleToTransform the tuple to transform. Modified.
+    * @throws NotAMatrix2DException if this matrix does not represent
+    *  a transformation in the XY plane.
+    */
+   default void transform(Tuple2DBasics tupleToTransform)
+   {
+      transform(tupleToTransform, tupleToTransform, true);
+   }
+
+   /**
+    * Transforms the given tuple {@code tupleOriginal} by this matrix
+    * and stores the result in {@code tupleTransformed}.
+    * <p>
+    * tupleTransformed = this * tupleOriginal
+    * </p>
+    * 
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple to store the result. Modified.
+    * @throws NotAMatrix2DException if this matrix does not represent
+    *  a transformation in the XY plane.
+    */
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   {
+      transform(tupleOriginal, tupleTransformed, true);
+   }
+
+   /**
+    * Transforms the given tuple by this matrix.
+    * <p>
+    * tupleToTransform = this * tupleToTransform
+    * </p>
+    * 
+    * @param tupleToTransform the tuple to transform. Modified.
+    * @param checkIfTransformInXYPlane whether this method should
+    *  assert that this matrix represents a transformation in the
+    *  XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true}
+    * and this matrix does not represent a transformation in the XY plane.
+    */
+   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   {
+      transform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
+   }
+
+   /**
+    * Transforms the given tuple {@code tupleOriginal} by this matrix
+    * and stores the result in {@code tupleTransformed}.
+    * <p>
+    * tupleTransformed = this * tupleOriginal
+    * </p>
+    * 
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple to store the result. Modified.
+    * @param checkIfTransformInXYPlane whether this method should
+    *  assert that this matrix represents a transformation in the
+    *  XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true}
+    * and this matrix does not represent a transformation in the XY plane.
+    */
+   void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane);
+
+   /**
+    * Transforms the given 3D matrix by this matrix.
+    * <p>
+    * matrixToTransform = this * matrixToTransform * this<sup>-1</sup>
+    * </p>
+    * 
+    * @param matrixToTransform the matrix to transform. Modified.
+    * @throws SingularMatrixException if this matrix is not invertible.
+    */
+   default void transform(Matrix3D matrixToTransform)
+   {
+      transform(matrixToTransform, matrixToTransform);
+   }
+
+   /**
+    * Transforms the given 3D matrix {@code matrixOriginal}
+    * by this matrix and stores the result in {@code matrixTransformed}.
+    * <p>
+    * matrixTransformed = this * matrixOriginal * this<sup>-1</sup>
+    * </p>
+    * 
+    * @param matrixOriginal the matrix to transform. Not modified.
+    * @param matrixTransformed the matrix in which the result is stored. Modified.
+    * @throws SingularMatrixException if this matrix is not invertible.
+    */
+   void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed);
+
+   /**
+    * Transforms the vector part of the given 4D vector.
+    * <p>
+    * vectorToTransform.s = vectorToTransform.s <br>
+    * vectorToTransform.xyz = this * vectorToTransform.xyz
+    * </p>
+    * 
+    * @param vectorToTransform the vector to transform. Modified.
+    */
+   default void transform(Vector4DBasics vectorToTransform)
+   {
+      transform(vectorToTransform, vectorToTransform);
+   }
+
+   /**
+    * Transforms the vector part of the given 4D vector
+    * {@code vectorOriginal} and stores the result into
+    * {@code vectorTransformed}.
+    * <p>
+    * vectorTransformed.s = vectorOriginal.s <br>
+    * vectorTransformed.xyz = this * vectorOriginal.xyz
+    * </p>
+    * 
+    * @param vectorOriginal the vector to transform. Not modified.
+    * @param vectorTransformed the vector in which the result is stored. Modified.
+    */
+   void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
+
+   /**
+    * Performs the inverse of the transform to the given
+    * tuple by this matrix.
+    * <p>
+    * tupleToTransform = this<sup>-1</sup> * tupleToTransform
+    * </p>
+    * 
+    * @param tupleToTransform the tuple to transform. Modified.
+    */
+   default void inverseTransform(TupleBasics tupleToTransform)
+   {
+      inverseTransform(tupleToTransform, tupleToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform to the given
+    * tuple {@code tupleOriginal} by this matrix and stores
+    * the result in {@code tupleTransformed}.
+    * <p>
+    * tupleTransformed = this<sup>-1</sup> * tupleOriginal
+    * </p>
+    * 
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
+   void inverseTransform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed);
+
+   /**
+    * Performs the inverse of the transform to the given
+    * tuple by this matrix.
+    * <p>
+    * tupleToTransform = this<sup>-1</sup> * tupleToTransform
+    * </p>
+    * 
+    * @param tupleToTransform the tuple to transform. Modified.
+    * @throws NotAMatrix2DException if this matrix does not represent
+    *  a transformation in the XY plane.
+    */
+   default void inverseTransform(Tuple2DBasics tupleToTransform)
+   {
+      inverseTransform(tupleToTransform, tupleToTransform, true);
+   }
+
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   {
+      inverseTransform(tupleOriginal, tupleTransformed, true);
+   }
+
+   /**
+    * Performs the inverse of the transform to the given
+    * tuple by this matrix.
+    * <p>
+    * tupleToTransform = this<sup>-1</sup> * tupleToTransform
+    * </p>
+    * 
+    * @param tupleToTransform the tuple to transform. Modified.
+    * @param checkIfTransformInXYPlane whether this method should
+    *  assert that this matrix represents a transformation in the
+    *  XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true}
+    * and this matrix does not represent a transformation in the XY plane.
+    */
+   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   {
+      inverseTransform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
+   }
+
+   /**
+    * Performs the inverse of the transform to the given
+    * tuple {@code tupleOriginal} by this matrix and stores
+    * the result in {@code tupleTransformed}.
+    * <p>
+    * tupleTransformed = this<sup>-1</sup> * tupleOriginal
+    * </p>
+    * 
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    * @param checkIfTransformInXYPlane whether this method should
+    *  assert that this matrix represents a transformation in the
+    *  XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true}
+    * and this matrix does not represent a transformation in the XY plane.
+    */
+   void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane);
+
+   /**
+    * Performs the inverse of the transform to the
+    * vector part the given 4D vector by this matrix.
+    * <p>
+    * vectorToTransform.s = vectorToTransform.s <br>
+    * vectorToTransform.xyz = this<sup>-1</sup> * vectorToTransform.xyz
+    * </p>
+    * 
+    * @param vectorToTransform the vector to transform. Modified.
+    */
+   default void inverseTransform(Vector4DBasics vectorToTransform)
+   {
+      inverseTransform(vectorToTransform, vectorToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform to the
+    * vector part the given 4D vector {@code vectorOriginal}
+    * by this matrix and stores the result in {@code vectorTransformed}.
+    * <p>
+    * vectorTransformed.s = vectorOriginal.s <br>
+    * vectorTransformed.xyz = this<sup>-1</sup> * vectorOriginal.xyz
+    * </p>
+    * 
+    * @param vectorOriginal the vector to transform. Not modified.
+    * @param vectorTransformed the vector in which the result is stored. Modified.
+    */
+   void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
+
+   /**
+    * Tests on a per coefficient basis if this matrix is equal to the given {@code other}
+    * to an {@code epsilon}.
+    * 
+    * @param other the other matrix to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two matrices are equal, {@code false} otherwise.
+    */
    default boolean epsilonEquals(Matrix3DReadOnly<?> other, double epsilon)
    {
       double diff;

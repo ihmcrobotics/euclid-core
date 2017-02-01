@@ -444,7 +444,7 @@ public class QuaternionBasedTransformTest
          Vector actualTranslation = new Vector();
          RotationMatrix rotationMatrix = new RotationMatrix();
          transform.get(rotationMatrix, actualTranslation);
-         rotationMatrix.get(actualQuaternion);
+         actualQuaternion.set(rotationMatrix);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPS);
          GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
       }

@@ -24,12 +24,5 @@ public class Matrix3DReadOnlyToolsTest
       stringExpected = Matrix3DReadOnlyTools.toString(m.getM00(), m.getM01(), m.getM02(), m.getM10(), m.getM11(), m.getM12(), m.getM20(), m.getM21(), m.getM22());
       stringActual = Matrix3DReadOnlyTools.toString(m);
       assertEquals(stringExpected, stringActual);
-
-      double[] array = new double[9];
-      for (int i = 0; i < 9; i++)
-         array[i] = random.nextDouble();
-      stringExpected = Matrix3DReadOnlyTools.toString(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8]);
-      stringActual = Matrix3DReadOnlyTools.toString(array);
-      assertEquals(stringExpected, stringActual);
    }
 }

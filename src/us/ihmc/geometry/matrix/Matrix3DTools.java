@@ -20,12 +20,9 @@ public abstract class Matrix3DTools
 
    /**
     * Performs an in-place inversion of the given matrix such that: m = m<sup>-1</sup>.
-    * <p>
-    * <b> This method is meant for internal use only.</b>
-    * <p>
     * 
-    * @param matrixToInvert the matrix to invert, not null, modified.
-    * @return true if the inversion succeeds, false if the matrix is singular.
+    * @param matrixToInvert the matrix to invert. Modified.
+    * @return {@code true} if the inversion succeeds, {@code false} if the matrix is singular.
     */
    public static boolean invert(Matrix3D matrixToInvert)
    {
@@ -33,15 +30,14 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Computes the inverse of <code>matrix</code> and stores the result in <code>inverseToPack</code>.
+    * Computes the inverse of {@code matrix} and stores the result in {@code inverseToPack}.
+    * <p>
     * The matrices can be the same object.
-    * <p>
-    * <b> This method is meant for internal use only.</b>
-    * <p>
+    * </p>
     * 
-    * @param matrix the matrix to compute the inverse of, not null, not modified.
-    * @param inverseToPack the result to pack, not null, modified.
-    * @return true if the inversion succeeds, false if the matrix is singular.
+    * @param matrix the matrix to compute the inverse of. Not modified.
+    * @param inverseToPack the result to pack. Modified.
+    * @return {@code true} if the inversion succeeds, {@code false} if the matrix is singular.
     */
    public static boolean invert(Matrix3DReadOnly<?> matrix, Matrix3D inverseToPack)
    {
@@ -67,15 +63,14 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs the multiplication: <code>m1</code> * <code>m2</code> and stores the result in <code>matrixToPack</code>.
+    * Performs the multiplication: {@code m1} * {@code m2} and stores the result in {@code matrixToPack}.
     * <p>
     * All the matrices can be the same object.
-    * <p>
-    * Before the multiplication is performed, this calls {@linkplain Matrix3DReadOnly#checkIfMatrixProper()} on both <code>m1</code> and <code>m2</code>.
+    * </p>
     * 
-    * @param m1 the first matrix, not null, not modified.
-    * @param m2 the second matrix, not null, not modified.
-    * @param matrixToPack the result of the multiplication, not null, modified.
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
     */
    public static void multiply(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
@@ -92,15 +87,14 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs the multiplication: <code>m1</code><sup>T</sup> * <code>m2</code><sup>T</sup> and stores the result in <code>matrixToPack</code>.
+    * Performs the multiplication: {@code m1}<sup>T</sup> * {@code m2}<sup>T</sup> and stores the result in {@code matrixToPack}.
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * Before the multiplication is performed, this calls {@linkplain Matrix3DReadOnly#checkIfMatrixProper()} on both <code>m1</code> and <code>m2</code>.
     * 
-    * @param m1 the first matrix, not null, not modified.
-    * @param m2 the second matrix, not null, not modified.
-    * @param matrixToPack the result of the multiplication, not null, modified.
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
     */
    public static void multiplyTransposeBoth(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
@@ -125,15 +119,14 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs the multiplication: <code>m1</code><sup>T</sup> * <code>m2</code> and stores the result in <code>matrixToPack</code>.
+    * Performs the multiplication: {@code m1}<sup>T</sup> * {@code m2} and stores the result in {@code matrixToPack}.
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * Before the multiplication is performed, this calls {@linkplain Matrix3DReadOnly#checkIfMatrixProper()} on both <code>m1</code> and <code>m2</code>.
     * 
-    * @param m1 the first matrix, not null, not modified.
-    * @param m2 the second matrix, not null, not modified.
-    * @param matrixToPack the result of the multiplication, not null, modified.
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
     */
    public static void multiplyTransposeLeft(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
@@ -149,6 +142,16 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication: {@code m1}<sup>-1</sup> * {@code m2} and stores the result in {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * <p>
+    * 
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiplyInvertLeft(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       double det = m1.determinant();
@@ -178,26 +181,26 @@ public abstract class Matrix3DTools
       matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void multiplyInvertLeftUnsafe(RotationMatrixReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeft(RotationMatrixReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
       multiplyTransposeLeft(m1, m2, matrixToPack);
    }
 
    public static void multiplyInvertLeft(RotationScaleMatrixReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
    {
-      multiplyTransposeLeft(m1.getRotationMatrix(), m2, matrixToPack);
-      RotationScaleMatrixTools.preScaleMatrix(1.0 / m1.getScaleX(), 1.0 / m1.getScaleY(), 1.0 / m1.getScaleZ(), matrixToPack);
+      multiplyInvertLeft(m1.getRotationMatrix(), m2, matrixToPack);
+      matrixToPack.scaleRows(1.0 / m1.getScaleX(), 1.0 / m1.getScaleY(), 1.0 / m1.getScaleZ());
    }
 
    /**
-    * Performs the multiplication: <code>m1</code> * <code>m2</code><sup>T</sup> and stores the result in <code>matrixToPack</code>.
+    * Performs the multiplication: {@code m1} * {@code m2}<sup>T</sup> and stores the result in {@code matrixToPack}.
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * Before the multiplication is performed, this calls {@linkplain Matrix3DReadOnly#checkIfMatrixProper()} on both <code>m1</code> and <code>m2</code>.
+    * Before the multiplication is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on both {@code m1} and {@code m2}.
     * 
-    * @param m1 the first matrix, not null, not modified.
-    * @param m2 the second matrix, not null, not modified.
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
     * @param matrixToPack the result of the multiplication, not null, modified.
     */
    public static void multiplyTransposeRight(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, Matrix3D matrixToPack)
@@ -250,7 +253,8 @@ public abstract class Matrix3DTools
    
    public static void multiplyInvertRight(Matrix3DReadOnly<?> m1, RotationScaleMatrixReadOnly<?> m2, Matrix3D matrixToPack)
    {
-      RotationScaleMatrixTools.postScaleMatrix(1.0 / m2.getScaleX(), 1.0 / m2.getScaleY(), 1.0 / m2.getScaleZ(), m1, matrixToPack);
+      matrixToPack.set(m1);
+      matrixToPack.scaleColumns(1.0 / m2.getScaleX(), 1.0 / m2.getScaleY(), 1.0 / m2.getScaleZ());
       multiplyTransposeRight(matrixToPack, m2.getRotationMatrix(), matrixToPack);
    }
 
@@ -323,15 +327,15 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of <code>tupleOriginal</code> using the given matrix and stores the result in <code>tupleTransformed</code>:
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the result in {@code tupleTransformed}:
     * <p>
-    * <code>tupleTransformed</code> = <code>matrix</code> * <code>tupleOriginal</code>.
+    * {@code tupleTransformed} = {@code matrix} * {@code tupleOriginal}.
     * <p>
-    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfMatrixProper()} on the given matrix.
+    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on the given matrix.
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
     * 
-    * @param matrix the matrix used to transform <code>tupleOriginal</code>, not null, not modified.
+    * @param matrix the matrix used to transform {@code tupleOriginal}, not null, not modified.
     * @param tupleOriginal the original tuple to use for the transformation, not null, not modified.
     * @param tupleTransformed the tuple used to store the result of the transformation, not null, modified.
     */
@@ -344,13 +348,13 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of <code>tupleOriginal</code> using the given matrix and add the result to <code>tupleTransformed</code>:
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and add the result to {@code tupleTransformed}:
     * <p>
-    * <code>tupleTransformed</code> = <code>tupleTransformed</code> + <code>matrix</code> * <code>tupleOriginal</code>.
+    * {@code tupleTransformed} = {@code tupleTransformed} + {@code matrix} * {@code tupleOriginal}.
     * <p>
-    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfMatrixProper()} on the given matrix.
+    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on the given matrix.
     * 
-    * @param matrix the matrix used to transform <code>tupleOriginal</code>, not null, not modified.
+    * @param matrix the matrix used to transform {@code tupleOriginal}, not null, not modified.
     * @param tupleOriginal the original tuple to use for the transformation, not null, not modified.
     * @param tupleTransformed the tuple to which the result of the transformation is added to, not null, modified.
     */
@@ -363,22 +367,22 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of <code>tupleOriginal</code> using the given matrix and stores the result in <code>tupleTransformed</code>:
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the result in {@code tupleTransformed}:
     * <p>
-    * <code>tupleTransformed</code> = <code>matrix</code> * <code>tupleOriginal</code>.
+    * {@code tupleTransformed} = {@code matrix} * {@code tupleOriginal}.
     * <p>
-    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfMatrixProper()} on the given matrix.
+    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on the given matrix.
     * <p>
-    * Before the transformation is performed, if <code>checkIfTransformInXYPlane</code> equals true, this verify that the matrix is a 2D transformation matrix
+    * Before the transformation is performed, if {@code checkIfTransformInXYPlane} equals true, this verify that the matrix is a 2D transformation matrix
     * using {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)}.
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
     * 
-    * @param matrix the matrix used to transform <code>tupleOriginal</code>, not null, not modified.
+    * @param matrix the matrix used to transform {@code tupleOriginal}, not null, not modified.
     * @param tupleOriginal the original tuple to use for the transformation, not null, not modified.
     * @param tupleTransformed the tuple used to stored the result of the transformation, not null, modified.
     * @param checkIfTransformInXYPlane whether {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)} needs to be called on the matrix.
-    * @throws NotAMatrix2DException if the matrix is not a 2D matrix and <code>checkIfTransformInXYPlane</code> is true.
+    * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is true.
     */
    public static void transform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
@@ -398,17 +402,17 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of <code>matrixOriginal</code> using <code>matrix</code> and stores the result in <code>matrixTransformed</code>:
+    * Performs a transformation of {@code matrixOriginal} using {@code matrix} and stores the result in {@code matrixTransformed}:
     * <p>
-    * <code>matrixTransformed</code> = <code>matrix</code> * <code>matrixOriginal</code> * <code>matrix</code><sup>T</sup>.
+    * {@code matrixTransformed} = {@code matrix} * {@code matrixOriginal} * {@code matrix}<sup>T</sup>.
     * <p>
     * <b> This is different from concatenating orientations.</b>
     * <p>
-    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfMatrixProper()} on <code>matrixOriginal</code> and <code>matrix</code>.
+    * Before the transformation is performed, this calls {@linkplain Matrix3DReadOnly#checkIfRotationMatrixProper()} on {@code matrixOriginal} and {@code matrix}.
     * <p>
-    * <code>matrixOriginal</code> and <code>matrixTransformed</code> can be the same instance to perform in-place transformation.
+    * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform in-place transformation.
     * 
-    * @param matrix the matrix used to transform <code>matrixOriginal</code>, not null, not modified.
+    * @param matrix the matrix used to transform {@code matrixOriginal}, not null, not modified.
     * @param matrixOriginal the original matrix to use for the transformation, not null, not modified.
     * @param matrixTransformed the matrix used to stored the result of the transformation, not null, modified.
     */

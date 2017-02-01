@@ -389,7 +389,7 @@ public abstract class QuaternionTools
       transform(quaternion, matrixToTransform, matrixToTransform);
    }
 
-   public static void transform(QuaternionReadOnly quaternion, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void transform(QuaternionReadOnly quaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
@@ -458,22 +458,22 @@ public abstract class QuaternionTools
       transform(quaternion, rotationMatrixToTransform, rotationMatrixToTransform);
    }
 
-   public static void transform(QuaternionReadOnly quaternion, RotationMatrixReadOnly rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
+   public static void transform(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
    {
       multiply(quaternion, rotationMatrixOriginal, rotationMatrixTransformed);
    }
 
-   public static void multiply(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+   public static void multiply(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics quaternionToPack)
    {
       multiplyImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), matrix, quaternionToPack);
    }
 
-   public static void multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+   public static void multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics quaternionToPack)
    {
       multiplyImpl(-quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), matrix, quaternionToPack);
    }
 
-   private static void multiplyImpl(double qx, double qy, double qz, double qs, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+   private static void multiplyImpl(double qx, double qy, double qz, double qs, RotationMatrixReadOnly<?> matrix, QuaternionBasics quaternionToPack)
    {
       QuaternionConversion.convertMatrixToQuaternion(matrix, quaternionToPack);
       double q2x = quaternionToPack.getX();
@@ -483,17 +483,17 @@ public abstract class QuaternionTools
       multiplyImpl(qx, qy, qz, qs, q2x, q2y, q2z, q2s, quaternionToPack);
    }
 
-   public static void multiply(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
+   public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
    {
       multiplyImpl(matrix, quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), quaternionToPack);
    }
 
-   public static void multiplyConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
+   public static void multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
    {
       multiplyImpl(matrix, -quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), quaternionToPack);
    }
 
-   private static void multiplyImpl(RotationMatrixReadOnly matrix, double qx, double qy, double qz, double qs, QuaternionBasics quaternionToPack)
+   private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, double qx, double qy, double qz, double qs, QuaternionBasics quaternionToPack)
    {
       QuaternionConversion.convertMatrixToQuaternion(matrix, quaternionToPack);
       double q1x = quaternionToPack.getX();
@@ -503,17 +503,17 @@ public abstract class QuaternionTools
       multiplyImpl(q1x, q1y, q1z, q1s, qx, qy, qz, qs, quaternionToPack);
    }
 
-   public static void multiply(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
+   public static void multiply(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), matrix, matrixToPack);
    }
 
-   public static void multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
+   public static void multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(-quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), matrix, matrixToPack);
    }
 
-   private static void multiplyImpl(double qx, double qy, double qz, double qs, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
+   private static void multiplyImpl(double qx, double qy, double qz, double qs, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
       if (matrix != matrixToPack)
       {
@@ -569,17 +569,17 @@ public abstract class QuaternionTools
       }
    }
 
-   public static void multiply(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
+   public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), matrixToPack);
    }
 
-   public static void multiplyConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
+   public static void multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, -quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), matrixToPack);
    }
 
-   private static void multiplyImpl(RotationMatrixReadOnly matrix, double qx, double qy, double qz, double qs, RotationMatrix matrixToPack)
+   private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, double qx, double qy, double qz, double qs, RotationMatrix matrixToPack)
    {
       if (matrix != matrixToPack)
       {

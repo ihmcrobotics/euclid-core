@@ -13,7 +13,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
-import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
@@ -227,7 +226,7 @@ public class RotationMatrixTest
          try
          {
             rotationMatrix = new RotationMatrix(matrix);
-            rotationMatrix.checkIfMatrixProper();
+            rotationMatrix.checkIfRotationMatrix();
             Assert.assertTrue(matrix.isRotationMatrix());
          }
          catch (RuntimeException e)
@@ -549,20 +548,6 @@ public class RotationMatrixTest
       RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test get(AxisAngleBasics axisAngleToPack)
-         rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-
-         AxisAngle axisAngle = new AxisAngle();
-         AxisAngle expectedAxisAngle = new AxisAngle();
-
-         rotationMatrix.get(axisAngle);
-         AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, expectedAxisAngle);
-
-         GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
-         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test get(QuaternionBasics quaternionToPack)
          rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
@@ -588,20 +573,6 @@ public class RotationMatrixTest
 
          GeometryBasicsTestTools.assertRotationVectorEquals(vector, expectedVector, EPS);
          GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test get(RotationMatrix rotationMatrixToPack)
-         rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-
-         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-
-         RotationMatrix rotationMatrix2 = new RotationMatrix();
-         rotationMatrix2.setToNaN();
-         rotationMatrix.get(rotationMatrix2);
-
-         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrix2, EPS);
       }
    }
 
@@ -654,7 +625,7 @@ public class RotationMatrixTest
       int startRow = random.nextInt(10);
       int startColumn = random.nextInt(10);
       denseMatrix = new DenseMatrix64F(3 + startRow, 3 + startColumn);
-      matrix.get(denseMatrix, startRow, startColumn);
+      matrix.get(startRow, startColumn, denseMatrix);
 
       for (int row = 0; row < 3; row++)
       {
@@ -1553,7 +1524,7 @@ public class RotationMatrixTest
          RotationMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          Quaternion original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
 
-         RotationMatrixTools.transform(matrix, original, expected);
+         matrix.transform(original, expected);
          actual.set(original);
          matrix.transform(actual);
          GeometryBasicsTestTools.assertQuaternionEquals(expected, actual, EPS);
@@ -1576,7 +1547,7 @@ public class RotationMatrixTest
          RotationMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
 
-         RotationMatrixTools.transform(matrix, original, expected);
+         matrix.transform(original, expected);
          actual.set(original);
          matrix.transform(actual);
          GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, EPS);
@@ -1599,7 +1570,7 @@ public class RotationMatrixTest
          RotationMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
-         RotationMatrixTools.transform(matrix, original, expected);
+         matrix.transform(original, expected);
          actual.set(original);
          matrix.transform(actual);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);

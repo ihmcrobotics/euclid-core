@@ -543,7 +543,7 @@ public class Matrix3DTest
          matrix2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          matrix2Copy.set(matrix2);
 
-         matrix.multiplyOuter(matrix2);
+         matrix.setAndMultiplyOuter(matrix2);
          expectedMatrix.set(matrix2);
          expectedMatrix.multiplyOuter();
 
@@ -1389,7 +1389,7 @@ public class Matrix3DTest
       int startRow = random.nextInt(10);
       int startColumn = random.nextInt(10);
       denseMatrix = new DenseMatrix64F(3 + startRow, 3 + startColumn);
-      matrix.get(denseMatrix, startRow, startColumn);
+      matrix.get(startRow, startColumn, denseMatrix);
 
       for (int row = 0; row < 3; row++)
       {

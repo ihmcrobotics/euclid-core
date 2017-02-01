@@ -11,9 +11,10 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 /**
  * An {@code AxisAngle}  is used to represent a 3D orientation by a unitary axis
  * of components (x, y, z) and an angle of rotation usually expressed in radians.
- * 
+ * <p>
  * This version of axis-angle uses double precision fields to save the value of each component.
  * It is meant for garbage free usage.
+ * </P
  * 
  * @author Sylvain
  */
@@ -42,7 +43,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
    /**
     * Creates an axis-angle that is the same as {@code other}.
     * 
-    * @param other
+    * @param other the other axis-angle to copy the values from. Not modified.
     */
    public AxisAngle(AxisAngleReadOnly<?> other)
    {
@@ -109,7 +110,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
     * 
     * @param rotationMatrix the rotation matrix used to create this axis-angle. Not modified.
     */
-   public AxisAngle(RotationMatrixReadOnly rotationMatrix)
+   public AxisAngle(RotationMatrixReadOnly<?> rotationMatrix)
    {
       set(rotationMatrix);
    }
@@ -118,6 +119,11 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
     * Creates an axis-angle such that it represents the same
     * orientation the rotation vector represents.
     * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(VectorReadOnly, AxisAngleBasics)}.
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
     * 
     * @param rotationVector the rotation vector used to create this axis-angle. Not modified.
     */

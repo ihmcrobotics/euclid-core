@@ -51,7 +51,7 @@ public abstract class YawPitchRollConversion
       return Math.atan2(m21, m22);
    }
 
-   public static double computeYaw(RotationMatrixReadOnly rotationMatrix)
+   public static double computeYaw(RotationMatrixReadOnly<?> rotationMatrix)
    {
       rotationMatrix.normalize();
 
@@ -61,13 +61,13 @@ public abstract class YawPitchRollConversion
          return computeYawImpl(rotationMatrix.getM00(), rotationMatrix.getM10());
    }
 
-   public static double computePitch(RotationMatrixReadOnly rotationMatrix)
+   public static double computePitch(RotationMatrixReadOnly<?> rotationMatrix)
    {
       rotationMatrix.normalize();
       return computePitchImpl(rotationMatrix.getM20());
    }
 
-   public static double computeRoll(RotationMatrixReadOnly rotationMatrix)
+   public static double computeRoll(RotationMatrixReadOnly<?> rotationMatrix)
    {
       rotationMatrix.normalize();
 
@@ -77,22 +77,22 @@ public abstract class YawPitchRollConversion
          return computeRollImpl(rotationMatrix.getM21(), rotationMatrix.getM22());
    }
 
-   public static double computeYaw(RotationScaleMatrixReadOnly rotationScaleMatrix)
+   public static double computeYaw(RotationScaleMatrixReadOnly<?> rotationScaleMatrix)
    {
       return computeYaw(rotationScaleMatrix.getRotationMatrix());
    }
 
-   public static double computePitch(RotationScaleMatrixReadOnly rotationScaleMatrix)
+   public static double computePitch(RotationScaleMatrixReadOnly<?> rotationScaleMatrix)
    {
       return computePitch(rotationScaleMatrix.getRotationMatrix());
    }
 
-   public static double computeRoll(RotationScaleMatrixReadOnly rotationScaleMatrix)
+   public static double computeRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix)
    {
       return computeRoll(rotationScaleMatrix.getRotationMatrix());
    }
 
-   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly rotationMatrix, double[] yawPitchRollToPack)
+   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, double[] yawPitchRollToPack)
    {
       rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());
@@ -109,7 +109,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly rotationMatrix, TupleBasics eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, TupleBasics eulerAnglesToPack)
    {
       rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());
@@ -127,12 +127,12 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly rotationScaleMatrix, double[] yawPitchRollToPack)
+   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, double[] yawPitchRollToPack)
    {
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), yawPitchRollToPack);
    }
 
-   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly rotationScaleMatrix, TupleBasics eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, TupleBasics eulerAnglesToPack)
    {
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), eulerAnglesToPack);
    }

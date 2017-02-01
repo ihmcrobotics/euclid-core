@@ -110,7 +110,7 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
     * 
     * @param rotationMatrix the rotation matrix used to create this axis-angle. Not modified.
     */
-   public AxisAngle32(RotationMatrixReadOnly rotationMatrix)
+   public AxisAngle32(RotationMatrixReadOnly<?> rotationMatrix)
    {
       set(rotationMatrix);
    }

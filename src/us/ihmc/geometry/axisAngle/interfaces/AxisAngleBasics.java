@@ -9,9 +9,11 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
  * Write and read interface for an axis-angle object.
+ * <p>
  * An axis-angle is used to represent a 3D orientation by a unitary axis
  * of components (x, y, z) and an angle of rotation usually expressed in radians.
- *
+ * </p>
+ * 
  * @author Sylvain
  */
 public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngleReadOnly<T>, Settable<T>
@@ -156,6 +158,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * </ul>
     * 
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
+    * @param startIndex the first index to start reading from in the array.
     */
    default void set(double[] axisAngleArray, int startIndex)
    {
@@ -191,6 +194,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * </ul>
     * 
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
+    * @param startIndex the first index to start reading from in the array.
     */
    default void set(float[] axisAngleArray, int startIndex)
    {
@@ -250,7 +254,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * 
     * @param rotationMatrix the rotation matrix to convert. Not modified.
     */
-   default void set(RotationMatrixReadOnly rotationMatrix)
+   default void set(RotationMatrixReadOnly<?> rotationMatrix)
    {
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, this);
    }
@@ -259,6 +263,11 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * Sets the components of this axis-angle such that it represents the same
     * orientation as the given {@code rotationVector}.
     * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(VectorReadOnly, AxisAngleBasics)}.
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
     * 
     * @param rotationVector the rotation vector to convert. Not modified.
     */

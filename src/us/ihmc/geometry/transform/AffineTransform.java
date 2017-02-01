@@ -9,7 +9,6 @@ import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.Matrix3DReadOnlyTools;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.matrix.RotationMatrixTools;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
@@ -50,7 +49,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       set(rigidBodyTransform);
    }
 
-   public AffineTransform(RotationScaleMatrixReadOnly rotationScaleMatrix, TupleReadOnly translation)
+   public AffineTransform(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, TupleReadOnly translation)
    {
       set(rotationScaleMatrix, translation);
    }
@@ -154,49 +153,49 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       translationVector.set(m03, m13, m23);
    }
 
-   public void set(Matrix3DReadOnly rotationScaleMatrix, TupleReadOnly translation)
+   public void set(Matrix3DReadOnly<?> rotationScaleMatrix, TupleReadOnly translation)
    {
       this.rotationScaleMatrix.set(rotationScaleMatrix);
       translationVector.set(translation);
    }
 
-   public void set(RotationScaleMatrixReadOnly rotationScaleMatrix, TupleReadOnly translation)
+   public void set(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, TupleReadOnly translation)
    {
       this.rotationScaleMatrix.set(rotationScaleMatrix);
       translationVector.set(translation);
    }
 
-   public void set(Matrix3DReadOnly rotationMatrix, double scale, TupleReadOnly translation)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, double scale, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scale);
       translationVector.set(translation);
    }
 
-   public void set(Matrix3DReadOnly rotationMatrix, double scalex, double scaley, double scalez, TupleReadOnly translation)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, double scalex, double scaley, double scalez, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scalex, scaley, scalez);
       translationVector.set(translation);
    }
 
-   public void set(Matrix3DReadOnly rotationMatrix, TupleReadOnly scales, TupleReadOnly translation)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, TupleReadOnly scales, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scales);
       translationVector.set(translation);
    }
 
-   public void set(RotationMatrixReadOnly rotationMatrix, double scale, TupleReadOnly translation)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix, double scale, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scale);
       translationVector.set(translation);
    }
 
-   public void set(RotationMatrixReadOnly rotationMatrix, double scalex, double scaley, double scalez, TupleReadOnly translation)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix, double scalex, double scaley, double scalez, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scalex, scaley, scalez);
       translationVector.set(translation);
    }
 
-   public void set(RotationMatrixReadOnly rotationMatrix, TupleReadOnly scales, TupleReadOnly translation)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix, TupleReadOnly scales, TupleReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scales);
       translationVector.set(translation);
@@ -258,7 +257,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       rotationScaleMatrix.setRotation(quaternion);
    }
 
-   public void setRotation(Matrix3DReadOnly rotationMatrix)
+   public void setRotation(Matrix3DReadOnly<?> rotationMatrix)
    {
       rotationScaleMatrix.setRotation(rotationMatrix);
    }
@@ -325,7 +324,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    public void preMultiply(RigidBodyTransform other)
    {
-      RotationMatrixTools.transform(other.getRotationMatrix(), translationVector, translationVector);
+      other.transform(translationVector);
       translationVector.add(other.getTranslationVector());
       rotationScaleMatrix.preMultiply(other.getRotationMatrix());
    }
@@ -387,7 +386,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       rotationScaleMatrix.transform(matrixToTransform);
    }
 
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       rotationScaleMatrix.transform(matrixOriginal, matrixTransformed);
    }
@@ -488,7 +487,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    public void get(DenseMatrix64F matrixToPack, int startRow, int startColumn)
    {
-      rotationScaleMatrix.get(matrixToPack, startRow, startColumn);
+      rotationScaleMatrix.get(startRow, startColumn, matrixToPack);
       translationVector.get(matrixToPack, startRow, startColumn + 3);
       startRow += 3;
       matrixToPack.set(startRow, startColumn++, 0.0);
@@ -497,7 +496,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       matrixToPack.set(startRow, startColumn, 1.0);
    }
 
-   public void get(Matrix3DBasics rotationScaleMarixToPack, TupleBasics translationToPack)
+   public void get(Matrix3DBasics<?> rotationScaleMarixToPack, TupleBasics translationToPack)
    {
       rotationScaleMarixToPack.set(rotationScaleMatrix);
       translationToPack.set(translationVector);
@@ -529,12 +528,12 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       transformArrayToPack[15] = getM33();
    }
 
-   public RotationMatrixReadOnly getRotationMatrix()
+   public RotationMatrixReadOnly<?> getRotationMatrix()
    {
       return rotationScaleMatrix.getRotationMatrix();
    }
 
-   public void getRotation(Matrix3DBasics rotationMatrixToPack)
+   public void getRotation(Matrix3DBasics<?> rotationMatrixToPack)
    {
       rotationMatrixToPack.set(rotationScaleMatrix.getRotationMatrix());
    }
@@ -569,12 +568,12 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       rotationScaleMatrix.getRotation(rotationVectorToPack);
    }
 
-   public RotationScaleMatrixReadOnly getRotationScaleMatrix()
+   public RotationScaleMatrixReadOnly<?> getRotationScaleMatrix()
    {
       return rotationScaleMatrix;
    }
 
-   public void getRotationScale(Matrix3DBasics rotationMatrixToPack)
+   public void getRotationScale(Matrix3DBasics<?> rotationMatrixToPack)
    {
       rotationMatrixToPack.set(rotationScaleMatrix);
    }

@@ -947,7 +947,7 @@ public class Matrix3DToolsTest
          matrixExpected.set(matrix);
          matrixExpected.multiply(matrixOriginal);
          qExpected.set(matrixExpected);
-         RotationMatrixTools.transform(matrix, qOriginal, qActual);
+         matrix.transform(qOriginal, qActual);
          GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, EPS);
       }
    }
