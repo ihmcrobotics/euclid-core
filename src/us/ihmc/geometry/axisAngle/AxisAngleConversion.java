@@ -2,20 +2,41 @@ package us.ihmc.geometry.axisAngle;
 
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
+import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.geometry.tuple.RotationVectorConversion;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
+/**
+ * This class gathers all the methods necessary to converts any type of rotation into an axis-angle.
+ * <p>
+ * To convert an orientation into other data structure types see:
+ * <ul>
+ *    <li> for quaternion: {@link QuaternionConversion},
+ *    <li> for rotation matrix: {@link RotationMatrixConversion},
+ *    <li> for rotation vector: {@link RotationVectorConversion},
+ *    <li> for yaw-pitch-roll: {@link YawPitchRollConversion}.
+ * </ul>
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public class AxisAngleConversion
 {
    private static final double EPS = 1.0e-12;
 
    /**
     * Converts the rotation part of the given rotation-scale matrix into an axis-angle.
+    * <p>
     * After calling this method, the orientation represented by the axis-angle is the same 
     * as the given rotation part of the rotation-scale matrix.
+    * </p>
     * <p>
     * Edge case:
     * <ul>
@@ -35,8 +56,10 @@ public class AxisAngleConversion
 
    /**
     * Converts the given rotation matrix into an axis-angle.
-    * After calling this method, the orientation represented by the axis-angle is the same 
+    * <p>
+    * After calling this method, the orientation represented by the axis-angle is the same
     * as the given rotation matrix.
+    * </p>
     * <p>
     * Edge case:
     * <ul>
@@ -62,6 +85,35 @@ public class AxisAngleConversion
       convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, axisAngleToPack);
    }
 
+   /**
+    * Converts the given rotation matrix into an axis-angle.
+    * <p>
+    * <b> This method is for internal use. Use {@link #convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}
+    * or {@link #convertMatrixToAxisAngle(RotationScaleMatrixReadOnly, AxisAngleBasics)} instead. </b>
+    * </p>
+    * <p>
+    * After calling this method, the orientation represented by the axis-angle is the same
+    * as the given rotation matrix.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    *   <li> if the rotation matrix contains at least one {@link Double#NaN}, the axis-angle is 
+    *    set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param m00 the new 1st row 1st column coefficient for the matrix to use for the conversion.
+    * @param m01 the new 1st row 2nd column coefficient for the matrix to use for the conversion.
+    * @param m02 the new 1st row 3rd column coefficient for the matrix to use for the conversion.
+    * @param m10 the new 2nd row 1st column coefficient for the matrix to use for the conversion.
+    * @param m11 the new 2nd row 2nd column coefficient for the matrix to use for the conversion.
+    * @param m12 the new 2nd row 3rd column coefficient for the matrix to use for the conversion.
+    * @param m20 the new 3rd row 1st column coefficient for the matrix to use for the conversion.
+    * @param m21 the new 3rd row 2nd column coefficient for the matrix to use for the conversion.
+    * @param m22 the new 3rd row 3rd column coefficient for the matrix to use for the conversion.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
    static void convertMatrixToAxisAngleImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
          AxisAngleBasics<?> axisAngleToPack)
    {
@@ -128,7 +180,9 @@ public class AxisAngleConversion
 
    /**
     * Converts the given quaternion into an axis-angle.
+    * <p>
     * After calling this method, the quaternion and the axis-angle represent the same orientation.
+    * </p>
     * <p>
     * Edge case:
     * <ul>
@@ -139,16 +193,36 @@ public class AxisAngleConversion
     * </ul>
     * </p>
     * 
-    * 
     * @param quaternion the unit quaternion to use for the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
    public static void convertQuaternionToAxisAngle(QuaternionReadOnly quaternion, AxisAngleBasics<?> axisAngleToPack)
    {
-      convertQuaternionToAxisAngleImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), axisAngleToPack);
+      convertQuaternionToAxisAngle(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), axisAngleToPack);
    }
 
-   static void convertQuaternionToAxisAngleImpl(double qx, double qy, double qz, double qs, AxisAngleBasics<?> axisAngleToPack)
+   /**
+    * Converts the given quaternion into an axis-angle.
+    * <p>
+    * After calling this method, the quaternion and the axis-angle represent the same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    *   <li> if the quaternion contains at least one {@link Double#NaN}, the axis-angle is 
+    *    set to {@link Double#NaN}.
+    *   <li> if the norm of the vector part of the quaternion is less than {@value #EPS}, the axis-angle
+    *    is set to zero via {@link AxisAngleBasics#setToZero()}.
+    * </ul>
+    * </p>
+    * 
+    * @param qx the vector part x-component of the unit quaternion to use for the conversion.
+    * @param qy the vector part y-component of the unit quaternion to use for the conversion.
+    * @param qz the vector part z-component of the unit quaternion to use for the conversion.
+    * @param qs the scalar part of the unit quaternion to use for the conversion.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertQuaternionToAxisAngle(double qx, double qy, double qz, double qs, AxisAngleBasics<?> axisAngleToPack)
    {
       if (Tuple4DTools.containsNaN(qx, qy, qz, qs))
       {
@@ -174,7 +248,9 @@ public class AxisAngleConversion
 
    /**
     * Converts the rotation vector into an axis-angle.
+    * <p>
     * After calling this method, the rotation vector and the axis-angle represent the same orientation.
+    * </p>
     * <p>
     * Edge case:
     * <ul>
@@ -193,10 +269,33 @@ public class AxisAngleConversion
     */
    public static void convertRotationVectorToAxisAngle(VectorReadOnly rotationVector, AxisAngleBasics<?> axisAngleToPack)
    {
-      convertRotationVectorToAxisAngleImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), axisAngleToPack);
+      convertRotationVectorToAxisAngle(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), axisAngleToPack);
    }
 
-   static void convertRotationVectorToAxisAngleImpl(double rx, double ry, double rz, AxisAngleBasics<?> axisAngleToPack)
+   /**
+    * Converts the rotation vector into an axis-angle.
+    * <p>
+    * After calling this method, the rotation vector and the axis-angle represent the same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    *    <li> if the rotation vector contains at least a {@link Double#NaN}, the axis-angle is set
+    *     to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    * 
+    * @param rx the x-component of the rotation vector to use in the conversion.
+    * @param ry the y-component of the rotation vector to use in the conversion.
+    * @param rz the z-component of the rotation vector to use in the conversion.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertRotationVectorToAxisAngle(double rx, double ry, double rz, AxisAngleBasics<?> axisAngleToPack)
    {
       if (Double.isNaN(rx) || Double.isNaN(ry) || Double.isNaN(rz))
       {
@@ -222,7 +321,9 @@ public class AxisAngleConversion
 
    /**
     * Converts the given yaw-pitch-roll angles into an axis-angles.
+    * <p>
     * After calling this method, the yaw-pitch-roll and the axis-angle represent the same orientation.
+    * </p>
     * <p>
     * Edge case:
     * <ul>
@@ -248,7 +349,9 @@ public class AxisAngleConversion
    
    /**
     * Converts the given yaw-pitch-roll angles into an axis-angles.
+    * <p>
     * After calling this method, the yaw-pitch-roll and the axis-angle represent the same orientation.
+    * </p>
     * <p>
     * Edge case:
     * <ul>
@@ -288,6 +391,6 @@ public class AxisAngleConversion
       double qy = sYaw * cPitch * sRoll + cYaw * sPitch * cRoll;
       double qz = sYaw * cPitch * cRoll - cYaw * sPitch * sRoll;
 
-      convertQuaternionToAxisAngleImpl(qx, qy, qz, qs, axisAngleToPack);
+      convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);
    }
 }

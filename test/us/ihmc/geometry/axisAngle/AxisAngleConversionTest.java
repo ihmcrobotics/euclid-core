@@ -44,7 +44,7 @@ public class AxisAngleConversionTest
          double qx = ux * Math.sin(angle / 2.0);
          double qy = uy * Math.sin(angle / 2.0);
          double qz = uz * Math.sin(angle / 2.0);
-         AxisAngleConversion.convertQuaternionToAxisAngleImpl(qx, qy, qz, qs, axisAngle);
+         AxisAngleConversion.convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngle);
 
          if (axisAngle.getAngle() * angle < 0.0)
          {
@@ -67,7 +67,7 @@ public class AxisAngleConversionTest
          double qx = originalAxisAngle.getX() * Math.sin(originalAxisAngle.getAngle() / 2.0);
          double qy = originalAxisAngle.getY() * Math.sin(originalAxisAngle.getAngle() / 2.0);
          double qz = originalAxisAngle.getZ() * Math.sin(originalAxisAngle.getAngle() / 2.0);
-         AxisAngleConversion.convertQuaternionToAxisAngleImpl(qx, qy, qz, qs, axisAngle);
+         AxisAngleConversion.convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngle);
 
          GeometryBasicsTestTools.assertAxisAngleEqualsSmart(originalAxisAngle, axisAngle, EPSILON);
          GeometryBasicsTestTools.assertAxisUnitary(axisAngle, EPSILON);
@@ -89,7 +89,7 @@ public class AxisAngleConversionTest
       double qx = scale * ux * Math.sin(angle / 2.0);
       double qy = scale * uy * Math.sin(angle / 2.0);
       double qz = scale * uz * Math.sin(angle / 2.0);
-      AxisAngleConversion.convertQuaternionToAxisAngleImpl(qx, qy, qz, qs, axisAngle);
+      AxisAngleConversion.convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngle);
 
       if (axisAngle.getAngle() * angle < 0.0)
       {
@@ -102,19 +102,19 @@ public class AxisAngleConversionTest
       assertEquals(angle, axisAngle.getAngle(), EPSILON);
       GeometryBasicsTestTools.assertAxisUnitary(axisAngle, EPSILON);
 
-      AxisAngleConversion.convertQuaternionToAxisAngleImpl(0.0, 0.0, 0.0, 0.0, axisAngle);
+      AxisAngleConversion.convertQuaternionToAxisAngle(0.0, 0.0, 0.0, 0.0, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleIsSetToZero(axisAngle);
 
-      AxisAngleConversion.convertQuaternionToAxisAngleImpl(0.0, 0.0, 0.0, Double.NaN, axisAngle);
+      AxisAngleConversion.convertQuaternionToAxisAngle(0.0, 0.0, 0.0, Double.NaN, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
-      AxisAngleConversion.convertQuaternionToAxisAngleImpl(0.0, 0.0, Double.NaN, 0.0, axisAngle);
+      AxisAngleConversion.convertQuaternionToAxisAngle(0.0, 0.0, Double.NaN, 0.0, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
-      AxisAngleConversion.convertQuaternionToAxisAngleImpl(0.0, Double.NaN, 0.0, 0.0, axisAngle);
+      AxisAngleConversion.convertQuaternionToAxisAngle(0.0, Double.NaN, 0.0, 0.0, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
-      AxisAngleConversion.convertQuaternionToAxisAngleImpl(Double.NaN, 0.0, 0.0, 0.0, axisAngle);
+      AxisAngleConversion.convertQuaternionToAxisAngle(Double.NaN, 0.0, 0.0, 0.0, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
       // Test with an actual Quaternion
@@ -123,7 +123,7 @@ public class AxisAngleConversionTest
       {
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
-         AxisAngleConversion.convertQuaternionToAxisAngleImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), expectedAxisAngle);
+         AxisAngleConversion.convertQuaternionToAxisAngle(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), expectedAxisAngle);
          assertTrue(expectedAxisAngle.getX() == axisAngle.getX());
          assertTrue(expectedAxisAngle.getY() == axisAngle.getY());
          assertTrue(expectedAxisAngle.getZ() == axisAngle.getZ());
@@ -146,22 +146,22 @@ public class AxisAngleConversionTest
          double rx = expectedAxisAngle.getX() * expectedAxisAngle.getAngle();
          double ry = expectedAxisAngle.getY() * expectedAxisAngle.getAngle();
          double rz = expectedAxisAngle.getZ() * expectedAxisAngle.getAngle();
-         AxisAngleConversion.convertRotationVectorToAxisAngleImpl(rx, ry, rz, actualAxisAngle);
+         AxisAngleConversion.convertRotationVectorToAxisAngle(rx, ry, rz, actualAxisAngle);
 
          GeometryBasicsTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
          GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
       }
 
-      AxisAngleConversion.convertRotationVectorToAxisAngleImpl(0.0, 0.0, 0.0, actualAxisAngle);
+      AxisAngleConversion.convertRotationVectorToAxisAngle(0.0, 0.0, 0.0, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleIsSetToZero(actualAxisAngle);
 
-      AxisAngleConversion.convertRotationVectorToAxisAngleImpl(Double.NaN, 0.0, 0.0, actualAxisAngle);
+      AxisAngleConversion.convertRotationVectorToAxisAngle(Double.NaN, 0.0, 0.0, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
 
-      AxisAngleConversion.convertRotationVectorToAxisAngleImpl(0.0, Double.NaN, 0.0, actualAxisAngle);
+      AxisAngleConversion.convertRotationVectorToAxisAngle(0.0, Double.NaN, 0.0, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
 
-      AxisAngleConversion.convertRotationVectorToAxisAngleImpl(0.0, 0.0, Double.NaN, actualAxisAngle);
+      AxisAngleConversion.convertRotationVectorToAxisAngle(0.0, 0.0, Double.NaN, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
 
       // Test with an actual vector
@@ -169,7 +169,7 @@ public class AxisAngleConversionTest
       {
          Vector rotationVector = GeometryBasicsRandomTools.generateRandomVector(random);
          Vector rotationVectorCopy = new Vector(rotationVector);
-         AxisAngleConversion.convertRotationVectorToAxisAngleImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), expectedAxisAngle);
+         AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), expectedAxisAngle);
          AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, actualAxisAngle);
 
          GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, EPSILON);
@@ -395,7 +395,7 @@ public class AxisAngleConversionTest
       for (int i = 0; i < 1000; i++)
       {
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         RotationScaleMatrixReadOnly rotationScaleMatrixCopy = new RotationScaleMatrix(rotationScaleMatrix);
+         RotationScaleMatrixReadOnly<?> rotationScaleMatrixCopy = new RotationScaleMatrix(rotationScaleMatrix);
          m00 = rotationScaleMatrix.getRotationMatrix().getM00();
          m01 = rotationScaleMatrix.getRotationMatrix().getM01();
          m02 = rotationScaleMatrix.getRotationMatrix().getM02();

@@ -171,9 +171,9 @@ public class Matrix3DToolsTest
          RotationMatrix m1 = new RotationMatrix();
          RotationMatrix m2 = new RotationMatrix();
 
-         RotationMatrixConversion.convertAxisAngleToMatrixImpl(axis.getX(), axis.getY(), axis.getZ(), angle1, m1);
-         RotationMatrixConversion.convertAxisAngleToMatrixImpl(axis.getX(), axis.getY(), axis.getZ(), angle2, m2);
-         RotationMatrixConversion.convertAxisAngleToMatrixImpl(axis.getX(), axis.getY(), axis.getZ(), angle1 + angle2, rotationMatrixExpected);
+         RotationMatrixConversion.convertAxisAngleToMatrix(axis.getX(), axis.getY(), axis.getZ(), angle1, m1);
+         RotationMatrixConversion.convertAxisAngleToMatrix(axis.getX(), axis.getY(), axis.getZ(), angle2, m2);
+         RotationMatrixConversion.convertAxisAngleToMatrix(axis.getX(), axis.getY(), axis.getZ(), angle1 + angle2, rotationMatrixExpected);
 
          RotationMatrixTools.multiply(m1, m2, rotationMatrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrixExpected, rotationMatrixActual, EPS);
@@ -189,8 +189,8 @@ public class Matrix3DToolsTest
          RotationMatrix rotationMatrixExpected = new RotationMatrix();
          RotationMatrix rotationMatrixActual = new RotationMatrix();
 
-         RotationMatrixConversion.convertAxisAngleToMatrixImpl(axis.getX(), axis.getY(), axis.getZ(), angle, rotationMatrixActual);
-         RotationMatrixConversion.convertAxisAngleToMatrixImpl(axis.getX(), axis.getY(), axis.getZ(), 2.0 * angle, rotationMatrixExpected);
+         RotationMatrixConversion.convertAxisAngleToMatrix(axis.getX(), axis.getY(), axis.getZ(), angle, rotationMatrixActual);
+         RotationMatrixConversion.convertAxisAngleToMatrix(axis.getX(), axis.getY(), axis.getZ(), 2.0 * angle, rotationMatrixExpected);
 
          RotationMatrixTools.multiply(rotationMatrixActual, rotationMatrixActual, rotationMatrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrixExpected, rotationMatrixActual, EPS);
