@@ -10,6 +10,7 @@ import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
+import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.PointBasics;
@@ -298,11 +299,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    @Override
-   public void transform(PointBasics pointToTransform)
-   {
-      transform(pointToTransform, pointToTransform);
-   }
-
    public void transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
    {
       quaternion.transform(pointOriginal, pointTransformed);
@@ -310,87 +306,46 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    @Override
-   public void transform(VectorBasics vectorToTransform)
-   {
-      transform(vectorToTransform, vectorToTransform);
-   }
-
    public void transform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
    {
       quaternion.transform(vectorOriginal, vectorTransformed);
    }
 
    @Override
-   public void transform(QuaternionBasics quaternionToTransform)
-   {
-      quaternion.transform(quaternionToTransform);
-   }
-
    public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       quaternion.transform(quaternionOriginal, quaternionTransformed);
    }
 
    @Override
-   public void transform(Vector4DBasics vectorToTransform)
+   public void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
    {
-      quaternion.transform(vectorToTransform);
-   }
-
-   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-   {
-      quaternion.transform(vectorOriginal, vectorTransformed);
+      quaternion.transform(vector4DOriginal, vector4DTransformed);
    }
 
    @Override
-   public void transform(Matrix3D matrixToTransform)
-   {
-      quaternion.transform(matrixToTransform);
-   }
-
    public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       quaternion.transform(matrixOriginal, matrixTransformed);
    }
 
    @Override
-   public void transform(RotationMatrix matrixToTransform)
+   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTranformed)
    {
-      quaternion.transform(matrixToTransform);
+      quaternion.transform(matrixOriginal, matrixTranformed);
    }
 
    @Override
-   public void transform(Point2DBasics pointToTransform)
+   public void transform(Point2DBasics point2DOriginal, Point2DBasics point2DTransformed, boolean checkIfTransformInXYPlane)
    {
-      transform(pointToTransform, pointToTransform);
+      quaternion.transform(point2DOriginal, point2DTransformed, checkIfTransformInXYPlane);
+      point2DTransformed.add(translationVector.getX(), translationVector.getY());
    }
 
    @Override
-   public void transform(Point2DBasics pointToTransform, boolean checkIfTransformInXYPlane)
+   public void transform(Vector2DReadOnly vector2DOriginal, Vector2DBasics vector2DTransformed, boolean checkIfTransformInXYPlane)
    {
-      transform(pointToTransform, pointToTransform, checkIfTransformInXYPlane);
-   }
-
-   public void transform(Point2DBasics pointOriginal, Point2DBasics pointTransformed)
-   {
-      transform(pointOriginal, pointTransformed, true);
-   }
-
-   public void transform(Point2DBasics pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
-   {
-      quaternion.transform(pointOriginal, pointTransformed, checkIfTransformInXYPlane);
-      pointTransformed.add(translationVector.getX(), translationVector.getY());
-   }
-
-   @Override
-   public void transform(Vector2DBasics vectorToTransform)
-   {
-      transform(vectorToTransform, vectorToTransform);
-   }
-
-   public void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed)
-   {
-      quaternion.transform(vectorOriginal, vectorTransformed);
+      quaternion.transform(vector2DOriginal, vector2DTransformed, checkIfTransformInXYPlane);
    }
 
    public void inverseTransform(PointBasics pointToTransform)

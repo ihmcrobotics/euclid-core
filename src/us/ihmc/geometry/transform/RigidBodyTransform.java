@@ -477,11 +477,6 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
-   public void transform(PointBasics pointToTransform)
-   {
-      transform(pointToTransform, pointToTransform);
-   }
-
    public void transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
    {
       rotationMatrix.transform(pointOriginal, pointTransformed);
@@ -489,84 +484,43 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
-   public void transform(VectorBasics vectorToTransform)
-   {
-      transform(vectorToTransform, vectorToTransform);
-   }
-
    public void transform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
    {
       rotationMatrix.transform(vectorOriginal, vectorTransformed);
    }
 
    @Override
-   public void transform(QuaternionBasics quaternionToTransform)
-   {
-      rotationMatrix.transform(quaternionToTransform);
-   }
-
    public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       rotationMatrix.transform(quaternionOriginal, quaternionTransformed);
    }
 
    @Override
-   public void transform(Vector4DBasics vectorToTransform)
+   public void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
    {
-      rotationMatrix.transform(vectorToTransform);
-   }
-
-   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-   {
-      rotationMatrix.transform(vectorOriginal, vectorTransformed);
+      rotationMatrix.transform(vector4DOriginal, vector4DTransformed);
    }
 
    @Override
-   public void transform(Point2DBasics pointToTransform)
+   public void transform(Point2DBasics point2DOriginal, Point2DBasics point2DTransformed, boolean checkIfTransformInXYPlane)
    {
-      transform(pointToTransform, pointToTransform);
+      rotationMatrix.transform(point2DOriginal, point2DTransformed, checkIfTransformInXYPlane);
+      point2DTransformed.add(translationVector.getX(), translationVector.getY());
    }
 
    @Override
-   public void transform(Point2DBasics pointToTransform, boolean checkIfTransformInXYPlane)
+   public void transform(Vector2DReadOnly vector2DOriginal, Vector2DBasics vector2DTransformed, boolean checkIfTransformInXYPlane)
    {
-      transform(pointToTransform, pointToTransform, checkIfTransformInXYPlane);
-   }
-
-   public void transform(Point2DBasics pointOriginal, Point2DBasics pointTransformed)
-   {
-      transform(pointOriginal, pointTransformed, true);
-   }
-
-   public void transform(Point2DBasics pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
-   {
-      rotationMatrix.transform(pointOriginal, pointTransformed, checkIfTransformInXYPlane);
-      pointTransformed.add(translationVector.getX(), translationVector.getY());
+      rotationMatrix.transform(vector2DOriginal, vector2DTransformed, checkIfTransformInXYPlane);
    }
 
    @Override
-   public void transform(Vector2DBasics vectorToTransform)
+   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTranformed)
    {
-      transform(vectorToTransform, vectorToTransform);
-   }
-
-   public void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed)
-   {
-      rotationMatrix.transform(vectorOriginal, vectorTransformed);
-   }
-
-   @Override
-   public void transform(Matrix3D matrixToTransform)
-   {
-      rotationMatrix.transform(matrixToTransform);
-   }
-
-   @Override
-   public void transform(RotationMatrix matrixToTransform)
-   {
-      rotationMatrix.transform(matrixToTransform);
+      rotationMatrix.transform(matrixOriginal, matrixTranformed);
    }
    
+   @Override
    public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       rotationMatrix.transform(matrixOriginal, matrixTransformed);

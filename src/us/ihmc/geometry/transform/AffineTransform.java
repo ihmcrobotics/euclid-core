@@ -71,7 +71,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    {
       rotationScaleMatrix.setToNaN();
    }
-   
+
    public void setTranslationToNaN()
    {
       translationVector.setToNaN();
@@ -104,7 +104,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       translationVector.setToZero();
    }
 
-   public void set(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22, double m23)
+   public void set(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22,
+                   double m23)
    {
       rotationScaleMatrix.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       translationVector.set(m03, m13, m23);
@@ -311,7 +312,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    {
       rotationScaleMatrix.setScale(scales);
    }
-   
+
    public void setTranslation(double x, double y, double z)
    {
       translationVector.set(x, y, z);
@@ -330,11 +331,6 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    @Override
-   public void transform(PointBasics pointToTransform)
-   {
-      transform(pointToTransform, pointToTransform);
-   }
-
    public void transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
    {
       rotationScaleMatrix.transform(pointOriginal, pointTransformed);
@@ -342,72 +338,36 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    @Override
-   public void transform(VectorBasics vectorToTransform)
-   {
-      transform(vectorToTransform, vectorToTransform);
-   }
-
    public void transform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
    {
       rotationScaleMatrix.transform(vectorOriginal, vectorTransformed);
    }
 
    @Override
-   public void transform(QuaternionBasics quaternionToTransform)
-   {
-      rotationScaleMatrix.transform(quaternionToTransform);
-   }
-
    public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       rotationScaleMatrix.transform(quaternionOriginal, quaternionTransformed);
    }
 
    @Override
-   public void transform(Vector4DBasics vectorToTransform)
+   public void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
    {
-      rotationScaleMatrix.transform(vectorToTransform);
-   }
-
-   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-   {
-      rotationScaleMatrix.transform(vectorOriginal, vectorTransformed);
+      rotationScaleMatrix.transform(vector4DOriginal, vector4DTransformed);
    }
 
    @Override
-   public void transform(Matrix3D matrixToTransform)
+   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTranformed)
    {
-      rotationScaleMatrix.transform(matrixToTransform);
+      rotationScaleMatrix.transform(matrixOriginal, matrixTranformed);
    }
 
    @Override
-   public void transform(RotationMatrix matrixToTransform)
-   {
-      rotationScaleMatrix.transform(matrixToTransform);
-   }
-
    public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       rotationScaleMatrix.transform(matrixOriginal, matrixTransformed);
    }
 
    @Override
-   public void transform(Point2DBasics pointToTransform)
-   {
-      transform(pointToTransform, pointToTransform);
-   }
-
-   @Override
-   public void transform(Point2DBasics pointToTransform, boolean checkIfTransformInXYPlane)
-   {
-      transform(pointToTransform, pointToTransform, checkIfTransformInXYPlane);
-   }
-
-   public void transform(Point2DBasics pointOriginal, Point2DBasics pointTransformed)
-   {
-      transform(pointOriginal, pointTransformed, true);
-   }
-
    public void transform(Point2DBasics pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
       rotationScaleMatrix.transform(pointOriginal, pointTransformed, checkIfTransformInXYPlane);
@@ -415,14 +375,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    @Override
-   public void transform(Vector2DBasics vectorToTransform)
+   public void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
-      transform(vectorToTransform, vectorToTransform);
-   }
-
-   public void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed)
-   {
-      rotationScaleMatrix.transform(vectorOriginal, vectorTransformed);
+      rotationScaleMatrix.transform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
 
    public void inverseTransform(PointBasics pointToTransform)
