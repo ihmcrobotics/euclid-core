@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
+import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.transform.AffineTransform;
@@ -22,11 +23,23 @@ import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.Vector4D;
+import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
 public abstract class GeometryBasicsTestTools
 {
+   /**
+    * Asserts that the two given angles are equal to an {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as: {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * 
+    * @param expectedAngle the expected angle.
+    * @param actualAngle the actual angle.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two angles are not equal.
+    */
    public static void assertAngleEquals(double expectedAngle, double actualAngle, double epsilon)
    {
       double differenceAngle = Math.abs(expectedAngle - actualAngle);
@@ -41,6 +54,17 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two sets of yaw-pitch-roll angles are equal to an {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as: {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * 
+    * @param expectedYawPitchRoll the expected set of yaw-pitch-roll angles. Not modified.
+    * @param actualYawPitchRoll the actual set of yaw-pitch-roll angles. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal.
+    */
    public static void assertYawPitchRollEquals(double[] expectedYawPitchRoll, double[] actualYawPitchRoll, double epsilon)
    {
       try
@@ -55,6 +79,17 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two rotation vectors are equal to an {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as: {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * 
+    * @param expectedRotationVector the expected rotation vector. Not modified.
+    * @param actualRotationVector the actual rotation vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two rotation vectors are not equal.
+    */
    public static void assertRotationVectorEquals(VectorReadOnly expectedRotationVector, VectorReadOnly actualRotationVector, double epsilon)
    {
       try
@@ -71,11 +106,28 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * 
+    * @param expected the expected tuple.
+    * @param actual the actual tuple.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two tuples are not equal.
+    */
    public static void assertTupleEquals(TupleReadOnly expected, TupleReadOnly actual, double epsilon)
    {
       assertTupleEquals("", expected, actual, epsilon);
    }
 
+   /**
+    * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * 
+    * @param message prefix to add to the automated message.
+    * @param expected the expected tuple.
+    * @param actual the actual tuple.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two tuples are not equal.
+    */
    public static void assertTupleEquals(String message, TupleReadOnly expected, TupleReadOnly actual, double epsilon)
    {
       boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
@@ -93,11 +145,28 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * 
+    * @param expected the expected tuple.
+    * @param actual the actual tuple.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two tuples are not equal.
+    */
    public static void assertTuple2DEquals(Tuple2DReadOnly expected, Tuple2DReadOnly actual, double epsilon)
    {
       assertTuple2DEquals("", expected, actual, epsilon);
    }
 
+   /**
+    * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * 
+    * @param message prefix to add to the automated message.
+    * @param expected the expected tuple.
+    * @param actual the actual tuple.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two tuples are not equal.
+    */
    public static void assertTuple2DEquals(String message, Tuple2DReadOnly expected, Tuple2DReadOnly actual, double epsilon)
    {
       boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
@@ -115,11 +184,28 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * 
+    * @param expected the expected tuple.
+    * @param actual the actual tuple.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two tuples are not equal.
+    */
    public static void assertTuple4DEquals(Tuple4DReadOnly expected, Tuple4DReadOnly actual, double epsilon)
    {
       assertTuple4DEquals("", expected, actual, epsilon);
    }
 
+   /**
+    * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * 
+    * @param message prefix to add to the automated message.
+    * @param expected the expected tuple.
+    * @param actual the actual tuple.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two tuples are not equal.
+    */
    public static void assertTuple4DEquals(String message, Tuple4DReadOnly expected, Tuple4DReadOnly actual, double epsilon)
    {
       boolean areEqual = Tuple4DTools.epsilonEquals(expected, actual, epsilon);
@@ -137,12 +223,30 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two matrices are equal to an {@code epsilon}.
+    * 
+    * @param expected the expected matrix.
+    * @param actual the actual matrix.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two matrices are not equal.
+    */
    public static void assertMatrix3DEquals(Matrix3DReadOnly<?> expected, Matrix3DReadOnly<?> actual, double epsilon)
    {
       assertMatrix3DEquals("", expected, actual, epsilon);
    }
 
-   public static <T extends Matrix3DReadOnly<T>> void assertMatrix3DEquals(String message, Matrix3DReadOnly<?> expected, Matrix3DReadOnly<?> actual, double epsilon)
+   /**
+    * Asserts on a per component basis that the two matrices are equal to an {@code epsilon}.
+    * 
+    * @param message prefix to add to the automated message.
+    * @param expected the expected matrix.
+    * @param actual the actual matrix.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two matrices are not equal.
+    */
+   public static <T extends Matrix3DReadOnly<T>> void assertMatrix3DEquals(String message, Matrix3DReadOnly<?> expected, Matrix3DReadOnly<?> actual,
+                                                                           double epsilon)
    {
       if (!expected.epsilonEquals(actual, epsilon))
       {
@@ -151,10 +255,25 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Verifies whether the given matrix is skew-symmetric.
+    * Asserts that the given matrix is skew-symmetric:
+    * <pre>
+    *     |  0 -z  y |
+    * m = |  z  0 -x |
+    *     | -y  x  0 |
+    * </pre>
+    * <p>
+    * This matrix is considered to be skew symmetric if:
+    * <ul>
+    *    <li> each diagonal coefficient is equal to 0.0 +/- {@code epsilon},
+    *    <li> the sums of each pair of cross-diagonal coefficients
+    *     ({@code m10}, {@code m01}), ({@code m12}, {@code m21}), and ({@code m20}, {@code m02})
+    *     are equal to 0.0 +/- {@code epsilon}.
+    * </ul>
+    * </p>
     *
-    * @param matrix     matrix to check for skew-symmetry
-    * @param epsilon numerical tolerance
+    * @param matrix the query. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the matrix is not skew-symmetric.
     */
    public static void assertSkewSymmetric(Matrix3DReadOnly<?> matrix, double epsilon)
    {
@@ -162,18 +281,46 @@ public abstract class GeometryBasicsTestTools
          fail("The matrix is not skew-symmetric:\n" + matrix);
    }
 
+   /**
+    * Asserts that this matrix is a rotation matrix.
+    * <p>
+    * This matrix is a rotation matrix if:
+    * <ul>
+    *    <li> the length of each row vector is equal to 1.0 +/- {@code epsilon},
+    *    <li> the dot product of each pair of row vectors is equal to 0.0 +/- {@code epsilon},
+    *    <li> the determinant of the matrix is equal to 1.0 +/- {@code epsilon}.
+    * </ul>
+    * </p>
+    * 
+    * @param matrix the query. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the matrix is not a rotation matrix.
+    */
    public static void assertRotationMatrix(Matrix3DReadOnly<?> matrix, double epsilon)
    {
       if (!matrix.isRotationMatrix(epsilon))
          fail("This is not a rotation matrix:\n" + matrix);
    }
 
+   /**
+    * Asserts on a per coefficient basis that this matrix is equal to identity to an {@code epsilon}.
+    * 
+    * @param matrix the query. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the matrix is not identity.
+    */
    public static void assertIdentity(Matrix3DReadOnly<?> matrix, double epsilon)
    {
       if (!matrix.isIdentity(epsilon))
          fail("The matrix is not identity:\n" + matrix);
    }
 
+   /**
+    * Asserts that the given matrix contains on {@link Double#NaN}.
+    * 
+    * @param matrix the query. Not modified.
+    * @throws AssertionError if the matrix does not only contain {@link Double#NaN}.
+    */
    public static void assertMatrix3DContainsOnlyNaN(Matrix3DReadOnly<?> matrix)
    {
       for (int row = 0; row < 3; row++)
@@ -186,6 +333,14 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two quaternions are equal to an {@code epsilon}.
+    * 
+    * @param expectedQuaternion the expected quaternion. Not modified.
+    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternions are not equal.
+    */
    public static void assertQuaternionEquals(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
    {
       try
@@ -201,6 +356,17 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two quaternions are equal to an {@code epsilon}.
+    * <p>
+    * This method changes the sign of one of the two quaternions when comparing if their dot product is negative.
+    * </p>
+    * 
+    * @param expectedQuaternion the expected quaternion. Not modified.
+    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternions are not equal.
+    */
    public static void assertQuaternionEqualsSmart(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
    {
       try
@@ -217,22 +383,38 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
-   public static void assertQuaternionEqualsUsingDifference(QuaternionReadOnly q1, QuaternionReadOnly q2, double epsilon)
+   /**
+    * Asserts that the two given quaternions represents the same orientation to an {@code epsilon} by calculating the magnitude of their difference.
+    * 
+    * @param expectedQuaternion the expected quaternion. Not modified.
+    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternions do not represent the same orientation.
+    */
+   public static void assertQuaternionEqualsUsingDifference(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
    {
       try
       {
-         Quaternion qDifference = new Quaternion(q1);
-         qDifference.multiplyConjugateOther(q2);
+         Quaternion qDifference = new Quaternion(expectedQuaternion);
+         qDifference.multiplyConjugateOther(actualQuaternion);
          AxisAngle axisAngle = new AxisAngle();
          axisAngle.set(qDifference);
          assertEquals(0.0, axisAngle.getAngle(), epsilon);
       }
       catch (AssertionError e)
       {
-         throw new AssertionError("expected:\n<" + q1 + ">\n but was:\n<" + q2 + ">");
+         throw new AssertionError("expected:\n<" + expectedQuaternion + ">\n but was:\n<" + actualQuaternion + ">");
       }
    }
 
+   /**
+    * Asserts on a per component basis if the two axis-angles are equal to an {@code epsilon}.
+    * 
+    * @param expectedAxisAngle the expected axis-angle. Not modified.
+    * @param actualAxisAngle the actual axis-angle. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two axis-angles are not equal.
+    */
    public static void assertAxisAngleEquals(AxisAngleReadOnly<?> expectedAxisAngle, AxisAngleReadOnly<?> actualAxisAngle, double epsilon)
    {
       try
@@ -248,6 +430,17 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis if the two axis-angles are equal to an {@code epsilon}.
+    * <p>
+    * This method changes the sign of one of the two axis-angles when comparing if the dot product of their axis is negative.
+    * </p>
+    * 
+    * @param expectedAxisAngle the expected axis-angle. Not modified.
+    * @param actualAxisAngle the actual axis-angle. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two axis-angles are not equal.
+    */
    public static void assertAxisAngleEqualsSmart(AxisAngleReadOnly<?> expectedAxisAngle, AxisAngleReadOnly<?> actualAxisAngle, double epsilon)
    {
       try
@@ -280,6 +473,12 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts that the given axis-angle contains only {@link Double#NaN}.
+    * 
+    * @param axisAngleToAssert the query. Not modified.
+    * @throws AssertionError if the axis-angle does not only contain {@link Double#NaN}.
+    */
    public static void assertAxisAngleContainsOnlyNaN(AxisAngleReadOnly<?> axisAngleToAssert)
    {
       assertTrue(Double.isNaN(axisAngleToAssert.getX()));
@@ -288,6 +487,12 @@ public abstract class GeometryBasicsTestTools
       assertTrue(Double.isNaN(axisAngleToAssert.getAngle()));
    }
 
+   /**
+    * Assert that {@link AxisAngleBasics#setToZero()} has just been called on the given axis-angle.
+    * 
+    * @param axisAngleToAssert the query. Not modified.
+    * @throws AssertionError if the axis-angle has not been set to zero.
+    */
    public static void assertAxisAngleIsSetToZero(AxisAngleReadOnly<?> axisAngleToAssert)
    {
       assertTrue(axisAngleToAssert.getX() == 1.0);
@@ -296,12 +501,25 @@ public abstract class GeometryBasicsTestTools
       assertTrue(axisAngleToAssert.getAngle() == 0.0);
    }
 
+   /**
+    * Asserts that the length of the axis of the axis-angle is equal to {@code 1.0 +/- epsilon}. 
+    * 
+    * @param axisAngleToAssert the query. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the axis is not unitary.
+    */
    public static void assertAxisUnitary(AxisAngleReadOnly<?> axisAngleToAssert, double epsilon)
    {
       if (!AxisAngleTools.isAxisUnitary(axisAngleToAssert, epsilon))
          fail("The axis of the given AxisAngle is not unitary: " + axisAngleToAssert);
    }
 
+   /**
+    * Asserts that the given quaternion contains only {@link Double#NaN}.
+    * 
+    * @param quaternionToAssert the query. Not modified.
+    * @throws AssertionError if the quaternion does not only contain {@link Double#NaN}.
+    */
    public static void assertQuaternionContainsOnlyNaN(QuaternionReadOnly quaternionToAssert)
    {
       assertTrue(Double.isNaN(quaternionToAssert.getX()));
@@ -310,6 +528,12 @@ public abstract class GeometryBasicsTestTools
       assertTrue(Double.isNaN(quaternionToAssert.getS()));
    }
 
+   /**
+    * Assert that {@link QuaternionBasics#setToZero()} has just been called on the given quaternion.
+    * 
+    * @param quaternionToAssert the query. Not modified.
+    * @throws AssertionError if the quaternion has not been set to zero.
+    */
    public static void assertQuaternionIsSetToZero(QuaternionReadOnly quaternionToAssert)
    {
       assertTrue(quaternionToAssert.getX() == 0.0);
@@ -318,12 +542,25 @@ public abstract class GeometryBasicsTestTools
       assertTrue(quaternionToAssert.getS() == 1.0);
    }
 
+   /**
+    * Asserts that the norm of the given quaternion is equal to {@code 1.0 +/- epsilon}.
+    * 
+    * @param quaternionToAssert the query. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the quaternion is not a unit-quaternion.
+    */
    public static void assertQuaternionIsUnitary(QuaternionReadOnly quaternionToAssert, double epsilon)
    {
       if (!Tuple4DTools.isUnitary(quaternionToAssert, epsilon))
          fail("The axis of the given Quaternion is not unitary: " + quaternionToAssert);
    }
 
+   /**
+    * Asserts that the given tuple contains only {@link Double#NaN}.
+    * 
+    * @param tupleToAssert the query. Not modified.
+    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}.
+    */
    public static void assertTupleContainsOnlyNaN(TupleReadOnly tupleToAssert)
    {
       assertTrue(Double.isNaN(tupleToAssert.getX()));
@@ -331,6 +568,12 @@ public abstract class GeometryBasicsTestTools
       assertTrue(Double.isNaN(tupleToAssert.getZ()));
    }
 
+   /**
+    * Assert that {@link TupleBasics#setToZero()} has just been called on the given tuple.
+    * 
+    * @param tupleToAssert the query. Not modified.
+    * @throws AssertionError if the tuple has not been set to zero.
+    */
    public static void assertTupleIsSetToZero(TupleReadOnly tupleToAssert)
    {
       assertTrue(tupleToAssert.getX() == 0.0);
@@ -338,6 +581,14 @@ public abstract class GeometryBasicsTestTools
       assertTrue(tupleToAssert.getZ() == 0.0);
    }
 
+   /**
+    * Asserts on a per component basis that the two given rigid-body transform are equal to an {@code epsilon}.
+    * 
+    * @param expected the expected rigid-body transform. Not modified.
+    * @param actual the actual rigid-body transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two rigid-body transforms are not equal.
+    */
    public static void assertRigidBodyTransformEquals(RigidBodyTransform expected, RigidBodyTransform actual, double epsilon)
    {
       if (!expected.epsilonEquals(actual, epsilon))
@@ -346,6 +597,14 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two quaternion-based transforms are equal to an {@code epsilon}.
+    * 
+    * @param expected the expected quaternion-based transform. Not modified.
+    * @param actual the actual quaternion-based transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternion-based transforms are not equal.
+    */
    public static void assertQuaternionBasedTransformEquals(QuaternionBasedTransform expected, QuaternionBasedTransform actual, double epsilon)
    {
       if (!expected.epsilonEquals(actual, epsilon))
@@ -354,6 +613,17 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two quaternion-based transforms are equal to an {@code epsilon}.
+    * <p>
+    * This method compares the quaternions using {@link #assertQuaternionEqualsSmart(QuaternionReadOnly, QuaternionReadOnly, double)}.
+    * </p>
+    * 
+    * @param expected the expected quaternion-based transform. Not modified.
+    * @param actual the actual quaternion-based transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternion-based transforms are not equal.
+    */
    public static void assertQuaternionBasedTransformEqualsSmart(QuaternionBasedTransform expected, QuaternionBasedTransform actual, double epsilon)
    {
       try
@@ -367,6 +637,14 @@ public abstract class GeometryBasicsTestTools
       }
    }
 
+   /**
+    * Asserts on a per component basis that the two given affine transforms are equal to an {@code epsilon}.
+    * 
+    * @param expected the expected affine transform. Not modified.
+    * @param actual the actual affine transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two affine transforms are not equal.
+    */
    public static void assertAffineTransformEquals(AffineTransform expected, AffineTransform actual, double epsilon)
    {
       if (!expected.epsilonEquals(actual, epsilon))
