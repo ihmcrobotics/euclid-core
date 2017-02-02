@@ -4,6 +4,7 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.Matrix3D;
@@ -31,36 +32,103 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
+/**
+ * An {@code AffineTransform} is a transformation matrix that can scale, rotate, and translate.
+ * <p>
+ * The {@code AffineTransform} is composed of {@link RotationScaleMatrix} to scale and rotate, and a {@link Vector} to translate.
+ * </p>
+ * <p>
+ * Because the {@code RotationScaleMatrix} a restrictive type of matrix, the algebra available with this is somewhat
+ * restricted to keep the rotation-scale matrix proper at all time.
+ * For instance, an affine transform cannot be inverted.
+ * However, it can still perform the inverse of the transform it represents on geometry objects.
+ * </p>
+ * <p>
+ * A few special cases to keep in mind:
+ * <ul>
+ *    <li> when transforming a {@link QuaternionBasics}, the rotation part of this transform is prepend to the quaternion,
+ *     such that the output remains a proper unit-quaternion that still only describes a rotation.
+ *    <li> when transforming a {@link RotationMatrix}, the rotation part of this transform is prepend to the rotation matrix,
+ *     such that the output remains a proper rotation matrix.
+ *    <li> when applying this transform on a {@link PointBasics} or {@link Point2DBasics}, this object is, in order, scaled, 
+ *     rotated, and then translated.
+ *    <li> when applying this transform on a {@link VectorBasics} or {@link Vector2DBasics}, this object is, in order, scaled, 
+ *     and then rotated. It is NOT translated.
+ * </ul>
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public class AffineTransform implements Transform, EpsilonComparable<AffineTransform>, Settable<AffineTransform>
 {
+   /** The rotation plus scaling part of this transform. */
    private final RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
+   /** The translation part of this transform. */
    private final Vector translationVector = new Vector();
 
+   /**
+    * Creates a new affine transform set to identity.
+    * <p>
+    * When set to identity, this transform has no effect when transforming a
+    * geometry object.
+    * </p>
+    */
    public AffineTransform()
    {
    }
 
+   /**
+    * Creates a new affine transform and sets it to {@code other}.
+    * 
+    * @param other the other affine transform to copy. Not modified.
+    */
    public AffineTransform(AffineTransform other)
    {
       set(other);
    }
 
+   /**
+    * Creates a new affine transform and sets it to {@code rigidBodyTransform}.
+    * <p>
+    * This affine transform has no scaling (1.0, 1.0, 1.0).
+    * </p>
+    * 
+    * @param rigidBodyTransform the rigid-body transform to copy. Not modified.
+    */
    public AffineTransform(RigidBodyTransform rigidBodyTransform)
    {
       set(rigidBodyTransform);
    }
 
+   /**
+    * Creates a new affine transform and initializes it from the given rotation-scale matrix
+    * and the given translation.
+    * 
+    * @param rotationScaleMatrix the rotation-scale matrix to copy. Not modified.
+    * @param translation the translation to copy. Not modified.
+    */
    public AffineTransform(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, TupleReadOnly translation)
    {
       set(rotationScaleMatrix, translation);
    }
 
+   /**
+    * Resets this affine transform to identity.
+    * <p>
+    * When set to identity, this transform has no effect when transforming a
+    * geometry object.
+    * </p>
+    */
    @Override
    public void setToZero()
    {
       setIdentity();
    }
 
+   /**
+    * Sets all the components of this affine transform making it invalid.
+    */
    @Override
    public void setToNaN()
    {
@@ -68,43 +136,97 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       setTranslationToNaN();
    }
 
+   /**
+    * Sets all the components of the rotation-scale matrix to {@link Double#NaN}.
+    * <p>
+    * See {@link RotationScaleMatrix#setToNaN()}.
+    * </p>
+    */
    public void setRotationToNaN()
    {
       rotationScaleMatrix.setToNaN();
    }
 
+   /**
+    * Sets all the components of the translation vector to {@link Double#NaN}.
+    * <p>
+    * See {@link Vector#setToNaN()}.
+    * </p>
+    */
    public void setTranslationToNaN()
    {
       translationVector.setToNaN();
    }
 
+   /**
+    * Tests if at least one element of this transform is equal to {@linkplain Double#NaN}.
+    * 
+    * @return {@code true} if at least one element of this transform is equal to {@linkplain Double#NaN}, {@code false} otherwise.
+    */
    @Override
    public boolean containsNaN()
    {
       return rotationScaleMatrix.containsNaN() || translationVector.containsNaN();
    }
 
+   /**
+    * Sets the rotation part to represent a 'zero' rotation.
+    * <p>
+    * This method does NOT affect the scale part of this transform.
+    * </p>
+    */
    public void resetRotation()
    {
       rotationScaleMatrix.setRotationToZero();
    }
-
+   
+   /**
+    * Sets all the scale factors to 1.0.
+    */
    public void resetScale()
    {
       rotationScaleMatrix.resetScale();
    }
 
+   /**
+    * Sets the translation part to zero.
+    */
    public void resetTranslation()
    {
       translationVector.setToZero();
    }
 
+   /**
+    * Resets this affine transform to identity.
+    * <p>
+    * When set to identity, this transform has no effect when transforming a
+    * geometry object.
+    * </p>
+    */
    public void setIdentity()
    {
       rotationScaleMatrix.setIdentity();
       translationVector.setToZero();
    }
 
+   /**
+    * Sets this affine transform from the given 12 coefficients.
+    * 
+    * @param m00 the 1st row 1st column component of the rotation-scale part of this transform.
+    * @param m01 the 1st row 2nd column component of the rotation-scale part of this transform.
+    * @param m02 the 1st row 3rd column component of the rotation-scale part of this transform.
+    * @param m03 the x-component of the translation part of this transform.
+    * @param m10 the 2nd row 1st column component of the rotation-scale part of this transform.
+    * @param m11 the 2nd row 2nd column component of the rotation-scale part of this transform.
+    * @param m12 the 2nd row 3rd column component of the rotation-scale part of this transform.
+    * @param m13 the y-component of the translation part of this transform.
+    * @param m20 the 3rd row 1st column component of the rotation-scale part of this transform.
+    * @param m21 the 3rd row 2nd column component of the rotation-scale part of this transform.
+    * @param m22 the 3rd row 3rd column component of the rotation-scale part of this transform.
+    * @param m23 the z-component of the translation part of this transform.
+    * @throws NotARotationScaleMatrixException if the components for the rotation-scale part do not represent
+    *  a rotation-scale matrix.
+    */
    public void set(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22,
                    double m23)
    {

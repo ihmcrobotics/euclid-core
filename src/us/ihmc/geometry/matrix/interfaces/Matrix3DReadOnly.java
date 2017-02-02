@@ -351,7 +351,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    /**
     * Tests if at least one element of this matrix is equal to {@linkplain Double#NaN}.
     * 
-    * @return {@code true} if at least one element of the matrix is equal to {@linkplain Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if at least one element of this matrix is equal to {@linkplain Double#NaN}, {@code false} otherwise.
     */
    default boolean containsNaN()
    {

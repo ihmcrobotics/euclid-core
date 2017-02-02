@@ -27,6 +27,8 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * <p>
  * Note: To conserve the form <i> M = R * S </i>, the algebra with a rotation-scale
  * matrix is rather restrictive.
+ * For instance, an rotation-scale matrix cannot be inverted.
+ * However, it can still perform the inverse of the transform it represents on geometry objects.
  * </p>
  * 
  * @author Sylvain Bertrand
