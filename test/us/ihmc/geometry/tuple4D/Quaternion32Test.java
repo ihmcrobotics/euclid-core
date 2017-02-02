@@ -714,8 +714,8 @@ public class Quaternion32Test
          tupleCopy.set(tuple);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
+         quaternion.transform(tuple, tupleCopy);
          quaternion.transform((TupleBasics) tuple);
-         QuaternionTools.transform(quaternion, tupleCopy);
 
          GeometryBasicsTestTools.assertRotationVectorEquals(tuple, tupleCopy, QuaternionTest.EPS);
       }
@@ -777,8 +777,8 @@ public class Quaternion32Test
          tuple2DCopy.set(tuple2D);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
+         quaternion.transform(tuple2D, tuple2DCopy, false);
          quaternion.transform((Tuple2DBasics) tuple2D, false);
-         QuaternionTools.transform(quaternion, tuple2DCopy, false);
 
          Assert.assertEquals(tuple2D.getX(), tuple2DCopy.getX(), QuaternionTest.EPS);
          Assert.assertEquals(tuple2D.getY(), tuple2DCopy.getY(), QuaternionTest.EPS);
@@ -793,8 +793,8 @@ public class Quaternion32Test
          float qs = (float) Math.cos(0.5 * theta);
          quaternion = new Quaternion32(0.0f, 0.0f, qz, qs);
 
+         quaternion.transform(tuple2D, tuple2DCopy, true);
          quaternion.transform((Tuple2DBasics) tuple2D, true);
-         QuaternionTools.transform(quaternion, tuple2DCopy, true);
 
          Assert.assertEquals(tuple2D.getX(), tuple2DCopy.getX(), QuaternionTest.EPS);
          Assert.assertEquals(tuple2D.getY(), tuple2DCopy.getY(), QuaternionTest.EPS);
@@ -859,8 +859,8 @@ public class Quaternion32Test
          tupleCopy.set(tuple);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
+         quaternion.inverseTransform(tuple, tupleCopy);
          quaternion.inverseTransform((TupleBasics) tuple);
-         QuaternionTools.inverseTransform(quaternion, tupleCopy);
 
          GeometryBasicsTestTools.assertRotationVectorEquals(tuple, tupleCopy, QuaternionTest.EPS);
       }
@@ -925,8 +925,8 @@ public class Quaternion32Test
          float qs = (float) Math.cos(0.5 * theta);
          quaternion = new Quaternion32(0.0f, 0.0f, qz, qs);
 
+         quaternion.inverseTransform(tuple2D, tuple2DCopy, false);
          quaternion.inverseTransform((Tuple2DBasics) tuple2D);
-         QuaternionTools.inverseTransform(quaternion, tuple2DCopy, false);
 
          Assert.assertEquals(tuple2D.getX(), tuple2DCopy.getX(), QuaternionTest.EPS);
          Assert.assertEquals(tuple2D.getY(), tuple2DCopy.getY(), QuaternionTest.EPS);
@@ -941,8 +941,8 @@ public class Quaternion32Test
          float qs = (float) Math.cos(0.5 * theta);
          quaternion = new Quaternion32(0.0f, 0.0f, qz, qs);
 
+         quaternion.inverseTransform(tuple2D, tuple2DCopy, true);
          quaternion.inverseTransform((Tuple2DBasics) tuple2D);
-         QuaternionTools.inverseTransform(quaternion, tuple2DCopy, true);
 
          Assert.assertEquals(tuple2D.getX(), tuple2DCopy.getX(), QuaternionTest.EPS);
          Assert.assertEquals(tuple2D.getY(), tuple2DCopy.getY(), QuaternionTest.EPS);

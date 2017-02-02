@@ -331,9 +331,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    @Override
-   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTranformed)
+   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
    {
-      quaternion.transform(matrixOriginal, matrixTranformed);
+      quaternion.transform(matrixOriginal, matrixTransformed);
    }
 
    @Override
@@ -361,6 +361,30 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
    {
       quaternion.inverseTransform(vectorOriginal, vectorTransformed);
+   }
+
+   @Override
+   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   {
+      quaternion.inverseTransform(quaternionOriginal, quaternionTransformed);
+   }
+
+   @Override
+   public void inverseTransform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   {
+      quaternion.inverseTransform(vector4DOriginal, vector4DTransformed);
+   }
+
+   @Override
+   public void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   {
+      quaternion.inverseTransform(matrixOriginal, matrixTransformed);
+   }
+
+   @Override
+   public void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      quaternion.inverseTransform(matrixOriginal, matrixTransformed);
    }
 
    @Override

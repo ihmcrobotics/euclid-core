@@ -132,10 +132,6 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
     * where Q(this.getRotationMatrix()) is the equivalent quaternion
     * for the rotation part of this rotation-scale matrix.
     * </p>
-    * <p>
-    * This rotation matrix is normalized before performing
-    * the transformation.
-    * </p>
     * 
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
@@ -220,6 +216,50 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
       tupleTransformed.setY(tupleTransformed.getY() / getScaleY());
    }
 
+   /**
+    * Performs the inverse of the transform to the given quaternion by the rotation part
+    * of this rotation-scale matrix.
+    * <p>
+    * quaternionToTransform = Q(this.getRotationMatrix()<sup>-1</sup>) * quaternionToTransform <br>
+    * where Q(this.getRotationMatrix()<sup>-1</sup>) is the equivalent quaternion
+    * for the inverse of the rotation part of this rotation-scale matrix.
+    * </p>
+    * <p>
+    * This operation uses the property:
+    * <br> q<sup>-1</sup> = conjugate(q) </br>
+    * of a quaternion preventing to actually compute the inverse of the matrix.
+    * </p>
+    * 
+    * @param quaternionToTransform the quaternion to transform. Modified.
+    */
+   default void inverseTransform(QuaternionBasics quaternionToTransform)
+   {
+      inverseTransform(quaternionToTransform, quaternionToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform to the given quaternion
+    * {@code quaternionOriginal} and stores the result into
+    * {@code quaternionTransformed}.
+    * <p>
+    * quaternionToTransform = Q(this.getRotationMatrix()<sup>-1</sup>) * quaternionToTransform <br>
+    * where Q(this.getRotationMatrix()<sup>-1</sup>) is the equivalent quaternion
+    * for the inverse of the rotation part of this rotation-scale matrix.
+    * </p>
+    * <p>
+    * This operation uses the property:
+    * <br> q<sup>-1</sup> = conjugate(q) </br>
+    * of a quaternion preventing to actually compute the inverse of the matrix.
+    * </p>
+    * 
+    * @param quaternionOriginal the quaternion to transform. Not modified.
+    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
+    */
+   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   {
+      getRotationMatrix().inverseTransform(quaternionOriginal, quaternionTransformed);
+   }
+
    /** {@inheritDoc} */
    @Override
    default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
@@ -229,5 +269,56 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
       vectorTransformed.setX(vectorTransformed.getX() / getScaleX());
       vectorTransformed.setY(vectorTransformed.getY() / getScaleY());
       vectorTransformed.setZ(vectorTransformed.getZ() / getScaleZ());
+   }
+
+   /**
+    * Performs the inverse of the transform to the given rotation matrix by the
+    * rotation part of this rotation-scale matrix.
+    * <p>
+    * matrixToTransform = this.getRotationMatrix()<sup>-1</sup> * matrixToTransform
+    * </p>
+    * <p>
+    * This operation uses the property:
+    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the matrix.
+    * </p>
+    * 
+    * @param matrixToTransform the rotation matrix to transform. Modified.
+    */
+   default void inverseTransform(RotationMatrix matrixToTransform)
+   {
+      inverseTransform(matrixToTransform, matrixToTransform);
+   }
+
+   /**
+    * Transforms the given rotation matrix {@code matrixOriginal} by the
+    * rotation part of this rotation-scale matrix and stores the result
+    * in {@code matrixTransformed}.
+    * <p>
+    * matrixTransformed = this.getRotationMatrix()<sup>-1</sup> * matrixOriginal
+    * </p>
+    * <p>
+    * This operation uses the property:
+    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the matrix.
+    * </p>
+    * 
+    * @param matrixOriginal the rotation matrix to transform. Not modified.
+    * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
+    */
+   default void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      getRotationMatrix().inverseTransform(matrixOriginal, matrixTransformed);
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   {
+      getRotationMatrix().inverseTransform(matrixOriginal, matrixTransformed);
+      // Equivalent to: M = S^-1 * M
+      matrixTransformed.scaleRows(1.0 / getScaleX(), 1.0 / getScaleY(), 1.0 / getScaleZ());
+      // Equivalent to: M = M * S
+      matrixTransformed.scaleColumns(getScaleX(), getScaleY(), getScaleZ());
    }
 }

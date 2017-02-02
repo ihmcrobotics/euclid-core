@@ -516,9 +516,9 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
-   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTranformed)
+   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
    {
-      rotationMatrix.transform(matrixOriginal, matrixTranformed);
+      rotationMatrix.transform(matrixOriginal, matrixTransformed);
    }
    
    @Override
@@ -542,6 +542,18 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
+   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   {
+      rotationMatrix.inverseTransform(quaternionOriginal, quaternionTransformed);
+   }
+
+   @Override
+   public void inverseTransform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   {
+      rotationMatrix.inverseTransform(vector4DOriginal, vector4DTransformed);
+   }
+
+   @Override
    public void inverseTransform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
       pointTransformed.set(pointOriginal);
@@ -553,6 +565,18 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
       rotationMatrix.inverseTransform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
+   }
+
+   @Override
+   public void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
+   }
+
+   @Override
+   public void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   {
+      rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
    }
 
    public double getElement(int row, int column)

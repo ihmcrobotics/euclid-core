@@ -47,26 +47,26 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void transform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   default void transform(TupleReadOnly tuple2DOriginal, TupleBasics tuple2DTransformed)
    {
       normalize();
-      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
+      Matrix3DTools.transform(this, tuple2DOriginal, tuple2DTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void addTransform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   default void addTransform(TupleReadOnly tuple2DOriginal, TupleBasics tuple2DTransformed)
    {
       normalize();
-      Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
+      Matrix3DTools.addTransform(this, tuple2DOriginal, tuple2DTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane)
+   default void transform(Tuple2DReadOnly tuple2DOriginal, Tuple2DBasics tuple2DTransformed, boolean checkIfRotationInXYPlane)
    {
       normalize();
-      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed, checkIfRotationInXYPlane);
+      Matrix3DTools.transform(this, tuple2DOriginal, tuple2DTransformed, checkIfRotationInXYPlane);
    }
 
    /**
@@ -88,7 +88,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * {@code quaternionOriginal} and stores the result into
     * {@code quaternionTransformed}.
     * <p>
-    * quaternionToTransform = Q(this) * quaternionToTransform <br>
+    * quaternionTransformed = Q(this) * quaternionOriginal <br>
     * where Q(this) is the equivalent quaternion for this rotation matrix.
     * </p>
     * 
@@ -103,10 +103,10 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   default void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
    {
       normalize();
-      Matrix3DTools.transform(this, vectorOriginal, vectorTransformed);
+      Matrix3DTools.transform(this, vector4DOriginal, vector4DTransformed);
    }
 
    /**
@@ -161,26 +161,93 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DReadOnly tuple2DOriginal, Tuple2DBasics tuple2DTransformed, boolean checkIfTransformInXYPlane)
    {
       normalize();
 
       if (checkIfTransformInXYPlane)
          checkIfMatrix2D();
 
-      double x = getM00() * tupleOriginal.getX() + getM10() * tupleOriginal.getY();
-      double y = getM01() * tupleOriginal.getX() + getM11() * tupleOriginal.getY();
-      tupleTransformed.set(x, y);
+      double x = getM00() * tuple2DOriginal.getX() + getM10() * tuple2DOriginal.getY();
+      double y = getM01() * tuple2DOriginal.getX() + getM11() * tuple2DOriginal.getY();
+      tuple2DTransformed.set(x, y);
+   }
+
+   /**
+    * Performs the inverse of the transform to the given quaternion
+    * {@code quaternionToTransform}.
+    * <p>
+    * quaternionToTransform = Q(this<sup>-1</sup>) * quaternionToTransform <br>
+    * where Q(this<sup>-1</sup>) is the equivalent quaternion for the inverse of this rotation matrix.
+    * </p>
+    * 
+    * @param quaternionToTransform the quaternion to transform. Modified.
+    */
+   default void inverseTransform(QuaternionBasics quaternionToTransform)
+   {
+      inverseTransform(quaternionToTransform, quaternionToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform to the given quaternion
+    * {@code quaternionOriginal} and stores the result into
+    * {@code quaternionTransformed}.
+    * <p>
+    * quaternionTransformed = Q(this<sup>-1</sup>) * quaternionOriginal <br>
+    * where Q(this<sup>-1</sup>) is the equivalent quaternion for the inverse of this rotation matrix.
+    * </p>
+    * <p>
+    * This operation uses the property:
+    * <br> q<sup>-1</sup> = conjugate(q) </br>
+    * of a quaternion preventing to actually compute the inverse of the matrix.
+    * </p>
+    * 
+    * @param quaternionOriginal the quaternion to transform. Not modified.
+    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
+    */
+   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   {
+      normalize();
+      QuaternionTools.multiplyTransposeMatrix(this, quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   default void inverseTransform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
    {
       normalize();
-      double x = getM00() * vectorOriginal.getX() + getM10() * vectorOriginal.getY() + getM20() * vectorOriginal.getZ();
-      double y = getM01() * vectorOriginal.getX() + getM11() * vectorOriginal.getY() + getM21() * vectorOriginal.getZ();
-      double z = getM02() * vectorOriginal.getX() + getM12() * vectorOriginal.getY() + getM22() * vectorOriginal.getZ();
-      vectorTransformed.set(x, y, z, vectorOriginal.getS());
+      double x = getM00() * vector4DOriginal.getX() + getM10() * vector4DOriginal.getY() + getM20() * vector4DOriginal.getZ();
+      double y = getM01() * vector4DOriginal.getX() + getM11() * vector4DOriginal.getY() + getM21() * vector4DOriginal.getZ();
+      double z = getM02() * vector4DOriginal.getX() + getM12() * vector4DOriginal.getY() + getM22() * vector4DOriginal.getZ();
+      vector4DTransformed.set(x, y, z, vector4DOriginal.getS());
+   }
+
+   /**
+    * Performs the inverse of the transform to the given rotation matrix {@code matrixOriginal} by this
+    * rotation matrix and stores the result in {@code matrixTransformed}.
+    * <p>
+    * matrixTransformed = this<sup>-1</sup> * matrixOriginal
+    * </p>
+    * <p>
+    * This operation uses the property:
+    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the matrix.
+    * </p>
+    * 
+    * @param matrixOriginal the rotation matrix to transform. Not modified.
+    * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
+    */
+   default void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      normalize();
+      RotationMatrixTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
+   }
+
+   @Override
+   default void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   {
+      normalize();
+      Matrix3DTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
+      Matrix3DTools.multiply(matrixTransformed, this, matrixTransformed);
    }
 }

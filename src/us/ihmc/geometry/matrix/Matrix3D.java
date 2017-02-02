@@ -365,7 +365,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * </pre>
     * <p>
     * This operation is equivalent to pre-multiplying this matrix,
-    * i.e. this = this * D, by the following diagonal matrix D:
+    * i.e. this = D * this, by the following diagonal matrix D:
     * <pre>
     *     / scaleRow0     0         0     \
     * D = |     0     scaleRow1     0     |
@@ -766,6 +766,13 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       Matrix3DTools.inverseTransform(this, vectorOriginal, vectorTransformed);
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   public void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   {
+      Matrix3DTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }
 
    /**

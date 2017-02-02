@@ -796,6 +796,34 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane);
 
    /**
+    * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal}
+    * by this matrix.
+    * <p>
+    * matrixToTransform = this<sup>-1</sup> * matrixToTransform * this<sup>-1</sup>
+    * </p>
+    * 
+    * @param matrixToTransform the matrix to transform. Not modified.
+    * @throws SingularMatrixException if this matrix is not invertible.
+    */
+   default void inverseTransform(Matrix3D matrixToTransform)
+   {
+      inverseTransform(matrixToTransform, matrixToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal}
+    * by this matrix and stores the result in {@code matrixTransformed}.
+    * <p>
+    * matrixTransformed = this<sup>-1</sup> * matrixOriginal * this<sup>-1</sup>
+    * </p>
+    * 
+    * @param matrixOriginal the matrix to transform. Not modified.
+    * @param matrixTransformed the matrix in which the result is stored. Modified.
+    * @throws SingularMatrixException if this matrix is not invertible.
+    */
+   void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed);
+
+   /**
     * Performs the inverse of the transform to the
     * vector part the given 4D vector by this matrix.
     * <p>

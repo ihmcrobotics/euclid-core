@@ -326,7 +326,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
 
    public void transform(TupleBasics tupleToTransform)
    {
-      QuaternionTools.transform(this, tupleToTransform);
+      transform(tupleToTransform, tupleToTransform);
    }
 
    public void transform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
@@ -341,7 +341,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
 
    public void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
    {
-      QuaternionTools.transform(this, tupleToTransform, checkIfTransformInXYPlane);
+      transform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
 
    public void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
@@ -391,7 +391,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
 
    public void inverseTransform(TupleBasics tupleToTransform)
    {
-      QuaternionTools.inverseTransform(this, tupleToTransform);
+      inverseTransform(tupleToTransform, tupleToTransform);
    }
 
    public void inverseTransform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
@@ -399,9 +399,49 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }
 
+   public void inverseTransform(QuaternionBasics quaternionToTransform)
+   {
+      inverseTransform(quaternionToTransform, quaternionToTransform);
+   }
+
+   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   {
+      QuaternionTools.inverseTransform(this, quaternionOriginal, quaternionTransformed);
+   }
+
+   public void inverseTransform(Vector4DBasics vectorToTransform)
+   {
+      inverseTransform(vectorToTransform, vectorToTransform);
+   }
+
+   public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   {
+      QuaternionTools.inverseTransform(this, vectorOriginal, vectorTransformed);
+   }
+
+   public void inverseTransform(Matrix3D matrixToTransform)
+   {
+      inverseTransform(matrixToTransform, matrixToTransform);
+   }
+
+   public void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   {
+      QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
+   }
+
+   public void inverseTransform(RotationMatrix matrixToTransform)
+   {
+      inverseTransform(matrixToTransform, matrixToTransform);
+   }
+
+   public void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
+   }
+
    public void inverseTransform(Tuple2DBasics tupleToTransform)
    {
-      QuaternionTools.inverseTransform(this, tupleToTransform, true);
+      inverseTransform(tupleToTransform, true);
    }
 
    public void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
@@ -411,7 +451,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
 
    public void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
    {
-      QuaternionTools.inverseTransform(this, tupleToTransform, checkIfTransformInXYPlane);
+      inverseTransform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
 
    public void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)

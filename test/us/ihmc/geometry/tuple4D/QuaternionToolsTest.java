@@ -867,14 +867,14 @@ public class QuaternionToolsTest
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
       tupleActual.set(tupleExpected);
       quaternion.setToZero();
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       // Test trivial cases
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
       tupleActual.set(tupleExpected);
       quaternion.set(0.0, 0.0, 0.0, -1.0);
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -882,7 +882,7 @@ public class QuaternionToolsTest
       tupleExpected.setY(-tupleExpected.getY());
       tupleExpected.setZ(-tupleExpected.getZ());
       quaternion.set(1.0, 0.0, 0.0, 0.0);
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -890,7 +890,7 @@ public class QuaternionToolsTest
       tupleExpected.setY(-tupleExpected.getY());
       tupleExpected.setZ(-tupleExpected.getZ());
       quaternion.set(-1.0, 0.0, 0.0, 0.0);
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -898,7 +898,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setZ(-tupleExpected.getZ());
       quaternion.set(0.0, 1.0, 0.0, 0.0);
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -906,7 +906,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setZ(-tupleExpected.getZ());
       quaternion.set(0.0, -1.0, 0.0, 0.0);
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -914,7 +914,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setY(-tupleExpected.getY());
       quaternion.set(0.0, 0.0, 1.0, 0.0);
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -922,7 +922,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setY(-tupleExpected.getY());
       quaternion.set(0.0, 0.0, -1.0, 0.0);
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       // Test against a second way of transforming, by using multiply with a pure quaternion
@@ -940,7 +940,7 @@ public class QuaternionToolsTest
          tupleExpected.setX(pureQuaternion.getX());
          tupleExpected.setY(pureQuaternion.getY());
          tupleExpected.setZ(pureQuaternion.getZ());
-         QuaternionTools.transform(quaternion, tupleActual);
+         QuaternionTools.transform(quaternion, tupleActual, tupleActual);
          GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
          QuaternionTools.transform(quaternion, tupleOriginal, tupleActual);
       }
@@ -951,7 +951,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setY(-tupleExpected.getY());
       quaternion.setUnsafe(10.0, 10.0, 10.0, 10.0);
-      QuaternionTools.transform(quaternion, tupleActual);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual);
       assertEquals(tupleExpected.length(), tupleActual.length(), EPSILON);
    }
 
@@ -968,14 +968,14 @@ public class QuaternionToolsTest
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
       tupleActual.set(tupleExpected);
       quaternion.setToZero();
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       // Test trivial cases
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
       tupleActual.set(tupleExpected);
       quaternion.set(0.0, 0.0, 0.0, -1.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -983,7 +983,7 @@ public class QuaternionToolsTest
       tupleExpected.setY(-tupleExpected.getY());
       tupleExpected.setZ(-tupleExpected.getZ());
       quaternion.set(1.0, 0.0, 0.0, 0.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -991,7 +991,7 @@ public class QuaternionToolsTest
       tupleExpected.setY(-tupleExpected.getY());
       tupleExpected.setZ(-tupleExpected.getZ());
       quaternion.set(-1.0, 0.0, 0.0, 0.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -999,7 +999,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setZ(-tupleExpected.getZ());
       quaternion.set(0.0, 1.0, 0.0, 0.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -1007,7 +1007,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setZ(-tupleExpected.getZ());
       quaternion.set(0.0, -1.0, 0.0, 0.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -1015,7 +1015,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setY(-tupleExpected.getY());
       quaternion.set(0.0, 0.0, 1.0, 0.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
@@ -1023,7 +1023,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setY(-tupleExpected.getY());
       quaternion.set(0.0, 0.0, -1.0, 0.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
       // Test against a second way of transforming, by using multiply with a pure quaternion
@@ -1041,7 +1041,7 @@ public class QuaternionToolsTest
          tupleExpected.setX(pureQuaternion.getX());
          tupleExpected.setY(pureQuaternion.getY());
          tupleExpected.setZ(pureQuaternion.getZ());
-         QuaternionTools.inverseTransform(quaternion, tupleActual);
+         QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
          GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
          QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual);
       }
@@ -1053,14 +1053,14 @@ public class QuaternionToolsTest
          tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleActual.set(tupleExpected);
 
-         QuaternionTools.transform(quaternion, tupleActual);
+         QuaternionTools.transform(quaternion, tupleActual, tupleActual);
          assertFalse(TupleTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
-         QuaternionTools.inverseTransform(quaternion, tupleActual);
+         QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
          GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
-         QuaternionTools.inverseTransform(quaternion, tupleActual);
+         QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
          assertFalse(TupleTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
-         QuaternionTools.transform(quaternion, tupleActual);
+         QuaternionTools.transform(quaternion, tupleActual, tupleActual);
          GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
       }
 
@@ -1070,7 +1070,7 @@ public class QuaternionToolsTest
       tupleExpected.setX(-tupleExpected.getX());
       tupleExpected.setY(-tupleExpected.getY());
       quaternion.setUnsafe(10.0, 10.0, 10.0, 10.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       assertEquals(tupleExpected.length(), tupleActual.length(), EPSILON);
    }
 
@@ -1115,10 +1115,10 @@ public class QuaternionToolsTest
 
       // Test the exception is thrown when checkIfTransformInXYPlane and the transform is not in XY plane
       quaternion.set(1.0, 0.0, 0.0, 0.0);
-      QuaternionTools.transform(quaternion, tupleActual, false);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual, false);
       try
       {
-         QuaternionTools.transform(quaternion, tupleActual, true);
+         QuaternionTools.transform(quaternion, tupleActual, tupleActual, true);
          fail("Should have thrown a RuntimeException.");
       }
       catch (RuntimeException e)
@@ -1144,10 +1144,10 @@ public class QuaternionToolsTest
          fail("Should have thrown a RuntimeException.");
       }
       quaternion.set(0.0, 1.0, 0.0, 0.0);
-      QuaternionTools.transform(quaternion, tupleActual, false);
+      QuaternionTools.transform(quaternion, tupleActual, tupleActual, false);
       try
       {
-         QuaternionTools.transform(quaternion, tupleActual, true);
+         QuaternionTools.transform(quaternion, tupleActual, tupleActual, true);
          fail("Should have thrown a RuntimeException.");
       }
       catch (RuntimeException e)
@@ -1186,7 +1186,7 @@ public class QuaternionToolsTest
          tupleExpected.setY(Math.sin(yaw) * tupleOriginal.getX() + Math.cos(yaw) * tupleOriginal.getY());
 
          tupleActual.set(tupleOriginal);
-         QuaternionTools.transform(quaternion, tupleActual, true);
+         QuaternionTools.transform(quaternion, tupleActual, tupleActual, true);
          GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPSILON);
          tupleActual.setToZero();
          QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, true);
@@ -1206,10 +1206,10 @@ public class QuaternionToolsTest
 
       // Test the exception is thrown when checkIfTransformInXYPlane and the transform is not in XY plane
       quaternion.set(1.0, 0.0, 0.0, 0.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual, false);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, false);
       try
       {
-         QuaternionTools.inverseTransform(quaternion, tupleActual, true);
+         QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, true);
          fail("Should have thrown a RuntimeException.");
       }
       catch (RuntimeException e)
@@ -1235,10 +1235,10 @@ public class QuaternionToolsTest
          fail("Should have thrown a RuntimeException.");
       }
       quaternion.set(0.0, 1.0, 0.0, 0.0);
-      QuaternionTools.inverseTransform(quaternion, tupleActual, false);
+      QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, false);
       try
       {
-         QuaternionTools.inverseTransform(quaternion, tupleActual, true);
+         QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, true);
          fail("Should have thrown a RuntimeException.");
       }
       catch (RuntimeException e)
@@ -1274,8 +1274,8 @@ public class QuaternionToolsTest
 
          tupleExpected.set(tupleOriginal);
          tupleActual.set(tupleOriginal);
-         QuaternionTools.transform(quaternion, tupleActual, true);
-         QuaternionTools.inverseTransform(quaternion, tupleActual, true);
+         QuaternionTools.transform(quaternion, tupleActual, tupleActual, true);
+         QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, true);
          GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPSILON);
 
          Tuple2DBasics tupleTransformed = new Vector2D();
@@ -1304,7 +1304,7 @@ public class QuaternionToolsTest
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          vectorOriginal = GeometryBasicsRandomTools.generateRandomVector4D(random);
          Vector vector3D = new Vector(vectorOriginal.getX(), vectorOriginal.getY(), vectorOriginal.getZ());
-         QuaternionTools.transform(quaternion, vector3D);
+         QuaternionTools.transform(quaternion, vector3D, vector3D);
          vectorExpected.set(vector3D);
          vectorExpected.setS(vectorOriginal.getS());
 
@@ -1319,7 +1319,7 @@ public class QuaternionToolsTest
          GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPSILON);
 
          vectorActual.set(vectorOriginal);
-         QuaternionTools.transform(quaternion, vectorActual);
+         QuaternionTools.transform(quaternion, vectorActual, vectorActual);
          GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPSILON);
       }
    }
@@ -1343,7 +1343,7 @@ public class QuaternionToolsTest
          assertFalse(quaternionOriginal.epsilonEquals(quaternionExpected, EPSILON));
 
          quaternionActual.set(quaternionOriginal);
-         QuaternionTools.transform(quaternion, quaternionActual);
+         QuaternionTools.transform(quaternion, quaternionActual, quaternionActual);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
 
          quaternionActual.setToNaN();
@@ -1385,7 +1385,7 @@ public class QuaternionToolsTest
          quaternion.setUnsafe(qx, qy, qz, qs);
 
          matrixActual.set(matrixOriginal);
-         QuaternionTools.transform(quaternion, matrixActual);
+         QuaternionTools.transform(quaternion, matrixActual, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
 
          matrixActual.setToNaN();
@@ -1424,7 +1424,7 @@ public class QuaternionToolsTest
          quaternion.setUnsafe(qx, qy, qz, qs);
 
          matrixActual.set(matrixOriginal);
-         QuaternionTools.transform(quaternion, matrixActual);
+         QuaternionTools.transform(quaternion, matrixActual, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
 
          matrixActual.setToNaN();

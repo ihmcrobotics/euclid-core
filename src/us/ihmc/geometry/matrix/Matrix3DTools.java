@@ -509,7 +509,7 @@ public abstract class Matrix3DTools
    /**
     * Performs a transformation of {@code matrixOriginal} using {@code matrix} and stores the result in {@code matrixTransformed}:
     * <p>
-    * {@code matrixTransformed} = {@code matrix} * {@code matrixOriginal} * {@code matrix}<sup>T</sup>.
+    * {@code matrixTransformed} = {@code matrix} * {@code matrixOriginal} * {@code matrix}<sup>-1</sup>.
     * </p>
     * <p>
     * WARNING: <b> This is different from concatenating orientations.</b>
@@ -644,6 +644,29 @@ public abstract class Matrix3DTools
       double z = invM20 * vectorOriginal.getX() + invM21 * vectorOriginal.getY() + invM22 * vectorOriginal.getZ();
       vectorTransformed.set(x, y, z, vectorOriginal.getS());
    }
+
+   /**
+    * Undoes the transformation on {@code matrixOriginal} using {@code matrix} and stores the result in {@code matrixTransformed}:
+    * <p>
+    * {@code matrixTransformed} = {@code matrix}<sup>-1</sup> * {@code matrixOriginal} * {@code matrix}.
+    * </p>
+    * <p>
+    * WARNING: <b> This is different from concatenating orientations.</b>
+    * </p>
+    * <p>
+    * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform in-place transformation.
+    * </p>
+    * 
+    * @param matrix the matrix used to transform {@code matrixOriginal}. Not modified.
+    * @param matrixOriginal the original matrix to use for the transformation. Not modified.
+    * @param matrixTransformed the matrix used to stored the result of the transformation. Modified.
+    */
+   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   {
+      multiplyInvertLeft(matrix, matrixOriginal, matrixTransformed);
+      multiply(matrixTransformed, matrix, matrixTransformed);
+   }
+
 
    /**
     * Find and return maximum the argument with the maximum value.

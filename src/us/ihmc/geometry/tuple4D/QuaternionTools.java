@@ -1,5 +1,6 @@
 package us.ihmc.geometry.tuple4D;
 
+import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationMatrixConversion;
@@ -40,7 +41,7 @@ public abstract class QuaternionTools
    {
       boolean isZOnly = isQuaternionZOnly(qx, qy, qz, qs);
       if (!isZOnly)
-         throw new RuntimeException("The quaternion is not in XY plane: " + Tuple4DTools.toString(qx, qy, qz, qs));
+         throw new NotAMatrix2DException("The quaternion is not in XY plane: " + Tuple4DTools.toString(qx, qy, qz, qs));
    }
 
    public static void checkIfQuaternionIsZOnly(QuaternionReadOnly quaternion)
@@ -79,37 +80,55 @@ public abstract class QuaternionTools
 
    public static void multiply(QuaternionReadOnly q1, QuaternionReadOnly q2, QuaternionBasics quaternionToPack)
    {
-      multiplyImpl(q1.getX(), q1.getY(), q1.getZ(), q1.getS(), q2.getX(), q2.getY(), q2.getZ(), q2.getS(), quaternionToPack);
+      multiplyImpl(q1, false, q2, false, quaternionToPack);
    }
 
    public static void multiplyConjugateLeft(QuaternionReadOnly q1, QuaternionReadOnly q2, QuaternionBasics quaternionToPack)
    {
-      multiplyImpl(-q1.getX(), -q1.getY(), -q1.getZ(), q1.getS(), q2.getX(), q2.getY(), q2.getZ(), q2.getS(), quaternionToPack);
+      multiplyImpl(q1, true, q2, false, quaternionToPack);
    }
 
    public static void multiplyConjugateRight(QuaternionReadOnly q1, QuaternionReadOnly q2, QuaternionBasics quaternionToPack)
    {
-      multiplyImpl(q1.getX(), q1.getY(), q1.getZ(), q1.getS(), -q2.getX(), -q2.getY(), -q2.getZ(), q2.getS(), quaternionToPack);
+      multiplyImpl(q1, false, q2, true, quaternionToPack);
    }
 
    public static void multiply(Tuple4DReadOnly q, Tuple4DReadOnly v, Vector4DBasics vectorToPack)
    {
-      multiplyImpl(q.getX(), q.getY(), q.getZ(), q.getS(), v.getX(), v.getY(), v.getZ(), v.getS(), vectorToPack);
+      multiplyImpl(q, false, v, false, vectorToPack);
    }
 
    public static void multiplyConjugateLeft(Tuple4DReadOnly q, Tuple4DReadOnly v, Vector4DBasics vectorToPack)
    {
-      multiplyImpl(-q.getX(), -q.getY(), -q.getZ(), q.getS(), v.getX(), v.getY(), v.getZ(), v.getS(), vectorToPack);
+      multiplyImpl(q, true, v, false, vectorToPack);
    }
 
    public static void multiplyConjugateRight(Tuple4DReadOnly v, Tuple4DReadOnly q, Vector4DBasics vectorToPack)
    {
-      multiplyImpl(v.getX(), v.getY(), v.getZ(), v.getS(), -q.getX(), -q.getY(), -q.getZ(), q.getS(), vectorToPack);
+      multiplyImpl(v, false, q, true, vectorToPack);
    }
 
-   private static void multiplyImpl(double x1, double y1, double z1, double s1, double x2, double y2, double z2, double s2,
-         Tuple4DBasics tupleToPack)
+   private static void multiplyImpl(Tuple4DReadOnly t1, boolean conjugateT1, Tuple4DReadOnly t2, boolean conjugateT2, Tuple4DBasics tupleToPack)
    {
+      multiplyImpl(t1.getX(), t1.getY(), t1.getZ(), t1.getS(), conjugateT1, t2.getX(), t2.getY(), t2.getZ(), t2.getS(), conjugateT2, tupleToPack);
+   }
+
+   private static void multiplyImpl(double x1, double y1, double z1, double s1, boolean conjugateT1, double x2, double y2, double z2, double s2, boolean conjugateT2, Tuple4DBasics tupleToPack)
+   {
+      if (conjugateT1)
+      {
+         x1 = -x1;
+         y1 = -y1;
+         z1 = -z1;
+      }
+
+      if (conjugateT2)
+      {
+         x2 = -x2;
+         y2 = -y2;
+         z2 = -z2;
+      }
+
       double x = s1 * x2 + x1 * s2 + y1 * z2 - z1 * y2;
       double y = s1 * y2 - x1 * z2 + y1 * s2 + z1 * x2;
       double z = s1 * z2 + x1 * y2 - y1 * x2 + z1 * s2;
@@ -173,28 +192,30 @@ public abstract class QuaternionTools
       return norm;
    }
 
-   public static void transform(QuaternionReadOnly quaternion, TupleBasics tupleToTransform)
-   {
-      transform(quaternion, tupleToTransform, tupleToTransform);
-   }
-
    public static void transform(QuaternionReadOnly quaternion, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
-      transformImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), tupleOriginal, tupleTransformed);
-   }
-
-   public static void inverseTransform(QuaternionReadOnly quaternion, TupleBasics tupleToTransform)
-   {
-      inverseTransform(quaternion, tupleToTransform, tupleToTransform);
+      transformImpl(quaternion, false, tupleOriginal, tupleTransformed);
    }
 
    public static void inverseTransform(QuaternionReadOnly quaternion, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
-      transformImpl(-quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), tupleOriginal, tupleTransformed);
+      transformImpl(quaternion, true, tupleOriginal, tupleTransformed);
    }
 
-   private static void transformImpl(double qx, double qy, double qz, double qs, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
+
       double norm = norm(qx, qy, qz, qs);
 
       if (norm < EPS)
@@ -230,11 +251,23 @@ public abstract class QuaternionTools
 
    public static void addTransform(QuaternionReadOnly quaternion, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
-      addTransform(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), tupleOriginal, tupleTransformed);
+      addTransform(quaternion, false, tupleOriginal, tupleTransformed);
    }
 
-   private static void addTransform(double qx, double qy, double qz, double qs, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   private static void addTransform(QuaternionReadOnly quaternion, boolean conjugateQuaternion, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
    {
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
+
       double norm = norm(qx, qy, qz, qs);
 
       if (norm < EPS)
@@ -268,30 +301,32 @@ public abstract class QuaternionTools
       tupleTransformed.setZ(tupleTransformed.getZ() + z + qs * crossZ + crossCrossZ);
    }
 
-   public static void transform(QuaternionReadOnly quaternion, Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
-   {
-      transform(quaternion, tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
-   }
-
    public static void transform(QuaternionReadOnly quaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
-      transformImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
-   }
-
-   public static void inverseTransform(QuaternionReadOnly quaternion, Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
-   {
-      inverseTransform(quaternion, tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
+      transformImpl(quaternion, false, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
 
    public static void inverseTransform(QuaternionReadOnly quaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
          boolean checkIfTransformInXYPlane)
    {
-      transformImpl(-quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
+      transformImpl(quaternion, true, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
 
-   private static void transformImpl(double qx, double qy, double qz, double qs, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
          boolean checkIfTransformInXYPlane)
    {
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
+
       if (checkIfTransformInXYPlane)
          checkIfQuaternionIsZOnly(qx, qy, qz, qs);
 
@@ -322,33 +357,40 @@ public abstract class QuaternionTools
       tupleTransformed.setY(y + qs * crossY + crossCrossY);
    }
 
-   public static void transform(QuaternionReadOnly quaternion, QuaternionBasics quaternionToTransform)
-   {
-      transform(quaternion, quaternionToTransform, quaternionToTransform);
-   }
-
    public static void transform(QuaternionReadOnly quaternion, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
-      transformImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), quaternionOriginal, quaternionTransformed);
+      multiplyImpl(quaternion, false, quaternionOriginal, false, quaternionTransformed);
    }
 
-   private static void transformImpl(double qx, double qy, double qz, double qs, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public static void inverseTransform(QuaternionReadOnly quaternion, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
-      multiplyImpl(qx, qy, qz, qs, quaternionOriginal.getX(), quaternionOriginal.getY(), quaternionOriginal.getZ(), quaternionOriginal.getS(), quaternionTransformed);
-   }
-
-   public static void transform(QuaternionReadOnly quaternion, Vector4DBasics vectorToTransform)
-   {
-      transform(quaternion, vectorToTransform, vectorToTransform);
+      multiplyImpl(quaternion, true, quaternionOriginal, false, quaternionTransformed);
    }
 
    public static void transform(QuaternionReadOnly quaternion, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      transformImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), vectorOriginal, vectorTransformed);
+      transformImpl(quaternion, false, vectorOriginal, vectorTransformed);
+   }
+   
+   public static void inverseTransform(QuaternionReadOnly quaternion, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   {
+      transformImpl(quaternion, true, vectorOriginal, vectorTransformed);
    }
 
-   private static void transformImpl(double qx, double qy, double qz, double qs, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
+
       // It's the same as transforming a vector 3D. The scalar of the transformed vector 4D is the same as the original.
       double norm = norm(qx, qy, qz, qs);
 
@@ -384,17 +426,29 @@ public abstract class QuaternionTools
       vectorTransformed.setS(vectorOriginal.getS());
    }
 
-   public static void transform(QuaternionReadOnly quaternion, Matrix3D matrixToTransform)
+   public static void transform(QuaternionReadOnly quaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
-      transform(quaternion, matrixToTransform, matrixToTransform);
+      transformImpl(quaternion, false, matrixOriginal, matrixTransformed);
    }
 
-   public static void transform(QuaternionReadOnly quaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public static void inverseTransform(QuaternionReadOnly quaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   {
+      transformImpl(quaternion, true, matrixOriginal, matrixTransformed);
+   }
+
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
 
       double norm = norm(qx, qy, qz, qs);
 
@@ -453,68 +507,150 @@ public abstract class QuaternionTools
       matrixTransformed.set(qMqt00, qMqt01, qMqt02, qMqt10, qMqt11, qMqt12, qMqt20, qMqt21, qMqt22);
    }
 
-   public static void transform(QuaternionReadOnly quaternion, RotationMatrix rotationMatrixToTransform)
-   {
-      transform(quaternion, rotationMatrixToTransform, rotationMatrixToTransform);
-   }
-
    public static void transform(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
    {
-      multiply(quaternion, rotationMatrixOriginal, rotationMatrixTransformed);
+      multiplyImpl(quaternion, false, rotationMatrixOriginal, false, rotationMatrixTransformed);
+   }
+   
+   public static void inverseTransform(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
+   {
+      multiplyImpl(quaternion, true, rotationMatrixOriginal, false, rotationMatrixTransformed);
    }
 
    public static void multiply(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics quaternionToPack)
    {
-      multiplyImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), matrix, quaternionToPack);
+      multiplyImpl(quaternion, false, matrix, false, quaternionToPack);
    }
 
    public static void multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics quaternionToPack)
    {
-      multiplyImpl(-quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), matrix, quaternionToPack);
+      multiplyImpl(quaternion, true, matrix, false, quaternionToPack);
    }
 
-   private static void multiplyImpl(double qx, double qy, double qz, double qs, RotationMatrixReadOnly<?> matrix, QuaternionBasics quaternionToPack)
+   public static void multiplyTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics quaternionToPack)
    {
+      multiplyImpl(quaternion, false, matrix, true, quaternionToPack);
+   }
+
+   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics quaternionToPack)
+   {
+      multiplyImpl(quaternion, true, matrix, true, quaternionToPack);
+   }
+
+   private static void multiplyImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionBasics quaternionToPack)
+   {
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
+
       QuaternionConversion.convertMatrixToQuaternion(matrix, quaternionToPack);
       double q2x = quaternionToPack.getX();
       double q2y = quaternionToPack.getY();
       double q2z = quaternionToPack.getZ();
       double q2s = quaternionToPack.getS();
-      multiplyImpl(qx, qy, qz, qs, q2x, q2y, q2z, q2s, quaternionToPack);
+
+      if (transposeMatrix)
+      {
+         q2x = -q2x;
+         q2y = -q2y;
+         q2z = -q2z;
+      }
+
+      multiplyImpl(qx, qy, qz, qs, false, q2x, q2y, q2z, q2s, false, quaternionToPack);
    }
 
    public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
    {
-      multiplyImpl(matrix, quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), quaternionToPack);
+      multiplyImpl(matrix, false, quaternion, false, quaternionToPack);
    }
 
    public static void multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
    {
-      multiplyImpl(matrix, -quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), quaternionToPack);
+      multiplyImpl(matrix, false, quaternion, true, quaternionToPack);
+   }
+   
+   public static void multiplyTransposeMatrix(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
+   {
+      multiplyImpl(matrix, true, quaternion, false, quaternionToPack);
+   }
+   
+   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
+   {
+      multiplyImpl(matrix, true, quaternion, true, quaternionToPack);
    }
 
-   private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, double qx, double qy, double qz, double qs, QuaternionBasics quaternionToPack)
+   private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionReadOnly quaternion, boolean conjugateQuaternion, QuaternionBasics quaternionToPack)
    {
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
+
       QuaternionConversion.convertMatrixToQuaternion(matrix, quaternionToPack);
       double q1x = quaternionToPack.getX();
       double q1y = quaternionToPack.getY();
       double q1z = quaternionToPack.getZ();
       double q1s = quaternionToPack.getS();
-      multiplyImpl(q1x, q1y, q1z, q1s, qx, qy, qz, qs, quaternionToPack);
+
+      if (transposeMatrix)
+      {
+         q1x = -q1x;
+         q1y = -q1y;
+         q1z = -q1z;
+      }
+
+      multiplyImpl(q1x, q1y, q1z, q1s, false, qx, qy, qz, qs, false, quaternionToPack);
    }
 
    public static void multiply(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
-      multiplyImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), matrix, matrixToPack);
+      multiplyImpl(quaternion, false, matrix, false, matrixToPack);
    }
 
    public static void multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
-      multiplyImpl(-quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), matrix, matrixToPack);
+      multiplyImpl(quaternion, true, matrix, false, matrixToPack);
    }
 
-   private static void multiplyImpl(double qx, double qy, double qz, double qs, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+   public static void multiplyTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
+      multiplyImpl(quaternion, false, matrix, true, matrixToPack);
+   }
+
+   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+   {
+      multiplyImpl(quaternion, true, matrix, false, matrixToPack);
+   }
+
+   private static void multiplyImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, RotationMatrix matrixToPack)
+   {
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
+
       if (matrix != matrixToPack)
       {
          RotationMatrixConversion.convertQuaternionToMatrixImpl(qx, qy, qz, qs, matrixToPack);
@@ -556,31 +692,70 @@ public abstract class QuaternionTools
          double qM21 = yz2 + sx2;
          double qM22 = 1.0 - xx2 - yy2;
 
-         double m00 = qM00 * matrix.getM00() + qM01 * matrix.getM10() + qM02 * matrix.getM20();
-         double m01 = qM00 * matrix.getM01() + qM01 * matrix.getM11() + qM02 * matrix.getM21();
-         double m02 = qM00 * matrix.getM02() + qM01 * matrix.getM12() + qM02 * matrix.getM22();
-         double m10 = qM10 * matrix.getM00() + qM11 * matrix.getM10() + qM12 * matrix.getM20();
-         double m11 = qM10 * matrix.getM01() + qM11 * matrix.getM11() + qM12 * matrix.getM21();
-         double m12 = qM10 * matrix.getM02() + qM11 * matrix.getM12() + qM12 * matrix.getM22();
-         double m20 = qM20 * matrix.getM00() + qM21 * matrix.getM10() + qM22 * matrix.getM20();
-         double m21 = qM20 * matrix.getM01() + qM21 * matrix.getM11() + qM22 * matrix.getM21();
-         double m22 = qM20 * matrix.getM02() + qM21 * matrix.getM12() + qM22 * matrix.getM22();
+         double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+
+         if (transposeMatrix)
+         {
+            m00 = qM00 * matrix.getM00() + qM01 * matrix.getM01() + qM02 * matrix.getM02();
+            m01 = qM00 * matrix.getM10() + qM01 * matrix.getM11() + qM02 * matrix.getM12();
+            m02 = qM00 * matrix.getM20() + qM01 * matrix.getM21() + qM02 * matrix.getM22();
+            m10 = qM10 * matrix.getM00() + qM11 * matrix.getM01() + qM12 * matrix.getM02();
+            m11 = qM10 * matrix.getM10() + qM11 * matrix.getM11() + qM12 * matrix.getM12();
+            m12 = qM10 * matrix.getM20() + qM11 * matrix.getM21() + qM12 * matrix.getM22();
+            m20 = qM20 * matrix.getM00() + qM21 * matrix.getM01() + qM22 * matrix.getM02();
+            m21 = qM20 * matrix.getM10() + qM21 * matrix.getM11() + qM22 * matrix.getM12();
+            m22 = qM20 * matrix.getM20() + qM21 * matrix.getM21() + qM22 * matrix.getM22();
+         }
+         else
+         {
+            m00 = qM00 * matrix.getM00() + qM01 * matrix.getM10() + qM02 * matrix.getM20();
+            m01 = qM00 * matrix.getM01() + qM01 * matrix.getM11() + qM02 * matrix.getM21();
+            m02 = qM00 * matrix.getM02() + qM01 * matrix.getM12() + qM02 * matrix.getM22();
+            m10 = qM10 * matrix.getM00() + qM11 * matrix.getM10() + qM12 * matrix.getM20();
+            m11 = qM10 * matrix.getM01() + qM11 * matrix.getM11() + qM12 * matrix.getM21();
+            m12 = qM10 * matrix.getM02() + qM11 * matrix.getM12() + qM12 * matrix.getM22();
+            m20 = qM20 * matrix.getM00() + qM21 * matrix.getM10() + qM22 * matrix.getM20();
+            m21 = qM20 * matrix.getM01() + qM21 * matrix.getM11() + qM22 * matrix.getM21();
+            m22 = qM20 * matrix.getM02() + qM21 * matrix.getM12() + qM22 * matrix.getM22();
+         }
          matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       }
    }
 
    public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
-      multiplyImpl(matrix, quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), matrixToPack);
+      multiplyImpl(matrix, false, quaternion, false, matrixToPack);
    }
 
    public static void multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
-      multiplyImpl(matrix, -quaternion.getX(), -quaternion.getY(), -quaternion.getZ(), quaternion.getS(), matrixToPack);
+      multiplyImpl(matrix, false, quaternion, true, matrixToPack);
    }
 
-   private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, double qx, double qy, double qz, double qs, RotationMatrix matrixToPack)
+   public static void multiplyTransposeMatrix(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
+      multiplyImpl(matrix, true, quaternion, false, matrixToPack);
+   }
+
+   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
+   {
+      multiplyImpl(matrix, true, quaternion, true, matrixToPack);
+   }
+
+   private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionReadOnly quaternion, boolean conjugateQuaternion, RotationMatrix matrixToPack)
+   {
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      if (conjugateQuaternion)
+      {
+         qx = -qx;
+         qy = -qy;
+         qz = -qz;
+      }
+
       if (matrix != matrixToPack)
       {
          RotationMatrixConversion.convertQuaternionToMatrixImpl(qx, qy, qz, qs, matrixToPack);
@@ -622,15 +797,31 @@ public abstract class QuaternionTools
          double qM21 = yz2 + sx2;
          double qM22 = 1.0 - xx2 - yy2;
 
-         double m00 = matrix.getM00() * qM00 + matrix.getM01() * qM10 + matrix.getM02() * qM20;
-         double m01 = matrix.getM00() * qM01 + matrix.getM01() * qM11 + matrix.getM02() * qM21;
-         double m02 = matrix.getM00() * qM02 + matrix.getM01() * qM12 + matrix.getM02() * qM22;
-         double m10 = matrix.getM10() * qM00 + matrix.getM11() * qM10 + matrix.getM12() * qM20;
-         double m11 = matrix.getM10() * qM01 + matrix.getM11() * qM11 + matrix.getM12() * qM21;
-         double m12 = matrix.getM10() * qM02 + matrix.getM11() * qM12 + matrix.getM12() * qM22;
-         double m20 = matrix.getM20() * qM00 + matrix.getM21() * qM10 + matrix.getM22() * qM20;
-         double m21 = matrix.getM20() * qM01 + matrix.getM21() * qM11 + matrix.getM22() * qM21;
-         double m22 = matrix.getM20() * qM02 + matrix.getM21() * qM12 + matrix.getM22() * qM22;
+         double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+         if (transposeMatrix)
+         {
+            m00 = matrix.getM00() * qM00 + matrix.getM10() * qM10 + matrix.getM20() * qM20;
+            m01 = matrix.getM00() * qM01 + matrix.getM10() * qM11 + matrix.getM20() * qM21;
+            m02 = matrix.getM00() * qM02 + matrix.getM10() * qM12 + matrix.getM20() * qM22;
+            m10 = matrix.getM01() * qM00 + matrix.getM11() * qM10 + matrix.getM21() * qM20;
+            m11 = matrix.getM01() * qM01 + matrix.getM11() * qM11 + matrix.getM21() * qM21;
+            m12 = matrix.getM01() * qM02 + matrix.getM11() * qM12 + matrix.getM21() * qM22;
+            m20 = matrix.getM02() * qM00 + matrix.getM12() * qM10 + matrix.getM22() * qM20;
+            m21 = matrix.getM02() * qM01 + matrix.getM12() * qM11 + matrix.getM22() * qM21;
+            m22 = matrix.getM02() * qM02 + matrix.getM12() * qM12 + matrix.getM22() * qM22;
+         }
+         else
+         {
+            m00 = matrix.getM00() * qM00 + matrix.getM01() * qM10 + matrix.getM02() * qM20;
+            m01 = matrix.getM00() * qM01 + matrix.getM01() * qM11 + matrix.getM02() * qM21;
+            m02 = matrix.getM00() * qM02 + matrix.getM01() * qM12 + matrix.getM02() * qM22;
+            m10 = matrix.getM10() * qM00 + matrix.getM11() * qM10 + matrix.getM12() * qM20;
+            m11 = matrix.getM10() * qM01 + matrix.getM11() * qM11 + matrix.getM12() * qM21;
+            m12 = matrix.getM10() * qM02 + matrix.getM11() * qM12 + matrix.getM12() * qM22;
+            m20 = matrix.getM20() * qM00 + matrix.getM21() * qM10 + matrix.getM22() * qM20;
+            m21 = matrix.getM20() * qM01 + matrix.getM21() * qM11 + matrix.getM22() * qM21;
+            m22 = matrix.getM20() * qM02 + matrix.getM21() * qM12 + matrix.getM22() * qM22;
+         }
          matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       }
    }
