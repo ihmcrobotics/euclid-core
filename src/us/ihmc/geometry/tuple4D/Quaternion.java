@@ -409,6 +409,16 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, true);
    }
 
+   public void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   {
+      QuaternionTools.inverseTransform(this, tupleToTransform, checkIfTransformInXYPlane);
+   }
+
+   public void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   {
+      QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
+   }
+
    @Override
    public void applyTransform(Transform transform)
    {

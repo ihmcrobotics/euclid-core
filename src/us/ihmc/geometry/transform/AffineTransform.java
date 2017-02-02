@@ -23,6 +23,7 @@ import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
+import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -368,7 +369,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    @Override
-   public void transform(Point2DBasics pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
       rotationScaleMatrix.transform(pointOriginal, pointTransformed, checkIfTransformInXYPlane);
       pointTransformed.add(translationVector.getX(), translationVector.getY());
@@ -380,11 +381,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       rotationScaleMatrix.transform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
 
-   public void inverseTransform(PointBasics pointToTransform)
-   {
-      inverseTransform(pointToTransform, pointToTransform);
-   }
-
+   @Override
    public void inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
    {
       pointTransformed.set(pointOriginal);
@@ -392,36 +389,24 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       rotationScaleMatrix.inverseTransform(pointTransformed);
    }
 
-   public void inverseTransform(VectorBasics vectorToTransform)
-   {
-      inverseTransform(vectorToTransform, vectorToTransform);
-   }
-
+   @Override
    public void inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
    {
       rotationScaleMatrix.inverseTransform(vectorOriginal, vectorTransformed);
    }
 
-   public void inverseTransform(Point2DBasics pointToTransform)
-   {
-      inverseTransform(pointToTransform, pointToTransform);
-   }
-
-   public void inverseTransform(Point2DBasics pointOriginal, Point2DBasics pointTransformed)
+   @Override
+   public void inverseTransform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
       pointTransformed.set(pointOriginal);
       pointTransformed.sub(translationVector.getX(), translationVector.getY());
-      rotationScaleMatrix.inverseTransform(pointTransformed);
+      rotationScaleMatrix.inverseTransform(pointTransformed, checkIfTransformInXYPlane);
    }
 
-   public void inverseTransform(Vector2DBasics vectorToTransform)
+   @Override
+   public void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
-      inverseTransform(vectorToTransform, vectorToTransform);
-   }
-
-   public void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed)
-   {
-      rotationScaleMatrix.inverseTransform(vectorOriginal, vectorTransformed);
+      rotationScaleMatrix.inverseTransform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
 
    public void getRigidBodyTransform(RigidBodyTransform rigidBodyTransformToPack)
