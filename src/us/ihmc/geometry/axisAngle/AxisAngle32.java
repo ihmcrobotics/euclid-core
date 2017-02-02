@@ -128,6 +128,20 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
+    * Creates an axis-angle such that it represents the same
+    * orientation the yaw-pitch-roll angles represents.
+    * See {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public AxisAngle32(double yaw, double pitch, double roll)
+   {
+      setYawPitchRoll(yaw, pitch, roll);
+   }
+
+   /**
     * Sets this axis-angle to represent a new rotation of axis ({@code x}, {@code y}, {@code z})
     * and angle of {@code angle}.
     *

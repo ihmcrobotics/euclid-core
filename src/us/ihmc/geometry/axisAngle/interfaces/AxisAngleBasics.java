@@ -15,6 +15,8 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  * 
  * @author Sylvain
+ * 
+ * @param T the final type of the axis-angle used.
  */
 public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngleReadOnly<T>, Settable<T>
 {
@@ -274,5 +276,31 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    default void set(VectorReadOnly rotationVector)
    {
       AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, this);
+   }
+
+   /**
+    * Sets the components of this axis-angle such that it represents the same
+    * orientation as the given yaw-pitch-roll angles.
+    * See {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double[], AxisAngleBasics)}.
+    * 
+    * @param yawPitchRoll array containing the yaw, pitch, and roll angles. Not modified.
+    */
+   default void setYawPitchRoll(double[] yawPitchRoll)
+   {
+      AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, this);
+   }
+
+   /**
+    * Sets the components of this axis-angle such that it represents the same
+    * orientation as the given yaw-pitch-roll angles.
+    * See {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param roll the angle to rotate about the x-axis.
+    */
+   default void setYawPitchRoll(double yaw, double pitch, double roll)
+   {
+      AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, this);
    }
 }

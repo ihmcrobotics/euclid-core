@@ -132,6 +132,20 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
       set(rotationVector);
    }
 
+   /**
+    * Creates an axis-angle such that it represents the same
+    * orientation the yaw-pitch-roll angles represents.
+    * See {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public AxisAngle(double yaw, double pitch, double roll)
+   {
+      setYawPitchRoll(yaw, pitch, roll);
+   }
+
    /** {@inheritDoc} */
    @Override
    public final void setX(double x)

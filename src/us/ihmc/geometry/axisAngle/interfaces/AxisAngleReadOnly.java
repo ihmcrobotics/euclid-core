@@ -13,6 +13,8 @@ import us.ihmc.geometry.tuple.interfaces.VectorBasics;
  * </p>
  * 
  * @author Sylvain
+ * 
+ * @param T the final type of the axis-angle used.
  */
 public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends EpsilonComparable<T>
 {
