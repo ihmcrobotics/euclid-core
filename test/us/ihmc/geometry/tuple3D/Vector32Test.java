@@ -1,4 +1,4 @@
-package us.ihmc.geometry.tuple;
+package us.ihmc.geometry.tuple3D;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

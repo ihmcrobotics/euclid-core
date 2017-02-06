@@ -13,8 +13,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
-import us.ihmc.geometry.tuple.TupleTest;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
+import us.ihmc.geometry.tuple3D.TupleTest;
 
 public abstract class Tuple2DTest
 {

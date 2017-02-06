@@ -1,4 +1,4 @@
-package us.ihmc.geometry.tuple;
+package us.ihmc.geometry.tuple3D;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
