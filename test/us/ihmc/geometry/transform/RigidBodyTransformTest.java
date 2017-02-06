@@ -22,7 +22,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
-import us.ihmc.geometry.tuple3D.Point;
+import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
@@ -1327,7 +1327,7 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlPoint = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedPoint = new DenseMatrix64F(4, 1);
 
-         Point point = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D point = GeometryBasicsRandomTools.generateRandomPoint(random);
          point.get(ejmlPoint);
          ejmlPoint.set(3, 0, 1.0);
 
@@ -1342,8 +1342,8 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlPoint = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedPoint = new DenseMatrix64F(4, 1);
 
-         Point point = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point pointTransformed = new Point();
+         Point3D point = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D pointTransformed = new Point3D();
          point.get(ejmlPoint);
          ejmlPoint.set(3, 0, 1.0);
 
@@ -1439,7 +1439,7 @@ public class RigidBodyTransformTest
          Point2D pointExpected = new Point2D();
          Point2D pointActual = new Point2D();
 
-         Point point = new Point(pointOriginal.getX(), pointOriginal.getY(), 0.0);
+         Point3D point = new Point3D(pointOriginal.getX(), pointOriginal.getY(), 0.0);
          transfom2D.transform(point);
          pointExpected.set(point.getX(), point.getY());
 
@@ -1453,7 +1453,7 @@ public class RigidBodyTransformTest
          Point2D pointExpected = new Point2D();
          Point2D pointActual = new Point2D();
 
-         Point point = new Point(pointOriginal.getX(), pointOriginal.getY(), 0.0);
+         Point3D point = new Point3D(pointOriginal.getX(), pointOriginal.getY(), 0.0);
          transfom2D.transform(point);
          pointExpected.set(point.getX(), point.getY());
 
@@ -1467,7 +1467,7 @@ public class RigidBodyTransformTest
          Point2D pointExpected = new Point2D();
          Point2D pointActual = new Point2D();
 
-         Point point = new Point(pointOriginal.getX(), pointOriginal.getY(), 0.0);
+         Point3D point = new Point3D(pointOriginal.getX(), pointOriginal.getY(), 0.0);
          transfom2D.transform(point);
          pointExpected.set(point.getX(), point.getY());
 
@@ -1480,7 +1480,7 @@ public class RigidBodyTransformTest
          Point2D pointExpected = new Point2D();
          Point2D pointActual = new Point2D();
 
-         Point point = new Point(pointOriginal.getX(), pointOriginal.getY(), 0.0);
+         Point3D point = new Point3D(pointOriginal.getX(), pointOriginal.getY(), 0.0);
          transfom2D.transform(point);
          pointExpected.set(point.getX(), point.getY());
 
@@ -1565,8 +1565,8 @@ public class RigidBodyTransformTest
       RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
 
       { // Test inverseTransform(PointBasics pointToTransform)
-         Point pointExpected = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point pointActual = new Point();
+         Point3D pointExpected = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D pointActual = new Point3D();
          pointActual.set(pointExpected);
          transform.transform(pointActual);
          transform.inverseTransform(pointActual);
@@ -1574,8 +1574,8 @@ public class RigidBodyTransformTest
       }
 
       { // Test inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
-         Point pointExpected = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point pointActual = new Point();
+         Point3D pointExpected = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D pointActual = new Point3D();
 
          transform.inverseTransform(pointExpected, pointActual);
          transform.transform(pointActual);

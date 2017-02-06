@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple3D.Point;
+import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Tuple;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -21,7 +21,7 @@ public class PointTest extends TupleTest
    public void testPoint()
    {
       Random random = new Random(621541L);
-      Point point = new Point();
+      Point3D point = new Point3D();
 
       { // Test Point()
          Assert.assertTrue(0 == point.getX());
@@ -35,7 +35,7 @@ public class PointTest extends TupleTest
          double newY = random.nextDouble();
          double newZ = random.nextDouble();
 
-         point = new Point(newX, newY, newZ);
+         point = new Point3D(newX, newY, newZ);
 
          Assert.assertTrue(newX == point.getX());
          Assert.assertTrue(newY == point.getY());
@@ -50,7 +50,7 @@ public class PointTest extends TupleTest
          copyRandomPointArray[1] = randomPointArray[1];
          copyRandomPointArray[2] = randomPointArray[2];
 
-         Point pointArray = new Point(randomPointArray);
+         Point3D pointArray = new Point3D(randomPointArray);
 
          Assert.assertTrue(randomPointArray[0] == pointArray.getX());
          Assert.assertTrue(randomPointArray[1] == pointArray.getY());
@@ -63,12 +63,12 @@ public class PointTest extends TupleTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point(TupleBasics tuple)
-         Point point2 = new Point();
+         Point3D point2 = new Point3D();
          point2.setX(random.nextDouble());
          point2.setY(random.nextDouble());
          point2.setZ(random.nextDouble());
 
-         point = new Point((Tuple3DReadOnly) point2);
+         point = new Point3D((Tuple3DReadOnly) point2);
 
          Assert.assertTrue(point.getX() == point2.getX());
          Assert.assertTrue(point.getY() == point2.getY());
@@ -86,9 +86,9 @@ public class PointTest extends TupleTest
          double newY = random.nextDouble();
          double newZ = random.nextDouble();
 
-         Point point = new Point(newX, newY, newZ);
+         Point3D point = new Point3D(newX, newY, newZ);
 
-         Point point2 = new Point();
+         Point3D point2 = new Point3D();
          point2.set(point);
 
          Assert.assertTrue(point.getX() == point2.getX());
@@ -111,8 +111,8 @@ public class PointTest extends TupleTest
          double newY2 = random.nextDouble();
          double newZ2 = random.nextDouble();
 
-         Point point = new Point(newX1, newY1, newZ1);
-         Point point2 = new Point(newX2, newY2, newZ2);
+         Point3D point = new Point3D(newX1, newY1, newZ1);
+         Point3D point2 = new Point3D(newX2, newY2, newZ2);
 
          double distance = Math.sqrt(point.distanceSquared((Point3DReadOnly) point2));
          double distance2 = point.distance(point2);
@@ -149,8 +149,8 @@ public class PointTest extends TupleTest
          double newY2 = random.nextDouble();
          double newZ2 = random.nextDouble();
 
-         Point point = new Point(newX1, newY1, newZ1);
-         Point point2 = new Point(newX2, newY2, newZ2);
+         Point3D point = new Point3D(newX1, newY1, newZ1);
+         Point3D point2 = new Point3D(newX2, newY2, newZ2);
 
          double distance = point.distanceSquared((Point3DReadOnly) point2);
          double dx = point.getX() - point2.getX();
@@ -175,8 +175,8 @@ public class PointTest extends TupleTest
       Random random = new Random(621541L);
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Point point1 = new Point();
-         Point point2 = new Point();
+         Point3D point1 = new Point3D();
+         Point3D point2 = new Point3D();
 
          double epsilon = random.nextDouble();
 
@@ -239,6 +239,6 @@ public class PointTest extends TupleTest
    @Override
    public Tuple createEmptyTuple()
    {
-      return new Point();
+      return new Point3D();
    }
 }

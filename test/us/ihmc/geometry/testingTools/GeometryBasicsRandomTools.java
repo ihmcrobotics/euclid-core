@@ -17,8 +17,8 @@ import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.Vector2D32;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.Point;
 import us.ihmc.geometry.tuple3D.Point32;
+import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple3D.Vector32;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
@@ -565,9 +565,9 @@ public abstract class GeometryBasicsRandomTools
     * @param random the random generator to use.
     * @return the random point.
     */
-   public static Point generateRandomPoint(Random random)
+   public static Point3D generateRandomPoint(Random random)
    {
-      Point point = new Point();
+      Point3D point = new Point3D();
       randomizeTuple(random, point);
       return point;
    }
@@ -639,7 +639,7 @@ public abstract class GeometryBasicsRandomTools
    public static Vector generateRandomVector(Random random, double min, double max)
    {
       Vector vector = new Vector();
-      randomizeTuple(random, new Point(min, min, min), new Point(max, max, max), vector);
+      randomizeTuple(random, new Point3D(min, min, min), new Point3D(max, max, max), vector);
       return vector;
    }
 
@@ -863,7 +863,7 @@ public abstract class GeometryBasicsRandomTools
     */
    public static void randomizeTuple(Random random, Tuple3DBasics tupleToRandomize)
    {
-      randomizeTuple(random, new Point(1.0, 1.0, 1.0), tupleToRandomize);
+      randomizeTuple(random, new Point3D(1.0, 1.0, 1.0), tupleToRandomize);
    }
 
    /**

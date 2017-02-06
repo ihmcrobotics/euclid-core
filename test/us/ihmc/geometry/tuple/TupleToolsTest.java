@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Tuple2D;
-import us.ihmc.geometry.tuple3D.Point;
+import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Tuple;
 import us.ihmc.geometry.tuple3D.TupleTools;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
@@ -22,7 +22,7 @@ public class TupleToolsTest
    @Test
    public void testContainsNaN() throws Exception
    {
-      Tuple3DBasics point = new Point();
+      Tuple3DBasics point = new Point3D();
       assertFalse(TupleTools.containsNaN(point));
       point.set(Double.NaN, 0.0, 0.0);
       assertTrue(TupleTools.containsNaN(point));
@@ -36,8 +36,8 @@ public class TupleToolsTest
    public void testEpsilonEqualsTuple() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple tuple1 = new Point();
-      Tuple tuple2 = new Point();
+      Tuple tuple1 = new Point3D();
+      Tuple tuple2 = new Point3D();
 
       double epsilon = random.nextDouble();
 

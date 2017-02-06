@@ -8,32 +8,32 @@ import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public class Point extends Tuple implements Serializable, Point3DBasics, GeometryObject<Point>
+public class Point3D extends Tuple implements Serializable, Point3DBasics, GeometryObject<Point3D>
 {
    private static final long serialVersionUID = -1234830724104344277L;
 
-   public Point()
+   public Point3D()
    {
       super();
    }
 
-   public Point(double x, double y, double z)
+   public Point3D(double x, double y, double z)
    {
       super(x, y, z);
    }
 
-   public Point(double[] pointArray)
+   public Point3D(double[] pointArray)
    {
       super(pointArray);
    }
 
-   public Point(Tuple3DReadOnly other)
+   public Point3D(Tuple3DReadOnly other)
    {
       super(other);
    }
 
    @Override
-   public void set(Point other)
+   public void set(Point3D other)
    {
       super.set(other);
    }
@@ -58,7 +58,7 @@ public class Point extends Tuple implements Serializable, Point3DBasics, Geometr
    }
 
    @Override
-   public boolean epsilonEquals(Point other, double epsilon)
+   public boolean epsilonEquals(Point3D other, double epsilon)
    {
       return super.epsilonEquals(other, epsilon);
    }

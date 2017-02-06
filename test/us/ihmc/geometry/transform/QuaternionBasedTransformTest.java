@@ -17,7 +17,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
-import us.ihmc.geometry.tuple3D.Point;
+import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -623,9 +623,9 @@ public class QuaternionBasedTransformTest
       QuaternionBasedTransform qTransform2D = new QuaternionBasedTransform(rTransform2D);
 
       { // Test transform(PointBasics pointToTransform)
-         Point original = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point expected = new Point();
-         Point actual = new Point();
+         Point3D original = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D expected = new Point3D();
+         Point3D actual = new Point3D();
 
          actual.set(original);
          qTransform.transform(actual);
@@ -634,9 +634,9 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
-         Point original = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point expected = new Point();
-         Point actual = new Point();
+         Point3D original = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D expected = new Point3D();
+         Point3D actual = new Point3D();
 
          qTransform.transform(original, actual);
          rTransform.transform(original, expected);
@@ -800,9 +800,9 @@ public class QuaternionBasedTransformTest
       QuaternionBasedTransform qTransform2D = new QuaternionBasedTransform(rTransform2D);
 
       { // Test inverseTransform(PointBasics pointToTransform)
-         Point original = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point expected = new Point();
-         Point actual = new Point();
+         Point3D original = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D expected = new Point3D();
+         Point3D actual = new Point3D();
 
          actual.set(original);
          qTransform.inverseTransform(actual);
@@ -811,9 +811,9 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
-         Point original = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point expected = new Point();
-         Point actual = new Point();
+         Point3D original = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D expected = new Point3D();
+         Point3D actual = new Point3D();
 
          qTransform.inverseTransform(original, actual);
          rTransform.inverseTransform(original, expected);
