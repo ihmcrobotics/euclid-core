@@ -2,10 +2,10 @@ package us.ihmc.geometry.matrix.interfaces;
 
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;

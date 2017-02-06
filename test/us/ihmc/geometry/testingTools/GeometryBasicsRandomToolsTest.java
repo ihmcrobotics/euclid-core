@@ -8,11 +8,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
-import us.ihmc.geometry.tuple.Point;
-import us.ihmc.geometry.tuple.Tuple;
-import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
+import us.ihmc.geometry.tuple3D.Point;
+import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public class GeometryBasicsRandomToolsTest
 {

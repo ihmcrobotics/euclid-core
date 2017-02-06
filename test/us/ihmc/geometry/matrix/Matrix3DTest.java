@@ -14,8 +14,8 @@ import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple2D.Vector2D;
+import us.ihmc.geometry.tuple3D.Vector;
 
 public class Matrix3DTest
 {

@@ -9,8 +9,8 @@ import org.junit.Test;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple2D.Vector2D;
+import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 

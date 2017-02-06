@@ -12,8 +12,10 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
+import us.ihmc.geometry.tuple3D.Point32;
+import us.ihmc.geometry.tuple3D.Tuple32;
+import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public class Point32Test extends Tuple32Test
 {

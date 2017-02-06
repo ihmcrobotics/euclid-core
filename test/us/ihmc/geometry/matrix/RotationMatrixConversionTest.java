@@ -13,8 +13,8 @@ import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.Point;
-import us.ihmc.geometry.tuple.Vector;
+import us.ihmc.geometry.tuple3D.Point;
+import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 

@@ -1,7 +1,7 @@
-package us.ihmc.geometry.tuple;
+package us.ihmc.geometry.tuple3D;
 
-import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public abstract class TupleTools
 {

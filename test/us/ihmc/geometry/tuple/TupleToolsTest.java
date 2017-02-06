@@ -8,9 +8,12 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Tuple2D;
+import us.ihmc.geometry.tuple3D.Point;
+import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 
 public class TupleToolsTest
 {

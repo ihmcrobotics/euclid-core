@@ -14,7 +14,7 @@ import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.Vector;
+import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple4D.Quaternion;
 
 public class AxisAngleConversionTest

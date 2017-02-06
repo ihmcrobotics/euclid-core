@@ -12,6 +12,10 @@ import org.ejml.data.DenseMatrix64F;
 import org.junit.Assert;
 import org.junit.Test;
 
+import us.ihmc.geometry.tuple3D.Point32;
+import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.TupleTools;
+
 public abstract class TupleTest
 {
    public static final int NUMBER_OF_ITERATIONS = 100;

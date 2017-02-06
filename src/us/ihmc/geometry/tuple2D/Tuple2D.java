@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.tuple.TupleTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.geometry.tuple3D.TupleTools;
 
 public abstract class Tuple2D implements Serializable, Tuple2DBasics
 {

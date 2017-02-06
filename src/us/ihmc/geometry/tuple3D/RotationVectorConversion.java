@@ -1,11 +1,11 @@
-package us.ihmc.geometry.tuple;
+package us.ihmc.geometry.tuple3D;
 
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
-import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 

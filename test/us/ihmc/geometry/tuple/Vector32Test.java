@@ -11,6 +11,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.tuple3D.Tuple32;
+import us.ihmc.geometry.tuple3D.Vector32;
 
 public class Vector32Test extends Tuple32Test
 {

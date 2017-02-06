@@ -14,8 +14,8 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.TupleTools;
-import us.ihmc.geometry.tuple.Vector;
+import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
 public class Vector4DTest

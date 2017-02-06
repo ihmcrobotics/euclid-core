@@ -12,8 +12,8 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.Point;
-import us.ihmc.geometry.tuple.Vector;
+import us.ihmc.geometry.tuple3D.Point;
+import us.ihmc.geometry.tuple3D.Vector;
 
 public class QuaternionConversionTest
 {

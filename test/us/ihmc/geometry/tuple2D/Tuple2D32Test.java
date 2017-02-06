@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple.TupleTest;
-import us.ihmc.geometry.tuple.TupleTools;
+import us.ihmc.geometry.tuple3D.TupleTools;
 
 public abstract class Tuple2D32Test
 {

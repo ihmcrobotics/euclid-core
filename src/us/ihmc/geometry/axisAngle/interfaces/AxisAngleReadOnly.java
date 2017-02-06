@@ -2,8 +2,8 @@ package us.ihmc.geometry.axisAngle.interfaces;
 
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
-import us.ihmc.geometry.tuple.RotationVectorConversion;
-import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
+import us.ihmc.geometry.tuple3D.RotationVectorConversion;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 
 /**
  * Read-only interface for an axis-angle object.

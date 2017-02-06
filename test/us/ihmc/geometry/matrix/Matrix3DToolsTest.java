@@ -16,10 +16,10 @@ import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.Tuple;
-import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple2D.Tuple2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
+import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 

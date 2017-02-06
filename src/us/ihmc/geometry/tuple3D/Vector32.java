@@ -1,10 +1,10 @@
-package us.ihmc.geometry.tuple;
+package us.ihmc.geometry.tuple3D;
 
 import java.io.Serializable;
 
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 
 public class Vector32 extends Tuple32 implements Serializable, Vector3DBasics, GeometryObject<Vector32>
 {

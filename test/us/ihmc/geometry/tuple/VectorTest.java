@@ -10,7 +10,9 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
+import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public class VectorTest extends TupleTest
 {

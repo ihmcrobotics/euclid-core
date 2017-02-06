@@ -1,7 +1,7 @@
 package us.ihmc.geometry.transform;
 
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 public abstract class TransformTools

@@ -1,12 +1,12 @@
-package us.ihmc.geometry.tuple;
+package us.ihmc.geometry.tuple3D;
 
 import java.io.Serializable;
 
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
-import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public class Point extends Tuple implements Serializable, Point3DBasics, GeometryObject<Point>
 {

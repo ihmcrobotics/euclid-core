@@ -1,4 +1,4 @@
-package us.ihmc.geometry.tuple.interfaces;
+package us.ihmc.geometry.tuple3D.interfaces;
 
 public interface Tuple3DBasics extends Tuple3DReadOnly
 {
