@@ -18,7 +18,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.PointBasics;
+import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
@@ -54,7 +54,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  *     such that the output remains a proper unit-quaternion that still only describes a rotation.
  *    <li> when transforming a {@link RotationMatrix}, the rotation part of this transform is prepend to the rotation matrix,
  *     such that the output remains a proper rotation matrix.
- *    <li> when applying this transform on a {@link PointBasics} or {@link Point2DBasics}, this object is, in order, scaled, 
+ *    <li> when applying this transform on a {@link Point3DBasics} or {@link Point2DBasics}, this object is, in order, scaled, 
  *     rotated, and then translated.
  *    <li> when applying this transform on a {@link VectorBasics} or {@link Vector2DBasics}, this object is, in order, scaled, 
  *     and then rotated. It is NOT translated.
@@ -863,7 +863,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
+   public void transform(PointReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       rotationScaleMatrix.transform(pointOriginal, pointTransformed);
       pointTransformed.add(translationVector);
@@ -921,7 +921,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
+   public void inverseTransform(PointReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       pointTransformed.set(pointOriginal);
       pointTransformed.sub(translationVector);

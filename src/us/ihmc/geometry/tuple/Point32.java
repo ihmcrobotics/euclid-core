@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple.interfaces.PointBasics;
+import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 
-public class Point32 extends Tuple32 implements Serializable, PointBasics, GeometryObject<Point32>
+public class Point32 extends Tuple32 implements Serializable, Point3DBasics, GeometryObject<Point32>
 {
    private static final long serialVersionUID = 5142616577127976269L;
 

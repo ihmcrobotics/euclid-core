@@ -16,7 +16,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.PointBasics;
+import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
@@ -478,7 +478,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
-   public void transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
+   public void transform(PointReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       rotationMatrix.transform(pointOriginal, pointTransformed);
       pointTransformed.add(translationVector);
@@ -528,7 +528,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
-   public void inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
+   public void inverseTransform(PointReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       pointTransformed.set(pointOriginal);
       pointTransformed.sub(translationVector);

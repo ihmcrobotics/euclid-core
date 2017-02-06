@@ -13,7 +13,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.PointBasics;
+import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
@@ -42,7 +42,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * <p>
  * A few special cases to keep in mind:
  * <ul>
- *    <li> when applying this transform on a {@link PointBasics} or {@link Point2DBasics}, this object is rotated, then translated.
+ *    <li> when applying this transform on a {@link Point3DBasics} or {@link Point2DBasics}, this object is rotated, then translated.
  *    <li> when applying this transform on a {@link VectorBasics} or {@link Vector2DBasics}, this object is only rotated. It is NOT translated.
  * </ul>
  * </p>
@@ -698,7 +698,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
+   public void transform(PointReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       quaternion.transform(pointOriginal, pointTransformed);
       pointTransformed.add(translationVector);
@@ -756,7 +756,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
+   public void inverseTransform(PointReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       pointTransformed.set(pointOriginal);
       pointTransformed.sub(translationVector);
