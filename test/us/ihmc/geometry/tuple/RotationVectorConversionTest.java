@@ -15,7 +15,7 @@ import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 
@@ -33,7 +33,7 @@ public class RotationVectorConversionTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
-         Vector rotationVector = new Vector();
+         Vector3D rotationVector = new Vector3D();
          double ux = axisAngle.getX();
          double uy = axisAngle.getY();
          double uz = axisAngle.getZ();
@@ -47,8 +47,8 @@ public class RotationVectorConversionTest
       }
 
       // Test with a non-unitary axis.
-      Vector expectedRotationVector = GeometryBasicsRandomTools.generateRandomVector(random);
-      Vector actualRotationVector = new Vector();
+      Vector3D expectedRotationVector = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D actualRotationVector = new Vector3D();
 
       double ux = expectedRotationVector.getX();
       double uy = expectedRotationVector.getY();
@@ -93,8 +93,8 @@ public class RotationVectorConversionTest
    {
       Random random = new Random(1641L);
       double minMaxAngleRange = 2.0 * Math.PI;
-      Vector expectedRotationVector = new Vector();
-      Vector actualRotationVector = new Vector();
+      Vector3D expectedRotationVector = new Vector3D();
+      Vector3D actualRotationVector = new Vector3D();
 
       for (int i = 0; i < 10000; i++)
       {
@@ -147,14 +147,14 @@ public class RotationVectorConversionTest
       Random random = new Random(3651651L);
       double minMaxAngleRange = Math.PI;
       double m00, m01, m02, m10, m11, m12, m20, m21, m22;
-      Vector expectedRotationVector = new Vector();
-      Vector actualRotationVector = new Vector();
+      Vector3D expectedRotationVector = new Vector3D();
+      Vector3D actualRotationVector = new Vector3D();
 
       for (int i = 0; i < 10000; i++)
       {
          AxisAngle axisAngle = new AxisAngle();
          axisAngle.setAngle(Math.PI);
-         Vector randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
          randomVector.normalize();
          axisAngle.setX(randomVector.getX());
          axisAngle.setY(randomVector.getY());
@@ -384,8 +384,8 @@ public class RotationVectorConversionTest
    @Test
    public void testYawPitchRollToRotationVector() throws Exception
    {
-      Vector expectedRotationVector = new Vector();
-      Vector actualRotationVector = new Vector();
+      Vector3D expectedRotationVector = new Vector3D();
+      Vector3D actualRotationVector = new Vector3D();
       double[] yawPitchRoll = new double[3];
 
       double deltaAngle = 0.1 * Math.PI;

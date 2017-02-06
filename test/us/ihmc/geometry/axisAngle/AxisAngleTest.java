@@ -17,7 +17,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -82,7 +82,7 @@ public class AxisAngleTest
       { // Test AxisAngle(VectorBasics axis, double angle)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            Vector vectorAxis, vectorAxisCopy;
+            Vector3D vectorAxis, vectorAxisCopy;
             vectorAxis = vectorAxisCopy = GeometryBasicsRandomTools.generateRandomVector(random);
 
             double angle, angleCopy;
@@ -140,7 +140,7 @@ public class AxisAngleTest
       { // Test AxisAngle(VectorBasics rotationVector)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            Vector rotationVector, rotationVectorCopy;
+            Vector3D rotationVector, rotationVectorCopy;
             rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
             axisAngle = new AxisAngle(rotationVector);
@@ -288,7 +288,7 @@ public class AxisAngleTest
       { // Test set(VectorBasics rotationVector)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            Vector rotationVector, rotationVectorCopy;
+            Vector3D rotationVector, rotationVectorCopy;
             rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
             axisAngle.set(rotationVector);
@@ -303,7 +303,7 @@ public class AxisAngleTest
       { // Test set(VectorBasics axis, double angle)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            Vector vectorAxis, vectorAxisCopy;
+            Vector3D vectorAxis, vectorAxisCopy;
             vectorAxis = vectorAxisCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
             double angle;
             angle = random.nextDouble();
@@ -439,8 +439,8 @@ public class AxisAngleTest
    {
       Random random = new Random(2343456L);
       AxisAngle axisAngle, axisAngleCopy;
-      Vector vector = new Vector();
-      Vector expectedVector = new Vector();
+      Vector3D vector = new Vector3D();
+      Vector3D expectedVector = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {

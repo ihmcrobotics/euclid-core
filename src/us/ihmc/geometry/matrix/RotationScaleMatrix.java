@@ -12,7 +12,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
@@ -60,7 +60,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /** The rotation part of this rotation-scale matrix. */
    private final RotationMatrix rotationMatrix = new RotationMatrix();
    /** The scale part of this rotation-scale matrix. */
-   private final Vector scale = new Vector(1.0, 1.0, 1.0);
+   private final Vector3D scale = new Vector3D(1.0, 1.0, 1.0);
 
    /**
     * Create a new rotation-scale matrix initialized to identity.

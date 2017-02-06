@@ -16,7 +16,7 @@ import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
@@ -55,7 +55,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /** The rotation part of this transform. */
    private final Quaternion quaternion = new Quaternion();
    /** The translation part of this transform. */
-   private final Vector translationVector = new Vector();
+   private final Vector3D translationVector = new Vector3D();
 
    /**
     * Creates a new quaternion-based transform set to identity.
@@ -224,7 +224,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Sets all the components of the translation vector to {@link Double#NaN}.
     * <p>
-    * See {@link Vector#setToNaN()}.
+    * See {@link Vector3D#setToNaN()}.
     * </p>
     */
    public void setTranslationToNaN()

@@ -18,7 +18,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -77,7 +77,7 @@ public class Quaternion32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion32(VectorBasics rotationVector)
-         Vector rotationVector, rotationVectorCopy;
+         Vector3D rotationVector, rotationVectorCopy;
          rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          quaternion = new Quaternion32(rotationVector);
@@ -594,7 +594,7 @@ public class Quaternion32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test set(VectorBasics rotationVector)
-         Vector rotationVector, rotationVectorCopy;
+         Vector3D rotationVector, rotationVectorCopy;
          rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          quaternion = new Quaternion32(rotationVector);
@@ -700,9 +700,9 @@ public class Quaternion32Test
       Random random = new Random(6787L);
       Quaternion32 quaternion = new Quaternion32();
 
-      Vector tuple, tupleCopy = new Vector();
-      Vector transform3D = new Vector();
-      Vector expectedTransform3D = new Vector();
+      Vector3D tuple, tupleCopy = new Vector3D();
+      Vector3D transform3D = new Vector3D();
+      Vector3D expectedTransform3D = new Vector3D();
 
       Vector2D tuple2D, tuple2DCopy = new Vector2D();
       Vector2D transform2D = new Vector2D();
@@ -845,9 +845,9 @@ public class Quaternion32Test
       Random random = new Random(6787L);
       Quaternion32 quaternion = new Quaternion32();
 
-      Vector tuple, tupleCopy = new Vector();
-      Vector inverseTransform3D = new Vector();
-      Vector expectedInverseTransform3D = new Vector();
+      Vector3D tuple, tupleCopy = new Vector3D();
+      Vector3D inverseTransform3D = new Vector3D();
+      Vector3D expectedInverseTransform3D = new Vector3D();
 
       Vector2D tuple2D, tuple2DCopy = new Vector2D();
       Vector2D inverseTransform2D = new Vector2D();

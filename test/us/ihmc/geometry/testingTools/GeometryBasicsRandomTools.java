@@ -19,7 +19,7 @@ import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.Point3D32;
 import us.ihmc.geometry.tuple3D.Point3D;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.Vector32;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -92,7 +92,7 @@ public abstract class GeometryBasicsRandomTools
     * @param random the random generator to use.
     * @return the random rotation vector.
     */
-   public static Vector generateRandomRotationVector(Random random)
+   public static Vector3D generateRandomRotationVector(Random random)
    {
       return generateRandomRotationVector(random, Math.PI);
    }
@@ -108,9 +108,9 @@ public abstract class GeometryBasicsRandomTools
     * @return the random rotation vector.
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     */
-   public static Vector generateRandomRotationVector(Random random, double minMaxAngle)
+   public static Vector3D generateRandomRotationVector(Random random, double minMaxAngle)
    {
-      Vector rotationVector = new Vector();
+      Vector3D rotationVector = new Vector3D();
       AxisAngle axisAngle = generateRandomAxisAngle(random, minMaxAngle);
       axisAngle.getRotationVector(rotationVector);
       return rotationVector;
@@ -536,7 +536,7 @@ public abstract class GeometryBasicsRandomTools
    public static RotationScaleMatrix generateRandomRotationScaleMatrix(Random random, double minMaxAngle, double maxScale)
    {
       AxisAngle randomRotation = generateRandomAxisAngle(random, minMaxAngle);
-      Vector randomScales = generateRandomVector(random, new Vector(0.0, 0.0, 0.0), new Vector(maxScale, maxScale, maxScale));
+      Vector3D randomScales = generateRandomVector(random, new Vector3D(0.0, 0.0, 0.0), new Vector3D(maxScale, maxScale, maxScale));
       return new RotationScaleMatrix(randomRotation, randomScales);
    }
 
@@ -549,9 +549,9 @@ public abstract class GeometryBasicsRandomTools
     * @param random the random generator to use.
     * @return the random vector.
     */
-   public static Vector generateRandomVector(Random random)
+   public static Vector3D generateRandomVector(Random random)
    {
-      Vector vector = new Vector();
+      Vector3D vector = new Vector3D();
       randomizeTuple(random, vector);
       return vector;
    }
@@ -579,9 +579,9 @@ public abstract class GeometryBasicsRandomTools
     * @param length the length of the generated vector.
     * @return the random vector.
     */
-   public static Vector generateRandomVectorWithFixedLength(Random random, double length)
+   public static Vector3D generateRandomVectorWithFixedLength(Random random, double length)
    {
-      Vector vector = generateRandomVector(random);
+      Vector3D vector = generateRandomVector(random);
       vector.normalize();
       vector.scale(length);
       return vector;
@@ -598,9 +598,9 @@ public abstract class GeometryBasicsRandomTools
     * @return the random vector.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
-   public static Vector generateRandomVector(Random random, Tuple3DReadOnly minMax)
+   public static Vector3D generateRandomVector(Random random, Tuple3DReadOnly minMax)
    {
-      Vector vector = new Vector();
+      Vector3D vector = new Vector3D();
       randomizeTuple(random, minMax, vector);
       return vector;
    }
@@ -617,9 +617,9 @@ public abstract class GeometryBasicsRandomTools
     * @return the random vector.
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     */
-   public static Vector generateRandomVector(Random random, Tuple3DReadOnly min, Tuple3DReadOnly max)
+   public static Vector3D generateRandomVector(Random random, Tuple3DReadOnly min, Tuple3DReadOnly max)
    {
-      Vector vector = new Vector();
+      Vector3D vector = new Vector3D();
       randomizeTuple(random, min, max, vector);
       return vector;
    }
@@ -636,9 +636,9 @@ public abstract class GeometryBasicsRandomTools
     * @return the random vector.
     * @throws RuntimeException if {@code min > max}.
     */
-   public static Vector generateRandomVector(Random random, double min, double max)
+   public static Vector3D generateRandomVector(Random random, double min, double max)
    {
-      Vector vector = new Vector();
+      Vector3D vector = new Vector3D();
       randomizeTuple(random, new Point3D(min, min, min), new Point3D(max, max, max), vector);
       return vector;
    }

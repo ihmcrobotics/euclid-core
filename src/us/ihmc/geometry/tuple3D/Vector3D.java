@@ -8,43 +8,43 @@ import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 
-public class Vector extends Tuple3D implements Serializable, Vector3DBasics, GeometryObject<Vector>
+public class Vector3D extends Tuple3D implements Serializable, Vector3DBasics, GeometryObject<Vector3D>
 {
    private static final long serialVersionUID = -8494204802892437237L;
 
-   public Vector()
+   public Vector3D()
    {
       super();
    }
 
-   public Vector(double x, double y, double z)
+   public Vector3D(double x, double y, double z)
    {
       super(x, y, z);
    }
 
-   public Vector(double[] vectorArray)
+   public Vector3D(double[] vectorArray)
    {
       super(vectorArray);
    }
 
-   public Vector(Tuple3DReadOnly other)
+   public Vector3D(Tuple3DReadOnly other)
    {
       super(other);
    }
 
    @Override
-   public void set(Vector other)
+   public void set(Vector3D other)
    {
       super.set(other);
    }
 
-   public void setAndNormalize(Vector other)
+   public void setAndNormalize(Vector3D other)
    {
       set(other);
       normalize();
    }
 
-   public double angle(Vector other)
+   public double angle(Vector3D other)
    {
       double vDot = dot(other) / (length() * other.length());
       return Math.acos(Math.min(1.0, Math.max(-1.0, vDot)));
@@ -87,7 +87,7 @@ public class Vector extends Tuple3D implements Serializable, Vector3DBasics, Geo
    }
 
    @Override
-   public boolean epsilonEquals(Vector other, double epsilon)
+   public boolean epsilonEquals(Vector3D other, double epsilon)
    {
       return super.epsilonEquals(other, epsilon);
    }

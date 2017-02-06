@@ -19,7 +19,7 @@ import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
@@ -34,7 +34,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBodyTransform>, Settable<RigidBodyTransform>
 {
    private final RotationMatrix rotationMatrix = new RotationMatrix();
-   private final Vector translationVector = new Vector();
+   private final Vector3D translationVector = new Vector3D();
 
    public RigidBodyTransform()
    {

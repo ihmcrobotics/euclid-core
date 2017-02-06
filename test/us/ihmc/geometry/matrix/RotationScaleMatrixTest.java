@@ -19,7 +19,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
@@ -120,7 +120,7 @@ public class RotationScaleMatrixTest
 
       { // Test RotationScaleMatrix(AxisAngleReadOnly axisAngle, double scalex, double scaley, double scalez)
          AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = new RotationMatrix(axisAngle);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -140,7 +140,7 @@ public class RotationScaleMatrixTest
 
       { // Test RotationScaleMatrix(AxisAngleReadOnly axisAngle, TupleReadOnly scales)
          AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = new RotationMatrix(axisAngle);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -182,7 +182,7 @@ public class RotationScaleMatrixTest
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F rotationDenseMatrix = new DenseMatrix64F(3, 3);
          DenseMatrix64F expectedDenseMatrix = new DenseMatrix64F(3, 3);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          rotationMatrix.get(rotationDenseMatrix);
 
@@ -203,7 +203,7 @@ public class RotationScaleMatrixTest
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F rotationDenseMatrix = new DenseMatrix64F(3, 3);
          DenseMatrix64F expectedDenseMatrix = new DenseMatrix64F(3, 3);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          rotationMatrix.get(rotationDenseMatrix);
 
@@ -241,7 +241,7 @@ public class RotationScaleMatrixTest
 
       { // Test RotationScaleMatrix(QuaternionReadOnly quaternion, double scalex, double scaley, double scalez)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = new RotationMatrix(quaternion);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -261,7 +261,7 @@ public class RotationScaleMatrixTest
 
       { // Test RotationScaleMatrix(QuaternionReadOnly quaternion, TupleReadOnly scales)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = new RotationMatrix(quaternion);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -298,7 +298,7 @@ public class RotationScaleMatrixTest
       }
 
       { // Test RotationScaleMatrix(RotationMatrixReadOnly rotationMatrix, double scalex, double scaley, double scalez)
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -317,7 +317,7 @@ public class RotationScaleMatrixTest
       }
 
       { // Test RotationScaleMatrix(RotationMatrixReadOnly rotationMatrix, TupleReadOnly scales)
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -382,8 +382,8 @@ public class RotationScaleMatrixTest
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
-      Vector vector1 = new Vector();
-      Vector vector2 = new Vector();
+      Vector3D vector1 = new Vector3D();
+      Vector3D vector2 = new Vector3D();
 
       // Test that it actually makes a random matrix ortho-normal
       double corruptionFactor = 0.1;
@@ -430,12 +430,12 @@ public class RotationScaleMatrixTest
    public void testResetScale() throws Exception
    {
       RotationScaleMatrix matrix = new RotationScaleMatrix();
-      Vector scale = new Vector(5.20, 1261.0, 1.1152);
+      Vector3D scale = new Vector3D(5.20, 1261.0, 1.1152);
       matrix.setScale(scale);
       GeometryBasicsTestTools.assertTupleEquals(scale, matrix.getScale(), EPS);
 
       matrix.resetScale();
-      Vector expectedScale = new Vector(1.0, 1.0, 1.0);
+      Vector3D expectedScale = new Vector3D(1.0, 1.0, 1.0);
       GeometryBasicsTestTools.assertTupleEquals(expectedScale, matrix.getScale(), EPS);
    }
 
@@ -482,7 +482,7 @@ public class RotationScaleMatrixTest
    {
       Random random = new Random(546L);
       RotationScaleMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-      Vector scale = new Vector(matrix.getScale());
+      Vector3D scale = new Vector3D(matrix.getScale());
 
       matrix.setRotationToZero();
       GeometryBasicsTestTools.assertTupleEquals(scale, matrix.getScale(), EPS);
@@ -714,7 +714,7 @@ public class RotationScaleMatrixTest
 
       { // Test set(AxisAngleReadOnly axisAngle, double scalex, double scaley, double scalez)
          AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = new RotationMatrix(axisAngle);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -735,7 +735,7 @@ public class RotationScaleMatrixTest
 
       { // Test set(AxisAngleReadOnly axisAngle, TupleReadOnly scales)
          AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = new RotationMatrix(axisAngle);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -779,7 +779,7 @@ public class RotationScaleMatrixTest
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F rotationDenseMatrix = new DenseMatrix64F(3, 3);
          DenseMatrix64F expectedDenseMatrix = new DenseMatrix64F(3, 3);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          rotationMatrix.get(rotationDenseMatrix);
 
@@ -801,7 +801,7 @@ public class RotationScaleMatrixTest
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F rotationDenseMatrix = new DenseMatrix64F(3, 3);
          DenseMatrix64F expectedDenseMatrix = new DenseMatrix64F(3, 3);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          rotationMatrix.get(rotationDenseMatrix);
 
@@ -841,7 +841,7 @@ public class RotationScaleMatrixTest
 
       { // Test set(QuaternionReadOnly quaternion, double scalex, double scaley, double scalez)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = new RotationMatrix(quaternion);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -862,7 +862,7 @@ public class RotationScaleMatrixTest
 
       { // Test set(QuaternionReadOnly quaternion, TupleReadOnly scales)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = new RotationMatrix(quaternion);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -901,7 +901,7 @@ public class RotationScaleMatrixTest
       }
 
       { // Test set(Matrix3DReadOnly rotationMatrix, double scalex, double scaley, double scalez)
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -921,7 +921,7 @@ public class RotationScaleMatrixTest
       }
 
       { // Test set(Matrix3DReadOnly rotationMatrix, TupleReadOnly scales)
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -960,7 +960,7 @@ public class RotationScaleMatrixTest
       }
 
       { // Test set(RotationMatrixReadOnly rotationMatrix, double scalex, double scaley, double scalez)
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -980,7 +980,7 @@ public class RotationScaleMatrixTest
       }
 
       { // Test set(RotationMatrixReadOnly rotationMatrix, TupleReadOnly scales)
-         Vector scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
          scale.absolute();
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -1009,7 +1009,7 @@ public class RotationScaleMatrixTest
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
          rotationMatrix.get(denseMatrix);
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
          rotationScaleMatrix.setScale(scale);
@@ -1022,7 +1022,7 @@ public class RotationScaleMatrixTest
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          double[] matrixArray = new double[9];
          rotationMatrix.get(matrixArray);
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
          rotationScaleMatrix.setScale(scale);
@@ -1035,7 +1035,7 @@ public class RotationScaleMatrixTest
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          AxisAngle axisAngle = new AxisAngle();
          axisAngle.set(rotationMatrix);
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
          rotationScaleMatrix.setScale(scale);
@@ -1048,7 +1048,7 @@ public class RotationScaleMatrixTest
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          Quaternion quaternion = new Quaternion();
          rotationMatrix.get(quaternion);
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
          rotationScaleMatrix.setScale(scale);
@@ -1059,7 +1059,7 @@ public class RotationScaleMatrixTest
 
       { // Test setRotation(Matrix3DReadOnly rotationMatrix)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
          rotationScaleMatrix.setScale(scale);
@@ -1070,7 +1070,7 @@ public class RotationScaleMatrixTest
 
       { // Test setRotation(RotationMatrixReadOnly rotationMatrix)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
          rotationScaleMatrix.setScale(scale);
@@ -1081,9 +1081,9 @@ public class RotationScaleMatrixTest
 
       { // Test setRotation(VectorReadOnly rotationVector)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector rotationVector = new Vector();
+         Vector3D rotationVector = new Vector3D();
          rotationMatrix.get(rotationVector);
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
          rotationScaleMatrix.setScale(scale);
@@ -1109,7 +1109,7 @@ public class RotationScaleMatrixTest
 
       { // Test setScale(double x, double y, double z)
          RotationScaleMatrix matrix = new RotationScaleMatrix();
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          matrix.setScale(scale.getX(), scale.getY(), scale.getZ());
          GeometryBasicsTestTools.assertTupleEquals(scale, matrix.getScale(), EPS);
@@ -1147,7 +1147,7 @@ public class RotationScaleMatrixTest
 
       { // Test setScale(double x, double y, double z)
          RotationScaleMatrix matrix = new RotationScaleMatrix();
-         Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
          scale.absolute();
          matrix.setScale(scale);
          GeometryBasicsTestTools.assertTupleEquals(scale, matrix.getScale(), EPS);
@@ -1165,7 +1165,7 @@ public class RotationScaleMatrixTest
       rotationMatrix.setToPitchMatrix(pitch);
       rotationScaleMatrix.setToPitchMatrix(pitch);
       GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
-      GeometryBasicsTestTools.assertTupleEquals(new Vector(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
+      GeometryBasicsTestTools.assertTupleEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
    }
 
    @Test
@@ -1179,7 +1179,7 @@ public class RotationScaleMatrixTest
       rotationMatrix.setToRollMatrix(roll);
       rotationScaleMatrix.setToRollMatrix(roll);
       GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
-      GeometryBasicsTestTools.assertTupleEquals(new Vector(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
+      GeometryBasicsTestTools.assertTupleEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
    }
 
    @Test
@@ -1193,7 +1193,7 @@ public class RotationScaleMatrixTest
       rotationMatrix.setToYawMatrix(yaw);
       rotationScaleMatrix.setToYawMatrix(yaw);
       GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
-      GeometryBasicsTestTools.assertTupleEquals(new Vector(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
+      GeometryBasicsTestTools.assertTupleEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
    }
 
    @Test
@@ -1209,7 +1209,7 @@ public class RotationScaleMatrixTest
       rotationMatrix.setYawPitchRoll(yaw, pitch, roll);
       rotationScaleMatrix.setYawPitchRoll(yaw, pitch, roll);
       GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
-      GeometryBasicsTestTools.assertTupleEquals(new Vector(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
+      GeometryBasicsTestTools.assertTupleEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
    }
 
    @Test
@@ -1260,13 +1260,13 @@ public class RotationScaleMatrixTest
    public void testTransformTuple() throws Exception
    {
       Random random = new Random(435L);
-      Vector actual = new Vector();
-      Vector expected = new Vector();
+      Vector3D actual = new Vector3D();
+      Vector3D expected = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          RotationScaleMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         Vector original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
 
          matrix.transform(original, expected);
          actual.set(original);
@@ -1410,13 +1410,13 @@ public class RotationScaleMatrixTest
    public void testInverseTransformTuple() throws Exception
    {
       Random random = new Random(435L);
-      Vector actual = new Vector();
-      Vector expected = new Vector();
+      Vector3D actual = new Vector3D();
+      Vector3D expected = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          RotationScaleMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         Vector original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
 
          matrix.inverseTransform(original, expected);
          actual.set(original);
@@ -1483,9 +1483,9 @@ public class RotationScaleMatrixTest
       Random random = new Random(3456L);
       RotationScaleMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
       RotationMatrix rotationMatrix = new RotationMatrix(matrix.getRotationMatrix());
-      Vector eulerActual = new Vector();
+      Vector3D eulerActual = new Vector3D();
       matrix.getRotationEuler(eulerActual);
-      Vector eulerExpected = new Vector();
+      Vector3D eulerExpected = new Vector3D();
       rotationMatrix.getEuler(eulerExpected);
       GeometryBasicsTestTools.assertTupleEquals(eulerExpected, eulerActual, EPS);
    }
@@ -1498,7 +1498,7 @@ public class RotationScaleMatrixTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          RotationScaleMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         Vector scale = new Vector();
+         Vector3D scale = new Vector3D();
          matrix.getScale(scale);
          double expectedMaxScale = Math.max(scale.getX(), Math.max(scale.getY(), scale.getZ()));
          assertTrue(expectedMaxScale == matrix.getMaxScale());
@@ -1552,9 +1552,9 @@ public class RotationScaleMatrixTest
 
       { // Test getRotation(VectorBasics rotationVectorToPack)
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         Vector rotationVectorActual = new Vector();
+         Vector3D rotationVectorActual = new Vector3D();
          rotationScaleMatrix.getRotation(rotationVectorActual);
-         Vector rotationVectorExpected = new Vector();
+         Vector3D rotationVectorExpected = new Vector3D();
          RotationVectorConversion.convertMatrixToRotationVector(rotationScaleMatrix.getRotationMatrix(), rotationVectorExpected);
          GeometryBasicsTestTools.assertTupleEquals(rotationVectorExpected, rotationVectorActual, EPS);
       }
@@ -1588,10 +1588,10 @@ public class RotationScaleMatrixTest
    {
       Random random = new Random(234534L);
       RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-      Vector scaleExpected = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D scaleExpected = GeometryBasicsRandomTools.generateRandomVector(random);
       scaleExpected.absolute();
       rotationScaleMatrix.setScale(scaleExpected);
-      Vector scaleActual = new Vector();
+      Vector3D scaleActual = new Vector3D();
       rotationScaleMatrix.getScale(scaleActual);
       GeometryBasicsTestTools.assertTupleEquals(scaleExpected, scaleActual, EPS);
 
@@ -1606,7 +1606,7 @@ public class RotationScaleMatrixTest
    {
       Random random = new Random(23524L);
       RotationMatrix rotationMatrixExpected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-      Vector scale = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D scale = GeometryBasicsRandomTools.generateRandomVector(random);
       scale.absolute();
 
       RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix(rotationMatrixExpected, scale);
@@ -1705,7 +1705,7 @@ public class RotationScaleMatrixTest
       }
 
       { // Test getColumn(int column, TupleBasics columnToPack)
-         Vector columnArray = new Vector();
+         Vector3D columnArray = new Vector3D();
          for (int column = 0; column < 3; column++)
          {
             rotationScaleMatrix.getColumn(column, columnArray);
@@ -1750,7 +1750,7 @@ public class RotationScaleMatrixTest
       }
 
       { // Test getColumn(int column, TupleBasics columnToPack)
-         Vector rowArray = new Vector();
+         Vector3D rowArray = new Vector3D();
          for (int row = 0; row < 3; row++)
          {
             rotationScaleMatrix.getRow(row, rowArray);

@@ -13,7 +13,7 @@ import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Point3D;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 
 public class QuaternionConversionTest
 {
@@ -132,7 +132,7 @@ public class QuaternionConversionTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
          randomVector.normalize();
          expectedQuaternion.setUnsafe(randomVector.getX(), randomVector.getY(), randomVector.getZ(), 0.0); // rotation angle of Pi
          double qx = expectedQuaternion.getX();
@@ -409,8 +409,8 @@ public class QuaternionConversionTest
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual vector
-      Vector rotationVector = new Vector();
-      Vector rotationVectorCopy = new Vector();
+      Vector3D rotationVector = new Vector3D();
+      Vector3D rotationVectorCopy = new Vector3D();
 
       for (int i = 0; i < 1000; i++)
       {

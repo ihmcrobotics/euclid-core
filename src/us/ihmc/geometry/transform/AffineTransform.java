@@ -21,7 +21,7 @@ import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
@@ -39,7 +39,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * For efficiency and readability, the transform is never stored in a 4-by-4 matrix.
  * </p>
  * <p>
- * The {@code AffineTransform} is composed of {@link RotationScaleMatrix} to scale and rotate, and a {@link Vector} to translate.
+ * The {@code AffineTransform} is composed of {@link RotationScaleMatrix} to scale and rotate, and a {@link Vector3D} to translate.
  * </p>
  * <p>
  * Because the {@code RotationScaleMatrix} a restrictive type of matrix, the algebra available with this is somewhat
@@ -69,7 +69,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /** The rotation plus scaling part of this transform. */
    private final RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
    /** The translation part of this transform. */
-   private final Vector translationVector = new Vector();
+   private final Vector3D translationVector = new Vector3D();
 
    /**
     * Creates a new affine transform set to identity.
@@ -167,7 +167,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets all the components of the translation vector to {@link Double#NaN}.
     * <p>
-    * See {@link Vector#setToNaN()}.
+    * See {@link Vector3D#setToNaN()}.
     * </p>
     */
    public void setTranslationToNaN()

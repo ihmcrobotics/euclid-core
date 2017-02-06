@@ -15,7 +15,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
@@ -83,7 +83,7 @@ public class CyclingConversionTest
             break;
          case VECTOR:
             originalRotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
-            initialRotationType.rotationHolder = new Vector(originalRotationVector);
+            initialRotationType.rotationHolder = new Vector3D(originalRotationVector);
             break;
          case YAW_PITCH_ROLL:
             originalYawPitchRoll = GeometryBasicsRandomTools.generateRandomYawPitchRoll(random);
@@ -172,7 +172,7 @@ public class CyclingConversionTest
 
    private enum AllRotations
    {
-      MATRIX(new RotationMatrix()), AXISANGLE(new AxisAngle()), QUATERNION(new Quaternion()), VECTOR(new Vector()), YAW_PITCH_ROLL(new double[3]);
+      MATRIX(new RotationMatrix()), AXISANGLE(new AxisAngle()), QUATERNION(new Quaternion()), VECTOR(new Vector3D()), YAW_PITCH_ROLL(new double[3]);
 
       Object rotationHolder;
 
@@ -280,7 +280,7 @@ public class CyclingConversionTest
 
       Vector3DReadOnly convertToRotationVector()
       {
-         Vector rotationVector = new Vector();
+         Vector3D rotationVector = new Vector3D();
          switch (this)
          {
          case MATRIX:

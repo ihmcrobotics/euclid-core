@@ -10,7 +10,7 @@ import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 
@@ -24,9 +24,9 @@ public class RotationScaleMatrixToolsTest
       Random random = new Random(34534L);
       RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
 
-      Vector originalVector = GeometryBasicsRandomTools.generateRandomVector(random);
-      Vector actualVector = new Vector();
-      Vector expectedVector = new Vector();
+      Vector3D originalVector = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D actualVector = new Vector3D();
+      Vector3D expectedVector = new Vector3D();
 
       expectedVector.set(originalVector);
       expectedVector.scale(rotationScaleMatrix.getScaleX(), rotationScaleMatrix.getScaleY(), rotationScaleMatrix.getScaleZ());
@@ -142,9 +142,9 @@ public class RotationScaleMatrixToolsTest
       Random random = new Random(24534L);
       RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
 
-      Vector originalVector = GeometryBasicsRandomTools.generateRandomVector(random);
-      Vector actualVector = new Vector();
-      Vector expectedVector = new Vector(originalVector);
+      Vector3D originalVector = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D actualVector = new Vector3D();
+      Vector3D expectedVector = new Vector3D(originalVector);
 
       rotationScaleMatrix.transform(originalVector, actualVector);
       assertFalse(expectedVector.epsilonEquals(actualVector, EPS));

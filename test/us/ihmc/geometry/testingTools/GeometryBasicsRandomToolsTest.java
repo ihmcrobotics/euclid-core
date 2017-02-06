@@ -10,7 +10,7 @@ import org.junit.Test;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Tuple3D;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -25,10 +25,10 @@ public class GeometryBasicsRandomToolsTest
       {
          Random random = new Random(16451L);
 
-         Vector vector = new Vector();
-         Vector zeroVector = new Vector();
-         Vector min = new Vector(-1, -1, -1);
-         Vector max = new Vector(1, 1, 1);
+         Vector3D vector = new Vector3D();
+         Vector3D zeroVector = new Vector3D();
+         Vector3D min = new Vector3D(-1, -1, -1);
+         Vector3D max = new Vector3D(1, 1, 1);
 
          GeometryBasicsRandomTools.generateRandomVector(random);
 

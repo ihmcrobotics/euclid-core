@@ -17,7 +17,7 @@ import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -139,7 +139,7 @@ public abstract class GeometryBasicsTestTools
 
       if (!areEqual)
       {
-         Vector difference = new Vector(actual);
+         Vector3D difference = new Vector3D(actual);
          difference.sub(expected);
          fail(message + " Expected = " + expected + ", actual = " + actual + ". Difference magnitude = " + difference.length());
       }

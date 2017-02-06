@@ -15,7 +15,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 
 public class Matrix3DTest
 {
@@ -210,10 +210,10 @@ public class Matrix3DTest
    {
       Random random = new Random(646L);
       Matrix3D tildeMatrix = new Matrix3D();
-      Vector vector, vectorCopy;
-      Vector vector2, vector2Copy;
-      Vector vector3 = new Vector();
-      Vector expectedVector3 = new Vector();
+      Vector3D vector, vectorCopy;
+      Vector3D vector2, vector2Copy;
+      Vector3D vector3 = new Vector3D();
+      Vector3D expectedVector3 = new Vector3D();
 
       for (int k = 0; k < NUMBER_OF_ITERATIONS; k++)
       {
@@ -338,7 +338,7 @@ public class Matrix3DTest
       Matrix3D matrixOriginal = new Matrix3D();
       Matrix3D scaledMatrix = new Matrix3D();
 
-      Vector scales = new Vector();
+      Vector3D scales = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -904,13 +904,13 @@ public class Matrix3DTest
    public void testTransformTuple() throws Exception
    {
       Random random = new Random(435L);
-      Vector actual = new Vector();
-      Vector expected = new Vector();
+      Vector3D actual = new Vector3D();
+      Vector3D expected = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         Vector original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
 
          Matrix3DTools.transform(matrix, original, expected);
          actual.set(original);
@@ -985,13 +985,13 @@ public class Matrix3DTest
    public void testInverseTransformTuple() throws Exception
    {
       Random random = new Random(435L);
-      Vector actual = new Vector();
-      Vector expected = new Vector();
+      Vector3D actual = new Vector3D();
+      Vector3D expected = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         Vector original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
 
          Matrix3DTools.inverseTransform(matrix, original, expected);
          actual.set(original);
@@ -1089,7 +1089,7 @@ public class Matrix3DTest
          // Good
       }
 
-      Vector rowVector = new Vector(random.nextDouble(), random.nextDouble(), random.nextDouble());
+      Vector3D rowVector = new Vector3D(random.nextDouble(), random.nextDouble(), random.nextDouble());
       matrix.setRow(0, rowVector);
       assertTrue(matrix.getM00() == rowVector.get(0));
       assertTrue(matrix.getM01() == rowVector.get(1));
@@ -1176,7 +1176,7 @@ public class Matrix3DTest
          // Good
       }
 
-      Vector columnVector = new Vector(random.nextDouble(), random.nextDouble(), random.nextDouble());
+      Vector3D columnVector = new Vector3D(random.nextDouble(), random.nextDouble(), random.nextDouble());
       matrix.setColumn(0, columnVector);
       assertTrue(matrix.getM00() == columnVector.get(0));
       assertTrue(matrix.getM10() == columnVector.get(1));
@@ -1432,7 +1432,7 @@ public class Matrix3DTest
          // Good
       }
 
-      Vector columnVector = new Vector();
+      Vector3D columnVector = new Vector3D();
       matrix.getColumn(0, columnVector);
       assertTrue(matrix.getM00() == columnVector.get(0));
       assertTrue(matrix.getM10() == columnVector.get(1));
@@ -1491,7 +1491,7 @@ public class Matrix3DTest
          // Good
       }
 
-      Vector rowVector = new Vector();
+      Vector3D rowVector = new Vector3D();
       matrix.getRow(0, rowVector);
       assertTrue(matrix.getM00() == rowVector.get(0));
       assertTrue(matrix.getM01() == rowVector.get(1));

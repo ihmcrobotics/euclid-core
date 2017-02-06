@@ -14,7 +14,7 @@ import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Point3D;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 
@@ -309,8 +309,8 @@ public class RotationMatrixConversionTest
       // Test with an actual vector
       for (int i = 0; i < 1000; i++)
       {
-         Vector rotationVector = GeometryBasicsRandomTools.generateRandomVector(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange));
-         Vector rotationVectorCopy = new Vector(rotationVector);
+         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange));
+         Vector3D rotationVectorCopy = new Vector3D(rotationVector);
          double rx = rotationVector.getX();
          double ry = rotationVector.getY();
          double rz = rotationVector.getZ();

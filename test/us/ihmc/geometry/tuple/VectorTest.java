@@ -11,7 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.tuple3D.Tuple3D;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public class VectorTest extends TupleTest
@@ -20,7 +20,7 @@ public class VectorTest extends TupleTest
    public void testVector()
    {
       Random random = new Random(621541L);
-      Vector vector = new Vector();
+      Vector3D vector = new Vector3D();
 
       { // Test Vector()
          Assert.assertTrue(0 == vector.getX());
@@ -34,7 +34,7 @@ public class VectorTest extends TupleTest
          double newY = random.nextDouble();
          double newZ = random.nextDouble();
 
-         vector = new Vector(newX, newY, newZ);
+         vector = new Vector3D(newX, newY, newZ);
 
          Assert.assertTrue(newX == vector.getX());
          Assert.assertTrue(newY == vector.getY());
@@ -44,7 +44,7 @@ public class VectorTest extends TupleTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector(double[] vectorArray)
          double[] randomVectorArray = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
-         Vector vectorArray = new Vector(randomVectorArray);
+         Vector3D vectorArray = new Vector3D(randomVectorArray);
 
          Assert.assertTrue(randomVectorArray[0] == vectorArray.getX());
          Assert.assertTrue(randomVectorArray[1] == vectorArray.getY());
@@ -53,12 +53,12 @@ public class VectorTest extends TupleTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector(TupleBasics tuple)
-         Vector vector2 = new Vector();
+         Vector3D vector2 = new Vector3D();
          vector2.setX(random.nextDouble());
          vector2.setY(random.nextDouble());
          vector2.setZ(random.nextDouble());
 
-         vector = new Vector((Tuple3DReadOnly) vector2);
+         vector = new Vector3D((Tuple3DReadOnly) vector2);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
          Assert.assertTrue(vector.getY() == vector2.getY());
@@ -76,9 +76,9 @@ public class VectorTest extends TupleTest
          double newY = random.nextDouble();
          double newZ = random.nextDouble();
 
-         Vector vector = new Vector(newX, newY, newZ);
+         Vector3D vector = new Vector3D(newX, newY, newZ);
 
-         Vector vector2 = new Vector();
+         Vector3D vector2 = new Vector3D();
          vector2.set(vector);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
@@ -91,8 +91,8 @@ public class VectorTest extends TupleTest
    public void testAngle()
    {
       Random random = new Random(56461L);
-      Vector vector1 = new Vector();
-      Vector vector2 = new Vector();
+      Vector3D vector1 = new Vector3D();
+      Vector3D vector2 = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -118,9 +118,9 @@ public class VectorTest extends TupleTest
    public void testCross()
    {
       Random random = new Random(5751684L);
-      Vector vector1 = new Vector();
-      Vector vector2 = new Vector();
-      Vector vector3 = new Vector();
+      Vector3D vector1 = new Vector3D();
+      Vector3D vector2 = new Vector3D();
+      Vector3D vector3 = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -161,8 +161,8 @@ public class VectorTest extends TupleTest
    public void testDot()
    {
       Random random = new Random(615651L);
-      Vector vector1 = new Vector();
-      Vector vector2 = new Vector();
+      Vector3D vector1 = new Vector3D();
+      Vector3D vector2 = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -185,7 +185,7 @@ public class VectorTest extends TupleTest
    public void testLength()
    {
       Random random = new Random(312310L);
-      Vector vector = new Vector();
+      Vector3D vector = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -205,7 +205,7 @@ public class VectorTest extends TupleTest
    public void testLengthSquared()
    {
       Random random = new Random(312310L);
-      Vector vector = new Vector();
+      Vector3D vector = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -227,7 +227,7 @@ public class VectorTest extends TupleTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test normalize()
-         Vector vector = new Vector();
+         Vector3D vector = new Vector3D();
 
          vector.setX(random.nextDouble());
          vector.setY(random.nextDouble());
@@ -244,13 +244,13 @@ public class VectorTest extends TupleTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test normalize(Vector vector)
-         Vector vector = new Vector();
+         Vector3D vector = new Vector3D();
 
          vector.setX(random.nextDouble());
          vector.setY(random.nextDouble());
          vector.setZ(random.nextDouble());
 
-         Vector normal = new Vector();
+         Vector3D normal = new Vector3D();
 
          normal.setAndNormalize(vector);
 
@@ -273,8 +273,8 @@ public class VectorTest extends TupleTest
    public void testEpsilonEquals()
    {
       Random random = new Random(621541L);
-      Vector vector1 = new Vector();
-      Vector vector2 = new Vector();
+      Vector3D vector1 = new Vector3D();
+      Vector3D vector2 = new Vector3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -339,6 +339,6 @@ public class VectorTest extends TupleTest
    @Override
    public Tuple3D createEmptyTuple()
    {
-      return new Vector();
+      return new Vector3D();
    }
 }

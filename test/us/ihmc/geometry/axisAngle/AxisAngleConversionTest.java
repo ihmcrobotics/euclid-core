@@ -14,7 +14,7 @@ import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 
 public class AxisAngleConversionTest
@@ -167,8 +167,8 @@ public class AxisAngleConversionTest
       // Test with an actual vector
       for (int i = 0; i < 1000; i++)
       {
-         Vector rotationVector = GeometryBasicsRandomTools.generateRandomVector(random);
-         Vector rotationVectorCopy = new Vector(rotationVector);
+         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D rotationVectorCopy = new Vector3D(rotationVector);
          AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), expectedAxisAngle);
          AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, actualAxisAngle);
 
@@ -220,7 +220,7 @@ public class AxisAngleConversionTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          expectedAxisAngle.setAngle(Math.PI);
-         Vector randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
          randomVector.normalize();
          expectedAxisAngle.setX(randomVector.getX());
          expectedAxisAngle.setY(randomVector.getY());

@@ -16,7 +16,7 @@ import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 
@@ -32,7 +32,7 @@ public class YawPitchRollConversionTest
       Random random = new Random(923748L);
       RotationMatrix matrix = new RotationMatrix();
       double[] actualYawPitchRoll = new double[3];
-      Vector actualEulerAngles = new Vector();
+      Vector3D actualEulerAngles = new Vector3D();
 
       double deltaAngle = 0.1 * Math.PI;
 
@@ -210,7 +210,7 @@ public class YawPitchRollConversionTest
    {
       Quaternion quaternion = new Quaternion();
       double[] actualYawPitchRoll = new double[3];
-      Vector actualEulerAngles = new Vector();
+      Vector3D actualEulerAngles = new Vector3D();
 
       double deltaAngle = 0.1 * Math.PI;
 
@@ -491,7 +491,7 @@ public class YawPitchRollConversionTest
    {
       AxisAngle axisAngle = new AxisAngle();
       double[] actualYawPitchRoll = new double[3];
-      Vector actualEulerAngles = new Vector();
+      Vector3D actualEulerAngles = new Vector3D();
 
       double deltaAngle = 0.1 * Math.PI;
 
@@ -772,10 +772,10 @@ public class YawPitchRollConversionTest
    public void testRotationVectorToYawPitchRoll() throws Exception
    {
 
-      Vector rotationVector = new Vector();
-      Vector rotationVectorCopy = new Vector();
+      Vector3D rotationVector = new Vector3D();
+      Vector3D rotationVectorCopy = new Vector3D();
       double[] actualYawPitchRoll = new double[3];
-      Vector actualEulerAngles = new Vector();
+      Vector3D actualEulerAngles = new Vector3D();
 
       double deltaAngle = 0.1 * Math.PI;
 

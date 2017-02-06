@@ -15,7 +15,7 @@ import org.junit.Test;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
-import us.ihmc.geometry.tuple3D.Vector;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
 public class Vector4DTest
@@ -139,7 +139,7 @@ public class Vector4DTest
       }
 
       { // Test set(TupleReadOnly other)
-         Vector vectorExpected = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D vectorExpected = GeometryBasicsRandomTools.generateRandomVector(random);
          Vector4D vectorActual = new Vector4D();
          vectorActual.set(vectorExpected);
          assertTrue(vectorActual.getX() == vectorExpected.getX());
