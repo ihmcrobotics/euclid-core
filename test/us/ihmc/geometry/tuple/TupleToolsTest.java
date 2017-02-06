@@ -12,7 +12,7 @@ import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Tuple2D;
 import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Tuple3D;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 
 public class TupleToolsTest
@@ -23,13 +23,13 @@ public class TupleToolsTest
    public void testContainsNaN() throws Exception
    {
       Tuple3DBasics point = new Point3D();
-      assertFalse(TupleTools.containsNaN(point));
+      assertFalse(Tuple3DTools.containsNaN(point));
       point.set(Double.NaN, 0.0, 0.0);
-      assertTrue(TupleTools.containsNaN(point));
+      assertTrue(Tuple3DTools.containsNaN(point));
       point.set(0.0, Double.NaN, 0.0);
-      assertTrue(TupleTools.containsNaN(point));
+      assertTrue(Tuple3DTools.containsNaN(point));
       point.set(0.0, 0.0, Double.NaN);
-      assertTrue(TupleTools.containsNaN(point));
+      assertTrue(Tuple3DTools.containsNaN(point));
    }
 
    @Test
@@ -48,52 +48,52 @@ public class TupleToolsTest
       tuple2.setX(tuple1.getX() + 0.1 * epsilon);
       tuple2.setY(tuple1.getY() + 0.1 * epsilon);
       tuple2.setZ(tuple1.getZ() + 0.1 * epsilon);
-      assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertTrue(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - 0.1 * epsilon);
       tuple2.setY(tuple1.getY() - 0.1 * epsilon);
       tuple2.setZ(tuple1.getZ() - 0.1 * epsilon);
-      assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertTrue(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - 1.1 * epsilon);
       tuple2.setY(tuple1.getY() - 0.1 * epsilon);
       tuple2.setZ(tuple1.getZ() - 0.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - 0.1 * epsilon);
       tuple2.setY(tuple1.getY() - 1.1 * epsilon);
       tuple2.setZ(tuple1.getZ() - 0.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - 0.1 * epsilon);
       tuple2.setY(tuple1.getY() - 0.1 * epsilon);
       tuple2.setZ(tuple1.getZ() - 1.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() + 1.1 * epsilon);
       tuple2.setY(tuple1.getY() + 0.1 * epsilon);
       tuple2.setZ(tuple1.getZ() + 0.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX()+ 0.1 * epsilon);
       tuple2.setY(tuple1.getY()+ 1.1 * epsilon);
       tuple2.setZ(tuple1.getZ()+ 0.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() + 0.1 * epsilon);
       tuple2.setY(tuple1.getY() + 0.1 * epsilon);
       tuple2.setZ(tuple1.getZ() + 1.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() + epsilon);
       tuple2.setY(tuple1.getY() + epsilon);
       tuple2.setZ(tuple1.getZ() + epsilon);
-      assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertTrue(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - epsilon);
       tuple2.setY(tuple1.getY() - epsilon);
       tuple2.setZ(tuple1.getZ() - epsilon);
-      assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertTrue(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
    }
 
@@ -111,35 +111,35 @@ public class TupleToolsTest
 
       tuple2.setX(tuple1.getX() + 0.1 * epsilon);
       tuple2.setY(tuple1.getY() + 0.1 * epsilon);
-      assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertTrue(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - 0.1 * epsilon);
       tuple2.setY(tuple1.getY() - 0.1 * epsilon);
-      assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertTrue(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - 1.1 * epsilon);
       tuple2.setY(tuple1.getY() - 0.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - 0.1 * epsilon);
       tuple2.setY(tuple1.getY() - 1.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() + 1.1 * epsilon);
       tuple2.setY(tuple1.getY() + 0.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX()+ 0.1 * epsilon);
       tuple2.setY(tuple1.getY()+ 1.1 * epsilon);
-      assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() + epsilon);
       tuple2.setY(tuple1.getY() + epsilon);
-      assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertTrue(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() - epsilon);
       tuple2.setY(tuple1.getY() - epsilon);
-      assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
+      assertTrue(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
    }
 
    @Test
@@ -153,23 +153,23 @@ public class TupleToolsTest
          double b = random.nextDouble();
          double alpha = random.nextDouble();
 
-         double result = TupleTools.interpolate(a, b, alpha);
+         double result = Tuple3DTools.interpolate(a, b, alpha);
          double expected = a + alpha * (b - a);
          assertEquals(result, expected, 1.0e-10);
 
          alpha = 0.5;
-         result = TupleTools.interpolate(a, b, alpha);
+         result = Tuple3DTools.interpolate(a, b, alpha);
          assertTrue(result == 0.5 * a + 0.5 * b);
          alpha = 0.0;
-         result = TupleTools.interpolate(a, b, alpha);
+         result = Tuple3DTools.interpolate(a, b, alpha);
          assertTrue(result == a);
          alpha = 1.0;
-         result = TupleTools.interpolate(a, b, alpha);
+         result = Tuple3DTools.interpolate(a, b, alpha);
          assertTrue(result == b);
 
          for (alpha = -2.0; alpha <= 2.0; alpha += 0.1)
          {
-            result = TupleTools.interpolate(a, b, alpha);
+            result = Tuple3DTools.interpolate(a, b, alpha);
             assertEquals(result, a + alpha * (b - a), 1.0e-10);
          }
       }

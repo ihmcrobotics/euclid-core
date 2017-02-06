@@ -85,7 +85,7 @@ public abstract class Tuple3D implements Serializable, Tuple3DBasics
 
    public boolean containsNaN()
    {
-      return TupleTools.containsNaN(this);
+      return Tuple3DTools.containsNaN(this);
    }
 
    public void setAndAbsolute(Tuple3DReadOnly other)
@@ -276,9 +276,9 @@ public abstract class Tuple3D implements Serializable, Tuple3DBasics
 
    public void interpolate(Tuple3DReadOnly other, double alpha)
    {
-      x = TupleTools.interpolate(x, other.getX(), alpha);
-      y = TupleTools.interpolate(y, other.getY(), alpha);
-      z = TupleTools.interpolate(z, other.getZ(), alpha);
+      x = Tuple3DTools.interpolate(x, other.getX(), alpha);
+      y = Tuple3DTools.interpolate(y, other.getY(), alpha);
+      z = Tuple3DTools.interpolate(z, other.getZ(), alpha);
    }
 
    public void interpolate(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2, double alpha)
@@ -359,7 +359,7 @@ public abstract class Tuple3D implements Serializable, Tuple3DBasics
 
    public boolean epsilonEquals(Tuple3D other, double epsilon)
    {
-      return TupleTools.epsilonEquals(this, other, epsilon);
+      return Tuple3DTools.epsilonEquals(this, other, epsilon);
    }
 
    @Override

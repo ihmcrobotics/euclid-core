@@ -6,7 +6,7 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
 public abstract class Tuple2D implements Serializable, Tuple2DBasics
 {
@@ -253,8 +253,8 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
 
    public void interpolate(Tuple2DReadOnly other, double alpha)
    {
-      x = TupleTools.interpolate(x, other.getX(), alpha);
-      y = TupleTools.interpolate(y, other.getY(), alpha);
+      x = Tuple3DTools.interpolate(x, other.getX(), alpha);
+      y = Tuple3DTools.interpolate(y, other.getY(), alpha);
    }
 
    public void interpolate(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2, double alpha)
@@ -324,7 +324,7 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
 
    public boolean epsilonEquals(Tuple2D other, double epsilon)
    {
-      return TupleTools.epsilonEquals(this, other, epsilon);
+      return Tuple3DTools.epsilonEquals(this, other, epsilon);
    }
 
    @Override

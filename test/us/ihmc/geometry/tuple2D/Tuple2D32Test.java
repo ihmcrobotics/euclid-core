@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple.TupleTest;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
 public abstract class Tuple2D32Test
 {
@@ -559,8 +559,8 @@ public abstract class Tuple2D32Test
          GeometryBasicsRandomTools.randomizeTuple2D(random, tuple2);
 
          tuple1.interpolate(tuple2, alpha);
-         assertTrue(tuple1.getX32() == (float) TupleTools.interpolate(xOld, tuple2.getX32(), alpha));
-         assertTrue(tuple1.getY32() == (float) TupleTools.interpolate(yOld, tuple2.getY32(), alpha));
+         assertTrue(tuple1.getX32() == (float) Tuple3DTools.interpolate(xOld, tuple2.getX32(), alpha));
+         assertTrue(tuple1.getY32() == (float) Tuple3DTools.interpolate(yOld, tuple2.getY32(), alpha));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -571,8 +571,8 @@ public abstract class Tuple2D32Test
          GeometryBasicsRandomTools.randomizeTuple2D(random, tuple3);
 
          tuple1.interpolate(tuple2, tuple3, alpha);
-         assertTrue(tuple1.getX32() == (float) TupleTools.interpolate(tuple2.getX32(), tuple3.getX32(), alpha));
-         assertTrue(tuple1.getY32() == (float) TupleTools.interpolate(tuple2.getY32(), tuple3.getY32(), alpha));
+         assertTrue(tuple1.getX32() == (float) Tuple3DTools.interpolate(tuple2.getX32(), tuple3.getX32(), alpha));
+         assertTrue(tuple1.getY32() == (float) Tuple3DTools.interpolate(tuple2.getY32(), tuple3.getY32(), alpha));
       }
    }
 

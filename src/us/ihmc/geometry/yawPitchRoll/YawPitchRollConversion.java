@@ -6,7 +6,7 @@ import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
@@ -525,7 +525,7 @@ public abstract class YawPitchRollConversion
 
    public static double computeYaw(Vector3DReadOnly rotationVector)
    {
-      if (TupleTools.containsNaN(rotationVector))
+      if (Tuple3DTools.containsNaN(rotationVector))
          return Double.NaN;
 
       double ux = rotationVector.getX();
@@ -551,7 +551,7 @@ public abstract class YawPitchRollConversion
 
    public static double computePitch(Vector3DReadOnly rotationVector)
    {
-      if (TupleTools.containsNaN(rotationVector))
+      if (Tuple3DTools.containsNaN(rotationVector))
          return Double.NaN;
 
       double ux = rotationVector.getX();
@@ -573,7 +573,7 @@ public abstract class YawPitchRollConversion
 
    public static double computeRoll(Vector3DReadOnly rotationVector)
    {
-      if (TupleTools.containsNaN(rotationVector))
+      if (Tuple3DTools.containsNaN(rotationVector))
          return Double.NaN;
 
       double ux = rotationVector.getX();
@@ -599,7 +599,7 @@ public abstract class YawPitchRollConversion
 
    public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, double[] yawPitchRollToPack)
    {
-      if (TupleTools.containsNaN(rotationVector))
+      if (Tuple3DTools.containsNaN(rotationVector))
       {
          yawPitchRollToPack[0] = Double.NaN;
          yawPitchRollToPack[1] = Double.NaN;
@@ -632,7 +632,7 @@ public abstract class YawPitchRollConversion
 
    public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, Vector3DBasics eulerAnglesToPack)
    {
-      if (TupleTools.containsNaN(rotationVector))
+      if (Tuple3DTools.containsNaN(rotationVector))
       {
          eulerAnglesToPack.setToNaN();
          return;

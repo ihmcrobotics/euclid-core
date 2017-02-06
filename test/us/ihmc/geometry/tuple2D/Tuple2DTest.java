@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple.TupleTest;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
 public abstract class Tuple2DTest
 {
@@ -575,8 +575,8 @@ public abstract class Tuple2DTest
          tuple2.setY(random.nextDouble());
 
          tuple1.interpolate(tuple2, alpha);
-         assertTrue(tuple1.getX() == TupleTools.interpolate(xOld, tuple2.getX(), alpha));
-         assertTrue(tuple1.getY() == TupleTools.interpolate(yOld, tuple2.getY(), alpha));
+         assertTrue(tuple1.getX() == Tuple3DTools.interpolate(xOld, tuple2.getX(), alpha));
+         assertTrue(tuple1.getY() == Tuple3DTools.interpolate(yOld, tuple2.getY(), alpha));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -590,8 +590,8 @@ public abstract class Tuple2DTest
          tuple3.setY(random.nextDouble());
 
          tuple1.interpolate(tuple2, tuple3, alpha);
-         assertTrue(tuple1.getX() == TupleTools.interpolate(tuple2.getX(), tuple3.getX(), alpha));
-         assertTrue(tuple1.getY() == TupleTools.interpolate(tuple2.getY(), tuple3.getY(), alpha));
+         assertTrue(tuple1.getX() == Tuple3DTools.interpolate(tuple2.getX(), tuple3.getX(), alpha));
+         assertTrue(tuple1.getY() == Tuple3DTools.interpolate(tuple2.getY(), tuple3.getY(), alpha));
       }
    }
 

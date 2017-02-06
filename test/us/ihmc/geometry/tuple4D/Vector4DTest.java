@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
@@ -356,12 +356,12 @@ public class Vector4DTest
 
       vector.interpolate(v0, vf, alpha);
       for (int i = 0; i < 4; i++)
-         assertEquals(TupleTools.interpolate(v0.get(i), vf.get(i), alpha), vector.get(i), EPS);
+         assertEquals(Tuple3DTools.interpolate(v0.get(i), vf.get(i), alpha), vector.get(i), EPS);
 
       vector.set(v0);
       vector.interpolate(vf, alpha);
       for (int i = 0; i < 4; i++)
-         assertEquals(TupleTools.interpolate(v0.get(i), vf.get(i), alpha), vector.get(i), EPS);
+         assertEquals(Tuple3DTools.interpolate(v0.get(i), vf.get(i), alpha), vector.get(i), EPS);
    }
 
    @Test

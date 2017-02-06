@@ -21,7 +21,7 @@ import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -1054,12 +1054,12 @@ public class QuaternionToolsTest
          tupleActual.set(tupleExpected);
 
          QuaternionTools.transform(quaternion, tupleActual, tupleActual);
-         assertFalse(TupleTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
+         assertFalse(Tuple3DTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
          GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
 
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
-         assertFalse(TupleTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
+         assertFalse(Tuple3DTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
          QuaternionTools.transform(quaternion, tupleActual, tupleActual);
          GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPSILON);
       }
@@ -1283,7 +1283,7 @@ public class QuaternionToolsTest
          tupleActual.setToZero();
          QuaternionTools.transform(quaternion, tupleOriginal, tupleTransformed, true);
          tupleTransformedCopy.set(tupleTransformed);
-         assertFalse(TupleTools.epsilonEquals(tupleOriginal, tupleTransformed, EPSILON));
+         assertFalse(Tuple3DTools.epsilonEquals(tupleOriginal, tupleTransformed, EPSILON));
          QuaternionTools.inverseTransform(quaternion, tupleTransformed, tupleActual, true);
          GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPSILON);
          assertTrue(tupleTransformed.equals(tupleTransformedCopy));

@@ -16,7 +16,7 @@ import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
@@ -130,7 +130,7 @@ public abstract class GeometryBasicsTestTools
     */
    public static void assertTupleEquals(String message, Tuple3DReadOnly expected, Tuple3DReadOnly actual, double epsilon)
    {
-      boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
+      boolean areEqual = Tuple3DTools.epsilonEquals(expected, actual, epsilon);
 
       if (message.equals(""))
       {
@@ -169,7 +169,7 @@ public abstract class GeometryBasicsTestTools
     */
    public static void assertTuple2DEquals(String message, Tuple2DReadOnly expected, Tuple2DReadOnly actual, double epsilon)
    {
-      boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
+      boolean areEqual = Tuple3DTools.epsilonEquals(expected, actual, epsilon);
 
       if (message.equals(""))
       {

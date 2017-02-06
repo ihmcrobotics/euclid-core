@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple3D.Tuple32;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
 public abstract class Tuple32Test
 {
@@ -667,9 +667,9 @@ public abstract class Tuple32Test
          tuple2.set(random.nextFloat(), random.nextFloat(), random.nextFloat());
 
          tuple1.interpolate(tuple2, alpha);
-         assertTrue(tuple1.getX32() == (float) TupleTools.interpolate(xOld, tuple2.getX32(), alpha));
-         assertTrue(tuple1.getY32() == (float) TupleTools.interpolate(yOld, tuple2.getY32(), alpha));
-         assertTrue(tuple1.getZ32() == (float) TupleTools.interpolate(zOld, tuple2.getZ32(), alpha));
+         assertTrue(tuple1.getX32() == (float) Tuple3DTools.interpolate(xOld, tuple2.getX32(), alpha));
+         assertTrue(tuple1.getY32() == (float) Tuple3DTools.interpolate(yOld, tuple2.getY32(), alpha));
+         assertTrue(tuple1.getZ32() == (float) Tuple3DTools.interpolate(zOld, tuple2.getZ32(), alpha));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -680,9 +680,9 @@ public abstract class Tuple32Test
          tuple3.set(random.nextFloat(), random.nextFloat(), random.nextFloat());
 
          tuple1.interpolate(tuple2, tuple3, alpha);
-         assertTrue(tuple1.getX32() == (float) TupleTools.interpolate(tuple2.getX32(), tuple3.getX32(), alpha));
-         assertTrue(tuple1.getY32() == (float) TupleTools.interpolate(tuple2.getY32(), tuple3.getY32(), alpha));
-         assertTrue(tuple1.getZ32() == (float) TupleTools.interpolate(tuple2.getZ32(), tuple3.getZ32(), alpha));
+         assertTrue(tuple1.getX32() == (float) Tuple3DTools.interpolate(tuple2.getX32(), tuple3.getX32(), alpha));
+         assertTrue(tuple1.getY32() == (float) Tuple3DTools.interpolate(tuple2.getY32(), tuple3.getY32(), alpha));
+         assertTrue(tuple1.getZ32() == (float) Tuple3DTools.interpolate(tuple2.getZ32(), tuple3.getZ32(), alpha));
       }
    }
 

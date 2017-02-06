@@ -6,7 +6,7 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple3D.TupleTools;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
@@ -211,10 +211,10 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
 
    public void interpolate(Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2, double alpha)
    {
-      x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
-      y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
-      z = TupleTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
-      s = TupleTools.interpolate(tuple1.getS(), tuple2.getS(), alpha);
+      x = Tuple3DTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
+      y = Tuple3DTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
+      z = Tuple3DTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
+      s = Tuple3DTools.interpolate(tuple1.getS(), tuple2.getS(), alpha);
    }
 
    public void add(Tuple4DReadOnly other)
