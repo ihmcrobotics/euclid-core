@@ -6,7 +6,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
@@ -426,7 +426,7 @@ public abstract class Matrix3DTools
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple used to store the result of the transformation. Modified.
     */
-   public static void transform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void transform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       double x = matrix.getM00() * tupleOriginal.getX() + matrix.getM01() * tupleOriginal.getY() + matrix.getM02() * tupleOriginal.getZ();
       double y = matrix.getM10() * tupleOriginal.getX() + matrix.getM11() * tupleOriginal.getY() + matrix.getM12() * tupleOriginal.getZ();
@@ -447,7 +447,7 @@ public abstract class Matrix3DTools
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple to which the result of the transformation is added to. Modified.
     */
-   public static void addTransform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void addTransform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       double x = matrix.getM00() * tupleOriginal.getX() + matrix.getM01() * tupleOriginal.getY() + matrix.getM02() * tupleOriginal.getZ();
       double y = matrix.getM10() * tupleOriginal.getX() + matrix.getM11() * tupleOriginal.getY() + matrix.getM12() * tupleOriginal.getZ();
@@ -542,7 +542,7 @@ public abstract class Matrix3DTools
     * @param tupleTransformed the tuple used to store the result of the transformation. Modified.
     * @throws SingularMatrixException if {@code matrix} is not invertible.
     */
-   public static void inverseTransform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public static void inverseTransform(Matrix3DReadOnly<?> matrix, TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       double det = matrix.determinant();
       if (Math.abs(det) < EPS_INVERT)

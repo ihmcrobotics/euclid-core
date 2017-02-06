@@ -9,7 +9,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
@@ -714,14 +714,14 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /** {@inheritDoc} */
    @Override
-   public void transform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public void transform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void addTransform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public void addTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
    }
@@ -749,7 +749,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   public void inverseTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }

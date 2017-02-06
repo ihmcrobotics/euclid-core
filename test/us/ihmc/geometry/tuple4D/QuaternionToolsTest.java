@@ -19,7 +19,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple.TupleTools;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
@@ -1078,8 +1078,8 @@ public class QuaternionToolsTest
    public void testAddTransformATuple() throws Exception
    {
       Random random = new Random(28346L);
-      TupleBasics tupleExpected = new Vector();
-      TupleBasics tupleActual = new Vector();
+      Tuple3DBasics tupleExpected = new Vector();
+      Tuple3DBasics tupleActual = new Vector();
 
       // Test that addTransform(tupleOriginal, tupleTransformed) == tupleTransformed + transform(tupleOriginal)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -1088,7 +1088,7 @@ public class QuaternionToolsTest
          TupleReadOnly tupleOriginal = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleActual.set(tupleExpected);
-         TupleBasics tupleTransformed = new Vector();
+         Tuple3DBasics tupleTransformed = new Vector();
          QuaternionTools.transform(quaternion, tupleOriginal, tupleTransformed);
          tupleExpected.add(tupleTransformed);
 

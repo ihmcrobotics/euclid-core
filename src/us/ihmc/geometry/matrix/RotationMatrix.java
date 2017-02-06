@@ -12,7 +12,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.RotationVectorConversion;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
@@ -690,7 +690,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * 
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
-   public void getEuler(TupleBasics eulerAnglesToPack)
+   public void getEuler(Tuple3DBasics eulerAnglesToPack)
    {
       YawPitchRollConversion.convertMatrixToYawPitchRoll(this, eulerAnglesToPack);
    }

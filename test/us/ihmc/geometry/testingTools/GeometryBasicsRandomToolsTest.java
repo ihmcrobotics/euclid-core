@@ -11,7 +11,7 @@ import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.tuple.Point;
 import us.ihmc.geometry.tuple.Tuple;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 
 public class GeometryBasicsRandomToolsTest
@@ -64,7 +64,7 @@ public class GeometryBasicsRandomToolsTest
 
          for (int i = 0; i < 10000; i++)
          {
-            GeometryBasicsRandomTools.randomizeTuple(random, (TupleBasics) tupleToRandomize);
+            GeometryBasicsRandomTools.randomizeTuple(random, (Tuple3DBasics) tupleToRandomize);
 
             Assert.assertTrue(-1.0 <= tupleToRandomize.getX());
             Assert.assertTrue(tupleToRandomize.getX() <= 1.0);
@@ -86,7 +86,7 @@ public class GeometryBasicsRandomToolsTest
          minMax.setY(random.nextDouble());
          minMax.setZ(random.nextDouble());
 
-         GeometryBasicsRandomTools.randomizeTuple(random, (TupleReadOnly) minMax, (TupleBasics) tupleToRandomize);
+         GeometryBasicsRandomTools.randomizeTuple(random, (TupleReadOnly) minMax, (Tuple3DBasics) tupleToRandomize);
 
          Assert.assertTrue(tupleToRandomizeCopy.getX() - minMax.getX() <= tupleToRandomize.getX());
          Assert.assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + minMax.getX());
@@ -110,7 +110,7 @@ public class GeometryBasicsRandomToolsTest
             max.setY(min.getY() + random.nextDouble());
             max.setZ(min.getZ() + random.nextDouble());
 
-            GeometryBasicsRandomTools.randomizeTuple(random, (TupleReadOnly) min, (TupleReadOnly) max, (TupleBasics) tupleToRandomize);
+            GeometryBasicsRandomTools.randomizeTuple(random, (TupleReadOnly) min, (TupleReadOnly) max, (Tuple3DBasics) tupleToRandomize);
 
             Assert.assertTrue(tupleToRandomizeCopy.getX() - min.getX() <= tupleToRandomize.getX());
             Assert.assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + max.getX());

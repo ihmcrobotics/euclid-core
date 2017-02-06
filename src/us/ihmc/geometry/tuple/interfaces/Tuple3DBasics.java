@@ -1,6 +1,6 @@
 package us.ihmc.geometry.tuple.interfaces;
 
-public interface TupleBasics extends TupleReadOnly
+public interface Tuple3DBasics extends TupleReadOnly
 {
    public void set(TupleReadOnly tupleBasics);
 

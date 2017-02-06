@@ -13,7 +13,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
@@ -1125,7 +1125,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * 
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
-   public void getRotationEuler(TupleBasics eulerAnglesToPack)
+   public void getRotationEuler(Tuple3DBasics eulerAnglesToPack)
    {
       rotationMatrix.getEuler(eulerAnglesToPack);
    }
@@ -1187,7 +1187,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * 
     * @param scaleToPack the tuple in which the scale factors are stored. Modified.
     */
-   public void getScale(TupleBasics scaleToPack)
+   public void getScale(Tuple3DBasics scaleToPack)
    {
       scaleToPack.set(scale);
    }

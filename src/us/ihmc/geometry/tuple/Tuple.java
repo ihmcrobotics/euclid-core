@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 
-public abstract class Tuple implements Serializable, TupleBasics
+public abstract class Tuple implements Serializable, Tuple3DBasics
 {
    private final static long serialVersionUID = -2901667320185555345L;
 
@@ -332,7 +332,7 @@ public abstract class Tuple implements Serializable, TupleBasics
       }
    }
 
-   public void get(TupleBasics other)
+   public void get(Tuple3DBasics other)
    {
       other.setX(x);
       other.setY(y);

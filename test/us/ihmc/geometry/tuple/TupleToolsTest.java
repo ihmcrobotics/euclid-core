@@ -8,7 +8,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Tuple2D;
 
@@ -19,7 +19,7 @@ public class TupleToolsTest
    @Test
    public void testContainsNaN() throws Exception
    {
-      TupleBasics point = new Point();
+      Tuple3DBasics point = new Point();
       assertFalse(TupleTools.containsNaN(point));
       point.set(Double.NaN, 0.0, 0.0);
       assertTrue(TupleTools.containsNaN(point));

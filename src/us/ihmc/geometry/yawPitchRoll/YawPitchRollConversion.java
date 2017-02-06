@@ -8,7 +8,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple.TupleTools;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionTools;
@@ -109,7 +109,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, TupleBasics eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DBasics eulerAnglesToPack)
    {
       rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());
@@ -132,7 +132,7 @@ public abstract class YawPitchRollConversion
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), yawPitchRollToPack);
    }
 
-   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, TupleBasics eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DBasics eulerAnglesToPack)
    {
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), eulerAnglesToPack);
    }
@@ -472,7 +472,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, TupleBasics eulerAnglesToPack)
+   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, Tuple3DBasics eulerAnglesToPack)
    {
       if (AxisAngleTools.containsNaN(axisAngle))
       {
@@ -498,7 +498,7 @@ public abstract class YawPitchRollConversion
       convertAxisAngleToYawPitchRollImpl(ux, uy, uz, angle, eulerAnglesToPack);
    }
 
-   public static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, TupleBasics eulerAnglesToPack)
+   public static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, Tuple3DBasics eulerAnglesToPack)
    {
       double sinTheta = Math.sin(angle);
       double cosTheta = Math.cos(angle);

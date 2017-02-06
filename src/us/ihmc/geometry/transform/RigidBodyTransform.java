@@ -18,7 +18,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
@@ -387,7 +387,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       return translationVector;
    }
 
-   public void getTranslation(TupleBasics translationToPack)
+   public void getTranslation(Tuple3DBasics translationToPack)
    {
       translationToPack.set(translationVector);
    }
@@ -433,25 +433,25 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       transformArrayToPack[15] = getM33();
    }
 
-   public void get(QuaternionBasics quaternionToPack, TupleBasics translationToPack)
+   public void get(QuaternionBasics quaternionToPack, Tuple3DBasics translationToPack)
    {
       rotationMatrix.get(quaternionToPack);
       translationToPack.set(translationVector);
    }
 
-   public void get(Matrix3DBasics<?> rotationMarixToPack, TupleBasics translationToPack)
+   public void get(Matrix3DBasics<?> rotationMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
    }
 
-   public void get(RotationMatrix rotationMarixToPack, TupleBasics translationToPack)
+   public void get(RotationMatrix rotationMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
    }
 
-   public void get(RotationScaleMatrix rotationMarixToPack, TupleBasics translationToPack)
+   public void get(RotationScaleMatrix rotationMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);

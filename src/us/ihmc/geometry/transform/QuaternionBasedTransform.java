@@ -15,7 +15,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
@@ -869,7 +869,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param quaternionToPack the quaternion in which this transform's quaternion is stored. Modified.
     * @param translationToPack the tuple in which this transform's translation is stored. Modified.
     */
-   public void get(QuaternionBasics quaternionToPack, TupleBasics translationToPack)
+   public void get(QuaternionBasics quaternionToPack, Tuple3DBasics translationToPack)
    {
       quaternion.get(quaternionToPack);
       translationToPack.set(translationVector);
@@ -881,7 +881,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param rotationMarixToPack the rotation matrix that is set to this transform's quaternion. Modified
     * @param translationToPack the tuple in which this transform's translation is stored. Modified.
     */
-   public void get(RotationMatrix rotationMarixToPack, TupleBasics translationToPack)
+   public void get(RotationMatrix rotationMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationMarixToPack.set(quaternion);
       translationToPack.set(translationVector);
@@ -894,7 +894,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *  The scale part is reset. Modified.
     * @param translationToPack the tuple in which this transform's translation is stored. Modified.
     */
-   public void get(RotationScaleMatrix rotationMarixToPack, TupleBasics translationToPack)
+   public void get(RotationScaleMatrix rotationMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationMarixToPack.set(quaternion, 1.0);
       translationToPack.set(translationVector);
@@ -970,7 +970,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * 
     * @param translationToPack the tuple in which the translation part of this transform is stored. Modified.
     */
-   public void getTranslation(TupleBasics translationToPack)
+   public void getTranslation(Tuple3DBasics translationToPack)
    {
       translationToPack.set(translationVector);
    }

@@ -15,7 +15,7 @@ import us.ihmc.geometry.tuple.Point;
 import us.ihmc.geometry.tuple.Point32;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.Vector32;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Point2D32;
@@ -861,7 +861,7 @@ public abstract class GeometryBasicsRandomTools
     * @param random the random generator to use.
     * @param tupleToRandomize the tuple to randomize. Modified.
     */
-   public static void randomizeTuple(Random random, TupleBasics tupleToRandomize)
+   public static void randomizeTuple(Random random, Tuple3DBasics tupleToRandomize)
    {
       randomizeTuple(random, new Point(1.0, 1.0, 1.0), tupleToRandomize);
    }
@@ -877,7 +877,7 @@ public abstract class GeometryBasicsRandomTools
     * @param tupleToRandomize the tuple to randomize. Modified.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
-   public static void randomizeTuple(Random random, TupleReadOnly minMax, TupleBasics tupleToRandomize)
+   public static void randomizeTuple(Random random, TupleReadOnly minMax, Tuple3DBasics tupleToRandomize)
    {
       for (int i = 0; i < 3; i++)
          tupleToRandomize.set(i, generateRandomDouble(random, minMax.get(i)));
@@ -895,7 +895,7 @@ public abstract class GeometryBasicsRandomTools
     * @param tupleToRandomize the tuple to randomize. Modified.
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     */
-   public static void randomizeTuple(Random random, TupleReadOnly min, TupleReadOnly max, TupleBasics tupleToRandomize)
+   public static void randomizeTuple(Random random, TupleReadOnly min, TupleReadOnly max, Tuple3DBasics tupleToRandomize)
    {
       for (int i = 0; i < 3; i++)
          tupleToRandomize.set(i, generateRandomDouble(random, min.get(i), max.get(i)));

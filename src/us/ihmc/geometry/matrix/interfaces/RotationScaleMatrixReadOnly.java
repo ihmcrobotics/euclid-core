@@ -2,7 +2,7 @@ package us.ihmc.geometry.matrix.interfaces;
 
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
@@ -79,7 +79,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
 
    /** {@inheritDoc} */
    @Override
-   default void transform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   default void transform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       tupleTransformed.setX(getScaleX() * tupleOriginal.getX());
       tupleTransformed.setY(getScaleY() * tupleOriginal.getY());
@@ -90,7 +90,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
 
    /** {@inheritDoc} */
    @Override
-   default void addTransform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   default void addTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       double x = tupleTransformed.getX();
       double y = tupleTransformed.getY();
@@ -199,7 +199,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   default void inverseTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       getRotationMatrix().inverseTransform(tupleOriginal, tupleTransformed);
 

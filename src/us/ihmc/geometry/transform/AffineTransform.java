@@ -20,7 +20,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
@@ -1046,7 +1046,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param rotationScaleMarixToPack matrix in which the rotation-scale matrix of this affine transform is stored. Modified.
     * @param translationToPack tuple in which the translation vector of this affine transform is stored. Modified.
     */
-   public void get(Matrix3DBasics<?> rotationScaleMarixToPack, TupleBasics translationToPack)
+   public void get(Matrix3DBasics<?> rotationScaleMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationScaleMarixToPack.set(rotationScaleMatrix);
       translationToPack.set(translationVector);
@@ -1058,7 +1058,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param rotationScaleMarixToPack matrix in which the rotation-scale matrix of this affine transform is stored. Modified.
     * @param translationToPack tuple in which the translation vector of this affine transform is stored. Modified.
     */
-   public void get(RotationScaleMatrix rotationScaleMarixToPack, TupleBasics translationToPack)
+   public void get(RotationScaleMatrix rotationScaleMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationScaleMarixToPack.set(rotationScaleMatrix);
       translationToPack.set(translationVector);
@@ -1222,7 +1222,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       return rotationScaleMatrix.getScaleZ();
    }
 
-   public void getScale(TupleBasics scaleToPack)
+   public void getScale(Tuple3DBasics scaleToPack)
    {
       scaleToPack.set(rotationScaleMatrix.getScale());
    }
@@ -1282,7 +1282,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * 
     * @param translationToPack the tuple in which the translation part of this transform is stored. Modified.
     */
-   public void getTranslation(TupleBasics translationToPack)
+   public void getTranslation(Tuple3DBasics translationToPack)
    {
       translationToPack.set(translationVector);
    }

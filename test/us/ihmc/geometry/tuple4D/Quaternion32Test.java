@@ -17,7 +17,7 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
@@ -715,7 +715,7 @@ public class Quaternion32Test
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
          quaternion.transform(tuple, tupleCopy);
-         quaternion.transform((TupleBasics) tuple);
+         quaternion.transform((Tuple3DBasics) tuple);
 
          GeometryBasicsTestTools.assertRotationVectorEquals(tuple, tupleCopy, QuaternionTest.EPS);
       }
@@ -726,7 +726,7 @@ public class Quaternion32Test
          tupleCopy.set(tuple);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
-         quaternion.transform((TupleBasics) tuple, transform3D);
+         quaternion.transform((Tuple3DBasics) tuple, transform3D);
          QuaternionTools.transform(quaternion, tupleCopy, expectedTransform3D);
 
          GeometryBasicsTestTools.assertRotationVectorEquals(tuple, tupleCopy, QuaternionTest.EPS);
@@ -860,7 +860,7 @@ public class Quaternion32Test
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
          quaternion.inverseTransform(tuple, tupleCopy);
-         quaternion.inverseTransform((TupleBasics) tuple);
+         quaternion.inverseTransform((Tuple3DBasics) tuple);
 
          GeometryBasicsTestTools.assertRotationVectorEquals(tuple, tupleCopy, QuaternionTest.EPS);
       }
@@ -871,7 +871,7 @@ public class Quaternion32Test
          tupleCopy.set(tuple);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
-         quaternion.inverseTransform((TupleBasics) tuple, inverseTransform3D);
+         quaternion.inverseTransform((Tuple3DBasics) tuple, inverseTransform3D);
          QuaternionTools.inverseTransform(quaternion, tuple, expectedInverseTransform3D);
 
          GeometryBasicsTestTools.assertRotationVectorEquals(tuple, tupleCopy, QuaternionTest.EPS);
