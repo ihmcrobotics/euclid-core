@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.tuple3D.Point3D;
-import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.Tuple3D;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -51,15 +51,15 @@ public class GeometryBasicsRandomToolsTest
    public void testRandomizeTuple()
    {
       Random random = new Random(6841032L);
-      Tuple tupleToRandomize = new Point3D();
+      Tuple3D tupleToRandomize = new Point3D();
 
-      Tuple tupleToRandomizeCopy = new Point3D();
+      Tuple3D tupleToRandomizeCopy = new Point3D();
       tupleToRandomizeCopy.setX(tupleToRandomize.getX());
       tupleToRandomizeCopy.setY(tupleToRandomize.getY());
       tupleToRandomizeCopy.setZ(tupleToRandomize.getZ());
 
       { // Test randomize(Random random, TupleBasics tupleToRandomize)
-         Tuple previousValue = new Point3D();
+         Tuple3D previousValue = new Point3D();
          previousValue.setToNaN();
 
          for (int i = 0; i < 10000; i++)
@@ -80,7 +80,7 @@ public class GeometryBasicsRandomToolsTest
 
       for (int i = 0; i < 10000; i++)
       { // Test randomize(Random random, TupleBasics minMax, TupleBasics tupleToRandomize)
-         Tuple minMax = new Point3D();
+         Tuple3D minMax = new Point3D();
 
          minMax.setX(random.nextDouble());
          minMax.setY(random.nextDouble());
@@ -97,8 +97,8 @@ public class GeometryBasicsRandomToolsTest
       }
 
       { // Test randomize(Random random, TupleBasics min, TupleBasics max, TupleBasics tupleToRandomize)
-         Tuple min = new Point3D();
-         Tuple max = new Point3D();
+         Tuple3D min = new Point3D();
+         Tuple3D max = new Point3D();
 
          for (int i = 0; i < 10000; i++)
          {

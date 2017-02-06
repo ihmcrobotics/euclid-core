@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.Tuple3D;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -337,7 +337,7 @@ public class VectorTest extends TupleTest
    }
 
    @Override
-   public Tuple createEmptyTuple()
+   public Tuple3D createEmptyTuple()
    {
       return new Vector();
    }

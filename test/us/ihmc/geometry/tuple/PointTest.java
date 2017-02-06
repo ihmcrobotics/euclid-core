@@ -11,7 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.tuple3D.Point3D;
-import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.Tuple3D;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -237,7 +237,7 @@ public class PointTest extends TupleTest
    }
 
    @Override
-   public Tuple createEmptyTuple()
+   public Tuple3D createEmptyTuple()
    {
       return new Point3D();
    }

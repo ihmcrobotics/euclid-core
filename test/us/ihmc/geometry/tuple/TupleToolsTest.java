@@ -11,7 +11,7 @@ import org.junit.Test;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Tuple2D;
 import us.ihmc.geometry.tuple3D.Point3D;
-import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.Tuple3D;
 import us.ihmc.geometry.tuple3D.TupleTools;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 
@@ -36,8 +36,8 @@ public class TupleToolsTest
    public void testEpsilonEqualsTuple() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple tuple1 = new Point3D();
-      Tuple tuple2 = new Point3D();
+      Tuple3D tuple1 = new Point3D();
+      Tuple3D tuple2 = new Point3D();
 
       double epsilon = random.nextDouble();
 

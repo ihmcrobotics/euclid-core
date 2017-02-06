@@ -18,7 +18,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Tuple2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
-import us.ihmc.geometry.tuple3D.Tuple;
+import us.ihmc.geometry.tuple3D.Tuple3D;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
@@ -630,15 +630,15 @@ public class Matrix3DToolsTest
    {
       Random random = new Random(3489756L);
       Matrix3D matrix = new Matrix3D();
-      Tuple tupleOriginal = new Vector();
-      Tuple tupleActual = new Vector();
-      Tuple tupleExpected = new Vector();
+      Tuple3D tupleOriginal = new Vector();
+      Tuple3D tupleActual = new Vector();
+      Tuple3D tupleExpected = new Vector();
 
       { // Test transforming with the zero matrix zero out the tuple.
          matrix.setToZero();
          Matrix3D matrixCopy = new Matrix3D(matrix);
          tupleOriginal = GeometryBasicsRandomTools.generateRandomVector(random);
-         Tuple tupleOriginalCopy = new Vector(tupleOriginal);
+         Tuple3D tupleOriginalCopy = new Vector(tupleOriginal);
          tupleExpected.setToZero();
          Matrix3DTools.transform(matrix, tupleOriginal, tupleActual);
          GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
@@ -704,15 +704,15 @@ public class Matrix3DToolsTest
    {
       Random random = new Random(3489756L);
       Matrix3D matrix = new Matrix3D();
-      Tuple tupleOriginal = new Vector();
-      Tuple tupleActual = new Vector();
-      Tuple tupleExpected = new Vector();
+      Tuple3D tupleOriginal = new Vector();
+      Tuple3D tupleActual = new Vector();
+      Tuple3D tupleExpected = new Vector();
 
       { // Test transforming with the zero matrix does not do anything.
          matrix.setToZero();
          Matrix3D matrixCopy = new Matrix3D(matrix);
          tupleOriginal = GeometryBasicsRandomTools.generateRandomVector(random);
-         Tuple tupleOriginalCopy = new Vector(tupleOriginal);
+         Tuple3D tupleOriginalCopy = new Vector(tupleOriginal);
          tupleExpected = GeometryBasicsRandomTools.generateRandomVector(random);
          tupleActual.set(tupleExpected);
          Matrix3DTools.addTransform(matrix, tupleOriginal, tupleActual);
@@ -1079,9 +1079,9 @@ public class Matrix3DToolsTest
       Random random = new Random(3489756L);
       Matrix3D matrix = new Matrix3D();
       Matrix3D matrixInverse = new Matrix3D();
-      Tuple tupleOriginal = new Vector();
-      Tuple tupleActual = new Vector();
-      Tuple tupleExpected = new Vector();
+      Tuple3D tupleOriginal = new Vector();
+      Tuple3D tupleActual = new Vector();
+      Tuple3D tupleExpected = new Vector();
 
       // Test that it throws an axception when the matrix is singular
       matrix.setToZero();
