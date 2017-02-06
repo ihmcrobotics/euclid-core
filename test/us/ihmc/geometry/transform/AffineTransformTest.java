@@ -224,7 +224,7 @@ public class AffineTransformTest
       AffineTransform original = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
       AffineTransform transform = new AffineTransform(original);
 
-      transform.resetRotation();
+      transform.setRotationToZero();
 
       for (int row = 0; row < 4; row++)
       {
@@ -266,7 +266,7 @@ public class AffineTransformTest
       AffineTransform original = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
       AffineTransform transform = new AffineTransform(original);
 
-      transform.resetTranslation();
+      transform.setTranslationToZero();
 
       for (int row = 0; row < 4; row++)
       {
@@ -1204,7 +1204,7 @@ public class AffineTransformTest
          int startRow = random.nextInt(10);
          int startColumn = random.nextInt(10);
          DenseMatrix64F denseMatrix = RandomMatrices.createRandom(4 + startRow, 4 + startColumn, random);
-         transform.get(denseMatrix, startRow, startColumn);
+         transform.get(startRow, startColumn, denseMatrix);
          for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                assertTrue(denseMatrix.get(row + startRow, column + startColumn) == transform.getElement(row, column));

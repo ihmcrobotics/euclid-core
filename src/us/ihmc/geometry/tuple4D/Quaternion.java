@@ -204,6 +204,31 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, this);
    }
 
+   public void setEuler(VectorReadOnly eulerAngles)
+   {
+      QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), this);
+   }
+   
+   public void setEuler(double rotX, double rotY, double rotZ)
+   {
+      QuaternionConversion.convertYawPitchRollToQuaternion(rotZ, rotY, rotX, this);
+   }
+
+   public void setToYawQuaternion(double yaw)
+   {
+      QuaternionConversion.computeYawQuaternion(yaw, this);
+   }
+   
+   public void setToPitchQuaternion(double pitch)
+   {
+      QuaternionConversion.computeYawQuaternion(pitch, this);
+   }
+   
+   public void setToRollQuaternion(double roll)
+   {
+      QuaternionConversion.computeRollQuaternion(roll, this);
+   }
+
    @Override
    public void set(double qx, double qy, double qz, double qs)
    {

@@ -124,6 +124,19 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * geometry object.
     * </p>
     */
+   public void setIdentity()
+   {
+      rotationScaleMatrix.setIdentity();
+      translationVector.setToZero();
+   }
+
+   /**
+    * Resets this affine transform to identity.
+    * <p>
+    * When set to identity, this transform has no effect when transforming a
+    * geometry object.
+    * </p>
+    */
    @Override
    public void setToZero()
    {
@@ -179,7 +192,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method does NOT affect the scale part of this transform.
     * </p>
     */
-   public void resetRotation()
+   public void setRotationToZero()
    {
       rotationScaleMatrix.setRotationToZero();
    }
@@ -195,21 +208,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the translation part to zero.
     */
-   public void resetTranslation()
+   public void setTranslationToZero()
    {
-      translationVector.setToZero();
-   }
-
-   /**
-    * Resets this affine transform to identity.
-    * <p>
-    * When set to identity, this transform has no effect when transforming a
-    * geometry object.
-    * </p>
-    */
-   public void setIdentity()
-   {
-      rotationScaleMatrix.setIdentity();
       translationVector.setToZero();
    }
 
@@ -1025,12 +1025,11 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * </pre>
     * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation
     * part of this transform.
-    * 
-    * @param matrixToPack the matrix in which this transform is stored. Modified.
     * @param startRow the first row index to start writing in {@code matrixToPack}.
     * @param startColumn the first column index to start writing in {@code matrixToPack}.
+    * @param matrixToPack the matrix in which this transform is stored. Modified.
     */
-   public void get(DenseMatrix64F matrixToPack, int startRow, int startColumn)
+   public void get(int startRow, int startColumn, DenseMatrix64F matrixToPack)
    {
       rotationScaleMatrix.get(startRow, startColumn, matrixToPack);
       translationVector.get(matrixToPack, startRow, startColumn + 3);
@@ -1547,8 +1546,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * The method returns {@code false} if the given transform is {@code null}.
     * </p>
     * 
-    * @param other the other matrix to compare against this. Not modified.
-    * @return {@code true} if the two matrices are exactly equal, {@code false} otherwise.
+    * @param other the other transform to compare against this. Not modified.
+    * @return {@code true} if the two transforms are exactly equal, {@code false} otherwise.
     */
    public boolean equals(AffineTransform other)
    {

@@ -14,6 +14,24 @@ public abstract class QuaternionConversion
 {
    private static final double EPS = 1.0e-7;
 
+   public static final void computeYawQuaternion(double yaw, QuaternionBasics quaternionToPack)
+   {
+      double halfYaw = 0.5 * yaw;
+      quaternionToPack.setUnsafe(0.0, 0.0, Math.sin(halfYaw), Math.cos(halfYaw));
+   }
+
+   public static final void computePitchQuaternion(double pitch, QuaternionBasics quaternionToPack)
+   {
+      double halfPitch = 0.5 * pitch;
+      quaternionToPack.setUnsafe(0.0, Math.sin(halfPitch), 0.0, Math.cos(halfPitch));
+   }
+
+   public static final void computeRollQuaternion(double roll, QuaternionBasics quaternionToPack)
+   {
+      double halfRoll = 0.5 * roll;
+      quaternionToPack.setUnsafe(Math.sin(halfRoll), 0.0, 0.0, Math.cos(halfRoll));
+   }
+
    public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly<?> axisAngle, QuaternionBasics quaternionToPack)
    {
       convertAxisAngleToQuaternionImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), quaternionToPack);
