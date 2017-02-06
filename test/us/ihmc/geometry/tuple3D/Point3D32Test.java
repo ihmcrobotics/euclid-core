@@ -17,7 +17,7 @@ import us.ihmc.geometry.tuple3D.Tuple3D32;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public class Point32Test extends Tuple32Test
+public class Point3D32Test extends Tuple3D32Test
 {
    private static final double EPS = 1.0e-10;
 

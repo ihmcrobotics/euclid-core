@@ -14,11 +14,11 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
-import us.ihmc.geometry.tuple3D.TupleTest;
+import us.ihmc.geometry.tuple3D.Tuple3DTest;
 
 public abstract class Tuple2D32Test
 {
-   public static final int NUMBER_OF_ITERATIONS = TupleTest.NUMBER_OF_ITERATIONS;
+   public static final int NUMBER_OF_ITERATIONS = Tuple3DTest.NUMBER_OF_ITERATIONS;
 
    public abstract Tuple2D32 createEmptyTuple();
 

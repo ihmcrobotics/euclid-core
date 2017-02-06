@@ -15,7 +15,7 @@ import us.ihmc.geometry.tuple3D.Tuple3D;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public class PointTest extends TupleTest
+public class Point3DTest extends Tuple3DTest
 {
    @Test
    public void testPoint()

@@ -15,7 +15,7 @@ import us.ihmc.geometry.tuple3D.Tuple3D;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 
-public class TupleToolsTest
+public class Tuple3DToolsTest
 {
    private static final int NUMBER_OF_ITERATIONS = 100;
 

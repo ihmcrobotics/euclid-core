@@ -16,9 +16,9 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple3D.Tuple3D32;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
-public abstract class Tuple32Test
+public abstract class Tuple3D32Test
 {
-   public static final int NUMBER_OF_ITERATIONS = TupleTest.NUMBER_OF_ITERATIONS;
+   public static final int NUMBER_OF_ITERATIONS = Tuple3DTest.NUMBER_OF_ITERATIONS;
 
    public abstract Tuple3D32 createEmptyTuple32();
 

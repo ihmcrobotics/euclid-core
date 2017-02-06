@@ -14,7 +14,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple3D.Tuple3D32;
 import us.ihmc.geometry.tuple3D.Vector3D32;
 
-public class Vector32Test extends Tuple32Test
+public class Vector3D32Test extends Tuple3D32Test
 {
    @Test
    public void testVector32()

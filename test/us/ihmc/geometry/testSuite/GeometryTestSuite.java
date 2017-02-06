@@ -30,12 +30,12 @@ import us.ihmc.geometry.tuple2D.Point2D32Test;
 import us.ihmc.geometry.tuple2D.Point2DTest;
 import us.ihmc.geometry.tuple2D.Vector2D32Test;
 import us.ihmc.geometry.tuple2D.Vector2DTest;
-import us.ihmc.geometry.tuple3D.Point32Test;
-import us.ihmc.geometry.tuple3D.PointTest;
+import us.ihmc.geometry.tuple3D.Point3D32Test;
+import us.ihmc.geometry.tuple3D.Point3DTest;
 import us.ihmc.geometry.tuple3D.RotationVectorConversionTest;
-import us.ihmc.geometry.tuple3D.TupleToolsTest;
-import us.ihmc.geometry.tuple3D.Vector32Test;
-import us.ihmc.geometry.tuple3D.VectorTest;
+import us.ihmc.geometry.tuple3D.Tuple3DToolsTest;
+import us.ihmc.geometry.tuple3D.Vector3D32Test;
+import us.ihmc.geometry.tuple3D.Vector3DTest;
 import us.ihmc.geometry.tuple4D.Quaternion32Test;
 import us.ihmc.geometry.tuple4D.QuaternionConversionTest;
 import us.ihmc.geometry.tuple4D.QuaternionTest;
@@ -45,12 +45,12 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-      PointTest.class,
-      Point32Test.class,
+      Point3DTest.class,
+      Point3D32Test.class,
       Point2DTest.class,
       Point2D32Test.class,
-      VectorTest.class,
-      Vector32Test.class,
+      Vector3DTest.class,
+      Vector3D32Test.class,
       Vector2DTest.class,
       Vector2D32Test.class,
       Vector4DTest.class,
@@ -72,7 +72,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
       Matrix3DFeaturesTest.class,
       Matrix3DReadOnlyToolsTest.class,
       RotationScaleMatrixToolsTest.class,
-      TupleToolsTest.class,
+      Tuple3DToolsTest.class,
 
       // Conversion tests
       AxisAngleConversionTest.class,
