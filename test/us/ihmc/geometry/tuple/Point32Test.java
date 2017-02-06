@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple3D.Point32;
+import us.ihmc.geometry.tuple3D.Point3D32;
 import us.ihmc.geometry.tuple3D.Tuple32;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -27,7 +27,7 @@ public class Point32Test extends Tuple32Test
       Random random = new Random(621541L);
 
       { // Test Point32()
-         Point32 point = new Point32();
+         Point3D32 point = new Point3D32();
 
          Assert.assertTrue(0 == point.getX());
          Assert.assertTrue(0 == point.getY());
@@ -36,13 +36,13 @@ public class Point32Test extends Tuple32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point32(float x, float y, float z)
-         Point32 point;
+         Point3D32 point;
 
          float newX = random.nextFloat();
          float newY = random.nextFloat();
          float newZ = random.nextFloat();
 
-         point = new Point32(newX, newY, newZ);
+         point = new Point3D32(newX, newY, newZ);
 
          Assert.assertTrue(newX == point.getX32());
          Assert.assertTrue(newY == point.getY32());
@@ -53,7 +53,7 @@ public class Point32Test extends Tuple32Test
       { // Test Point32(float[] pointArray)
          float[] randomPoint32Array = {random.nextFloat(), random.nextFloat(), random.nextFloat()};
 
-         Point32 point = new Point32(randomPoint32Array);
+         Point3D32 point = new Point3D32(randomPoint32Array);
 
          Assert.assertTrue(randomPoint32Array[0] == point.getX32());
          Assert.assertTrue(randomPoint32Array[1] == point.getY32());
@@ -62,9 +62,9 @@ public class Point32Test extends Tuple32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point32(TupleBasics tuple)
-         Point32 point;
-         Point32 point2 = GeometryBasicsRandomTools.generateRandomPoint32(random);
-         point = new Point32((Tuple3DReadOnly) point2);
+         Point3D32 point;
+         Point3D32 point2 = GeometryBasicsRandomTools.generateRandomPoint32(random);
+         point = new Point3D32((Tuple3DReadOnly) point2);
          GeometryBasicsTestTools.assertTupleEquals(point, point2, EPS);
       }
    }
@@ -79,9 +79,9 @@ public class Point32Test extends Tuple32Test
          float newY = random.nextFloat();
          float newZ = random.nextFloat();
 
-         Point32 point = new Point32(newX, newY, newZ);
+         Point3D32 point = new Point3D32(newX, newY, newZ);
 
-         Point32 point2 = new Point32();
+         Point3D32 point2 = new Point3D32();
          point2.set(point);
          GeometryBasicsTestTools.assertTupleEquals(point, point2, EPS);
       }
@@ -101,8 +101,8 @@ public class Point32Test extends Tuple32Test
          float newY2 = random.nextFloat();
          float newZ2 = random.nextFloat();
 
-         Point32 point = new Point32(newX1, newY1, newZ1);
-         Point32 point2 = new Point32(newX2, newY2, newZ2);
+         Point3D32 point = new Point3D32(newX1, newY1, newZ1);
+         Point3D32 point2 = new Point3D32(newX2, newY2, newZ2);
 
          float distance = (float) Math.sqrt(point.distanceSquared((Point3DReadOnly) point2));
          float distance2 = point.distance(point2);
@@ -137,8 +137,8 @@ public class Point32Test extends Tuple32Test
       float newY2 = random.nextFloat();
       float newZ2 = random.nextFloat();
 
-      Point32 point = new Point32(newX1, newY1, newZ1);
-      Point32 point2 = new Point32(newX2, newY2, newZ2);
+      Point3D32 point = new Point3D32(newX1, newY1, newZ1);
+      Point3D32 point2 = new Point3D32(newX2, newY2, newZ2);
 
       float distance = point.distanceSquared((Point3DReadOnly) point2);
       float dx = point.getX32() - point2.getX32();
@@ -162,8 +162,8 @@ public class Point32Test extends Tuple32Test
       Random random = new Random(621541L);
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Point32 point1 = new Point32();
-         Point32 point2 = new Point32();
+         Point3D32 point1 = new Point3D32();
+         Point3D32 point2 = new Point3D32();
 
          float epsilon = random.nextFloat();
 
@@ -224,6 +224,6 @@ public class Point32Test extends Tuple32Test
    @Override
    public Tuple32 createEmptyTuple32()
    {
-      return new Point32();
+      return new Point3D32();
    }
 }

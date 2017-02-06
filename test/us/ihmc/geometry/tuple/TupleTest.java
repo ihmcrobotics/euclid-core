@@ -12,7 +12,7 @@ import org.ejml.data.DenseMatrix64F;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple3D.Point32;
+import us.ihmc.geometry.tuple3D.Point3D32;
 import us.ihmc.geometry.tuple3D.Tuple;
 import us.ihmc.geometry.tuple3D.TupleTools;
 
@@ -1276,7 +1276,7 @@ public abstract class TupleTest
          double[] blop = new double[] {tuple1.getX(), tuple1.getY(), tuple1.getZ()};
          assertFalse(tuple1.equals(blop));
 
-         Point32 point32 = new Point32();
+         Point3D32 point32 = new Point3D32();
          point32.set(tuple1);
          assertFalse(tuple1.equals(point32));
       }

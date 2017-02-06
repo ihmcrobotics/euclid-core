@@ -17,7 +17,7 @@ import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.Vector2D32;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.Point32;
+import us.ihmc.geometry.tuple3D.Point3D32;
 import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector;
 import us.ihmc.geometry.tuple3D.Vector32;
@@ -769,9 +769,9 @@ public abstract class GeometryBasicsRandomTools
     * @param random the random generator to use.
     * @return the random point.
     */
-   public static Point32 generateRandomPoint32(Random random)
+   public static Point3D32 generateRandomPoint32(Random random)
    {
-      Point32 point = new Point32();
+      Point3D32 point = new Point3D32();
       randomizeTuple(random, point);
       return point;
    }
