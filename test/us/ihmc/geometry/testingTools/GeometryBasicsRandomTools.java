@@ -17,10 +17,10 @@ import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.Vector2D32;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.Point3D32;
 import us.ihmc.geometry.tuple3D.Point3D;
+import us.ihmc.geometry.tuple3D.Point3D32;
 import us.ihmc.geometry.tuple3D.Vector3D;
-import us.ihmc.geometry.tuple3D.Vector32;
+import us.ihmc.geometry.tuple3D.Vector3D32;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -753,9 +753,9 @@ public abstract class GeometryBasicsRandomTools
     * @param random the random generator to use.
     * @return the random vector.
     */
-   public static Vector32 generateRandomVector32(Random random)
+   public static Vector3D32 generateRandomVector32(Random random)
    {
-      Vector32 vector = new Vector32();
+      Vector3D32 vector = new Vector3D32();
       randomizeTuple(random, vector);
       return vector;
    }

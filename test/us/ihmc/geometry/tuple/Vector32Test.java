@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple3D.Tuple3D32;
-import us.ihmc.geometry.tuple3D.Vector32;
+import us.ihmc.geometry.tuple3D.Vector3D32;
 
 public class Vector32Test extends Tuple32Test
 {
@@ -20,7 +20,7 @@ public class Vector32Test extends Tuple32Test
    public void testVector32()
    {
       Random random = new Random(621541L);
-      Vector32 vector = new Vector32();
+      Vector3D32 vector = new Vector3D32();
 
       { // Test Vector32()
          Assert.assertTrue(0 == vector.getX32());
@@ -34,7 +34,7 @@ public class Vector32Test extends Tuple32Test
          float newY = random.nextFloat();
          float newZ = random.nextFloat();
 
-         vector = new Vector32(newX, newY, newZ);
+         vector = new Vector3D32(newX, newY, newZ);
 
          Assert.assertTrue(newX == vector.getX32());
          Assert.assertTrue(newY == vector.getY32());
@@ -49,7 +49,7 @@ public class Vector32Test extends Tuple32Test
          copyRandomVector32Array[1] = randomVector32Array[1];
          copyRandomVector32Array[2] = randomVector32Array[2];
 
-         Vector32 vectorArray = new Vector32(randomVector32Array);
+         Vector3D32 vectorArray = new Vector3D32(randomVector32Array);
 
          Assert.assertTrue(randomVector32Array[0] == vectorArray.getX32());
          Assert.assertTrue(randomVector32Array[1] == vectorArray.getY32());
@@ -62,9 +62,9 @@ public class Vector32Test extends Tuple32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector32(TupleBasics tuple)
-         Vector32 vector2 = GeometryBasicsRandomTools.generateRandomVector32(random);
+         Vector3D32 vector2 = GeometryBasicsRandomTools.generateRandomVector32(random);
 
-         vector = new Vector32(vector2);
+         vector = new Vector3D32(vector2);
 
          Assert.assertTrue(vector.getX32() == vector2.getX32());
          Assert.assertTrue(vector.getY32() == vector2.getY32());
@@ -82,9 +82,9 @@ public class Vector32Test extends Tuple32Test
          float newY = random.nextFloat();
          float newZ = random.nextFloat();
 
-         Vector32 vector = new Vector32(newX, newY, newZ);
+         Vector3D32 vector = new Vector3D32(newX, newY, newZ);
 
-         Vector32 vector2 = new Vector32();
+         Vector3D32 vector2 = new Vector3D32();
          vector2.set(vector);
 
          Assert.assertTrue(vector.getX32() == vector2.getX32());
@@ -97,8 +97,8 @@ public class Vector32Test extends Tuple32Test
    public void testAngle()
    {
       Random random = new Random(56461L);
-      Vector32 vector1 = new Vector32();
-      Vector32 vector2 = new Vector32();
+      Vector3D32 vector1 = new Vector3D32();
+      Vector3D32 vector2 = new Vector3D32();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -119,9 +119,9 @@ public class Vector32Test extends Tuple32Test
    public void testCross()
    {
       Random random = new Random(5751684L);
-      Vector32 vector1 = new Vector32();
-      Vector32 vector2 = new Vector32();
-      Vector32 vector3 = new Vector32();
+      Vector3D32 vector1 = new Vector3D32();
+      Vector3D32 vector2 = new Vector3D32();
+      Vector3D32 vector3 = new Vector3D32();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -157,8 +157,8 @@ public class Vector32Test extends Tuple32Test
    public void testDot()
    {
       Random random = new Random(615651L);
-      Vector32 vector1 = new Vector32();
-      Vector32 vector2 = new Vector32();
+      Vector3D32 vector1 = new Vector3D32();
+      Vector3D32 vector2 = new Vector3D32();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -175,7 +175,7 @@ public class Vector32Test extends Tuple32Test
    public void testLength()
    {
       Random random = new Random(312310L);
-      Vector32 vector = new Vector32();
+      Vector3D32 vector = new Vector3D32();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -193,7 +193,7 @@ public class Vector32Test extends Tuple32Test
    public void testLengthSquared()
    {
       Random random = new Random(312310L);
-      Vector32 vector = new Vector32();
+      Vector3D32 vector = new Vector3D32();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -213,7 +213,7 @@ public class Vector32Test extends Tuple32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test normalize()
-         Vector32 vector = GeometryBasicsRandomTools.generateRandomVector32(random);
+         Vector3D32 vector = GeometryBasicsRandomTools.generateRandomVector32(random);
 
          vector.normalize();
 
@@ -226,9 +226,9 @@ public class Vector32Test extends Tuple32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test normalize(Vector32 vector)
-         Vector32 vector = GeometryBasicsRandomTools.generateRandomVector32(random);
+         Vector3D32 vector = GeometryBasicsRandomTools.generateRandomVector32(random);
 
-         Vector32 normal = new Vector32();
+         Vector3D32 normal = new Vector3D32();
 
          normal.setAndNormalize(vector);
 
@@ -251,8 +251,8 @@ public class Vector32Test extends Tuple32Test
    public void testEpsilonEquals()
    {
       Random random = new Random(621541L);
-      Vector32 vector1 = new Vector32();
-      Vector32 vector2 = new Vector32();
+      Vector3D32 vector1 = new Vector3D32();
+      Vector3D32 vector2 = new Vector3D32();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -315,6 +315,6 @@ public class Vector32Test extends Tuple32Test
    @Override
    public Tuple3D32 createEmptyTuple32()
    {
-      return new Vector32();
+      return new Vector3D32();
    }
 }
