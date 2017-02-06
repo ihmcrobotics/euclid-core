@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 
-public class Vector32 extends Tuple32 implements Serializable, VectorBasics, GeometryObject<Vector32>
+public class Vector32 extends Tuple32 implements Serializable, Vector3DBasics, GeometryObject<Vector32>
 {
    private static final long serialVersionUID = 1186918378545386628L;
 

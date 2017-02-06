@@ -15,7 +15,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
@@ -1112,7 +1112,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * 
     * @param rotationVectorToPack the rotation vector in which the rotation part is stored. Modified.
     */
-   public void getRotation(VectorBasics rotationVectorToPack)
+   public void getRotation(Vector3DBasics rotationVectorToPack)
    {
       rotationMatrix.get(rotationVectorToPack);
    }

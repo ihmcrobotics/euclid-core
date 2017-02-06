@@ -9,7 +9,7 @@ import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
@@ -81,7 +81,7 @@ public interface Transform
     * 
     * @param vectorToTransform the vector to transform. Modified.
     */
-   default void transform(VectorBasics vectorToTransform)
+   default void transform(Vector3DBasics vectorToTransform)
    {
       transform(vectorToTransform, vectorToTransform);
    }
@@ -104,7 +104,7 @@ public interface Transform
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void transform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed);
+   void transform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
 
    /**
     * Transforms the given {@code quaternionToTransform} by this transform.
@@ -490,7 +490,7 @@ public interface Transform
     * 
     * @param vectorToTransform the vector to transform. Modified.
     */
-   default void inverseTransform(VectorBasics vectorToTransform)
+   default void inverseTransform(Vector3DBasics vectorToTransform)
    {
       inverseTransform(vectorToTransform, vectorToTransform);
    }
@@ -514,7 +514,7 @@ public interface Transform
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed);
+   void inverseTransform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
 
    /**
     * Transforms the given {@code quaternionToTransform} by the inverse of this transform.

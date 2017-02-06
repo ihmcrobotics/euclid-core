@@ -3,7 +3,7 @@ package us.ihmc.geometry.axisAngle.interfaces;
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.tuple.RotationVectorConversion;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 
 /**
  * Read-only interface for an axis-angle object.
@@ -91,12 +91,12 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    /**
     * Converts and gets the orientation represented by this axis-angle
     * as a rotation vector.
-    * See {@link RotationVectorConversion#convertAxisAngleToRotationVector(AxisAngleReadOnly, VectorBasics)}.
+    * See {@link RotationVectorConversion#convertAxisAngleToRotationVector(AxisAngleReadOnly, Vector3DBasics)}.
     * 
     * @param rotationVectorToPack rotation vector in which the orientation
     *  of this axis-angle is stored. Modified.
     */
-   default void getRotationVector(VectorBasics rotationVectorToPack)
+   default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertAxisAngleToRotationVector(this, rotationVectorToPack);
    }

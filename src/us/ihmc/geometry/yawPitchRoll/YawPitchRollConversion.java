@@ -9,7 +9,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple.TupleTools;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionTools;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
@@ -630,7 +630,7 @@ public abstract class YawPitchRollConversion
       convertAxisAngleToYawPitchRollImpl(ux, uy, uz, angle, yawPitchRollToPack);
    }
 
-   public static void convertRotationVectorToYawPitchRoll(VectorReadOnly rotationVector, VectorBasics eulerAnglesToPack)
+   public static void convertRotationVectorToYawPitchRoll(VectorReadOnly rotationVector, Vector3DBasics eulerAnglesToPack)
    {
       if (TupleTools.containsNaN(rotationVector))
       {

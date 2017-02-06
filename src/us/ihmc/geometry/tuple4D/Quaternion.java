@@ -16,7 +16,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.RotationVectorConversion;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
@@ -539,7 +539,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       quaternionToPack.set(x, y, z, s);
    }
 
-   public void get(VectorBasics rotationVectorToPack)
+   public void get(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertQuaternionToRotationVector(this, rotationVectorToPack);
    }

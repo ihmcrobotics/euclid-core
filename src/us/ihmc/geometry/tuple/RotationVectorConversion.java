@@ -5,7 +5,7 @@ import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
@@ -13,12 +13,12 @@ public abstract class RotationVectorConversion
 {
    private static final double EPS = 1.0e-12;
 
-   public static void convertAxisAngleToRotationVector(AxisAngleReadOnly<?> axisAngle, VectorBasics rotationVectorToPack)
+   public static void convertAxisAngleToRotationVector(AxisAngleReadOnly<?> axisAngle, Vector3DBasics rotationVectorToPack)
    {
       convertAxisAngleToRotationVectorImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), rotationVectorToPack);
    }
 
-   public static void convertAxisAngleToRotationVectorImpl(double ux, double uy, double uz, double angle, VectorBasics rotationVectorToPack)
+   public static void convertAxisAngleToRotationVectorImpl(double ux, double uy, double uz, double angle, Vector3DBasics rotationVectorToPack)
    {
       if (AxisAngleTools.containsNaN(ux, uy, uz, angle))
       {
@@ -41,12 +41,12 @@ public abstract class RotationVectorConversion
       }
    }
 
-   public static void convertQuaternionToRotationVector(QuaternionReadOnly quaternion, VectorBasics rotationVectorToPack)
+   public static void convertQuaternionToRotationVector(QuaternionReadOnly quaternion, Vector3DBasics rotationVectorToPack)
    {
       convertQuaternionToRotationVectorImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), rotationVectorToPack);
    }
 
-   public static void convertQuaternionToRotationVectorImpl(double qx, double qy, double qz, double qs, VectorBasics rotationVectorToPack)
+   public static void convertQuaternionToRotationVectorImpl(double qx, double qy, double qz, double qs, Vector3DBasics rotationVectorToPack)
    {
       if (Tuple4DTools.containsNaN(qx, qy, qz, qs))
       {
@@ -70,12 +70,12 @@ public abstract class RotationVectorConversion
       }
    }
 
-   public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, VectorBasics rotationVectorToPack)
+   public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Vector3DBasics rotationVectorToPack)
    {
       convertMatrixToRotationVector(rotationScaleMatrix.getRotationMatrix(), rotationVectorToPack);
    }
 
-   public static void convertMatrixToRotationVector(RotationMatrixReadOnly<?> rotationMatrix, VectorBasics rotationVectorToPack)
+   public static void convertMatrixToRotationVector(RotationMatrixReadOnly<?> rotationMatrix, Vector3DBasics rotationVectorToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();
@@ -91,7 +91,7 @@ public abstract class RotationVectorConversion
    }
 
    public static void convertMatrixToRotationVectorImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-         VectorBasics rotationVectorToPack)
+         Vector3DBasics rotationVectorToPack)
    {
       if (Matrix3DFeatures.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
@@ -157,12 +157,12 @@ public abstract class RotationVectorConversion
       rotationVectorToPack.setZ(z * angle);
    }
 
-   public static void convertYawPitchRollToRotationVector(double[] yawPitchRoll, VectorBasics rotationVectorToPack)
+   public static void convertYawPitchRollToRotationVector(double[] yawPitchRoll, Vector3DBasics rotationVectorToPack)
    {
       convertYawPitchRollToRotationVector(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], rotationVectorToPack);
    }
 
-   public static void convertYawPitchRollToRotationVector(double yaw, double pitch, double roll, VectorBasics rotationVectorToPack)
+   public static void convertYawPitchRollToRotationVector(double yaw, double pitch, double roll, Vector3DBasics rotationVectorToPack)
    {
       double halfYaw = yaw / 2.0;
       double cYaw = Math.cos(halfYaw);

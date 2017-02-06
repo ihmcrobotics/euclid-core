@@ -13,7 +13,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.RotationVectorConversion;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -677,7 +677,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param rotationVectorToPack the rotation vector representing
     *  the same orientation as this. Modified.
     */
-   public void get(VectorBasics rotationVectorToPack)
+   public void get(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertMatrixToRotationVector(this, rotationVectorToPack);
    }

@@ -17,7 +17,7 @@ import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
@@ -43,7 +43,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * A few special cases to keep in mind:
  * <ul>
  *    <li> when applying this transform on a {@link Point3DBasics} or {@link Point2DBasics}, this object is rotated, then translated.
- *    <li> when applying this transform on a {@link VectorBasics} or {@link Vector2DBasics}, this object is only rotated. It is NOT translated.
+ *    <li> when applying this transform on a {@link Vector3DBasics} or {@link Vector2DBasics}, this object is only rotated. It is NOT translated.
  * </ul>
  * </p>
  * 
@@ -706,7 +706,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
+   public void transform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
    {
       quaternion.transform(vectorOriginal, vectorTransformed);
    }
@@ -765,7 +765,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
+   public void inverseTransform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
    {
       quaternion.inverseTransform(vectorOriginal, vectorTransformed);
    }
@@ -950,7 +950,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * 
     * @param rotationVectorToPack the rotation vector that is set to the rotation part of this transform. Modified.
     */
-   public void getRotation(VectorBasics rotationVectorToPack)
+   public void getRotation(Vector3DBasics rotationVectorToPack)
    {
       quaternion.get(rotationVectorToPack);
    }

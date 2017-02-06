@@ -5,10 +5,10 @@ import java.io.Serializable;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorBasics;
+import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 
-public class Vector extends Tuple implements Serializable, VectorBasics, GeometryObject<Vector>
+public class Vector extends Tuple implements Serializable, Vector3DBasics, GeometryObject<Vector>
 {
    private static final long serialVersionUID = -8494204802892437237L;
 
