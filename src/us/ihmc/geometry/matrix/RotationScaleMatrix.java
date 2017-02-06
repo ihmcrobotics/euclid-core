@@ -724,6 +724,128 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    }
 
    /**
+    * Sets the rotation part to represent a counter clockwise rotation
+    * around the z-axis of an angle {@code yaw}.
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \
+    * R = | sin(yaw)  cos(yaw) 0 |
+    *     \    0         0     1 /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void setRotationYaw(double yaw)
+   {
+      rotationMatrix.setToYawMatrix(yaw);
+   }
+
+   /**
+    * Sets the rotation part to represent a counter clockwise rotation
+    * around the y-axis of an angle {@code pitch}. 
+    * <pre>
+    *        /  cos(pitch) 0 sin(pitch) \
+    * this = |      0      1     0      |
+    *        \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+   
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void setRotationPitch(double pitch)
+   {
+      rotationMatrix.setToPitchMatrix(pitch);
+   }
+
+   /**
+    * Sets the rotation part to represent a counter clockwise rotation
+    * around the x-axis of an angle {@code roll}. 
+    * <pre>
+    *        / 1     0          0     \
+    * this = | 0 cos(roll) -sin(roll) |
+    *        \ 0 sin(roll)  cos(roll) /
+    * </pre>
+   
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public void setRotationRoll(double roll)
+   {
+      rotationMatrix.setToRollMatrix(roll);
+   }
+
+   /**
+    * Sets the rotation part to represent the same orientation as the given
+    * yaw-pitch-roll angles {@code yawPitchRoll}.
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
+    * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
+    *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    * 
+    * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not modified.
+    */
+   public void setRotationYawPitchRoll(double[] yawPitchRoll)
+   {
+      setRotationYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
+   }
+
+   /**
+    * Sets the rotation part to represent the same orientation as the given
+    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
+    * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
+    *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public void setRotationYawPitchRoll(double yaw, double pitch, double roll)
+   {
+      rotationMatrix.setYawPitchRoll(yaw, pitch, roll);
+   }
+
+   /**
+    * Sets the rotation part to represent
+    * the same orientation as the given Euler angles {@code eulerAngles}.
+    * <pre>
+    *     / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
+    * R = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
+    *     \         0                   0          1 /   \ -sin(eulerAngles.y) 0 cos(eulerAngles.y) /   \ 0 sin(eulerAngles.x)  cos(eulerAngles.x) /
+    * </pre>
+    * <p>
+    * This is equivalent to {@code this.setRotationYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
+    * </p>
+    * 
+    * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
+    */
+   public void setRotationEuler(VectorReadOnly eulerAngles)
+   {
+      rotationMatrix.setEuler(eulerAngles);
+   }
+
+   /**
+    * Sets the rotation part to represent
+    * the same orientation as the given Euler angles {@code rotX}, {@code rotY}, and {@code rotZ}.
+    * <pre>
+    *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
+    * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
+    *        \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
+    * </pre>
+    * <p>
+    * This is equivalent to {@code this.setRotationYawPitchRoll(rotZ, rotY, rotX)}.
+    * </p>
+    * 
+    * @param rotX the angle to rotate about the x-axis.
+    * @param rotY the angle to rotate about the y-axis.
+    * @param rotZ the angle to rotate about the z-axis.
+    */
+   public void setRotationEuler(double rotX, double rotY, double rotZ)
+   {
+      rotationMatrix.setEuler(rotX, rotY, rotZ);
+   }
+
+   /**
     * Sets all the scale factors to {@code scale}.
     * 
     * @param scale the non-zero and positive scalar used to set the scale factors to.
@@ -779,7 +901,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     */
    public void setToYawMatrix(double yaw)
    {
-      rotationMatrix.setToYawMatrix(yaw);
+      setRotationYaw(yaw);
       resetScale();
    }
 
@@ -791,12 +913,12 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * this = |      0      1     0      |
     *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-
+   
     * @param pitch the angle to rotate about the y-axis.
     */
    public void setToPitchMatrix(double pitch)
    {
-      rotationMatrix.setToPitchMatrix(pitch);
+      setRotationPitch(pitch);
       resetScale();
    }
 
@@ -808,18 +930,18 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * this = | 0 cos(roll) -sin(roll) |
     *        \ 0 sin(roll)  cos(roll) /
     * </pre>
-
+   
     * @param roll the angle to rotate about the x-axis.
     */
    public void setToRollMatrix(double roll)
    {
-      rotationMatrix.setToRollMatrix(roll);
+      setRotationRoll(roll);
       resetScale();
    }
 
    /**
     * Resets the scale factors and sets the rotation part to represent
-    * the same orientation as the given yaw-pitch-roll {@code yawPitchRoll}.
+    * the same orientation as the given yaw-pitch-roll angles {@code yawPitchRoll}.
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -835,7 +957,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Resets the scale factors and sets the rotation part to represent
-    * the same orientation as the given yaw-pitch-roll {@code yaw}, {@code pitch}, and {@code roll}.
+    * the same orientation as the given yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -848,7 +970,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     */
    public void setYawPitchRoll(double yaw, double pitch, double roll)
    {
-      rotationMatrix.setYawPitchRoll(yaw, pitch, roll);
+      setRotationYawPitchRoll(yaw, pitch, roll);
       resetScale();
    }
 
@@ -868,7 +990,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     */
    public void setEuler(VectorReadOnly eulerAngles)
    {
-      rotationMatrix.setEuler(eulerAngles);
+      setRotationEuler(eulerAngles);
       resetScale();
    }
 
@@ -890,7 +1012,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     */
    public void setEuler(double rotX, double rotY, double rotZ)
    {
-      rotationMatrix.setEuler(rotX, rotY, rotZ);
+      setRotationEuler(rotX, rotY, rotZ);
       resetScale();
    }
 
