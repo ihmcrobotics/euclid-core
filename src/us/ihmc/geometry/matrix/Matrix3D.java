@@ -10,7 +10,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
@@ -143,7 +143,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * 
     * @param tuple the tuple to use to create its tilde form. Not modified.
     */
-   public void setToTildeForm(TupleReadOnly tuple)
+   public void setToTildeForm(Tuple3DReadOnly tuple)
    {
       m00 = 0.0;
       m01 = -tuple.getZ();
@@ -714,14 +714,14 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /** {@inheritDoc} */
    @Override
-   public void transform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void addTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
    }
@@ -749,7 +749,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }
@@ -802,7 +802,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @throws ArrayIndexOutOfBoundsException if {@code row}
     * &notin; [0, 2].
     */
-   public void setRow(int row, TupleReadOnly rowValues)
+   public void setRow(int row, Tuple3DReadOnly rowValues)
    {
       setRow(row, rowValues.getX(), rowValues.getY(), rowValues.getZ());
    }
@@ -872,7 +872,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @throws ArrayIndexOutOfBoundsException if {@code column}
     * &notin; [0, 2].
     */
-   public void setColumn(int column, TupleReadOnly columnValues)
+   public void setColumn(int column, Tuple3DReadOnly columnValues)
    {
       setColumn(column, columnValues.getX(), columnValues.getY(), columnValues.getZ());
    }

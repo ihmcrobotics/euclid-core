@@ -19,7 +19,7 @@ import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
@@ -55,17 +55,17 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       set(matrix);
    }
 
-   public RigidBodyTransform(RotationMatrix rotationMatrix, TupleReadOnly translation)
+   public RigidBodyTransform(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
    {
       set(rotationMatrix, translation);
    }
 
-   public RigidBodyTransform(QuaternionReadOnly quaternion, TupleReadOnly translation)
+   public RigidBodyTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       set(quaternion, translation);
    }
 
-   public RigidBodyTransform(AxisAngleReadOnly<?> axisAngle, TupleReadOnly translation)
+   public RigidBodyTransform(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
    {
       set(axisAngle, translation);
    }
@@ -181,31 +181,31 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       translationVector.set(m03, m13, m23);
    }
 
-   public void set(Matrix3DReadOnly<?> rotationMatrix, TupleReadOnly translation)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, Tuple3DReadOnly translation)
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
    }
 
-   public void set(RotationMatrix rotationMatrix, TupleReadOnly translation)
+   public void set(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
    }
 
-   public void set(RotationScaleMatrix rotationScaleMatrix, TupleReadOnly translation)
+   public void set(RotationScaleMatrix rotationScaleMatrix, Tuple3DReadOnly translation)
    {
       rotationScaleMatrix.getRotation(rotationMatrix);
       translationVector.set(translation);
    }
 
-   public void set(AxisAngleReadOnly<?> axisAngle, TupleReadOnly translation)
+   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
    {
       rotationMatrix.set(axisAngle);
       translationVector.set(translation);
    }
 
-   public void set(QuaternionReadOnly quaternion, TupleReadOnly translation)
+   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       rotationMatrix.set(quaternion);
       translationVector.set(translation);
@@ -331,7 +331,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       translationVector.setToZero();
    }
 
-   public void setTranslation(TupleReadOnly translation)
+   public void setTranslation(Tuple3DReadOnly translation)
    {
       translationVector.set(translation);
    }
@@ -341,7 +341,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       translationVector.set(x, y, z);
    }
 
-   public void setTranslationAndIdentityRotation(TupleReadOnly translation)
+   public void setTranslationAndIdentityRotation(Tuple3DReadOnly translation)
    {
       setTranslation(translation);
       rotationMatrix.setIdentity();

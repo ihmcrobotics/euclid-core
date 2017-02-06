@@ -16,7 +16,7 @@ import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
@@ -147,7 +147,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param rotationMatrix the rotation matrix used to initialize the quaternion of this transform. Not modified.
     * @param translation the tuple used to initialize the translation part of this transform. Not modified.
     */
-   public QuaternionBasedTransform(RotationMatrix rotationMatrix, TupleReadOnly translation)
+   public QuaternionBasedTransform(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
    {
       set(rotationMatrix, translation);
    }
@@ -158,7 +158,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param quaternion the quaternion used to initialize the quaternion of this transform. Not modified.
     * @param translation the tuple used to initialize the translation part of this transform. Not modified.
     */
-   public QuaternionBasedTransform(QuaternionReadOnly quaternion, TupleReadOnly translation)
+   public QuaternionBasedTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       set(quaternion, translation);
    }
@@ -169,7 +169,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param axisAngle the axis-angle used to initialize the quaternion of this transform. Not modified.
     * @param translation the tuple used to initialize the translation part of this transform. Not modified.
     */
-   public QuaternionBasedTransform(AxisAngleReadOnly<?> axisAngle, TupleReadOnly translation)
+   public QuaternionBasedTransform(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
    {
       set(axisAngle, translation);
    }
@@ -382,7 +382,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param rotationMatrix the rotation matrix used to set the quaternion of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(RotationMatrix rotationMatrix, TupleReadOnly translation)
+   public void set(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
    {
       quaternion.set(rotationMatrix);
       translationVector.set(translation);
@@ -394,7 +394,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param quaternion the quaternion used to set the quaternion of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(QuaternionReadOnly quaternion, TupleReadOnly translation)
+   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       this.quaternion.set(quaternion);
       translationVector.set(translation);
@@ -406,7 +406,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param axisAngle the axis-angle used to set the quaternion of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, TupleReadOnly translation)
+   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
    {
       quaternion.set(axisAngle);
       translationVector.set(translation);
@@ -623,7 +623,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * 
     * @param translation tuple used to set the translation part of this transform. Not modified.
     */
-   public void setTranslation(TupleReadOnly translation)
+   public void setTranslation(Tuple3DReadOnly translation)
    {
       translationVector.set(translation);
    }

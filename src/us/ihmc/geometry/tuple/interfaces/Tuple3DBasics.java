@@ -1,12 +1,12 @@
 package us.ihmc.geometry.tuple.interfaces;
 
-public interface Tuple3DBasics extends TupleReadOnly
+public interface Tuple3DBasics extends Tuple3DReadOnly
 {
-   public void set(TupleReadOnly tupleBasics);
+   public void set(Tuple3DReadOnly tupleBasics);
 
-   public void add(TupleReadOnly tupleBasics);
+   public void add(Tuple3DReadOnly tupleBasics);
 
-   public void sub(TupleReadOnly tupleBasics);
+   public void sub(Tuple3DReadOnly tupleBasics);
 
    public void set(double x, double y, double z);
 

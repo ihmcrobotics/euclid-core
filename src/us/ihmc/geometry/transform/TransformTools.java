@@ -1,7 +1,7 @@
 package us.ihmc.geometry.transform;
 
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 public abstract class TransformTools
@@ -9,7 +9,7 @@ public abstract class TransformTools
    private static int TO_STRING_PRECISION = 3;
    private static final boolean PRINT_LAST_ROW = false;
 
-   static String toString(Matrix3DReadOnly<?> matrix, TupleReadOnly translation)
+   static String toString(Matrix3DReadOnly<?> matrix, Tuple3DReadOnly translation)
    {
       String ret = "";
       String format = "%" + (3 + TO_STRING_PRECISION) + "." + TO_STRING_PRECISION + "f";
@@ -32,7 +32,7 @@ public abstract class TransformTools
       return ret;
    }
 
-   public static String toString(QuaternionReadOnly quaternion, TupleReadOnly translation)
+   public static String toString(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       String ret = "";
       String format = "%" + (3 + TO_STRING_PRECISION) + "." + TO_STRING_PRECISION + "f";

@@ -6,7 +6,7 @@ import us.ihmc.geometry.matrix.Matrix3DTools;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationMatrixTools;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionTools;
@@ -47,7 +47,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void transform(TupleReadOnly tuple2DOriginal, Tuple3DBasics tuple2DTransformed)
+   default void transform(Tuple3DReadOnly tuple2DOriginal, Tuple3DBasics tuple2DTransformed)
    {
       normalize();
       Matrix3DTools.transform(this, tuple2DOriginal, tuple2DTransformed);
@@ -55,7 +55,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void addTransform(TupleReadOnly tuple2DOriginal, Tuple3DBasics tuple2DTransformed)
+   default void addTransform(Tuple3DReadOnly tuple2DOriginal, Tuple3DBasics tuple2DTransformed)
    {
       normalize();
       Matrix3DTools.addTransform(this, tuple2DOriginal, tuple2DTransformed);
@@ -150,7 +150,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       normalize();
       double x = getM00() * tupleOriginal.getX() + getM10() * tupleOriginal.getY() + getM20() * tupleOriginal.getZ();

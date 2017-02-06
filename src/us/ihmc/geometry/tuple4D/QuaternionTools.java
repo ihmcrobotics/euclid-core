@@ -7,7 +7,7 @@ import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -192,17 +192,17 @@ public abstract class QuaternionTools
       return norm;
    }
 
-   public static void transform(QuaternionReadOnly quaternion, TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public static void transform(QuaternionReadOnly quaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       transformImpl(quaternion, false, tupleOriginal, tupleTransformed);
    }
 
-   public static void inverseTransform(QuaternionReadOnly quaternion, TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public static void inverseTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       transformImpl(quaternion, true, tupleOriginal, tupleTransformed);
    }
 
-   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
@@ -249,12 +249,12 @@ public abstract class QuaternionTools
       tupleTransformed.setZ(z + qs * crossZ + crossCrossZ);
    }
 
-   public static void addTransform(QuaternionReadOnly quaternion, TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public static void addTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       addTransform(quaternion, false, tupleOriginal, tupleTransformed);
    }
 
-   private static void addTransform(QuaternionReadOnly quaternion, boolean conjugateQuaternion, TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   private static void addTransform(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();

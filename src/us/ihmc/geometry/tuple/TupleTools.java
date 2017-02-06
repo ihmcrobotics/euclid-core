@@ -1,16 +1,16 @@
 package us.ihmc.geometry.tuple;
 
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 
 public abstract class TupleTools
 {
-   public static boolean containsNaN(TupleReadOnly tuple)
+   public static boolean containsNaN(Tuple3DReadOnly tuple)
    {
       return Double.isNaN(tuple.getX()) || Double.isNaN(tuple.getY()) || Double.isNaN(tuple.getZ());
    }
 
-   public static boolean epsilonEquals(TupleReadOnly tuple1, TupleReadOnly tuple2, double epsilon)
+   public static boolean epsilonEquals(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2, double epsilon)
    {
       double difference;
 

@@ -7,7 +7,7 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.TupleTools;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
@@ -86,7 +86,7 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
       s = other.getS();
    }
 
-   public void set(TupleReadOnly tuple)
+   public void set(Tuple3DReadOnly tuple)
    {
       x = tuple.getX();
       y = tuple.getY();

@@ -1,6 +1,6 @@
 package us.ihmc.geometry.tuple.interfaces;
 
-public interface TupleReadOnly
+public interface Tuple3DReadOnly
 {
 
    double get(int index);

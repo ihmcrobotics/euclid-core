@@ -20,7 +20,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple.TupleTools;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
@@ -1085,7 +1085,7 @@ public class QuaternionToolsTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         TupleReadOnly tupleOriginal = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+         Tuple3DReadOnly tupleOriginal = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleActual.set(tupleExpected);
          Tuple3DBasics tupleTransformed = new Vector();

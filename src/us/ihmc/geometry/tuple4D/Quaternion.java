@@ -15,7 +15,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.RotationVectorConversion;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
@@ -354,7 +354,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       transform(tupleToTransform, tupleToTransform);
    }
 
-   public void transform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed);
    }
@@ -419,7 +419,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       inverseTransform(tupleToTransform, tupleToTransform);
    }
 
-   public void inverseTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }

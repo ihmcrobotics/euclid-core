@@ -11,7 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 
 public class PointTest extends TupleTest
 {
@@ -66,7 +66,7 @@ public class PointTest extends TupleTest
          point2.setY(random.nextDouble());
          point2.setZ(random.nextDouble());
 
-         point = new Point((TupleReadOnly) point2);
+         point = new Point((Tuple3DReadOnly) point2);
 
          Assert.assertTrue(point.getX() == point2.getX());
          Assert.assertTrue(point.getY() == point2.getY());

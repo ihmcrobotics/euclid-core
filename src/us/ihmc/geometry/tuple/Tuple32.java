@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 
 public abstract class Tuple32 implements Serializable, Tuple3DBasics
 {
@@ -28,7 +28,7 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
       set(tupleArray);
    }
 
-   public Tuple32(TupleReadOnly other)
+   public Tuple32(Tuple3DReadOnly other)
    {
       set(other);
    }
@@ -88,31 +88,31 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
       return TupleTools.containsNaN(this);
    }
 
-   public void setAndAbsolute(TupleReadOnly other)
+   public void setAndAbsolute(Tuple3DReadOnly other)
    {
       set(other);
       absolute();
    }
 
-   public void setAndNegate(TupleReadOnly other)
+   public void setAndNegate(Tuple3DReadOnly other)
    {
       set(other);
       negate();
    }
 
-   public void setAndClipToMax(float max, TupleReadOnly other)
+   public void setAndClipToMax(float max, Tuple3DReadOnly other)
    {
       set(other);
       clipToMax(max);
    }
 
-   public void setAndClipToMin(float min, TupleReadOnly other)
+   public void setAndClipToMin(float min, Tuple3DReadOnly other)
    {
       set(other);
       clipToMin(min);
    }
 
-   public void setAndClipToMinMax(float min, float max, TupleReadOnly other)
+   public void setAndClipToMinMax(float min, float max, Tuple3DReadOnly other)
    {
       set(other);
       clipToMinMax(min, max);
@@ -187,7 +187,7 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
    }
 
    @Override
-   public void set(TupleReadOnly other)
+   public void set(Tuple3DReadOnly other)
    {
       x = (float) other.getX();
       y = (float) other.getY();
@@ -241,14 +241,14 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
    }
 
    @Override
-   public void add(TupleReadOnly other)
+   public void add(Tuple3DReadOnly other)
    {
       x += other.getX();
       y += other.getY();
       z += other.getZ();
    }
 
-   public void add(TupleReadOnly tuple1, TupleReadOnly tuple2)
+   public void add(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
       set(tuple1);
       add(tuple2);
@@ -268,14 +268,14 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
    }
 
    @Override
-   public void sub(TupleReadOnly other)
+   public void sub(Tuple3DReadOnly other)
    {
       x -= other.getX();
       y -= other.getY();
       z -= other.getZ();
    }
 
-   public void sub(TupleReadOnly tuple1, TupleReadOnly tuple2)
+   public void sub(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
       set(tuple1);
       sub(tuple2);
@@ -293,32 +293,32 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
       z *= scalarZ;
    }
 
-   public void scale(float scalar, TupleReadOnly other)
+   public void scale(float scalar, Tuple3DReadOnly other)
    {
       set(other);
       scale(scalar);
    }
 
-   public void scaleAdd(float scalar, TupleReadOnly other)
+   public void scaleAdd(float scalar, Tuple3DReadOnly other)
    {
       scale(scalar);
       add(other);
    }
 
-   public void scaleAdd(float scalar, TupleReadOnly tuple1, TupleReadOnly tuple2)
+   public void scaleAdd(float scalar, Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
       scale(scalar, tuple1);
       add(tuple2);
    }
 
-   public void interpolate(TupleReadOnly other, float alpha)
+   public void interpolate(Tuple3DReadOnly other, float alpha)
    {
       x = (float) TupleTools.interpolate(x, other.getX(), alpha);
       y = (float) TupleTools.interpolate(y, other.getY(), alpha);
       z = (float) TupleTools.interpolate(z, other.getZ(), alpha);
    }
 
-   public void interpolate(TupleReadOnly tuple1, TupleReadOnly tuple2, float alpha)
+   public void interpolate(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2, float alpha)
    {
       set(tuple1);
       interpolate(tuple2, alpha);

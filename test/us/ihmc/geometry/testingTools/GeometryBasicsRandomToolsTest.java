@@ -12,7 +12,7 @@ import us.ihmc.geometry.tuple.Point;
 import us.ihmc.geometry.tuple.Tuple;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 
 public class GeometryBasicsRandomToolsTest
 {
@@ -86,7 +86,7 @@ public class GeometryBasicsRandomToolsTest
          minMax.setY(random.nextDouble());
          minMax.setZ(random.nextDouble());
 
-         GeometryBasicsRandomTools.randomizeTuple(random, (TupleReadOnly) minMax, (Tuple3DBasics) tupleToRandomize);
+         GeometryBasicsRandomTools.randomizeTuple(random, (Tuple3DReadOnly) minMax, (Tuple3DBasics) tupleToRandomize);
 
          Assert.assertTrue(tupleToRandomizeCopy.getX() - minMax.getX() <= tupleToRandomize.getX());
          Assert.assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + minMax.getX());
@@ -110,7 +110,7 @@ public class GeometryBasicsRandomToolsTest
             max.setY(min.getY() + random.nextDouble());
             max.setZ(min.getZ() + random.nextDouble());
 
-            GeometryBasicsRandomTools.randomizeTuple(random, (TupleReadOnly) min, (TupleReadOnly) max, (Tuple3DBasics) tupleToRandomize);
+            GeometryBasicsRandomTools.randomizeTuple(random, (Tuple3DReadOnly) min, (Tuple3DReadOnly) max, (Tuple3DBasics) tupleToRandomize);
 
             Assert.assertTrue(tupleToRandomizeCopy.getX() - min.getX() <= tupleToRandomize.getX());
             Assert.assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + max.getX());

@@ -24,7 +24,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple.Point;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
@@ -458,7 +458,7 @@ public class AffineTransformTest
       { // Test set(Matrix3DReadOnly rotationMatrix, TupleReadOnly scales, TupleReadOnly translation)
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          RotationMatrixReadOnly<?> rotationMatrix = rotationScaleMatrix.getRotationMatrix();
-         TupleReadOnly scale = rotationScaleMatrix.getScale();
+         Tuple3DReadOnly scale = rotationScaleMatrix.getScale();
          Vector translation = GeometryBasicsRandomTools.generateRandomVector(random);
 
          actual.set((Matrix3DReadOnly<?>) rotationMatrix, scale, translation);
@@ -508,7 +508,7 @@ public class AffineTransformTest
       { // Test set(RotationMatrixReadOnly rotationMatrix, TupleReadOnly scales, TupleReadOnly translation)
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          RotationMatrixReadOnly<?> rotationMatrix = rotationScaleMatrix.getRotationMatrix();
-         TupleReadOnly scale = rotationScaleMatrix.getScale();
+         Tuple3DReadOnly scale = rotationScaleMatrix.getScale();
          Vector translation = GeometryBasicsRandomTools.generateRandomVector(random);
 
          actual.set(rotationMatrix, scale, translation);
@@ -558,7 +558,7 @@ public class AffineTransformTest
       { // Test set(AxisAngleReadOnly axisAngle, TupleReadOnly scales, TupleReadOnly translation)
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          RotationMatrixReadOnly<?> rotationMatrix = rotationScaleMatrix.getRotationMatrix();
-         TupleReadOnly scale = rotationScaleMatrix.getScale();
+         Tuple3DReadOnly scale = rotationScaleMatrix.getScale();
          Vector translation = GeometryBasicsRandomTools.generateRandomVector(random);
 
          actual.set(new AxisAngle(rotationMatrix), scale, translation);
@@ -608,7 +608,7 @@ public class AffineTransformTest
       { // Test set(QuaternionReadOnly quaternion, TupleReadOnly scales, TupleReadOnly translation)
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          RotationMatrixReadOnly<?> rotationMatrix = rotationScaleMatrix.getRotationMatrix();
-         TupleReadOnly scale = rotationScaleMatrix.getScale();
+         Tuple3DReadOnly scale = rotationScaleMatrix.getScale();
          Vector translation = GeometryBasicsRandomTools.generateRandomVector(random);
 
          actual.set(new Quaternion(rotationMatrix), scale, translation);

@@ -14,7 +14,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -154,7 +154,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, TupleReadOnly scales)
+   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly scales)
    {
       set(axisAngle, scales);
    }
@@ -198,7 +198,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(DenseMatrix64F rotationMatrix, TupleReadOnly scales)
+   public RotationScaleMatrix(DenseMatrix64F rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales);
    }
@@ -239,7 +239,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(QuaternionReadOnly quaternion, TupleReadOnly scales)
+   public RotationScaleMatrix(QuaternionReadOnly quaternion, Tuple3DReadOnly scales)
    {
       set(quaternion, scales);
    }
@@ -280,7 +280,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, TupleReadOnly scales)
+   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales);
    }
@@ -478,7 +478,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, TupleReadOnly scales)
+   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly scales)
    {
       set(axisAngle, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -520,7 +520,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(DenseMatrix64F rotationMatrix, TupleReadOnly scales)
+   public void set(DenseMatrix64F rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -559,7 +559,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(QuaternionReadOnly quaternion, TupleReadOnly scales)
+   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly scales)
    {
       set(quaternion, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -601,7 +601,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(Matrix3DReadOnly<?> rotationMatrix, TupleReadOnly scales)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -640,7 +640,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix, TupleReadOnly scales)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -877,7 +877,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void setScale(TupleReadOnly scales)
+   public void setScale(Tuple3DReadOnly scales)
    {
       setScale(scales.getX(), scales.getY(), scales.getZ());
    }
@@ -1201,7 +1201,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /** {@inheritDoc} */
    @Override
-   public TupleReadOnly getScale()
+   public Tuple3DReadOnly getScale()
    {
       return scale;
    }

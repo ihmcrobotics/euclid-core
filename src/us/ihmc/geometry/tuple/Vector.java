@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
 import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
 
@@ -27,7 +27,7 @@ public class Vector extends Tuple implements Serializable, VectorBasics, Geometr
       super(vectorArray);
    }
 
-   public Vector(TupleReadOnly other)
+   public Vector(Tuple3DReadOnly other)
    {
       super(other);
    }

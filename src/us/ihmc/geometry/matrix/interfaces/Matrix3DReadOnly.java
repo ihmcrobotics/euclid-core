@@ -10,7 +10,7 @@ import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.Matrix3DReadOnlyTools;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
@@ -560,7 +560,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
-   void transform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
+   void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
 
    /**
     * Transforms the given tuple by this matrix and add the
@@ -586,7 +586,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to add the result to. Modified.
     */
-   void addTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
+   void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
 
    /**
     * Transforms the given tuple by this matrix.
@@ -735,7 +735,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     */
-   void inverseTransform(TupleReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
+   void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
 
    /**
     * Performs the inverse of the transform to the given

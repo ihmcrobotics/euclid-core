@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 
 public class VectorTest extends TupleTest
 {
@@ -56,7 +56,7 @@ public class VectorTest extends TupleTest
          vector2.setY(random.nextDouble());
          vector2.setZ(random.nextDouble());
 
-         vector = new Vector((TupleReadOnly) vector2);
+         vector = new Vector((Tuple3DReadOnly) vector2);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
          Assert.assertTrue(vector.getY() == vector2.getY());

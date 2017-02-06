@@ -6,7 +6,7 @@ import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 
 public class Point32 extends Tuple32 implements Serializable, Point3DBasics, GeometryObject<Point32>
 {
@@ -27,7 +27,7 @@ public class Point32 extends Tuple32 implements Serializable, Point3DBasics, Geo
       super(pointArray);
    }
 
-   public Point32(TupleReadOnly other)
+   public Point32(Tuple3DReadOnly other)
    {
       super(other);
    }
