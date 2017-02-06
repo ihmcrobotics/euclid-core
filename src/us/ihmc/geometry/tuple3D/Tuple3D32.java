@@ -7,28 +7,28 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public abstract class Tuple32 implements Serializable, Tuple3DBasics
+public abstract class Tuple3D32 implements Serializable, Tuple3DBasics
 {
    private static final long serialVersionUID = 7705737376600145100L;
 
    private float x, y, z;
 
-   public Tuple32()
+   public Tuple3D32()
    {
       setToZero();
    }
 
-   public Tuple32(float x, float y, float z)
+   public Tuple3D32(float x, float y, float z)
    {
       set(x, y, z);
    }
 
-   public Tuple32(float[] tupleArray)
+   public Tuple3D32(float[] tupleArray)
    {
       set(tupleArray);
    }
 
-   public Tuple32(Tuple3DReadOnly other)
+   public Tuple3D32(Tuple3DReadOnly other)
    {
       set(other);
    }
@@ -409,7 +409,7 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
       return z;
    }
 
-   public boolean epsilonEquals(Tuple32 other, double epsilon)
+   public boolean epsilonEquals(Tuple3D32 other, double epsilon)
    {
       return Tuple3DTools.epsilonEquals(this, other, epsilon);
    }
@@ -419,7 +419,7 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
    {
       try
       {
-         return equals((Tuple32) object);
+         return equals((Tuple3D32) object);
       }
       catch (ClassCastException e)
       {
@@ -427,7 +427,7 @@ public abstract class Tuple32 implements Serializable, Tuple3DBasics
       }
    }
 
-   public boolean equals(Tuple32 other)
+   public boolean equals(Tuple3D32 other)
    {
       try
       {

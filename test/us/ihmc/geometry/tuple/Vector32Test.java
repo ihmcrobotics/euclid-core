@@ -11,7 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
-import us.ihmc.geometry.tuple3D.Tuple32;
+import us.ihmc.geometry.tuple3D.Tuple3D32;
 import us.ihmc.geometry.tuple3D.Vector32;
 
 public class Vector32Test extends Tuple32Test
@@ -313,7 +313,7 @@ public class Vector32Test extends Tuple32Test
    }
 
    @Override
-   public Tuple32 createEmptyTuple32()
+   public Tuple3D32 createEmptyTuple32()
    {
       return new Vector32();
    }

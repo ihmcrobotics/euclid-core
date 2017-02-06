@@ -13,7 +13,7 @@ import org.junit.Test;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Point3D32;
-import us.ihmc.geometry.tuple3D.Tuple32;
+import us.ihmc.geometry.tuple3D.Tuple3D32;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -222,7 +222,7 @@ public class Point32Test extends Tuple32Test
    }
 
    @Override
-   public Tuple32 createEmptyTuple32()
+   public Tuple3D32 createEmptyTuple32()
    {
       return new Point3D32();
    }
