@@ -720,9 +720,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      quaternion.transform(vector4DOriginal, vector4DTransformed);
+      quaternion.transform(vectorOriginal, vectorTransformed);
    }
 
    /** {@inheritDoc} */
@@ -741,17 +741,17 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Point2DReadOnly point2DOriginal, Point2DBasics point2DTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
-      quaternion.transform(point2DOriginal, point2DTransformed, checkIfTransformInXYPlane);
-      point2DTransformed.add(translationVector.getX(), translationVector.getY());
+      quaternion.transform(pointOriginal, pointTransformed, checkIfTransformInXYPlane);
+      pointTransformed.add(translationVector.getX(), translationVector.getY());
    }
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector2DReadOnly vector2DOriginal, Vector2DBasics vector2DTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
-      quaternion.transform(vector2DOriginal, vector2DTransformed, checkIfTransformInXYPlane);
+      quaternion.transform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
 
    /** {@inheritDoc} */
@@ -779,9 +779,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      quaternion.inverseTransform(vector4DOriginal, vector4DTransformed);
+      quaternion.inverseTransform(vectorOriginal, vectorTransformed);
    }
 
    /** {@inheritDoc} */

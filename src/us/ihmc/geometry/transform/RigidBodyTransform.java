@@ -497,9 +497,9 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
-   public void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      rotationMatrix.transform(vector4DOriginal, vector4DTransformed);
+      rotationMatrix.transform(vectorOriginal, vectorTransformed);
    }
 
    @Override

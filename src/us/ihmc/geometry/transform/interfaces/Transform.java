@@ -143,11 +143,11 @@ public interface Transform
     *    <li> {@link AffineTransform} scales then rotates a vector.
     * </p>
     * 
-    * @param vector4DToTransform the 4D vector to transform. Modified.
+    * @param vectorToTransform the 4D vector to transform. Modified.
     */
-   default void transform(Vector4DBasics vector4DToTransform)
+   default void transform(Vector4DBasics vectorToTransform)
    {
-      transform(vector4DToTransform, vector4DToTransform);
+      transform(vectorToTransform, vectorToTransform);
    }
 
    /**
@@ -159,10 +159,10 @@ public interface Transform
     *    <li> {@link AffineTransform} scales then rotates a vector.
     * </p>
     * 
-    * @param vector4DOriginal the 4D vector to transform. Not modified.
-    * @param vector4DTransformed the 4D vector in which the result is stored. Modified.
+    * @param vectorOriginal the 4D vector to transform. Not modified.
+    * @param vectorTransformed the 4D vector in which the result is stored. Modified.
     */
-   void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed);
+   void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
 
    /**
     * Transforms the given {@code point2DToTransform} by this transform.
@@ -179,13 +179,13 @@ public interface Transform
     * </ul>
     * </p>
     * 
-    * @param point2DToTransform the point to transform. Modified.
+    * @param pointToTransform the point to transform. Modified.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
     */
-   default void transform(Point2DBasics point2DToTransform)
+   default void transform(Point2DBasics pointToTransform)
    {
-      transform(point2DToTransform, true);
+      transform(pointToTransform, true);
    }
 
    /**
@@ -203,14 +203,14 @@ public interface Transform
     * </ul>
     * </p>
     * 
-    * @param point2DOriginal the point to transform. Not modified.
-    * @param point2DTransformed the point in which the result is stored. Modified.
+    * @param pointOriginal the point to transform. Not modified.
+    * @param pointTransformed the point in which the result is stored. Modified.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
     */
-   default void transform(Point2DReadOnly point2DOriginal, Point2DBasics point2DTransformed)
+   default void transform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed)
    {
-      transform(point2DOriginal, point2DTransformed, true);
+      transform(pointOriginal, pointTransformed, true);
    }
 
    /**
@@ -228,15 +228,15 @@ public interface Transform
     * </ul>
     * </p>
     * 
-    * @param point2DToTransform the point to transform. Modified.
+    * @param pointToTransform the point to transform. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     * part of this transform is not a transformation in the XY plane.
     */
-   default void transform(Point2DBasics point2DToTransform, boolean checkIfTransformInXYPlane)
+   default void transform(Point2DBasics pointToTransform, boolean checkIfTransformInXYPlane)
    {
-      transform(point2DToTransform, point2DToTransform, checkIfTransformInXYPlane);
+      transform(pointToTransform, pointToTransform, checkIfTransformInXYPlane);
    }
 
    /**
@@ -254,14 +254,14 @@ public interface Transform
     * </ul>
     * </p>
     * 
-    * @param point2DOriginal the point to transform. Not modified.
-    * @param point2DTransformed the point in which the result is stored. Modified.
+    * @param pointOriginal the point to transform. Not modified.
+    * @param pointTransformed the point in which the result is stored. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     * part of this transform is not a transformation in the XY plane.
     */
-   void transform(Point2DReadOnly point2DOriginal, Point2DBasics point2DTransformed, boolean checkIfTransformInXYPlane);
+   void transform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane);
 
    /**
     * Transforms the given {@code vector2DToTransform} by this transform.
@@ -278,13 +278,13 @@ public interface Transform
     * </ul>
     * </p>
     * 
-    * @param vector2DToTransform the vector to transform. Modified.
+    * @param vectorToTransform the vector to transform. Modified.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
     */
-   default void transform(Vector2DBasics vector2DToTransform)
+   default void transform(Vector2DBasics vectorToTransform)
    {
-      transform(vector2DToTransform, true);
+      transform(vectorToTransform, true);
    }
 
    /**
@@ -302,14 +302,14 @@ public interface Transform
     * </ul>
     * </p>
     * 
-    * @param vector2DOriginal the vector to transform. Not modified.
-    * @param vector2DTransformed the vector in which the result is stored. Modified.
+    * @param vectorOriginal the vector to transform. Not modified.
+    * @param vectorTransformed the vector in which the result is stored. Modified.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
     */
-   default void transform(Vector2DReadOnly vector2DOriginal, Vector2DBasics vector2DTransformed)
+   default void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed)
    {
-      transform(vector2DOriginal, vector2DTransformed, true);
+      transform(vectorOriginal, vectorTransformed, true);
    }
 
    /**
@@ -327,15 +327,15 @@ public interface Transform
     * </ul>
     * </p>
     * 
-    * @param vector2DToTransform the vector to transform. Modified.
+    * @param vectorToTransform the vector to transform. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
     */
-   default void transform(Vector2DBasics vector2DToTransform, boolean checkIfTransformInXYPlane)
+   default void transform(Vector2DBasics vectorToTransform, boolean checkIfTransformInXYPlane)
    {
-      transform(vector2DToTransform, vector2DToTransform, checkIfTransformInXYPlane);
+      transform(vectorToTransform, vectorToTransform, checkIfTransformInXYPlane);
    }
 
    /**
@@ -353,14 +353,14 @@ public interface Transform
     * </ul>
     * </p>
     * 
-    * @param vector2DOriginal the vector to transform. Not modified.
-    * @param vector2DTransformed the vector in which the result is stored. Modified.
+    * @param vectorOriginal the vector to transform. Not modified.
+    * @param vectorTransformed the vector in which the result is stored. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
     */
-   void transform(Vector2DReadOnly vector2DOriginal, Vector2DBasics vector2DTransformed, boolean checkIfTransformInXYPlane);
+   void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane);
 
    /**
     * Transforms the given {@code matrixToTransform} by this transform.
@@ -555,11 +555,11 @@ public interface Transform
     *    <li> {@link AffineTransform} scales then rotates a vector.
     * </p>
     * 
-    * @param vector4DToTransform the 4D vector to transform. Modified.
+    * @param vectorToTransform the 4D vector to transform. Modified.
     */
-   default void inverseTransform(Vector4DBasics vector4DToTransform)
+   default void inverseTransform(Vector4DBasics vectorToTransform)
    {
-      inverseTransform(vector4DToTransform, vector4DToTransform);
+      inverseTransform(vectorToTransform, vectorToTransform);
    }
 
    /**
@@ -572,10 +572,10 @@ public interface Transform
     *    <li> {@link AffineTransform} scales then rotates a vector.
     * </p>
     * 
-    * @param vector4DOriginal the 4D vector to transform. Not modified.
-    * @param vector4DTransformed the 4D vector in which the result is stored. Modified.
+    * @param vectorOriginal the 4D vector to transform. Not modified.
+    * @param vectorTransformed the 4D vector in which the result is stored. Modified.
     */
-   void inverseTransform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed);
+   void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
 
    /**
     * Transforms the given {@code point2DToTransform} by the inverse of this transform.

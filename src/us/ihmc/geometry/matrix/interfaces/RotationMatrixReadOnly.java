@@ -47,26 +47,26 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Tuple3DReadOnly tuple2DOriginal, Tuple3DBasics tuple2DTransformed)
+   default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       normalize();
-      Matrix3DTools.transform(this, tuple2DOriginal, tuple2DTransformed);
+      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void addTransform(Tuple3DReadOnly tuple2DOriginal, Tuple3DBasics tuple2DTransformed)
+   default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       normalize();
-      Matrix3DTools.addTransform(this, tuple2DOriginal, tuple2DTransformed);
+      Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Tuple2DReadOnly tuple2DOriginal, Tuple2DBasics tuple2DTransformed, boolean checkIfRotationInXYPlane)
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane)
    {
       normalize();
-      Matrix3DTools.transform(this, tuple2DOriginal, tuple2DTransformed, checkIfRotationInXYPlane);
+      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed, checkIfRotationInXYPlane);
    }
 
    /**
@@ -103,10 +103,10 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       normalize();
-      Matrix3DTools.transform(this, vector4DOriginal, vector4DTransformed);
+      Matrix3DTools.transform(this, vectorOriginal, vectorTransformed);
    }
 
    /**
@@ -161,16 +161,16 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Tuple2DReadOnly tuple2DOriginal, Tuple2DBasics tuple2DTransformed, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       normalize();
 
       if (checkIfTransformInXYPlane)
          checkIfMatrix2D();
 
-      double x = getM00() * tuple2DOriginal.getX() + getM10() * tuple2DOriginal.getY();
-      double y = getM01() * tuple2DOriginal.getX() + getM11() * tuple2DOriginal.getY();
-      tuple2DTransformed.set(x, y);
+      double x = getM00() * tupleOriginal.getX() + getM10() * tupleOriginal.getY();
+      double y = getM01() * tupleOriginal.getX() + getM11() * tupleOriginal.getY();
+      tupleTransformed.set(x, y);
    }
 
    /**
@@ -213,13 +213,13 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       normalize();
-      double x = getM00() * vector4DOriginal.getX() + getM10() * vector4DOriginal.getY() + getM20() * vector4DOriginal.getZ();
-      double y = getM01() * vector4DOriginal.getX() + getM11() * vector4DOriginal.getY() + getM21() * vector4DOriginal.getZ();
-      double z = getM02() * vector4DOriginal.getX() + getM12() * vector4DOriginal.getY() + getM22() * vector4DOriginal.getZ();
-      vector4DTransformed.set(x, y, z, vector4DOriginal.getS());
+      double x = getM00() * vectorOriginal.getX() + getM10() * vectorOriginal.getY() + getM20() * vectorOriginal.getZ();
+      double y = getM01() * vectorOriginal.getX() + getM11() * vectorOriginal.getY() + getM21() * vectorOriginal.getZ();
+      double z = getM02() * vectorOriginal.getX() + getM12() * vectorOriginal.getY() + getM22() * vectorOriginal.getZ();
+      vectorTransformed.set(x, y, z, vectorOriginal.getS());
    }
 
    /**

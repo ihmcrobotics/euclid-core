@@ -885,9 +885,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      rotationScaleMatrix.transform(vector4DOriginal, vector4DTransformed);
+      rotationScaleMatrix.transform(vectorOriginal, vectorTransformed);
    }
 
    /** {@inheritDoc} */
@@ -944,9 +944,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector4DReadOnly vector4DOriginal, Vector4DBasics vector4DTransformed)
+   public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      rotationScaleMatrix.inverseTransform(vector4DOriginal, vector4DTransformed);
+      rotationScaleMatrix.inverseTransform(vectorOriginal, vectorTransformed);
    }
 
    /** {@inheritDoc} */
