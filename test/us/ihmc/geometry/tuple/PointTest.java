@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 
 public class PointTest extends TupleTest
@@ -112,7 +112,7 @@ public class PointTest extends TupleTest
          Point point = new Point(newX1, newY1, newZ1);
          Point point2 = new Point(newX2, newY2, newZ2);
 
-         double distance = Math.sqrt(point.distanceSquared((PointReadOnly) point2));
+         double distance = Math.sqrt(point.distanceSquared((Point3DReadOnly) point2));
          double distance2 = point.distance(point2);
 
          Assert.assertTrue(distance == distance2);
@@ -150,7 +150,7 @@ public class PointTest extends TupleTest
          Point point = new Point(newX1, newY1, newZ1);
          Point point2 = new Point(newX2, newY2, newZ2);
 
-         double distance = point.distanceSquared((PointReadOnly) point2);
+         double distance = point.distanceSquared((Point3DReadOnly) point2);
          double dx = point.getX() - point2.getX();
          double dy = point.getY() - point2.getY();
          double dz = point.getZ() - point2.getZ();

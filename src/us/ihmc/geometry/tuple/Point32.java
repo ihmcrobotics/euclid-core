@@ -5,7 +5,7 @@ import java.io.Serializable;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
-import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 
 public class Point32 extends Tuple32 implements Serializable, Point3DBasics, GeometryObject<Point32>
@@ -38,12 +38,12 @@ public class Point32 extends Tuple32 implements Serializable, Point3DBasics, Geo
       super.set(other);
    }
 
-   public float distance(PointReadOnly other)
+   public float distance(Point3DReadOnly other)
    {
       return (float) Math.sqrt(distanceSquared(other));
    }
 
-   public float distanceSquared(PointReadOnly other)
+   public float distanceSquared(Point3DReadOnly other)
    {
       double dx = getX() - other.getX();
       double dy = getY() - other.getY();

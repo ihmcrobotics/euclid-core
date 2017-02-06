@@ -14,7 +14,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
-import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleBasics;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 import us.ihmc.geometry.tuple.interfaces.VectorBasics;
@@ -698,7 +698,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(PointReadOnly pointOriginal, Point3DBasics pointTransformed)
+   public void transform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       quaternion.transform(pointOriginal, pointTransformed);
       pointTransformed.add(translationVector);
@@ -756,7 +756,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(PointReadOnly pointOriginal, Point3DBasics pointTransformed)
+   public void inverseTransform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       pointTransformed.set(pointOriginal);
       pointTransformed.sub(translationVector);

@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 
 public class Point32Test extends Tuple32Test
@@ -102,7 +102,7 @@ public class Point32Test extends Tuple32Test
          Point32 point = new Point32(newX1, newY1, newZ1);
          Point32 point2 = new Point32(newX2, newY2, newZ2);
 
-         float distance = (float) Math.sqrt(point.distanceSquared((PointReadOnly) point2));
+         float distance = (float) Math.sqrt(point.distanceSquared((Point3DReadOnly) point2));
          float distance2 = point.distance(point2);
 
          Assert.assertTrue(distance == distance2);
@@ -138,7 +138,7 @@ public class Point32Test extends Tuple32Test
       Point32 point = new Point32(newX1, newY1, newZ1);
       Point32 point2 = new Point32(newX2, newY2, newZ2);
 
-      float distance = point.distanceSquared((PointReadOnly) point2);
+      float distance = point.distanceSquared((Point3DReadOnly) point2);
       float dx = point.getX32() - point2.getX32();
       float dy = point.getY32() - point2.getY32();
       float dz = point.getZ32() - point2.getZ32();

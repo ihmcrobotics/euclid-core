@@ -5,7 +5,7 @@ import java.io.Serializable;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
-import us.ihmc.geometry.tuple.interfaces.PointReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
 
 public class Point extends Tuple implements Serializable, Point3DBasics, GeometryObject<Point>
@@ -38,12 +38,12 @@ public class Point extends Tuple implements Serializable, Point3DBasics, Geometr
       super.set(other);
    }
 
-   public double distance(PointReadOnly other)
+   public double distance(Point3DReadOnly other)
    {
       return Math.sqrt(distanceSquared(other));
    }
 
-   public double distanceSquared(PointReadOnly other)
+   public double distanceSquared(Point3DReadOnly other)
    {
       double dx = getX() - other.getX();
       double dy = getY() - other.getY();
