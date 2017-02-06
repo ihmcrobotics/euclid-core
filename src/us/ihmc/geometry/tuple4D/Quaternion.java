@@ -176,7 +176,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       y = other.getY();
       z = other.getZ();
       s = other.getS();
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void set(AxisAngleReadOnly<?> axisAngle)
@@ -208,7 +208,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
    public void set(double qx, double qy, double qz, double qs)
    {
       setUnsafe(qx, qy, qz, qs);
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    @Override
@@ -244,7 +244,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       y = quaternionArray[1];
       z = quaternionArray[2];
       s = quaternionArray[3];
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void set(double[] quaternionArray, int startIndex)
@@ -253,7 +253,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       y = quaternionArray[startIndex++];
       z = quaternionArray[startIndex++];
       s = quaternionArray[startIndex];
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void set(DenseMatrix64F matrix)
@@ -262,7 +262,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       y = matrix.get(1, 0);
       z = matrix.get(2, 0);
       s = matrix.get(3, 0);
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void set(DenseMatrix64F matrix, int startRow)
@@ -276,7 +276,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       y = matrix.get(startRow++, column);
       z = matrix.get(startRow++, column);
       s = matrix.get(startRow, column);
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void multiply(QuaternionReadOnly other)
@@ -467,7 +467,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
 
    public double getAngle()
    {
-      normalizeAndLimitToPiMinusPi();
+      normalize();
       double sinHalfTheta = Math.sqrt(x * x + y * y + z * z);
       return 2.0 * Math.atan2(sinHalfTheta, s);
    }

@@ -316,7 +316,7 @@ public class QuaternionToolsTest
          double alpha = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 1.0);
          QuaternionTools.interpolate(q0, qf, alpha, qExpected);
          QuaternionTools.interpolate(qf, q0, 1.0 - alpha, qActual);
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPSILON);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, EPSILON);
       }
 
       // Test with a different algorithm

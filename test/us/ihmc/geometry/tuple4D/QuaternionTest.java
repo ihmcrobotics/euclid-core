@@ -680,7 +680,7 @@ public class QuaternionTest
          qExpected.setUnsafe(quaternion.getX() + EPS, quaternion.getY() + EPS, quaternion.getZ() + EPS, quaternion.getS() + EPS);
 
          qActual.set(qActual);
-         qExpected.normalizeAndLimitToPiMinusPi();
+         qExpected.normalize();
 
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }
@@ -693,7 +693,7 @@ public class QuaternionTest
          qActual.set(quaternion.getX() + EPS, quaternion.getY() + EPS, quaternion.getZ() + EPS, quaternion.getS() + EPS);
 
          qExpected.setUnsafe(quaternion.getX() + EPS, quaternion.getY() + EPS, quaternion.getZ() + EPS, quaternion.getS() + EPS);
-         qExpected.normalizeAndLimitToPiMinusPi();
+         qExpected.normalize();
 
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }
@@ -705,9 +705,6 @@ public class QuaternionTest
          double[] quaternionArray = {quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS()};
 
          qActual.set(quaternionArray);
-
-         if (qExpected.getS() < 0.0)
-            qExpected.negate();
 
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }
@@ -723,8 +720,6 @@ public class QuaternionTest
 
          qActual.set(quaternionArray, startIndex);
 
-         if (qExpected.getS() < 0.0)
-            qExpected.negate();
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }
 
@@ -761,9 +756,6 @@ public class QuaternionTest
 
          qActual.set(qDenseMatrix);
 
-         if (qExpected.getS() < 0.0)
-            qExpected.negate();
-
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }
 
@@ -777,9 +769,6 @@ public class QuaternionTest
             qDenseMatrix.set(row, 0, quaternion.get(row - startRow));
 
          qActual.set(qDenseMatrix, startRow);
-
-         if (qExpected.getS() < 0.0)
-            qExpected.negate();
 
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }

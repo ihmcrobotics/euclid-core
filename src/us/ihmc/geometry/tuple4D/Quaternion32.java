@@ -176,7 +176,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       y = (float) other.getY();
       z = (float) other.getZ();
       s = (float) other.getS();
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void set(AxisAngleReadOnly<?> axisAngle)
@@ -208,7 +208,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
    public void set(double qx, double qy, double qz, double qs)
    {
       setUnsafe(qx, qy, qz, qs);
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    @Override
@@ -244,7 +244,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       y = quaternionArray[1];
       z = quaternionArray[2];
       s = quaternionArray[3];
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void set(float[] quaternionArray, int startIndex)
@@ -253,7 +253,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       y = quaternionArray[startIndex++];
       z = quaternionArray[startIndex++];
       s = quaternionArray[startIndex];
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void set(DenseMatrix64F matrix)
@@ -262,7 +262,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       y = (float) matrix.get(1, 0);
       z = (float) matrix.get(2, 0);
       s = (float) matrix.get(3, 0);
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void set(DenseMatrix64F matrix, int startRow)
@@ -276,7 +276,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       y = (float) matrix.get(startRow++, column);
       z = (float) matrix.get(startRow++, column);
       s = (float) matrix.get(startRow, column);
-      normalizeAndLimitToPiMinusPi();
+      normalize();
    }
 
    public void multiply(QuaternionReadOnly other)
@@ -427,7 +427,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
 
    public float getAngle()
    {
-      normalizeAndLimitToPiMinusPi();
+      normalize();
       double sinHalfTheta = Math.sqrt(x * x + y * y + z * z);
       return (float) (2.0 * Math.atan2(sinHalfTheta, s));
    }
