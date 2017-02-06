@@ -7,7 +7,7 @@ import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 
 public abstract class QuaternionConversion
@@ -147,7 +147,7 @@ public abstract class QuaternionConversion
       quaternionToPack.setUnsafe(qx, qy, qz, qs);
    }
 
-   public static void convertRotationVectorToQuaternion(VectorReadOnly rotationVector, QuaternionBasics quaternionToPack)
+   public static void convertRotationVectorToQuaternion(Vector3DReadOnly rotationVector, QuaternionBasics quaternionToPack)
    {
       convertRotationVectorToQuaternionImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), quaternionToPack);
    }

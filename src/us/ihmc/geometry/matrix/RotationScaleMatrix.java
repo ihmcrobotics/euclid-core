@@ -16,7 +16,7 @@ import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
@@ -718,7 +718,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * 
     * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
     */
-   public void setRotation(VectorReadOnly rotationVector)
+   public void setRotation(Vector3DReadOnly rotationVector)
    {
       rotationMatrix.set(rotationVector);
    }
@@ -819,7 +819,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * 
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setRotationEuler(VectorReadOnly eulerAngles)
+   public void setRotationEuler(Vector3DReadOnly eulerAngles)
    {
       rotationMatrix.setEuler(eulerAngles);
    }
@@ -988,7 +988,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * 
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setEuler(VectorReadOnly eulerAngles)
+   public void setEuler(Vector3DReadOnly eulerAngles)
    {
       setRotationEuler(eulerAngles);
       resetScale();

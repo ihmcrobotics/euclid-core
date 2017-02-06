@@ -25,7 +25,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple.Point;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -628,7 +628,7 @@ public class AffineTransformTest
       Random random = new Random(42523L);
       AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
       RotationScaleMatrixReadOnly<?> actualRotationScale = transform.getRotationScaleMatrix();
-      VectorReadOnly actualTranslation = transform.getTranslationVector();
+      Vector3DReadOnly actualTranslation = transform.getTranslationVector();
       RotationScaleMatrix expectedRotationScale = new RotationScaleMatrix();
       Vector expectedTranslation = new Vector();
       transform.getTranslation(expectedTranslation);
@@ -754,7 +754,7 @@ public class AffineTransformTest
       Random random = new Random(42523L);
       AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
       RotationScaleMatrixReadOnly<?> actualRotationScale = transform.getRotationScaleMatrix();
-      VectorReadOnly actualTranslation = transform.getTranslationVector();
+      Vector3DReadOnly actualTranslation = transform.getTranslationVector();
       RotationScaleMatrix expectedRotationScale = new RotationScaleMatrix();
       Vector expectedTranslation = new Vector();
       transform.getTranslation(expectedTranslation);
@@ -795,7 +795,7 @@ public class AffineTransformTest
       Random random = new Random(42523L);
       AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
       RotationScaleMatrixReadOnly<?> actualRotationScale = transform.getRotationScaleMatrix();
-      VectorReadOnly actualTranslation = transform.getTranslationVector();
+      Vector3DReadOnly actualTranslation = transform.getTranslationVector();
       RotationScaleMatrix expectedRotationScale = new RotationScaleMatrix();
       Vector expectedTranslation = new Vector();
       transform.getRotationScale(expectedRotationScale);
@@ -1355,7 +1355,7 @@ public class AffineTransformTest
       Random random = new Random(5464L);
       AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
       RotationScaleMatrixReadOnly<?> rotationScaleMatrix = transform.getRotationScaleMatrix();
-      VectorReadOnly translation = transform.getTranslationVector();
+      Vector3DReadOnly translation = transform.getTranslationVector();
 
       assertTrue(rotationScaleMatrix.getM00() == transform.getM00());
       assertTrue(rotationScaleMatrix.getM01() == transform.getM01());

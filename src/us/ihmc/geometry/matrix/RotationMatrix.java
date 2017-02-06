@@ -14,7 +14,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.RotationVectorConversion;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
@@ -171,7 +171,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * 
     * @param rotationVector the rotation vector used to initialize this rotation matrix. Not modified.
     */
-   public RotationMatrix(VectorReadOnly rotationVector)
+   public RotationMatrix(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
    }
@@ -402,7 +402,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * 
     * @param rotation vector the rotation vector used to set this matrix. Not modified.
     */
-   public void set(VectorReadOnly rotationVector)
+   public void set(Vector3DReadOnly rotationVector)
    {
       RotationMatrixConversion.convertRotationVectorToMatrix(rotationVector, this);
    }
@@ -498,7 +498,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * 
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setEuler(VectorReadOnly eulerAngles)
+   public void setEuler(Vector3DReadOnly eulerAngles)
    {
       setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX());
    }

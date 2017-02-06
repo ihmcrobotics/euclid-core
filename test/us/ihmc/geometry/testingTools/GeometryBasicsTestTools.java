@@ -17,7 +17,7 @@ import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple.TupleTools;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -90,7 +90,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two rotation vectors are not equal.
     */
-   public static void assertRotationVectorEquals(VectorReadOnly expectedRotationVector, VectorReadOnly actualRotationVector, double epsilon)
+   public static void assertRotationVectorEquals(Vector3DReadOnly expectedRotationVector, Vector3DReadOnly actualRotationVector, double epsilon)
    {
       try
       {

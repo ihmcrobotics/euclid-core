@@ -4,7 +4,7 @@ import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
@@ -109,7 +109,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * @param axis the new axis. Not modified.
     * @param angle the new angle.
     */
-   default void set(VectorReadOnly axis, double angle)
+   default void set(Vector3DReadOnly axis, double angle)
    {
       set(axis.getX(), axis.getY(), axis.getZ(), angle);
    }
@@ -264,7 +264,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    /**
     * Sets the components of this axis-angle such that it represents the same
     * orientation as the given {@code rotationVector}.
-    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(VectorReadOnly, AxisAngleBasics)}.
+    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
@@ -273,7 +273,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * 
     * @param rotationVector the rotation vector to convert. Not modified.
     */
-   default void set(VectorReadOnly rotationVector)
+   default void set(Vector3DReadOnly rotationVector)
    {
       AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, this);
    }

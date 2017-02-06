@@ -5,7 +5,7 @@ import java.io.Serializable;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
@@ -86,7 +86,7 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
     * @param axis the axis. Not modified
     * @param angle the angle value.
     */
-   public AxisAngle32(VectorReadOnly axis, float angle)
+   public AxisAngle32(Vector3DReadOnly axis, float angle)
    {
       set(axis, angle);
    }
@@ -118,11 +118,11 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    /**
     * Creates an axis-angle such that it represents the same
     * orientation the rotation vector represents.
-    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(VectorReadOnly, AxisAngleBasics)}.
+    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
     * 
     * @param rotationVector the rotation vector used to create this axis-angle. Not modified.
     */
-   public AxisAngle32(VectorReadOnly rotationVector)
+   public AxisAngle32(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
    }

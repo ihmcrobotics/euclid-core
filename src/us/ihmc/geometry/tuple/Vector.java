@@ -6,7 +6,7 @@ import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 
 public class Vector extends Tuple implements Serializable, Vector3DBasics, GeometryObject<Vector>
 {
@@ -50,7 +50,7 @@ public class Vector extends Tuple implements Serializable, Vector3DBasics, Geome
       return Math.acos(Math.min(1.0, Math.max(-1.0, vDot)));
    }
 
-   public void cross(VectorReadOnly v1, VectorReadOnly v2)
+   public void cross(Vector3DReadOnly v1, Vector3DReadOnly v2)
    {
       double x = v1.getY() * v2.getZ() - v1.getZ() * v2.getY();
       double y = v1.getZ() * v2.getX() - v1.getX() * v2.getZ();
@@ -58,7 +58,7 @@ public class Vector extends Tuple implements Serializable, Vector3DBasics, Geome
       set(x, y, z);
    }
 
-   public double dot(VectorReadOnly other)
+   public double dot(Vector3DReadOnly other)
    {
       return getX() * other.getX() + getY() * other.getY() + getZ() * other.getZ();
    }

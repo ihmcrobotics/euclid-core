@@ -4,7 +4,7 @@ import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.tuple.RotationVectorConversion;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.QuaternionTools;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
@@ -359,7 +359,7 @@ public abstract class RotationMatrixConversion
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void convertRotationVectorToMatrix(VectorReadOnly rotationVector, RotationMatrix matrixToPack)
+   public static void convertRotationVectorToMatrix(Vector3DReadOnly rotationVector, RotationMatrix matrixToPack)
    {
       convertRotationVectorToMatrix(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), matrixToPack);
    }

@@ -18,7 +18,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -81,7 +81,7 @@ public class Quaternion32Test
          rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          quaternion = new Quaternion32(rotationVector);
-         QuaternionConversion.convertRotationVectorToQuaternion((VectorReadOnly) rotationVector, (QuaternionBasics) expected);
+         QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly) rotationVector, (QuaternionBasics) expected);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
          GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
@@ -598,7 +598,7 @@ public class Quaternion32Test
          rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          quaternion = new Quaternion32(rotationVector);
-         QuaternionConversion.convertRotationVectorToQuaternion((VectorReadOnly) rotationVector, (QuaternionBasics) expectedQuaternion);
+         QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly) rotationVector, (QuaternionBasics) expectedQuaternion);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expectedQuaternion, EPS);
          GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);

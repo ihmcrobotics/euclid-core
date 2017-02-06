@@ -17,7 +17,7 @@ import us.ihmc.geometry.tuple.RotationVectorConversion;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -63,7 +63,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       set(axisAngle);
    }
 
-   public Quaternion(VectorReadOnly rotationVector)
+   public Quaternion(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
    }
@@ -189,7 +189,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, this);
    }
 
-   public void set(VectorReadOnly rotationVector)
+   public void set(Vector3DReadOnly rotationVector)
    {
       QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, this);
    }
@@ -204,7 +204,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, this);
    }
 
-   public void setEuler(VectorReadOnly eulerAngles)
+   public void setEuler(Vector3DReadOnly eulerAngles)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), this);
    }

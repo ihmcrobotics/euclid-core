@@ -17,7 +17,7 @@ import us.ihmc.geometry.tuple.RotationVectorConversion;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -63,7 +63,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       set(axisAngle);
    }
 
-   public Quaternion32(VectorReadOnly rotationVector)
+   public Quaternion32(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
    }
@@ -189,7 +189,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, this);
    }
 
-   public void set(VectorReadOnly rotationVector)
+   public void set(Vector3DReadOnly rotationVector)
    {
       QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, this);
    }

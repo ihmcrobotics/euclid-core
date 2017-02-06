@@ -17,7 +17,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple.Point;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -394,7 +394,7 @@ public class QuaternionBasedTransformTest
       Random random = new Random(34543L);
       QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
       QuaternionReadOnly expectedQuaternion = transform.getQuaternion();
-      VectorReadOnly expectedTranslation = transform.getTranslationVector();
+      Vector3DReadOnly expectedTranslation = transform.getTranslationVector();
 
       { // Test get(DenseMatrix64F matrixToPack)
          Quaternion actualQuaternion = new Quaternion();

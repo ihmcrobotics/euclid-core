@@ -5,7 +5,7 @@ import java.io.Serializable;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
@@ -86,7 +86,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
     * @param axis the axis. Not modified
     * @param angle the angle value.
     */
-   public AxisAngle(VectorReadOnly axis, double angle)
+   public AxisAngle(Vector3DReadOnly axis, double angle)
    {
       set(axis, angle);
    }
@@ -118,7 +118,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
    /**
     * Creates an axis-angle such that it represents the same
     * orientation the rotation vector represents.
-    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(VectorReadOnly, AxisAngleBasics)}.
+    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
@@ -127,7 +127,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
     * 
     * @param rotationVector the rotation vector used to create this axis-angle. Not modified.
     */
-   public AxisAngle(VectorReadOnly rotationVector)
+   public AxisAngle(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
    }

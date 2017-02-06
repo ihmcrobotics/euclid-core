@@ -23,7 +23,7 @@ import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
@@ -590,7 +590,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * 
     * @param rotationVector the rotation vector used to set the rotation part of this transform. Not modified.
     */
-   public void setRotation(VectorReadOnly rotationVector)
+   public void setRotation(Vector3DReadOnly rotationVector)
    {
       rotationScaleMatrix.setRotation(rotationVector);
    }
@@ -745,7 +745,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * 
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setRotationEuler(VectorReadOnly eulerAngles)
+   public void setRotationEuler(Vector3DReadOnly eulerAngles)
    {
       rotationScaleMatrix.setRotationEuler(eulerAngles);
    }
@@ -871,7 +871,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void transform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
+   public void transform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
    {
       rotationScaleMatrix.transform(vectorOriginal, vectorTransformed);
    }
@@ -930,7 +930,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
+   public void inverseTransform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
    {
       rotationScaleMatrix.inverseTransform(vectorOriginal, vectorTransformed);
    }
@@ -1272,7 +1272,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * 
     * @return the translation part of this transform.
     */
-   public VectorReadOnly getTranslationVector()
+   public Vector3DReadOnly getTranslationVector()
    {
       return translationVector;
    }

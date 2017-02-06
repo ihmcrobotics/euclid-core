@@ -10,7 +10,7 @@ import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
@@ -104,7 +104,7 @@ public interface Transform
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void transform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
+   void transform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
 
    /**
     * Transforms the given {@code quaternionToTransform} by this transform.
@@ -514,7 +514,7 @@ public interface Transform
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void inverseTransform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
+   void inverseTransform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
 
    /**
     * Transforms the given {@code quaternionToTransform} by the inverse of this transform.

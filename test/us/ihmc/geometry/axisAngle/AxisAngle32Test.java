@@ -17,7 +17,7 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
@@ -143,7 +143,7 @@ public class AxisAngle32Test
 
             axisAngle = new AxisAngle32(rotationVector);
             AxisAngle32 expectedAxisAngle32 = new AxisAngle32();
-            AxisAngleConversion.convertRotationVectorToAxisAngle((VectorReadOnly) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle32);
+            AxisAngleConversion.convertRotationVectorToAxisAngle((Vector3DReadOnly) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle32);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle32, EPS);
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
@@ -291,7 +291,7 @@ public class AxisAngle32Test
 
             axisAngle.set(rotationVector);
             AxisAngle32 expectedAxisAngle32 = new AxisAngle32();
-            AxisAngleConversion.convertRotationVectorToAxisAngle((VectorReadOnly) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle32);
+            AxisAngleConversion.convertRotationVectorToAxisAngle((Vector3DReadOnly) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle32);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle32, axisAngle, EPS);
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);

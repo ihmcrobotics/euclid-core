@@ -21,7 +21,7 @@ import us.ihmc.geometry.tuple.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
@@ -267,7 +267,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.setYawPitchRoll(yaw, pitch, roll);
    }
 
-   public void setRotationEuler(VectorReadOnly eulerAngles)
+   public void setRotationEuler(Vector3DReadOnly eulerAngles)
    {
       rotationMatrix.setEuler(eulerAngles);
    }
@@ -325,7 +325,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       translationVector.setToZero();
    }
 
-   public void setRotationEulerAndZeroTranslation(VectorReadOnly eulerAngles)
+   public void setRotationEulerAndZeroTranslation(Vector3DReadOnly eulerAngles)
    {
       setRotationEuler(eulerAngles);
       translationVector.setToZero();
@@ -382,7 +382,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       axisAngleToPack.set(rotationMatrix);
    }
 
-   public VectorReadOnly getTranslationVector()
+   public Vector3DReadOnly getTranslationVector()
    {
       return translationVector;
    }
@@ -485,7 +485,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
-   public void transform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
+   public void transform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
    {
       rotationMatrix.transform(vectorOriginal, vectorTransformed);
    }
@@ -536,7 +536,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    @Override
-   public void inverseTransform(VectorReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
+   public void inverseTransform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
    {
       rotationMatrix.inverseTransform(vectorOriginal, vectorTransformed);
    }

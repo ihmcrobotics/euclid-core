@@ -10,7 +10,7 @@ import us.ihmc.geometry.tuple.TupleTools;
 import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
+import us.ihmc.geometry.tuple.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionTools;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
@@ -523,7 +523,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static double computeYaw(VectorReadOnly rotationVector)
+   public static double computeYaw(Vector3DReadOnly rotationVector)
    {
       if (TupleTools.containsNaN(rotationVector))
          return Double.NaN;
@@ -549,7 +549,7 @@ public abstract class YawPitchRollConversion
          return computeYawFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static double computePitch(VectorReadOnly rotationVector)
+   public static double computePitch(Vector3DReadOnly rotationVector)
    {
       if (TupleTools.containsNaN(rotationVector))
          return Double.NaN;
@@ -571,7 +571,7 @@ public abstract class YawPitchRollConversion
       return computePitchFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static double computeRoll(VectorReadOnly rotationVector)
+   public static double computeRoll(Vector3DReadOnly rotationVector)
    {
       if (TupleTools.containsNaN(rotationVector))
          return Double.NaN;
@@ -597,7 +597,7 @@ public abstract class YawPitchRollConversion
          return computeRollFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static void convertRotationVectorToYawPitchRoll(VectorReadOnly rotationVector, double[] yawPitchRollToPack)
+   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, double[] yawPitchRollToPack)
    {
       if (TupleTools.containsNaN(rotationVector))
       {
@@ -630,7 +630,7 @@ public abstract class YawPitchRollConversion
       convertAxisAngleToYawPitchRollImpl(ux, uy, uz, angle, yawPitchRollToPack);
    }
 
-   public static void convertRotationVectorToYawPitchRoll(VectorReadOnly rotationVector, Vector3DBasics eulerAnglesToPack)
+   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, Vector3DBasics eulerAnglesToPack)
    {
       if (TupleTools.containsNaN(rotationVector))
       {
