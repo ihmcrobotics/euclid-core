@@ -115,6 +115,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    /**
     * Packs the components of this axis-angle in an array starting from {@code startIndex}.
     * The components are packed in the following order: x, y, z, and angle.
+    * 
     * @param startIndex the index in the array where the first component is stored.
     * @param axisAngleArrayToPack the array in which this axis-angle is stored. Modified.
     */
@@ -211,7 +212,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
     * different orientations.
     * 
     * @param other the other axis-angle to compare against this. Not modified.
-    * @return {@code true} if the two axis-angle are exactly equal component-wise, {@code false} otherwise.
+    * @return {@code true} if the two axis-angles are exactly equal component-wise, {@code false} otherwise.
     */
    default boolean equals(T other)
    {
