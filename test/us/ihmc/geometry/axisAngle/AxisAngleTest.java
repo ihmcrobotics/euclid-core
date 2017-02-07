@@ -23,7 +23,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
-public class AxisAngleTest
+public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
    public static final double EPS = 1e-15;
@@ -151,23 +151,6 @@ public class AxisAngleTest
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
          }
       }
-   }
-
-   @Test
-   public void testContainsNaN()
-   {
-      AxisAngle axisAngle = new AxisAngle();
-
-      axisAngle.set(0.0, 0.0, 0.0, 0.0);
-      assertFalse(axisAngle.containsNaN());
-      axisAngle.set(Double.NaN, 0.0, 0.0, 0.0);
-      assertTrue(axisAngle.containsNaN());
-      axisAngle.set(0.0, Double.NaN, 0.0, 0.0);
-      assertTrue(axisAngle.containsNaN());
-      axisAngle.set(0.0, 0.0, Double.NaN, 0.0);
-      assertTrue(axisAngle.containsNaN());
-      axisAngle.set(0.0, 0.0, 0.0, Double.NaN);
-      assertTrue(axisAngle.containsNaN());
    }
 
    @Test
@@ -594,5 +577,17 @@ public class AxisAngleTest
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }
+   }
+
+   @Override
+   public AxisAngle createEmptyAxisAngle()
+   {
+      return new AxisAngle();
+   }
+
+   @Override
+   public AxisAngle createAxisAngle(double ux, double uy, double uz, double angle)
+   {
+      return new AxisAngle(ux, uy, uz, angle);
    }
 }

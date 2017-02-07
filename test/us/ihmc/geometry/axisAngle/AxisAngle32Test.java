@@ -21,7 +21,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
-public class AxisAngle32Test
+public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
 {
    public static final int NUMBER_OF_ITERATIONS = AxisAngleTest.NUMBER_OF_ITERATIONS;
    public static final double EPS = 1e-6;
@@ -149,23 +149,6 @@ public class AxisAngle32Test
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
          }
       }
-   }
-
-   @Test
-   public void testContainsNaN()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-
-      axisAngle.set(0.0, 0.0, 0.0, 0.0);
-      assertFalse(axisAngle.containsNaN());
-      axisAngle.set(Double.NaN, 0.0, 0.0, 0.0);
-      assertTrue(axisAngle.containsNaN());
-      axisAngle.set(0.0, Double.NaN, 0.0, 0.0);
-      assertTrue(axisAngle.containsNaN());
-      axisAngle.set(0.0, 0.0, Double.NaN, 0.0);
-      assertTrue(axisAngle.containsNaN());
-      axisAngle.set(0.0, 0.0, 0.0, Double.NaN);
-      assertTrue(axisAngle.containsNaN());
    }
 
    @Test
@@ -480,126 +463,6 @@ public class AxisAngle32Test
    }
 
    @Test
-   public void testGetAngle()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-      Random random = new Random(564648L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float setAngle = random.nextFloat();
-         axisAngle.setAngle(setAngle);
-         double returnAngle = axisAngle.getAngle();
-
-         Assert.assertTrue(setAngle == returnAngle);
-      }
-   }
-
-   @Test
-   public void testGetX()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-      Random random = new Random(564648L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float setX = random.nextFloat();
-         axisAngle.setX(setX);
-         double returnX = axisAngle.getX();
-
-         Assert.assertTrue(setX == returnX);
-      }
-   }
-
-   @Test
-   public void testGetY()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-      Random random = new Random(564648L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float setY = random.nextFloat();
-         axisAngle.setY(setY);
-         double returnY = axisAngle.getY();
-
-         Assert.assertTrue(setY == returnY);
-      }
-   }
-
-   @Test
-   public void testGetZ()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-      Random random = new Random(564648L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float setZ = random.nextFloat();
-         axisAngle.setZ(setZ);
-         double returnZ = axisAngle.getZ();
-
-         Assert.assertTrue(setZ == returnZ);
-      }
-   }
-
-   @Test
-   public void testGetAngle32()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-      Random random = new Random(564648L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float setAngle = random.nextFloat();
-         axisAngle.setAngle(setAngle);
-         float returnAngle = axisAngle.getAngle32();
-
-         Assert.assertTrue(setAngle == returnAngle);
-      }
-   }
-
-   @Test
-   public void testGetX32()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-      Random random = new Random(564648L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float setX = random.nextFloat();
-         axisAngle.setX(setX);
-         float returnX = axisAngle.getX32();
-
-         Assert.assertTrue(setX == returnX);
-      }
-   }
-
-   @Test
-   public void testGetY32()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-      Random random = new Random(564648L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float setY = random.nextFloat();
-         axisAngle.setY(setY);
-         float returnY = axisAngle.getY32();
-
-         Assert.assertTrue(setY == returnY);
-      }
-   }
-
-   @Test
-   public void testGetZ32()
-   {
-      AxisAngle32 axisAngle = new AxisAngle32();
-      Random random = new Random(564648L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float setZ = random.nextFloat();
-         axisAngle.setZ(setZ);
-         float returnZ = axisAngle.getZ32();
-
-         Assert.assertTrue(setZ == returnZ);
-      }
-   }
-
-   @Test
    public void testEpsilonEquals() throws Exception
    {
       Random random = new Random(621541L);
@@ -679,5 +542,17 @@ public class AxisAngle32Test
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }
+   }
+
+   @Override
+   public AxisAngle32 createEmptyAxisAngle()
+   {
+      return new AxisAngle32();
+   }
+
+   @Override
+   public AxisAngle32 createAxisAngle(double ux, double uy, double uz, double angle)
+   {
+      return new AxisAngle32((float) ux, (float) uy, (float) uz, (float) angle);
    }
 }
