@@ -534,7 +534,7 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics<T>> extends Tupl
          tuple2.setX(random.nextDouble());
          tuple2.setY(random.nextDouble());
 
-         tuple1.scale(scale, tuple2);
+         tuple1.setAndScale(scale, tuple2);
          assertEquals(tuple1.getX(), tuple2.getX() * scale, getEpsilon());
          assertEquals(tuple1.getY(), tuple2.getY() * scale, getEpsilon());
       }

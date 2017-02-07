@@ -27,7 +27,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
          double length1 = vector1.length();
          T vector2 = createEmptyTuple();
          double scalar = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
-         vector2.scale(scalar, vector1);
+         vector2.setAndScale(scalar, vector1);
          double expectedLength2 = scalar * length1;
          double actualLength2 = vector2.length();
          assertEquals(expectedLength2, actualLength2, 2.0 * getEpsilon());
@@ -45,7 +45,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
          double length1 = vector1.length();
          T vector2 = createEmptyTuple();
          double scalar = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
-         vector2.scale(scalar, vector1);
+         vector2.setAndScale(scalar, vector1);
          double expectedLength2 = scalar * length1;
          double actualLength2 = vector2.lengthSquared();
          assertEquals(expectedLength2, Math.sqrt(actualLength2), 2.0 * getEpsilon());
@@ -139,7 +139,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
 
          T vector2 = createRandomTuple(random);
          vector2.normalize();
-         vector1.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
+         vector1.setAndScale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.normalize();
          GeometryBasicsTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
       }
@@ -158,7 +158,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
          vector2 = createRandomTuple(random);
          vector2.normalize();
          T vector3 = createEmptyTuple();
-         vector3.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
+         vector3.setAndScale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.setAndNormalize(vector3);
          GeometryBasicsTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
       }

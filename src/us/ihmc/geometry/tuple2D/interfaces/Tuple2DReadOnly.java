@@ -8,11 +8,11 @@ import us.ihmc.geometry.tuple3D.Tuple3DTools;
 /**
  * Read-only interface for a 2 dimensional tuple.
  * <p>
- * A tuple is abstract holding onto the common math between a 2D point and vector.
+ * A tuple is an abstract geometry object holding onto the common math between a 2D point and vector.
  * </p>
  * <p>
  * Although a point and vector hold onto the same type of information, the distinction is made between them
- * because they represent different geometry objects and are not handled the same way:
+ * as they represent different geometry objects and are typically not handled the same way:
  * <ul>
  *    <li> a point represents the coordinate of a location in space.
  *     A notable difference with a vector is that the distance between two points has a physical meaning.
@@ -79,8 +79,10 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    /**
     * Selects a component of this tuple based on {@code index}
     * and returns its value.
+    * <p>
     * For an {@code index} of 0, the corresponding component is {@code x}, while for 1
     * it is {@code y}.
+    * </p>
     * 
     * @param index the index of the component to get.
     * @return the value of the component.
