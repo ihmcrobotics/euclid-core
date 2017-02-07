@@ -144,6 +144,33 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
+    * Sets the rotation part to represent a 'zero' rotation.
+    * <p>
+    * This method does NOT affect the scale part of this transform.
+    * </p>
+    */
+   public void setRotationToZero()
+   {
+      rotationScaleMatrix.setRotationToZero();
+   }
+   
+   /**
+    * Sets all the scale factors to 1.0.
+    */
+   public void resetScale()
+   {
+      rotationScaleMatrix.resetScale();
+   }
+
+   /**
+    * Sets the translation part to zero.
+    */
+   public void setTranslationToZero()
+   {
+      translationVector.setToZero();
+   }
+
+   /**
     * Sets all the components of this affine transform making it invalid.
     */
    @Override
@@ -187,30 +214,16 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Sets the rotation part to represent a 'zero' rotation.
+    * Normalize the rotation part of this transform.
     * <p>
     * This method does NOT affect the scale part of this transform.
     * </p>
+    * 
+    * @throws NotARotationMatrixException if the orthonormalization failed.
     */
-   public void setRotationToZero()
+   public void normalizeRotationPart()
    {
-      rotationScaleMatrix.setRotationToZero();
-   }
-   
-   /**
-    * Sets all the scale factors to 1.0.
-    */
-   public void resetScale()
-   {
-      rotationScaleMatrix.resetScale();
-   }
-
-   /**
-    * Sets the translation part to zero.
-    */
-   public void setTranslationToZero()
-   {
-      translationVector.setToZero();
+      rotationScaleMatrix.normalizeRotationMatrix();
    }
 
    /**
@@ -364,8 +377,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * 
     * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationScaleMatrixException if the given {@code rotationScaleMatrix} is not a
-    *  rotation-scale matrix.
+    * @throws NotARotationScaleMatrixException if the given {@code rotationScaleMatrix} is not a rotation-scale matrix.
     */
    public void set(Matrix3DReadOnly<?> rotationScaleMatrix, Tuple3DReadOnly translation)
    {
@@ -695,7 +707,6 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * this = | 0 cos(roll) -sin(roll) |
     *        \ 0 sin(roll)  cos(roll) /
     * </pre>
-
     * <p>
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
@@ -705,6 +716,25 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    public void setRotationRoll(double roll)
    {
       rotationScaleMatrix.setRotationRoll(roll);
+   }
+
+   /**
+    * Sets the rotation part of this transform to represent the same orientation as the given
+    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
+    * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
+    *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    * <p>
+    * This method does not affect the scale part nor the translation part of this transform.
+    * </p>
+    * 
+    * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
+    */
+   public void setRotationYawPitchRoll(double[] yawPitchRoll)
+   {
+      rotationScaleMatrix.setRotationYawPitchRoll(yawPitchRoll);
    }
 
    /**
@@ -1025,6 +1055,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * </pre>
     * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation
     * part of this transform.
+    * 
     * @param startRow the first row index to start writing in {@code matrixToPack}.
     * @param startColumn the first column index to start writing in {@code matrixToPack}.
     * @param matrixToPack the matrix in which this transform is stored. Modified.
@@ -1038,6 +1069,39 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       matrixToPack.set(startRow, startColumn++, 0.0);
       matrixToPack.set(startRow, startColumn++, 0.0);
       matrixToPack.set(startRow, startColumn, 1.0);
+   }
+
+   /**
+    * Packs this transform as a 4-by-4 matrix into a 1D row-major array.
+    * <pre>
+    *     / M(0, 0) M(0, 1) M(0, 2) Tx \
+    * H = | M(1, 0) M(1, 1) M(1, 2) Ty |
+    *     | M(2, 0) M(2, 1) M(2, 2) Tz |
+    *     \    0       0       0     1 /
+    * </pre>
+    * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation
+    * part of this transform.
+    * 
+    * @param transformArrayToPack the array in which this transform is stored. Modified.
+    */
+   public void get(double[] transformArrayToPack)
+   {
+      transformArrayToPack[0] = getM00();
+      transformArrayToPack[1] = getM01();
+      transformArrayToPack[2] = getM02();
+      transformArrayToPack[3] = getM03();
+      transformArrayToPack[4] = getM10();
+      transformArrayToPack[5] = getM11();
+      transformArrayToPack[6] = getM12();
+      transformArrayToPack[7] = getM13();
+      transformArrayToPack[8] = getM20();
+      transformArrayToPack[9] = getM21();
+      transformArrayToPack[10] = getM22();
+      transformArrayToPack[11] = getM23();
+      transformArrayToPack[12] = getM30();
+      transformArrayToPack[13] = getM31();
+      transformArrayToPack[14] = getM32();
+      transformArrayToPack[15] = getM33();
    }
 
    /**
@@ -1062,39 +1126,6 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    {
       rotationScaleMarixToPack.set(rotationScaleMatrix);
       translationToPack.set(translationVector);
-   }
-
-   /**
-    * Packs this transform as a 4-by-4 matrix into a 1D row-major array.
-    * <pre>
-    *     / M(0, 0) M(0, 1) M(0, 2) Tx \
-    * H = | M(1, 0) M(1, 1) M(1, 2) Ty |
-    *     | M(2, 0) M(2, 1) M(2, 2) Tz |
-    *     \    0       0       0     1 /
-    * </pre>
-    * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation
-    * part of this transform.
-    * 
-    * @param transformArrayToPack the array in which this affine transform is stored. Modified.
-    */
-   public void get(double[] transformArrayToPack)
-   {
-      transformArrayToPack[0] = getM00();
-      transformArrayToPack[1] = getM01();
-      transformArrayToPack[2] = getM02();
-      transformArrayToPack[3] = getM03();
-      transformArrayToPack[4] = getM10();
-      transformArrayToPack[5] = getM11();
-      transformArrayToPack[6] = getM12();
-      transformArrayToPack[7] = getM13();
-      transformArrayToPack[8] = getM20();
-      transformArrayToPack[9] = getM21();
-      transformArrayToPack[10] = getM22();
-      transformArrayToPack[11] = getM23();
-      transformArrayToPack[12] = getM30();
-      transformArrayToPack[13] = getM31();
-      transformArrayToPack[14] = getM32();
-      transformArrayToPack[15] = getM33();
    }
 
    /**

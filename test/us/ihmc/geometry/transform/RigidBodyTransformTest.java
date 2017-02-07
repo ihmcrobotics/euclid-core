@@ -232,7 +232,7 @@ public class RigidBodyTransformTest
       RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
       RigidBodyTransform transform = new RigidBodyTransform(original);
 
-      transform.resetRotation();
+      transform.setRotationToZero();
 
       for (int row = 0; row < 4; row++)
       {
@@ -255,7 +255,7 @@ public class RigidBodyTransformTest
       RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
       RigidBodyTransform transform = new RigidBodyTransform(original);
 
-      transform.resetTranslation();
+      transform.setTranslationToZero();
 
       for (int row = 0; row < 4; row++)
       {
@@ -445,7 +445,7 @@ public class RigidBodyTransformTest
       { // Test set(Matrix3DReadOnly rotationMatrix, TupleReadOnly translation)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
-         actual.set((Matrix3DReadOnly) rotationMatrix, translation);
+         actual.set((Matrix3DReadOnly<?>) rotationMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
             for (int column = 0; column < 3; column++)
@@ -1043,7 +1043,7 @@ public class RigidBodyTransformTest
 
       { // Test getRotation(Matrix3DBasics rotationMatrixToPack)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-         transform.getRotation((Matrix3DBasics) rotationMatrix);
+         transform.getRotation((Matrix3DBasics<?>) rotationMatrix);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
@@ -1126,7 +1126,7 @@ public class RigidBodyTransformTest
          int startRow = random.nextInt(10);
          int startColumn = random.nextInt(10);
          DenseMatrix64F denseMatrix = RandomMatrices.createRandom(4 + startRow, 4 + startColumn, random);
-         transform.get(denseMatrix, startRow, startColumn);
+         transform.get(startRow, startColumn, denseMatrix);
          for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                assertTrue(denseMatrix.get(row + startRow, column + startColumn) == transform.getElement(row, column));

@@ -201,6 +201,22 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
+    * Sets the rotation part to represent a 'zero' rotation.
+    */
+   public void setRotationToZero()
+   {
+      quaternion.setToZero();
+   }
+
+   /**
+    * Sets the translation part to zero.
+    */
+   public void setTranslationToZero()
+   {
+      translationVector.setToZero();
+   }
+
+   /**
     * Sets all the components of this affine transform making it invalid.
     */
    @Override
@@ -241,22 +257,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public boolean containsNaN()
    {
       return quaternion.containsNaN() || translationVector.containsNaN();
-   }
-
-   /**
-    * Sets the rotation part to represent a 'zero' rotation.
-    */
-   public void setRotationToZero()
-   {
-      quaternion.setToZero();
-   }
-
-   /**
-    * Sets the translation part to zero.
-    */
-   public void setTranslationToZero()
-   {
-      translationVector.setToZero();
    }
 
    /**
@@ -518,7 +518,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *     | qz =      0      |
     *     \ qs = cos(roll/2) /
     * </pre>
-
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
@@ -528,6 +527,26 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void setRotationRoll(double roll)
    {
       quaternion.setToRollQuaternion(roll);
+   }
+
+   /**
+    * Sets the rotation part of this transform to represent the same orientation as the given
+    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
+    * <pre>
+    *     / qx =     0      \   / qx =      0       \   / qx = sin(roll/2) \
+    * q = | qy =     0      | * | qy = sin(pitch/2) | * | qy =      0      |
+    *     | qz = sin(yaw/2) |   | qz =      0       |   | qz =      0      |
+    *     \ qs = cos(yaw/2) /   \ qs = cos(pitch/2) /   \ qs = cos(roll/2) /
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    * 
+    * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
+    */
+   public void setRotationYawPitchRoll(double[] yawPitchRoll)
+   {
+      quaternion.setYawPitchRoll(yawPitchRoll);
    }
 
    /**
@@ -562,7 +581,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *     \ qs = cos(eulerAngles.z/2) /   \ qs = cos(eulerAngles.y/2) /   \ qs = cos(eulerAngles.x/2) /
     * </pre>
     * <p>
-    * This method does not affect the scale part nor the translation part of this transform.
+    * This method does not affect the translation part of this transform.
     * </p>
     * <p>
     * This is equivalent to {@code this.setRotationYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
@@ -918,6 +937,17 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void getRotation(RotationMatrix rotationMatrixToPack)
    {
       rotationMatrixToPack.set(quaternion);
+   }
+
+   /**
+    * Packs the rotation part of this quaternion-based transform.
+    * 
+    * @param rotationMarixToPack the rotation-scale matrix that is set to this transform's quaternion.
+    *  The scale part is reset. Modified.
+    */
+   public void getRotation(RotationScaleMatrix rotationMarixToPack)
+   {
+      rotationMarixToPack.set(quaternion, 1.0);
    }
 
    /**
