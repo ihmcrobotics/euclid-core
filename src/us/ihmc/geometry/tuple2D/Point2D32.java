@@ -53,10 +53,4 @@ public class Point2D32 extends Tuple2D32<Point2D32> implements Serializable, Poi
    {
       transform.transform(this);
    }
-
-   @Override
-   public boolean epsilonEquals(Point2D32 other, double epsilon)
-   {
-      return super.epsilonEquals((Tuple2DReadOnly<?>) other, epsilon);
-   }
 }

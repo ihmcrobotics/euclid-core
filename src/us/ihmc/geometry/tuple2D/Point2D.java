@@ -58,10 +58,4 @@ public class Point2D extends Tuple2D<Point2D> implements Serializable, Point2DBa
    {
       transform.transform(this);
    }
-
-   @Override
-   public boolean epsilonEquals(Point2D other, double epsilon)
-   {
-      return epsilonEquals((Tuple2DReadOnly<?>) other, epsilon);
-   }
 }

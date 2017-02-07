@@ -16,16 +16,16 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Tuple3DTest;
 
-public abstract class Tuple2D32Test
+public abstract class Tuple2D32Test<T extends Tuple2D32<T>>
 {
    public static final int NUMBER_OF_ITERATIONS = Tuple3DTest.NUMBER_OF_ITERATIONS;
 
-   public abstract Tuple2D32 createEmptyTuple();
+   public abstract T createEmptyTuple();
 
    @Test
    public void testTuple()
    {
-      Tuple2D32 tuple = createEmptyTuple();
+      T tuple = createEmptyTuple();
       Assert.assertTrue(tuple.getX32() == 0);
       Assert.assertTrue(tuple.getY32() == 0);
    }
@@ -36,7 +36,7 @@ public abstract class Tuple2D32Test
       Random random = new Random(621541L);
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Tuple2D32 tuple = createEmptyTuple();
+         T tuple = createEmptyTuple();
          GeometryBasicsRandomTools.randomizeTuple2D(random, tuple);
 
          tuple.setToNaN();
@@ -51,7 +51,7 @@ public abstract class Tuple2D32Test
       Random random = new Random(621541L);
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Tuple2D32 tuple = createEmptyTuple();
+         T tuple = createEmptyTuple();
          GeometryBasicsRandomTools.randomizeTuple2D(random, tuple);
 
          tuple.setToZero();
@@ -64,8 +64,8 @@ public abstract class Tuple2D32Test
    public void testAbsolute() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
 
       for (float signX = -1.0f; signX <= 1.0; signX += 2.0)
       {
@@ -93,8 +93,8 @@ public abstract class Tuple2D32Test
    public void testNegate() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
 
       for (float signX = -1.0f; signX <= 1.0; signX += 2.0)
       {
@@ -122,8 +122,8 @@ public abstract class Tuple2D32Test
    public void testSetters() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D32.set(float x, float y);
@@ -378,9 +378,9 @@ public abstract class Tuple2D32Test
    public void testAdd() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
-      Tuple2D32 tuple3 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
+      T tuple3 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D32.add(float x, float y)
@@ -425,9 +425,9 @@ public abstract class Tuple2D32Test
    public void testSub() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
-      Tuple2D32 tuple3 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
+      T tuple3 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D32.sub(float x, float y)
@@ -472,9 +472,9 @@ public abstract class Tuple2D32Test
    public void testScale() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
-      Tuple2D32 tuple3 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
+      T tuple3 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D32.scale(float scalarX, float scalarY)
@@ -545,9 +545,9 @@ public abstract class Tuple2D32Test
    public void testInterpolate() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
-      Tuple2D32 tuple3 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
+      T tuple3 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D32.interpolate(TupleBasics other, float alpha)
@@ -580,8 +580,8 @@ public abstract class Tuple2D32Test
    public void testClip() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple32.clipToMax(float max)
@@ -707,7 +707,7 @@ public abstract class Tuple2D32Test
    @Test
    public void testContainsNaN() throws Exception
    {
-      Tuple2D32 tuple1 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
       tuple1.set(0.0f, 0.0f);
       assertFalse(tuple1.containsNaN());
       tuple1.set(Float.NaN, 0.0f);
@@ -720,7 +720,7 @@ public abstract class Tuple2D32Test
    public void testGetters() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D32.get(float[] tupleArrayToPack)
@@ -929,15 +929,6 @@ public abstract class Tuple2D32Test
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D32.get(TupleBasics other)
-         Tuple2D32 tuple2 = createEmptyTuple();
-         GeometryBasicsRandomTools.randomizeTuple2D(random, tuple1);
-
-         tuple1.get(tuple2);
-         assertTrue(tuple1.equals(tuple2));
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D32.getX(), Tuple2D32.getY()
          float x = random.nextFloat();
          float y = random.nextFloat();
@@ -952,8 +943,8 @@ public abstract class Tuple2D32Test
    public void testEpsilonEquals() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
-      Tuple2D32 tuple2 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
       GeometryBasicsRandomTools.randomizeTuple2D(random, tuple1);
       GeometryBasicsRandomTools.randomizeTuple2D(random, tuple2);
 
@@ -985,17 +976,17 @@ public abstract class Tuple2D32Test
    public void testEquals() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
 
       // Test Tuple32.equals(Tuple32 other)
-      Tuple2D32 tuple2 = createEmptyTuple();
+      T tuple2 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          GeometryBasicsRandomTools.randomizeTuple2D(random, tuple2);
          tuple1.set(tuple2);
 
-         assertFalse(tuple1.equals((Tuple2D32) null));
+         assertFalse(tuple1.equals((T) null));
          assertFalse(tuple1.equals((Object) null));
          assertTrue(tuple1.equals(tuple2));
          assertTrue(tuple1.equals((Object) tuple2));
@@ -1031,7 +1022,7 @@ public abstract class Tuple2D32Test
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2D32 tuple1 = createEmptyTuple();
+      T tuple1 = createEmptyTuple();
       GeometryBasicsRandomTools.randomizeTuple2D(random, tuple1);
 
       int newHashCode, previousHashCode;

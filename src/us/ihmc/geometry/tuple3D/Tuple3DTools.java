@@ -29,7 +29,7 @@ public abstract class Tuple3DTools
       return true;
    }
 
-   public static boolean epsilonEquals(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2, double epsilon)
+   public static boolean epsilonEquals(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2, double epsilon)
    {
       double difference;
 

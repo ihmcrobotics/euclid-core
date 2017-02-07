@@ -86,10 +86,4 @@ public class Vector2D extends Tuple2D<Vector2D> implements Serializable, Vector2
    {
       transform.transform(this);
    }
-
-   @Override
-   public boolean epsilonEquals(Vector2D other, double epsilon)
-   {
-      return epsilonEquals((Tuple2DReadOnly<?>) other, epsilon);
-   }
 }
