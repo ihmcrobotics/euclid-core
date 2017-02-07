@@ -359,17 +359,17 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed);
    }
 
-   public void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   public void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed, true);
    }
 
-   public void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   public void transform(Tuple2DBasics<?> tupleToTransform, boolean checkIfTransformInXYPlane)
    {
       transform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
 
-   public void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
@@ -464,22 +464,22 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
       QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }
 
-   public void inverseTransform(Tuple2DBasics tupleToTransform)
+   public void inverseTransform(Tuple2DBasics<?> tupleToTransform)
    {
       inverseTransform(tupleToTransform, true);
    }
 
-   public void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   public void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, true);
    }
 
-   public void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   public void inverseTransform(Tuple2DBasics<?> tupleToTransform, boolean checkIfTransformInXYPlane)
    {
       inverseTransform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
 
-   public void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   public void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }

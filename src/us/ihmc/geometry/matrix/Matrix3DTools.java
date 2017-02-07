@@ -474,7 +474,7 @@ public abstract class Matrix3DTools
     * @param checkIfTransformInXYPlane whether {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)} needs to be called on the matrix.
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
     */
-   public static void transform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   public static void transform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
          matrix.checkIfMatrix2D();
@@ -585,7 +585,7 @@ public abstract class Matrix3DTools
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
     * @throws SingularMatrixException if {@code matrix} is not invertible.
     */
-   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
          matrix.checkIfMatrix2D();

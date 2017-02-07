@@ -598,7 +598,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @throws NotAMatrix2DException if this matrix does not represent
     *  a transformation in the XY plane.
     */
-   default void transform(Tuple2DBasics tupleToTransform)
+   default void transform(Tuple2DBasics<?> tupleToTransform)
    {
       transform(tupleToTransform, tupleToTransform, true);
    }
@@ -615,7 +615,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @throws NotAMatrix2DException if this matrix does not represent
     *  a transformation in the XY plane.
     */
-   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   default void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
    {
       transform(tupleOriginal, tupleTransformed, true);
    }
@@ -633,7 +633,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true}
     * and this matrix does not represent a transformation in the XY plane.
     */
-   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   default void transform(Tuple2DBasics<?> tupleToTransform, boolean checkIfTransformInXYPlane)
    {
       transform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
@@ -653,7 +653,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true}
     * and this matrix does not represent a transformation in the XY plane.
     */
-   void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane);
+   void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane);
 
    /**
     * Transforms the given 3D matrix by this matrix.
@@ -748,12 +748,12 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @throws NotAMatrix2DException if this matrix does not represent
     *  a transformation in the XY plane.
     */
-   default void inverseTransform(Tuple2DBasics tupleToTransform)
+   default void inverseTransform(Tuple2DBasics<?> tupleToTransform)
    {
       inverseTransform(tupleToTransform, tupleToTransform, true);
    }
 
-   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   default void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
    {
       inverseTransform(tupleOriginal, tupleTransformed, true);
    }
@@ -772,7 +772,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true}
     * and this matrix does not represent a transformation in the XY plane.
     */
-   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DBasics<?> tupleToTransform, boolean checkIfTransformInXYPlane)
    {
       inverseTransform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
@@ -793,7 +793,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true}
     * and this matrix does not represent a transformation in the XY plane.
     */
-   void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane);
+   void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane);
 
    /**
     * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal}

@@ -301,18 +301,18 @@ public abstract class QuaternionTools
       tupleTransformed.setZ(tupleTransformed.getZ() + z + qs * crossZ + crossCrossZ);
    }
 
-   public static void transform(QuaternionReadOnly quaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   public static void transform(QuaternionReadOnly quaternion, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       transformImpl(quaternion, false, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
 
-   public static void inverseTransform(QuaternionReadOnly quaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
+   public static void inverseTransform(QuaternionReadOnly quaternion, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
          boolean checkIfTransformInXYPlane)
    {
       transformImpl(quaternion, true, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
 
-   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
          boolean checkIfTransformInXYPlane)
    {
       double qx = quaternion.getX();
