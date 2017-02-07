@@ -13,7 +13,7 @@ import org.junit.Test;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 
-public class Point2D32Test extends Tuple2D32Test
+public class Point2D32Test extends Tuple2D32Test<Point2D32>
 {
    @Test
    public void testPoint2D32()
@@ -99,8 +99,8 @@ public class Point2D32Test extends Tuple2D32Test
 
          Point2D32 point2 = new Point2D32(newX2, newY2);
 
-         float distance = (float) Math.sqrt(point.distanceSquared((Point2DBasics) point2));
-         float distance2 = point.distance(point2);
+         double distance = (float) Math.sqrt(point.distanceSquared((Point2DBasics<?>) point2));
+         double distance2 = point.distance(point2);
 
          Assert.assertTrue(distance == distance2);
       }
@@ -135,10 +135,10 @@ public class Point2D32Test extends Tuple2D32Test
          Point2D32 point = new Point2D32(newX1, newY1);
          Point2D32 point2 = new Point2D32(newX2, newY2);
 
-         float distance = point.distanceSquared(point2);
-         float dx = point.getX32() - point2.getX32();
-         float dy = point.getY32() - point2.getY32();
-         float expectedDistance = dx * dx + dy * dy;
+         double distance = point.distanceSquared(point2);
+         double dx = point.getX32() - point2.getX32();
+         double dy = point.getY32() - point2.getY32();
+         double expectedDistance = dx * dx + dy * dy;
 
          Assert.assertTrue(distance == expectedDistance);
       }
@@ -183,7 +183,7 @@ public class Point2D32Test extends Tuple2D32Test
    }
 
    @Override
-   public Tuple2D32 createEmptyTuple()
+   public Point2D32 createEmptyTuple()
    {
       return new Point2D32();
    }

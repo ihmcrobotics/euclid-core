@@ -12,8 +12,9 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
 
-public class Vector2D32Test extends Tuple2D32Test
+public class Vector2D32Test extends Tuple2D32Test<Vector2D32>
 {
    @Test
    public void testVector2D32()
@@ -57,7 +58,7 @@ public class Vector2D32Test extends Tuple2D32Test
       { // Test Vector2D32(TupleBasics tuple)
          Vector2D32 vector2 = GeometryBasicsRandomTools.generateRandomVector2D32(random);
 
-         vector = new Vector2D32((Tuple2DReadOnly) vector2);
+         vector = new Vector2D32((Tuple2DReadOnly<?>) vector2);
 
          Assert.assertTrue(vector.getX32() == vector2.getX32());
          Assert.assertTrue(vector.getY32() == vector2.getY32());
@@ -95,11 +96,11 @@ public class Vector2D32Test extends Tuple2D32Test
          GeometryBasicsRandomTools.randomizeTuple2D(random, vector1);
          GeometryBasicsRandomTools.randomizeTuple2D(random, vector2);
 
-         float actualAngle = vector1.angle(vector2);
-         float dotProduct = vector1.dot(vector2);
-         float magnitudeVector2D321 = vector1.length();
-         float magnitudeVector2D322 = vector2.length();
-         float expectedAngle = (float) Math.acos(dotProduct / (magnitudeVector2D321 * magnitudeVector2D322));
+         double actualAngle = vector1.angle(vector2);
+         double dotProduct = vector1.dot(vector2);
+         double magnitudeVector2D321 = vector1.length();
+         double magnitudeVector2D322 = vector2.length();
+         double expectedAngle = Math.acos(dotProduct / (magnitudeVector2D321 * magnitudeVector2D322));
 
          Assert.assertTrue(actualAngle == expectedAngle);
       }
@@ -118,15 +119,15 @@ public class Vector2D32Test extends Tuple2D32Test
          GeometryBasicsRandomTools.randomizeTuple2D(random, vector2);
 
          { // Test cross(Vector2D32Basics other)
-            float actualMagnitudeVector3 = vector1.cross(vector2);
-            float expectedMagnitudeVector3 = vector1.getX32() * vector2.getY32() - vector1.getY32() * vector2.getX32();
+            double actualMagnitudeVector3 = vector1.cross(vector2);
+            double expectedMagnitudeVector3 = vector1.getX32() * vector2.getY32() - vector1.getY32() * vector2.getX32();
 
             Assert.assertEquals(expectedMagnitudeVector3, actualMagnitudeVector3, 1e-7);
          }
 
          { // Test cross(Vector2D32Basics v1, Vector2D32Basics v2)
-            float actualMagnitudeVector3 = Vector2D32.cross(vector1, vector2);
-            float expectedMagnitudeVector3 = vector1.getX32() * vector2.getY32() - vector1.getY32() * vector2.getX32();
+            double actualMagnitudeVector3 = Vector2DReadOnly.cross(vector1, vector2);
+            double expectedMagnitudeVector3 = vector1.getX32() * vector2.getY32() - vector1.getY32() * vector2.getX32();
 
             Assert.assertEquals(expectedMagnitudeVector3, actualMagnitudeVector3, 1e-7);
          }
@@ -145,8 +146,8 @@ public class Vector2D32Test extends Tuple2D32Test
          GeometryBasicsRandomTools.randomizeTuple2D(random, vector1);
          GeometryBasicsRandomTools.randomizeTuple2D(random, vector2);
 
-         float actualDot = vector1.dot(vector2);
-         float expectedDot = vector1.getX32() * vector2.getX32() + vector1.getY32() * vector2.getY32();
+         double actualDot = vector1.dot(vector2);
+         double expectedDot = vector1.getX32() * vector2.getX32() + vector1.getY32() * vector2.getY32();
 
          Assert.assertEquals(expectedDot, actualDot, 1e-6);
       }
@@ -160,9 +161,9 @@ public class Vector2D32Test extends Tuple2D32Test
 
       GeometryBasicsRandomTools.randomizeTuple2D(random, vector);
 
-      float length = vector.length();
-      float expectedLengthSquared = vector.getX32() * vector.getX32() + vector.getY32() * vector.getY32();
-      float expectedLength = (float) Math.sqrt(expectedLengthSquared);
+      double length = vector.length();
+      double expectedLengthSquared = vector.getX32() * vector.getX32() + vector.getY32() * vector.getY32();
+      double expectedLength = (float) Math.sqrt(expectedLengthSquared);
 
       Assert.assertTrue(length == expectedLength);
    }
@@ -175,8 +176,8 @@ public class Vector2D32Test extends Tuple2D32Test
 
       GeometryBasicsRandomTools.randomizeTuple2D(random, vector);
 
-      float lengthSquared = vector.lengthSquared();
-      float expectedLengthSquared = vector.getX32() * vector.getX32() + vector.getY32() * vector.getY32();
+      double lengthSquared = vector.lengthSquared();
+      double expectedLengthSquared = vector.getX32() * vector.getX32() + vector.getY32() * vector.getY32();
 
       Assert.assertTrue(lengthSquared == expectedLengthSquared);
    }
@@ -192,9 +193,9 @@ public class Vector2D32Test extends Tuple2D32Test
 
          vector.normalize();
 
-         float expectedLength = 1;
-         float normalLength = vector.length();
-         float difference = Math.abs(expectedLength - normalLength);
+         double expectedLength = 1;
+         double normalLength = vector.length();
+         double difference = Math.abs(expectedLength - normalLength);
 
          Assert.assertTrue(difference < 1e-6);
       }
@@ -207,9 +208,9 @@ public class Vector2D32Test extends Tuple2D32Test
 
          normal.setAndNormalize(vector);
 
-         float expectedLength = 1;
-         float actualLength = normal.length();
-         float difference = Math.abs(expectedLength - actualLength);
+         double expectedLength = 1;
+         double actualLength = normal.length();
+         double difference = Math.abs(expectedLength - actualLength);
 
          Assert.assertTrue(difference < 1e-6);
       }
@@ -254,7 +255,7 @@ public class Vector2D32Test extends Tuple2D32Test
    }
 
    @Override
-   public Tuple2D32 createEmptyTuple()
+   public Vector2D32 createEmptyTuple()
    {
       return new Vector2D32();
    }

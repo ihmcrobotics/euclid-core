@@ -12,8 +12,9 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
 
-public class Vector2DTest extends Tuple2DTest
+public class Vector2DTest extends Tuple2DTest<Vector2D>
 {
    @Test
    public void testVector2D()
@@ -56,7 +57,7 @@ public class Vector2DTest extends Tuple2DTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector2D(TupleBasics tuple)
          Vector2D vector2 = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         vector = new Vector2D((Tuple2DReadOnly) vector2);
+         vector = new Vector2D((Tuple2DReadOnly<?>) vector2);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
          Assert.assertTrue(vector.getY() == vector2.getY());
@@ -123,7 +124,7 @@ public class Vector2DTest extends Tuple2DTest
          }
 
          { // Test cross(Vector2DBasics v1, Vector2DBasics v2)
-            double actualMagnitudeVector3 = Vector2D.cross(vector1, vector2);
+            double actualMagnitudeVector3 = Vector2DReadOnly.cross(vector1, vector2);
             double expectedMagnitudeVector3 = vector1.getX() * vector2.getY() - vector1.getY() * vector2.getX();
 
             Assert.assertEquals(expectedMagnitudeVector3, actualMagnitudeVector3, 1e-15);
@@ -257,7 +258,7 @@ public class Vector2DTest extends Tuple2DTest
    }
 
    @Override
-   public Tuple2D createEmptyTuple()
+   public Vector2D createEmptyTuple()
    {
       return new Vector2D();
    }
