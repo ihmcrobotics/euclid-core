@@ -1,7 +1,6 @@
 package us.ihmc.geometry.tuple2D;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -13,14 +12,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Tuple3DTest;
+import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
-public abstract class Tuple2D32Test<T extends Tuple2D32<T>>
+public abstract class Tuple2D32Test<T extends Tuple2D32<T>> extends Tuple2DBasicsTest<T>
 {
    public static final int NUMBER_OF_ITERATIONS = Tuple3DTest.NUMBER_OF_ITERATIONS;
-
-   public abstract T createEmptyTuple();
 
    @Test
    public void testTuple()
@@ -705,320 +702,6 @@ public abstract class Tuple2D32Test<T extends Tuple2D32<T>>
    }
 
    @Test
-   public void testContainsNaN() throws Exception
-   {
-      T tuple1 = createEmptyTuple();
-      tuple1.set(0.0f, 0.0f);
-      assertFalse(tuple1.containsNaN());
-      tuple1.set(Float.NaN, 0.0f);
-      assertTrue(tuple1.containsNaN());
-      tuple1.set(0.0f, Float.NaN);
-      assertTrue(tuple1.containsNaN());
-   }
-
-   @Test
-   public void testGetters() throws Exception
-   {
-      Random random = new Random(621541L);
-      T tuple1 = createEmptyTuple();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D32.get(float[] tupleArrayToPack)
-         GeometryBasicsRandomTools.randomizeTuple2D(random, tuple1);
-
-         float[] tupleArray = new float[] {random.nextFloat()};
-
-         try
-         {
-            tuple1.get(tupleArray);
-            fail("Should have thrown IndexOutOfBoundsException.");
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown IndexOutOfBoundsException.");
-         }
-
-         tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
-         float[] tupleArrayCopy = new float[tupleArray.length];
-         System.arraycopy(tupleArray, 0, tupleArrayCopy, 0, tupleArray.length);
-         tuple1.get(tupleArray);
-         assertTrue(tuple1.getX32() == tupleArray[0]);
-         assertTrue(tuple1.getY32() == tupleArray[1]);
-         for (int j = 3; j < tupleArray.length; j++)
-            assertTrue(tupleArray[j] == tupleArrayCopy[j]);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D32.get(float[] tupleArrayToPack, int startIndex)
-         GeometryBasicsRandomTools.randomizeTuple2D(random, tuple1);
-
-         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat()};
-
-         try
-         {
-            tuple1.get(tupleArray, 2);
-            fail("Should have thrown IndexOutOfBoundsException.");
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown IndexOutOfBoundsException.");
-         }
-
-         tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
-         float[] tupleArrayCopy = new float[tupleArray.length];
-         System.arraycopy(tupleArray, 0, tupleArrayCopy, 0, tupleArray.length);
-         tuple1.get(tupleArray, 3);
-         assertTrue(tuple1.getX32() == tupleArray[3]);
-         assertTrue(tuple1.getY32() == tupleArray[4]);
-         for (int j = 0; j < 3; j++)
-            assertTrue(tupleArray[j] == tupleArrayCopy[j]);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D32.get(DenseMatrix64F tupleMatrixToPack)
-         DenseMatrix64F matrix = new DenseMatrix64F(1, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextFloat());
-
-         try
-         {
-            tuple1.get(matrix);
-            fail("Should have thrown IllegalArgumentException.");
-         }
-         catch (IllegalArgumentException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown IllegalArgumentException.");
-         }
-
-         matrix = new DenseMatrix64F(10, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextFloat());
-         DenseMatrix64F matrixCopy = new DenseMatrix64F(matrix);
-
-         tuple1.get(matrix);
-         assertTrue(tuple1.getX32() == matrix.get(0, 0));
-         assertTrue(tuple1.getY32() == matrix.get(1, 0));
-
-         matrixCopy.set(0, 0, tuple1.getX32());
-         matrixCopy.set(1, 0, tuple1.getY32());
-
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            assertTrue(matrix.get(index) == matrixCopy.get(index));
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D32.get(DenseMatrix64F tupleMatrixToPack)
-         DenseMatrix64F matrix = new DenseMatrix64F(5, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextFloat());
-
-         try
-         {
-            tuple1.get(matrix, 4);
-            fail("Should have thrown IllegalArgumentException.");
-         }
-         catch (IllegalArgumentException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown IllegalArgumentException.");
-         }
-
-         matrix = new DenseMatrix64F(10, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextFloat());
-         DenseMatrix64F matrixCopy = new DenseMatrix64F(matrix);
-
-         tuple1.get(matrix, 2);
-         assertTrue(tuple1.getX32() == matrix.get(2, 0));
-         assertTrue(tuple1.getY32() == matrix.get(3, 0));
-
-         matrixCopy.set(2, 0, tuple1.getX32());
-         matrixCopy.set(3, 0, tuple1.getY32());
-
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            assertTrue(matrix.get(index) == matrixCopy.get(index));
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D32.get(DenseMatrix64F tupleMatrixToPack)
-         DenseMatrix64F matrix = new DenseMatrix64F(5, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextFloat());
-
-         try
-         {
-            tuple1.get(matrix, 4, 3);
-            fail("Should have thrown IllegalArgumentException.");
-         }
-         catch (IllegalArgumentException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown IllegalArgumentException.");
-         }
-
-         matrix = new DenseMatrix64F(10, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextFloat());
-         DenseMatrix64F matrixCopy = new DenseMatrix64F(matrix);
-
-         tuple1.get(matrix, 2, 4);
-         assertTrue(tuple1.getX32() == matrix.get(2, 4));
-         assertTrue(tuple1.getY32() == matrix.get(3, 4));
-
-         matrixCopy.set(2, 4, tuple1.getX32());
-         matrixCopy.set(3, 4, tuple1.getY32());
-
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            assertTrue(matrix.get(index) == matrixCopy.get(index));
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D32.get(int index)
-         float x = random.nextFloat();
-         float y = random.nextFloat();
-         tuple1.set(x, y);
-
-         assertTrue(tuple1.get(0) == x);
-         assertTrue(tuple1.get(1) == y);
-
-         try
-         {
-            tuple1.get(-1);
-            fail("Should have thrown IndexOutOfBoundsException.");
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown IndexOutOfBoundsException.");
-         }
-
-         try
-         {
-            tuple1.get(3);
-            fail("Should have thrown IndexOutOfBoundsException.");
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown IndexOutOfBoundsException.");
-         }
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D32.getX(), Tuple2D32.getY()
-         float x = random.nextFloat();
-         float y = random.nextFloat();
-         tuple1.set(x, y);
-
-         assertTrue(tuple1.getX() == x);
-         assertTrue(tuple1.getY() == y);
-      }
-   }
-
-   @Test
-   public void testEpsilonEquals() throws Exception
-   {
-      Random random = new Random(621541L);
-      T tuple1 = createEmptyTuple();
-      T tuple2 = createEmptyTuple();
-      GeometryBasicsRandomTools.randomizeTuple2D(random, tuple1);
-      GeometryBasicsRandomTools.randomizeTuple2D(random, tuple2);
-
-      float epsilon = random.nextFloat();
-
-      assertTrue(tuple1.epsilonEquals(tuple2, epsilon));
-
-      for (int index = 0; index < 2; index++)
-      {
-         tuple1.set(tuple2);
-         tuple1.set(index, tuple2.get(index) + 0.999f * epsilon);
-         assertTrue(tuple1.epsilonEquals(tuple2, epsilon));
-
-         tuple1.set(tuple2);
-         tuple1.set(index, tuple2.get(index) - 0.999f * epsilon);
-         assertTrue(tuple1.epsilonEquals(tuple2, epsilon));
-
-         tuple1.set(tuple2);
-         tuple1.set(index, tuple2.get(index) + 1.001f * epsilon);
-         assertFalse(tuple1.epsilonEquals(tuple2, epsilon));
-
-         tuple1.set(tuple2);
-         tuple1.set(index, tuple2.get(index) - 1.001f * epsilon);
-         assertFalse(tuple1.epsilonEquals(tuple2, epsilon));
-      }
-   }
-
-   @Test
-   public void testEquals() throws Exception
-   {
-      Random random = new Random(621541L);
-      T tuple1 = createEmptyTuple();
-
-      // Test Tuple32.equals(Tuple32 other)
-      T tuple2 = createEmptyTuple();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         GeometryBasicsRandomTools.randomizeTuple2D(random, tuple2);
-         tuple1.set(tuple2);
-
-         assertFalse(tuple1.equals((T) null));
-         assertFalse(tuple1.equals((Object) null));
-         assertTrue(tuple1.equals(tuple2));
-         assertTrue(tuple1.equals((Object) tuple2));
-
-         float smallestEpsilon = 1.0e-7f;
-
-         tuple1.set(tuple2);
-         tuple1.add(smallestEpsilon, 0.0f);
-         assertFalse(tuple1.equals(tuple2));
-         assertFalse(tuple1.equals((Object) tuple2));
-
-         tuple1.set(tuple2);
-         tuple1.sub(smallestEpsilon, 0.0f);
-         assertFalse(tuple1.equals(tuple2));
-         assertFalse(tuple1.equals((Object) tuple2));
-
-         tuple1.set(tuple2);
-         tuple1.add(0.0f, smallestEpsilon);
-         assertFalse(tuple1.equals(tuple2));
-         assertFalse(tuple1.equals((Object) tuple2));
-
-         tuple1.set(tuple2);
-         tuple1.sub(0.0f, smallestEpsilon);
-         assertFalse(tuple1.equals(tuple2));
-         assertFalse(tuple1.equals((Object) tuple2));
-
-         float[] blop = new float[] {tuple1.getX32(), tuple1.getY32()};
-         assertFalse(tuple1.equals(blop));
-      }
-   }
-
-   @Test
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
@@ -1038,5 +721,11 @@ public abstract class Tuple2D32Test<T extends Tuple2D32<T>>
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }
+   }
+
+   @Override
+   public double getEpsilon()
+   {
+      return 1.0e-6;
    }
 }

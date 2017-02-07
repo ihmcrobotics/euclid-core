@@ -13,7 +13,7 @@ import org.junit.Test;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 
-public class Point2DTest extends Tuple2DTest
+public class Point2DTest extends Tuple2DTest<Point2D>
 {
    @Test
    public void testPoint2D()
@@ -100,7 +100,7 @@ public class Point2DTest extends Tuple2DTest
          Point2D point = new Point2D(newX1, newY1);
          Point2D point2 = new Point2D(newX2, newY2);
 
-         double distance = Math.sqrt(point.distanceSquared((Point2DBasics) point2));
+         double distance = Math.sqrt(point.distanceSquared((Point2DBasics<?>) point2));
          double distance2 = point.distance(point2);
 
          Assert.assertTrue(distance == distance2);
@@ -136,7 +136,7 @@ public class Point2DTest extends Tuple2DTest
          Point2D point = new Point2D(newX1, newY1);
          Point2D point2 = new Point2D(newX2, newY2);
 
-         double distance = point.distanceSquared((Point2DBasics) point2);
+         double distance = point.distanceSquared((Point2DBasics<?>) point2);
          double dx = point.getX() - point2.getX();
          double dy = point.getY() - point2.getY();
          double expectedDistance = dx * dx + dy * dy;
@@ -184,8 +184,20 @@ public class Point2DTest extends Tuple2DTest
    }
 
    @Override
-   public Tuple2D createEmptyTuple()
+   public Point2D createEmptyTuple()
    {
       return new Point2D();
+   }
+
+   @Override
+   public Point2D createTuple(double x, double y)
+   {
+      return new Point2D(x, y);
+   }
+
+   @Override
+   public Point2D createRandomTuple(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomPoint2D(random);
    }
 }

@@ -187,4 +187,16 @@ public class Point2D32Test extends Tuple2D32Test<Point2D32>
    {
       return new Point2D32();
    }
+
+   @Override
+   public Point2D32 createTuple(double x, double y)
+   {
+      return new Point2D32((float) x, (float) y);
+   }
+
+   @Override
+   public Point2D32 createRandomTuple(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomPoint2D32(random);
+   }
 }

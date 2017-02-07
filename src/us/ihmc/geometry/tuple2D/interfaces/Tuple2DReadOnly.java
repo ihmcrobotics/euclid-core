@@ -39,6 +39,19 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
       }
    }
 
+   default float get32(int index)
+   {
+      switch (index)
+      {
+      case 0:
+         return getX32();
+      case 1:
+         return getY32();
+      default:
+         throw new IndexOutOfBoundsException(Integer.toString(index));
+      }
+   }
+
    default void get(double[] tupleArrayToPack)
    {
       get(tupleArrayToPack, 0);
@@ -63,15 +76,15 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 
    default void get(DenseMatrix64F tupleMatrixToPack)
    {
-      get(tupleMatrixToPack, 0, 0);
+      get(0, 0, tupleMatrixToPack);
    }
 
-   default void get(DenseMatrix64F tupleMatrixToPack, int startRow)
+   default void get(int startRow, DenseMatrix64F tupleMatrixToPack)
    {
-      get(tupleMatrixToPack, startRow, 0);
+      get(startRow, 0, tupleMatrixToPack);
    }
 
-   default void get(DenseMatrix64F tupleMatrixToPack, int startRow, int column)
+   default void get(int startRow, int column, DenseMatrix64F tupleMatrixToPack)
    {
       tupleMatrixToPack.set(startRow++, column, getX());
       tupleMatrixToPack.set(startRow, column, getY());

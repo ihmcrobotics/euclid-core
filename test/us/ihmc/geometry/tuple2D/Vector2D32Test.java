@@ -259,4 +259,16 @@ public class Vector2D32Test extends Tuple2D32Test<Vector2D32>
    {
       return new Vector2D32();
    }
+
+   @Override
+   public Vector2D32 createTuple(double x, double y)
+   {
+      return new Vector2D32((float) x, (float) y);
+   }
+
+   @Override
+   public Vector2D32 createRandomTuple(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomVector2D32(random);
+   }
 }
