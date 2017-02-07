@@ -147,7 +147,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     */
    default void set(double[] axisAngleArray)
    {
-      set(axisAngleArray, 0);
+      set(0, axisAngleArray);
    }
 
    /**
@@ -158,11 +158,10 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     *    <li> {@code this.setZ(axisAngleArray[startIndex + 2]);}
     *    <li> {@code this.setAngle(axisAngleArray[startIndex + 3]);}
     * </ul>
-    * 
-    * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     * @param startIndex the first index to start reading from in the array.
+    * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     */
-   default void set(double[] axisAngleArray, int startIndex)
+   default void set(int startIndex, double[] axisAngleArray)
    {
       setX(axisAngleArray[startIndex++]);
       setY(axisAngleArray[startIndex++]);
@@ -183,7 +182,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     */
    default void set(float[] axisAngleArray)
    {
-      set(axisAngleArray, 0);
+      set(0, axisAngleArray);
    }
 
    /**
@@ -194,11 +193,10 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     *    <li> {@code this.setZ(axisAngleArray[startIndex + 2]);}
     *    <li> {@code this.setAngle(axisAngleArray[startIndex + 3]);}
     * </ul>
-    * 
-    * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     * @param startIndex the first index to start reading from in the array.
+    * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     */
-   default void set(float[] axisAngleArray, int startIndex)
+   default void set(int startIndex, float[] axisAngleArray)
    {
       setX(axisAngleArray[startIndex++]);
       setY(axisAngleArray[startIndex++]);
@@ -276,8 +274,10 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    /**
     * Selects a component of this axis-angle based on {@code index}
     * and sets it to {@code value}.
+    * <p>
     * For {@code index} values of 0, 1, and 2, the corresponding components
-    * are x, y, and z, respectively, while a value 3 corresponds to the angle.
+    * are x, y, and z, respectively, while 3 corresponds to the angle.
+    * </p>
     * 
     * @param index the index of the component to set.
     * @param value the new value of the selected component.
