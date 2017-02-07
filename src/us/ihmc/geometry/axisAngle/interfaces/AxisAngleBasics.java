@@ -207,37 +207,6 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    }
 
    /**
-    * Selects a component of this axis-angle based on {@code index}
-    * and sets it to {@code value}.
-    * For {@code index} values of 0, 1, and 2, the corresponding components
-    * are x, y, and z, respectively, while a value 3 corresponds to the angle.
-    * 
-    * @param index the index of the component to set.
-    * @param value the new value of the selected component.
-    * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 3].
-    */
-   default void set(int index, double value)
-   {
-      switch (index)
-      {
-      case 0:
-         setX(value);
-         break;
-      case 1:
-         setY(value);
-         break;
-      case 2:
-         setZ(value);
-         break;
-      case 3:
-         setAngle(value);
-         break;
-      default:
-         throw new IndexOutOfBoundsException(Integer.toString(index));
-      }
-   }
-
-   /**
     * Sets the components of this axis-angle such that it represents the same
     * orientation as the given {@code quaternion}.
     * See {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
@@ -302,5 +271,36 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    default void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, this);
+   }
+
+   /**
+    * Selects a component of this axis-angle based on {@code index}
+    * and sets it to {@code value}.
+    * For {@code index} values of 0, 1, and 2, the corresponding components
+    * are x, y, and z, respectively, while a value 3 corresponds to the angle.
+    * 
+    * @param index the index of the component to set.
+    * @param value the new value of the selected component.
+    * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 3].
+    */
+   default void set(int index, double value)
+   {
+      switch (index)
+      {
+      case 0:
+         setX(value);
+         break;
+      case 1:
+         setY(value);
+         break;
+      case 2:
+         setZ(value);
+         break;
+      case 3:
+         setAngle(value);
+         break;
+      default:
+         throw new IndexOutOfBoundsException(Integer.toString(index));
+      }
    }
 }
