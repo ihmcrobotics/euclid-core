@@ -1,9 +1,7 @@
 package us.ihmc.geometry.axisAngle;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
@@ -16,9 +14,7 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
-import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
@@ -418,147 +414,6 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
    }
 
    @Test
-   public void testGetRotationVector()
-   {
-      Random random = new Random(2343456L);
-      AxisAngle axisAngle, axisAngleCopy;
-      Vector3D vector = new Vector3D();
-      Vector3D expectedVector = new Vector3D();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         axisAngle = axisAngleCopy = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-
-         vector.setToNaN();
-         axisAngle.getRotationVector((Vector3DBasics) vector);
-         RotationVectorConversion.convertAxisAngleToRotationVector(axisAngle, expectedVector);
-
-         GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, axisAngleCopy, EPS);
-         GeometryBasicsTestTools.assertRotationVectorEquals(vector, expectedVector, EPS);
-      }
-   }
-
-   @Test
-   public void testGet()
-   {
-      Random random = new Random(3513515L);
-      AxisAngle axisAngle, axisAngleCopy;
-      double[] axisAngleArray = new double[4];
-
-      { // Test get(double[] axisAngleArray)
-         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-         {
-            axisAngle = axisAngleCopy = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-            axisAngle.get(axisAngleArray);
-
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, axisAngleCopy, EPS);
-
-            Assert.assertTrue(axisAngle.getX() == axisAngleArray[0]);
-            Assert.assertTrue(axisAngle.getY() == axisAngleArray[1]);
-            Assert.assertTrue(axisAngle.getZ() == axisAngleArray[2]);
-            Assert.assertTrue(axisAngle.getAngle() == axisAngleArray[3]);
-         }
-      }
-
-      { // Test get(double[] axisAngleArray, int startIndex)
-         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-         {
-            axisAngle = axisAngleCopy = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-
-            int startIndex;
-            int startIndexCopy;
-            startIndex = startIndexCopy = 0;
-
-            axisAngle.get(axisAngleArray, startIndex);
-
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, axisAngleCopy, EPS);
-
-            Assert.assertTrue(axisAngle.getX() == axisAngleArray[0]);
-            Assert.assertTrue(axisAngle.getY() == axisAngleArray[1]);
-            Assert.assertTrue(axisAngle.getZ() == axisAngleArray[2]);
-            Assert.assertTrue(axisAngle.getAngle() == axisAngleArray[3]);
-
-            Assert.assertTrue(startIndex == startIndexCopy);
-            Assert.assertTrue(startIndex >= 0);
-            Assert.assertTrue(startIndex <= startIndex + axisAngleArray.length);
-         }
-      }
-
-      {
-         double x    = random.nextDouble();
-         double y    = random.nextDouble();
-         double z    = random.nextDouble();
-         double angle= random.nextDouble();
-         axisAngle = new AxisAngle(x, y, z, angle);
-         assertTrue(axisAngle.getX() == x);
-         assertTrue(axisAngle.getY() == y);
-         assertTrue(axisAngle.getZ() == z);
-         assertTrue(axisAngle.getAngle() == angle);
-      }
-   }
-
-   @Test
-   public void testEpsilonEquals() throws Exception
-   {
-      Random random = new Random(621541L);
-      double epsilon = random.nextDouble();
-
-      AxisAngle axisAngle1 = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-      AxisAngle axisAngle2 = new AxisAngle(axisAngle1);
-
-      assertTrue(axisAngle1.epsilonEquals(axisAngle2, epsilon));
-
-      for (int index = 0; index < 4; index++)
-      {
-         axisAngle2.set(axisAngle1);
-         axisAngle2.set(index, axisAngle1.get(index) + 0.999 * epsilon);
-         assertTrue(axisAngle1.epsilonEquals(axisAngle2, epsilon));
-
-         axisAngle2.set(axisAngle1);
-         axisAngle2.set(index, axisAngle1.get(index) - 0.999 * epsilon);
-         assertTrue(axisAngle1.epsilonEquals(axisAngle2, epsilon));
-
-         axisAngle2.set(axisAngle1);
-         axisAngle2.set(index, axisAngle1.get(index) + 1.001 * epsilon);
-         assertFalse(axisAngle1.epsilonEquals(axisAngle2, epsilon));
-
-         axisAngle2.set(axisAngle1);
-         axisAngle2.set(index, axisAngle1.get(index) - 1.001 * epsilon);
-         assertFalse(axisAngle1.epsilonEquals(axisAngle2, epsilon));
-      }
-   }
-
-   @Test
-   public void testEquals() throws Exception
-   {
-      Random random = new Random(621541L);
-      double smallestEpsilon = 1.0e-15;
-
-      AxisAngle axisAngle1 = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-      AxisAngle axisAngle2 = new AxisAngle();
-
-      assertFalse(axisAngle1.equals(axisAngle2));
-      assertFalse(axisAngle1.equals(null));
-      assertFalse(axisAngle1.equals(new double[5]));
-
-      axisAngle2.set(axisAngle1);
-      assertTrue(axisAngle1.equals(axisAngle2));
-
-      for (int index = 0; index < 4; index++)
-      {
-         axisAngle2.set(axisAngle1);
-         assertTrue(axisAngle1.equals(axisAngle2));
-         axisAngle2.set(index, axisAngle1.get(index) + smallestEpsilon);
-         assertFalse(axisAngle1.equals(axisAngle2));
-
-         axisAngle2.set(axisAngle1);
-         assertTrue(axisAngle1.equals(axisAngle2));
-         axisAngle2.set(index, axisAngle1.get(index) - smallestEpsilon);
-         assertFalse(axisAngle1.equals(axisAngle2));
-      }
-   }
-
-   @Test
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
@@ -589,5 +444,23 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
    public AxisAngle createAxisAngle(double ux, double uy, double uz, double angle)
    {
       return new AxisAngle(ux, uy, uz, angle);
+   }
+
+   @Override
+   public AxisAngle createRandomAxisAngle(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+   }
+
+   @Override
+   public double getEpsilon()
+   {
+      return EPS;
+   }
+
+   @Override
+   public double getSmallestEpsilon()
+   {
+      return 1.0e-15;
    }
 }
