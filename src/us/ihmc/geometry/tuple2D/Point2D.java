@@ -2,7 +2,6 @@ package us.ihmc.geometry.tuple2D;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 
@@ -28,34 +27,5 @@ public class Point2D extends Tuple2D<Point2D> implements Serializable, Point2DBa
    public Point2D(Tuple2DReadOnly<?> other)
    {
       super(other);
-   }
-
-   @Override
-   public void set(Point2D other)
-   {
-      set((Tuple2DReadOnly<?>) other);
-   }
-
-   public double distance(Point2DBasics<?> other)
-   {
-      return Math.sqrt(distanceSquared(other));
-   }
-
-   public double distanceSquared(Point2DBasics<?> other)
-   {
-      double dx = getX() - other.getX();
-      double dy = getY() - other.getY();
-      return dx * dx + dy * dy;
-   }
-
-   @Override
-   public void applyTransform(Transform transform)
-   {
-      transform.transform(this);
-   }
-
-   public void applyTransform(Transform transform, boolean checkIfTransformInXYplane)
-   {
-      transform.transform(this);
    }
 }

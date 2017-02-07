@@ -76,6 +76,12 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
       setY(y);
    }
 
+   @Override
+   default void set(T other)
+   {
+      set(other.getX(), other.getY());
+   }
+
    default void set(Tuple2DReadOnly<?> tupleBasics)
    {
       set(tupleBasics.getX(), tupleBasics.getY());
