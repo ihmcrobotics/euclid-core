@@ -218,7 +218,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly<T>>
             double[] axisAngleArray = new double[startIndex + 4 + random.nextInt(10)];
             axisAngle = createRandomAxisAngle(random);
 
-            axisAngle.get(axisAngleArray, startIndex);
+            axisAngle.get(startIndex, axisAngleArray);
 
             assertTrue(axisAngle.getX() == axisAngleArray[startIndex + 0]);
             assertTrue(axisAngle.getY() == axisAngleArray[startIndex + 1]);
@@ -255,7 +255,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly<T>>
             float[] axisAngleArray = new float[startIndex + 4 + random.nextInt(10)];
             axisAngle = createRandomAxisAngle(random);
 
-            axisAngle.get(axisAngleArray, startIndex);
+            axisAngle.get(startIndex, axisAngleArray);
 
             assertTrue(axisAngle.getX32() == axisAngleArray[startIndex + 0]);
             assertTrue(axisAngle.getY32() == axisAngleArray[startIndex + 1]);

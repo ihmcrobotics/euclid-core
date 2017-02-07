@@ -109,17 +109,16 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
     */
    default void get(double[] axisAngleArrayToPack)
    {
-      get(axisAngleArrayToPack, 0);
+      get(0, axisAngleArrayToPack);
    }
 
    /**
     * Packs the components of this axis-angle in an array starting from {@code startIndex}.
     * The components are packed in the following order: x, y, z, and angle.
-    * 
-    * @param axisAngleArrayToPack the array in which this axis-angle is stored. Modified.
     * @param startIndex the index in the array where the first component is stored.
+    * @param axisAngleArrayToPack the array in which this axis-angle is stored. Modified.
     */
-   default void get(double[] axisAngleArrayToPack, int startIndex)
+   default void get(int startIndex, double[] axisAngleArrayToPack)
    {
       axisAngleArrayToPack[startIndex++] = getX();
       axisAngleArrayToPack[startIndex++] = getY();
@@ -135,17 +134,16 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
     */
    default void get(float[] axisAngleArrayToPack)
    {
-      get(axisAngleArrayToPack, 0);
+      get(0, axisAngleArrayToPack);
    }
 
    /**
     * Packs the components of this axis-angle in an array starting from {@code startIndex}.
     * The components are packed in the following order: x, y, z, and angle.
-    * 
-    * @param axisAngleArrayToPack the array in which this axis-angle is stored. Modified.
     * @param startIndex the index in the array where the first component is stored.
+    * @param axisAngleArrayToPack the array in which this axis-angle is stored. Modified.
     */
-   default void get(float[] axisAngleArrayToPack, int startIndex)
+   default void get(int startIndex, float[] axisAngleArrayToPack)
    {
       axisAngleArrayToPack[startIndex++] = getX32();
       axisAngleArrayToPack[startIndex++] = getY32();

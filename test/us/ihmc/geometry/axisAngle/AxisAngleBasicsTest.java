@@ -205,7 +205,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics<T>> extends 
             expectedAxisAngle = createRandomAxisAngle(random);
             int startIndex = random.nextInt(10);
             double[] axisAngleArray = new double[4 + startIndex + random.nextInt(10)];
-            expectedAxisAngle.get(axisAngleArray, startIndex);
+            expectedAxisAngle.get(startIndex, axisAngleArray);
             actualAxisAngle.set(axisAngleArray, startIndex);
             GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
@@ -231,7 +231,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics<T>> extends 
             expectedAxisAngle = createRandomAxisAngle(random);
             int startIndex = random.nextInt(10);
             float[] axisAngleArray = new float[4 + startIndex + random.nextInt(10)];
-            expectedAxisAngle.get(axisAngleArray, startIndex);
+            expectedAxisAngle.get(startIndex, axisAngleArray);
             actualAxisAngle.set(axisAngleArray, startIndex);
             assertTrue(expectedAxisAngle.getX32() == actualAxisAngle.getX32());
             assertTrue(expectedAxisAngle.getY32() == actualAxisAngle.getY32());
