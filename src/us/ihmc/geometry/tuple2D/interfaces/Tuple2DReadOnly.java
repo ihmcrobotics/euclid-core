@@ -54,10 +54,10 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 
    default void get(double[] tupleArrayToPack)
    {
-      get(tupleArrayToPack, 0);
+      get(0, tupleArrayToPack);
    }
 
-   default void get(double[] tupleArrayToPack, int startIndex)
+   default void get(int startIndex, double[] tupleArrayToPack)
    {
       tupleArrayToPack[startIndex++] = getX();
       tupleArrayToPack[startIndex] = getY();
@@ -65,10 +65,10 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 
    default void get(float[] tupleArrayToPack)
    {
-      get(tupleArrayToPack, 0);
+      get(0, tupleArrayToPack);
    }
 
-   default void get(float[] tupleArrayToPack, int startIndex)
+   default void get(int startIndex, float[] tupleArrayToPack)
    {
       tupleArrayToPack[startIndex++] = getX32();
       tupleArrayToPack[startIndex] = getY32();

@@ -28,89 +28,40 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
    public void testGetters() throws Exception
    {
       Random random = new Random(621541L);
-      T tuple1 = createEmptyTuple();
+      T tuple = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.get(double[] tupleArrayToPack)
-         tuple1 = createRandomTuple(random);
-         double[] tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble()};
-         tuple1.get(tupleArray);
-         assertTrue(tuple1.getX() == tupleArray[0]);
-         assertTrue(tuple1.getY() == tupleArray[1]);
+      { // Test Tuple2D.getX(), Tuple2D.getY()
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         tuple = createTuple(x, y);
+
+         assertEquals(tuple.get(0), x, getEpsilon());
+         assertEquals(tuple.get(1), y, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.get(double[] tupleArrayToPack, int startIndex)
-         tuple1 = createRandomTuple(random);
-         double[] tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble()};
-         tuple1.get(tupleArray, 2);
-         assertTrue(tuple1.getX() == tupleArray[2]);
-         assertTrue(tuple1.getY() == tupleArray[3]);
-      }
+      { // Test Tuple2D.getX32(), Tuple2D.getY32()
+         float x = random.nextFloat();
+         float y = random.nextFloat();
+         tuple = createTuple(x, y);
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.get(float[] tupleArrayToPack)
-         tuple1 = createRandomTuple(random);
-         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
-         tuple1.get(tupleArray);
-         assertTrue(tuple1.getX32() == tupleArray[0]);
-         assertTrue(tuple1.getY32() == tupleArray[1]);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.get(double[] tupleArrayToPack, int startIndex)
-         tuple1 = createRandomTuple(random);
-         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
-         tuple1.get(tupleArray, 2);
-         assertTrue(tuple1.getX32() == tupleArray[2]);
-         assertTrue(tuple1.getY32() == tupleArray[3]);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.get(DenseMatrix64F tupleMatrixToPack)
-         DenseMatrix64F matrix = new DenseMatrix64F(10, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextDouble());
-
-         tuple1.get(matrix);
-         assertTrue(tuple1.getX() == matrix.get(0, 0));
-         assertTrue(tuple1.getY() == matrix.get(1, 0));
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.get(int startRow, DenseMatrix64F tupleMatrixToPack)
-         DenseMatrix64F matrix = new DenseMatrix64F(10, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextDouble());
-
-         tuple1.get(2, matrix);
-         assertTrue(tuple1.getX() == matrix.get(2, 0));
-         assertTrue(tuple1.getY() == matrix.get(3, 0));
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.get(int startRow, int startColumn, DenseMatrix64F tupleMatrixToPack)
-         DenseMatrix64F matrix = new DenseMatrix64F(10, 5);
-         for (int index = 0; index < matrix.getNumElements(); index++)
-            matrix.set(index, random.nextDouble());
-
-         tuple1.get(2, 4, matrix);
-         assertTrue(tuple1.getX() == matrix.get(2, 4));
-         assertTrue(tuple1.getY() == matrix.get(3, 4));
+         assertTrue(tuple.getX32() == x);
+         assertTrue(tuple.getY32() == y);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D.get(int index)
          double x = random.nextDouble();
          double y = random.nextDouble();
-         tuple1 = createTuple(x, y);
+         tuple = createTuple(x, y);
 
-         assertEquals(tuple1.get(0), x, getEpsilon());
-         assertEquals(tuple1.get(1), y, getEpsilon());
+         assertEquals(tuple.get(0), x, getEpsilon());
+         assertEquals(tuple.get(1), y, getEpsilon());
 
          try
          {
-            tuple1.get(-1);
+            tuple.get(-1);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -124,7 +75,7 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
 
          try
          {
-            tuple1.get(3);
+            tuple.get(3);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -141,14 +92,14 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
       { // Test Tuple2D.get32(int index)
          float x = random.nextFloat();
          float y = random.nextFloat();
-         tuple1 = createTuple(x, y);
+         tuple = createTuple(x, y);
 
-         assertTrue(tuple1.get32(0) == x);
-         assertTrue(tuple1.get32(1) == y);
+         assertTrue(tuple.get32(0) == x);
+         assertTrue(tuple.get32(1) == y);
 
          try
          {
-            tuple1.get32(-1);
+            tuple.get32(-1);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -162,7 +113,7 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
 
          try
          {
-            tuple1.get32(3);
+            tuple.get32(3);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -176,23 +127,72 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.getX(), Tuple2D.getY()
-         double x = random.nextDouble();
-         double y = random.nextDouble();
-         tuple1 = createTuple(x, y);
-
-         assertEquals(tuple1.get(0), x, getEpsilon());
-         assertEquals(tuple1.get(1), y, getEpsilon());
+      { // Test Tuple2D.get(double[] tupleArrayToPack)
+         tuple = createRandomTuple(random);
+         double[] tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         tuple.get(tupleArray);
+         assertTrue(tuple.getX() == tupleArray[0]);
+         assertTrue(tuple.getY() == tupleArray[1]);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple2D.getX32(), Tuple2D.getY32()
-         float x = random.nextFloat();
-         float y = random.nextFloat();
-         tuple1 = createTuple(x, y);
+      { // Test Tuple2D.get(double[] tupleArrayToPack, int startIndex)
+         tuple = createRandomTuple(random);
+         double[] tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         tuple.get(2, tupleArray);
+         assertTrue(tuple.getX() == tupleArray[2]);
+         assertTrue(tuple.getY() == tupleArray[3]);
+      }
 
-         assertTrue(tuple1.getX32() == x);
-         assertTrue(tuple1.getY32() == y);
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test Tuple2D.get(float[] tupleArrayToPack)
+         tuple = createRandomTuple(random);
+         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
+         tuple.get(tupleArray);
+         assertTrue(tuple.getX32() == tupleArray[0]);
+         assertTrue(tuple.getY32() == tupleArray[1]);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test Tuple2D.get(double[] tupleArrayToPack, int startIndex)
+         tuple = createRandomTuple(random);
+         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
+         tuple.get(2, tupleArray);
+         assertTrue(tuple.getX32() == tupleArray[2]);
+         assertTrue(tuple.getY32() == tupleArray[3]);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test Tuple2D.get(DenseMatrix64F tupleMatrixToPack)
+         DenseMatrix64F matrix = new DenseMatrix64F(10, 5);
+         for (int index = 0; index < matrix.getNumElements(); index++)
+            matrix.set(index, random.nextDouble());
+
+         tuple.get(matrix);
+         assertTrue(tuple.getX() == matrix.get(0, 0));
+         assertTrue(tuple.getY() == matrix.get(1, 0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test Tuple2D.get(int startRow, DenseMatrix64F tupleMatrixToPack)
+         DenseMatrix64F matrix = new DenseMatrix64F(10, 5);
+         for (int index = 0; index < matrix.getNumElements(); index++)
+            matrix.set(index, random.nextDouble());
+
+         tuple.get(2, matrix);
+         assertTrue(tuple.getX() == matrix.get(2, 0));
+         assertTrue(tuple.getY() == matrix.get(3, 0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test Tuple2D.get(int startRow, int startColumn, DenseMatrix64F tupleMatrixToPack)
+         DenseMatrix64F matrix = new DenseMatrix64F(10, 5);
+         for (int index = 0; index < matrix.getNumElements(); index++)
+            matrix.set(index, random.nextDouble());
+
+         tuple.get(2, 4, matrix);
+         assertTrue(tuple.getX() == matrix.get(2, 4));
+         assertTrue(tuple.getY() == matrix.get(3, 4));
       }
    }
 
