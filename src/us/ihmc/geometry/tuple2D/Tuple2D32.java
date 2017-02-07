@@ -75,12 +75,13 @@ public abstract class Tuple2D32<T extends Tuple2D32<T>> implements Serializable,
       return y;
    }
 
+   @SuppressWarnings("unchecked")
    @Override
    public boolean equals(Object object)
    {
       try
       {
-         return equals((Tuple2DReadOnly<?>) object);
+         return equals((T) object);
       }
       catch (ClassCastException e)
       {

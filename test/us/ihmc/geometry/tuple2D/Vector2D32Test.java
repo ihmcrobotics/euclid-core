@@ -162,8 +162,8 @@ public class Vector2D32Test extends Tuple2D32Test<Vector2D32>
       GeometryBasicsRandomTools.randomizeTuple2D(random, vector);
 
       double length = vector.length();
-      double expectedLengthSquared = vector.getX32() * vector.getX32() + vector.getY32() * vector.getY32();
-      double expectedLength = (float) Math.sqrt(expectedLengthSquared);
+      double expectedLengthSquared = vector.getX() * vector.getX() + vector.getY() * vector.getY();
+      double expectedLength = Math.sqrt(expectedLengthSquared);
 
       Assert.assertTrue(length == expectedLength);
    }
@@ -177,7 +177,7 @@ public class Vector2D32Test extends Tuple2D32Test<Vector2D32>
       GeometryBasicsRandomTools.randomizeTuple2D(random, vector);
 
       double lengthSquared = vector.lengthSquared();
-      double expectedLengthSquared = vector.getX32() * vector.getX32() + vector.getY32() * vector.getY32();
+      double expectedLengthSquared = vector.getX() * vector.getX() + vector.getY() * vector.getY();
 
       Assert.assertTrue(lengthSquared == expectedLengthSquared);
    }

@@ -160,7 +160,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    default void add(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
    {
-      set(tuple1.getX() + tuple2.getX(), tuple2.getY() + tuple2.getY());
+      set(tuple1.getX() + tuple2.getX(), tuple1.getY() + tuple2.getY());
    }
 
    default void sub(double x, double y)
@@ -175,7 +175,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    default void sub(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
    {
-      set(tuple1.getX() - tuple2.getX(), tuple2.getY() - tuple2.getY());
+      set(tuple1.getX() - tuple2.getX(), tuple1.getY() - tuple2.getY());
    }
 
    default void scale(double scalar)

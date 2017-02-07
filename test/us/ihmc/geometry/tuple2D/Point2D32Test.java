@@ -99,7 +99,7 @@ public class Point2D32Test extends Tuple2D32Test<Point2D32>
 
          Point2D32 point2 = new Point2D32(newX2, newY2);
 
-         double distance = (float) Math.sqrt(point.distanceSquared((Point2DBasics<?>) point2));
+         double distance = Math.sqrt(point.distanceSquared((Point2DBasics<?>) point2));
          double distance2 = point.distance(point2);
 
          Assert.assertTrue(distance == distance2);
