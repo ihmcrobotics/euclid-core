@@ -82,9 +82,9 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
       set(other.getX(), other.getY());
    }
 
-   default void set(Tuple2DReadOnly<?> tupleBasics)
+   default void set(Tuple2DReadOnly<?> tupleReadOnly)
    {
-      set(tupleBasics.getX(), tupleBasics.getY());
+      set(tupleReadOnly.getX(), tupleReadOnly.getY());
    }
 
    default void set(double[] tupleArray)
@@ -92,7 +92,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
       set(tupleArray[0], tupleArray[1]);
    }
 
-   default void set(double[] tupleArray, int startIndex)
+   default void set(int startIndex, double[] tupleArray)
    {
       set(tupleArray[startIndex++], tupleArray[startIndex]);
    }
@@ -102,7 +102,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
       set(tupleArray[0], tupleArray[1]);
    }
 
-   default void set(float[] tupleArray, int startIndex)
+   default void set(int startIndex, float[] tupleArray)
    {
       set(tupleArray[startIndex++], tupleArray[startIndex]);
    }
@@ -112,12 +112,12 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
       set(matrix.get(0, 0), matrix.get(1, 0));
    }
 
-   default void set(DenseMatrix64F matrix, int startRow)
+   default void set(int startRow, DenseMatrix64F matrix)
    {
       set(matrix.get(startRow++, 0), matrix.get(startRow, 0));
    }
 
-   default void set(DenseMatrix64F matrix, int startRow, int column)
+   default void set(int startRow, int column, DenseMatrix64F matrix)
    {
       set(matrix.get(startRow++, column), matrix.get(startRow, column));
    }
