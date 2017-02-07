@@ -80,3 +80,4 @@
 **/gradle-wrapper.properties
 **/gradlew
 **/gradlew.bat
+**/generatedTestSuites/*TestSuite.java
