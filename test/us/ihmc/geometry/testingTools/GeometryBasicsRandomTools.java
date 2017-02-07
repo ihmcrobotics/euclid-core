@@ -701,7 +701,7 @@ public abstract class GeometryBasicsRandomTools
     * @return the random 2D vector.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
-   public static Vector2D generateRandomVector2D(Random random, Tuple2DReadOnly minMax)
+   public static Vector2D generateRandomVector2D(Random random, Tuple2DReadOnly<?> minMax)
    {
       Vector2D vector = new Vector2D();
       randomizeTuple2D(random, minMax, vector);
@@ -720,7 +720,7 @@ public abstract class GeometryBasicsRandomTools
     * @return the random 2D vector.
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     */
-   public static Vector2D generateRandomVector2D(Random random, Tuple2DReadOnly min, Tuple2DReadOnly max)
+   public static Vector2D generateRandomVector2D(Random random, Tuple2DReadOnly<?> min, Tuple2DReadOnly<?> max)
    {
       Vector2D vector = new Vector2D();
       randomizeTuple2D(random, min, max, vector);
@@ -910,7 +910,7 @@ public abstract class GeometryBasicsRandomTools
     * @param random the random generator to use.
     * @param tupleToRandomize the 2D tuple to randomize. Modified.
     */
-   public static void randomizeTuple2D(Random random, Tuple2DBasics tupleToRandomize)
+   public static void randomizeTuple2D(Random random, Tuple2DBasics<?> tupleToRandomize)
    {
       randomizeTuple2D(random, new Point2D(1.0, 1.0), tupleToRandomize);
    }
@@ -926,7 +926,7 @@ public abstract class GeometryBasicsRandomTools
     * @param tupleToRandomize the 2D tuple to randomize. Modified.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
-   public static void randomizeTuple2D(Random random, Tuple2DReadOnly minMax, Tuple2DBasics tupleToRandomize)
+   public static void randomizeTuple2D(Random random, Tuple2DReadOnly<?> minMax, Tuple2DBasics<?> tupleToRandomize)
    {
       for (int i = 0; i < 2; i++)
          tupleToRandomize.set(i, generateRandomDouble(random, minMax.get(i)));
@@ -944,7 +944,7 @@ public abstract class GeometryBasicsRandomTools
     * @param tupleToRandomize the 2D tuple to randomize. Modified.
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     */
-   public static void randomizeTuple2D(Random random, Tuple2DReadOnly min, Tuple2DReadOnly max, Tuple2DBasics tupleToRandomize)
+   public static void randomizeTuple2D(Random random, Tuple2DReadOnly<?> min, Tuple2DReadOnly<?> max, Tuple2DBasics<?> tupleToRandomize)
    {
       for (int i = 0; i < 2; i++)
          tupleToRandomize.set(i, generateRandomDouble(random, min.get(i), max.get(i)));
