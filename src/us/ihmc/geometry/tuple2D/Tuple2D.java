@@ -8,7 +8,7 @@ import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
-public abstract class Tuple2D implements Serializable, Tuple2DBasics
+public abstract class Tuple2D<T extends Tuple2D<T>> implements Serializable, Tuple2DBasics<T>
 {
    private final static long serialVersionUID = -1825643561716102256L;
 
@@ -29,7 +29,7 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
       set(tupleArray);
    }
 
-   public Tuple2D(Tuple2DReadOnly other)
+   public Tuple2D(Tuple2DReadOnly<?> other)
    {
       set(other);
    }
@@ -83,31 +83,31 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
       return Double.isNaN(x) || Double.isNaN(y);
    }
 
-   public void setAndAbsolute(Tuple2DReadOnly other)
+   public void setAndAbsolute(Tuple2DReadOnly<?> other)
    {
       set(other);
       absolute();
    }
 
-   public void setAndNegate(Tuple2DReadOnly other)
+   public void setAndNegate(Tuple2DReadOnly<?> other)
    {
       set(other);
       negate();
    }
 
-   public void setAndClipToMax(double max, Tuple2DReadOnly other)
+   public void setAndClipToMax(double max, Tuple2DReadOnly<?> other)
    {
       set(other);
       clipToMax(max);
    }
 
-   public void setAndClipToMin(double min, Tuple2DReadOnly other)
+   public void setAndClipToMin(double min, Tuple2DReadOnly<?> other)
    {
       set(other);
       clipToMin(min);
    }
 
-   public void setAndClipToMinMax(double min, double max, Tuple2DReadOnly other)
+   public void setAndClipToMinMax(double min, double max, Tuple2DReadOnly<?> other)
    {
       set(other);
       clipToMinMax(min, max);
@@ -164,7 +164,7 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
    }
 
    @Override
-   public void set(Tuple2DReadOnly other)
+   public void set(Tuple2DReadOnly<?> other)
    {
       x = other.getX();
       y = other.getY();
@@ -190,13 +190,13 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
    }
 
    @Override
-   public void add(Tuple2DReadOnly other)
+   public void add(Tuple2DReadOnly<?> other)
    {
       x += other.getX();
       y += other.getY();
    }
 
-   public void add(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
+   public void add(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
    {
       set(tuple1);
       add(tuple2);
@@ -210,13 +210,13 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
    }
 
    @Override
-   public void sub(Tuple2DReadOnly other)
+   public void sub(Tuple2DReadOnly<?> other)
    {
       x -= other.getX();
       y -= other.getY();
    }
 
-   public void sub(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
+   public void sub(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
    {
       set(tuple1);
       sub(tuple2);
@@ -233,31 +233,31 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
       y *= scalarY;
    }
 
-   public void scale(double scalar, Tuple2DReadOnly other)
+   public void scale(double scalar, Tuple2DReadOnly<?> other)
    {
       set(other);
       scale(scalar);
    }
 
-   public void scaleAdd(double scalar, Tuple2DReadOnly other)
+   public void scaleAdd(double scalar, Tuple2DReadOnly<?> other)
    {
       scale(scalar);
       add(other);
    }
 
-   public void scaleAdd(double scalar, Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
+   public void scaleAdd(double scalar, Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
    {
       scale(scalar, tuple1);
       add(tuple2);
    }
 
-   public void interpolate(Tuple2DReadOnly other, double alpha)
+   public void interpolate(Tuple2DReadOnly<?> other, double alpha)
    {
       x = Tuple3DTools.interpolate(x, other.getX(), alpha);
       y = Tuple3DTools.interpolate(y, other.getY(), alpha);
    }
 
-   public void interpolate(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2, double alpha)
+   public void interpolate(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2, double alpha)
    {
       set(tuple1);
       interpolate(tuple2, alpha);
@@ -304,7 +304,7 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
       }
    }
 
-   public void get(Tuple2DBasics other)
+   public void get(Tuple2DBasics<?> other)
    {
       other.setX(x);
       other.setY(y);
@@ -322,7 +322,7 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
       return y;
    }
 
-   public boolean epsilonEquals(Tuple2D other, double epsilon)
+   public boolean epsilonEquals(Tuple2DReadOnly<?> other, double epsilon)
    {
       return Tuple3DTools.epsilonEquals(this, other, epsilon);
    }
@@ -332,7 +332,7 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
    {
       try
       {
-         return equals((Tuple2D) object);
+         return equals((Tuple2DReadOnly<?>) object);
       }
       catch (ClassCastException e)
       {
@@ -340,11 +340,11 @@ public abstract class Tuple2D implements Serializable, Tuple2DBasics
       }
    }
 
-   public boolean equals(Tuple2D other)
+   public boolean equals(Tuple2DReadOnly<?> other)
    {
       try
       {
-         return x == other.x && y == other.y;
+         return x == other.getX() && y == other.getY();
       }
       catch (NullPointerException e)
       {
