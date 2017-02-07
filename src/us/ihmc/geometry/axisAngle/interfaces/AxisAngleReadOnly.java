@@ -32,7 +32,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    {
       return (float) getAngle();
    }
-   
+
    /**
     * Returns the x-component of the unitary axis of this axis-angle.
     * @return the x-component of the unitary axis.
@@ -47,7 +47,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    {
       return (float) getX();
    }
-   
+
    /**
     * Returns the y-component of the unitary axis of this axis-angle.
     * @return the y-component of the unitary axis.
@@ -62,7 +62,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    {
       return (float) getY();
    }
-   
+
    /**
     * Returns the z-component of the unitary axis of this axis-angle.
     * @return the z-component of the unitary axis.
@@ -77,7 +77,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    {
       return (float) getZ();
    }
-   
+
    /**
     * Tests if this axis-angle contains a {@link Double#NaN}.
     * 
@@ -177,7 +177,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
          throw new IndexOutOfBoundsException(Integer.toString(index));
       }
    }
-   
+
    /**
     * Selects a component of this axis-angle based on {@code index}
     * and returns its value.
@@ -238,23 +238,23 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    default boolean epsilonEquals(T other, double epsilon)
    {
       double diff;
-      
+
       diff = getX() - other.getX();
       if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
          return false;
-      
+
       diff = getY() - other.getY();
       if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
          return false;
-      
+
       diff = getZ() - other.getZ();
       if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
          return false;
-      
+
       diff = getAngle() - other.getAngle();
       if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
          return false;
-      
+
       return true;
    }
 }
