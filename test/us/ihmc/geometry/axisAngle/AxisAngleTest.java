@@ -127,7 +127,7 @@ public class AxisAngleTest
 
             axisAngle = new AxisAngle(matrix);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly) matrix, (AxisAngleBasics<?>) expectedAxisAngle);
+            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly<?>) matrix, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
 
@@ -278,7 +278,7 @@ public class AxisAngleTest
 
             axisAngle.set(matrix);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly) matrix, (AxisAngleBasics<?>) expectedAxisAngle);
+            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly<?>) matrix, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, axisAngle, EPS);
             GeometryBasicsTestTools.assertMatrix3DEquals(matrix, matrixCopy, EPS);
