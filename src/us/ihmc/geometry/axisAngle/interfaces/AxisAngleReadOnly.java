@@ -155,8 +155,10 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    /**
     * Selects a component of this axis-angle based on {@code index}
     * and returns its value.
+    * <p>
     * For {@code index} values of 0, 1, and 2, the corresponding components
-    * are x, y, and z, respectively, while a value 3 corresponds to the angle.
+    * are x, y, and z, respectively, while 3 corresponds to the angle.
+    * </p>
     * 
     * @param index the index of the component to get.
     * @return the value of the component.
@@ -182,8 +184,10 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    /**
     * Selects a component of this axis-angle based on {@code index}
     * and returns its value.
+    * <p>
     * For {@code index} values of 0, 1, and 2, the corresponding components
-    * are x, y, and z, respectively, while a value 3 corresponds to the angle.
+    * are x, y, and z, respectively, while 3 corresponds to the angle.
+    * </p>
     * 
     * @param index the index of the component to get.
     * @return the value of the component.
