@@ -54,7 +54,7 @@ public class QuaternionBasedTransformTest
 
       { // Test QuaternionBasedTransform(DenseMatrix64F matrix)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(7, 1);
          quaternion.get(denseMatrix);
          translation.get(4, denseMatrix);
@@ -65,7 +65,7 @@ public class QuaternionBasedTransformTest
 
       { // Test QuaternionBasedTransform(double[] array)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          double[] array = new double[7];
          quaternion.get(array);
          translation.get(4, array);
@@ -76,7 +76,7 @@ public class QuaternionBasedTransformTest
 
       { // Test QuaternionBasedTransform(RotationMatrix rotationMatrix, TupleReadOnly translation)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          QuaternionBasedTransform transform = new QuaternionBasedTransform(new RotationMatrix(quaternion), translation);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, transform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
@@ -84,7 +84,7 @@ public class QuaternionBasedTransformTest
 
       { // Test QuaternionBasedTransform(QuaternionReadOnly quaternion, TupleReadOnly translation)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          QuaternionBasedTransform transform = new QuaternionBasedTransform(quaternion, translation);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, transform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
@@ -92,7 +92,7 @@ public class QuaternionBasedTransformTest
 
       { // Test QuaternionBasedTransform(AxisAngleReadOnly axisAngle, TupleReadOnly translation)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          QuaternionBasedTransform transform = new QuaternionBasedTransform(new AxisAngle(quaternion), translation);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, transform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
@@ -214,7 +214,7 @@ public class QuaternionBasedTransformTest
 
       { // Test set(double qx, double qy, double qz, double qs, double x, double y, double z)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          double qx = quaternion.getX();
          double qy = quaternion.getY();
          double qz = quaternion.getZ();
@@ -229,7 +229,7 @@ public class QuaternionBasedTransformTest
 
       { // Test setUnsafe(double qx, double qy, double qz, double qs, double x, double y, double z)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          double qx = quaternion.getX();
          double qy = quaternion.getY();
          double qz = quaternion.getZ();
@@ -256,7 +256,7 @@ public class QuaternionBasedTransformTest
 
       { // Test set(DenseMatrix64F matrix)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(7, 1);
          quaternion.get(denseMatrix);
          translation.get(4, denseMatrix);
@@ -268,7 +268,7 @@ public class QuaternionBasedTransformTest
 
       { // Test set(double[] array)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          double[] array = new double[7];
          quaternion.get(array);
          translation.get(4, array);
@@ -280,7 +280,7 @@ public class QuaternionBasedTransformTest
 
       { // Test set(RotationMatrix rotationMatrix, TupleReadOnly translation)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actualTransform.set(new RotationMatrix(quaternion), translation);
          GeometryBasicsTestTools.assertQuaternionEqualsSmart(quaternion, actualTransform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(translation, actualTransform.getTranslationVector(), EPS);
@@ -288,7 +288,7 @@ public class QuaternionBasedTransformTest
 
       { // Test set(AxisAngleReadOnly axisAngle, TupleReadOnly translation)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actualTransform.set(new AxisAngle(quaternion), translation);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, actualTransform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(translation, actualTransform.getTranslationVector(), EPS);
@@ -296,7 +296,7 @@ public class QuaternionBasedTransformTest
 
       { // Test set(QuaternionReadOnly quaternion, TupleReadOnly translation)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actualTransform.set(quaternion, translation);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, actualTransform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(translation, actualTransform.getTranslationVector(), EPS);
@@ -371,7 +371,7 @@ public class QuaternionBasedTransformTest
       actualTransform.getRotation(expectedQuaternion);
 
       { // Test setTranslation(double x, double y, double z)
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          double x = translation.getX();
          double y = translation.getY();
          double z = translation.getZ();
@@ -381,7 +381,7 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test setTranslation(TupleReadOnly translation)
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actualTransform.setTranslation(translation);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualTransform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(translation, actualTransform.getTranslationVector(), EPS);
@@ -501,7 +501,7 @@ public class QuaternionBasedTransformTest
    {
       Random random = new Random(34L);
       QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
-      Vector3D expected = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D expected = GeometryBasicsRandomTools.generateRandomVector3D(random);
       Vector3D actual = new Vector3D();
 
       transform.setTranslation(expected);
@@ -619,11 +619,11 @@ public class QuaternionBasedTransformTest
 
       RigidBodyTransform rTransform2D = new RigidBodyTransform();
       rTransform2D.setRotationYaw(2.0 * Math.PI * random.nextDouble() - Math.PI);
-      rTransform2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector(random));
+      rTransform2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random));
       QuaternionBasedTransform qTransform2D = new QuaternionBasedTransform(rTransform2D);
 
       { // Test transform(PointBasics pointToTransform)
-         Point3D original = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D original = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          Point3D expected = new Point3D();
          Point3D actual = new Point3D();
 
@@ -634,7 +634,7 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
-         Point3D original = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D original = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          Point3D expected = new Point3D();
          Point3D actual = new Point3D();
 
@@ -644,7 +644,7 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test transform(VectorBasics vectorToTransform)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D expected = new Vector3D();
          Vector3D actual = new Vector3D();
 
@@ -655,7 +655,7 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test transform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D expected = new Vector3D();
          Vector3D actual = new Vector3D();
 
@@ -796,11 +796,11 @@ public class QuaternionBasedTransformTest
 
       RigidBodyTransform rTransform2D = new RigidBodyTransform();
       rTransform2D.setRotationYaw(2.0 * Math.PI * random.nextDouble() - Math.PI);
-      rTransform2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector(random));
+      rTransform2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random));
       QuaternionBasedTransform qTransform2D = new QuaternionBasedTransform(rTransform2D);
 
       { // Test inverseTransform(PointBasics pointToTransform)
-         Point3D original = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D original = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          Point3D expected = new Point3D();
          Point3D actual = new Point3D();
 
@@ -811,7 +811,7 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
-         Point3D original = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D original = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          Point3D expected = new Point3D();
          Point3D actual = new Point3D();
 
@@ -821,7 +821,7 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test inverseTransform(VectorBasics vectorToTransform)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D expected = new Vector3D();
          Vector3D actual = new Vector3D();
 
@@ -832,7 +832,7 @@ public class QuaternionBasedTransformTest
       }
 
       { // Test inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D expected = new Vector3D();
          Vector3D actual = new Vector3D();
 

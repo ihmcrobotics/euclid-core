@@ -79,7 +79,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             Vector3D vectorAxis, vectorAxisCopy;
-            vectorAxis = vectorAxisCopy = GeometryBasicsRandomTools.generateRandomVector(random);
+            vectorAxis = vectorAxisCopy = GeometryBasicsRandomTools.generateRandomVector3D(random);
 
             double angle, angleCopy;
             angle = angleCopy = random.nextDouble();

@@ -19,7 +19,7 @@ public class Tuple3DToolsTest
    @Test
    public void testContainsNaN() throws Exception
    {
-      Tuple3DBasics point = new Point3D();
+      Tuple3DBasics<?> point = new Point3D();
       assertFalse(Tuple3DTools.containsNaN(point));
       point.set(Double.NaN, 0.0, 0.0);
       assertTrue(Tuple3DTools.containsNaN(point));
@@ -33,8 +33,8 @@ public class Tuple3DToolsTest
    public void testEpsilonEqualsTuple() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple3D tuple1 = new Point3D();
-      Tuple3D tuple2 = new Point3D();
+      Tuple3D<?> tuple1 = new Point3D();
+      Tuple3D<?> tuple2 = new Point3D();
 
       double epsilon = random.nextDouble();
 

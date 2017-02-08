@@ -172,7 +172,7 @@ public class QuaternionTest
    {
       Random random = new Random(15461L);
 
-      Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+      Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
       double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
 
       double sinHalfTheta = Math.sin(theta / 2.0);
@@ -221,7 +221,7 @@ public class QuaternionTest
    {
       Random random = new Random(15461L);
 
-      Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+      Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
       double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
 
       double sinHalfTheta = Math.sin(theta / 2.0);
@@ -411,7 +411,7 @@ public class QuaternionTest
    {
       Random random = new Random(15461L);
 
-      Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+      Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
       double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
 
       double sinHalfTheta = Math.sin(theta / 2.0);
@@ -803,7 +803,7 @@ public class QuaternionTest
       Random random = new Random(6787L);
       Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
 
-      Vector3D vectorOriginal = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D vectorOriginal = GeometryBasicsRandomTools.generateRandomVector3D(random);
       Vector3D vectorExpected = new Vector3D();
       Vector3D vectorActual = new Vector3D();
 
@@ -961,7 +961,7 @@ public class QuaternionTest
       Random random = new Random(6787L);
       Quaternion quaternion = new Quaternion();
 
-      Vector3D vectorOriginal = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D vectorOriginal = GeometryBasicsRandomTools.generateRandomVector3D(random);
       Vector3D vectorTransformed = new Vector3D();
       Vector3D vectorExpected = new Vector3D(vectorOriginal);
       Vector3D vectorActual = new Vector3D();
@@ -1033,7 +1033,7 @@ public class QuaternionTest
       double expectedAngle = 2.0 * Math.PI * random.nextDouble(); // Sign issue when theta < 0.0
       double c = Math.cos(expectedAngle / 2.0);
       double s = Math.sin(expectedAngle / 2.0);
-      Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+      Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
       Quaternion q = new Quaternion();
       double qx = s * axis.getX();
       double qy = s * axis.getY();

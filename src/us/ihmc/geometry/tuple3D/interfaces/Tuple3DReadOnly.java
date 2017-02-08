@@ -114,7 +114,7 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    {
       try
       {
-         return getX() == other.getX() && getY() == other.getY();
+         return getX() == other.getX() && getY() == other.getY() && getZ() == other.getZ();
       }
       catch (NullPointerException e)
       {

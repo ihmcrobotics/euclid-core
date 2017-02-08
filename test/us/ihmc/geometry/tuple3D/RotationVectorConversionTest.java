@@ -47,7 +47,7 @@ public class RotationVectorConversionTest
       }
 
       // Test with a non-unitary axis.
-      Vector3D expectedRotationVector = GeometryBasicsRandomTools.generateRandomVector(random);
+      Vector3D expectedRotationVector = GeometryBasicsRandomTools.generateRandomVector3D(random);
       Vector3D actualRotationVector = new Vector3D();
 
       double ux = expectedRotationVector.getX();
@@ -154,7 +154,7 @@ public class RotationVectorConversionTest
       {
          AxisAngle axisAngle = new AxisAngle();
          axisAngle.setAngle(Math.PI);
-         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector3D(random);
          randomVector.normalize();
          axisAngle.setX(randomVector.getX());
          axisAngle.setY(randomVector.getY());

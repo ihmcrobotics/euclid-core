@@ -167,7 +167,7 @@ public class AxisAngleConversionTest
       // Test with an actual vector
       for (int i = 0; i < 1000; i++)
       {
-         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D rotationVectorCopy = new Vector3D(rotationVector);
          AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), expectedAxisAngle);
          AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, actualAxisAngle);
@@ -220,7 +220,7 @@ public class AxisAngleConversionTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          expectedAxisAngle.setAngle(Math.PI);
-         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector3D(random);
          randomVector.normalize();
          expectedAxisAngle.setX(randomVector.getX());
          expectedAxisAngle.setY(randomVector.getY());

@@ -139,7 +139,7 @@ public class Vector4DTest
       }
 
       { // Test set(TupleReadOnly other)
-         Vector3D vectorExpected = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D vectorExpected = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector4D vectorActual = new Vector4D();
          vectorActual.set(vectorExpected);
          assertTrue(vectorActual.getX() == vectorExpected.getX());

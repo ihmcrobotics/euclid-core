@@ -184,7 +184,7 @@ public class RotationMatrixTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test RotationMatrix(VectorBasics rotationVector)
-         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector3D(random);
 
          rotationMatrix = new RotationMatrix(rotationVector);
          RotationMatrixConversion.convertRotationVectorToMatrix(rotationVector, expectedRotationMatrix);
@@ -519,7 +519,7 @@ public class RotationMatrixTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test setEuler(VectorBasics eulerAngles)
          rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         eulerAngles = eulerAnglesCopy = GeometryBasicsRandomTools.generateRandomVector(random);
+         eulerAngles = eulerAnglesCopy = GeometryBasicsRandomTools.generateRandomVector3D(random);
          yawPitchRoll.setEuler(eulerAngles);
          RotationMatrixConversion.convertYawPitchRollToMatrix(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), expected);
 
@@ -531,7 +531,7 @@ public class RotationMatrixTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test setEuler(double rotX, double rotY, double rotZ)
          rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         eulerAngles = eulerAnglesCopy = GeometryBasicsRandomTools.generateRandomVector(random);
+         eulerAngles = eulerAnglesCopy = GeometryBasicsRandomTools.generateRandomVector3D(random);
          yawPitchRoll.setEuler(eulerAngles.getX(), eulerAngles.getY(), eulerAngles.getZ());
          RotationMatrixConversion.convertYawPitchRollToMatrix(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), expected);
 
@@ -934,7 +934,7 @@ public class RotationMatrixTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(TupleBasics tupleToInverseTransform)
-         tuple = GeometryBasicsRandomTools.generateRandomVector(random);
+         tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          tupleCopy.set(tuple);
 
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -949,7 +949,7 @@ public class RotationMatrixTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(TupleBasics tupleOriginal, TupleBasics tupleInverseTransformed)
-         tuple = GeometryBasicsRandomTools.generateRandomVector(random);
+         tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          tupleCopy.set(tuple);
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
@@ -1442,7 +1442,7 @@ public class RotationMatrixTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          RotationMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
 
          Matrix3DTools.transform(matrix, original, expected);
          actual.set(original);
@@ -1591,7 +1591,7 @@ public class RotationMatrixTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          RotationMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
 
          Matrix3DTools.inverseTransform(matrix, original, expected);
          actual.set(original);

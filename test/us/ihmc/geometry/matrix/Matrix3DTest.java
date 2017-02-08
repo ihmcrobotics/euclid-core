@@ -217,8 +217,8 @@ public class Matrix3DTest
 
       for (int k = 0; k < NUMBER_OF_ITERATIONS; k++)
       {
-         vector = vectorCopy = GeometryBasicsRandomTools.generateRandomVector(random);
-         vector2 = vector2Copy = GeometryBasicsRandomTools.generateRandomVector(random);
+         vector = vectorCopy = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         vector2 = vector2Copy = GeometryBasicsRandomTools.generateRandomVector3D(random);
          vector3.cross(vector, vector2);
 
          tildeMatrix.set(vector.getX(), vector.getY(), vector.getZ(), vector2.getX(), vector2.getY(), vector2.getZ(), vector3.getX(), vector3.getY(), vector3.getZ());
@@ -910,7 +910,7 @@ public class Matrix3DTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
 
          Matrix3DTools.transform(matrix, original, expected);
          actual.set(original);
@@ -991,7 +991,7 @@ public class Matrix3DTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
 
          Matrix3DTools.inverseTransform(matrix, original, expected);
          actual.set(original);

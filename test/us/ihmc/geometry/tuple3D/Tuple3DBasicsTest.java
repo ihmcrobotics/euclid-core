@@ -283,7 +283,7 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
                tuple2.setAndNegate(tuple1);
                assertEquals(tuple2.getX(), -xOriginal, getEpsilon());
                assertEquals(tuple2.getY(), -yOriginal, getEpsilon());
-               assertEquals(tuple2.getZ(), -yOriginal, getEpsilon());
+               assertEquals(tuple2.getZ(), -zOriginal, getEpsilon());
                assertEquals(tuple1.getX(), xOriginal, getEpsilon());
                assertEquals(tuple1.getY(), yOriginal, getEpsilon());
                assertEquals(tuple1.getZ(), zOriginal, getEpsilon());
@@ -311,15 +311,17 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple1.setY(max + random.nextDouble());
          tuple1.setZ(max + random.nextDouble());
          tuple1.clipToMax(max);
-         assertTrue(tuple1.getX() == max);
-         assertTrue(tuple1.getY() == max);
-         assertTrue(tuple1.getZ() == max);
+         assertEquals(tuple1.getX(), max, getEpsilon());
+         assertEquals(tuple1.getY(), max, getEpsilon());
+         assertEquals(tuple1.getZ(), max, getEpsilon());
 
          max = random.nextDouble();
          tuple1.setX(max - random.nextDouble());
          tuple1.setY(max - random.nextDouble());
          tuple1.setZ(max - random.nextDouble());
+         tuple1.set(tuple2);
          tuple1.clipToMax(max);
+         assertTrue(tuple1.equals(tuple2));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -332,9 +334,9 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple2.setY(max + random.nextDouble());
          tuple2.setZ(max + random.nextDouble());
          tuple1.setAndClipToMax(max, tuple2);
-         assertTrue(tuple1.getX() == max);
-         assertTrue(tuple1.getY() == max);
-         assertTrue(tuple1.getZ() == max);
+         assertEquals(tuple1.getX(), max, getEpsilon());
+         assertEquals(tuple1.getY(), max, getEpsilon());
+         assertEquals(tuple1.getZ(), max, getEpsilon());
 
          max = random.nextDouble();
          tuple2.setX(max - random.nextDouble());
@@ -351,15 +353,17 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple1.setY(min - random.nextDouble());
          tuple1.setZ(min - random.nextDouble());
          tuple1.clipToMin(min);
-         assertTrue(tuple1.getX() == min);
-         assertTrue(tuple1.getY() == min);
-         assertTrue(tuple1.getZ() == min);
+         assertEquals(tuple1.getX(), min, getEpsilon());
+         assertEquals(tuple1.getY(), min, getEpsilon());
+         assertEquals(tuple1.getZ(), min, getEpsilon());
 
          min = random.nextDouble();
-         tuple1.setX(min + random.nextDouble());
-         tuple1.setY(min + random.nextDouble());
-         tuple1.setZ(min + random.nextDouble());
+         tuple2.setX(min + random.nextDouble());
+         tuple2.setY(min + random.nextDouble());
+         tuple2.setZ(min + random.nextDouble());
+         tuple1.set(tuple2);
          tuple1.clipToMin(min);
+         assertTrue(tuple1.equals(tuple2));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -372,9 +376,9 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple2.setY(min - random.nextDouble());
          tuple2.setZ(min - random.nextDouble());
          tuple1.setAndClipToMin(min, tuple2);
-         assertTrue(tuple1.getX() == min);
-         assertTrue(tuple1.getY() == min);
-         assertTrue(tuple1.getZ() == min);
+         assertEquals(tuple1.getX(), min, getEpsilon());
+         assertEquals(tuple1.getY(), min, getEpsilon());
+         assertEquals(tuple1.getZ(), min, getEpsilon());
 
          min = random.nextDouble();
          tuple2.setX(min + random.nextDouble());
@@ -392,9 +396,9 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple1.setY(min - random.nextDouble());
          tuple1.setZ(min - random.nextDouble());
          tuple1.clipToMinMax(min, max);
-         assertTrue(tuple1.getX() == min);
-         assertTrue(tuple1.getY() == min);
-         assertTrue(tuple1.getZ() == min);
+         assertEquals(tuple1.getX(), min, getEpsilon());
+         assertEquals(tuple1.getY(), min, getEpsilon());
+         assertEquals(tuple1.getZ(), min, getEpsilon());
 
          min = random.nextDouble() - 0.5;
          max = random.nextDouble() + 0.5;
@@ -402,16 +406,18 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple1.setY(max + random.nextDouble());
          tuple1.setZ(max + random.nextDouble());
          tuple1.clipToMinMax(min, max);
-         assertTrue(tuple1.getX() == max);
-         assertTrue(tuple1.getY() == max);
-         assertTrue(tuple1.getZ() == max);
+         assertEquals(tuple1.getX(), max, getEpsilon());
+         assertEquals(tuple1.getY(), max, getEpsilon());
+         assertEquals(tuple1.getZ(), max, getEpsilon());
 
          min = random.nextDouble() - 1.0;
          max = random.nextDouble() + 1.0;
-         tuple1.setX(min + random.nextDouble());
-         tuple1.setY(min + random.nextDouble());
-         tuple1.setZ(min + random.nextDouble());
+         tuple2.setX(min + random.nextDouble());
+         tuple2.setY(min + random.nextDouble());
+         tuple2.setZ(min + random.nextDouble());
+         tuple1.set(tuple2);
          tuple1.clipToMinMax(min, max);
+         assertTrue(tuple1.equals(tuple2));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -425,9 +431,9 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple2.setY(min - random.nextDouble());
          tuple2.setZ(min - random.nextDouble());
          tuple1.setAndClipToMinMax(min, max, tuple2);
-         assertTrue(tuple1.getX() == min);
-         assertTrue(tuple1.getY() == min);
-         assertTrue(tuple1.getZ() == min);
+         assertEquals(tuple1.getX(), min, getEpsilon());
+         assertEquals(tuple1.getY(), min, getEpsilon());
+         assertEquals(tuple1.getZ(), min, getEpsilon());
 
          min = random.nextDouble() - 0.5;
          max = random.nextDouble() + 0.5;
@@ -438,9 +444,9 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple2.setY(max + random.nextDouble());
          tuple2.setZ(max + random.nextDouble());
          tuple1.setAndClipToMinMax(min, max, tuple2);
-         assertTrue(tuple1.getX() == max);
-         assertTrue(tuple1.getY() == max);
-         assertTrue(tuple1.getZ() == max);
+         assertEquals(tuple1.getX(), max, getEpsilon());
+         assertEquals(tuple1.getY(), max, getEpsilon());
+         assertEquals(tuple1.getZ(), max, getEpsilon());
 
          min = random.nextDouble() - 1.0;
          max = random.nextDouble() + 1.0;
@@ -672,7 +678,7 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          double zOld = random.nextDouble();
          tuple1.setX(xOld);
          tuple1.setY(yOld);
-         tuple1.setZ(yOld);
+         tuple1.setZ(zOld);
          tuple2.setX(random.nextDouble());
          tuple2.setY(random.nextDouble());
          tuple2.setZ(random.nextDouble());

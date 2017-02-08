@@ -297,7 +297,7 @@ public class QuaternionToolsTest
       {
          double angle0 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
          double anglef = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angle0, q0);
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), anglef, qf);
          double alpha = GeometryBasicsRandomTools.generateRandomDouble(random, 10.0);
@@ -417,7 +417,7 @@ public class QuaternionToolsTest
       {
          double angle1 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
          double angle2 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
          Quaternion q1 = new Quaternion();
          Quaternion q2 = new Quaternion();
 
@@ -439,7 +439,7 @@ public class QuaternionToolsTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
 
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angle, qActual);
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), 2.0 * angle, qExpected);
@@ -484,7 +484,7 @@ public class QuaternionToolsTest
       {
          Quaternion q = new Quaternion();
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angle, q);
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), 2.0 * angle, qExpected);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(q, EPSILON);
@@ -509,7 +509,7 @@ public class QuaternionToolsTest
       {
          double angle1 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
          double angle2 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
          Quaternion q1 = new Quaternion();
          Quaternion q2 = new Quaternion();
 
@@ -532,7 +532,7 @@ public class QuaternionToolsTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
 
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angle, qActual);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(qActual, EPSILON);
@@ -576,7 +576,7 @@ public class QuaternionToolsTest
       {
          Quaternion q = new Quaternion();
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angle, q);
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), 2.0 * angle, qExpected);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(q, EPSILON);
@@ -600,7 +600,7 @@ public class QuaternionToolsTest
       {
          double angle1 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
          double angle2 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
          Quaternion q1 = new Quaternion();
          Quaternion q2 = new Quaternion();
 
@@ -623,7 +623,7 @@ public class QuaternionToolsTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         Vector3D axis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
 
          QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angle, qActual);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(qActual, EPSILON);

@@ -710,7 +710,7 @@ public class Quaternion32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleToTransform)
-         tuple = GeometryBasicsRandomTools.generateRandomVector(random);
+         tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          tupleCopy.set(tuple);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
@@ -722,7 +722,7 @@ public class Quaternion32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
-         tuple = GeometryBasicsRandomTools.generateRandomVector(random);
+         tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          tupleCopy.set(tuple);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
@@ -855,7 +855,7 @@ public class Quaternion32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(TupleBasics tupleToInverseTransform)
-         tuple = GeometryBasicsRandomTools.generateRandomVector(random);
+         tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          tupleCopy.set(tuple);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
@@ -867,7 +867,7 @@ public class Quaternion32Test
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(TupleBasics tupleOriginal, TupleBasics tupleInverseTransformed)
-         tuple = GeometryBasicsRandomTools.generateRandomVector(random);
+         tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          tupleCopy.set(tuple);
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 

@@ -444,7 +444,7 @@ public class RigidBodyTransformTest
 
       { // Test set(Matrix3DReadOnly rotationMatrix, TupleReadOnly translation)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actual.set((Matrix3DReadOnly<?>) rotationMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
@@ -456,7 +456,7 @@ public class RigidBodyTransformTest
 
       { // Test set(RotationMatrix rotationMatrix, TupleReadOnly translation)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actual.set(rotationMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
@@ -468,7 +468,7 @@ public class RigidBodyTransformTest
 
       { // Test set(RotationScaleMatrix rotationMatrix, TupleReadOnly translation)
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actual.set(rotationScaleMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
@@ -1327,7 +1327,7 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlPoint = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedPoint = new DenseMatrix64F(4, 1);
 
-         Point3D point = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D point = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          point.get(ejmlPoint);
          ejmlPoint.set(3, 0, 1.0);
 
@@ -1342,7 +1342,7 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlPoint = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedPoint = new DenseMatrix64F(4, 1);
 
-         Point3D point = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D point = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          Point3D pointTransformed = new Point3D();
          point.get(ejmlPoint);
          ejmlPoint.set(3, 0, 1.0);
@@ -1358,7 +1358,7 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlVector = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedVector = new DenseMatrix64F(4, 1);
 
-         Vector3D vector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D vector = GeometryBasicsRandomTools.generateRandomVector3D(random);
          vector.get(ejmlVector);
 
          transform.transform(vector);
@@ -1372,7 +1372,7 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlVector = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedVector = new DenseMatrix64F(4, 1);
 
-         Vector3D vector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D vector = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D vectorTransformed = new Vector3D();
          vector.get(ejmlVector);
 
@@ -1432,7 +1432,7 @@ public class RigidBodyTransformTest
       Random random = new Random(4353L);
       RigidBodyTransform transfom2D = new RigidBodyTransform();
       transfom2D.setRotationYaw(2.0 * Math.PI * random.nextDouble() - Math.PI);
-      transfom2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector(random));
+      transfom2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random));
 
       { // Test transform(Point2DBasics pointToTransform)
          Point2D pointOriginal = GeometryBasicsRandomTools.generateRandomPoint2D(random);
@@ -1565,7 +1565,7 @@ public class RigidBodyTransformTest
       RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
 
       { // Test inverseTransform(PointBasics pointToTransform)
-         Point3D pointExpected = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D pointExpected = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          Point3D pointActual = new Point3D();
          pointActual.set(pointExpected);
          transform.transform(pointActual);
@@ -1574,7 +1574,7 @@ public class RigidBodyTransformTest
       }
 
       { // Test inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
-         Point3D pointExpected = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D pointExpected = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          Point3D pointActual = new Point3D();
 
          transform.inverseTransform(pointExpected, pointActual);
@@ -1583,7 +1583,7 @@ public class RigidBodyTransformTest
       }
 
       { // Test inverseTransform(VectorBasics vectorToTransform)
-         Vector3D vectorExpected = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D vectorExpected = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D vectorActual = new Vector3D();
          vectorActual.set(vectorExpected);
          transform.transform(vectorActual);
@@ -1592,7 +1592,7 @@ public class RigidBodyTransformTest
       }
 
       { // Test inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
-         Vector3D vectorExpected = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D vectorExpected = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D vectorActual = new Vector3D();
 
          transform.inverseTransform(vectorExpected, vectorActual);
@@ -1607,7 +1607,7 @@ public class RigidBodyTransformTest
       Random random = new Random(3454L);
       RigidBodyTransform transfom2D = new RigidBodyTransform();
       transfom2D.setRotationYaw(2.0 * Math.PI * random.nextDouble() - Math.PI);
-      transfom2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector(random));
+      transfom2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random));
 
       { // Test inverseTransform(Point2DBasics pointToTransform)
          Point2D pointExpected = GeometryBasicsRandomTools.generateRandomPoint2D(random);

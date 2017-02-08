@@ -259,25 +259,25 @@ public abstract class Tuple3DReadOnlyTest<T extends Tuple3DReadOnly<T>>
    {
       Random random = new Random(621541L);
 
-      T axisAngle = createRandomTuple(random);
+      T tuple = createRandomTuple(random);
 
-      assertFalse(axisAngle.equals(createEmptyTuple()));
-      assertFalse(axisAngle.equals(null));
-      assertFalse(axisAngle.equals(new double[5]));
+      assertFalse(tuple.equals(createEmptyTuple()));
+      assertFalse(tuple.equals(null));
+      assertFalse(tuple.equals(new double[5]));
 
-      double x = axisAngle.getX();
-      double y = axisAngle.getY();
-      double z = axisAngle.getZ();
+      double x = tuple.getX();
+      double y = tuple.getY();
+      double z = tuple.getZ();
 
-      assertTrue(axisAngle.equals(createTuple(x, y, z)));
+      assertTrue(tuple.equals(createTuple(x, y, z)));
 
-      assertFalse(axisAngle.equals(createTuple(x + getEpsilon(), y, z)));
-      assertFalse(axisAngle.equals(createTuple(x - getEpsilon(), y, z)));
+      assertFalse(tuple.equals(createTuple(x + getEpsilon(), y, z)));
+      assertFalse(tuple.equals(createTuple(x - getEpsilon(), y, z)));
 
-      assertFalse(axisAngle.equals(createTuple(x, y + getEpsilon(), z)));
-      assertFalse(axisAngle.equals(createTuple(x, y - getEpsilon(), z)));
+      assertFalse(tuple.equals(createTuple(x, y + getEpsilon(), z)));
+      assertFalse(tuple.equals(createTuple(x, y - getEpsilon(), z)));
 
-      assertFalse(axisAngle.equals(createTuple(x, y, z + getEpsilon())));
-      assertFalse(axisAngle.equals(createTuple(x, y, z - getEpsilon())));
+      assertFalse(tuple.equals(createTuple(x, y, z + getEpsilon())));
+      assertFalse(tuple.equals(createTuple(x, y, z - getEpsilon())));
    }
 }

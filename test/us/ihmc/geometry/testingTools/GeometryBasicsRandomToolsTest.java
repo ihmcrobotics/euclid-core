@@ -30,7 +30,7 @@ public class GeometryBasicsRandomToolsTest
          Vector3D min = new Vector3D(-1, -1, -1);
          Vector3D max = new Vector3D(1, 1, 1);
 
-         GeometryBasicsRandomTools.generateRandomVector(random);
+         GeometryBasicsRandomTools.generateRandomVector3D(random);
 
          Assert.assertTrue(min.getX() <= vector.getX());
          Assert.assertTrue(vector.getX() <= max.getX());
@@ -64,7 +64,7 @@ public class GeometryBasicsRandomToolsTest
 
          for (int i = 0; i < 10000; i++)
          {
-            GeometryBasicsRandomTools.randomizeTuple(random, (Tuple3DBasics) tupleToRandomize);
+            GeometryBasicsRandomTools.randomizeTuple3D(random, (Tuple3DBasics) tupleToRandomize);
 
             Assert.assertTrue(-1.0 <= tupleToRandomize.getX());
             Assert.assertTrue(tupleToRandomize.getX() <= 1.0);
@@ -86,7 +86,7 @@ public class GeometryBasicsRandomToolsTest
          minMax.setY(random.nextDouble());
          minMax.setZ(random.nextDouble());
 
-         GeometryBasicsRandomTools.randomizeTuple(random, (Tuple3DReadOnly) minMax, (Tuple3DBasics) tupleToRandomize);
+         GeometryBasicsRandomTools.randomizeTuple3D(random, (Tuple3DReadOnly) minMax, (Tuple3DBasics) tupleToRandomize);
 
          Assert.assertTrue(tupleToRandomizeCopy.getX() - minMax.getX() <= tupleToRandomize.getX());
          Assert.assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + minMax.getX());
@@ -110,7 +110,7 @@ public class GeometryBasicsRandomToolsTest
             max.setY(min.getY() + random.nextDouble());
             max.setZ(min.getZ() + random.nextDouble());
 
-            GeometryBasicsRandomTools.randomizeTuple(random, (Tuple3DReadOnly) min, (Tuple3DReadOnly) max, (Tuple3DBasics) tupleToRandomize);
+            GeometryBasicsRandomTools.randomizeTuple3D(random, (Tuple3DReadOnly) min, (Tuple3DReadOnly) max, (Tuple3DBasics) tupleToRandomize);
 
             Assert.assertTrue(tupleToRandomizeCopy.getX() - min.getX() <= tupleToRandomize.getX());
             Assert.assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + max.getX());

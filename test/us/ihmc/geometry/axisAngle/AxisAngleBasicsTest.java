@@ -159,7 +159,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics<T>> extends 
       { // Test set(VectorBasics axis, double angle)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            Vector3D vectorAxis = GeometryBasicsRandomTools.generateRandomVectorWithFixedLength(random, 1.0);
+            Vector3D vectorAxis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
             double angle = random.nextDouble();
 
             actualAxisAngle.set(vectorAxis, angle);

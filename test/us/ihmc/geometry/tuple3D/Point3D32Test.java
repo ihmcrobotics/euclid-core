@@ -1,28 +1,23 @@
 package us.ihmc.geometry.tuple3D;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Random;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple3D.Point3D32;
-import us.ihmc.geometry.tuple3D.Tuple3D32;
-import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public class Point3D32Test extends Tuple3D32Test<Point3D32>
+public class Point3D32Test extends Point3DBasicsTest<Point3D32>
 {
    private static final double EPS = 1.0e-10;
 
    @Test
-   public void testPoint32()
+   public void testPoint3D32()
    {
       Random random = new Random(621541L);
 
@@ -63,161 +58,30 @@ public class Point3D32Test extends Tuple3D32Test<Point3D32>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point32(TupleBasics tuple)
          Point3D32 point;
-         Point3D32 point2 = GeometryBasicsRandomTools.generateRandomPoint32(random);
-         point = new Point3D32((Tuple3DReadOnly) point2);
+         Point3D32 point2 = GeometryBasicsRandomTools.generateRandomPoint3D32(random);
+         point = new Point3D32((Tuple3DReadOnly<?>) point2);
          GeometryBasicsTestTools.assertTuple3DEquals(point, point2, EPS);
       }
    }
 
    @Test
-   public void testSet()
-   {
-      Random random = new Random(65465131L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float newX = random.nextFloat();
-         float newY = random.nextFloat();
-         float newZ = random.nextFloat();
-
-         Point3D32 point = new Point3D32(newX, newY, newZ);
-
-         Point3D32 point2 = new Point3D32();
-         point2.set(point);
-         GeometryBasicsTestTools.assertTuple3DEquals(point, point2, EPS);
-      }
-   }
-
-   @Test
-   public void testDistance()
-   {
-      Random random = new Random(654135L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float newX1 = random.nextFloat();
-         float newY1 = random.nextFloat();
-         float newZ1 = random.nextFloat();
-
-         float newX2 = random.nextFloat();
-         float newY2 = random.nextFloat();
-         float newZ2 = random.nextFloat();
-
-         Point3D32 point = new Point3D32(newX1, newY1, newZ1);
-         Point3D32 point2 = new Point3D32(newX2, newY2, newZ2);
-
-         float distance = (float) Math.sqrt(point.distanceSquared((Point3DReadOnly<?>) point2));
-         double distance2 = point.distance(point2);
-
-         Assert.assertTrue(distance == distance2);
-      }
-   }
-
-   @Test
-   @Ignore
-   public void testDistanceL1()
-   {
-      fail("Not yet implemented");
-   }
-
-   @Test
-   @Ignore
-   public void testDistanceLinf()
-   {
-      fail("Not yet implemented");
-   }
-
-   @Test
-   public void testDistanceSquared()
-   {
-      Random random = new Random(654135L);
-      float newX1 = random.nextFloat();
-      float newY1 = random.nextFloat();
-      float newZ1 = random.nextFloat();
-
-      float newX2 = random.nextFloat();
-      float newY2 = random.nextFloat();
-      float newZ2 = random.nextFloat();
-
-      Point3D32 point = new Point3D32(newX1, newY1, newZ1);
-      Point3D32 point2 = new Point3D32(newX2, newY2, newZ2);
-
-      double distance = point.distanceSquared((Point3DReadOnly) point2);
-      float dx = point.getX32() - point2.getX32();
-      float dy = point.getY32() - point2.getY32();
-      float dz = point.getZ32() - point2.getZ32();
-      float expectedDistance = dx * dx + dy * dy + dz * dz;
-
-      Assert.assertEquals(distance, expectedDistance, EPS);
-   }
-
-   @Test
-   @Ignore
-   public void testApplyTransform()
-   {
-      fail("Not yet implemented");
-   }
-
-   @Test
-   public void testEpsilonEquals() throws Exception
+   public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
+      Point3D32 tuple1 = createRandomTuple(random);
+
+      int newHashCode, previousHashCode;
+      newHashCode = tuple1.hashCode();
+      assertEquals(newHashCode, tuple1.hashCode());
+
+      previousHashCode = tuple1.hashCode();
+
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Point3D32 point1 = new Point3D32();
-         Point3D32 point2 = new Point3D32();
-
-         float epsilon = random.nextFloat();
-
-         GeometryBasicsRandomTools.randomizeTuple(random, point1);
-
-         point2.setX(point1.getX32() + 0.1f * epsilon);
-         point2.setY(point1.getY32() + 0.1f * epsilon);
-         point2.setZ(point1.getZ32() + 0.1f * epsilon);
-         assertTrue(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() - 0.1f * epsilon);
-         point2.setY(point1.getY32() - 0.1f * epsilon);
-         point2.setZ(point1.getZ32() - 0.1f * epsilon);
-         assertTrue(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() - 1.1f * epsilon);
-         point2.setY(point1.getY32() - 0.1f * epsilon);
-         point2.setZ(point1.getZ32() - 0.1f * epsilon);
-         assertFalse(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() - 0.1f * epsilon);
-         point2.setY(point1.getY32() - 1.1f * epsilon);
-         point2.setZ(point1.getZ32() - 0.1f * epsilon);
-         assertFalse(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() - 0.1f * epsilon);
-         point2.setY(point1.getY32() - 0.1f * epsilon);
-         point2.setZ(point1.getZ32() - 1.1f * epsilon);
-         assertFalse(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() + 1.1f * epsilon);
-         point2.setY(point1.getY32() + 0.1f * epsilon);
-         point2.setZ(point1.getZ32() + 0.1f * epsilon);
-         assertFalse(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() + 0.1f * epsilon);
-         point2.setY(point1.getY32() + 1.1f * epsilon);
-         point2.setZ(point1.getZ32() + 0.1f * epsilon);
-         assertFalse(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() + 0.1f * epsilon);
-         point2.setY(point1.getY32() + 0.1f * epsilon);
-         point2.setZ(point1.getZ32() + 1.1f * epsilon);
-         assertFalse(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() + epsilon - (float) 1.0e-7);
-         point2.setY(point1.getY32() + epsilon - (float) 1.0e-7);
-         point2.setZ(point1.getZ32() + epsilon - (float) 1.0e-7);
-         assertTrue(point1.epsilonEquals(point2, epsilon));
-
-         point2.setX(point1.getX32() - epsilon + (float) 1.0e-7);
-         point2.setY(point1.getY32() - epsilon + (float) 1.0e-7);
-         point2.setZ(point1.getZ32() - epsilon + (float) 1.0e-7);
-         assertTrue(point1.epsilonEquals(point2, epsilon));
+         tuple1.set(i % 3, random.nextFloat());
+         newHashCode = tuple1.hashCode();
+         assertNotEquals(newHashCode, previousHashCode);
+         previousHashCode = newHashCode;
       }
    }
 
@@ -230,7 +94,7 @@ public class Point3D32Test extends Tuple3D32Test<Point3D32>
    @Override
    public Point3D32 createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomPoint32(random);
+      return GeometryBasicsRandomTools.generateRandomPoint3D32(random);
    }
 
    @Override
@@ -242,6 +106,6 @@ public class Point3D32Test extends Tuple3D32Test<Point3D32>
    @Override
    public double getEpsilon()
    {
-      return 1.0e-6;
+      return 2.0e-7;
    }
 }

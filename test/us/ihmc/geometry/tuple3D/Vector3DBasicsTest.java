@@ -1,4 +1,4 @@
-package us.ihmc.geometry.tuple2D;
+package us.ihmc.geometry.tuple3D;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -8,12 +8,14 @@ import java.util.Random;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import us.ihmc.geometry.axisAngle.AxisAngle;
+import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
-import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 
-public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tuple2DBasicsTest<T>
+public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tuple3DBasicsTest<T>
 {
    // Read-only part
    @Test
@@ -30,7 +32,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
          vector2.setAndScale(scalar, vector1);
          double expectedLength2 = scalar * length1;
          double actualLength2 = vector2.length();
-         assertEquals(expectedLength2, actualLength2, 2.0 * getEpsilon());
+         assertEquals(expectedLength2, actualLength2, 5.0 * getEpsilon());
       }
    }
 
@@ -48,27 +50,30 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
          vector2.setAndScale(scalar, vector1);
          double expectedLength2 = scalar * length1;
          double actualLength2 = vector2.lengthSquared();
-         assertEquals(expectedLength2, Math.sqrt(actualLength2), 2.0 * getEpsilon());
+         assertEquals(expectedLength2, Math.sqrt(actualLength2), 5.0 * getEpsilon());
       }
    }
 
    @Test
    public void testDot()
    {
-      Random random = new Random(56461L);
+      Random random = new Random(5461L);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T vector1 = createRandomTuple(random);
+         vector1.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 2.0));
+         Vector3DBasics<?> axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
-         double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();
-         double y = Math.sin(angle) * vector1.getX() + Math.cos(angle) * vector1.getY();
-         T vector2 = createTuple(x, y);
+
+         T vector2 = createEmptyTuple();
+         RotationMatrix rotationMatrix = new RotationMatrix(new AxisAngle(axis, angle));
+         rotationMatrix.transform(vector1, vector2);
          vector2.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 2.0));
 
          double expectedDot = vector1.length() * vector2.length() * Math.cos(angle);
          double actualDot = vector1.dot(vector2);
-         assertEquals(expectedDot, actualDot, getEpsilon());
+         assertEquals(expectedDot, actualDot, 10.0 * getEpsilon());
       }
    }
 
@@ -80,15 +85,18 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T vector1 = createRandomTuple(random);
+         vector1.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 2.0));
+         Vector3DBasics<?> axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
          double expectedAngle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
-         double x = Math.cos(expectedAngle) * vector1.getX() - Math.sin(expectedAngle) * vector1.getY();
-         double y = Math.sin(expectedAngle) * vector1.getX() + Math.cos(expectedAngle) * vector1.getY();
-         T vector2 = createTuple(x, y);
+
+         T vector2 = createEmptyTuple();
+         RotationMatrix rotationMatrix = new RotationMatrix(new AxisAngle(axis, expectedAngle));
+         rotationMatrix.transform(vector1, vector2);
          vector2.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 2.0));
 
-         double actualAngle = vector1.angle(vector2);
 
-         assertEquals(expectedAngle, actualAngle, getEpsilon());
+         double actualAngle = vector1.angle(vector2);
+         assertEquals(Math.abs(expectedAngle), actualAngle, 10.0 *getEpsilon());
       }
    }
 
@@ -98,30 +106,26 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
       Random random = new Random(56461L);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // cross(Vector2DReadOnly<?> other) 
+      { // cross(Vector3DReadOnly<?> other) 
          T vector1 = createRandomTuple(random);
-         double angle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
-         double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();
-         double y = Math.sin(angle) * vector1.getX() + Math.cos(angle) * vector1.getY();
-         T vector2 = createTuple(x, y);
+         vector1.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 2.0));
+         Vector3DBasics<?> axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
+         double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, Math.PI);
 
-         double expectedDot = vector1.length() * vector2.length() * Math.sin(angle);
-         double actualDot = vector1.cross(vector2);
-         assertEquals(expectedDot, actualDot, getEpsilon());
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // cross(Vector2DReadOnly<?> v1, Vector2DReadOnly<?> v2)
-         T vector1 = createRandomTuple(random);
-         double angle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
-         double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();
-         double y = Math.sin(angle) * vector1.getX() + Math.cos(angle) * vector1.getY();
-         T vector2 = createTuple(x, y);
+         T vector2 = createEmptyTuple();
+         RotationMatrix rotationMatrix = new RotationMatrix(new AxisAngle(axis, angle));
+         rotationMatrix.transform(vector1, vector2);
          vector2.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 2.0));
 
-         double expectedCross = vector1.length() * vector2.length() * Math.sin(angle);
-         double actualCross = Vector2DReadOnly.cross(vector1, vector2);
-         assertEquals(expectedCross, actualCross, getEpsilon());
+         T vector3 = createEmptyTuple();
+         vector3.cross(vector1, vector2);
+
+         double expectedCrossMagnitude = vector1.length() * vector2.length() * Math.sin(angle);
+         double actualCrossMagnitude = vector3.length();
+         assertEquals(expectedCrossMagnitude, actualCrossMagnitude, 10.0 * getEpsilon());
+
+         assertEquals(0.0, vector1.dot(vector3), 10.0 * getEpsilon());
+         assertEquals(0.0, vector2.dot(vector3), 10.0 * getEpsilon());
       }
    }
 
@@ -144,7 +148,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
          vector2.normalize();
          vector1.setAndScale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.normalize();
-         GeometryBasicsTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
+         GeometryBasicsTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -163,7 +167,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
          T vector3 = createEmptyTuple();
          vector3.setAndScale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.setAndNormalize(vector3);
-         GeometryBasicsTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
+         GeometryBasicsTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
       }
    }
 

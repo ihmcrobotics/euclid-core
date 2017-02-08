@@ -309,7 +309,7 @@ public class RotationMatrixConversionTest
       // Test with an actual vector
       for (int i = 0; i < 1000; i++)
       {
-         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange));
+         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector3D(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange));
          Vector3D rotationVectorCopy = new Vector3D(rotationVector);
          double rx = rotationVector.getX();
          double ry = rotationVector.getY();

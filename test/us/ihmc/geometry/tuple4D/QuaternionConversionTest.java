@@ -132,7 +132,7 @@ public class QuaternionConversionTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector3D(random);
          randomVector.normalize();
          expectedQuaternion.setUnsafe(randomVector.getX(), randomVector.getY(), randomVector.getZ(), 0.0); // rotation angle of Pi
          double qx = expectedQuaternion.getX();
@@ -414,7 +414,7 @@ public class QuaternionConversionTest
 
       for (int i = 0; i < 1000; i++)
       {
-         GeometryBasicsRandomTools.randomizeTuple(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange), rotationVector);
+         GeometryBasicsRandomTools.randomizeTuple3D(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange), rotationVector);
          rotationVectorCopy.set(rotationVector);
 
          double rx = rotationVector.getX();

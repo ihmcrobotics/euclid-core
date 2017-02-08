@@ -232,21 +232,21 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
    {
       Random random = new Random(621541L);
 
-      T axisAngle = createRandomTuple(random);
+      T tuple = createRandomTuple(random);
 
-      assertFalse(axisAngle.equals(createEmptyTuple()));
-      assertFalse(axisAngle.equals(null));
-      assertFalse(axisAngle.equals(new double[5]));
+      assertFalse(tuple.equals(createEmptyTuple()));
+      assertFalse(tuple.equals(null));
+      assertFalse(tuple.equals(new double[5]));
 
-      double x = axisAngle.getX();
-      double y = axisAngle.getY();
+      double x = tuple.getX();
+      double y = tuple.getY();
 
-      assertTrue(axisAngle.equals(createTuple(x, y)));
+      assertTrue(tuple.equals(createTuple(x, y)));
 
-      assertFalse(axisAngle.equals(createTuple(x + getEpsilon(), y)));
-      assertFalse(axisAngle.equals(createTuple(x - getEpsilon(), y)));
+      assertFalse(tuple.equals(createTuple(x + getEpsilon(), y)));
+      assertFalse(tuple.equals(createTuple(x - getEpsilon(), y)));
 
-      assertFalse(axisAngle.equals(createTuple(x, y + getEpsilon())));
-      assertFalse(axisAngle.equals(createTuple(x, y - getEpsilon())));
+      assertFalse(tuple.equals(createTuple(x, y + getEpsilon())));
+      assertFalse(tuple.equals(createTuple(x, y - getEpsilon())));
    }
 }
