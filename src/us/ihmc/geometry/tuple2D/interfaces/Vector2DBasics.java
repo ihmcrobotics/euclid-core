@@ -35,17 +35,6 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasics<T>, Vector2DReadOnly<T>
 {
    /**
-    * Sets this vector to {@code other} and then calls {@link #normalize()}.
-    * 
-    * @param other the other vector to copy the values from. Not modified.
-    */
-   default void setAndNormalize(Vector2DReadOnly<?> other)
-   {
-      set(other);
-      normalize();
-   }
-
-   /**
     * Normalizes this vector such that its magnitude is equal to 1 after
     * calling this method and its direction remains unchanged.
     * <p>
@@ -60,6 +49,17 @@ public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasi
       if (containsNaN())
          return;
       scale(1.0 / length());
+   }
+
+   /**
+    * Sets this vector to {@code other} and then calls {@link #normalize()}.
+    * 
+    * @param other the other vector to copy the values from. Not modified.
+    */
+   default void setAndNormalize(Vector2DReadOnly<?> other)
+   {
+      set(other);
+      normalize();
    }
 
    /**

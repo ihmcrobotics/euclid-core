@@ -106,13 +106,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
       // the magnitude of the angle comes from the dot product
       double dotProduct = firstVectorX * secondVectorX + firstVectorY * secondVectorY;
 
-      double angle = Math.atan2(crossProduct, dotProduct);
-      // This is a hack to get the polygon tests to pass.
-      // Probably some edge case not well handled somewhere (Sylvain)
-      if (crossProduct == 0.0)
-         angle = -angle;
-
-      return angle;
+      return Math.atan2(crossProduct, dotProduct);
    }
 
    /**

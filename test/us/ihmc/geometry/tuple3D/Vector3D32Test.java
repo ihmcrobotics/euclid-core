@@ -105,11 +105,11 @@ public class Vector3D32Test extends Tuple3D32Test
          GeometryBasicsRandomTools.randomizeTuple(random, vector1);
          GeometryBasicsRandomTools.randomizeTuple(random, vector2);
 
-         float actualAngle = vector1.angle(vector2);
-         float dotProduct = vector1.dot(vector2);
-         float magnitudeVector321 = vector1.length();
-         float magnitudeVector322 = vector2.length();
-         float expectedAngle = (float) Math.acos(dotProduct / (magnitudeVector321 * magnitudeVector322));
+         double actualAngle = vector1.angle(vector2);
+         double dotProduct = vector1.dot(vector2);
+         double magnitudeVector321 = vector1.length();
+         double magnitudeVector322 = vector2.length();
+         double expectedAngle = (float) Math.acos(dotProduct / (magnitudeVector321 * magnitudeVector322));
 
          Assert.assertTrue(actualAngle == expectedAngle);
       }
@@ -134,14 +134,14 @@ public class Vector3D32Test extends Tuple3D32Test
          float y = vector2.getX32() * vector1.getZ32() - vector2.getZ32() * vector1.getX32();
          float z = vector1.getX32() * vector2.getY32() - vector1.getY32() * vector2.getX32();
 
-         float magnitudeVector1 = vector1.length();
-         float magnitudeVector2 = vector2.length();
-         float actualMagnitudeVector3 = vector3.length();
+         double magnitudeVector1 = vector1.length();
+         double magnitudeVector2 = vector2.length();
+         double actualMagnitudeVector3 = vector3.length();
 
-         float theta = (float) Math.acos(vector1.dot(vector2) / (magnitudeVector1 * magnitudeVector2));
-         float expectedMagnitudeVector3 = magnitudeVector1 * magnitudeVector2 * (float) Math.sin(theta);
-         float vector3DotVector1 = vector3.dot(vector1);
-         float vector3DotVector2 = vector3.dot(vector2);
+         double theta = (float) Math.acos(vector1.dot(vector2) / (magnitudeVector1 * magnitudeVector2));
+         double expectedMagnitudeVector3 = magnitudeVector1 * magnitudeVector2 * (float) Math.sin(theta);
+         double vector3DotVector1 = vector3.dot(vector1);
+         double vector3DotVector2 = vector3.dot(vector2);
 
          Assert.assertEquals(expectedMagnitudeVector3, actualMagnitudeVector3, 1e-4);
          Assert.assertEquals(vector3DotVector1, 0, 1e-6);
@@ -164,7 +164,7 @@ public class Vector3D32Test extends Tuple3D32Test
       {
          GeometryBasicsRandomTools.randomizeTuple(random, vector1);
          GeometryBasicsRandomTools.randomizeTuple(random, vector2);
-         float actualDot = vector1.dot(vector2);
+         double actualDot = vector1.dot(vector2);
          float expectedDot = vector1.getX32() * vector2.getX32() + vector1.getY32() * vector2.getY32() + vector1.getZ32() * vector2.getZ32();
 
          Assert.assertTrue(actualDot == expectedDot);
@@ -181,7 +181,7 @@ public class Vector3D32Test extends Tuple3D32Test
       {
          GeometryBasicsRandomTools.randomizeTuple(random, vector);
 
-         float length = vector.length();
+         double length = vector.length();
          float expectedLengthSquared = vector.getX32() * vector.getX32() + vector.getY32() * vector.getY32() + vector.getZ32() * vector.getZ32();
          float expectedLength = (float) Math.sqrt(expectedLengthSquared);
 
@@ -199,7 +199,7 @@ public class Vector3D32Test extends Tuple3D32Test
       {
          GeometryBasicsRandomTools.randomizeTuple(random, vector);
 
-         float lengthSquared = vector.lengthSquared();
+         double lengthSquared = vector.lengthSquared();
          float expectedLengthSquared = vector.getX32() * vector.getX32() + vector.getY32() * vector.getY32() + vector.getZ32() * vector.getZ32();
 
          Assert.assertTrue(lengthSquared == expectedLengthSquared);
@@ -218,8 +218,8 @@ public class Vector3D32Test extends Tuple3D32Test
          vector.normalize();
 
          float expectedLength = 1;
-         float normalLength = vector.length();
-         float difference = Math.abs(expectedLength - normalLength);
+         double normalLength = vector.length();
+         double difference = Math.abs(expectedLength - normalLength);
 
          Assert.assertTrue(difference < 1e-6);
       }
@@ -233,8 +233,8 @@ public class Vector3D32Test extends Tuple3D32Test
          normal.setAndNormalize(vector);
 
          float expectedLength = 1;
-         float actualLength = normal.length();
-         float difference = Math.abs(expectedLength - actualLength);
+         double actualLength = normal.length();
+         double difference = Math.abs(expectedLength - actualLength);
 
          Assert.assertTrue(difference < 1e-6);
       }
