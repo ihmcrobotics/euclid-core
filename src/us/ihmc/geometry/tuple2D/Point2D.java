@@ -45,7 +45,7 @@ public class Point2D implements Serializable, Point2DBasics<Point2D>
    /**
     * Creates a new point and initializes it from the given array.
     * 
-    * @param pointArray the array containing this point's coordinates.
+    * @param pointArray the array containing this point's coordinates. Not modified.
     */
    public Point2D(double[] pointArray)
    {
