@@ -1,14 +1,600 @@
 package us.ihmc.geometry.tuple4D;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import us.ihmc.geometry.axisAngle.AxisAngle;
+import us.ihmc.geometry.matrix.Matrix3D;
+import us.ihmc.geometry.matrix.RotationMatrix;
+import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.tuple2D.Vector2D;
+import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
+import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.geometry.tuple3D.RotationVectorConversion;
+import us.ihmc.geometry.tuple3D.Vector3D;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
+import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extends Tuple4DBasicsTest<T>
 {
+   // Read-only part
+   @Test
+   public void testIsNormalized()
+   {
+      Random random = new Random(65445L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T q1 = createRandomTuple(random);
+
+         assertTrue(q1.isNormalized(getEpsilon())); // Quaternion should have norm = 1
+
+         T q2 = createRandomTuple(random);
+         q1 = createTuple(q2.getX(), q2.getY(), q2.getZ(), q2.getS());
+         assertTrue(q1.isNormalized(getEpsilon()));
+
+         double delta = Math.sqrt(getEpsilon());
+
+         q1 = createTuple(delta + q2.getX(), q2.getY(), q2.getZ(), q2.getS());
+         assertFalse(q1.isNormalized(getEpsilon()));
+         q1 = createTuple(q2.getX(), delta + q2.getY(), q2.getZ(), q2.getS());
+         assertFalse(q1.isNormalized(getEpsilon()));
+         q1 = createTuple(q2.getX(), q2.getY(), delta + q2.getZ(), q2.getS());
+         assertFalse(q1.isNormalized(getEpsilon()));
+         q1 = createTuple(q2.getX(), q2.getY(), q2.getZ(), delta + q2.getS());
+         assertFalse(q1.isNormalized(getEpsilon()));
+      }
+   }
+
+   @Test
+   public void testGetAngle()
+   {
+      Random random = new Random(65445L);
+      double expectedAngle = 2.0 * Math.PI * random.nextDouble(); // Sign issue when theta < 0.0
+      double c = Math.cos(expectedAngle / 2.0);
+      double s = Math.sin(expectedAngle / 2.0);
+      Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
+      Quaternion q = new Quaternion();
+      double qx = s * axis.getX();
+      double qy = s * axis.getY();
+      double qz = s * axis.getZ();
+      double qs = c;
+      q.setUnsafe(qx, qy, qz, qs);
+
+      assertEquals(expectedAngle, q.getAngle(), getEpsilon());
+   }
+
+   @Test
+   public void testGetRotationVector() throws Exception
+   {
+      Random random = new Random(23423L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T quaternion = createRandomTuple(random);
+         Vector3D expectedRotationVector = new Vector3D();
+         Vector3D actualRotationVector = new Vector3D();
+
+         RotationVectorConversion.convertQuaternionToRotationVector(quaternion, expectedRotationVector);
+         quaternion.get(actualRotationVector);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testGetYawPitchRoll()
+   {
+      Random random = new Random(654651351L);
+      Quaternion quaternion;
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+
+         { // Test getYawPitchRoll(double[] yawPitchRollToPack)
+            double[] yawPitchRoll = new double[4];
+            quaternion.getYawPitchRoll(yawPitchRoll);
+            double[] expectedYawPitchRoll = new double[4];
+            YawPitchRollConversion.convertQuaternionToYawPitchRoll(quaternion, expectedYawPitchRoll);
+
+            for (int j = 0; j < yawPitchRoll.length; j++)
+               Assert.assertEquals(yawPitchRoll[j], expectedYawPitchRoll[j], getEpsilon());
+         }
+
+         { // Test getYaw()
+            double yaw = quaternion.getYaw();
+            double expectedYaw = YawPitchRollConversion.computeYaw(quaternion);
+            Assert.assertEquals(yaw, expectedYaw, getEpsilon());
+         }
+
+         { // Test getPitch()
+            double pitch = quaternion.getPitch();
+            double expectedPitch = YawPitchRollConversion.computePitch(quaternion);
+            Assert.assertEquals(pitch, expectedPitch, getEpsilon());
+         }
+
+         { // Test getRoll()
+            double roll = quaternion.getRoll();
+            double expectedRoll = YawPitchRollConversion.computeRoll(quaternion);
+            Assert.assertEquals(roll, expectedRoll, getEpsilon());
+         }
+      }
+   }
+
+   @Test
+   public void testTransform()
+   {
+      Random random = new Random(6787L);
+      T quaternion = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleToTransform)
+         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
+         Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         quaternion = createRandomTuple(random);
+
+         QuaternionTools.transform(quaternion, tuple, expectedTuple);
+         quaternion.transform((Tuple3DBasics<?>) actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
+         Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         quaternion = createRandomTuple(random);
+
+         QuaternionTools.transform(quaternion, tuple, expectedTuple);
+         quaternion.transform(tuple, actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleToTransform)
+         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
+         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         float qz = (float) Math.sin(0.5 * theta);
+         float qs = (float) Math.cos(0.5 * theta);
+         quaternion = createTuple(0.0f, 0.0f, qz, qs);
+
+         QuaternionTools.transform(quaternion, tuple, expectedTuple, false);
+         quaternion.transform(actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         actualTuple.set(tuple);
+         quaternion.transform(actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         actualTuple.set(tuple);
+         quaternion.transform(actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
+         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
+         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         float qz = (float) Math.sin(0.5 * theta);
+         float qs = (float) Math.cos(0.5 * theta);
+         quaternion = createTuple(0.0f, 0.0f, qz, qs);
+
+         QuaternionTools.transform(quaternion, tuple, expectedTuple, false);
+         quaternion.transform(tuple, actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         quaternion.transform(tuple, actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         quaternion.transform(tuple, actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      // Test exceptions
+      try
+      {
+         quaternion = createRandomTuple(random);
+         quaternion.transform(new Vector2D());
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      try
+      {
+         quaternion = createRandomTuple(random);
+         quaternion.transform(new Vector2D(), new Vector2D());
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+      try
+      {
+         quaternion = createRandomTuple(random);
+         quaternion.transform(new Vector2D(), true);
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      try
+      {
+         quaternion = createRandomTuple(random);
+         quaternion.transform(new Vector2D(), new Vector2D(), true);
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      {// Test transform quaternion
+         quaternion = createRandomTuple(random);
+
+         Quaternion qOriginal = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion qExpected = new Quaternion();
+         Quaternion qActual = new Quaternion();
+
+         qExpected.multiply(quaternion, qOriginal);
+
+         quaternion.transform(qOriginal, qActual);
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+         qActual.set(qOriginal);
+         quaternion.transform(qActual);
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+      }
+
+      {// Test transform Vector4D
+         quaternion = createRandomTuple(random);
+
+         Vector4D vectorOriginal = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4D vectorExpected = new Vector4D();
+         Vector4D vectorActual = new Vector4D();
+
+         QuaternionTools.transform(quaternion, vectorOriginal, vectorExpected);
+
+         quaternion.transform(vectorOriginal, vectorActual);
+         GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
+
+         vectorActual.set(vectorOriginal);
+         quaternion.transform(vectorActual);
+         GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
+      }
+
+      { // Test transform Matrix3D
+         quaternion = createRandomTuple(random);
+
+         Matrix3D matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D matrixExpected = new Matrix3D();
+         Matrix3D matrixActual = new Matrix3D();
+
+         QuaternionTools.transform(quaternion, matrixOriginal, matrixExpected);
+
+         quaternion.transform(matrixOriginal, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+
+         matrixActual.set(matrixOriginal);
+         quaternion.transform(matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+      }
+
+      { // Test transform RotationMatrix
+         quaternion = createRandomTuple(random);
+
+         RotationMatrix matrixOriginal = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix matrixExpected = new RotationMatrix();
+         RotationMatrix matrixActual = new RotationMatrix();
+
+         QuaternionTools.transform(quaternion, matrixOriginal, matrixExpected);
+
+         quaternion.transform(matrixOriginal, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+
+         matrixActual.set(matrixOriginal);
+         quaternion.transform(matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testInverseTransform()
+   {
+      Random random = new Random(6787L);
+      T quaternion = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleToTransform)
+         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
+         Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         quaternion = createRandomTuple(random);
+
+         QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple);
+         quaternion.inverseTransform((Tuple3DBasics<?>) actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
+         Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         quaternion = createRandomTuple(random);
+
+         QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple);
+         quaternion.inverseTransform(tuple, actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleToTransform)
+         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
+         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         float qz = (float) Math.sin(0.5 * theta);
+         float qs = (float) Math.cos(0.5 * theta);
+         quaternion = createTuple(0.0f, 0.0f, qz, qs);
+
+         QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple, false);
+         quaternion.inverseTransform(actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         actualTuple.set(tuple);
+         quaternion.inverseTransform(actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         actualTuple.set(tuple);
+         quaternion.inverseTransform(actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
+         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
+         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         float qz = (float) Math.sin(0.5 * theta);
+         float qs = (float) Math.cos(0.5 * theta);
+         quaternion = createTuple(0.0f, 0.0f, qz, qs);
+
+         QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple, false);
+         quaternion.inverseTransform(tuple, actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         quaternion.inverseTransform(tuple, actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         quaternion.inverseTransform(tuple, actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      // Test exceptions
+      try
+      {
+         quaternion = createRandomTuple(random);
+         quaternion.inverseTransform(new Vector2D());
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      try
+      {
+         quaternion = createRandomTuple(random);
+         quaternion.inverseTransform(new Vector2D(), new Vector2D());
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+      try
+      {
+         quaternion = createRandomTuple(random);
+         quaternion.inverseTransform(new Vector2D(), true);
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      try
+      {
+         quaternion = createRandomTuple(random);
+         quaternion.inverseTransform(new Vector2D(), new Vector2D(), true);
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+   }
+
+   // Basics part
+
+   @Test
+   public void testSetToZero()
+   {
+      Random random = new Random(621541L);
+      T quaternion = createRandomTuple(random);
+      quaternion.setToZero();
+      T zeroQ = createTuple(0.0, 0.0, 0.0, 1.0);
+
+      GeometryBasicsTestTools.assertQuaternionEquals(quaternion, zeroQ, getEpsilon());
+   }
+
+   @Test
+   public void testConjugate()
+   {
+      Random random = new Random(65445L);
+      T quaternion;
+      T quaternionCopy = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         quaternion = createRandomTuple(random);
+         quaternionCopy.set(quaternion);
+
+         { // Test conjugate()
+            quaternion.conjugate();
+
+            assertEquals(quaternion.getX(), -quaternionCopy.getX(), getEpsilon());
+            assertEquals(quaternion.getY(), -quaternionCopy.getY(), getEpsilon());
+            assertEquals(quaternion.getZ(), -quaternionCopy.getZ(), getEpsilon());
+            assertEquals(quaternion.getS(), quaternionCopy.getS(), getEpsilon());
+         }
+
+         { // Test conjugate (QuaternionBasics other)
+            T quaternion2 = createEmptyTuple();
+            quaternion2.setAndConjugate(quaternionCopy);
+
+            assertTrue(quaternion2.getX() == -quaternionCopy.getX());
+            assertTrue(quaternion2.getY() == -quaternionCopy.getY());
+            assertTrue(quaternion2.getZ() == -quaternionCopy.getZ());
+            assertTrue(quaternion2.getS() == quaternionCopy.getS());
+         }
+      }
+   }
+
+   @Test
+   public void testInverse()
+   {
+      Random random = new Random(15461L);
+
+      Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
+      double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+      double sinHalfTheta = Math.sin(theta / 2.0);
+      double cosHalfTheta = Math.cos(theta / 2.0);
+
+      double qx = axis.getX() * sinHalfTheta;
+      double qy = axis.getY() * sinHalfTheta;
+      double qz = axis.getZ() * sinHalfTheta;
+      double qs = cosHalfTheta;
+
+      // Test that it computes the inverse
+      T qExpected = createEmptyTuple();
+      qExpected.setUnsafe(-qx, -qy, -qz, qs);
+      T qActual = createEmptyTuple();
+      qActual.setUnsafe(qx, qy, qz, qs);
+      qActual.inverse();
+
+      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+      // Test that the quaternion is normalized
+      double scale = random.nextDouble();
+      qActual.setUnsafe(scale * qx, scale * qy, scale * qz, scale * qs);
+      qActual.inverse();
+
+      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+      // Test that the quaternion is not kept within [-Pi, Pi]
+      theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI, 2.0 * Math.PI);
+      sinHalfTheta = Math.sin(theta / 2.0);
+      cosHalfTheta = Math.cos(theta / 2.0);
+
+      qx = axis.getX() * sinHalfTheta;
+      qy = axis.getY() * sinHalfTheta;
+      qz = axis.getZ() * sinHalfTheta;
+      qs = cosHalfTheta;
+
+      qExpected.setUnsafe(-qx, -qy, -qz, qs);
+      qActual.setUnsafe(qx, qy, qz, qs);
+      qActual.inverse();
+      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+      // Test that setAndInverse() does "set" and "inverse"
+      T qOriginal = createRandomTuple(random);
+      qExpected.set(qOriginal);
+      qExpected.inverse();
+      qActual.setAndInverse(qOriginal);
+      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+   }
+
+   @Test
+   public void testNormalizeAndLimitToPiMinusPi()
+   {
+      Random random = new Random(15461L);
+
+      Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
+      double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+      double sinHalfTheta = Math.sin(theta / 2.0);
+      double cosHalfTheta = Math.cos(theta / 2.0);
+
+      double qx = axis.getX() * sinHalfTheta;
+      double qy = axis.getY() * sinHalfTheta;
+      double qz = axis.getZ() * sinHalfTheta;
+      double qs = cosHalfTheta;
+
+      // Test that it does not mess up a quaternion already normalized
+      T qExpected = createEmptyTuple();
+      qExpected.setUnsafe(qx, qy, qz, qs);
+      T qActual = createEmptyTuple();
+      qActual.setUnsafe(qx, qy, qz, qs);
+      qActual.normalizeAndLimitToPiMinusPi();
+
+      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+      // Test that the quaternion is normalized
+      double scale = random.nextDouble();
+      qActual.setUnsafe(scale * qx, scale * qy, scale * qz, scale * qs);
+      qActual.normalizeAndLimitToPiMinusPi();
+
+      assertEquals(1.0, QuaternionTools.norm(qActual), getEpsilon());
+      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+      // Test that the quaternion is kept within [-Pi, Pi]
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI, 2.0 * Math.PI);
+         sinHalfTheta = Math.sin(theta / 2.0);
+         cosHalfTheta = Math.cos(theta / 2.0);
+
+         qx = axis.getX() * sinHalfTheta;
+         qy = axis.getY() * sinHalfTheta;
+         qz = axis.getZ() * sinHalfTheta;
+         qs = cosHalfTheta;
+
+         qExpected.setUnsafe(qx, qy, qz, qs);
+         qActual.setUnsafe(qx, qy, qz, qs);
+         qActual.normalizeAndLimitToPiMinusPi();
+         if (Math.abs(qExpected.getAngle()) < Math.PI)
+         {
+            GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+         }
+         else
+         {
+            assertTrue(Math.abs(qActual.getAngle()) < Math.PI);
+            qExpected.negate();
+            GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+         }
+      }
+   }
+
    @Override
    public void testSetDoubles()
    {
@@ -37,6 +623,352 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
          s = original.getS();
          quaternion.set(x, y, z, s);
          GeometryBasicsTestTools.assertQuaternionEquals(original, quaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testSetAxisAngle()
+   {
+      Random random = new Random(574631L);
+      T actualQuaternion = createEmptyTuple();
+      T expectedQuaternion = createEmptyTuple();
+      AxisAngle axisAngle;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test set(AxisAngleReadOnly<?> axisAngle)
+         axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+
+         QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, expectedQuaternion);
+
+         actualQuaternion.set(axisAngle);
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testSetRotationMatrix()
+   {
+      Random random = new Random(574631L);
+      T actualQuaternion = createEmptyTuple();
+      T expectedQuaternion = createEmptyTuple();
+      RotationMatrix rotationMatrix;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test set(RotationMatrixReadOnly<?> rotationMatrix)
+         rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+
+         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expectedQuaternion);
+
+         actualQuaternion.set(rotationMatrix);
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testSetRotationVector()
+   {
+      Random random = new Random(574631L);
+      T actualQuaternion = createEmptyTuple();
+      T expectedQuaternion = createEmptyTuple();
+      Vector3D rotationVector;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test set(Vector3DReadOnly<?> rotationVector)
+         rotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+
+         QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expectedQuaternion);
+
+         actualQuaternion.set(rotationVector);
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testSetYawPitchRoll()
+   {
+      Random random = new Random(574631L);
+      T actualQuaternion = createEmptyTuple();
+      T expectedQuaternion = createEmptyTuple();
+      double[] yawPitchRoll;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setYawPitchRoll(double[] yawPitchRoll)
+         yawPitchRoll = GeometryBasicsRandomTools.generateRandomYawPitchRoll(random);
+
+         QuaternionConversion.convertYawPitchRollToQuaternion(yawPitchRoll, expectedQuaternion);
+
+         actualQuaternion.setYawPitchRoll(yawPitchRoll);
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+
+         actualQuaternion.setToZero();
+         actualQuaternion.setYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testSetEuler()
+   {
+      Random random = new Random(574631L);
+      T actualQuaternion = createEmptyTuple();
+      T expectedQuaternion = createEmptyTuple();
+      Vector3D eulerAngles;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setEuler(Vector3DReadOnly<?> eulerAngles)
+         eulerAngles = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+
+         QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), expectedQuaternion);
+
+         actualQuaternion.setEuler(eulerAngles);
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+
+         actualQuaternion.setToZero();
+         actualQuaternion.setEuler(eulerAngles.getX(), eulerAngles.getY(), eulerAngles.getZ());
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testSetYawQuaternion()
+   {
+      Random random = new Random(574631L);
+      T actualQuaternion = createEmptyTuple();
+      T expectedQuaternion = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setToYawQuaternion(double yaw)
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, 2.0 * Math.PI);
+
+         actualQuaternion.setToYawQuaternion(yaw);
+         expectedQuaternion.set(new AxisAngle(0.0, 0.0, 1.0, yaw));
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testSetPitchQuaternion()
+   {
+      Random random = new Random(574631L);
+      T actualQuaternion = createEmptyTuple();
+      T expectedQuaternion = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setToPitchQuaternion(double pitch)
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, 2.0 * Math.PI);
+
+         actualQuaternion.setToPitchQuaternion(pitch);
+         expectedQuaternion.set(new AxisAngle(0.0, 1.0, 0.0, pitch));
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testSetRollQuaternion()
+   {
+      Random random = new Random(574631L);
+      T actualQuaternion = createEmptyTuple();
+      T expectedQuaternion = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setToRollQuaternion(double roll)
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, 2.0 * Math.PI);
+
+         actualQuaternion.setToRollQuaternion(roll);
+         expectedQuaternion.set(new AxisAngle(1.0, 0.0, 0.0, roll));
+         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testDifference()
+   {
+      Random random = new Random(65445L);
+      T diff = createEmptyTuple();
+      T expected = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T q1 = createRandomTuple(random);
+         T q2 = createRandomTuple(random);
+
+         diff.difference(q1, q2);
+         QuaternionTools.multiplyConjugateLeft(q1, q2, expected);
+
+         GeometryBasicsTestTools.assertQuaternionEquals(diff, expected, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testMultiply()
+   {
+      Random random = new Random(65445L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T qOther1 = createRandomTuple(random);
+         T qOther2 = createRandomTuple(random);
+         T qActual = createRandomTuple(random);
+         T qExpected = createEmptyTuple();
+
+         { // Test multiply(QuaternionBasics other)
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+            qActual.multiply(qOther2);
+            QuaternionTools.multiply(qExpected, qOther2, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test multiply(QuaternionBasics q1, QuaternionBasics q2)
+            qActual.multiply(qOther1, qOther2);
+            QuaternionTools.multiply(qOther1, qOther2, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test multiply(RotationMatrixReadOnly matrix)
+            RotationMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+
+            qActual.multiply(matrix);
+            QuaternionTools.multiply(qExpected, matrix, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+      }
+   }
+
+   @Test
+   public void testMultiplyConjugate()
+   {
+      Random random = new Random(65445L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T qOther1 = createRandomTuple(random);
+         T qOther2 = createRandomTuple(random);
+         T qActual = createRandomTuple(random);
+         T qExpected = createEmptyTuple();
+
+         { // Test multiplyConjugateThis(QuaternionBasics other)
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+            qActual.multiplyConjugateThis(qOther2);
+            QuaternionTools.multiplyConjugateLeft(qExpected, qOther2, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test multiplyConjugateOther(QuaternionBasics other)
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+            qActual.multiplyConjugateOther(qOther2);
+            QuaternionTools.multiplyConjugateRight(qExpected, qOther2, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+      }
+   }
+
+   @Test
+   public void testPreMultiply()
+   {
+      Random random = new Random(65445L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T qOther1 = createRandomTuple(random);
+         T qOther2 = createRandomTuple(random);
+         T qActual = createRandomTuple(random);
+         T qExpected = createEmptyTuple();
+
+         { // Test preMultiply(QuaternionBasics other)
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+            qActual.preMultiply(qOther2);
+            QuaternionTools.multiply(qOther2, qExpected, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test preMultiply(RotationMatrixReadOnly matrix)
+            RotationMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+            qActual.preMultiply(matrix);
+            QuaternionTools.multiply(matrix, qExpected, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+      }
+   }
+
+   @Test
+   public void testPreMultiplyConjugate()
+   {
+      Random random = new Random(65445L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T qOther1 = createRandomTuple(random);
+         T qOther2 = createRandomTuple(random);
+         T qActual = createRandomTuple(random);
+         T qExpected = createEmptyTuple();
+
+         { // Test preMultiplyConjugateThis(QuaternionBasics other)
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+            qActual.preMultiplyConjugateThis(qOther2);
+            QuaternionTools.multiplyConjugateRight(qOther2, qExpected, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test multiplyConjugateOther(QuaternionBasics other)
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+            qActual.preMultiplyConjugateOther(qOther2);
+            QuaternionTools.multiplyConjugateLeft(qOther2, qExpected, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+      }
+   }
+
+   @Test
+   public void testInterpolate()
+   {
+      Random random = new Random(6464L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T qOther1 = createRandomTuple(random);
+         T qOther2 = createRandomTuple(random);
+         T qActual = createRandomTuple(random);
+         T qExpected = createEmptyTuple();
+
+         {// Test interpolate (QuaternionBasics q1, double alpha)
+            double alpha = random.nextDouble();
+            qActual.set(qOther1);
+            qExpected.set(qOther1);
+            qActual.interpolate(qOther2, alpha);
+            QuaternionTools.interpolate(qExpected, qOther2, alpha, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test interpolate (QuaternionBasics q1, QuaternionBasics q2, double alpha)
+            double alpha = random.nextDouble();
+
+            qActual.interpolate(qOther1, qOther2, alpha);
+            QuaternionTools.interpolate(qOther1, qOther2, alpha, qExpected);
+
+            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
       }
    }
 }

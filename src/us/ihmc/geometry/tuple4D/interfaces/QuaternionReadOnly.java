@@ -61,6 +61,11 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed);
    }
+   
+   default void transform(Tuple2DBasics<?> tupleToTransform)
+   {
+      transform(tupleToTransform, tupleToTransform, true);
+   }
 
    default void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
    {

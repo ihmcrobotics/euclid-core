@@ -136,7 +136,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
 
    default void setToPitchQuaternion(double pitch)
    {
-      QuaternionConversion.computeYawQuaternion(pitch, this);
+      QuaternionConversion.computePitchQuaternion(pitch, this);
    }
 
    default void setToRollQuaternion(double roll)
@@ -159,6 +159,11 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
       QuaternionTools.multiply(q1, q2, this);
    }
 
+   default void multiply(RotationMatrixReadOnly<?> matrix)
+   {
+      QuaternionTools.multiply(this, matrix, this);
+   }
+
    default void multiplyConjugateOther(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiplyConjugateRight(this, other, this);
@@ -174,6 +179,11 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
       QuaternionTools.multiply(other, this, this);
    }
 
+   default void preMultiply(RotationMatrixReadOnly<?> matrix)
+   {
+      QuaternionTools.multiply(matrix, this, this);
+   }
+
    default void preMultiplyConjugateOther(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiplyConjugateLeft(other, this, this);
@@ -182,16 +192,6 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
    default void preMultiplyConjugateThis(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiplyConjugateRight(other, this, this);
-   }
-
-   default void multiply(RotationMatrixReadOnly<?> matrix)
-   {
-      QuaternionTools.multiply(this, matrix, this);
-   }
-
-   default void preMultiply(RotationMatrixReadOnly<?> matrix)
-   {
-      QuaternionTools.multiply(matrix, this, this);
    }
 
    default void interpolate(QuaternionReadOnly<?> q1, double alpha)
