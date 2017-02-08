@@ -195,7 +195,8 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param m23 the z-component of the translation part of this transform.
     * @throws NotARotationMatrixException if the components for the rotation part do not represent a rotation matrix.
     */
-   public RigidBodyTransform(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22, double m23)
+   public RigidBodyTransform(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22,
+                             double m23)
    {
       set(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23);
    }
@@ -320,7 +321,8 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param m23 the z-component of the translation part of this transform.
     * @throws NotARotationMatrixException if the components for the rotation part do not represent a rotation matrix.
     */
-   public void set(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22, double m23)
+   public void set(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22,
+                   double m23)
    {
       rotationMatrix.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       translationVector.set(m03, m13, m23);
@@ -346,7 +348,8 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param m22 the 3rd row 3rd column component of the rotation part of this transform.
     * @param m23 the z-component of the translation part of this transform.
     */
-   public void setUnsafe(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22, double m23)
+   public void setUnsafe(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22,
+                         double m23)
    {
       rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       translationVector.set(m03, m13, m23);
@@ -906,7 +909,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * this = | 0 cos(roll) -sin(roll) |
     *        \ 0 sin(roll)  cos(roll) /
     * </pre>
-
+   
     * @param roll the angle to rotate about the x-axis.
     */
    public void setRotationRollAndZeroTranslation(double roll)
@@ -1134,7 +1137,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    {
       rotationMatrix.transform(matrixOriginal, matrixTransformed);
    }
-   
+
    /** {@inheritDoc} */
    @Override
    public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)

@@ -166,7 +166,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
    {
       int row = startRow;
       int column = startColumn;
-   
+
       double m00 = matrix.get(row, column++);
       double m01 = matrix.get(row, column++);
       double m02 = matrix.get(row, column);

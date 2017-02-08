@@ -714,21 +714,21 @@ public class QuaternionToolsTest
       assertTrue(qActual.getY() == 0.0);
       assertTrue(qActual.getZ() == 0.0);
       assertTrue(qActual.getS() == 0.0);
-      
+
       qActual.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
       QuaternionTools.normalize(qActual);
       assertTrue(qActual.getX() == 0.0);
       assertTrue(Double.isNaN(qActual.getY()));
       assertTrue(qActual.getZ() == 0.0);
       assertTrue(qActual.getS() == 0.0);
-      
+
       qActual.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
       QuaternionTools.normalize(qActual);
       assertTrue(qActual.getX() == 0.0);
       assertTrue(qActual.getY() == 0.0);
       assertTrue(Double.isNaN(qActual.getZ()));
       assertTrue(qActual.getS() == 0.0);
-      
+
       qActual.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
       QuaternionTools.normalize(qActual);
       assertTrue(qActual.getX() == 0.0);

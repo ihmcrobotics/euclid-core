@@ -57,8 +57,8 @@ public class RotationMatrixTest
 
          try
          {
-            rotationMatrix = expectedRotationMatrix = new RotationMatrix(matrix.getM00(), matrix.getM01(), matrix.getM02(), matrix.getM10(), matrix.getM11(), matrix.getM12(), matrix.getM20(),
-                  matrix.getM21(), matrix.getM22());
+            rotationMatrix = expectedRotationMatrix = new RotationMatrix(matrix.getM00(), matrix.getM01(), matrix.getM02(), matrix.getM10(), matrix.getM11(),
+                                                                         matrix.getM12(), matrix.getM20(), matrix.getM21(), matrix.getM22());
             Assert.assertTrue(rotationMatrix.isRotationMatrix());
 
             GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, expectedRotationMatrix, EPS);
@@ -78,8 +78,8 @@ public class RotationMatrixTest
 
          double[] rotationMatrixArray;
          double[] rotationMatrixArrayCopy;
-         rotationMatrixArray = rotationMatrixArrayCopy = new double[] {matrix.getM00(), matrix.getM01(), matrix.getM02(), matrix.getM10(), matrix.getM11(), matrix.getM12(), matrix.getM20(),
-               matrix.getM21(), matrix.getM22()};
+         rotationMatrixArray = rotationMatrixArrayCopy = new double[] {matrix.getM00(), matrix.getM01(), matrix.getM02(), matrix.getM10(), matrix.getM11(),
+               matrix.getM12(), matrix.getM20(), matrix.getM21(), matrix.getM22()};
 
          rotationMatrix.setToNaN();
          expectedRotationMatrix.setToNaN();
@@ -124,8 +124,8 @@ public class RotationMatrixTest
 
          double[] matrixArray;
          double[] matrixArrayCopy;
-         matrixArray = matrixArrayCopy = new double[] {matrix.getM00(), matrix.getM01(), matrix.getM02(), matrix.getM10(), matrix.getM11(), matrix.getM12(), matrix.getM20(),
-               matrix.getM21(), matrix.getM22()};
+         matrixArray = matrixArrayCopy = new double[] {matrix.getM00(), matrix.getM01(), matrix.getM02(), matrix.getM10(), matrix.getM11(), matrix.getM12(),
+               matrix.getM20(), matrix.getM21(), matrix.getM22()};
 
          rotationMatrix.setToNaN();
          expectedRotationMatrix.setToNaN();
@@ -288,7 +288,7 @@ public class RotationMatrixTest
             try
             {
                rotationMatrix.set(matrixArray[0], matrixArray[1], matrixArray[2], matrixArray[3], matrixArray[4], matrixArray[5], matrixArray[6],
-                     matrixArray[7], matrixArray[8]);
+                                  matrixArray[7], matrixArray[8]);
 
                Assert.assertTrue(rotationMatrix.getM00() == matrixArray[0]);
                Assert.assertTrue(rotationMatrix.getM01() == matrixArray[1]);

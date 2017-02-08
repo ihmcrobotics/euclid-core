@@ -46,15 +46,15 @@ public abstract class Matrix3DTools
       if (Math.abs(det) >= EPS_INVERT)
       {
          det = 1.0 / det;
-         double m00 =  (matrix.getM11() * matrix.getM22() - matrix.getM21() * matrix.getM12()) * det;
+         double m00 = (matrix.getM11() * matrix.getM22() - matrix.getM21() * matrix.getM12()) * det;
          double m01 = -(matrix.getM01() * matrix.getM22() - matrix.getM21() * matrix.getM02()) * det;
-         double m02 =  (matrix.getM01() * matrix.getM12() - matrix.getM11() * matrix.getM02()) * det;
+         double m02 = (matrix.getM01() * matrix.getM12() - matrix.getM11() * matrix.getM02()) * det;
          double m10 = -(matrix.getM10() * matrix.getM22() - matrix.getM20() * matrix.getM12()) * det;
-         double m11 =  (matrix.getM00() * matrix.getM22() - matrix.getM20() * matrix.getM02()) * det;
+         double m11 = (matrix.getM00() * matrix.getM22() - matrix.getM20() * matrix.getM02()) * det;
          double m12 = -(matrix.getM00() * matrix.getM12() - matrix.getM10() * matrix.getM02()) * det;
-         double m20 =  (matrix.getM10() * matrix.getM21() - matrix.getM20() * matrix.getM11()) * det;
+         double m20 = (matrix.getM10() * matrix.getM21() - matrix.getM20() * matrix.getM11()) * det;
          double m21 = -(matrix.getM00() * matrix.getM21() - matrix.getM20() * matrix.getM01()) * det;
-         double m22 =  (matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01()) * det;
+         double m22 = (matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01()) * det;
          inverseToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          return true;
       }
@@ -171,15 +171,15 @@ public abstract class Matrix3DTools
          throw new SingularMatrixException(m1);
 
       det = 1.0 / det;
-      double invM00 =  (m1.getM11() * m1.getM22() - m1.getM21() * m1.getM12()) * det;
+      double invM00 = (m1.getM11() * m1.getM22() - m1.getM21() * m1.getM12()) * det;
       double invM01 = -(m1.getM01() * m1.getM22() - m1.getM21() * m1.getM02()) * det;
-      double invM02 =  (m1.getM01() * m1.getM12() - m1.getM11() * m1.getM02()) * det;
+      double invM02 = (m1.getM01() * m1.getM12() - m1.getM11() * m1.getM02()) * det;
       double invM10 = -(m1.getM10() * m1.getM22() - m1.getM20() * m1.getM12()) * det;
-      double invM11 =  (m1.getM00() * m1.getM22() - m1.getM20() * m1.getM02()) * det;
+      double invM11 = (m1.getM00() * m1.getM22() - m1.getM20() * m1.getM02()) * det;
       double invM12 = -(m1.getM00() * m1.getM12() - m1.getM10() * m1.getM02()) * det;
-      double invM20 =  (m1.getM10() * m1.getM21() - m1.getM20() * m1.getM11()) * det;
+      double invM20 = (m1.getM10() * m1.getM21() - m1.getM20() * m1.getM11()) * det;
       double invM21 = -(m1.getM00() * m1.getM21() - m1.getM20() * m1.getM01()) * det;
-      double invM22 =  (m1.getM00() * m1.getM11() - m1.getM10() * m1.getM01()) * det;
+      double invM22 = (m1.getM00() * m1.getM11() - m1.getM10() * m1.getM01()) * det;
 
       double m00 = invM00 * m2.getM00() + invM01 * m2.getM10() + invM02 * m2.getM20();
       double m01 = invM00 * m2.getM01() + invM01 * m2.getM11() + invM02 * m2.getM21();
@@ -278,15 +278,15 @@ public abstract class Matrix3DTools
          throw new SingularMatrixException(m2);
 
       det = 1.0 / det;
-      double invM00 =  (m2.getM11() * m2.getM22() - m2.getM21() * m2.getM12()) * det;
+      double invM00 = (m2.getM11() * m2.getM22() - m2.getM21() * m2.getM12()) * det;
       double invM01 = -(m2.getM01() * m2.getM22() - m2.getM21() * m2.getM02()) * det;
-      double invM02 =  (m2.getM01() * m2.getM12() - m2.getM11() * m2.getM02()) * det;
+      double invM02 = (m2.getM01() * m2.getM12() - m2.getM11() * m2.getM02()) * det;
       double invM10 = -(m2.getM10() * m2.getM22() - m2.getM20() * m2.getM12()) * det;
-      double invM11 =  (m2.getM00() * m2.getM22() - m2.getM20() * m2.getM02()) * det;
+      double invM11 = (m2.getM00() * m2.getM22() - m2.getM20() * m2.getM02()) * det;
       double invM12 = -(m2.getM00() * m2.getM12() - m2.getM10() * m2.getM02()) * det;
-      double invM20 =  (m2.getM10() * m2.getM21() - m2.getM20() * m2.getM11()) * det;
+      double invM20 = (m2.getM10() * m2.getM21() - m2.getM20() * m2.getM11()) * det;
       double invM21 = -(m2.getM00() * m2.getM21() - m2.getM20() * m2.getM01()) * det;
-      double invM22 =  (m2.getM00() * m2.getM11() - m2.getM10() * m2.getM01()) * det;
+      double invM22 = (m2.getM00() * m2.getM11() - m2.getM10() * m2.getM01()) * det;
 
       double m00 = m1.getM00() * invM00 + m1.getM01() * invM10 + m1.getM02() * invM20;
       double m01 = m1.getM00() * invM01 + m1.getM01() * invM11 + m1.getM02() * invM21;
@@ -474,7 +474,8 @@ public abstract class Matrix3DTools
     * @param checkIfTransformInXYPlane whether {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)} needs to be called on the matrix.
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
     */
-   public static void transform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   public static void transform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
+                                boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
          matrix.checkIfMatrix2D();
@@ -549,15 +550,15 @@ public abstract class Matrix3DTools
          throw new SingularMatrixException(matrix);
 
       det = 1.0 / det;
-      double invM00 =  (matrix.getM11() * matrix.getM22() - matrix.getM21() * matrix.getM12()) * det;
+      double invM00 = (matrix.getM11() * matrix.getM22() - matrix.getM21() * matrix.getM12()) * det;
       double invM01 = -(matrix.getM01() * matrix.getM22() - matrix.getM21() * matrix.getM02()) * det;
-      double invM02 =  (matrix.getM01() * matrix.getM12() - matrix.getM11() * matrix.getM02()) * det;
+      double invM02 = (matrix.getM01() * matrix.getM12() - matrix.getM11() * matrix.getM02()) * det;
       double invM10 = -(matrix.getM10() * matrix.getM22() - matrix.getM20() * matrix.getM12()) * det;
-      double invM11 =  (matrix.getM00() * matrix.getM22() - matrix.getM20() * matrix.getM02()) * det;
+      double invM11 = (matrix.getM00() * matrix.getM22() - matrix.getM20() * matrix.getM02()) * det;
       double invM12 = -(matrix.getM00() * matrix.getM12() - matrix.getM10() * matrix.getM02()) * det;
-      double invM20 =  (matrix.getM10() * matrix.getM21() - matrix.getM20() * matrix.getM11()) * det;
+      double invM20 = (matrix.getM10() * matrix.getM21() - matrix.getM20() * matrix.getM11()) * det;
       double invM21 = -(matrix.getM00() * matrix.getM21() - matrix.getM20() * matrix.getM01()) * det;
-      double invM22 =  (matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01()) * det;
+      double invM22 = (matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01()) * det;
 
       double x = invM00 * tupleOriginal.getX() + invM01 * tupleOriginal.getY() + invM02 * tupleOriginal.getZ();
       double y = invM10 * tupleOriginal.getX() + invM11 * tupleOriginal.getY() + invM12 * tupleOriginal.getZ();
@@ -585,7 +586,8 @@ public abstract class Matrix3DTools
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
     * @throws SingularMatrixException if {@code matrix} is not invertible.
     */
-   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
+                                       boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
          matrix.checkIfMatrix2D();
@@ -596,10 +598,10 @@ public abstract class Matrix3DTools
          throw new SingularMatrixException(matrix);
 
       det = 1.0 / det;
-      double invM00 =  matrix.getM11() * det;
+      double invM00 = matrix.getM11() * det;
       double invM01 = -matrix.getM01() * det;
       double invM10 = -matrix.getM10() * det;
-      double invM11 =  matrix.getM00() * det;
+      double invM11 = matrix.getM00() * det;
 
       double x = invM00 * tupleOriginal.getX() + invM01 * tupleOriginal.getY();
       double y = invM10 * tupleOriginal.getX() + invM11 * tupleOriginal.getY();
@@ -629,15 +631,15 @@ public abstract class Matrix3DTools
          throw new SingularMatrixException(matrix);
 
       det = 1.0 / det;
-      double invM00 =  (matrix.getM11() * matrix.getM22() - matrix.getM21() * matrix.getM12()) * det;
+      double invM00 = (matrix.getM11() * matrix.getM22() - matrix.getM21() * matrix.getM12()) * det;
       double invM01 = -(matrix.getM01() * matrix.getM22() - matrix.getM21() * matrix.getM02()) * det;
-      double invM02 =  (matrix.getM01() * matrix.getM12() - matrix.getM11() * matrix.getM02()) * det;
+      double invM02 = (matrix.getM01() * matrix.getM12() - matrix.getM11() * matrix.getM02()) * det;
       double invM10 = -(matrix.getM10() * matrix.getM22() - matrix.getM20() * matrix.getM12()) * det;
-      double invM11 =  (matrix.getM00() * matrix.getM22() - matrix.getM20() * matrix.getM02()) * det;
+      double invM11 = (matrix.getM00() * matrix.getM22() - matrix.getM20() * matrix.getM02()) * det;
       double invM12 = -(matrix.getM00() * matrix.getM12() - matrix.getM10() * matrix.getM02()) * det;
-      double invM20 =  (matrix.getM10() * matrix.getM21() - matrix.getM20() * matrix.getM11()) * det;
+      double invM20 = (matrix.getM10() * matrix.getM21() - matrix.getM20() * matrix.getM11()) * det;
       double invM21 = -(matrix.getM00() * matrix.getM21() - matrix.getM20() * matrix.getM01()) * det;
-      double invM22 =  (matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01()) * det;
+      double invM22 = (matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01()) * det;
 
       double x = invM00 * vectorOriginal.getX() + invM01 * vectorOriginal.getY() + invM02 * vectorOriginal.getZ();
       double y = invM10 * vectorOriginal.getX() + invM11 * vectorOriginal.getY() + invM12 * vectorOriginal.getZ();
@@ -666,7 +668,6 @@ public abstract class Matrix3DTools
       multiplyInvertLeft(matrix, matrixOriginal, matrixTransformed);
       multiply(matrixTransformed, matrix, matrixTransformed);
    }
-
 
    /**
     * Find and return maximum the argument with the maximum value.

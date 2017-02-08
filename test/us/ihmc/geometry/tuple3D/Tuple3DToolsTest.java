@@ -72,9 +72,9 @@ public class Tuple3DToolsTest
       tuple2.setZ(tuple1.getZ() + 0.1 * epsilon);
       assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
-      tuple2.setX(tuple1.getX()+ 0.1 * epsilon);
-      tuple2.setY(tuple1.getY()+ 1.1 * epsilon);
-      tuple2.setZ(tuple1.getZ()+ 0.1 * epsilon);
+      tuple2.setX(tuple1.getX() + 0.1 * epsilon);
+      tuple2.setY(tuple1.getY() + 1.1 * epsilon);
+      tuple2.setZ(tuple1.getZ() + 0.1 * epsilon);
       assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() + 0.1 * epsilon);
@@ -126,8 +126,8 @@ public class Tuple3DToolsTest
       tuple2.setY(tuple1.getY() + 0.1 * epsilon);
       assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
-      tuple2.setX(tuple1.getX()+ 0.1 * epsilon);
-      tuple2.setY(tuple1.getY()+ 1.1 * epsilon);
+      tuple2.setX(tuple1.getX() + 0.1 * epsilon);
+      tuple2.setY(tuple1.getY() + 1.1 * epsilon);
       assertFalse(Tuple3DTools.epsilonEquals(tuple1, tuple2, epsilon));
 
       tuple2.setX(tuple1.getX() + epsilon);

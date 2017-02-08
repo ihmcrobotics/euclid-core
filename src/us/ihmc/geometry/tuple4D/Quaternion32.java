@@ -595,7 +595,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
          return false;
       }
    }
-   
+
    public String toStringAsYawPitchRoll()
    {
       return "yaw-pitch-roll: (" + getYaw() + ", " + getPitch() + ", " + getRoll() + ")";

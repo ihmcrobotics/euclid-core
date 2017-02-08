@@ -129,7 +129,8 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D.get(double[] tupleArrayToPack)
          tuple = createRandomTuple(random);
-         double[] tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(),
+               random.nextDouble()};
          tuple.get(tupleArray);
          assertTrue(tuple.getX() == tupleArray[0]);
          assertTrue(tuple.getY() == tupleArray[1]);
@@ -138,7 +139,8 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D.get(double[] tupleArrayToPack, int startIndex)
          tuple = createRandomTuple(random);
-         double[] tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(),
+               random.nextDouble()};
          tuple.get(2, tupleArray);
          assertTrue(tuple.getX() == tupleArray[2]);
          assertTrue(tuple.getY() == tupleArray[3]);
@@ -147,7 +149,8 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D.get(float[] tupleArrayToPack)
          tuple = createRandomTuple(random);
-         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
+         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(),
+               random.nextFloat()};
          tuple.get(tupleArray);
          assertTrue(tuple.getX32() == tupleArray[0]);
          assertTrue(tuple.getY32() == tupleArray[1]);
@@ -156,7 +159,8 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Tuple2D.get(double[] tupleArrayToPack, int startIndex)
          tuple = createRandomTuple(random);
-         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
+         float[] tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(),
+               random.nextFloat()};
          tuple.get(2, tupleArray);
          assertTrue(tuple.getX32() == tupleArray[2]);
          assertTrue(tuple.getY32() == tupleArray[3]);
@@ -216,13 +220,13 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
 
       assertTrue(tuple.epsilonEquals(createTuple(x + 0.999 * epsilon, y), epsilon));
       assertTrue(tuple.epsilonEquals(createTuple(x - 0.999 * epsilon, y), epsilon));
-      
+
       assertTrue(tuple.epsilonEquals(createTuple(x, y + 0.999 * epsilon), epsilon));
       assertTrue(tuple.epsilonEquals(createTuple(x, y - 0.999 * epsilon), epsilon));
-      
+
       assertFalse(tuple.epsilonEquals(createTuple(x + 1.001 * epsilon, y), epsilon));
       assertFalse(tuple.epsilonEquals(createTuple(x - 1.001 * epsilon, y), epsilon));
-      
+
       assertFalse(tuple.epsilonEquals(createTuple(x, y + 1.001 * epsilon), epsilon));
       assertFalse(tuple.epsilonEquals(createTuple(x, y - 1.001 * epsilon), epsilon));
    }

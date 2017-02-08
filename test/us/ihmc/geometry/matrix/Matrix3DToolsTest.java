@@ -933,7 +933,7 @@ public class Matrix3DToolsTest
       RotationMatrix matrix = new RotationMatrix();
       RotationMatrix matrixOriginal = new RotationMatrix();
       RotationMatrix matrixExpected = new RotationMatrix();
-      
+
       Quaternion qOriginal = new Quaternion();
       Quaternion qExpected = new Quaternion();
       Quaternion qActual = new Quaternion();
@@ -1034,43 +1034,43 @@ public class Matrix3DToolsTest
    public void testTransformMatrix() throws Exception
    {
       // Compare with transforming a quaternion TODO move + reimplement here
-//      Random random = new Random(234L);
-//      RotationMatrix transformationMatrix = new RotationMatrix();
-//
-//      RotationMatrix rotationMatrixOriginal = new RotationMatrix();
-//      RotationMatrix rotationMatrixExpected = new RotationMatrix();
-//      RotationMatrix rotationMatrixActual = new RotationMatrix();
-//
-//      Quaternion quaternion = new Quaternion();
-//
-//      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-//      {
-//         transformationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-//         rotationMatrixOriginal = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-//         QuaternionConversion.convertMatrixToQuaternion(rotationMatrixOriginal, quaternion);
-//         RotationMatrixTools.transform(transformationMatrix, quaternion, quaternion);
-//         RotationMatrixConversion.convertQuaternionToMatrix(quaternion, rotationMatrixExpected);
-//
-//         RotationMatrixTools.transform(transformationMatrix, rotationMatrixOriginal, rotationMatrixActual);
-//         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrixExpected, rotationMatrixActual, EPS);
-//
-//         RotationMatrixTools.transform(transformationMatrix, rotationMatrixOriginal, rotationMatrixActual);
-//         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrixExpected, rotationMatrixActual, EPS);
-//      }
-//
-//      // Test the transform with a rotation scale matrix against the transform with a generic matrix
-//      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-//      {
-//         RotationScaleMatrix transformationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-//         Matrix3D transformationGenericMatrix = new Matrix3D(transformationScaleMatrix);
-//         Matrix3D genericMatrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-//         Matrix3D genericMatrixExpected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-//         Matrix3D genericMatrixActual = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-//
-//         Matrix3DTools.transform(transformationGenericMatrix, genericMatrixOriginal, genericMatrixExpected);
-//         Matrix3DTools.transform(transformationScaleMatrix, genericMatrixOriginal, genericMatrixActual);
-//         GeometryBasicsTestTools.assertMatrix3DEquals(genericMatrixExpected, genericMatrixActual, EPS);
-//      }
+      //      Random random = new Random(234L);
+      //      RotationMatrix transformationMatrix = new RotationMatrix();
+      //
+      //      RotationMatrix rotationMatrixOriginal = new RotationMatrix();
+      //      RotationMatrix rotationMatrixExpected = new RotationMatrix();
+      //      RotationMatrix rotationMatrixActual = new RotationMatrix();
+      //
+      //      Quaternion quaternion = new Quaternion();
+      //
+      //      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      //      {
+      //         transformationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+      //         rotationMatrixOriginal = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+      //         QuaternionConversion.convertMatrixToQuaternion(rotationMatrixOriginal, quaternion);
+      //         RotationMatrixTools.transform(transformationMatrix, quaternion, quaternion);
+      //         RotationMatrixConversion.convertQuaternionToMatrix(quaternion, rotationMatrixExpected);
+      //
+      //         RotationMatrixTools.transform(transformationMatrix, rotationMatrixOriginal, rotationMatrixActual);
+      //         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrixExpected, rotationMatrixActual, EPS);
+      //
+      //         RotationMatrixTools.transform(transformationMatrix, rotationMatrixOriginal, rotationMatrixActual);
+      //         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrixExpected, rotationMatrixActual, EPS);
+      //      }
+      //
+      //      // Test the transform with a rotation scale matrix against the transform with a generic matrix
+      //      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      //      {
+      //         RotationScaleMatrix transformationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      //         Matrix3D transformationGenericMatrix = new Matrix3D(transformationScaleMatrix);
+      //         Matrix3D genericMatrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      //         Matrix3D genericMatrixExpected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      //         Matrix3D genericMatrixActual = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      //
+      //         Matrix3DTools.transform(transformationGenericMatrix, genericMatrixOriginal, genericMatrixExpected);
+      //         Matrix3DTools.transform(transformationScaleMatrix, genericMatrixOriginal, genericMatrixActual);
+      //         GeometryBasicsTestTools.assertMatrix3DEquals(genericMatrixExpected, genericMatrixActual, EPS);
+      //      }
    }
 
    @Test

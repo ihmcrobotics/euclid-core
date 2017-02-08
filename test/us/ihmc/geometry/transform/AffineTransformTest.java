@@ -949,7 +949,7 @@ public class AffineTransformTest
 
       transform.transform(vectorOriginal, vectorActual);
       GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
-      
+
       vectorActual.set(vectorOriginal);
       transform.transform(vectorActual);
       GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
@@ -1079,7 +1079,7 @@ public class AffineTransformTest
       RotationMatrix matrixOriginal = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
       RotationMatrix matrixExpected = new RotationMatrix();
       RotationMatrix matrixActual = new RotationMatrix();
-      
+
       transform.getRotation(matrixExpected);
       matrixExpected.multiply(matrixOriginal);
 

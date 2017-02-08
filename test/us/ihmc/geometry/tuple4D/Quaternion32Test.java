@@ -132,7 +132,7 @@ public class Quaternion32Test
             Assert.assertTrue(quaternion2.getX() == -quaternionCopy.getX());
             Assert.assertTrue(quaternion2.getY() == -quaternionCopy.getY());
             Assert.assertTrue(quaternion2.getZ() == -quaternionCopy.getZ());
-            Assert.assertTrue(quaternion2.getS() ==  quaternionCopy.getS());
+            Assert.assertTrue(quaternion2.getS() == quaternionCopy.getS());
          }
       }
    }
@@ -237,13 +237,13 @@ public class Quaternion32Test
 
       quaternion.setUnsafe(Float.NaN, 0.0, 0.0, 0.0);
       Assert.assertTrue(quaternion.containsNaN());
-      
+
       quaternion.setUnsafe(0.0, Float.NaN, 0.0, 0.0);
       Assert.assertTrue(quaternion.containsNaN());
-      
+
       quaternion.setUnsafe(0.0, 0.0, Float.NaN, 0.0);
       Assert.assertTrue(quaternion.containsNaN());
-      
+
       quaternion.setUnsafe(0.0, 0.0, 0.0, Float.NaN);
       Assert.assertTrue(quaternion.containsNaN());
    }
@@ -335,7 +335,7 @@ public class Quaternion32Test
             Assert.assertEquals(-quaternion2.getX(), quaternion.getX(), EPS);
             Assert.assertEquals(-quaternion2.getY(), quaternion.getY(), EPS);
             Assert.assertEquals(-quaternion2.getZ(), quaternion.getZ(), EPS);
-            Assert.assertEquals( quaternion2.getS(), quaternion.getS(), EPS);
+            Assert.assertEquals(quaternion2.getS(), quaternion.getS(), EPS);
          }
       }
    }
@@ -1176,10 +1176,18 @@ public class Quaternion32Test
          float qs = q.getS32();
          switch (random.nextInt(4))
          {
-         case 0: qx = random.nextFloat(); break;
-         case 1: qy = random.nextFloat(); break;
-         case 2: qz = random.nextFloat(); break;
-         case 3: qs = random.nextFloat(); break;
+         case 0:
+            qx = random.nextFloat();
+            break;
+         case 1:
+            qy = random.nextFloat();
+            break;
+         case 2:
+            qz = random.nextFloat();
+            break;
+         case 3:
+            qs = random.nextFloat();
+            break;
          }
          q.setUnsafe(qx, qy, qz, qs);
          newHashCode = q.hashCode();

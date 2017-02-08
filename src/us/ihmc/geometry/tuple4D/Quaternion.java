@@ -208,7 +208,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), this);
    }
-   
+
    public void setEuler(double rotX, double rotY, double rotZ)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(rotZ, rotY, rotX, this);
@@ -218,12 +218,12 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
    {
       QuaternionConversion.computeYawQuaternion(yaw, this);
    }
-   
+
    public void setToPitchQuaternion(double pitch)
    {
       QuaternionConversion.computeYawQuaternion(pitch, this);
    }
-   
+
    public void setToRollQuaternion(double roll)
    {
       QuaternionConversion.computeRollQuaternion(roll, this);
@@ -640,7 +640,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
          return false;
       }
    }
-   
+
    public String toStringAsYawPitchRoll()
    {
       return "yaw-pitch-roll: (" + getYaw() + ", " + getPitch() + ", " + getRoll() + ")";

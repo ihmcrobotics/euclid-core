@@ -170,9 +170,15 @@ public class QuaternionConversionTest
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       // Pi/2 around x
-      m00 = 1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = 0.0; m12 = -1.0;
-      m20 = 0.0; m21 = 1.0; m22 = 0.0;
+      m00 = 1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = 0.0;
+      m12 = -1.0;
+      m20 = 0.0;
+      m21 = 1.0;
+      m22 = 0.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(sqrt2Over2, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
@@ -180,9 +186,15 @@ public class QuaternionConversionTest
       assertEquals(sqrt2Over2, actualQuaternion.getS(), EPSILON);
 
       // Pi around x
-      m00 = 1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = -1.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = -1.0;
+      m00 = 1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = -1.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = -1.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(1.0, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
@@ -190,9 +202,15 @@ public class QuaternionConversionTest
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi/2 around y
-      m00 = 0.0; m01 = 0.0; m02 = 1.0;
-      m10 = 0.0; m11 = 1.0; m12 = 0.0;
-      m20 = -1.0; m21 = 0.0; m22 = 0.0;
+      m00 = 0.0;
+      m01 = 0.0;
+      m02 = 1.0;
+      m10 = 0.0;
+      m11 = 1.0;
+      m12 = 0.0;
+      m20 = -1.0;
+      m21 = 0.0;
+      m22 = 0.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getY(), EPSILON);
@@ -200,9 +218,15 @@ public class QuaternionConversionTest
       assertEquals(sqrt2Over2, actualQuaternion.getS(), EPSILON);
 
       // Pi around z
-      m00 = -1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = 1.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = -1.0;
+      m00 = -1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = 1.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = -1.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(1.0, actualQuaternion.getY(), EPSILON);
@@ -210,9 +234,15 @@ public class QuaternionConversionTest
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi/2 around z
-      m00 = 0.0; m01 = -1.0; m02 = 0.0;
-      m10 = 1.0; m11 = 0.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = 1.0;
+      m00 = 0.0;
+      m01 = -1.0;
+      m02 = 0.0;
+      m10 = 1.0;
+      m11 = 0.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = 1.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
@@ -220,9 +250,15 @@ public class QuaternionConversionTest
       assertEquals(sqrt2Over2, actualQuaternion.getS(), EPSILON);
 
       // Pi around z
-      m00 = -1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = -1.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = 1.0;
+      m00 = -1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = -1.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = 1.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
@@ -230,9 +266,15 @@ public class QuaternionConversionTest
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi around xy (as axis-angle: (x = sqrt(2)/2, y = sqrt(2)/2, z = 0, angle = Pi)
-      m00 = 0.0; m01 = 1.0; m02 = 0.0;
-      m10 = 1.0; m11 = 0.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = -1.0;
+      m00 = 0.0;
+      m01 = 1.0;
+      m02 = 0.0;
+      m10 = 1.0;
+      m11 = 0.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = -1.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(sqrt2Over2, actualQuaternion.getX(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getY(), EPSILON);
@@ -240,9 +282,15 @@ public class QuaternionConversionTest
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi around xz (as axis-angle: (x = sqrt(2)/2, y = 0, z = sqrt(2)/2, angle = Pi)
-      m00 = 0.0; m01 = 0.0; m02 = 1.0;
-      m10 = 0.0; m11 = -1.0; m12 = 0.0;
-      m20 = 1.0; m21 = 0.0; m22 = 0.0;
+      m00 = 0.0;
+      m01 = 0.0;
+      m02 = 1.0;
+      m10 = 0.0;
+      m11 = -1.0;
+      m12 = 0.0;
+      m20 = 1.0;
+      m21 = 0.0;
+      m22 = 0.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(sqrt2Over2, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
@@ -250,9 +298,15 @@ public class QuaternionConversionTest
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi around yz (as axis-angle: (x = 0, y = sqrt(2)/2, z = sqrt(2)/2, angle = Pi)
-      m00 = -1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = 0.0; m12 = 1.0;
-      m20 = 0.0; m21 = 1.0; m22 = 0.0;
+      m00 = -1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = 0.0;
+      m12 = 1.0;
+      m20 = 0.0;
+      m21 = 1.0;
+      m22 = 0.0;
       QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getY(), EPSILON);

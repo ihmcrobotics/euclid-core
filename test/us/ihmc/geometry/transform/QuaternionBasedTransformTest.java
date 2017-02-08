@@ -544,7 +544,7 @@ public class QuaternionBasedTransformTest
 
       QuaternionBasedTransform actual = new QuaternionBasedTransform();
       QuaternionBasedTransform expected = new QuaternionBasedTransform();
-      
+
       { // Test multiply(QuaternionBasedTransform other)
          q3.set(q1);
          q3.multiply(q2);
@@ -553,10 +553,10 @@ public class QuaternionBasedTransformTest
          r3.set(r1);
          r3.multiply(r2);
          expected.set(r3);
-         
+
          GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
       }
-      
+
       { // Test multiply(RigidBodyTransform rigidBodyTransform)
          q3.set(q1);
          q3.multiply(r2);
@@ -565,7 +565,7 @@ public class QuaternionBasedTransformTest
          r3.set(r1);
          r3.multiply(r2);
          expected.set(r3);
-         
+
          GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
       }
    }
@@ -584,7 +584,7 @@ public class QuaternionBasedTransformTest
 
       QuaternionBasedTransform actual = new QuaternionBasedTransform();
       QuaternionBasedTransform expected = new QuaternionBasedTransform();
-      
+
       { // Test preMultiply(QuaternionBasedTransform other)
          q3.set(q1);
          q3.preMultiply(q2);
@@ -593,10 +593,10 @@ public class QuaternionBasedTransformTest
          r3.set(r1);
          r3.preMultiply(r2);
          expected.set(r3);
-         
+
          GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
       }
-      
+
       { // Test preMultiply(RigidBodyTransform rigidBodyTransform)
          q3.set(q1);
          q3.preMultiply(r2);
@@ -605,7 +605,7 @@ public class QuaternionBasedTransformTest
          r3.set(r1);
          r3.preMultiply(r2);
          expected.set(r3);
-         
+
          GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
       }
    }

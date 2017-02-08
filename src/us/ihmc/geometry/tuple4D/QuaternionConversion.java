@@ -79,7 +79,7 @@ public abstract class QuaternionConversion
    }
 
    static void convertMatrixToQuaternionImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-         QuaternionBasics quaternionToPack)
+                                             QuaternionBasics quaternionToPack)
    {
       if (Matrix3DFeatures.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
@@ -126,7 +126,7 @@ public abstract class QuaternionConversion
             if (s > -0.19)
             {
                // compute q2 and deduce q0, q1 and q3
-               qy  = 0.5 * FastMath.sqrt(s + 1.0);
+               qy = 0.5 * FastMath.sqrt(s + 1.0);
                double inv = 0.25 / qy;
                qs = inv * (m02 - m20);
                qx = inv * (m10 + m01);

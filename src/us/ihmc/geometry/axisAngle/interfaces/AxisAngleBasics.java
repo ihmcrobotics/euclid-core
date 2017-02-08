@@ -121,7 +121,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     */
    default void set(T other)
    {
-      set((AxisAngleReadOnly<T>) other); 
+      set((AxisAngleReadOnly<T>) other);
    }
 
    /**

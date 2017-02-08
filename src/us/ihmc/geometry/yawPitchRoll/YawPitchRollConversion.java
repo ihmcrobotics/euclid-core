@@ -136,12 +136,12 @@ public abstract class YawPitchRollConversion
    {
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), eulerAnglesToPack);
    }
-   
+
    static double computeYawFromQuaternionImpl(double qx, double qy, double qz, double qs)
    {
       return FastMath.atan2(2.0 * (qx * qy + qz * qs), 1.0 - 2.0 * (qy * qy + qz * qz));
    }
-   
+
    static double computePitchFromQuaternionImpl(double qx, double qy, double qz, double qs)
    {
       double pitchArgument = 2.0 * (qs * qy - qx * qz);
@@ -324,7 +324,7 @@ public abstract class YawPitchRollConversion
       double m00 = t * ux * ux + cosTheta;
       return computeYawImpl(m00, m10);
    }
-   
+
    public static double computePitchFromAxisAngleImpl(double ux, double uy, double uz, double angle)
    {
       double m20 = (1.0 - Math.cos(angle)) * ux * uz - Math.sin(angle) * uy;
@@ -466,7 +466,7 @@ public abstract class YawPitchRollConversion
          double m00 = t * ux * ux + cosTheta;
          double m21 = t * uy * uz + sinTheta * ux;
          double m22 = t * uz * uz + cosTheta;
-         
+
          yawPitchRollToPack[0] = computeYawImpl(m00, m10);
          yawPitchRollToPack[2] = computeRollImpl(m21, m22);
       }
@@ -517,7 +517,7 @@ public abstract class YawPitchRollConversion
          double m00 = t * ux * ux + cosTheta;
          double m21 = t * uy * uz + sinTheta * ux;
          double m22 = t * uz * uz + cosTheta;
-         
+
          eulerAnglesToPack.setZ(computeYawImpl(m00, m10));
          eulerAnglesToPack.setX(computeRollImpl(m21, m22));
       }

@@ -37,7 +37,9 @@ public abstract class TransformTools
       String ret = "";
       String format = "%" + (3 + TO_STRING_PRECISION) + "." + TO_STRING_PRECISION + "f";
 
-      ret += "Quaternion:  (" + String.format(format + " " + format + " " + format + " " + format + " ", quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS()) + ")\n";
+      ret += "Quaternion:  (" + String.format(format + " " + format + " " + format + " " + format + " ", quaternion.getX(), quaternion.getY(),
+                                              quaternion.getZ(), quaternion.getS())
+            + ")\n";
       ret += "Translation: (" + String.format(format + " " + format + " " + format + " ", translation.getX(), translation.getY(), translation.getZ()) + ")\n";
       return ret;
    }

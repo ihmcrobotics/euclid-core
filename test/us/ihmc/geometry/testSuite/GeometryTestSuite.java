@@ -44,44 +44,18 @@ import us.ihmc.geometry.tuple4D.Vector4DTest;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-      Point3DTest.class,
-      Point3D32Test.class,
-      Point2DTest.class,
-      Point2D32Test.class,
-      Vector3DTest.class,
-      Vector3D32Test.class,
-      Vector2DTest.class,
-      Vector2D32Test.class,
-      Vector4DTest.class,
-      AxisAngleTest.class,
-      AxisAngle32Test.class,
-      QuaternionTest.class,
-      Quaternion32Test.class,
-      Matrix3DTest.class,
-      RotationMatrixTest.class,
-      RotationScaleMatrixTest.class,
-      RigidBodyTransformTest.class,
-      QuaternionBasedTransformTest.class,
+@Suite.SuiteClasses({Point3DTest.class, Point3D32Test.class, Point2DTest.class, Point2D32Test.class, Vector3DTest.class, Vector3D32Test.class,
+      Vector2DTest.class, Vector2D32Test.class, Vector4DTest.class, AxisAngleTest.class, AxisAngle32Test.class, QuaternionTest.class, Quaternion32Test.class,
+      Matrix3DTest.class, RotationMatrixTest.class, RotationScaleMatrixTest.class, RigidBodyTransformTest.class, QuaternionBasedTransformTest.class,
       AffineTransformTest.class,
 
       // Tools tests
-      AxisAngleToolsTest.class,
-      QuaternionToolsTest.class,
-      Matrix3DToolsTest.class,
-      Matrix3DFeaturesTest.class,
-      Matrix3DReadOnlyToolsTest.class,
-      RotationScaleMatrixToolsTest.class,
-      Tuple3DToolsTest.class,
+      AxisAngleToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class, Matrix3DReadOnlyToolsTest.class,
+      RotationScaleMatrixToolsTest.class, Tuple3DToolsTest.class,
 
       // Conversion tests
-      AxisAngleConversionTest.class,
-      RotationVectorConversionTest.class,
-      QuaternionConversionTest.class,
-      RotationMatrixConversionTest.class,
-      YawPitchRollConversionTest.class,
-      CyclingConversionTest.class
-})
+      AxisAngleConversionTest.class, RotationVectorConversionTest.class, QuaternionConversionTest.class, RotationMatrixConversionTest.class,
+      YawPitchRollConversionTest.class, CyclingConversionTest.class})
 
 public class GeometryTestSuite
 {
@@ -95,13 +69,14 @@ public class GeometryTestSuite
    public static void doPITMutationTestAndOpenResult(String targetTests, String targetClasses)
    {
       String reportDirectoryName = "pit-reports";
-      MutationCoverageReport.main(new String[] {"--reportDir", reportDirectoryName , "--targetClasses", targetClasses, "--targetTests", targetTests, "--sourceDirs", "src,test"});
+      MutationCoverageReport.main(new String[] {"--reportDir", reportDirectoryName, "--targetClasses", targetClasses, "--targetTests", targetTests,
+            "--sourceDirs", "src,test"});
 
       File reportDirectory = new File(reportDirectoryName);
       if (reportDirectory.isDirectory() && reportDirectory.exists())
       {
          String[] list = reportDirectory.list();
-         String lastDirectoryName = list[list.length-1];
+         String lastDirectoryName = list[list.length - 1];
 
          System.out.println("Found last directory " + lastDirectoryName);
 
@@ -110,8 +85,8 @@ public class GeometryTestSuite
          try
          {
             absolutePath = reportFile.getCanonicalPath();
-            
-            absolutePath = absolutePath.replace("\\", "/");         
+
+            absolutePath = absolutePath.replace("\\", "/");
             System.out.println("Opening " + "file://" + absolutePath);
 
             URI uri = new URI("file://" + absolutePath);

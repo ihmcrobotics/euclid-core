@@ -308,10 +308,10 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly<T>>
 
       assertFalse(axisAngle.equals(createAxisAngle(x, y + getSmallestEpsilon(), z, angle)));
       assertFalse(axisAngle.equals(createAxisAngle(x, y - getSmallestEpsilon(), z, angle)));
-      
+
       assertFalse(axisAngle.equals(createAxisAngle(x, y, z + getSmallestEpsilon(), angle)));
       assertFalse(axisAngle.equals(createAxisAngle(x, y, z - getSmallestEpsilon(), angle)));
-      
+
       assertFalse(axisAngle.equals(createAxisAngle(x, y, z, angle + getSmallestEpsilon())));
       assertFalse(axisAngle.equals(createAxisAngle(x, y, z, angle - getSmallestEpsilon())));
    }
@@ -330,25 +330,25 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly<T>>
 
       assertTrue(axisAngle.epsilonEquals(createAxisAngle(x + 0.999 * epsilon, y, z, angle), epsilon));
       assertTrue(axisAngle.epsilonEquals(createAxisAngle(x - 0.999 * epsilon, y, z, angle), epsilon));
-      
+
       assertTrue(axisAngle.epsilonEquals(createAxisAngle(x, y + 0.999 * epsilon, z, angle), epsilon));
       assertTrue(axisAngle.epsilonEquals(createAxisAngle(x, y - 0.999 * epsilon, z, angle), epsilon));
-      
+
       assertTrue(axisAngle.epsilonEquals(createAxisAngle(x, y, z + 0.999 * epsilon, angle), epsilon));
       assertTrue(axisAngle.epsilonEquals(createAxisAngle(x, y, z - 0.999 * epsilon, angle), epsilon));
-      
+
       assertTrue(axisAngle.epsilonEquals(createAxisAngle(x, y, z, angle + 0.999 * epsilon), epsilon));
       assertTrue(axisAngle.epsilonEquals(createAxisAngle(x, y, z, angle - 0.999 * epsilon), epsilon));
-      
+
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x + 1.001 * epsilon, y, z, angle), epsilon));
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x - 1.001 * epsilon, y, z, angle), epsilon));
-      
+
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x, y + 1.001 * epsilon, z, angle), epsilon));
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x, y - 1.001 * epsilon, z, angle), epsilon));
-      
+
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x, y, z + 1.001 * epsilon, angle), epsilon));
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x, y, z - 1.001 * epsilon, angle), epsilon));
-      
+
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x, y, z, angle + 1.001 * epsilon), epsilon));
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x, y, z, angle - 1.001 * epsilon), epsilon));
    }

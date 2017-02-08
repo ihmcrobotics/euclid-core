@@ -52,7 +52,7 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
       z = other.z;
       s = other.s;
    }
-   
+
    @Override
    public void set(double x, double y, double z, double s)
    {
@@ -206,7 +206,7 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
 
    public void interpolate(Tuple4DReadOnly tuple1, double alpha)
    {
-      interpolate(this,  tuple1, alpha);
+      interpolate(this, tuple1, alpha);
    }
 
    public void interpolate(Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2, double alpha)

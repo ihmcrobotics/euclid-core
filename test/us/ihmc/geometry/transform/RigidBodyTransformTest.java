@@ -1420,7 +1420,7 @@ public class RigidBodyTransformTest
 
       transform.transform(vectorOriginal, vectorActual);
       GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
-      
+
       vectorActual.set(vectorOriginal);
       transform.transform(vectorActual);
       GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
@@ -1549,7 +1549,7 @@ public class RigidBodyTransformTest
       RotationMatrix matrixOriginal = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
       RotationMatrix matrixExpected = new RotationMatrix();
       RotationMatrix matrixActual = new RotationMatrix();
-      
+
       transform.getRotation(matrixExpected);
       matrixExpected.multiply(matrixOriginal);
 

@@ -1901,28 +1901,32 @@ public class RotationScaleMatrixTest
             assertTrue(m1.epsilonEquals(m2, epsilon));
             m1.getRotation(coeffs);
             coeffs[3 * row + column] += 0.999 * epsilon;
-            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7], coeffs[8]);
+            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7],
+                                                                coeffs[8]);
             assertTrue(m1.epsilonEquals(m2, epsilon));
 
             m2.set(m1);
             assertTrue(m1.epsilonEquals(m2, epsilon));
             m1.getRotation(coeffs);
             coeffs[3 * row + column] += 1.001 * epsilon;
-            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7], coeffs[8]);
+            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7],
+                                                                coeffs[8]);
             assertFalse(m1.epsilonEquals(m2, epsilon));
 
             m2.set(m1);
             assertTrue(m1.epsilonEquals(m2, epsilon));
             m1.getRotation(coeffs);
             coeffs[3 * row + column] -= 0.999 * epsilon;
-            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7], coeffs[8]);
+            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7],
+                                                                coeffs[8]);
             assertTrue(m1.epsilonEquals(m2, epsilon));
 
             m2.set(m1);
             assertTrue(m1.epsilonEquals(m2, epsilon));
             m1.getRotation(coeffs);
             coeffs[3 * row + column] -= 1.001 * epsilon;
-            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7], coeffs[8]);
+            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7],
+                                                                coeffs[8]);
             assertFalse(m1.epsilonEquals(m2, epsilon));
          }
       }

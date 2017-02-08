@@ -94,11 +94,16 @@ public class CyclingConversionTest
             throw AllRotations.exception(initialRotationType);
          }
 
-         if (originalMatrix == null) originalMatrix = initialRotationType.convertToMatrix();
-         if (originalAxisAngle == null) originalAxisAngle = initialRotationType.convertToAxisAngle();
-         if (originalQuaternion == null) originalQuaternion = initialRotationType.convertToQuaternion();
-         if (originalRotationVector == null) originalRotationVector = initialRotationType.convertToRotationVector();
-         if (originalYawPitchRoll == null) originalYawPitchRoll = initialRotationType.convertToYawPitchRoll();
+         if (originalMatrix == null)
+            originalMatrix = initialRotationType.convertToMatrix();
+         if (originalAxisAngle == null)
+            originalAxisAngle = initialRotationType.convertToAxisAngle();
+         if (originalQuaternion == null)
+            originalQuaternion = initialRotationType.convertToQuaternion();
+         if (originalRotationVector == null)
+            originalRotationVector = initialRotationType.convertToRotationVector();
+         if (originalYawPitchRoll == null)
+            originalYawPitchRoll = initialRotationType.convertToYawPitchRoll();
 
          boolean isYawPitchRollNaN = Double.isNaN(originalYawPitchRoll[0]) || Double.isNaN(originalYawPitchRoll[1]) || Double.isNaN(originalYawPitchRoll[2]);
 

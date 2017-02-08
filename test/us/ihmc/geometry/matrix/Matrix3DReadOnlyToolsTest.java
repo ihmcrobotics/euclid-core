@@ -21,7 +21,8 @@ public class Matrix3DReadOnlyToolsTest
       assertEquals(stringExpected, stringActual);
 
       Matrix3D m = GeometryBasicsRandomTools.generateRandomDiagonalMatrix3D(random);
-      stringExpected = Matrix3DReadOnlyTools.toString(m.getM00(), m.getM01(), m.getM02(), m.getM10(), m.getM11(), m.getM12(), m.getM20(), m.getM21(), m.getM22());
+      stringExpected = Matrix3DReadOnlyTools.toString(m.getM00(), m.getM01(), m.getM02(), m.getM10(), m.getM11(), m.getM12(), m.getM20(), m.getM21(),
+                                                      m.getM22());
       stringActual = Matrix3DReadOnlyTools.toString(m);
       assertEquals(stringExpected, stringActual);
    }

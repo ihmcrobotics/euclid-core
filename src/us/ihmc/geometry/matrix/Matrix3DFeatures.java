@@ -108,7 +108,7 @@ public abstract class Matrix3DFeatures
    public static void checkIfRotationMatrix(double[] matrixArray)
    {
       checkIfRotationMatrix(matrixArray[0], matrixArray[1], matrixArray[2], matrixArray[3], matrixArray[4], matrixArray[5], matrixArray[6], matrixArray[7],
-            matrixArray[8]);
+                            matrixArray[8]);
    }
 
    /**
@@ -262,7 +262,7 @@ public abstract class Matrix3DFeatures
     * @return {@code true} if this matrix represents a 'zero' rotation, {@code false} otherwise.
     */
    public static boolean isZeroRotation(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-         double epsilon)
+                                        double epsilon)
    {
       return Math.abs(m00 + m11 + m22 - 3) < epsilon && Math.abs(m01 + m10) < epsilon && Math.abs(m02 + m20) < epsilon && Math.abs(m12 + m21) < epsilon;
    }
@@ -284,7 +284,7 @@ public abstract class Matrix3DFeatures
    public static boolean isRotationMatrix(DenseMatrix64F matrix)
    {
       return isRotationMatrix(matrix.get(0, 0), matrix.get(0, 1), matrix.get(0, 2), matrix.get(1, 0), matrix.get(1, 1), matrix.get(1, 2), matrix.get(2, 0),
-            matrix.get(2, 1), matrix.get(2, 2));
+                              matrix.get(2, 1), matrix.get(2, 2));
    }
 
    /**
@@ -304,7 +304,7 @@ public abstract class Matrix3DFeatures
    public static boolean isRotationMatrix(double[] doubleArray)
    {
       return isRotationMatrix(doubleArray[0], doubleArray[1], doubleArray[2], doubleArray[3], doubleArray[4], doubleArray[5], doubleArray[6], doubleArray[7],
-            doubleArray[8]);
+                              doubleArray[8]);
    }
 
    /**
@@ -358,7 +358,7 @@ public abstract class Matrix3DFeatures
     * @return {@code true} if the given matrix is a rotation matrix, {@code false} otherwise.
     */
    public static boolean isRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-         double epsilon)
+                                          double epsilon)
    {
       double xyDot = m00 * m10 + m01 * m11 + m02 * m12;
       if (Math.abs(xyDot) > epsilon)
@@ -492,7 +492,7 @@ public abstract class Matrix3DFeatures
     * @return {@code true} if the matrix is skew symmetric, {@code false} otherwise.
     */
    public static boolean isMatrixSkewSymmetric(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-         double epsilon)
+                                               double epsilon)
    {
       if (Math.abs(m00) > epsilon || Math.abs(m11) > epsilon || Math.abs(m22) > epsilon)
          return false;

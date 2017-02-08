@@ -115,7 +115,7 @@ public class AxisAngleConversion
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
    static void convertMatrixToAxisAngleImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-         AxisAngleBasics<?> axisAngleToPack)
+                                            AxisAngleBasics<?> axisAngleToPack)
    {
       if (Matrix3DFeatures.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
@@ -346,7 +346,7 @@ public class AxisAngleConversion
    {
       convertYawPitchRollToAxisAngle(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], axisAngleToPack);
    }
-   
+
    /**
     * Converts the given yaw-pitch-roll angles into an axis-angles.
     * <p>

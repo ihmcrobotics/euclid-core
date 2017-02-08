@@ -1278,12 +1278,12 @@ public class QuaternionTest
       assertFalse(q1.epsilonEquals(q2, epsilon));
       q2.setUnsafe(qx, qy + 0.999 * epsilon, qz, qs);
       assertTrue(q1.epsilonEquals(q2, epsilon));
-      
+
       q2.setUnsafe(qx, qy, qz + 1.001 * epsilon, qs);
       assertFalse(q1.epsilonEquals(q2, epsilon));
       q2.setUnsafe(qx, qy, qz + 0.999 * epsilon, qs);
       assertTrue(q1.epsilonEquals(q2, epsilon));
-      
+
       q2.setUnsafe(qx, qy, qz, qs + 1.001 * epsilon);
       assertFalse(q1.epsilonEquals(q2, epsilon));
       q2.setUnsafe(qx, qy, qz, qs + 0.999 * epsilon);
@@ -1298,12 +1298,12 @@ public class QuaternionTest
       assertFalse(q1.epsilonEquals(q2, epsilon));
       q2.setUnsafe(qx, qy - 0.999 * epsilon, qz, qs);
       assertTrue(q1.epsilonEquals(q2, epsilon));
-      
+
       q2.setUnsafe(qx, qy, qz - 1.001 * epsilon, qs);
       assertFalse(q1.epsilonEquals(q2, epsilon));
       q2.setUnsafe(qx, qy, qz - 0.999 * epsilon, qs);
       assertTrue(q1.epsilonEquals(q2, epsilon));
-      
+
       q2.setUnsafe(qx, qy, qz, qs - 1.001 * epsilon);
       assertFalse(q1.epsilonEquals(q2, epsilon));
       q2.setUnsafe(qx, qy, qz, qs - 0.999 * epsilon);
@@ -1335,10 +1335,10 @@ public class QuaternionTest
 
       q2.setUnsafe(qx, qy + smallestEpsilon, qz, qs);
       assertFalse(q1.equals(q2));
-      
+
       q2.setUnsafe(qx, qy, qz + smallestEpsilon, qs);
       assertFalse(q1.equals(q2));
-      
+
       q2.setUnsafe(qx, qy, qz, qs + smallestEpsilon);
       assertFalse(q1.equals(q2));
 
@@ -1347,10 +1347,10 @@ public class QuaternionTest
 
       q2.setUnsafe(qx, qy - smallestEpsilon, qz, qs);
       assertFalse(q1.equals(q2));
-      
+
       q2.setUnsafe(qx, qy, qz - smallestEpsilon, qs);
       assertFalse(q1.equals(q2));
-      
+
       q2.setUnsafe(qx, qy, qz, qs - smallestEpsilon);
       assertFalse(q1.equals(q2));
    }

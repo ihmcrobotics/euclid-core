@@ -153,7 +153,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    {
       rotationScaleMatrix.setRotationToZero();
    }
-   
+
    /**
     * Sets all the scale factors to 1.0.
     */
