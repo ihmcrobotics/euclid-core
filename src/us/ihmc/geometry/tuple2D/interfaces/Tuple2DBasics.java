@@ -30,6 +30,7 @@ import us.ihmc.geometry.tuple3D.Tuple3DTools;
  *
  * @param <T> The final type of the tuple used.
  */
+// TODO Think about renaming this interface to Tuple2D
 public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOnly<T>, GeometryObject<T>
 {
    /**
