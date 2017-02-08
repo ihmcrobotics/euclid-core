@@ -25,6 +25,6 @@ public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasi
 
    default void applyTransform(Transform transform, boolean checkIfTransformInXYplane)
    {
-      transform.transform(this);
+      transform.transform(this, checkIfTransformInXYplane);
    }
 }
