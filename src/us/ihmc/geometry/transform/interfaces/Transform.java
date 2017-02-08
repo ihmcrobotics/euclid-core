@@ -11,6 +11,7 @@ import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
+import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
@@ -20,6 +21,17 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
+/**
+ * Minimal interface representing a geometric transformation.
+ * <p>
+ * In this library, a geometric transformation typically includes: scaling, rotation, and translation.
+ * For instance, {@link RigidBodyTransform} represents a 4-by-4 homogeneous transformation matrix
+ * that can rotate and translate a {@link Point3D}.
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public interface Transform
 {
    /**
