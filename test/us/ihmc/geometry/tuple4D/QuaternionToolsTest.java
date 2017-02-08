@@ -17,7 +17,6 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationMatrixTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
@@ -683,7 +682,7 @@ public class QuaternionToolsTest
          QuaternionTools.multiplyConjugateRight(q1, q2, qResult);
          vectorExpected.set(qResult);
 
-         QuaternionTools.multiplyConjugateLeft(q1, q2, vectorActual);
+         QuaternionTools.multiplyConjugateRight(q1, q2, vectorActual);
          if (vectorActual.dot(vectorExpected) < 0.0)
             vectorActual.negate();
          GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPSILON);
@@ -1176,7 +1175,7 @@ public class QuaternionToolsTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          tupleOriginal = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Tuple2DReadOnly<?> tupleOriginalCopy = new Point2D(tupleOriginal);
+         Tuple2DReadOnly<?> tupleOriginalCopy = new Vector2D(tupleOriginal);
          double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          quaternion.setToZero();
          double corrupt = random.nextDouble() + 0.5;
