@@ -7,7 +7,7 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public abstract class Tuple3D32 implements Serializable, Tuple3DBasics
+public abstract class Tuple3D32<T extends Tuple3D32<T>> implements Serializable, Tuple3DBasics<T>
 {
    private static final long serialVersionUID = 7705737376600145100L;
 

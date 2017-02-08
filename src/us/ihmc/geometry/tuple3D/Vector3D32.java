@@ -6,7 +6,7 @@ import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 
-public class Vector3D32 extends Tuple3D32 implements Serializable, Vector3DBasics, GeometryObject<Vector3D32>
+public class Vector3D32 extends Tuple3D32<Vector3D32> implements Serializable, Vector3DBasics<Vector3D32>
 {
    private static final long serialVersionUID = 1186918378545386628L;
 

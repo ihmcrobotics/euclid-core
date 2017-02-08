@@ -8,7 +8,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 
-public class Vector3D extends Tuple3D implements Serializable, Vector3DBasics, GeometryObject<Vector3D>
+public class Vector3D extends Tuple3D<Vector3D> implements Serializable, Vector3DBasics<Vector3D>
 {
    private static final long serialVersionUID = -8494204802892437237L;
 

@@ -8,7 +8,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public class Point3D extends Tuple3D implements Serializable, Point3DBasics, GeometryObject<Point3D>
+public class Point3D extends Tuple3D<Point3D> implements Serializable, Point3DBasics<Point3D>
 {
    private static final long serialVersionUID = -1234830724104344277L;
 

@@ -1,6 +1,6 @@
 package us.ihmc.geometry.tuple3D.interfaces;
 
-public interface Point3DBasics extends Tuple3DBasics, Point3DReadOnly
+public interface Point3DBasics<T extends Point3DBasics<T>> extends Tuple3DBasics<T>, Point3DReadOnly<T>
 {
 
 }
