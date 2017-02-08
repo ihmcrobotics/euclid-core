@@ -21,7 +21,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * <p>
  * This version of 3D matrix uses double precision fields to save the value of each component.
  * It is meant for garbage free usage.
- * </P
+ * </p>
  * 
  * 
  * @author Sylvain Bertrand
