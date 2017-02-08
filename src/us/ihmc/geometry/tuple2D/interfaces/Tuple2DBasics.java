@@ -384,9 +384,9 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * 
     * @param other the other tuple to add to this tuple.
     */
-   default void sub(Tuple2DReadOnly<?> tupleBasics)
+   default void sub(Tuple2DReadOnly<?> tupleReadOnly)
    {
-      sub(tupleBasics.getX(), tupleBasics.getY());
+      sub(tupleReadOnly.getX(), tupleReadOnly.getY());
    }
 
    /**

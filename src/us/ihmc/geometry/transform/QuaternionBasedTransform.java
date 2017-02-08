@@ -346,7 +346,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void set(DenseMatrix64F matrix)
    {
       quaternion.set(matrix);
-      translationVector.set(matrix, 4);
+      translationVector.set(4, matrix);
    }
 
    /**
@@ -373,7 +373,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void set(double[] array)
    {
       quaternion.set(array);
-      translationVector.set(array, 4);
+      translationVector.set(4, array);
    }
 
    /**
@@ -851,7 +851,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void get(DenseMatrix64F matrixToPack)
    {
       quaternion.get(matrixToPack);
-      translationVector.get(matrixToPack, 4);
+      translationVector.get(4, matrixToPack);
    }
 
    /**
@@ -873,13 +873,13 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void get(int startRow, int column, DenseMatrix64F matrixToPack)
    {
       quaternion.get(matrixToPack, startRow, column);
-      translationVector.get(matrixToPack, startRow + 4, column);
+      translationVector.get(startRow + 4, column, matrixToPack);
    }
 
    public void get(double[] transformArrayToPack)
    {
       quaternion.get(transformArrayToPack);
-      translationVector.get(transformArrayToPack, 4);
+      translationVector.get(4, transformArrayToPack);
    }
 
    /**

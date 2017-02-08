@@ -210,7 +210,7 @@ public abstract class Tuple3D32Test
 
          try
          {
-            tuple1.set(tupleArray, 1);
+            tuple1.set(1, tupleArray);
             fail("Should have thrown a ArrayIndexOutOfBoundsException.");
          }
          catch (ArrayIndexOutOfBoundsException e)
@@ -227,7 +227,7 @@ public abstract class Tuple3D32Test
          tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
          tupleArrayCopy = new float[tupleArray.length];
          System.arraycopy(tupleArray, 0, tupleArrayCopy, 0, tupleArray.length);
-         tuple1.set(tupleArray, 2);
+         tuple1.set(2, tupleArray);
 
          assertTrue(tuple1.getX32() == tupleArray[2]);
          assertTrue(tuple1.getY32() == tupleArray[3]);
@@ -284,7 +284,7 @@ public abstract class Tuple3D32Test
 
          try
          {
-            tuple1.set(matrix, 2);
+            tuple1.set(2, matrix);
             fail("Should have thrown a IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -302,7 +302,7 @@ public abstract class Tuple3D32Test
          for (int index = 0; index < matrix.getNumElements(); index++)
             matrix.set(index, random.nextFloat());
          matrixCopy = new DenseMatrix64F(matrix);
-         tuple1.set(matrix, 5);
+         tuple1.set(5, matrix);
 
          assertTrue(tuple1.getX32() == matrix.get(5, 0));
          assertTrue(tuple1.getY32() == matrix.get(6, 0));
@@ -321,7 +321,7 @@ public abstract class Tuple3D32Test
 
          try
          {
-            tuple1.set(matrix, 2, 3);
+            tuple1.set(2, 3, matrix);
             fail("Should have thrown a IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -340,7 +340,7 @@ public abstract class Tuple3D32Test
          for (int index = 0; index < matrix.getNumElements(); index++)
             matrix.set(index, random.nextFloat());
          matrixCopy = new DenseMatrix64F(matrix);
-         tuple1.set(matrix, 5, 2);
+         tuple1.set(5, 2, matrix);
 
          assertTrue(tuple1.getX32() == matrix.get(5, 2));
          assertTrue(tuple1.getY32() == matrix.get(6, 2));
@@ -614,7 +614,7 @@ public abstract class Tuple3D32Test
          tuple1.set(random.nextFloat(), random.nextFloat(), random.nextFloat());
          tuple2.set(random.nextFloat(), random.nextFloat(), random.nextFloat());
 
-         tuple1.scale(scale, tuple2);
+         tuple1.setAndScale(scale, tuple2);
          assertTrue(tuple1.getX32() == tuple2.getX32() * scale);
          assertTrue(tuple1.getY32() == tuple2.getY32() * scale);
          assertTrue(tuple1.getZ32() == tuple2.getZ32() * scale);
@@ -897,7 +897,7 @@ public abstract class Tuple3D32Test
 
          try
          {
-            tuple1.get(tupleArray, 2);
+            tuple1.get(2, tupleArray);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -912,7 +912,7 @@ public abstract class Tuple3D32Test
          tupleArray = new float[] {random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()};
          float[] tupleArrayCopy = new float[tupleArray.length];
          System.arraycopy(tupleArray, 0, tupleArrayCopy, 0, tupleArray.length);
-         tuple1.get(tupleArray, 3);
+         tuple1.get(3, tupleArray);
          assertTrue(tuple1.getX32() == tupleArray[3]);
          assertTrue(tuple1.getY32() == tupleArray[4]);
          assertTrue(tuple1.getZ32() == tupleArray[5]);
@@ -966,7 +966,7 @@ public abstract class Tuple3D32Test
 
          try
          {
-            tuple1.get(matrix, 4);
+            tuple1.get(4, matrix);
             fail("Should have thrown IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -983,7 +983,7 @@ public abstract class Tuple3D32Test
             matrix.set(index, random.nextFloat());
          DenseMatrix64F matrixCopy = new DenseMatrix64F(matrix);
 
-         tuple1.get(matrix, 2);
+         tuple1.get(2, matrix);
          assertTrue(tuple1.getX32() == matrix.get(2, 0));
          assertTrue(tuple1.getY32() == matrix.get(3, 0));
          assertTrue(tuple1.getZ32() == matrix.get(4, 0));
@@ -1004,7 +1004,7 @@ public abstract class Tuple3D32Test
 
          try
          {
-            tuple1.get(matrix, 4, 3);
+            tuple1.get(4, 3, matrix);
             fail("Should have thrown IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -1021,7 +1021,7 @@ public abstract class Tuple3D32Test
             matrix.set(index, random.nextFloat());
          DenseMatrix64F matrixCopy = new DenseMatrix64F(matrix);
 
-         tuple1.get(matrix, 2, 4);
+         tuple1.get(2, 4, matrix);
          assertTrue(tuple1.getX32() == matrix.get(2, 4));
          assertTrue(tuple1.getY32() == matrix.get(3, 4));
          assertTrue(tuple1.getZ32() == matrix.get(4, 4));
@@ -1072,15 +1072,6 @@ public abstract class Tuple3D32Test
          {
             fail("Should have thrown IndexOutOfBoundsException.");
          }
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple32.get(Tuple32Basics other)
-         Tuple3D32 tuple2 = createEmptyTuple32();
-         GeometryBasicsRandomTools.randomizeTuple(random, tuple1);
-
-         tuple1.get(tuple2);
-         assertTrue(tuple1.equals(tuple2));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)

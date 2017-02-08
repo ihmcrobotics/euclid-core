@@ -117,7 +117,7 @@ public class RigidBodyTransformTest
          RotationMatrix rotationMatrix = new RotationMatrix();
          rotationMatrix.set(denseMatrix);
          Vector3D vector = new Vector3D();
-         vector.set(denseMatrix, 0, 3);
+         vector.set(0, 3, denseMatrix);
 
          RigidBodyTransform actual = new RigidBodyTransform(rotationMatrix, vector);
          GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
@@ -146,7 +146,7 @@ public class RigidBodyTransformTest
          RotationMatrix rotationMatrix = new RotationMatrix();
          rotationMatrix.set(denseMatrix);
          Vector3D vector = new Vector3D();
-         vector.set(denseMatrix, 0, 3);
+         vector.set(0, 3, denseMatrix);
 
          RigidBodyTransform actual = new RigidBodyTransform(new Quaternion(rotationMatrix), vector);
          GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
@@ -167,7 +167,7 @@ public class RigidBodyTransformTest
          RotationMatrix rotationMatrix = new RotationMatrix();
          rotationMatrix.set(denseMatrix);
          Vector3D vector = new Vector3D();
-         vector.set(denseMatrix, 0, 3);
+         vector.set(0, 3, denseMatrix);
 
          RigidBodyTransform actual = new RigidBodyTransform(new AxisAngle(rotationMatrix), vector);
          GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);

@@ -57,7 +57,7 @@ public class QuaternionBasedTransformTest
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(7, 1);
          quaternion.get(denseMatrix);
-         translation.get(denseMatrix, 4);
+         translation.get(4, denseMatrix);
          QuaternionBasedTransform transform = new QuaternionBasedTransform(denseMatrix);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, transform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTupleEquals(translation, transform.getTranslationVector(), EPS);
@@ -68,7 +68,7 @@ public class QuaternionBasedTransformTest
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
          double[] array = new double[7];
          quaternion.get(array);
-         translation.get(array, 4);
+         translation.get(4, array);
          QuaternionBasedTransform transform = new QuaternionBasedTransform(array);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, transform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTupleEquals(translation, transform.getTranslationVector(), EPS);
@@ -259,7 +259,7 @@ public class QuaternionBasedTransformTest
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(7, 1);
          quaternion.get(denseMatrix);
-         translation.get(denseMatrix, 4);
+         translation.get(4, denseMatrix);
          actualTransform.set(denseMatrix);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, actualTransform.getQuaternion(), EPS);
@@ -271,7 +271,7 @@ public class QuaternionBasedTransformTest
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector(random);
          double[] array = new double[7];
          quaternion.get(array);
-         translation.get(array, 4);
+         translation.get(4, array);
          actualTransform.set(array);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, actualTransform.getQuaternion(), EPS);
@@ -402,7 +402,7 @@ public class QuaternionBasedTransformTest
          DenseMatrix64F denseMatrix = new DenseMatrix64F(7, 1);
          transform.get(denseMatrix);
          actualQuaternion.set(denseMatrix);
-         actualTranslation.set(denseMatrix, 4);
+         actualTranslation.set(4, denseMatrix);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPS);
          GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
       }
@@ -415,7 +415,7 @@ public class QuaternionBasedTransformTest
          DenseMatrix64F denseMatrix = new DenseMatrix64F(7 + startRow, 1 + column);
          transform.get(startRow, column, denseMatrix);
          actualQuaternion.set(denseMatrix, startRow, column);
-         actualTranslation.set(denseMatrix, 4 + startRow, column);
+         actualTranslation.set(4 + startRow, column, denseMatrix);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPS);
          GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
       }
@@ -426,7 +426,7 @@ public class QuaternionBasedTransformTest
          double[] denseMatrix = new double[7];
          transform.get(denseMatrix);
          actualQuaternion.set(denseMatrix);
-         actualTranslation.set(denseMatrix, 4);
+         actualTranslation.set(4, denseMatrix);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPS);
          GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
       }

@@ -204,7 +204,7 @@ public abstract class Tuple3DTest
 
          try
          {
-            tuple1.set(tupleArray, 1);
+            tuple1.set(1, tupleArray);
             fail("Should have thrown a ArrayIndexOutOfBoundsException.");
          }
          catch (ArrayIndexOutOfBoundsException e)
@@ -221,7 +221,7 @@ public abstract class Tuple3DTest
          tupleArray = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble()};
          tupleArrayCopy = new double[tupleArray.length];
          System.arraycopy(tupleArray, 0, tupleArrayCopy, 0, tupleArray.length);
-         tuple1.set(tupleArray, 2);
+         tuple1.set(2, tupleArray);
 
          assertTrue(tuple1.getX() == tupleArray[2]);
          assertTrue(tuple1.getY() == tupleArray[3]);
@@ -278,7 +278,7 @@ public abstract class Tuple3DTest
 
          try
          {
-            tuple1.set(matrix, 2);
+            tuple1.set(2, matrix);
             fail("Should have thrown a IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -296,7 +296,7 @@ public abstract class Tuple3DTest
          for (int index = 0; index < matrix.getNumElements(); index++)
             matrix.set(index, random.nextDouble());
          matrixCopy = new DenseMatrix64F(matrix);
-         tuple1.set(matrix, 5);
+         tuple1.set(5, matrix);
 
          assertTrue(tuple1.getX() == matrix.get(5, 0));
          assertTrue(tuple1.getY() == matrix.get(6, 0));
@@ -315,7 +315,7 @@ public abstract class Tuple3DTest
 
          try
          {
-            tuple1.set(matrix, 2, 3);
+            tuple1.set(2, 3, matrix);
             fail("Should have thrown a IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -334,7 +334,7 @@ public abstract class Tuple3DTest
          for (int index = 0; index < matrix.getNumElements(); index++)
             matrix.set(index, random.nextDouble());
          matrixCopy = new DenseMatrix64F(matrix);
-         tuple1.set(matrix, 5, 2);
+         tuple1.set(5, 2, matrix);
 
          assertTrue(tuple1.getX() == matrix.get(5, 2));
          assertTrue(tuple1.getY() == matrix.get(6, 2));
@@ -597,7 +597,7 @@ public abstract class Tuple3DTest
          tuple2.setY(random.nextDouble());
          tuple2.setZ(random.nextDouble());
 
-         tuple1.scale(scale, tuple2);
+         tuple1.setAndScale(scale, tuple2);
          assertTrue(tuple1.getX() == tuple2.getX() * scale);
          assertTrue(tuple1.getY() == tuple2.getY() * scale);
          assertTrue(tuple1.getZ() == tuple2.getZ() * scale);
@@ -931,7 +931,7 @@ public abstract class Tuple3DTest
 
          try
          {
-            tuple1.get(tupleArray, 2);
+            tuple1.get(2, tupleArray);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -947,7 +947,7 @@ public abstract class Tuple3DTest
                random.nextDouble()};
          double[] tupleArrayCopy = new double[tupleArray.length];
          System.arraycopy(tupleArray, 0, tupleArrayCopy, 0, tupleArray.length);
-         tuple1.get(tupleArray, 3);
+         tuple1.get(3, tupleArray);
          assertTrue(tuple1.getX() == tupleArray[3]);
          assertTrue(tuple1.getY() == tupleArray[4]);
          assertTrue(tuple1.getZ() == tupleArray[5]);
@@ -1001,7 +1001,7 @@ public abstract class Tuple3DTest
 
          try
          {
-            tuple1.get(matrix, 4);
+            tuple1.get(4, matrix);
             fail("Should have thrown IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -1018,7 +1018,7 @@ public abstract class Tuple3DTest
             matrix.set(index, random.nextDouble());
          DenseMatrix64F matrixCopy = new DenseMatrix64F(matrix);
 
-         tuple1.get(matrix, 2);
+         tuple1.get(2, matrix);
          assertTrue(tuple1.getX() == matrix.get(2, 0));
          assertTrue(tuple1.getY() == matrix.get(3, 0));
          assertTrue(tuple1.getZ() == matrix.get(4, 0));
@@ -1039,7 +1039,7 @@ public abstract class Tuple3DTest
 
          try
          {
-            tuple1.get(matrix, 4, 3);
+            tuple1.get(4, 3, matrix);
             fail("Should have thrown IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -1056,7 +1056,7 @@ public abstract class Tuple3DTest
             matrix.set(index, random.nextDouble());
          DenseMatrix64F matrixCopy = new DenseMatrix64F(matrix);
 
-         tuple1.get(matrix, 2, 4);
+         tuple1.get(2, 4, matrix);
          assertTrue(tuple1.getX() == matrix.get(2, 4));
          assertTrue(tuple1.getY() == matrix.get(3, 4));
          assertTrue(tuple1.getZ() == matrix.get(4, 4));
@@ -1109,17 +1109,6 @@ public abstract class Tuple3DTest
          {
             fail("Should have thrown IndexOutOfBoundsException.");
          }
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple.get(TupleBasics other)
-         Tuple3D tuple2 = createEmptyTuple();
-         tuple1.setX(random.nextDouble());
-         tuple1.setY(random.nextDouble());
-         tuple1.setZ(random.nextDouble());
-
-         tuple1.get(tuple2);
-         assertTrue(tuple1.equals(tuple2));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)

@@ -409,7 +409,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void set(DenseMatrix64F matrix)
    {
       rotationMatrix.set(matrix);
-      translationVector.set(matrix, 0, 3);
+      translationVector.set(0, 3, matrix);
    }
 
    /**
@@ -437,7 +437,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void set(DenseMatrix64F matrix, int startRow, int startColumn)
    {
       rotationMatrix.set(matrix, startRow, startColumn);
-      translationVector.set(matrix, startRow, startColumn + 3);
+      translationVector.set(startRow, startColumn + 3, matrix);
    }
 
    /**
@@ -1218,7 +1218,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void get(DenseMatrix64F matrixToPack)
    {
       rotationMatrix.get(matrixToPack);
-      translationVector.get(matrixToPack, 0, 3);
+      translationVector.get(0, 3, matrixToPack);
       matrixToPack.set(3, 0, 0.0);
       matrixToPack.set(3, 1, 0.0);
       matrixToPack.set(3, 2, 0.0);
@@ -1243,7 +1243,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void get(int startRow, int startColumn, DenseMatrix64F matrixToPack)
    {
       rotationMatrix.get(startRow, startColumn, matrixToPack);
-      translationVector.get(matrixToPack, startRow, startColumn + 3);
+      translationVector.get(startRow, startColumn + 3, matrixToPack);
       startRow += 3;
       matrixToPack.set(startRow, startColumn++, 0.0);
       matrixToPack.set(startRow, startColumn++, 0.0);
