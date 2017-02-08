@@ -1295,7 +1295,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     */
    public void get(QuaternionBasics<?> quaternionToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
-      rotationMatrix.get(quaternionToPack);
+      quaternionToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
    }
 
@@ -1432,7 +1432,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     */
    public void getRotation(QuaternionBasics<?> quaternionToPack)
    {
-      rotationMatrix.get(quaternionToPack);
+      quaternionToPack.set(rotationMatrix);
    }
 
    /**

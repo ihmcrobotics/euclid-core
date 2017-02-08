@@ -1047,7 +1047,7 @@ public class RotationScaleMatrixTest
       { // Test setRotation(QuaternionReadOnly quaternion)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          Quaternion quaternion = new Quaternion();
-         rotationMatrix.get(quaternion);
+         quaternion.set(rotationMatrix);
          Vector3D scale = GeometryBasicsRandomTools.generateRandomVector3D(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();

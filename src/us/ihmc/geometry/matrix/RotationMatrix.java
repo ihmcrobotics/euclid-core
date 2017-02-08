@@ -15,8 +15,6 @@ import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.geometry.tuple4D.QuaternionConversion;
-import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
@@ -658,12 +656,6 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    {
       transform.transform(this);
       normalize();
-   }
-
-   // FIXME delete
-   public void get(QuaternionBasics<?> quaternionToPack)
-   {
-      QuaternionConversion.convertMatrixToQuaternion(this, quaternionToPack);
    }
 
    /**

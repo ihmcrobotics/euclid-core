@@ -20,7 +20,6 @@ import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
-import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
@@ -546,20 +545,6 @@ public class RotationMatrixTest
    {
       Random random = new Random(6841L);
       RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test get(QuaternionBasics quaternionToPack)
-         rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-
-         Quaternion quaternion = new Quaternion();
-         Quaternion expectedQuaternion = new Quaternion();
-
-         rotationMatrix.get(quaternion);
-         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expectedQuaternion);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expectedQuaternion, EPS);
-         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-      }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test get(VectorBasics rotationVectorToPack)

@@ -1089,7 +1089,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     */
    public void getRotation(QuaternionBasics<?> quaternionToPack)
    {
-      rotationMatrix.get(quaternionToPack);
+      quaternionToPack.set(rotationMatrix);
    }
 
    /**
