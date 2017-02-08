@@ -14,7 +14,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple3D.Tuple3D32;
 import us.ihmc.geometry.tuple3D.Vector3D32;
 
-public class Vector3D32Test extends Tuple3D32Test
+public class Vector3D32Test extends Tuple3D32Test<Vector3D32>
 {
    @Test
    public void testVector32()
@@ -313,8 +313,26 @@ public class Vector3D32Test extends Tuple3D32Test
    }
 
    @Override
-   public Tuple3D32 createEmptyTuple32()
+   public Vector3D32 createEmptyTuple()
    {
       return new Vector3D32();
+   }
+
+   @Override
+   public Vector3D32 createTuple(double x, double y, double z)
+   {
+      return new Vector3D32((float) x, (float) y, (float) z);
+   }
+
+   @Override
+   public Vector3D32 createRandomTuple(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomVector32(random);
+   }
+
+   @Override
+   public double getEpsilon()
+   {
+      return 1.0e-6;
    }
 }

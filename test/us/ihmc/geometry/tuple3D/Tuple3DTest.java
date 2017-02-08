@@ -16,11 +16,11 @@ import us.ihmc.geometry.tuple3D.Point3D32;
 import us.ihmc.geometry.tuple3D.Tuple3D;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
-public abstract class Tuple3DTest
+public abstract class Tuple3DTest<T extends Tuple3D<T>> extends Tuple3DBasicsTest<T>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
 
-   public abstract Tuple3D createEmptyTuple();
+   public abstract T createEmptyTuple();
 
    @Test
    public void testTuple()

@@ -17,7 +17,7 @@ import us.ihmc.geometry.tuple3D.Tuple3D32;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public class Point3D32Test extends Tuple3D32Test
+public class Point3D32Test extends Tuple3D32Test<Point3D32>
 {
    private static final double EPS = 1.0e-10;
 
@@ -222,8 +222,26 @@ public class Point3D32Test extends Tuple3D32Test
    }
 
    @Override
-   public Tuple3D32 createEmptyTuple32()
+   public Point3D32 createEmptyTuple()
    {
       return new Point3D32();
+   }
+
+   @Override
+   public Point3D32 createRandomTuple(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomPoint32(random);
+   }
+
+   @Override
+   public Point3D32 createTuple(double x, double y, double z)
+   {
+      return new Point3D32((float) x, (float) y, (float) z);
+   }
+
+   @Override
+   public double getEpsilon()
+   {
+      return 1.0e-6;
    }
 }

@@ -10,12 +10,11 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple3D.Point3D;
-import us.ihmc.geometry.tuple3D.Tuple3D;
+import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public class Point3DTest extends Tuple3DTest
+public class Point3DTest extends Tuple3DTest<Point3D>
 {
    @Test
    public void testPoint()
@@ -237,8 +236,26 @@ public class Point3DTest extends Tuple3DTest
    }
 
    @Override
-   public Tuple3D createEmptyTuple()
+   public Point3D createEmptyTuple()
    {
       return new Point3D();
+   }
+
+   @Override
+   public Point3D createRandomTuple(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomPoint(random);
+   }
+
+   @Override
+   public Point3D createTuple(double x, double y, double z)
+   {
+      return new Point3D(x, y, z);
+   }
+
+   @Override
+   public double getEpsilon()
+   {
+      return 1.0e-15;
    }
 }
