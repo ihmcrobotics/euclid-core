@@ -36,8 +36,8 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
          double y = random.nextDouble();
          tuple = createTuple(x, y);
 
-         assertEquals(tuple.get(0), x, getEpsilon());
-         assertEquals(tuple.get(1), y, getEpsilon());
+         assertEquals(tuple.getX(), x, getEpsilon());
+         assertEquals(tuple.getY(), y, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
