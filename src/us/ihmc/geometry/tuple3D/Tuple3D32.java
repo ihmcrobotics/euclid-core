@@ -2,8 +2,6 @@ package us.ihmc.geometry.tuple3D;
 
 import java.io.Serializable;
 
-import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 

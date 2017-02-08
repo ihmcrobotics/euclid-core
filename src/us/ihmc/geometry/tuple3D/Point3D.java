@@ -2,10 +2,7 @@ package us.ihmc.geometry.tuple3D;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.interfaces.GeometryObject;
-import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
-import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public class Point3D extends Tuple3D<Point3D> implements Serializable, Point3DBasics<Point3D>
@@ -27,39 +24,8 @@ public class Point3D extends Tuple3D<Point3D> implements Serializable, Point3DBa
       super(pointArray);
    }
 
-   public Point3D(Tuple3DReadOnly other)
+   public Point3D(Tuple3DReadOnly<?> other)
    {
       super(other);
-   }
-
-   @Override
-   public void set(Point3D other)
-   {
-      super.set(other);
-   }
-
-   public double distance(Point3DReadOnly other)
-   {
-      return Math.sqrt(distanceSquared(other));
-   }
-
-   public double distanceSquared(Point3DReadOnly other)
-   {
-      double dx = getX() - other.getX();
-      double dy = getY() - other.getY();
-      double dz = getZ() - other.getZ();
-      return dx * dx + dy * dy + dz * dz;
-   }
-
-   @Override
-   public void applyTransform(Transform transform)
-   {
-      transform.transform(this);
-   }
-
-   @Override
-   public boolean epsilonEquals(Point3D other, double epsilon)
-   {
-      return super.epsilonEquals(other, epsilon);
    }
 }

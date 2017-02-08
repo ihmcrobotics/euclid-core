@@ -5,12 +5,12 @@ import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public abstract class Tuple3DTools
 {
-   public static boolean containsNaN(Tuple3DReadOnly tuple)
+   public static boolean containsNaN(Tuple3DReadOnly<?> tuple)
    {
       return Double.isNaN(tuple.getX()) || Double.isNaN(tuple.getY()) || Double.isNaN(tuple.getZ());
    }
 
-   public static boolean epsilonEquals(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2, double epsilon)
+   public static boolean epsilonEquals(Tuple3DReadOnly<?> tuple1, Tuple3DReadOnly<?> tuple2, double epsilon)
    {
       double difference;
 
