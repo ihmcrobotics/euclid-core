@@ -394,7 +394,7 @@ public class QuaternionBasedTransformTest
       Random random = new Random(34543L);
       QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
       QuaternionReadOnly expectedQuaternion = transform.getQuaternion();
-      Vector3DReadOnly expectedTranslation = transform.getTranslationVector();
+      Vector3DReadOnly<?> expectedTranslation = transform.getTranslationVector();
 
       { // Test get(DenseMatrix64F matrixToPack)
          Quaternion actualQuaternion = new Quaternion();

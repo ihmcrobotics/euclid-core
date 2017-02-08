@@ -91,7 +91,7 @@ public class QuaternionTest
          rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          quaternion = new Quaternion(rotationVector);
-         QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly) rotationVector, (QuaternionBasics) expected);
+         QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly<?>) rotationVector, (QuaternionBasics) expected);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
          GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
