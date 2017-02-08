@@ -65,7 +65,7 @@ public class Point3D32Test extends Tuple3D32Test<Point3D32>
          Point3D32 point;
          Point3D32 point2 = GeometryBasicsRandomTools.generateRandomPoint32(random);
          point = new Point3D32((Tuple3DReadOnly) point2);
-         GeometryBasicsTestTools.assertTupleEquals(point, point2, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(point, point2, EPS);
       }
    }
 
@@ -83,7 +83,7 @@ public class Point3D32Test extends Tuple3D32Test<Point3D32>
 
          Point3D32 point2 = new Point3D32();
          point2.set(point);
-         GeometryBasicsTestTools.assertTupleEquals(point, point2, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(point, point2, EPS);
       }
    }
 

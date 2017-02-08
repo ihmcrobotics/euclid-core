@@ -75,7 +75,7 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
 
          try
          {
-            tuple.get(3);
+            tuple.get(2);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -113,7 +113,7 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
 
          try
          {
-            tuple.get32(3);
+            tuple.get32(2);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)

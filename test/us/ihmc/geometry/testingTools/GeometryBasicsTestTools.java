@@ -90,7 +90,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two rotation vectors are not equal.
     */
-   public static void assertRotationVectorEquals(Vector3DReadOnly expectedRotationVector, Vector3DReadOnly actualRotationVector, double epsilon)
+   public static void assertRotationVectorEquals(Vector3DReadOnly<?> expectedRotationVector, Vector3DReadOnly<?> actualRotationVector, double epsilon)
    {
       try
       {
@@ -114,9 +114,9 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal.
     */
-   public static void assertTupleEquals(Tuple3DReadOnly expected, Tuple3DReadOnly actual, double epsilon)
+   public static void assertTuple3DEquals(Tuple3DReadOnly<?> expected, Tuple3DReadOnly<?> actual, double epsilon)
    {
-      assertTupleEquals("", expected, actual, epsilon);
+      assertTuple3DEquals("", expected, actual, epsilon);
    }
 
    /**
@@ -128,7 +128,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal.
     */
-   public static void assertTupleEquals(String message, Tuple3DReadOnly expected, Tuple3DReadOnly actual, double epsilon)
+   public static void assertTuple3DEquals(String message, Tuple3DReadOnly<?> expected, Tuple3DReadOnly<?> actual, double epsilon)
    {
       boolean areEqual = Tuple3DTools.epsilonEquals(expected, actual, epsilon);
 
@@ -561,7 +561,7 @@ public abstract class GeometryBasicsTestTools
     * @param tupleToAssert the query. Not modified.
     * @throws AssertionError if the tuple does not only contain {@link Double#NaN}.
     */
-   public static void assertTupleContainsOnlyNaN(Tuple3DReadOnly tupleToAssert)
+   public static void assertTupleContainsOnlyNaN(Tuple3DReadOnly<?> tupleToAssert)
    {
       assertTrue(Double.isNaN(tupleToAssert.getX()));
       assertTrue(Double.isNaN(tupleToAssert.getY()));
@@ -574,7 +574,7 @@ public abstract class GeometryBasicsTestTools
     * @param tupleToAssert the query. Not modified.
     * @throws AssertionError if the tuple has not been set to zero.
     */
-   public static void assertTupleIsSetToZero(Tuple3DReadOnly tupleToAssert)
+   public static void assertTupleIsSetToZero(Tuple3DReadOnly<?> tupleToAssert)
    {
       assertTrue(tupleToAssert.getX() == 0.0);
       assertTrue(tupleToAssert.getY() == 0.0);
@@ -628,7 +628,7 @@ public abstract class GeometryBasicsTestTools
    {
       try
       {
-         assertTupleEquals(expected.getTranslationVector(), actual.getTranslationVector(), epsilon);
+         assertTuple3DEquals(expected.getTranslationVector(), actual.getTranslationVector(), epsilon);
          assertQuaternionEqualsSmart(expected.getQuaternion(), actual.getQuaternion(), epsilon);
       }
       catch (AssertionError e)

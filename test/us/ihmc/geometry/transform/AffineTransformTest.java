@@ -639,7 +639,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotation(axisAngle);
          transform.setRotation(axisAngle);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotation(VectorReadOnly rotationVector)
@@ -648,7 +648,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotation(rotationVector);
          transform.setRotation(rotationVector);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotation(DenseMatrix64F matrix)
@@ -659,7 +659,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotation(rotationMatrix);
          transform.setRotation(denseMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotation(QuaternionReadOnly quaternion)
@@ -668,7 +668,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotation(quaternion);
          transform.setRotation(quaternion);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotation(Matrix3DReadOnly rotationMatrix)
@@ -677,7 +677,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotation(rotationMatrix);
          transform.setRotation((Matrix3DReadOnly<?>) rotationMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotation(RotationMatrix rotationMatrix)
@@ -686,7 +686,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotation(rotationMatrix);
          transform.setRotation(rotationMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotationYaw(double yaw)
@@ -695,7 +695,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotationYaw(yaw);
          transform.setRotationYaw(yaw);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotationPitch(double pitch)
@@ -704,7 +704,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotationPitch(pitch);
          transform.setRotationPitch(pitch);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotationRoll(double roll)
@@ -713,7 +713,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotationRoll(roll);
          transform.setRotationRoll(roll);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotationYawPitchRoll(double yaw, double pitch, double roll)
@@ -724,7 +724,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotationYawPitchRoll(yaw, pitch, roll);
          transform.setRotationYawPitchRoll(yaw, pitch, roll);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotationEuler(double rotX, double rotY, double rotZ)
@@ -733,7 +733,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotationEuler(eulerAngles);
          transform.setRotationEuler(eulerAngles);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setRotationEuler(double rotX, double rotY, double rotZ)
@@ -744,7 +744,7 @@ public class AffineTransformTest
          expectedRotationScale.setRotationEuler(rotX, rotY, rotZ);
          transform.setRotationEuler(rotX, rotY, rotZ);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
    }
 
@@ -765,7 +765,7 @@ public class AffineTransformTest
          expectedRotationScale.setScale(scale);
          transform.setScale(scale);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setScale(double scalex, double scaley, double scalez)
@@ -776,7 +776,7 @@ public class AffineTransformTest
          expectedRotationScale.setScale(scaleX, scaleY, scaleZ);
          transform.setScale(scaleX, scaleY, scaleZ);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setScale(TupleReadOnly scales)
@@ -785,7 +785,7 @@ public class AffineTransformTest
          expectedRotationScale.setScale(scale);
          transform.setScale(scale);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
    }
 
@@ -807,14 +807,14 @@ public class AffineTransformTest
          transform.setTranslation(x, y, z);
          expectedTranslation.set(x, y, z);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
       { // Test setTranslation(TupleReadOnly translation)
          expectedTranslation = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          transform.setTranslation(expectedTranslation);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
-         GeometryBasicsTestTools.assertTupleEquals(expectedTranslation, actualTranslation, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
    }
 
@@ -1100,7 +1100,7 @@ public class AffineTransformTest
          pointActual.set(pointExpected);
          transform.transform(pointActual);
          transform.inverseTransform(pointActual);
-         GeometryBasicsTestTools.assertTupleEquals(pointExpected, pointActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(pointExpected, pointActual, EPS);
       }
 
       { // Test inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
@@ -1109,7 +1109,7 @@ public class AffineTransformTest
 
          transform.inverseTransform(pointExpected, pointActual);
          transform.transform(pointActual);
-         GeometryBasicsTestTools.assertTupleEquals(pointExpected, pointActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(pointExpected, pointActual, EPS);
       }
 
       { // Test inverseTransform(VectorBasics vectorToTransform)
@@ -1118,7 +1118,7 @@ public class AffineTransformTest
          vectorActual.set(vectorExpected);
          transform.transform(vectorActual);
          transform.inverseTransform(vectorActual);
-         GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPS);
       }
 
       { // Test inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
@@ -1127,7 +1127,7 @@ public class AffineTransformTest
 
          transform.inverseTransform(vectorExpected, vectorActual);
          transform.transform(vectorActual);
-         GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPS);
       }
    }
 
@@ -1187,7 +1187,7 @@ public class AffineTransformTest
          RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
          transform.getRigidBodyTransform(rigidBodyTransform);
          GeometryBasicsTestTools.assertMatrix3DEquals(rigidBodyTransform.getRotationMatrix(), transform.getRotationMatrix(), EPS);
-         GeometryBasicsTestTools.assertTupleEquals(rigidBodyTransform.getTranslationVector(), transform.getTranslationVector(), EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(rigidBodyTransform.getTranslationVector(), transform.getTranslationVector(), EPS);
       }
 
       { // Test get(DenseMatrix64F matrixToPack)

@@ -641,7 +641,7 @@ public class Matrix3DToolsTest
          Tuple3D tupleOriginalCopy = new Vector3D(tupleOriginal);
          tupleExpected.setToZero();
          Matrix3DTools.transform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
          assertEquals(tupleOriginal, tupleOriginalCopy);
          assertEquals(matrix, matrixCopy);
       }
@@ -651,7 +651,7 @@ public class Matrix3DToolsTest
          tupleOriginal = GeometryBasicsRandomTools.generateRandomVector(random);
          tupleExpected.set(tupleOriginal);
          Matrix3DTools.transform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       // Test some random scaling
@@ -664,7 +664,7 @@ public class Matrix3DToolsTest
          tupleExpected.setZ(matrix.getM22() * tupleOriginal.getZ());
 
          Matrix3DTools.transform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -683,7 +683,7 @@ public class Matrix3DToolsTest
          tupleExpected.set(denseVectorTransformed);
 
          Matrix3DTools.transform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       // Test transforming in-place
@@ -695,7 +695,7 @@ public class Matrix3DToolsTest
          Matrix3DTools.transform(matrix, tupleOriginal, tupleExpected);
          tupleActual.set(tupleOriginal);
          Matrix3DTools.transform(matrix, tupleActual, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
    }
 
@@ -716,7 +716,7 @@ public class Matrix3DToolsTest
          tupleExpected = GeometryBasicsRandomTools.generateRandomVector(random);
          tupleActual.set(tupleExpected);
          Matrix3DTools.addTransform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
          assertEquals(tupleOriginal, tupleOriginalCopy);
          assertEquals(matrix, matrixCopy);
       }
@@ -727,7 +727,7 @@ public class Matrix3DToolsTest
          tupleActual = GeometryBasicsRandomTools.generateRandomVector(random);
          tupleExpected.add(tupleActual, tupleOriginal);
          Matrix3DTools.addTransform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       // Test some random scaling
@@ -742,7 +742,7 @@ public class Matrix3DToolsTest
          tupleExpected.add(tupleActual);
 
          Matrix3DTools.addTransform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -763,7 +763,7 @@ public class Matrix3DToolsTest
          tupleExpected.set(denseVectorTransformed);
 
          Matrix3DTools.addTransform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       // Test transforming in-place
@@ -775,7 +775,7 @@ public class Matrix3DToolsTest
 
          Matrix3DTools.addTransform(matrix, tupleActual, tupleExpected);
          Matrix3DTools.addTransform(matrix, tupleActual, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
    }
 
@@ -1104,7 +1104,7 @@ public class Matrix3DToolsTest
 
          Matrix3DTools.transform(matrixInverse, tupleOriginal, tupleExpected);
          Matrix3DTools.inverseTransform(matrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       // Test that: tuple == inverseTransform(transform(tuple))
@@ -1116,7 +1116,7 @@ public class Matrix3DToolsTest
 
          Matrix3DTools.transform(matrix, tupleOriginal, tupleActual);
          Matrix3DTools.inverseTransform(matrix, tupleActual, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       // Test with rotation matrix
@@ -1128,7 +1128,7 @@ public class Matrix3DToolsTest
 
          Matrix3DTools.inverseTransform(matrix, tupleOriginal, tupleExpected);
          Matrix3DTools.inverseTransform(rotationMatrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       // Test with rotation scale matrix
@@ -1140,7 +1140,7 @@ public class Matrix3DToolsTest
 
          Matrix3DTools.inverseTransform(matrix, tupleOriginal, tupleExpected);
          Matrix3DTools.inverseTransform(rotationScaleMatrix, tupleOriginal, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
 
       // Test transform in-place
@@ -1152,7 +1152,7 @@ public class Matrix3DToolsTest
          Matrix3DTools.inverseTransform(matrix, tupleOriginal, tupleExpected);
          tupleActual.set(tupleOriginal);
          Matrix3DTools.inverseTransform(matrix, tupleActual, tupleActual);
-         GeometryBasicsTestTools.assertTupleEquals(tupleExpected, tupleActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
       }
    }
 

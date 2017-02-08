@@ -33,7 +33,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.getRotationMatrix().transform(expectedVector, expectedVector);
 
       rotationScaleMatrix.transform(originalVector, actualVector);
-      GeometryBasicsTestTools.assertTupleEquals(expectedVector, actualVector, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(expectedVector, actualVector, EPS);
    }
 
    @Test
@@ -149,7 +149,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.transform(originalVector, actualVector);
       assertFalse(expectedVector.epsilonEquals(actualVector, EPS));
       rotationScaleMatrix.inverseTransform(actualVector, actualVector);
-      GeometryBasicsTestTools.assertTupleEquals(expectedVector, actualVector, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(expectedVector, actualVector, EPS);
    }
 
    @Test

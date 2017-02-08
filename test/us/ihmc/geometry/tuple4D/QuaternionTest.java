@@ -810,11 +810,11 @@ public class QuaternionTest
       QuaternionTools.transform(quaternion, vectorOriginal, vectorExpected);
 
       quaternion.transform(vectorOriginal, vectorActual);
-      GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPS);
 
       vectorActual.set(vectorOriginal);
       quaternion.transform(vectorActual);
-      GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPS);
    }
 
    @Test
@@ -968,11 +968,11 @@ public class QuaternionTest
 
       quaternion.transform(vectorOriginal, vectorTransformed);
       quaternion.inverseTransform(vectorTransformed, vectorActual);
-      GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPS);
 
       quaternion.transform(vectorOriginal, vectorActual);
       quaternion.inverseTransform(vectorActual);
-      GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPS);
    }
 
    @Test

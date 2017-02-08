@@ -55,7 +55,7 @@ public class RotationVectorConversionTest
       double uz = expectedRotationVector.getZ();
       double angle = expectedRotationVector.length();
       RotationVectorConversion.convertAxisAngleToRotationVectorImpl(ux, uy, uz, angle, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+      GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
 
       RotationVectorConversion.convertAxisAngleToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, actualRotationVector);
       GeometryBasicsTestTools.assertTupleIsSetToZero(actualRotationVector);
@@ -82,7 +82,7 @@ public class RotationVectorConversionTest
          angle = axisAngle.getAngle();
          RotationVectorConversion.convertAxisAngleToRotationVectorImpl(ux, uy, uz, angle, expectedRotationVector);
          RotationVectorConversion.convertAxisAngleToRotationVector(axisAngle, actualRotationVector);
-         GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
          // Assert the parameter that does get modified
          assertTrue(axisAngle.equals(axisAngleCopy));
       }
@@ -113,7 +113,7 @@ public class RotationVectorConversionTest
          double qz = uz * Math.sin(angle / 2.0);
 
          RotationVectorConversion.convertQuaternionToRotationVectorImpl(qx, qy, qz, qs, actualRotationVector);
-         GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
       }
 
       RotationVectorConversion.convertQuaternionToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, actualRotationVector);
@@ -137,7 +137,7 @@ public class RotationVectorConversionTest
          RotationVectorConversion.convertQuaternionToRotationVectorImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(),
                expectedRotationVector);
          RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
-         GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
       }
    }
 
@@ -188,7 +188,7 @@ public class RotationVectorConversionTest
          {
             actualRotationVector.negate();
          }
-         GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
       }
 
       for (int i = 0; i < 10000; i++)
@@ -218,7 +218,7 @@ public class RotationVectorConversionTest
          m21 = uy * uz * (1.0 - cos(angle)) + ux * sin(angle);
 
          RotationVectorConversion.convertMatrixToRotationVectorImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualRotationVector);
-         GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
       }
 
       // Test edge cases
@@ -354,7 +354,7 @@ public class RotationVectorConversionTest
          m22 = rotationMatrix.getM22();
          RotationVectorConversion.convertMatrixToRotationVector(rotationMatrix, actualRotationVector);
          RotationVectorConversion.convertMatrixToRotationVectorImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, expectedRotationVector);
-         GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
          // Assert the parameter that does get modified
          assertTrue(rotationMatrix.equals(rotationMatrixCopy));
       }
@@ -375,7 +375,7 @@ public class RotationVectorConversionTest
          m22 = rotationScaleMatrix.getRotationMatrix().getM22();
          RotationVectorConversion.convertMatrixToRotationVector(rotationScaleMatrix, actualRotationVector);
          RotationVectorConversion.convertMatrixToRotationVectorImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, expectedRotationVector);
-         GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
          // Assert the parameter that does get modified
          assertTrue(rotationScaleMatrix.equals(rotationScaleMatrixCopy));
       }
@@ -401,11 +401,11 @@ public class RotationVectorConversionTest
                QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, quaternion);
                RotationVectorConversion.convertQuaternionToRotationVector(quaternion, expectedRotationVector);
                RotationVectorConversion.convertYawPitchRollToRotationVector(yaw, pitch, roll, actualRotationVector);
-               GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+               GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
 
                yawPitchRoll = new double[] {yaw, pitch, roll};
                RotationVectorConversion.convertYawPitchRollToRotationVector(yawPitchRoll, actualRotationVector);
-               GeometryBasicsTestTools.assertTupleEquals(expectedRotationVector, actualRotationVector, EPSILON);
+               GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
                assertTrue(yawPitchRoll[0] == yaw);
                assertTrue(yawPitchRoll[1] == pitch);
                assertTrue(yawPitchRoll[2] == roll);

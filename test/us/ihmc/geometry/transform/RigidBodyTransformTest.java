@@ -1570,7 +1570,7 @@ public class RigidBodyTransformTest
          pointActual.set(pointExpected);
          transform.transform(pointActual);
          transform.inverseTransform(pointActual);
-         GeometryBasicsTestTools.assertTupleEquals(pointExpected, pointActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(pointExpected, pointActual, EPS);
       }
 
       { // Test inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
@@ -1579,7 +1579,7 @@ public class RigidBodyTransformTest
 
          transform.inverseTransform(pointExpected, pointActual);
          transform.transform(pointActual);
-         GeometryBasicsTestTools.assertTupleEquals(pointExpected, pointActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(pointExpected, pointActual, EPS);
       }
 
       { // Test inverseTransform(VectorBasics vectorToTransform)
@@ -1588,7 +1588,7 @@ public class RigidBodyTransformTest
          vectorActual.set(vectorExpected);
          transform.transform(vectorActual);
          transform.inverseTransform(vectorActual);
-         GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPS);
       }
 
       { // Test inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
@@ -1597,7 +1597,7 @@ public class RigidBodyTransformTest
 
          transform.inverseTransform(vectorExpected, vectorActual);
          transform.transform(vectorActual);
-         GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPS);
       }
    }
 

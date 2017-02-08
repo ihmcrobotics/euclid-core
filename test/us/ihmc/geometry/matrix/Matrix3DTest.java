@@ -915,11 +915,11 @@ public class Matrix3DTest
          Matrix3DTools.transform(matrix, original, expected);
          actual.set(original);
          matrix.transform(actual);
-         GeometryBasicsTestTools.assertTupleEquals(expected, actual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, EPS);
 
          actual.setToNaN();
          matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertTupleEquals(expected, actual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, EPS);
       }
    }
 
@@ -996,11 +996,11 @@ public class Matrix3DTest
          Matrix3DTools.inverseTransform(matrix, original, expected);
          actual.set(original);
          matrix.inverseTransform(actual);
-         GeometryBasicsTestTools.assertTupleEquals(expected, actual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, EPS);
 
          actual.setToNaN();
          matrix.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTupleEquals(expected, actual, EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, EPS);
       }
    }
 
