@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -13,7 +12,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
-public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Vector4D>
+public class Vector4D implements Serializable, Vector4DBasics<Vector4D>
 {
    private static final long serialVersionUID = 3048835798807478377L;
 
@@ -78,6 +77,7 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
       s = vectorArray[startIndex];
    }
 
+   @Override
    public void set(Tuple4DReadOnly other)
    {
       x = other.getX();
@@ -345,12 +345,6 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
    public void applyTransform(Transform transform)
    {
       transform.transform(this);
-   }
-
-   @Override
-   public boolean epsilonEquals(Vector4D other, double epsilon)
-   {
-      return Tuple4DTools.epsilonEquals(this, other, epsilon);
    }
 
    @Override

@@ -7,7 +7,6 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
@@ -27,7 +26,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
-public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObject<Quaternion32>
+public class Quaternion32 implements Serializable, QuaternionBasics<Quaternion32>
 {
    private static final long serialVersionUID = -3523313039213464150L;
 
@@ -563,12 +562,6 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
    public float getZ32()
    {
       return z;
-   }
-
-   @Override
-   public boolean epsilonEquals(Quaternion32 other, double epsilon)
-   {
-      return Tuple4DTools.epsilonEquals(this, other, epsilon);
    }
 
    @Override
