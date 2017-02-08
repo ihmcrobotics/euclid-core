@@ -14,7 +14,6 @@ import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
  * </p>
  * 
  * @author Sylvain Bertrand
- *
  */
 public class Vector2D implements Serializable, Vector2DBasics<Vector2D>
 {
@@ -74,7 +73,7 @@ public class Vector2D implements Serializable, Vector2DBasics<Vector2D>
    {
       this.x = x;
    }
-   
+
    /**
     * Sets the y-component of this vector.
     * 
