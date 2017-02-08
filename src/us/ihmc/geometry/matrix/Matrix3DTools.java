@@ -499,7 +499,7 @@ public abstract class Matrix3DTools
     * @param vectorTransformed the vector used to stored the result of the transformation. Modified.
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
     */
-   public static void transform(Matrix3DReadOnly<?> matrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public static void transform(Matrix3DReadOnly<?> matrix, Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       double x = matrix.getM00() * vectorOriginal.getX() + matrix.getM01() * vectorOriginal.getY() + matrix.getM02() * vectorOriginal.getZ();
       double y = matrix.getM10() * vectorOriginal.getX() + matrix.getM11() * vectorOriginal.getY() + matrix.getM12() * vectorOriginal.getZ();
@@ -624,7 +624,7 @@ public abstract class Matrix3DTools
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and {@code checkIfTransformInXYPlane} is {@code true}.
     * @throws SingularMatrixException if {@code matrix} is not invertible.
     */
-   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public static void inverseTransform(Matrix3DReadOnly<?> matrix, Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       double det = matrix.determinant();
       if (Math.abs(det) < EPS_INVERT)

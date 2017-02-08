@@ -156,7 +156,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param quaternion the quaternion used to initialize this
     *  rotation matrix. Not modified.
     */
-   public RotationMatrix(QuaternionReadOnly quaternion)
+   public RotationMatrix(QuaternionReadOnly<?> quaternion)
    {
       set(quaternion);
    }
@@ -388,7 +388,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * 
     * @param quaternion the quaternion used to set this matrix. Not modified.
     */
-   public void set(QuaternionReadOnly quaternion)
+   public void set(QuaternionReadOnly<?> quaternion)
    {
       RotationMatrixConversion.convertQuaternionToMatrix(quaternion, this);
    }
@@ -661,7 +661,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    // FIXME delete
-   public void get(QuaternionBasics quaternionToPack)
+   public void get(QuaternionBasics<?> quaternionToPack)
    {
       QuaternionConversion.convertMatrixToQuaternion(this, quaternionToPack);
    }

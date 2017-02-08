@@ -41,7 +41,7 @@ public abstract class RotationVectorConversion
       }
    }
 
-   public static void convertQuaternionToRotationVector(QuaternionReadOnly quaternion, Vector3DBasics<?> rotationVectorToPack)
+   public static void convertQuaternionToRotationVector(QuaternionReadOnly<?> quaternion, Vector3DBasics<?> rotationVectorToPack)
    {
       convertQuaternionToRotationVectorImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), rotationVectorToPack);
    }

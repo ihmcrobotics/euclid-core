@@ -32,7 +32,7 @@ public abstract class TransformTools
       return ret;
    }
 
-   public static String toString(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> translation)
+   public static String toString(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> translation)
    {
       String ret = "";
       String format = "%" + (3 + TO_STRING_PRECISION) + "." + TO_STRING_PRECISION + "f";

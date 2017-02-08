@@ -211,7 +211,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public RotationScaleMatrix(QuaternionReadOnly quaternion, double scale)
+   public RotationScaleMatrix(QuaternionReadOnly<?> quaternion, double scale)
    {
       set(quaternion, scale);
    }
@@ -226,7 +226,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scaleZ the non-zero and positive scalar used to initialized the z-axis scale factor.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(QuaternionReadOnly quaternion, double scaleX, double scaleY, double scaleZ)
+   public RotationScaleMatrix(QuaternionReadOnly<?> quaternion, double scaleX, double scaleY, double scaleZ)
    {
       set(quaternion, scaleX, scaleY, scaleZ);
    }
@@ -239,7 +239,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> scales)
+   public RotationScaleMatrix(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> scales)
    {
       set(quaternion, scales);
    }
@@ -532,7 +532,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public void set(QuaternionReadOnly quaternion, double scale)
+   public void set(QuaternionReadOnly<?> quaternion, double scale)
    {
       set(quaternion, scale, scale, scale);
    }
@@ -546,7 +546,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scaleZ the non-zero and positive scalar used to set the z-axis scale factor to.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(QuaternionReadOnly quaternion, double scaleX, double scaleY, double scaleZ)
+   public void set(QuaternionReadOnly<?> quaternion, double scaleX, double scaleY, double scaleZ)
    {
       setRotation(quaternion);
       setScale(scaleX, scaleY, scaleZ);
@@ -559,7 +559,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> scales)
+   public void set(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> scales)
    {
       set(quaternion, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -682,7 +682,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * 
     * @param quaternion the quaternion used to set the rotation part to. Not modified.
     */
-   public void setRotation(QuaternionReadOnly quaternion)
+   public void setRotation(QuaternionReadOnly<?> quaternion)
    {
       rotationMatrix.set(quaternion);
    }
@@ -1087,7 +1087,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * 
     * @param quaternionToPack the quaternion in which the rotation part is stored. Modified.
     */
-   public void getRotation(QuaternionBasics quaternionToPack)
+   public void getRotation(QuaternionBasics<?> quaternionToPack)
    {
       rotationMatrix.get(quaternionToPack);
    }

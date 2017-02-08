@@ -14,30 +14,30 @@ public abstract class QuaternionConversion
 {
    private static final double EPS = 1.0e-7;
 
-   public static final void computeYawQuaternion(double yaw, QuaternionBasics quaternionToPack)
+   public static final void computeYawQuaternion(double yaw, QuaternionBasics<?> quaternionToPack)
    {
       double halfYaw = 0.5 * yaw;
       quaternionToPack.setUnsafe(0.0, 0.0, Math.sin(halfYaw), Math.cos(halfYaw));
    }
 
-   public static final void computePitchQuaternion(double pitch, QuaternionBasics quaternionToPack)
+   public static final void computePitchQuaternion(double pitch, QuaternionBasics<?> quaternionToPack)
    {
       double halfPitch = 0.5 * pitch;
       quaternionToPack.setUnsafe(0.0, Math.sin(halfPitch), 0.0, Math.cos(halfPitch));
    }
 
-   public static final void computeRollQuaternion(double roll, QuaternionBasics quaternionToPack)
+   public static final void computeRollQuaternion(double roll, QuaternionBasics<?> quaternionToPack)
    {
       double halfRoll = 0.5 * roll;
       quaternionToPack.setUnsafe(Math.sin(halfRoll), 0.0, 0.0, Math.cos(halfRoll));
    }
 
-   public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly<?> axisAngle, QuaternionBasics quaternionToPack)
+   public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly<?> axisAngle, QuaternionBasics<?> quaternionToPack)
    {
       convertAxisAngleToQuaternionImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), quaternionToPack);
    }
 
-   public static final void convertAxisAngleToQuaternionImpl(double ux, double uy, double uz, double angle, QuaternionBasics quaternionToPack)
+   public static final void convertAxisAngleToQuaternionImpl(double ux, double uy, double uz, double angle, QuaternionBasics<?> quaternionToPack)
    {
       if (AxisAngleTools.containsNaN(ux, uy, uz, angle))
       {
@@ -59,12 +59,12 @@ public abstract class QuaternionConversion
       }
    }
 
-   public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, QuaternionBasics quaternionToPack)
+   public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, QuaternionBasics<?> quaternionToPack)
    {
       convertMatrixToQuaternion(rotationScaleMatrix.getRotationMatrix(), quaternionToPack);
    }
 
-   public static void convertMatrixToQuaternion(RotationMatrixReadOnly<?> rotationMatrix, QuaternionBasics quaternionToPack)
+   public static void convertMatrixToQuaternion(RotationMatrixReadOnly<?> rotationMatrix, QuaternionBasics<?> quaternionToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();
@@ -79,7 +79,7 @@ public abstract class QuaternionConversion
    }
 
    static void convertMatrixToQuaternionImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-                                             QuaternionBasics quaternionToPack)
+                                             QuaternionBasics<?> quaternionToPack)
    {
       if (Matrix3DFeatures.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
@@ -147,12 +147,12 @@ public abstract class QuaternionConversion
       quaternionToPack.setUnsafe(qx, qy, qz, qs);
    }
 
-   public static void convertRotationVectorToQuaternion(Vector3DReadOnly<?> rotationVector, QuaternionBasics quaternionToPack)
+   public static void convertRotationVectorToQuaternion(Vector3DReadOnly<?> rotationVector, QuaternionBasics<?> quaternionToPack)
    {
       convertRotationVectorToQuaternionImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), quaternionToPack);
    }
 
-   public static void convertRotationVectorToQuaternionImpl(double rx, double ry, double rz, QuaternionBasics quaternionToPack)
+   public static void convertRotationVectorToQuaternionImpl(double rx, double ry, double rz, QuaternionBasics<?> quaternionToPack)
    {
       if (Double.isNaN(rx) || Double.isNaN(ry) || Double.isNaN(rz))
       {
@@ -175,12 +175,12 @@ public abstract class QuaternionConversion
       }
    }
 
-   public static void convertYawPitchRollToQuaternion(double[] yawPitchRoll, QuaternionBasics quaternionToPack)
+   public static void convertYawPitchRollToQuaternion(double[] yawPitchRoll, QuaternionBasics<?> quaternionToPack)
    {
       convertYawPitchRollToQuaternion(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], quaternionToPack);
    }
 
-   public static void convertYawPitchRollToQuaternion(double yaw, double pitch, double roll, QuaternionBasics quaternionToPack)
+   public static void convertYawPitchRollToQuaternion(double yaw, double pitch, double roll, QuaternionBasics<?> quaternionToPack)
    {
       double halfYaw = 0.5 * yaw;
       double cYaw = Math.cos(halfYaw);

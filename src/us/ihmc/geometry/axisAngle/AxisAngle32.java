@@ -98,7 +98,7 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
     * 
     * @param quaternion the quaternion used to create this axis-angle. Not modified.
     */
-   public AxisAngle32(QuaternionReadOnly quaternion)
+   public AxisAngle32(QuaternionReadOnly<?> quaternion)
    {
       set(quaternion);
    }

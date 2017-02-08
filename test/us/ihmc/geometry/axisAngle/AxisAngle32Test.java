@@ -102,7 +102,7 @@ public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
             Quaternion quaternion, quaternionCopy;
             quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
 
-            axisAngle = new AxisAngle32((QuaternionReadOnly) quaternion);
+            axisAngle = new AxisAngle32((QuaternionReadOnly<?>) quaternion);
             AxisAngle32 expectedAxisAngle32 = new AxisAngle32();
             AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, (AxisAngleBasics<?>) expectedAxisAngle32);
 

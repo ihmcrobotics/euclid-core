@@ -211,7 +211,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * 
     * @param quaternion the quaternion to convert. Not modified.
     */
-   default void set(QuaternionReadOnly quaternion)
+   default void set(QuaternionReadOnly<?> quaternion)
    {
       AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, this);
    }

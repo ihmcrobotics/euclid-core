@@ -540,7 +540,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public void set(QuaternionReadOnly quaternion, double scale, Tuple3DReadOnly<?> translation)
+   public void set(QuaternionReadOnly<?> quaternion, double scale, Tuple3DReadOnly<?> translation)
    {
       rotationScaleMatrix.set(quaternion, scale);
       translationVector.set(translation);
@@ -556,7 +556,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(QuaternionReadOnly quaternion, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly<?> translation)
+   public void set(QuaternionReadOnly<?> quaternion, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly<?> translation)
    {
       rotationScaleMatrix.set(quaternion, scaleX, scaleY, scaleZ);
       translationVector.set(translation);
@@ -570,7 +570,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> scales, Tuple3DReadOnly<?> translation)
+   public void set(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> scales, Tuple3DReadOnly<?> translation)
    {
       rotationScaleMatrix.set(quaternion, scales);
       translationVector.set(translation);
@@ -629,7 +629,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * 
     * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
     */
-   public void setRotation(QuaternionReadOnly quaternion)
+   public void setRotation(QuaternionReadOnly<?> quaternion)
    {
       rotationScaleMatrix.setRotation(quaternion);
    }
@@ -908,14 +908,14 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void transform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
    {
       rotationScaleMatrix.transform(quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       rotationScaleMatrix.transform(vectorOriginal, vectorTransformed);
    }
@@ -967,14 +967,14 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
    {
       rotationScaleMatrix.inverseTransform(quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       rotationScaleMatrix.inverseTransform(vectorOriginal, vectorTransformed);
    }
@@ -1183,7 +1183,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * 
     * @param quaternionToPack the quaternion that is set to the rotation part of this transform. Modified.
     */
-   public void getRotation(QuaternionBasics quaternionToPack)
+   public void getRotation(QuaternionBasics<?> quaternionToPack)
    {
       rotationScaleMatrix.getRotation(quaternionToPack);
    }

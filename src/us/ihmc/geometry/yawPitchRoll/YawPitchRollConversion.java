@@ -157,7 +157,7 @@ public abstract class YawPitchRollConversion
       return FastMath.atan2(2.0 * (qy * qz + qx * qs), 1.0 - 2.0 * (qx * qx + qy * qy));
    }
 
-   public static double computeYaw(QuaternionReadOnly quaternion)
+   public static double computeYaw(QuaternionReadOnly<?> quaternion)
    {
       if (Tuple4DTools.containsNaN(quaternion))
          return Double.NaN;
@@ -183,7 +183,7 @@ public abstract class YawPitchRollConversion
          return computeYawFromQuaternionImpl(qx, qy, qz, qs);
    }
 
-   public static double computePitch(QuaternionReadOnly quaternion)
+   public static double computePitch(QuaternionReadOnly<?> quaternion)
    {
       if (Tuple4DTools.containsNaN(quaternion))
          return Double.NaN;
@@ -206,7 +206,7 @@ public abstract class YawPitchRollConversion
       return computePitchFromQuaternionImpl(qx, qy, qz, qs);
    }
 
-   public static double computeRoll(QuaternionReadOnly quaternion)
+   public static double computeRoll(QuaternionReadOnly<?> quaternion)
    {
       if (Tuple4DTools.containsNaN(quaternion))
          return Double.NaN;
@@ -232,7 +232,7 @@ public abstract class YawPitchRollConversion
          return computeRollFromQuaternionImpl(qx, qy, qz, qs);
    }
 
-   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, double[] yawPitchRollToPack)
+   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly<?> quaternion, double[] yawPitchRollToPack)
    {
       if (Tuple4DTools.containsNaN(quaternion))
       {
@@ -276,7 +276,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, Vector3D eulerAnglesToPack)
+   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly<?> quaternion, Vector3D eulerAnglesToPack)
    {
       if (Tuple4DTools.containsNaN(quaternion))
       {

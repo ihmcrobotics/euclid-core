@@ -691,7 +691,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * 
     * @param vectorToTransform the vector to transform. Modified.
     */
-   default void transform(Vector4DBasics vectorToTransform)
+   default void transform(Vector4DBasics<?> vectorToTransform)
    {
       transform(vectorToTransform, vectorToTransform);
    }
@@ -708,7 +708,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
+   void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed);
 
    /**
     * Performs the inverse of the transform to the given
@@ -833,7 +833,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * 
     * @param vectorToTransform the vector to transform. Modified.
     */
-   default void inverseTransform(Vector4DBasics vectorToTransform)
+   default void inverseTransform(Vector4DBasics<?> vectorToTransform)
    {
       inverseTransform(vectorToTransform, vectorToTransform);
    }
@@ -850,7 +850,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
+   void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed);
 
    /**
     * Tests on a per coefficient basis if this matrix is equal to the given {@code other}
