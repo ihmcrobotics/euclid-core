@@ -13,7 +13,6 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 
 public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tuple3DBasicsTest<T>
 {
