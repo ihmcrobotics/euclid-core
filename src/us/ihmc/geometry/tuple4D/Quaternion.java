@@ -47,7 +47,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       set(quaternionArray);
    }
 
-   public Quaternion(QuaternionReadOnly other)
+   public Quaternion(QuaternionReadOnly<?> other)
    {
       set(other);
    }
@@ -67,6 +67,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       set(rotationVector);
    }
 
+   @Override
    public void conjugate()
    {
       x = -x;
@@ -83,16 +84,19 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       s = -s;
    }
 
+   @Override
    public void normalize()
    {
       QuaternionTools.normalize(this);
    }
 
+   @Override
    public void normalizeAndLimitToPiMinusPi()
    {
       QuaternionTools.normalizeAndLimitToPiMinusPi(this);
    }
 
+   @Override
    public boolean isNormalized(double epsilon)
    {
       double normSquared = normSquared();
@@ -133,12 +137,14 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       return Tuple4DTools.containsNaN(this);
    }
 
-   public void interpolate(QuaternionReadOnly q1, double alpha)
+   @Override
+   public void interpolate(QuaternionReadOnly<?> q1, double alpha)
    {
       QuaternionTools.interpolate(this, q1, alpha, this);
    }
 
-   public void interpolate(QuaternionReadOnly q1, QuaternionReadOnly q2, double alpha)
+   @Override
+   public void interpolate(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, double alpha)
    {
       QuaternionTools.interpolate(q1, q2, alpha, this);
    }
@@ -146,18 +152,20 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    /**
    * Sets the value of this quaternion to the quaternion inverse of itself.
    */
+   @Override
    public void inverse()
    {
       conjugate();
       normalize();
    }
 
-   public double dot(QuaternionReadOnly other)
+   public double dot(QuaternionReadOnly<?> other)
    {
       return Tuple4DTools.dot(this, other);
    }
 
-   public void difference(QuaternionReadOnly q1, QuaternionReadOnly q2)
+   @Override
+   public void difference(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2)
    {
       QuaternionTools.multiplyConjugateLeft(q1, q2, this);
    }
@@ -165,11 +173,11 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    @Override
    public void set(Quaternion other)
    {
-      set((Tuple4DReadOnly) other);
+      set((Tuple4DReadOnly<?>) other);
    }
 
    @Override
-   public void set(Tuple4DReadOnly other)
+   public void set(Tuple4DReadOnly<?> other)
    {
       x = other.getX();
       y = other.getY();
@@ -178,51 +186,61 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       normalize();
    }
 
+   @Override
    public void set(AxisAngleReadOnly<?> axisAngle)
    {
       QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, this);
    }
 
+   @Override
    public void set(RotationMatrixReadOnly<?> rotationMatrix)
    {
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, this);
    }
 
+   @Override
    public void set(Vector3DReadOnly<?> rotationVector)
    {
       QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, this);
    }
 
+   @Override
    public void setYawPitchRoll(double[] yawPitchRoll)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(yawPitchRoll, this);
    }
 
+   @Override
    public void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, this);
    }
 
+   @Override
    public void setEuler(Vector3DReadOnly<?> eulerAngles)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), this);
    }
 
+   @Override
    public void setEuler(double rotX, double rotY, double rotZ)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(rotZ, rotY, rotX, this);
    }
 
+   @Override
    public void setToYawQuaternion(double yaw)
    {
       QuaternionConversion.computeYawQuaternion(yaw, this);
    }
 
+   @Override
    public void setToPitchQuaternion(double pitch)
    {
       QuaternionConversion.computeYawQuaternion(pitch, this);
    }
 
+   @Override
    public void setToRollQuaternion(double roll)
    {
       QuaternionConversion.computeRollQuaternion(roll, this);
@@ -244,24 +262,25 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       s = qs;
    }
 
-   public void setAndConjugate(QuaternionReadOnly other)
+   public void setAndConjugate(QuaternionReadOnly<?> other)
    {
       set(other);
       conjugate();
    }
 
-   public void setAndNegate(QuaternionReadOnly other)
+   public void setAndNegate(QuaternionReadOnly<?> other)
    {
       set(other);
       negate();
    }
 
-   public void setAndInverse(QuaternionReadOnly other)
+   public void setAndInverse(QuaternionReadOnly<?> other)
    {
       set(other);
       inverse();
    }
 
+   @Override
    public void set(double[] quaternionArray)
    {
       x = quaternionArray[0];
@@ -280,6 +299,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       normalize();
    }
 
+   @Override
    public void set(DenseMatrix64F matrix)
    {
       x = matrix.get(0, 0);
@@ -303,37 +323,37 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       normalize();
    }
 
-   public void multiply(QuaternionReadOnly other)
+   public void multiply(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiply(this, other, this);
    }
 
-   public void multiply(QuaternionReadOnly q1, QuaternionReadOnly q2)
+   public void multiply(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2)
    {
       QuaternionTools.multiply(q1, q2, this);
    }
 
-   public void multiplyConjugateOther(QuaternionReadOnly other)
+   public void multiplyConjugateOther(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiplyConjugateRight(this, other, this);
    }
 
-   public void multiplyConjugateThis(QuaternionReadOnly other)
+   public void multiplyConjugateThis(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiplyConjugateLeft(this, other, this);
    }
 
-   public void preMultiply(QuaternionReadOnly other)
+   public void preMultiply(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiply(other, this, this);
    }
 
-   public void preMultiplyConjugateOther(QuaternionReadOnly other)
+   public void preMultiplyConjugateOther(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiplyConjugateLeft(other, this, this);
    }
 
-   public void preMultiplyConjugateThis(QuaternionReadOnly other)
+   public void preMultiplyConjugateThis(QuaternionReadOnly<?> other)
    {
       QuaternionTools.multiplyConjugateRight(other, this, this);
    }
@@ -373,22 +393,22 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
 
-   public void transform(QuaternionBasics quaternionToTransform)
+   public void transform(QuaternionBasics<?> quaternionToTransform)
    {
       transform(quaternionToTransform, quaternionToTransform);
    }
 
-   public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void transform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
    {
       QuaternionTools.transform(this, quaternionOriginal, quaternionTransformed);
    }
 
-   public void transform(Vector4DBasics vectorToTransform)
+   public void transform(Vector4DBasics<?> vectorToTransform)
    {
       transform(vectorToTransform, vectorToTransform);
    }
 
-   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       QuaternionTools.transform(this, vectorOriginal, vectorTransformed);
    }
@@ -423,22 +443,22 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }
 
-   public void inverseTransform(QuaternionBasics quaternionToTransform)
+   public void inverseTransform(QuaternionBasics<?> quaternionToTransform)
    {
       inverseTransform(quaternionToTransform, quaternionToTransform);
    }
 
-   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
    {
       QuaternionTools.inverseTransform(this, quaternionOriginal, quaternionTransformed);
    }
 
-   public void inverseTransform(Vector4DBasics vectorToTransform)
+   public void inverseTransform(Vector4DBasics<?> vectorToTransform)
    {
       inverseTransform(vectorToTransform, vectorToTransform);
    }
 
-   public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       QuaternionTools.inverseTransform(this, vectorOriginal, vectorTransformed);
    }
@@ -496,6 +516,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       return 2.0 * Math.atan2(sinHalfTheta, s);
    }
 
+   @Override
    public void get(double[] quaternionArray)
    {
       quaternionArray[0] = x;
@@ -512,6 +533,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       quaternionArray[startIndex] = s;
    }
 
+   @Override
    public void get(DenseMatrix64F quaternionMatrixToPack)
    {
       quaternionMatrixToPack.set(0, 0, x);
@@ -533,7 +555,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       quaternionMatrixToPack.set(startRow, column, s);
    }
 
-   public void get(QuaternionBasics quaternionToPack)
+   public void get(QuaternionBasics<?> quaternionToPack)
    {
       quaternionToPack.set(x, y, z, s);
    }
@@ -568,6 +590,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       return YawPitchRollConversion.computeRoll(this);
    }
 
+   @Override
    public double get(int index)
    {
       switch (index)
@@ -622,6 +645,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       }
    }
 
+   @Override
    public boolean equals(Quaternion other)
    {
       try

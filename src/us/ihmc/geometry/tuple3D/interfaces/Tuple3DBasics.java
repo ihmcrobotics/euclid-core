@@ -23,9 +23,9 @@ import us.ihmc.geometry.tuple3D.Tuple3DTools;
  *     point to another, etc.
  *     When a vector is transformed with a homogeneous transformation matrix,
  *     its components are susceptible to be scaled and rotated, but never to be translated.
- * </ul> 
+ * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the tuple used.
@@ -35,24 +35,24 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 {
    /**
     * Sets the x-component of this tuple.
-    * 
+    *
     * @param x the new x-component's value.
     */
-   public void setX(double x);
+   void setX(double x);
 
    /**
     * Sets the y-component of this tuple.
-    * 
+    *
     * @param y the new y-component's value.
     */
-   public void setY(double y);
+   void setY(double y);
 
    /**
     * Sets the z-component of this tuple.
-    * 
+    *
     * @param z the new z-component's value.
     */
-   public void setZ(double z);
+   void setZ(double z);
 
    /**
     * Sets all the components of this tuple to zero.
@@ -97,7 +97,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Clips each component of this tuple to a maximum value {@code max}.
-    * 
+    *
     * @param max the maximum value for each component.
     */
    default void clipToMax(double max)
@@ -107,7 +107,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Clips each component of this tuple to a minimum value {@code min}.
-    * 
+    *
     * @param min the minimum value for each component.
     */
    default void clipToMin(double min)
@@ -117,7 +117,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Clips each component of this tuple to a minimum value {@code min} and a maximum value {@code max}.
-    * 
+    *
     * @param min the minimum value for each component.
     * @param max the maximum value for each component.
     */
@@ -134,7 +134,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * For an {@code index} of 0, the corresponding component is {@code x}, 1
     * it is {@code y}, 2 it is {@code z}.
     * </p>
-    * 
+    *
     * @param index the index of the component to set.
     * @param value the new value of the selected component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 1].
@@ -159,7 +159,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple's components to {@code x}, {@code y}, and {@code z}.
-    * 
+    *
     * @param x the new value for the x-component of this tuple.
     * @param y the new value for the y-component of this tuple.
     * @param z the new value for the z-component of this tuple.
@@ -173,7 +173,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple to {@code other}.
-    * 
+    *
     * @param other the other tuple to copy the values from. Not modified.
     */
    @Override
@@ -184,7 +184,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple to {@code tupleReadOnly}.
-    * 
+    *
     * @param tupleReadOnly the other tuple to copy the values from. Not modified.
     */
    default void set(Tuple3DReadOnly<?> tupleReadOnly)
@@ -194,7 +194,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple's components from the given array {@code tupleArray}.
-    * 
+    *
     * @param tupleArray the array containing the new values for this tuple's components. Not modified.
     */
    default void set(double[] tupleArray)
@@ -204,7 +204,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple's components from the given array {@code tupleArray}.
-    * 
+    *
     * @param startIndex the first index to start reading from in the array.
     * @param tupleArray the array containing the new values for this tuple's components. Not modified.
     */
@@ -215,7 +215,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple's components from the given array {@code tupleArray}.
-    * 
+    *
     * @param tupleArray the array containing the new values for this tuple's components. Not modified.
     */
    default void set(float[] tupleArray)
@@ -225,7 +225,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple's components from the given array {@code tupleArray}.
-    * 
+    *
     * @param startIndex the first index to start reading from in the array.
     * @param tupleArray the array containing the new values for this tuple's components. Not modified.
     */
@@ -236,7 +236,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple's components from the given column vector starting to read from its first row index.
-    * 
+    *
     * @param matrix the column vector containing the new values for this tuple's components. Not modified.
     */
    default void set(DenseMatrix64F matrix)
@@ -246,7 +246,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple's components from the given column vector starting to read from {@code startRow}.
-    * 
+    *
     * @param startRow the first row index to start reading in the dense-matrix.
     * @param matrix the column vector containing the new values for this tuple's components. Not modified.
     */
@@ -257,7 +257,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple's components from the given matrix starting to read from {@code startRow} at the column index {@code column}.
-    * 
+    *
     * @param startRow the first row index to start reading in the dense-matrix.
     * @param column the column index to read in the dense-matrix.
     * @param matrix the column vector containing the new values for this tuple's components. Not modified.
@@ -269,7 +269,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #absolute()}.
-    * 
+    *
     * @param other the other tuple to copy the values from. Not modified.
     */
    default void setAndAbsolute(Tuple3DReadOnly<?> other)
@@ -279,7 +279,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #negate()}.
-    * 
+    *
     * @param other the other tuple to copy the values from. Not modified.
     */
    default void setAndNegate(Tuple3DReadOnly<?> other)
@@ -289,7 +289,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple to {@code other} and then scales it {@link #scale(double)}.
-    * 
+    *
     * @param scalar the scale factor to use on this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
@@ -300,7 +300,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #clipToMax(double)}.
-    * 
+    *
     * @param max the maximum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
@@ -311,7 +311,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #clipToMin(double)}.
-    * 
+    *
     * @param min the minimum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
@@ -322,7 +322,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #clipToMinMax(double, double)}.
-    * 
+    *
     * @param min the minimum value for each component of this tuple.
     * @param max the maximum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
@@ -338,7 +338,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = this + (x, y, z)
     * </p>
-    * 
+    *
     * @param x the value to add to the x-component of this tuple.
     * @param y the value to add to the y-component of this tuple.
     * @param z the value to add to the z-component of this tuple.
@@ -353,7 +353,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = this + other
     * </p>
-    * 
+    *
     * @param other the other tuple to add to this tuple.
     */
    default void add(Tuple3DReadOnly<?> other)
@@ -366,7 +366,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = tuple1 + tuple2
     * </p>
-    * 
+    *
     * @param tuple1 the first tuple to sum. Not modified.
     * @param tuple2 the second tuple to sum. Not modified.
     */
@@ -380,7 +380,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = this - (x, y, z)
     * </p>
-    * 
+    *
     * @param x the value to add to the x-component of this tuple.
     * @param y the value to add to the y-component of this tuple.
     * @param z the value to add to the z-component of this tuple.
@@ -395,7 +395,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = this - other
     * </p>
-    * 
+    *
     * @param other the other tuple to add to this tuple.
     */
    default void sub(Tuple3DReadOnly<?> tupleReadOnly)
@@ -408,7 +408,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = tuple1 - tuple2
     * </p>
-    * 
+    *
     * @param tuple1 the first tuple. Not modified.
     * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
     */
@@ -422,7 +422,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = scalar * this
     * </p>
-    * 
+    *
     * @param scalar the scale factor to use.
     */
    default void scale(double scalar)
@@ -432,12 +432,12 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Scales independently each component of this tuple.
-    * <pre> 
+    * <pre>
     * / this.x \   / scalarX * this.x \
     * | this.y | = | scalarY * this.y |
     * \ this.z /   \ scalarZ * this.z /
     * </pre>
-    * 
+    *
     * @param scalarX the scalar factor to use on the x-component of this tuple.
     * @param scalarY the scalar factor to use on the y-component of this tuple.
     * @param scalarZ the scalar factor to use on the z-component of this tuple.
@@ -452,7 +452,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = scalar * this + other
     * </p>
-    * 
+    *
     * @param scalar the scale factor to use.
     * @param other the tuple to add to this. Not modified.
     */
@@ -467,7 +467,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = scalar * tuple1 + tuple2
     * </p>
-    * 
+    *
     * @param scalar the scale factor to use on {@code tuple1}.
     * @param tuple1 the first tuple of the sum. Not modified.
     * @param tuple2 the second tuple of the sum. Not modified.
@@ -484,7 +484,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = (1.0 - alpha) * this + alpha * other
     * </p>
-    * 
+    *
     * @param other the other tuple used for the interpolation. Not modified.
     * @param alpha the percentage used for the interpolation.
     * A value of 0 will result in not modifying this tuple, while a value of 1
@@ -501,7 +501,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * <p>
     * this = (1.0 - alpha) * tuple1 + alpha * tuple2
     * </p>
-    * 
+    *
     * @param tuple1 the first tuple used in the interpolation. Not modified.
     * @param tuple2 the second tuple used in the interpolation. Not modified.
     * @param alpha the percentage to use for the interpolation.
@@ -515,5 +515,4 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
       double z = Tuple3DTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
       set(x, y, z);
    }
-
 }

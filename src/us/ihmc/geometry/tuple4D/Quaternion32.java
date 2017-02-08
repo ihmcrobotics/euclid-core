@@ -424,13 +424,6 @@ public class Quaternion32 implements Serializable, QuaternionBasics<Quaternion32
       transform.transform(this);
    }
 
-   public float getAngle()
-   {
-      normalize();
-      double sinHalfTheta = Math.sqrt(x * x + y * y + z * z);
-      return (float) (2.0 * Math.atan2(sinHalfTheta, s));
-   }
-
    public void get(float[] quaternionArray)
    {
       quaternionArray[0] = x;
@@ -501,23 +494,6 @@ public class Quaternion32 implements Serializable, QuaternionBasics<Quaternion32
    public double getRoll()
    {
       return YawPitchRollConversion.computeRoll(this);
-   }
-
-   public float get(int index)
-   {
-      switch (index)
-      {
-      case 0:
-         return x;
-      case 1:
-         return y;
-      case 2:
-         return z;
-      case 3:
-         return s;
-      default:
-         throw new IndexOutOfBoundsException(Integer.toString(index));
-      }
    }
 
    @Override
