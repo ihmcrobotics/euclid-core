@@ -46,7 +46,7 @@ public class QuaternionTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(QuaternionBasics other)
          quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Quaternion quaternion2 = new Quaternion((QuaternionReadOnly) quaternion);
+         Quaternion quaternion2 = new Quaternion((QuaternionReadOnly<?>) quaternion);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternion2, EPS);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
@@ -79,7 +79,7 @@ public class QuaternionTest
          rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
          quaternion = new Quaternion(rotationMatrix);
-         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, (QuaternionBasics) expected);
+         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, (QuaternionBasics<?>) expected);
 
          GeometryBasicsTestTools.assertQuaternionEquals(expected, quaternion, EPS);
          GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
@@ -91,7 +91,7 @@ public class QuaternionTest
          rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          quaternion = new Quaternion(rotationVector);
-         QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly<?>) rotationVector, (QuaternionBasics) expected);
+         QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly<?>) rotationVector, (QuaternionBasics<?>) expected);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
          GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
@@ -287,7 +287,7 @@ public class QuaternionTest
       {
          quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
 
-         double normSquared = quaternion.normSquared();
+         double normSquared = quaternion.lengthSquared();
          Assert.assertTrue(quaternion.isNormalized(EPS)); // Quaternion should have norm = 1
          Assert.assertFalse(Double.isNaN(normSquared));
          Assert.assertTrue(Math.abs(normSquared - 1.0) < EPS);
@@ -306,7 +306,7 @@ public class QuaternionTest
       {
          quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
 
-         double norm = quaternion.norm();
+         double norm = quaternion.length();
          Assert.assertEquals(norm, 1.0, EPS);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionCopy, quaternionCopy, EPS);
@@ -323,7 +323,7 @@ public class QuaternionTest
       {
          quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
 
-         double normSquared = quaternion.normSquared();
+         double normSquared = quaternion.lengthSquared();
          Assert.assertEquals(normSquared, 1.0, EPS);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionCopy, quaternionCopy, EPS);
@@ -718,7 +718,7 @@ public class QuaternionTest
          for (int index = startIndex; index < startIndex + 4; index++)
             quaternionArray[index] = qExpected.get(index - startIndex);
 
-         qActual.set(quaternionArray, startIndex);
+         qActual.set(startIndex, quaternionArray);
 
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }
@@ -768,7 +768,7 @@ public class QuaternionTest
          for (int row = startRow; row < startRow + 4; row++)
             qDenseMatrix.set(row, 0, quaternion.get(row - startRow));
 
-         qActual.set(qDenseMatrix, startRow);
+         qActual.set(startRow, qDenseMatrix);
 
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }
@@ -1074,7 +1074,7 @@ public class QuaternionTest
          int startIndexCopy;
          startIndex = startIndexCopy = 0;
 
-         quaternion.get(quaternionArray, startIndex);
+         quaternion.get(startIndex, quaternionArray);
 
          Assert.assertTrue(quaternionArray[0] == quaternion.getX());
          Assert.assertTrue(quaternionArray[1] == quaternion.getY());
@@ -1086,17 +1086,6 @@ public class QuaternionTest
          Assert.assertTrue(startIndex == startIndexCopy);
          Assert.assertTrue(startIndex >= 0);
          Assert.assertTrue(startIndex <= startIndex + quaternionArray.length);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test get(QuaternionBasics quaternionToPack)
-         quaternion = expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Quaternion quaternion2 = new Quaternion();
-
-         quaternion.get((QuaternionBasics) quaternion2);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(expected, quaternion, EPS);
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternion2, EPS);
       }
    }
 
@@ -1140,7 +1129,7 @@ public class QuaternionTest
 
          try
          {
-            quaternion.get(denseMatrix, 4);
+            quaternion.get(4, denseMatrix);
             fail("Should have thrown IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -1153,7 +1142,7 @@ public class QuaternionTest
             denseMatrix.set(index, random.nextDouble());
 
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         quaternion.get(denseMatrix, 2);
+         quaternion.get(2, denseMatrix);
          assertTrue(quaternion.getX() == denseMatrix.get(2, 0));
          assertTrue(quaternion.getY() == denseMatrix.get(3, 0));
          assertTrue(quaternion.getZ() == denseMatrix.get(4, 0));
@@ -1167,7 +1156,7 @@ public class QuaternionTest
 
          try
          {
-            quaternion.get(denseMatrix, 4, 3);
+            quaternion.get(4, 3, denseMatrix);
             fail("Should have thrown IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -1180,7 +1169,7 @@ public class QuaternionTest
             denseMatrix.set(index, random.nextDouble());
 
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         quaternion.get(denseMatrix, 2, 4);
+         quaternion.get(2, 4, denseMatrix);
          assertTrue(quaternion.getX() == denseMatrix.get(2, 4));
          assertTrue(quaternion.getY() == denseMatrix.get(3, 4));
          assertTrue(quaternion.getZ() == denseMatrix.get(4, 4));

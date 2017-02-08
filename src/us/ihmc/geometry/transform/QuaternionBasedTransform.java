@@ -158,7 +158,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param quaternion the quaternion used to initialize the quaternion of this transform. Not modified.
     * @param translation the tuple used to initialize the translation part of this transform. Not modified.
     */
-   public QuaternionBasedTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> translation)
+   public QuaternionBasedTransform(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> translation)
    {
       set(quaternion, translation);
    }
@@ -394,7 +394,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param quaternion the quaternion used to set the quaternion of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> translation)
+   public void set(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> translation)
    {
       this.quaternion.set(quaternion);
       translationVector.set(translation);
@@ -433,7 +433,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * 
     * @param quaternion the quaternion used to set the quaternion of this transform. Not modified.
     */
-   public void setRotation(QuaternionReadOnly quaternion)
+   public void setRotation(QuaternionReadOnly<?> quaternion)
    {
       this.quaternion.set(quaternion);
    }
@@ -732,14 +732,14 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void transform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
    {
       quaternion.transform(quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       quaternion.transform(vectorOriginal, vectorTransformed);
    }
@@ -791,14 +791,14 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
    {
       quaternion.inverseTransform(quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   public void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       quaternion.inverseTransform(vectorOriginal, vectorTransformed);
    }
@@ -872,7 +872,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     */
    public void get(int startRow, int column, DenseMatrix64F matrixToPack)
    {
-      quaternion.get(matrixToPack, startRow, column);
+      quaternion.get(startRow, column, matrixToPack);
       translationVector.get(startRow + 4, column, matrixToPack);
    }
 
@@ -888,9 +888,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param quaternionToPack the quaternion in which this transform's quaternion is stored. Modified.
     * @param translationToPack the tuple in which this transform's translation is stored. Modified.
     */
-   public void get(QuaternionBasics quaternionToPack, Tuple3DBasics<Vector3D> translationToPack)
+   public void get(QuaternionBasics<?> quaternionToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
-      quaternion.get(quaternionToPack);
+      quaternionToPack.set(quaternion);
       translationToPack.set(translationVector);
    }
 
@@ -924,7 +924,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * 
     * @return the quaternion of this transform.
     */
-   public QuaternionReadOnly getQuaternion()
+   public QuaternionReadOnly<?> getQuaternion()
    {
       return quaternion;
    }
@@ -955,9 +955,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * 
     * @param quaternionToPack the quaternion that is set to the rotation part of this transform. Modified.
     */
-   public void getRotation(QuaternionBasics quaternionToPack)
+   public void getRotation(QuaternionBasics<?> quaternionToPack)
    {
-      quaternion.get(quaternionToPack);
+      quaternionToPack.set(quaternion);
    }
 
    /**
@@ -967,7 +967,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     */
    public void getRotation(AxisAngleBasics<?> axisAngleToPack)
    {
-      quaternion.get(axisAngleToPack);
+      axisAngleToPack.set(quaternion);
    }
 
    /**

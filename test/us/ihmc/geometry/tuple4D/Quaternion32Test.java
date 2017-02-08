@@ -196,7 +196,7 @@ public class Quaternion32Test
       {
          quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
 
-         double normSquared = quaternion.normSquared();
+         double normSquared = quaternion.lengthSquared();
          Assert.assertEquals(normSquared, 1.0, EPS);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionCopy, quaternionCopy, EPS);
@@ -304,8 +304,8 @@ public class Quaternion32Test
             quaternion.inverse();
             expected.conjugate();
             expected.normalize();
-            float norm = (float) Math.sqrt(quaternion.normSquared());
-            float expectedNorm = (float) Math.sqrt(expected.normSquared());
+            float norm = (float) Math.sqrt(quaternion.lengthSquared());
+            float expectedNorm = (float) Math.sqrt(expected.lengthSquared());
 
             GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
 
@@ -324,8 +324,8 @@ public class Quaternion32Test
             expectedQuaternion322.conjugate();
             expectedQuaternion322.normalize();
 
-            float norm2 = (float) Math.sqrt(quaternion2.normSquared());
-            float expectedNorm2 = (float) Math.sqrt(expectedQuaternion322.normSquared());
+            float norm2 = (float) Math.sqrt(quaternion2.lengthSquared());
+            float expectedNorm2 = (float) Math.sqrt(expectedQuaternion322.lengthSquared());
 
             Assert.assertEquals(norm2, 1.0, EPS);
             Assert.assertEquals(expectedNorm2, 1.0, EPS);
@@ -563,7 +563,7 @@ public class Quaternion32Test
          int startIndex, startIndexCopy;
          startIndex = startIndexCopy = 0;
 
-         quaternion.set(quaternionArray, startIndex);
+         quaternion.set(startIndex, quaternionArray);
 
          Assert.assertEquals(quaternionArray[0], quaternion.getX(), EPS);
          Assert.assertEquals(quaternionArray[1], quaternion.getY(), EPS);
@@ -658,7 +658,7 @@ public class Quaternion32Test
 
          try
          {
-            quaternion.set(denseMatrix, 2);
+            quaternion.set(2, denseMatrix);
             fail("Should have thrown a IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -682,7 +682,7 @@ public class Quaternion32Test
          denseMatrix.set(7, 0, blop.getZ());
          denseMatrix.set(8, 0, blop.getS());
          denseMatrixCopy = new DenseMatrix64F(denseMatrix);
-         quaternion.set(denseMatrix, 5);
+         quaternion.set(5, denseMatrix);
 
          assertEquals(quaternion.getX(), denseMatrix.get(5, 0), EPS);
          assertEquals(quaternion.getY(), denseMatrix.get(6, 0), EPS);
@@ -1030,7 +1030,7 @@ public class Quaternion32Test
          int startIndexCopy;
          startIndex = startIndexCopy = 0;
 
-         quaternion.get(quaternionArray, startIndex);
+         quaternion.get(startIndex, quaternionArray);
 
          Assert.assertTrue(quaternionArray[0] == quaternion.getX());
          Assert.assertTrue(quaternionArray[1] == quaternion.getY());
@@ -1042,17 +1042,6 @@ public class Quaternion32Test
          Assert.assertTrue(startIndex == startIndexCopy);
          Assert.assertTrue(startIndex >= 0);
          Assert.assertTrue(startIndex <= startIndex + quaternionArray.length);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test get(Quaternion32Basics quaternionToPack)
-         quaternion = expected = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-         Quaternion32 quaternion2 = new Quaternion32();
-
-         quaternion.get((QuaternionBasics) quaternion2);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(expected, quaternion, EPS);
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternion2, EPS);
       }
    }
 
@@ -1096,7 +1085,7 @@ public class Quaternion32Test
 
          try
          {
-            q.get(denseMatrix, 4);
+            q.get(4, denseMatrix);
             fail("Should have thrown IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -1109,7 +1098,7 @@ public class Quaternion32Test
             denseMatrix.set(index, random.nextDouble());
 
          q = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-         q.get(denseMatrix, 2);
+         q.get(2, denseMatrix);
          assertEquals(q.getX(), denseMatrix.get(2, 0), 1.0e-7);
          assertEquals(q.getY(), denseMatrix.get(3, 0), 1.0e-7);
          assertEquals(q.getZ(), denseMatrix.get(4, 0), 1.0e-7);
@@ -1123,7 +1112,7 @@ public class Quaternion32Test
 
          try
          {
-            q.get(denseMatrix, 4, 3);
+            q.get(4, 3, denseMatrix);
             fail("Should have thrown IllegalArgumentException.");
          }
          catch (IllegalArgumentException e)
@@ -1136,7 +1125,7 @@ public class Quaternion32Test
             denseMatrix.set(index, random.nextDouble());
 
          q = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-         q.get(denseMatrix, 2, 4);
+         q.get(2, 4, denseMatrix);
          assertEquals(q.getX(), denseMatrix.get(2, 4), 1.0e-7);
          assertEquals(q.getY(), denseMatrix.get(3, 4), 1.0e-7);
          assertEquals(q.getZ(), denseMatrix.get(4, 4), 1.0e-7);

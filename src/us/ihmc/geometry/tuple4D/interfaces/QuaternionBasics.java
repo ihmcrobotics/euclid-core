@@ -3,6 +3,7 @@ package us.ihmc.geometry.tuple4D.interfaces;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.QuaternionTools;
@@ -201,5 +202,11 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
    default void interpolate(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, double alpha)
    {
       QuaternionTools.interpolate(q1, q2, alpha, this);
+   }
+
+   @Override
+   default void applyTransform(Transform transform)
+   {
+      transform.transform(this);
    }
 }

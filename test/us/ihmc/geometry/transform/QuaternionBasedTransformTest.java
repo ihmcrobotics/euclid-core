@@ -414,7 +414,7 @@ public class QuaternionBasedTransformTest
          int column = random.nextInt(10);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(7 + startRow, 1 + column);
          transform.get(startRow, column, denseMatrix);
-         actualQuaternion.set(denseMatrix, startRow, column);
+         actualQuaternion.set(startRow, column, denseMatrix);
          actualTranslation.set(4 + startRow, column, denseMatrix);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);

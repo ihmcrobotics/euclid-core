@@ -124,7 +124,7 @@ public class Vector4DTest
          vectorArray[startIndex + 2] = z;
          vectorArray[startIndex + 3] = s;
          Vector4D vector = new Vector4D();
-         vector.set(vectorArray, startIndex);
+         vector.set(startIndex, vectorArray);
          assertTrue(vector.getX() == x);
          assertTrue(vector.getY() == y);
          assertTrue(vector.getZ() == z);
@@ -175,7 +175,7 @@ public class Vector4DTest
          vectorDenseMatrix.set(startRow + 2, 0, z);
          vectorDenseMatrix.set(startRow + 3, 0, s);
          Vector4D vector = new Vector4D();
-         vector.set(vectorDenseMatrix, startRow);
+         vector.set(startRow, vectorDenseMatrix);
          assertTrue(vector.getX() == x);
          assertTrue(vector.getY() == y);
          assertTrue(vector.getZ() == z);
@@ -428,7 +428,7 @@ public class Vector4DTest
       { // Test get(double[] tupleArray, int startIndex)
          int startIndex = random.nextInt(10);
          double[] tupleArray = new double[4 + startIndex];
-         vector.get(tupleArray, startIndex);
+         vector.get(startIndex, tupleArray);
 
          for (int i = 0; i < 4; i++)
             assertTrue(vector.get(i) == tupleArray[i + startIndex]);
@@ -445,7 +445,7 @@ public class Vector4DTest
       { // Test get(DenseMatrix64F tupleMatrixToPack, int startRow)
          int startRow = random.nextInt(10);
          DenseMatrix64F tupleMatrixToPack = new DenseMatrix64F(4 + startRow, 1);
-         vector.get(tupleMatrixToPack, startRow);
+         vector.get(startRow, tupleMatrixToPack);
 
          for (int i = 0; i < 4; i++)
             assertTrue(vector.get(i) == tupleMatrixToPack.get(i + startRow, 0));
@@ -455,7 +455,7 @@ public class Vector4DTest
          int startRow = random.nextInt(10);
          int startColumn = random.nextInt(10);
          DenseMatrix64F tupleMatrixToPack = new DenseMatrix64F(4 + startRow, 1 + startColumn);
-         vector.get(tupleMatrixToPack, startRow, startColumn);
+         vector.get(startRow, startColumn, tupleMatrixToPack);
 
          for (int i = 0; i < 4; i++)
             assertTrue(vector.get(i) == tupleMatrixToPack.get(i + startRow, startColumn));

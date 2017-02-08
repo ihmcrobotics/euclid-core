@@ -1,5 +1,6 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
+import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
 public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DReadOnly<T>, Tuple4DBasics<T>
@@ -157,5 +158,11 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
       double z = Tuple3DTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
       double s = Tuple3DTools.interpolate(tuple1.getS(), tuple2.getS(), alpha);
       set(x, y, z, s);
+   }
+
+   @Override
+   default void applyTransform(Transform transform)
+   {
+      transform.transform(this);
    }
 }
