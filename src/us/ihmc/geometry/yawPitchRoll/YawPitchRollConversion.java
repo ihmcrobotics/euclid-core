@@ -109,7 +109,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DBasics eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DBasics<?> eulerAnglesToPack)
    {
       rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());
@@ -132,7 +132,7 @@ public abstract class YawPitchRollConversion
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), yawPitchRollToPack);
    }
 
-   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DBasics eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DBasics<?> eulerAnglesToPack)
    {
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), eulerAnglesToPack);
    }
@@ -472,7 +472,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, Tuple3DBasics eulerAnglesToPack)
+   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, Tuple3DBasics<?> eulerAnglesToPack)
    {
       if (AxisAngleTools.containsNaN(axisAngle))
       {
@@ -498,7 +498,7 @@ public abstract class YawPitchRollConversion
       convertAxisAngleToYawPitchRollImpl(ux, uy, uz, angle, eulerAnglesToPack);
    }
 
-   public static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, Tuple3DBasics eulerAnglesToPack)
+   public static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, Tuple3DBasics<?> eulerAnglesToPack)
    {
       double sinTheta = Math.sin(angle);
       double cosTheta = Math.cos(angle);
@@ -523,7 +523,7 @@ public abstract class YawPitchRollConversion
       }
    }
 
-   public static double computeYaw(Vector3DReadOnly rotationVector)
+   public static double computeYaw(Vector3DReadOnly<?> rotationVector)
    {
       if (Tuple3DTools.containsNaN(rotationVector))
          return Double.NaN;
@@ -549,7 +549,7 @@ public abstract class YawPitchRollConversion
          return computeYawFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static double computePitch(Vector3DReadOnly rotationVector)
+   public static double computePitch(Vector3DReadOnly<?> rotationVector)
    {
       if (Tuple3DTools.containsNaN(rotationVector))
          return Double.NaN;
@@ -571,7 +571,7 @@ public abstract class YawPitchRollConversion
       return computePitchFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static double computeRoll(Vector3DReadOnly rotationVector)
+   public static double computeRoll(Vector3DReadOnly<?> rotationVector)
    {
       if (Tuple3DTools.containsNaN(rotationVector))
          return Double.NaN;
@@ -597,7 +597,7 @@ public abstract class YawPitchRollConversion
          return computeRollFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
-   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, double[] yawPitchRollToPack)
+   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly<?> rotationVector, double[] yawPitchRollToPack)
    {
       if (Tuple3DTools.containsNaN(rotationVector))
       {
@@ -630,7 +630,7 @@ public abstract class YawPitchRollConversion
       convertAxisAngleToYawPitchRollImpl(ux, uy, uz, angle, yawPitchRollToPack);
    }
 
-   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, Vector3DBasics eulerAnglesToPack)
+   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly<?> rotationVector, Vector3DBasics<?> eulerAnglesToPack)
    {
       if (Tuple3DTools.containsNaN(rotationVector))
       {

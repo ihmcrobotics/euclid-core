@@ -96,7 +96,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
     * @param rotationVectorToPack rotation vector in which the orientation
     *  of this axis-angle is stored. Modified.
     */
-   default void getRotationVector(Vector3DBasics rotationVectorToPack)
+   default void getRotationVector(Vector3DBasics<?> rotationVectorToPack)
    {
       RotationVectorConversion.convertAxisAngleToRotationVector(this, rotationVectorToPack);
    }

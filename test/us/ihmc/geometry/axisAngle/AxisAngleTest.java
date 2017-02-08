@@ -141,7 +141,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
 
             axisAngle = new AxisAngle(rotationVector);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertRotationVectorToAxisAngle((Vector3DReadOnly) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle);
+            AxisAngleConversion.convertRotationVectorToAxisAngle((Vector3DReadOnly<?>) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);

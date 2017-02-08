@@ -151,7 +151,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationMatrix the rotation matrix used to set this transform's rotation part. Not modified.
     * @param translation the tuple used to set this transform's translation part. Not modified. 
     */
-   public RigidBodyTransform(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
+   public RigidBodyTransform(RotationMatrix rotationMatrix, Tuple3DReadOnly<?> translation)
    {
       set(rotationMatrix, translation);
    }
@@ -162,7 +162,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param quaternion the quaternion used to set this transform's rotation part. Not modified.
     * @param translation the tuple used to set this transform's translation part. Not modified. 
     */
-   public RigidBodyTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
+   public RigidBodyTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> translation)
    {
       set(quaternion, translation);
    }
@@ -173,7 +173,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param axisAngle the axis-angle used to set this transform's rotation part. Not modified.
     * @param translation the tuple used to set this transform's translation part. Not modified. 
     */
-   public RigidBodyTransform(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
+   public RigidBodyTransform(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly<?> translation)
    {
       set(axisAngle, translation);
    }
@@ -486,7 +486,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
-   public void set(Matrix3DReadOnly<?> rotationMatrix, Tuple3DReadOnly translation)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, Tuple3DReadOnly<?> translation)
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
@@ -498,7 +498,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
+   public void set(RotationMatrix rotationMatrix, Tuple3DReadOnly<?> translation)
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
@@ -514,7 +514,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationScaleMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(RotationScaleMatrix rotationScaleMatrix, Tuple3DReadOnly translation)
+   public void set(RotationScaleMatrix rotationScaleMatrix, Tuple3DReadOnly<?> translation)
    {
       rotationScaleMatrix.getRotation(rotationMatrix);
       translationVector.set(translation);
@@ -526,7 +526,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
+   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly<?> translation)
    {
       rotationMatrix.set(axisAngle);
       translationVector.set(translation);
@@ -538,7 +538,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
+   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> translation)
    {
       rotationMatrix.set(quaternion);
       translationVector.set(translation);
@@ -611,7 +611,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @param rotationVector the rotation vector used to set the rotation part of this transform. Not modified.
     */
-   public void setRotation(Vector3DReadOnly rotationVector)
+   public void setRotation(Vector3DReadOnly<?> rotationVector)
    {
       rotationMatrix.set(rotationVector);
    }
@@ -771,7 +771,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setRotationEuler(Vector3DReadOnly eulerAngles)
+   public void setRotationEuler(Vector3DReadOnly<?> eulerAngles)
    {
       rotationMatrix.setEuler(eulerAngles);
    }
@@ -821,7 +821,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @param rotationVector the rotation vector used to set the rotation part of this transform. Not modified.
     */
-   public void setRotationAndZeroTranslation(Vector3DReadOnly rotationVector)
+   public void setRotationAndZeroTranslation(Vector3DReadOnly<?> rotationVector)
    {
       rotationMatrix.set(rotationVector);
    }
@@ -965,7 +965,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setRotationEulerAndZeroTranslation(Vector3DReadOnly eulerAngles)
+   public void setRotationEulerAndZeroTranslation(Vector3DReadOnly<?> eulerAngles)
    {
       setRotationEuler(eulerAngles);
       translationVector.setToZero();
@@ -1016,7 +1016,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @param translation tuple used to set the translation part of this transform. Not modified.
     */
-   public void setTranslation(Tuple3DReadOnly translation)
+   public void setTranslation(Tuple3DReadOnly<?> translation)
    {
       translationVector.set(translation);
    }
@@ -1039,7 +1039,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @param translation tuple used to set the translation part of this transform. Not modified.
     */
-   public void setTranslationAndIdentityRotation(Tuple3DReadOnly translation)
+   public void setTranslationAndIdentityRotation(Tuple3DReadOnly<?> translation)
    {
       setTranslation(translation);
       rotationMatrix.setIdentity();
@@ -1086,7 +1086,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)
+   public void transform(Point3DReadOnly<?> pointOriginal, Point3DBasics<?> pointTransformed)
    {
       rotationMatrix.transform(pointOriginal, pointTransformed);
       pointTransformed.add(translationVector);
@@ -1094,7 +1094,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
+   public void transform(Vector3DReadOnly<?> vectorOriginal, Vector3DBasics<?> vectorTransformed)
    {
       rotationMatrix.transform(vectorOriginal, vectorTransformed);
    }
@@ -1144,7 +1144,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)
+   public void inverseTransform(Point3DReadOnly<?> pointOriginal, Point3DBasics<?> pointTransformed)
    {
       pointTransformed.set(pointOriginal);
       pointTransformed.sub(translationVector);
@@ -1153,7 +1153,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed)
+   public void inverseTransform(Vector3DReadOnly<?> vectorOriginal, Vector3DBasics<?> vectorTransformed)
    {
       rotationMatrix.inverseTransform(vectorOriginal, vectorTransformed);
    }
@@ -1290,7 +1290,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param quaternionToPack the quaternion to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(QuaternionBasics quaternionToPack, Tuple3DBasics translationToPack)
+   public void get(QuaternionBasics quaternionToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
       rotationMatrix.get(quaternionToPack);
       translationToPack.set(translationVector);
@@ -1302,7 +1302,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param axisAngleToPack the axis-angle to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(AxisAngleBasics<?> axisAngleToPack, Tuple3DBasics translationToPack)
+   public void get(AxisAngleBasics<?> axisAngleToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
       axisAngleToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -1319,7 +1319,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationVectorToPack the rotation vector to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(Vector3DBasics rotationVectorToPack, Tuple3DBasics translationToPack)
+   public void get(Vector3DBasics<?> rotationVectorToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
       rotationMatrix.get(rotationVectorToPack);
       translationToPack.set(translationVector);
@@ -1331,7 +1331,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationMarixToPack the matrix to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(Matrix3DBasics<?> rotationMarixToPack, Tuple3DBasics translationToPack)
+   public void get(Matrix3DBasics<?> rotationMarixToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -1343,7 +1343,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationMarixToPack the matrix to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(RotationMatrix rotationMarixToPack, Tuple3DBasics translationToPack)
+   public void get(RotationMatrix rotationMarixToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -1355,7 +1355,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationMarixToPack the matrix to set to the rotation of this transform. The scale part is reset. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(RotationScaleMatrix rotationMarixToPack, Tuple3DBasics translationToPack)
+   public void get(RotationScaleMatrix rotationMarixToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -1452,7 +1452,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @param rotationVectorToPack the rotation vector that is set to the rotation part of this transform. Modified.
     */
-   public void getRotation(Vector3DBasics rotationVectorToPack)
+   public void getRotation(Vector3DBasics<?> rotationVectorToPack)
    {
       rotationMatrix.get(rotationVectorToPack);
    }
@@ -1462,7 +1462,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @return the translation part of this transform.
     */
-   public Vector3DReadOnly getTranslationVector()
+   public Vector3DReadOnly<Vector3D> getTranslationVector()
    {
       return translationVector;
    }
@@ -1472,7 +1472,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * 
     * @param translationToPack the tuple in which the translation part of this transform is stored. Modified.
     */
-   public void getTranslation(Tuple3DBasics translationToPack)
+   public void getTranslation(Tuple3DBasics<Vector3D> translationToPack)
    {
       translationToPack.set(translationVector);
    }

@@ -192,17 +192,17 @@ public abstract class QuaternionTools
       return norm;
    }
 
-   public static void transform(QuaternionReadOnly quaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public static void transform(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       transformImpl(quaternion, false, tupleOriginal, tupleTransformed);
    }
 
-   public static void inverseTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public static void inverseTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       transformImpl(quaternion, true, tupleOriginal, tupleTransformed);
    }
 
-   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
@@ -249,12 +249,12 @@ public abstract class QuaternionTools
       tupleTransformed.setZ(z + qs * crossZ + crossCrossZ);
    }
 
-   public static void addTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public static void addTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       addTransform(quaternion, false, tupleOriginal, tupleTransformed);
    }
 
-   private static void addTransform(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   private static void addTransform(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();

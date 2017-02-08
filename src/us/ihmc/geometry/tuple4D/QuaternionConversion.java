@@ -147,7 +147,7 @@ public abstract class QuaternionConversion
       quaternionToPack.setUnsafe(qx, qy, qz, qs);
    }
 
-   public static void convertRotationVectorToQuaternion(Vector3DReadOnly rotationVector, QuaternionBasics quaternionToPack)
+   public static void convertRotationVectorToQuaternion(Vector3DReadOnly<?> rotationVector, QuaternionBasics quaternionToPack)
    {
       convertRotationVectorToQuaternionImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), quaternionToPack);
    }

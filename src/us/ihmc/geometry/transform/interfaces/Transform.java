@@ -52,7 +52,7 @@ public interface Transform
     * 
     * @param pointToTransform the point to transform. Modified.
     */
-   default void transform(Point3DBasics pointToTransform)
+   default void transform(Point3DBasics<?> pointToTransform)
    {
       transform(pointToTransform, pointToTransform);
    }
@@ -75,7 +75,7 @@ public interface Transform
     * @param pointOriginal the point to transform. Not modified.
     * @param pointTransformed the point in which the result is stored. Modified.
     */
-   void transform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed);
+   void transform(Point3DReadOnly<?> pointOriginal, Point3DBasics<?> pointTransformed);
 
    /**
     * Transforms the given {@code vectorToTransform} by this transform.
@@ -94,7 +94,7 @@ public interface Transform
     * 
     * @param vectorToTransform the vector to transform. Modified.
     */
-   default void transform(Vector3DBasics vectorToTransform)
+   default void transform(Vector3DBasics<?> vectorToTransform)
    {
       transform(vectorToTransform, vectorToTransform);
    }
@@ -117,7 +117,7 @@ public interface Transform
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void transform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
+   void transform(Vector3DReadOnly<?> vectorOriginal, Vector3DBasics<?> vectorTransformed);
 
    /**
     * Transforms the given {@code quaternionToTransform} by this transform.
@@ -460,7 +460,7 @@ public interface Transform
     * 
     * @param pointToTransform the point to transform. Modified.
     */
-   default void inverseTransform(Point3DBasics pointToTransform)
+   default void inverseTransform(Point3DBasics<?> pointToTransform)
    {
       inverseTransform(pointToTransform, pointToTransform);
    }
@@ -484,7 +484,7 @@ public interface Transform
     * @param pointOriginal the point to transform. Not modified.
     * @param pointTransformed the point in which the result is stored. Modified.
     */
-   void inverseTransform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed);
+   void inverseTransform(Point3DReadOnly<?> pointOriginal, Point3DBasics<?> pointTransformed);
 
    /**
     * Transforms the given {@code vectorToTransform} by the inverse of this transform.
@@ -503,7 +503,7 @@ public interface Transform
     * 
     * @param vectorToTransform the vector to transform. Modified.
     */
-   default void inverseTransform(Vector3DBasics vectorToTransform)
+   default void inverseTransform(Vector3DBasics<?> vectorToTransform)
    {
       inverseTransform(vectorToTransform, vectorToTransform);
    }
@@ -527,7 +527,7 @@ public interface Transform
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void inverseTransform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
+   void inverseTransform(Vector3DReadOnly<?> vectorOriginal, Vector3DBasics<?> vectorTransformed);
 
    /**
     * Transforms the given {@code quaternionToTransform} by the inverse of this transform.

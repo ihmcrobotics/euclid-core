@@ -262,7 +262,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param columnToPack the tuple in which the column of this matrix is stored. Modified.
     * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
     */
-   default void getColumn(int column, Tuple3DBasics columnToPack)
+   default void getColumn(int column, Tuple3DBasics<?> columnToPack)
    {
       switch (column)
       {
@@ -324,7 +324,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param rowToPack the array in which the row of this matrix is stored. Modified.
     * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
     */
-   default void getRow(int row, Tuple3DBasics rowToPack)
+   default void getRow(int row, Tuple3DBasics<?> rowToPack)
    {
       switch (row)
       {
@@ -545,7 +545,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * 
     * @param tupleToTransform the tuple to transform. Modified.
     */
-   default void transform(Tuple3DBasics tupleToTransform)
+   default void transform(Tuple3DBasics<?> tupleToTransform)
    {
       transform(tupleToTransform, tupleToTransform);
    }
@@ -560,7 +560,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
-   void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
+   void transform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed);
 
    /**
     * Transforms the given tuple by this matrix and add the
@@ -571,7 +571,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * 
     * @param tupleToTransform the tuple to transform. Modified.
     */
-   default void addTransform(Tuple3DBasics tupleToTransform)
+   default void addTransform(Tuple3DBasics<?> tupleToTransform)
    {
       addTransform(tupleToTransform, tupleToTransform);
    }
@@ -586,7 +586,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to add the result to. Modified.
     */
-   void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
+   void addTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed);
 
    /**
     * Transforms the given tuple by this matrix.
@@ -719,7 +719,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * 
     * @param tupleToTransform the tuple to transform. Modified.
     */
-   default void inverseTransform(Tuple3DBasics tupleToTransform)
+   default void inverseTransform(Tuple3DBasics<?> tupleToTransform)
    {
       inverseTransform(tupleToTransform, tupleToTransform);
    }
@@ -735,7 +735,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     */
-   void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
+   void inverseTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed);
 
    /**
     * Performs the inverse of the transform to the given

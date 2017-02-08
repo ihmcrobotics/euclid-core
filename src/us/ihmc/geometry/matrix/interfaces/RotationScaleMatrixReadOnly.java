@@ -51,7 +51,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
     * 
     * @return the read-only reference to the scale factors.
     */
-   public Tuple3DReadOnly getScale();
+   public Tuple3DReadOnly<?> getScale();
 
    /**
     * Returns the current value of the first scale factor
@@ -79,7 +79,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   default void transform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       tupleTransformed.setX(getScaleX() * tupleOriginal.getX());
       tupleTransformed.setY(getScaleY() * tupleOriginal.getY());
@@ -90,7 +90,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
 
    /** {@inheritDoc} */
    @Override
-   default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   default void addTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       double x = tupleTransformed.getX();
       double y = tupleTransformed.getY();
@@ -199,7 +199,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   default void inverseTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       getRotationMatrix().inverseTransform(tupleOriginal, tupleTransformed);
 

@@ -63,7 +63,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       set(axisAngle);
    }
 
-   public Quaternion32(Vector3DReadOnly rotationVector)
+   public Quaternion32(Vector3DReadOnly<?> rotationVector)
    {
       set(rotationVector);
    }
@@ -189,7 +189,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, this);
    }
 
-   public void set(Vector3DReadOnly rotationVector)
+   public void set(Vector3DReadOnly<?> rotationVector)
    {
       QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, this);
    }
@@ -324,12 +324,12 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       QuaternionTools.multiply(matrix, this, this);
    }
 
-   public void transform(Tuple3DBasics tupleToTransform)
+   public void transform(Tuple3DBasics<?> tupleToTransform)
    {
       transform(tupleToTransform, tupleToTransform);
    }
 
-   public void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public void transform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed);
    }
@@ -389,12 +389,12 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
    }
 
-   public void inverseTransform(Tuple3DBasics tupleToTransform)
+   public void inverseTransform(Tuple3DBasics<?> tupleToTransform)
    {
       inverseTransform(tupleToTransform, tupleToTransform);
    }
 
-   public void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   public void inverseTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }
@@ -474,7 +474,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       quaternionToPack.set(x, y, z, s);
    }
 
-   public void get(Vector3DBasics rotationVectorToPack)
+   public void get(Vector3DBasics<?> rotationVectorToPack)
    {
       RotationVectorConversion.convertQuaternionToRotationVector(this, rotationVectorToPack);
    }

@@ -109,7 +109,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * @param axis the new axis. Not modified.
     * @param angle the new angle.
     */
-   default void set(Vector3DReadOnly axis, double angle)
+   default void set(Vector3DReadOnly<?> axis, double angle)
    {
       set(axis.getX(), axis.getY(), axis.getZ(), angle);
    }
@@ -240,7 +240,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * 
     * @param rotationVector the rotation vector to convert. Not modified.
     */
-   default void set(Vector3DReadOnly rotationVector)
+   default void set(Vector3DReadOnly<?> rotationVector)
    {
       AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, this);
    }

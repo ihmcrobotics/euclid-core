@@ -86,7 +86,7 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
       s = other.getS();
    }
 
-   public void set(Tuple3DReadOnly tuple)
+   public void set(Tuple3DReadOnly<?> tuple)
    {
       x = tuple.getX();
       y = tuple.getY();
