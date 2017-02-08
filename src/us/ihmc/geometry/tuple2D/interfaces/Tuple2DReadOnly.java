@@ -22,7 +22,7 @@ import us.ihmc.geometry.tuple3D.Tuple3DTools;
  *     physical quantity that has a direction and a magnitude such as: a velocity, a force, the translation from one
  *     point to another, etc.
  *     When a vector is transformed with a homogeneous transformation matrix,
- *     a vector's components are susceptible to be scaled and rotated, but never to be translated.
+ *     its components are susceptible to be scaled and rotated, but never to be translated.
  * </ul> 
  * </p>
  * 
