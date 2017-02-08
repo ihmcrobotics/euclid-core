@@ -1,6 +1,7 @@
 package us.ihmc.geometry.tuple3D;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Random;
@@ -147,10 +148,15 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tu
          vector1.setAndScale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.normalize();
          GeometryBasicsTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
+
+         vector1.setToNaN();
+         vector1.normalize();
+         for (int index = 0; index < 3; index++)
+            assertTrue(Double.isNaN(vector1.get(index)));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test normalize(Vector2D vector)
+      { // Test setAndNormalize(Tuple3DReadOnly other)
          T vector1 = createRandomTuple(random);
          T vector2 = createEmptyTuple();
 
@@ -166,6 +172,12 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tu
          vector3.setAndScale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.setAndNormalize(vector3);
          GeometryBasicsTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
+
+         vector3.setToNaN();
+         vector1.setToZero();
+         vector1.setAndNormalize(vector3);
+         for (int index = 0; index < 3; index++)
+            assertTrue(Double.isNaN(vector1.get(index)));
       }
    }
 

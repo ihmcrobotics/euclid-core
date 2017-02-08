@@ -2,7 +2,6 @@ package us.ihmc.geometry.tuple4D;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Random;
@@ -12,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
@@ -138,49 +136,6 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
    }
 
    @Test
-   public void testNegate()
-   {
-      Random random = new Random(65445L);
-      Quaternion32 quaternion, expected;
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         expected = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-
-         { // Test conjugate()
-            quaternion = new Quaternion32(expected.getX32(), expected.getY32(), expected.getZ32(), expected.getS32());
-
-            quaternion.negate();
-
-            Assert.assertEquals(expected.getX(), -quaternion.getX(), EPS);
-            Assert.assertEquals(expected.getY(), -quaternion.getY(), EPS);
-            Assert.assertEquals(expected.getZ(), -quaternion.getZ(), EPS);
-            Assert.assertEquals(expected.getS(), -quaternion.getS(), EPS);
-         }
-
-         { // Test conjugate (QuaternionBasics other)
-            quaternion = new Quaternion32(expected.getX32(), expected.getY32(), expected.getZ32(), expected.getS32());
-
-            Quaternion32 quaternion2 = new Quaternion32();
-            quaternion2.setAndNegate(quaternion);
-
-            GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
-
-            Assert.assertTrue(quaternion2.getX() == -quaternion.getX());
-            Assert.assertTrue(quaternion2.getY() == -quaternion.getY());
-            Assert.assertTrue(quaternion2.getZ() == -quaternion.getZ());
-            Assert.assertTrue(quaternion2.getS() == -quaternion.getS());
-         }
-      }
-   }
-
-   @Test
-   public void testNormalize()
-   {
-      // TODO reimplement me
-   }
-
-   @Test
    public void testNormalizeAndLimitToPiMinusPi()
    {
       // TODO reimplement me
@@ -196,18 +151,6 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
       Assert.assertTrue(quaternion.getY() == 0.0);
       Assert.assertTrue(quaternion.getZ() == 0.0);
       Assert.assertTrue(quaternion.getS() == 1.0);
-   }
-
-   @Test
-   public void testSetToNaN()
-   {
-      Quaternion32 quaternion = new Quaternion32();
-      quaternion.setToNaN();
-
-      Assert.assertTrue(Float.isNaN(quaternion.getX32()));
-      Assert.assertTrue(Float.isNaN(quaternion.getY32()));
-      Assert.assertTrue(Float.isNaN(quaternion.getZ32()));
-      Assert.assertTrue(Float.isNaN(quaternion.getS32()));
    }
 
    @Test
@@ -444,188 +387,6 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
             GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
             GeometryBasicsTestTools.assertQuaternionEquals(quaternion2, quaternion2Copy, EPS);
          }
-      }
-   }
-
-   @Test
-   public void testSet()
-   {
-      Random random = new Random(65445L);
-      Quaternion32 quaternion = new Quaternion32();
-      Quaternion32 expected;
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(QuaternionBasics other)
-         expected = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-         quaternion.set(expected);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(float x, float y, float z, float s)
-         expected = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-         quaternion.set(expected.getX32(), expected.getY32(), expected.getZ32(), expected.getS32());
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(float[] quaternionArray)
-         expected = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-         float[] quaternionArray, quaternionArrayCopy;
-         quaternionArray = quaternionArrayCopy = new float[] {expected.getX32(), expected.getY32(), expected.getZ32(), expected.getS32()};
-
-         quaternion.set(quaternionArray);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
-
-         Assert.assertEquals(quaternionArray[0], quaternion.getX(), EPS);
-         Assert.assertEquals(quaternionArray[1], quaternion.getY(), EPS);
-         Assert.assertEquals(quaternionArray[2], quaternion.getZ(), EPS);
-         Assert.assertEquals(quaternionArray[3], quaternion.getS(), EPS);
-
-         for (int j = 0; j < quaternionArray.length; j++)
-            Assert.assertTrue(quaternionArray[j] == quaternionArrayCopy[j]);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(float[] quaternionArray, int startIndex)
-         expected = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-         float[] quaternionArray, quaternionArrayCopy;
-         quaternionArray = quaternionArrayCopy = new float[] {expected.getX32(), expected.getY32(), expected.getZ32(), expected.getS32()};
-
-         int startIndex, startIndexCopy;
-         startIndex = startIndexCopy = 0;
-
-         quaternion.set(startIndex, quaternionArray);
-
-         Assert.assertEquals(quaternionArray[0], quaternion.getX(), EPS);
-         Assert.assertEquals(quaternionArray[1], quaternion.getY(), EPS);
-         Assert.assertEquals(quaternionArray[2], quaternion.getZ(), EPS);
-         Assert.assertEquals(quaternionArray[3], quaternion.getS(), EPS);
-
-         for (int j = 0; j < quaternionArray.length; j++)
-            Assert.assertTrue(quaternionArray[j] == quaternionArrayCopy[j]);
-
-         Assert.assertTrue(startIndex >= 0);
-         Assert.assertTrue(startIndex == startIndexCopy);
-         Assert.assertTrue(startIndex <= startIndex + quaternionArray.length);
-      }
-
-      Quaternion32 expectedQuaternion = new Quaternion32();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {// Test set(AxisAngleBasics axisAngle)
-         AxisAngle axisAngle, axisAngleCopy;
-         axisAngle = axisAngleCopy = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-
-         quaternion.set(axisAngle);
-         QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, (QuaternionBasics) expectedQuaternion);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expectedQuaternion, EPS);
-         GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, axisAngleCopy, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(VectorBasics rotationVector)
-         Vector3D rotationVector, rotationVectorCopy;
-         rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
-
-         quaternion = new Quaternion32(rotationVector);
-         QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly<?>) rotationVector, (QuaternionBasics) expectedQuaternion);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expectedQuaternion, EPS);
-         GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(DenseMatrix64F matrix);
-         DenseMatrix64F denseMatrix = new DenseMatrix64F(2, 1);
-         for (int index = 0; index < denseMatrix.getNumElements(); index++)
-            denseMatrix.set(index, random.nextDouble());
-         DenseMatrix64F denseMatrixCopy = new DenseMatrix64F(denseMatrix);
-
-         try
-         {
-            quaternion.set(denseMatrix);
-            fail("Should have thrown a IllegalArgumentException.");
-         }
-         catch (IllegalArgumentException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown a IllegalArgumentException.");
-         }
-
-         Quaternion blop = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-
-         for (int index = 0; index < denseMatrix.getNumElements(); index++)
-            assertTrue(denseMatrix.get(index) == denseMatrixCopy.get(index));
-
-         denseMatrix = new DenseMatrix64F(5, 4);
-         for (int index = 0; index < denseMatrix.getNumElements(); index++)
-            denseMatrix.set(index, random.nextDouble());
-         denseMatrix.set(0, 0, blop.getX());
-         denseMatrix.set(1, 0, blop.getY());
-         denseMatrix.set(2, 0, blop.getZ());
-         denseMatrix.set(3, 0, blop.getS());
-         denseMatrixCopy = new DenseMatrix64F(denseMatrix);
-         quaternion.set(denseMatrix);
-
-         assertEquals(quaternion.getX(), denseMatrix.get(0, 0), EPS);
-         assertEquals(quaternion.getY(), denseMatrix.get(1, 0), EPS);
-         assertEquals(quaternion.getZ(), denseMatrix.get(2, 0), EPS);
-         assertEquals(quaternion.getS(), denseMatrix.get(3, 0), EPS);
-
-         for (int index = 0; index < denseMatrix.getNumElements(); index++)
-            assertTrue(denseMatrix.get(index) == denseMatrixCopy.get(index));
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(DenseMatrix64F matrix, int startRow);
-         DenseMatrix64F denseMatrix = new DenseMatrix64F(4, 1);
-         for (int index = 0; index < denseMatrix.getNumElements(); index++)
-            denseMatrix.set(index, random.nextDouble());
-         DenseMatrix64F denseMatrixCopy = new DenseMatrix64F(denseMatrix);
-
-         try
-         {
-            quaternion.set(2, denseMatrix);
-            fail("Should have thrown a IllegalArgumentException.");
-         }
-         catch (IllegalArgumentException e)
-         {
-            // good
-         }
-         catch (Exception e)
-         {
-            fail("Should have thrown a IllegalArgumentException.");
-         }
-         for (int index = 0; index < denseMatrix.getNumElements(); index++)
-            assertTrue(denseMatrix.get(index) == denseMatrixCopy.get(index));
-
-         Quaternion blop = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-
-         denseMatrix = new DenseMatrix64F(10, 4);
-         for (int index = 0; index < denseMatrix.getNumElements(); index++)
-            denseMatrix.set(index, random.nextDouble());
-         denseMatrix.set(5, 0, blop.getX());
-         denseMatrix.set(6, 0, blop.getY());
-         denseMatrix.set(7, 0, blop.getZ());
-         denseMatrix.set(8, 0, blop.getS());
-         denseMatrixCopy = new DenseMatrix64F(denseMatrix);
-         quaternion.set(5, denseMatrix);
-
-         assertEquals(quaternion.getX(), denseMatrix.get(5, 0), EPS);
-         assertEquals(quaternion.getY(), denseMatrix.get(6, 0), EPS);
-         assertEquals(quaternion.getZ(), denseMatrix.get(7, 0), EPS);
-         assertEquals(quaternion.getS(), denseMatrix.get(8, 0), EPS);
-
-         for (int index = 0; index < denseMatrix.getNumElements(); index++)
-            assertTrue(denseMatrix.get(index) == denseMatrixCopy.get(index));
       }
    }
 

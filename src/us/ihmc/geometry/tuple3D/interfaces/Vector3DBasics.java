@@ -55,7 +55,7 @@ public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasi
     * 
     * @param other the other vector to copy the values from. Not modified.
     */
-   default void setAndNormalize(Vector3DReadOnly<?> other)
+   default void setAndNormalize(Tuple3DReadOnly<?> other)
    {
       set(other);
       normalize();

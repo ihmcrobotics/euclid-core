@@ -702,5 +702,4 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          assertEquals(tuple1.getZ(), Tuple3DTools.interpolate(tuple2.getZ(), tuple3.getZ(), alpha), getEpsilon());
       }
    }
-
 }

@@ -12,7 +12,6 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
@@ -130,92 +129,6 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
    }
 
    @Test
-   public void testNegate()
-   {
-      Random random = new Random(65445L);
-      Quaternion quaternion, expected;
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-
-         { // Test negate()
-            quaternion = new Quaternion(expected.getX(), expected.getY(), expected.getZ(), expected.getS());
-
-            quaternion.negate();
-
-            Assert.assertEquals(expected.getX(), -quaternion.getX(), EPS);
-            Assert.assertEquals(expected.getY(), -quaternion.getY(), EPS);
-            Assert.assertEquals(expected.getZ(), -quaternion.getZ(), EPS);
-            Assert.assertEquals(expected.getS(), -quaternion.getS(), EPS);
-         }
-
-         { // Test negate (QuaternionBasics other)
-            quaternion = new Quaternion(expected.getX(), expected.getY(), expected.getZ(), expected.getS());
-
-            Quaternion quaternion2 = new Quaternion();
-            quaternion2.setAndNegate(quaternion);
-
-            GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
-
-            Assert.assertEquals(quaternion2.getX(), -quaternion.getX(), EPS);
-            Assert.assertEquals(quaternion2.getY(), -quaternion.getY(), EPS);
-            Assert.assertEquals(quaternion2.getZ(), -quaternion.getZ(), EPS);
-            Assert.assertEquals(quaternion2.getS(), -quaternion.getS(), EPS);
-         }
-      }
-   }
-
-   @Test
-   public void testNormalize()
-   {
-      Random random = new Random(15461L);
-
-      Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
-      double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
-
-      double sinHalfTheta = Math.sin(theta / 2.0);
-      double cosHalfTheta = Math.cos(theta / 2.0);
-
-      double qx = axis.getX() * sinHalfTheta;
-      double qy = axis.getY() * sinHalfTheta;
-      double qz = axis.getZ() * sinHalfTheta;
-      double qs = cosHalfTheta;
-
-      // Test that it does not mess up a quaternion already normalized
-      Quaternion qExpected = new Quaternion();
-      qExpected.setUnsafe(qx, qy, qz, qs);
-      Quaternion qActual = new Quaternion();
-      qActual.setUnsafe(qx, qy, qz, qs);
-      qActual.normalize();
-
-      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-
-      // Test that the quaternion is normalized
-      double scale = random.nextDouble();
-      qActual.setUnsafe(scale * qx, scale * qy, scale * qz, scale * qs);
-      qActual.normalize();
-
-      assertEquals(1.0, QuaternionTools.norm(qActual), EPS);
-      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-
-      // Test that the quaternion is not kept within [-Pi, Pi]
-      theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI, 2.0 * Math.PI);
-      sinHalfTheta = Math.sin(theta / 2.0);
-      cosHalfTheta = Math.cos(theta / 2.0);
-
-      qx = axis.getX() * sinHalfTheta;
-      qy = axis.getY() * sinHalfTheta;
-      qz = axis.getZ() * sinHalfTheta;
-      qs = cosHalfTheta;
-
-      qExpected.setUnsafe(qx, qy, qz, qs);
-      qActual.setUnsafe(qx, qy, qz, qs);
-      qActual.normalize();
-      GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-   }
-
-   @Test
    public void testNormalizeAndLimitToPiMinusPi()
    {
       Random random = new Random(15461L);
@@ -303,15 +216,6 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
       Quaternion zeroQ = new Quaternion(0.0, 0.0, 0.0, 1.0);
 
       GeometryBasicsTestTools.assertQuaternionEquals(quaternion, zeroQ, EPS);
-   }
-
-   @Test
-   public void testSetToNaN()
-   {
-      Quaternion quaternion = new Quaternion();
-      quaternion.setToNaN();
-
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(quaternion);
    }
 
    @Test
@@ -572,118 +476,6 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
             GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
             GeometryBasicsTestTools.assertQuaternionEquals(quaternion2, quaternion2Copy, EPS);
          }
-      }
-   }
-
-   @Test
-   public void testSet()
-   {
-      Random random = new Random(65445L);
-      Quaternion quaternion = new Quaternion();
-      Quaternion qExpected = new Quaternion();
-      Quaternion qActual = new Quaternion();
-      RotationMatrix rotationMatrix = new RotationMatrix();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(QuaternionBasics other)
-         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, 2.0 * Math.PI);
-
-         // corrupt
-         qActual.setUnsafe(quaternion.getX() + EPS, quaternion.getY() + EPS, quaternion.getZ() + EPS, quaternion.getS() + EPS);
-         qExpected.setUnsafe(quaternion.getX() + EPS, quaternion.getY() + EPS, quaternion.getZ() + EPS, quaternion.getS() + EPS);
-
-         qActual.set(qActual);
-         qExpected.normalize();
-
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(double x, double y, double z, double s)
-         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, 2.0 * Math.PI);
-
-         // corrupt
-         qActual.set(quaternion.getX() + EPS, quaternion.getY() + EPS, quaternion.getZ() + EPS, quaternion.getS() + EPS);
-
-         qExpected.setUnsafe(quaternion.getX() + EPS, quaternion.getY() + EPS, quaternion.getZ() + EPS, quaternion.getS() + EPS);
-         qExpected.normalize();
-
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(double[] quaternionArray)
-         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, 2.0 * Math.PI);
-         qExpected.setUnsafe(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS());
-         double[] quaternionArray = {quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS()};
-
-         qActual.set(quaternionArray);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(double[] quaternionArray, int startIndex)
-         qExpected = GeometryBasicsRandomTools.generateRandomQuaternion(random, 2.0 * Math.PI);
-
-         int startIndex = random.nextInt(10);
-         double[] quaternionArray = new double[4 + startIndex];
-         for (int index = startIndex; index < startIndex + 4; index++)
-            quaternionArray[index] = qExpected.get(index - startIndex);
-
-         qActual.set(startIndex, quaternionArray);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {// Test set(AxisAngleBasics axisAngle)
-         AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-         qActual.set(axisAngle);
-         QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, qExpected);
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(RotationMatrix rotationMatrix)
-         rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         qActual.set(rotationMatrix);
-         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, qExpected);
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(VectorBasics rotationVector)
-         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
-         qActual.set(rotationVector);
-         QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, qExpected);
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(DenseMatrix64F matrix)
-         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, 2.0 * Math.PI);
-         qExpected.setUnsafe(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS());
-         DenseMatrix64F qDenseMatrix = new DenseMatrix64F(4, 1);
-         qDenseMatrix.set(4, 1, true, quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS());
-
-         qActual.set(qDenseMatrix);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(DenseMatrix64F matrix, int startRow)
-         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, 2.0 * Math.PI);
-         qExpected.setUnsafe(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS());
-         int startRow = random.nextInt(10);
-         DenseMatrix64F qDenseMatrix = new DenseMatrix64F(4 + startRow, 1);
-         for (int row = startRow; row < startRow + 4; row++)
-            qDenseMatrix.set(row, 0, quaternion.get(row - startRow));
-
-         qActual.set(startRow, qDenseMatrix);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
       }
    }
 
