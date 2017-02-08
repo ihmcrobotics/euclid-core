@@ -242,7 +242,7 @@ public interface Transform
     * </p>
     * 
     * @param pointToTransform the point to transform. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     * part of this transform is not a transformation in the XY plane.
@@ -269,7 +269,7 @@ public interface Transform
     * 
     * @param pointOriginal the point to transform. Not modified.
     * @param pointTransformed the point in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     * part of this transform is not a transformation in the XY plane.
@@ -341,7 +341,7 @@ public interface Transform
     * </p>
     * 
     * @param vectorToTransform the vector to transform. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
@@ -368,7 +368,7 @@ public interface Transform
     * 
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
@@ -656,7 +656,7 @@ public interface Transform
     * </p>
     * 
     * @param point2DToTransform the point to transform. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     * part of this transform is not a transformation in the XY plane.
@@ -684,7 +684,7 @@ public interface Transform
     * 
     * @param point2DOriginal the point to transform. Not modified.
     * @param point2DTransformed the point in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     * part of this transform is not a transformation in the XY plane.
@@ -757,7 +757,7 @@ public interface Transform
     * </p>
     * 
     * @param vector2DToTransform the vector to transform. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
@@ -785,7 +785,7 @@ public interface Transform
     * 
     * @param vector2DOriginal the vector to transform. Not modified.
     * @param vector2DTransformed the vector in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the non-translation part
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
     * of this transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *  in the XY plane.
