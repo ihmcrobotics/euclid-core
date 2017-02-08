@@ -121,39 +121,19 @@ public abstract class QuaternionTools
       quaternionToPack.set(x, y, z, s);
    }
 
-   public static void multiply(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, Vector4DBasics<?> vectorToPack)
+   public static void multiply(Tuple4DReadOnly<?> t1, Tuple4DReadOnly<?> t2, Vector4DBasics<?> vectorToPack)
    {
-      multiplyImpl(q1, false, q2, false, vectorToPack);
+      multiplyImpl(t1, false, t2, false, vectorToPack);
    }
 
-   public static void multiply(Vector4DReadOnly<?> v, QuaternionReadOnly<?> q, Vector4DBasics<?> vectorToPack)
+   public static void multiplyConjugateLeft(Tuple4DReadOnly<?> t1, Tuple4DReadOnly<?> t2, Vector4DBasics<?> vectorToPack)
    {
-      multiplyImpl(v, false, q, false, vectorToPack);
+      multiplyImpl(t1, true, t2, false, vectorToPack);
    }
 
-   public static void multiply(QuaternionReadOnly<?> q, Vector4DReadOnly<?> v, Vector4DBasics<?> vectorToPack)
+   public static void multiplyConjugateRight(Tuple4DReadOnly<?> t1, Tuple4DReadOnly<?> t2, Vector4DBasics<?> vectorToPack)
    {
-      multiplyImpl(q, false, v, false, vectorToPack);
-   }
-
-   public static void multiplyConjugateLeft(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, Vector4DBasics<?> vectorToPack)
-   {
-      multiplyImpl(q1, true, q2, false, vectorToPack);
-   }
-
-   public static void multiplyConjugateQuaternion(QuaternionReadOnly<?> q, Vector4DReadOnly<?> v, Vector4DBasics<?> vectorToPack)
-   {
-      multiplyImpl(q, true, v, false, vectorToPack);
-   }
-
-   public static void multiplyConjugateRight(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, Vector4DBasics<?> vectorToPack)
-   {
-      multiplyImpl(q1, false, q2, true, vectorToPack);
-   }
-
-   public static void multiplyConjugateQuaternion(Vector4DReadOnly<?> v, QuaternionReadOnly<?> q, Vector4DBasics<?> vectorToPack)
-   {
-      multiplyImpl(v, false, q, true, vectorToPack);
+      multiplyImpl(t1, false, t2, true, vectorToPack);
    }
 
    private static void multiplyImpl(Tuple4DReadOnly<?> t1, boolean conjugateT1, Tuple4DReadOnly<?> t2, boolean conjugateT2, Vector4DBasics<?> vectorToPack)

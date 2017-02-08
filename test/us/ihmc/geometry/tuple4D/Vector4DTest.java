@@ -1,7 +1,6 @@
 package us.ihmc.geometry.tuple4D;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -9,7 +8,6 @@ import static org.junit.Assert.fail;
 import java.util.Random;
 
 import org.ejml.data.DenseMatrix64F;
-import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
@@ -18,7 +16,7 @@ import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
-public class Vector4DTest
+public class Vector4DTest extends Vector4DBasicsTest<Vector4D>
 {
    private static final double EPS = 1.0e-10;
 
@@ -293,31 +291,6 @@ public class Vector4DTest
    }
 
    @Test
-   public void testDot() throws Exception
-   {
-      Random random = new Random(32453L);
-      Vector4D v1 = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      Vector4D v2 = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      assertEquals(Tuple4DTools.dot(v1, v2), v1.dot(v2), EPS);
-   }
-
-   @Test
-   public void testLengthSquared() throws Exception
-   {
-      Random random = new Random(4353L);
-      Vector4D vector = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      assertEquals(vector.dot(vector), vector.lengthSquared(), EPS);
-   }
-
-   @Test
-   public void testLength() throws Exception
-   {
-      Random random = new Random(4353L);
-      Vector4D vector = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      assertEquals(Math.sqrt(vector.lengthSquared()), vector.length(), EPS);
-   }
-
-   @Test
    public void testScale() throws Exception
    {
       Random random = new Random(4353L);
@@ -462,89 +435,27 @@ public class Vector4DTest
       }
    }
 
-   @Test
-   public void testContainsNaN() throws Exception
+   @Override
+   public Vector4D createEmptyTuple()
    {
-      Vector4D vector = new Vector4D();
-
-      Assert.assertFalse(vector.containsNaN());
-
-      vector.set(Double.NaN, 0.0, 0.0, 0.0);
-      Assert.assertTrue(vector.containsNaN());
-
-      vector.set(0.0, Double.NaN, 0.0, 0.0);
-      Assert.assertTrue(vector.containsNaN());
-
-      vector.set(0.0, 0.0, Double.NaN, 0.0);
-      Assert.assertTrue(vector.containsNaN());
-
-      vector.set(0.0, 0.0, 0.0, Double.NaN);
-      Assert.assertTrue(vector.containsNaN());
+      return new Vector4D();
    }
 
-   @Test
-   public void testEquals() throws Exception
+   @Override
+   public Vector4D createRandomTuple(Random random)
    {
-      Random random = new Random(2354L);
-      Vector4D v1 = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      Vector4D v2 = new Vector4D();
-
-      assertFalse(v1.equals(v2));
-      assertFalse(v1.equals(null));
-      assertFalse(v1.equals(new double[4]));
-      v2.set(v1);
-      assertTrue(v1.equals(v2));
-      assertTrue(v1.equals((Object) v2));
-
-      double smallestEpsilon = 1.0e-16;
-
-      for (int row = 0; row < 4; row++)
-      {
-         v2.set(v1);
-         assertTrue(v1.equals(v2));
-         v2.set(row, v2.get(row) + smallestEpsilon);
-         assertFalse(v1.equals(v2));
-
-         v2.set(v1);
-         assertTrue(v1.equals(v2));
-         v2.set(row, v2.get(row) - smallestEpsilon);
-         assertFalse(v1.equals(v2));
-      }
+      return GeometryBasicsRandomTools.generateRandomVector4D(random);
    }
 
-   @Test
-   public void testEpsilonEquals() throws Exception
+   @Override
+   public Vector4D createTuple(double x, double y, double z, double s)
    {
-      Random random = new Random(2354L);
-      Vector4D v1 = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      Vector4D v2 = new Vector4D();
-      double epsilon = 1.0e-3;
+      return new Vector4D(x, y, z, s);
+   }
 
-      assertFalse(v1.epsilonEquals(v2, epsilon));
-      v2.set(v1);
-      assertTrue(v1.epsilonEquals(v2, epsilon));
-
-      for (int row = 0; row < 4; row++)
-      {
-         v2.set(v1);
-         assertTrue(v1.epsilonEquals(v2, epsilon));
-         v2.set(row, v2.get(row) + 0.999 * epsilon);
-         assertTrue(v1.epsilonEquals(v2, epsilon));
-
-         v2.set(v1);
-         assertTrue(v1.epsilonEquals(v2, epsilon));
-         v2.set(row, v2.get(row) + 1.001 * epsilon);
-         assertFalse(v1.epsilonEquals(v2, epsilon));
-
-         v2.set(v1);
-         assertTrue(v1.epsilonEquals(v2, epsilon));
-         v2.set(row, v2.get(row) - 0.999 * epsilon);
-         assertTrue(v1.epsilonEquals(v2, epsilon));
-
-         v2.set(v1);
-         assertTrue(v1.epsilonEquals(v2, epsilon));
-         v2.set(row, v2.get(row) - 1.001 * epsilon);
-         assertFalse(v1.epsilonEquals(v2, epsilon));
-      }
+   @Override
+   public double getEpsilon()
+   {
+      return 1.0e-15;
    }
 }

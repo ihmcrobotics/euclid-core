@@ -111,7 +111,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    default void sub(double x, double y, double z, double s)
    {
-      set(getX() - x, getY() - y, getZ() - z, getZ() - s);
+      set(getX() - x, getY() - y, getZ() - z, getS() - s);
    }
 
    default void sub(Tuple4DReadOnly<?> tupleReadOnly)

@@ -1,7 +1,6 @@
 package us.ihmc.geometry.tuple4D;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -25,7 +24,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
-public class QuaternionTest
+public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
    public static final double EPS = 1e-14;
@@ -297,40 +296,6 @@ public class QuaternionTest
    }
 
    @Test
-   public void testNorm()
-   {
-      Random random = new Random(65445L);
-      Quaternion quaternion, quaternionCopy;
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-
-         double norm = quaternion.length();
-         Assert.assertEquals(norm, 1.0, EPS);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternionCopy, quaternionCopy, EPS);
-      }
-   }
-
-   @Test
-   public void testNormSquared()
-   {
-      Random random = new Random(65445L);
-      Quaternion quaternion, quaternionCopy;
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-
-         double normSquared = quaternion.lengthSquared();
-         Assert.assertEquals(normSquared, 1.0, EPS);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternionCopy, quaternionCopy, EPS);
-      }
-   }
-
-   @Test
    public void testSetToZero()
    {
       Quaternion quaternion = new Quaternion();
@@ -347,26 +312,6 @@ public class QuaternionTest
       quaternion.setToNaN();
 
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(quaternion);
-   }
-
-   @Test
-   public void testContainsNaN()
-   {
-      Quaternion quaternion = new Quaternion();
-
-      Assert.assertFalse(quaternion.containsNaN());
-
-      quaternion.setUnsafe(Double.NaN, 0.0, 0.0, 0.0);
-      Assert.assertTrue(quaternion.containsNaN());
-
-      quaternion.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
-      Assert.assertTrue(quaternion.containsNaN());
-
-      quaternion.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
-      Assert.assertTrue(quaternion.containsNaN());
-
-      quaternion.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
-      Assert.assertTrue(quaternion.containsNaN());
    }
 
    @Test
@@ -459,38 +404,6 @@ public class QuaternionTest
       qExpected.inverse();
       qActual.setAndInverse(qOriginal);
       GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, EPS);
-   }
-
-   @Test
-   public void testDot()
-   {
-      Random random = new Random(65445L);
-      Quaternion quaternion, quaternionCopy;
-      Quaternion quaternion2, quaternion2Copy;
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         quaternion2 = quaternion2Copy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-
-         double dotProduct = quaternion.dot(quaternion2);
-         double dot11 = quaternion.dot(quaternion);
-         double dot22 = quaternion2.dot(quaternion2);
-         double diff = 1 - dot22;
-
-         double x1x2 = quaternion.getX() * quaternion2.getX();
-         double y1y2 = quaternion.getY() * quaternion2.getY();
-         double z1z2 = quaternion.getZ() * quaternion2.getZ();
-         double s1s2 = quaternion.getS() * quaternion2.getS();
-
-         Assert.assertTrue(dotProduct == x1x2 + y1y2 + z1z2 + s1s2);
-
-         Assert.assertEquals(dot11, 1, EPS);
-         Assert.assertTrue(diff < EPS);
-
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion2, quaternion2Copy, EPS);
-      }
    }
 
    @Test
@@ -1244,107 +1157,6 @@ public class QuaternionTest
    }
 
    @Test
-   public void testEpsilonEquals() throws Exception
-   {
-      Random random = new Random(354L);
-      Quaternion q1 = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-      Quaternion q2 = new Quaternion();
-      double qx = q1.getX();
-      double qy = q1.getY();
-      double qz = q1.getZ();
-      double qs = q1.getS();
-
-      double epsilon = 1.0e-3;
-
-      q2.setUnsafe(qx, qy, qz, qs);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx + 1.001 * epsilon, qy, qz, qs);
-      assertFalse(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx + 0.999 * epsilon, qy, qz, qs);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-
-      q2.setUnsafe(qx, qy + 1.001 * epsilon, qz, qs);
-      assertFalse(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx, qy + 0.999 * epsilon, qz, qs);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-
-      q2.setUnsafe(qx, qy, qz + 1.001 * epsilon, qs);
-      assertFalse(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx, qy, qz + 0.999 * epsilon, qs);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-
-      q2.setUnsafe(qx, qy, qz, qs + 1.001 * epsilon);
-      assertFalse(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx, qy, qz, qs + 0.999 * epsilon);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-
-      q2.setUnsafe(qx - 1.001 * epsilon, qy, qz, qs);
-      assertFalse(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx - 0.999 * epsilon, qy, qz, qs);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-
-      q2.setUnsafe(qx, qy - 1.001 * epsilon, qz, qs);
-      assertFalse(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx, qy - 0.999 * epsilon, qz, qs);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-
-      q2.setUnsafe(qx, qy, qz - 1.001 * epsilon, qs);
-      assertFalse(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx, qy, qz - 0.999 * epsilon, qs);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-
-      q2.setUnsafe(qx, qy, qz, qs - 1.001 * epsilon);
-      assertFalse(q1.epsilonEquals(q2, epsilon));
-      q2.setUnsafe(qx, qy, qz, qs - 0.999 * epsilon);
-      assertTrue(q1.epsilonEquals(q2, epsilon));
-   }
-
-   @Test
-   public void testEquals() throws Exception
-   {
-      Random random = new Random(354L);
-      Quaternion q1 = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-      Quaternion q2 = new Quaternion();
-      double qx = q1.getX();
-      double qy = q1.getY();
-      double qz = q1.getZ();
-      double qs = q1.getS();
-
-      assertFalse(q1.equals(null));
-      assertFalse(q1.equals((Quaternion) null));
-      assertFalse(q1.equals(new double[5]));
-
-      double smallestEpsilon = 1.0e-16;
-
-      q2.setUnsafe(qx, qy, qz, qs);
-      assertTrue(q1.equals(q2));
-      assertTrue(q1.equals((Object) q2));
-      q2.setUnsafe(qx + smallestEpsilon, qy, qz, qs);
-      assertFalse(q1.equals(q2));
-
-      q2.setUnsafe(qx, qy + smallestEpsilon, qz, qs);
-      assertFalse(q1.equals(q2));
-
-      q2.setUnsafe(qx, qy, qz + smallestEpsilon, qs);
-      assertFalse(q1.equals(q2));
-
-      q2.setUnsafe(qx, qy, qz, qs + smallestEpsilon);
-      assertFalse(q1.equals(q2));
-
-      q2.setUnsafe(qx - smallestEpsilon, qy, qz, qs);
-      assertFalse(q1.equals(q2));
-
-      q2.setUnsafe(qx, qy - smallestEpsilon, qz, qs);
-      assertFalse(q1.equals(q2));
-
-      q2.setUnsafe(qx, qy, qz - smallestEpsilon, qs);
-      assertFalse(q1.equals(q2));
-
-      q2.setUnsafe(qx, qy, qz, qs - smallestEpsilon);
-      assertFalse(q1.equals(q2));
-   }
-
-   @Test
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
@@ -1382,5 +1194,31 @@ public class QuaternionTest
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }
+   }
+
+   @Override
+   public Quaternion createEmptyTuple()
+   {
+      return new Quaternion();
+   }
+
+   @Override
+   public Quaternion createRandomTuple(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomQuaternion(random);
+   }
+
+   @Override
+   public Quaternion createTuple(double x, double y, double z, double s)
+   {
+      Quaternion quaternion = new Quaternion();
+      quaternion.setUnsafe(x, y, z, s);
+      return quaternion;
+   }
+
+   @Override
+   public double getEpsilon()
+   {
+      return 1.0e-15;
    }
 }
