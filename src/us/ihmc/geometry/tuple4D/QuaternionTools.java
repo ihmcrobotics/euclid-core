@@ -12,7 +12,6 @@ import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
-import us.ihmc.geometry.tuple4D.interfaces.Tuple4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
@@ -93,28 +92,77 @@ public abstract class QuaternionTools
       multiplyImpl(q1, false, q2, true, quaternionToPack);
    }
 
-   public static void multiply(Tuple4DReadOnly q, Tuple4DReadOnly v, Vector4DBasics vectorToPack)
+   private static void multiplyImpl(QuaternionReadOnly q1, boolean conjugateQ1, QuaternionReadOnly q2, boolean conjugateQ2, QuaternionBasics quaternionToPack)
+   {
+      multiplyImpl(q1.getX(), q1.getY(), q1.getZ(), q1.getS(), conjugateQ1, q2.getX(), q2.getY(), q2.getZ(), q2.getS(), conjugateQ2, quaternionToPack);
+   }
+
+   private static void multiplyImpl(double q1x, double q1y, double q1z, double q1s, boolean conjugateQ1, double q2x, double q2y, double q2z, double q2s,
+                                    boolean conjugateq2, QuaternionBasics quaternionToPack)
+   {
+      if (conjugateQ1)
+      {
+         q1x = -q1x;
+         q1y = -q1y;
+         q1z = -q1z;
+      }
+
+      if (conjugateq2)
+      {
+         q2x = -q2x;
+         q2y = -q2y;
+         q2z = -q2z;
+      }
+
+      double x = q1s * q2x + q1x * q2s + q1y * q2z - q1z * q2y;
+      double y = q1s * q2y - q1x * q2z + q1y * q2s + q1z * q2x;
+      double z = q1s * q2z + q1x * q2y - q1y * q2x + q1z * q2s;
+      double s = q1s * q2s - q1x * q2x - q1y * q2y - q1z * q2z;
+      quaternionToPack.set(x, y, z, s);
+   }
+
+   public static void multiply(QuaternionReadOnly q1, QuaternionReadOnly q2, Vector4DBasics vectorToPack)
+   {
+      multiplyImpl(q1, false, q2, false, vectorToPack);
+   }
+
+   public static void multiply(Vector4DReadOnly v, QuaternionReadOnly q, Vector4DBasics vectorToPack)
+   {
+      multiplyImpl(v, false, q, false, vectorToPack);
+   }
+
+   public static void multiply(QuaternionReadOnly q, Vector4DReadOnly v, Vector4DBasics vectorToPack)
    {
       multiplyImpl(q, false, v, false, vectorToPack);
    }
 
-   public static void multiplyConjugateLeft(Tuple4DReadOnly q, Tuple4DReadOnly v, Vector4DBasics vectorToPack)
+   public static void multiplyConjugateLeft(QuaternionReadOnly q1, QuaternionReadOnly q2, Vector4DBasics vectorToPack)
+   {
+      multiplyImpl(q1, true, q2, false, vectorToPack);
+   }
+
+   public static void multiplyConjugateQuaternion(QuaternionReadOnly q, Vector4DReadOnly v, Vector4DBasics vectorToPack)
    {
       multiplyImpl(q, true, v, false, vectorToPack);
    }
 
-   public static void multiplyConjugateRight(Tuple4DReadOnly v, Tuple4DReadOnly q, Vector4DBasics vectorToPack)
+   public static void multiplyConjugateRight(QuaternionReadOnly q1, QuaternionReadOnly q2, Vector4DBasics vectorToPack)
+   {
+      multiplyImpl(q1, false, q2, true, vectorToPack);
+   }
+
+   public static void multiplyConjugateQuaternion(Vector4DReadOnly v, QuaternionReadOnly q, Vector4DBasics vectorToPack)
    {
       multiplyImpl(v, false, q, true, vectorToPack);
    }
 
-   private static void multiplyImpl(Tuple4DReadOnly t1, boolean conjugateT1, Tuple4DReadOnly t2, boolean conjugateT2, Tuple4DBasics tupleToPack)
+   private static void multiplyImpl(Tuple4DReadOnly t1, boolean conjugateT1, Tuple4DReadOnly t2, boolean conjugateT2, Vector4DBasics vectorToPack)
    {
-      multiplyImpl(t1.getX(), t1.getY(), t1.getZ(), t1.getS(), conjugateT1, t2.getX(), t2.getY(), t2.getZ(), t2.getS(), conjugateT2, tupleToPack);
+      multiplyImpl(t1.getX(), t1.getY(), t1.getZ(), t1.getS(), conjugateT1, t2.getX(), t2.getY(), t2.getZ(), t2.getS(), conjugateT2, vectorToPack);
    }
 
    private static void multiplyImpl(double x1, double y1, double z1, double s1, boolean conjugateT1, double x2, double y2, double z2, double s2,
-                                    boolean conjugateT2, Tuple4DBasics tupleToPack)
+                                    boolean conjugateT2, Vector4DBasics vectorToPack)
    {
       if (conjugateT1)
       {
@@ -134,7 +182,7 @@ public abstract class QuaternionTools
       double y = s1 * y2 - x1 * z2 + y1 * s2 + z1 * x2;
       double z = s1 * z2 + x1 * y2 - y1 * x2 + z1 * s2;
       double s = s1 * s2 - x1 * x2 - y1 * y2 - z1 * z2;
-      tupleToPack.set(x, y, z, s);
+      vectorToPack.set(x, y, z, s);
    }
 
    public static void normalize(QuaternionBasics q)
@@ -547,17 +595,10 @@ public abstract class QuaternionTools
    private static void multiplyImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix,
                                     QuaternionBasics quaternionToPack)
    {
-      double qx = quaternion.getX();
-      double qy = quaternion.getY();
-      double qz = quaternion.getZ();
-      double qs = quaternion.getS();
-
-      if (conjugateQuaternion)
-      {
-         qx = -qx;
-         qy = -qy;
-         qz = -qz;
-      }
+      double q1x = quaternion.getX();
+      double q1y = quaternion.getY();
+      double q1z = quaternion.getZ();
+      double q1s = quaternion.getS();
 
       QuaternionConversion.convertMatrixToQuaternion(matrix, quaternionToPack);
       double q2x = quaternionToPack.getX();
@@ -565,14 +606,7 @@ public abstract class QuaternionTools
       double q2z = quaternionToPack.getZ();
       double q2s = quaternionToPack.getS();
 
-      if (transposeMatrix)
-      {
-         q2x = -q2x;
-         q2y = -q2y;
-         q2z = -q2z;
-      }
-
-      multiplyImpl(qx, qy, qz, qs, false, q2x, q2y, q2z, q2s, false, quaternionToPack);
+      multiplyImpl(q1x, q1y, q1z, q1s, conjugateQuaternion, q2x, q2y, q2z, q2s, transposeMatrix, quaternionToPack);
    }
 
    public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)

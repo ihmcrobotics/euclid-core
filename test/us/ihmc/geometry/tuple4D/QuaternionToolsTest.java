@@ -683,7 +683,7 @@ public class QuaternionToolsTest
          QuaternionTools.multiplyConjugateRight(q1, q2, qResult);
          vectorExpected.set(qResult);
 
-         QuaternionTools.multiplyConjugateRight(q1, q2, vectorActual);
+         QuaternionTools.multiplyConjugateLeft(q1, q2, vectorActual);
          if (vectorActual.dot(vectorExpected) < 0.0)
             vectorActual.negate();
          GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPSILON);
@@ -936,7 +936,7 @@ public class QuaternionToolsTest
          pureQuaternion.set(tupleOriginal.getX(), tupleOriginal.getY(), tupleOriginal.getZ(), 0.0);
 
          QuaternionTools.multiply(quaternion, pureQuaternion, pureQuaternion);
-         QuaternionTools.multiplyConjugateRight(pureQuaternion, quaternion, pureQuaternion);
+         QuaternionTools.multiplyConjugateQuaternion(pureQuaternion, quaternion, pureQuaternion);
          tupleExpected.setX(pureQuaternion.getX());
          tupleExpected.setY(pureQuaternion.getY());
          tupleExpected.setZ(pureQuaternion.getZ());
@@ -1036,7 +1036,7 @@ public class QuaternionToolsTest
          Vector4D pureQuaternion = new Vector4D();
          pureQuaternion.set(tupleOriginal.getX(), tupleOriginal.getY(), tupleOriginal.getZ(), 0.0);
 
-         QuaternionTools.multiplyConjugateLeft(quaternion, pureQuaternion, pureQuaternion);
+         QuaternionTools.multiplyConjugateQuaternion(quaternion, pureQuaternion, pureQuaternion);
          QuaternionTools.multiply(pureQuaternion, quaternion, pureQuaternion);
          tupleExpected.setX(pureQuaternion.getX());
          tupleExpected.setY(pureQuaternion.getY());
