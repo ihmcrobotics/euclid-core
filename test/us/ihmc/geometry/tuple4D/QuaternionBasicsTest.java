@@ -1086,12 +1086,12 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
          double angle0 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
          double anglef = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
          Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
-         QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angle0, q0);
-         QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), anglef, qf);
+         QuaternionConversion.convertAxisAngleToQuaternion(axis.getX(), axis.getY(), axis.getZ(), angle0, q0);
+         QuaternionConversion.convertAxisAngleToQuaternion(axis.getX(), axis.getY(), axis.getZ(), anglef, qf);
          double alpha = GeometryBasicsRandomTools.generateRandomDouble(random, 10.0);
 
          double angleInterpolated = (1.0 - alpha) * angle0 + alpha * anglef;
-         QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angleInterpolated, qExpected);
+         QuaternionConversion.convertAxisAngleToQuaternion(axis.getX(), axis.getY(), axis.getZ(), angleInterpolated, qExpected);
          qActual.interpolate(q0, qf, alpha);
          GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
 

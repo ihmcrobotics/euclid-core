@@ -42,7 +42,7 @@ public class QuaternionConversionTest
          double qz = uz * Math.sin(angle / 2.0);
          expectedQuaternion.setUnsafe(qx, qy, qz, qs);
 
-         QuaternionConversion.convertAxisAngleToQuaternionImpl(ux, uy, uz, angle, actualQuaternion);
+         QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, actualQuaternion);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
@@ -54,24 +54,24 @@ public class QuaternionConversionTest
       double ux = axisAngle.getX();
       double uy = axisAngle.getY();
       double uz = axisAngle.getZ();
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(ux, uy, uz, angle, expectedQuaternion);
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(scale * ux, scale * uy, scale * uz, angle, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, expectedQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(scale * ux, scale * uy, scale * uz, angle, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
       GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(0.0, 0.0, 0.0, 0.0, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, 0.0, 0.0, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(Double.NaN, 0.0, 0.0, 0.0, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(Double.NaN, 0.0, 0.0, 0.0, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(0.0, Double.NaN, 0.0, 0.0, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(0.0, Double.NaN, 0.0, 0.0, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(0.0, 0.0, Double.NaN, 0.0, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, Double.NaN, 0.0, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(0.0, 0.0, 0.0, Double.NaN, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, 0.0, Double.NaN, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual quaternion
@@ -83,7 +83,7 @@ public class QuaternionConversionTest
          ux = axisAngle.getX();
          uy = axisAngle.getY();
          uz = axisAngle.getZ();
-         QuaternionConversion.convertAxisAngleToQuaternionImpl(ux, uy, uz, angle, expectedQuaternion);
+         QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, expectedQuaternion);
          QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, actualQuaternion);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);

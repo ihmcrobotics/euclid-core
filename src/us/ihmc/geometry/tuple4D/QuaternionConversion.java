@@ -3,40 +3,119 @@ package us.ihmc.geometry.tuple4D;
 import org.apache.commons.math3.util.FastMath;
 
 import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
+import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
+/**
+ * This class gathers all the methods necessary to converts any type of rotation into a quaternion.
+ * <p>
+ * To convert an orientation into other data structure types see:
+ * <ul>
+ * <li>for axis-angle: {@link AxisAngleConversion},
+ * <li>for rotation matrix: {@link RotationMatrixConversion},
+ * <li>for rotation vector: {@link RotationVectorConversion},
+ * <li>for yaw-pitch-roll: {@link YawPitchRollConversion}.
+ * </ul>
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public abstract class QuaternionConversion
 {
    private static final double EPS = 1.0e-7;
 
+   /**
+    * Sets the given quaternion to represent a counter clockwise rotation around the z-axis of an
+    * angle {@code yaw}.
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static final void computeYawQuaternion(double yaw, QuaternionBasics<?> quaternionToPack)
    {
       double halfYaw = 0.5 * yaw;
       quaternionToPack.setUnsafe(0.0, 0.0, Math.sin(halfYaw), Math.cos(halfYaw));
    }
 
+   /**
+    * Sets the given quaternion to represent a counter clockwise rotation around the y-axis of an
+    * angle {@code pitch}.
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static final void computePitchQuaternion(double pitch, QuaternionBasics<?> quaternionToPack)
    {
       double halfPitch = 0.5 * pitch;
       quaternionToPack.setUnsafe(0.0, Math.sin(halfPitch), 0.0, Math.cos(halfPitch));
    }
 
+   /**
+    * Sets the given quaternion to represent a counter clockwise rotation around the x-axis of an
+    * angle {@code roll}.
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static final void computeRollQuaternion(double roll, QuaternionBasics<?> quaternionToPack)
    {
       double halfRoll = 0.5 * roll;
       quaternionToPack.setUnsafe(Math.sin(halfRoll), 0.0, 0.0, Math.cos(halfRoll));
    }
 
+   /**
+    * Converts the given axis-angle into a quaternion.
+    * <p>
+    * After calling this method, the axis-angle and the quaternion represent the same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the axis-angle is {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * <li>if the length of the axis is below {@link #EPS}, the rotation matrix is set to the neutral
+    * quaternion.
+    * </ul>
+    * </p>
+    * 
+    * @param axisAngle the axis-angle to use for the conversion. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly<?> axisAngle, QuaternionBasics<?> quaternionToPack)
    {
-      convertAxisAngleToQuaternionImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), quaternionToPack);
+      convertAxisAngleToQuaternion(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), quaternionToPack);
    }
 
-   public static final void convertAxisAngleToQuaternionImpl(double ux, double uy, double uz, double angle, QuaternionBasics<?> quaternionToPack)
+   /**
+    * Converts the given axis-angle into a quaternion.
+    * <p>
+    * After calling this method, the axis-angle and the quaternion represent the same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the axis-angle is {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * <li>if the length of the axis is below {@link #EPS}, the rotation matrix is set to the neutral
+    * quaternion.
+    * </ul>
+    * </p>
+    * 
+    * @param ux the axis x-component of the axis-angle to use for the conversion.
+    * @param uy the axis y-component of the axis-angle to use for the conversion.
+    * @param uz the axis z-component of the axis-angle to use for the conversion.
+    * @param angle the angle of the axis-angle to use for the conversion.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
+   public static final void convertAxisAngleToQuaternion(double ux, double uy, double uz, double angle, QuaternionBasics<?> quaternionToPack)
    {
       if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
       {

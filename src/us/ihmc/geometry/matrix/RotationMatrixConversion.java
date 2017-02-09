@@ -40,6 +40,7 @@ public abstract class RotationMatrixConversion
     * </pre>
     * 
     * @param yaw the angle to rotate about the z-axis.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
    public static void computeYawMatrix(double yaw, RotationMatrix matrixToPack)
    {
@@ -59,6 +60,7 @@ public abstract class RotationMatrixConversion
     * </pre>
     * 
     * @param pitch the angle to rotate about the y-axis.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
    public static void computePitchMatrix(double pitch, RotationMatrix matrixToPack)
    {
@@ -78,6 +80,7 @@ public abstract class RotationMatrixConversion
     * </pre>
     * 
     * @param roll the angle to rotate about the x-axis.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
    public static void computeRollMatrix(double roll, RotationMatrix matrixToPack)
    {
