@@ -158,6 +158,7 @@ public interface Transform
     * 
     * @param vectorToTransform the 4D vector to transform. Modified.
     */
+   // FIXME
    default void transform(Vector4DBasics<?> vectorToTransform)
    {
       transform(vectorToTransform, vectorToTransform);
@@ -175,6 +176,7 @@ public interface Transform
     * @param vectorOriginal the 4D vector to transform. Not modified.
     * @param vectorTransformed the 4D vector in which the result is stored. Modified.
     */
+   // FIXME
    void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed);
 
    /**
@@ -570,6 +572,7 @@ public interface Transform
     * 
     * @param vectorToTransform the 4D vector to transform. Modified.
     */
+   // FIXME
    default void inverseTransform(Vector4DBasics<?> vectorToTransform)
    {
       inverseTransform(vectorToTransform, vectorToTransform);
@@ -588,6 +591,7 @@ public interface Transform
     * @param vectorOriginal the 4D vector to transform. Not modified.
     * @param vectorTransformed the 4D vector in which the result is stored. Modified.
     */
+   // FIXME
    void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed);
 
    /**

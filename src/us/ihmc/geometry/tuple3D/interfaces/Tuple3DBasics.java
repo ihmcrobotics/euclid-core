@@ -137,7 +137,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *
     * @param index the index of the component to set.
     * @param value the new value of the selected component.
-    * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 1].
+    * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 2].
     */
    default void set(int index, double value)
    {
@@ -405,9 +405,9 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *
     * @param other the other tuple to add to this tuple.
     */
-   default void sub(Tuple3DReadOnly<?> tupleReadOnly)
+   default void sub(Tuple3DReadOnly<?> other)
    {
-      sub(tupleReadOnly.getX(), tupleReadOnly.getY(), tupleReadOnly.getZ());
+      sub(other.getX(), other.getY(), other.getZ());
    }
 
    /**

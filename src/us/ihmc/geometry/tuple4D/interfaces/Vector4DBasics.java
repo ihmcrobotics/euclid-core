@@ -1,24 +1,81 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
 import us.ihmc.geometry.TupleTools;
+import us.ihmc.geometry.transform.AffineTransform;
+import us.ihmc.geometry.transform.QuaternionBasedTransform;
+import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.transform.interfaces.Transform;
 
+/**
+ * Write and read interface for a 4 dimensional vector.
+ * <p>
+ * A tuple 4D represents what is commonly called a quaternion.
+ * The classes implementing this interface are meant for representing a generic quaternion.
+ * For unit-quaternions, the interfaces {@link QuaternionReadOnly} and {@link QuaternionBasics}
+ * should be implemented.
+ * </p>
+ * <p>
+ * When describing a 4D tuple, its 4 components are often gathered in two groups: the scalar part {@code s}
+ * and the vector part ({@code x}, {@code y}, {@code z}).
+ * </p>
+ * <p>
+ * Note on the difference between applying a 3D transform on a quaternion and a 4D vector:
+ * <ul>
+ *    <li> When transformed by a homogeneous transformation matrix, a quaternion is only
+ *     pre-multiplied by the rotation part of the transform, resulting in concatenating
+ *     the orientations of the transform and the quaternion.
+ *    <li> When transformed by a homogeneous transformation matrix, a 4D vector scalar
+ *     part {@code s} remains unchanged. The vector part ({@code x}, {@code y}, {@code z})
+ *     is scaled and rotated, and translated by {@code s} times the translation part of the transform.
+ *     Note that for {@code s = 0}, a 4D vector behaves as a 3D vector, and for {@code s = 1}
+ *     it behaves as a 3D point.
+ * </ul>
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ * @param <T> The final type of the tuple used.
+ */
 public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DReadOnly<T>, Tuple4DBasics<T>
 {
+   /**
+    * Sets the x-component of this vector.
+    *
+    * @param x the new x-component's value.
+    */
    void setX(double x);
 
+   /**
+    * Sets the y-component of this vector.
+    *
+    * @param y the new y-component's value.
+    */
    void setY(double y);
 
+   /**
+    * Sets the z-component of this vector.
+    *
+    * @param z the new z-component's value.
+    */
    void setZ(double z);
 
+   /**
+    * Sets the s-component of this vector.
+    *
+    * @param s the new s-component's value.
+    */
    void setS(double s);
 
+   /**
+    * Sets all the components of this vector to zero.
+    */
    @Override
    default void setToZero()
    {
       set(0.0, 0.0, 0.0, 0.0);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void normalize()
    {
@@ -27,22 +84,50 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
       scale(1.0 / norm());
    }
 
+   /**
+    * Clips each component of this vector to a maximum value {@code max}.
+    *
+    * @param max the maximum value for each component.
+    */
    default void clipToMax(double max)
    {
       set(Math.min(max, getX()), Math.min(max, getY()), Math.min(max, getZ()), Math.min(max, getS()));
    }
 
+   /**
+    * Clips each component of this vector to a minimum value {@code min}.
+    *
+    * @param min the minimum value for each component.
+    */
    default void clipToMin(double min)
    {
       set(Math.max(min, getX()), Math.max(min, getY()), Math.max(min, getZ()), Math.max(min, getS()));
    }
 
+   /**
+    * Clips each component of this vector to a minimum value {@code min} and a maximum value {@code max}.
+    *
+    * @param min the minimum value for each component.
+    * @param max the maximum value for each component.
+    */
    default void clipToMinMax(double min, double max)
    {
       clipToMax(max);
       clipToMin(min);
    }
 
+   /**
+    * Selects a component of this vector based on {@code index}
+    * and sets it to {@code value}.
+    * <p>
+    * For an {@code index} value going from 0 up to 3, the corresponding components
+    * are {@code x}, {@code y}, {@code z}, and {@code s}, respectively.
+    * </p>
+    *
+    * @param index the index of the component to set.
+    * @param value the new value of the selected component.
+    * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 3].
+    */
    default void set(int index, double value)
    {
       switch (index)
@@ -64,6 +149,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
       }
    }
 
+   /** {@inheritDoc} */
    @Override
    default void set(double x, double y, double z, double s)
    {
@@ -73,84 +159,231 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
       setS(s);
    }
 
-   default void setAndScale(double scalar, Tuple4DReadOnly<?> other)
+   /**
+    * Sets this vector to {@code tupleReadOnly} and then scales it {@link #scale(double)}.
+    *
+    * @param scalar the scale factor to use on this tuple.
+    * @param tupleReadOnly the tuple to copy the values from. Not modified.
+    */
+   default void setAndScale(double scalar, Tuple4DReadOnly<?> tupleReadOnly)
    {
-      set(scalar * other.getX(), scalar * other.getY(), scalar * other.getZ(), scalar * other.getS());
+      set(scalar * tupleReadOnly.getX(), scalar * tupleReadOnly.getY(), scalar * tupleReadOnly.getZ(), scalar * tupleReadOnly.getS());
    }
 
-   default void setAndClipToMax(double max, Tuple4DReadOnly<?> other)
+   /**
+    * Sets this vector to {@code tupleReadOnly} and then calls {@link #clipToMax(double)}.
+    *
+    * @param max the maximum value for each component of this tuple.
+    * @param tupleReadOnly the tuple to copy the values from. Not modified.
+    */
+   default void setAndClipToMax(double max, Tuple4DReadOnly<?> tupleReadOnly)
    {
-      set(Math.min(max, other.getX()), Math.min(max, other.getY()), Math.min(max, other.getZ()), Math.min(max, other.getS()));
+      set(Math.min(max, tupleReadOnly.getX()), Math.min(max, tupleReadOnly.getY()), Math.min(max, tupleReadOnly.getZ()), Math.min(max, tupleReadOnly.getS()));
    }
 
-   default void setAndClipToMin(double min, Tuple4DReadOnly<?> other)
+   /**
+    * Sets this vector to {@code tupleReadOnly} and then calls {@link #clipToMin(double)}.
+    *
+    * @param min the minimum value for each component of this tuple.
+    * @param tupleReadOnly the tuple to copy the values from. Not modified.
+    */
+   default void setAndClipToMin(double min, Tuple4DReadOnly<?> tupleReadOnly)
    {
-      set(Math.max(min, other.getX()), Math.max(min, other.getY()), Math.max(min, other.getZ()), Math.max(min, other.getS()));
+      set(Math.max(min, tupleReadOnly.getX()), Math.max(min, tupleReadOnly.getY()), Math.max(min, tupleReadOnly.getZ()), Math.max(min, tupleReadOnly.getS()));
    }
 
-   default void setAndClipToMinMax(double min, double max, Tuple4DReadOnly<?> other)
+   /**
+    * Sets this vector to {@code tupleReadOnly} and then calls {@link #clipToMinMax(double, double)}.
+    *
+    * @param min the minimum value for each component of this tuple.
+    * @param max the maximum value for each component of this tuple.
+    * @param tupleReadOnly the tuple to copy the values from. Not modified.
+    */
+   default void setAndClipToMinMax(double min, double max, Tuple4DReadOnly<?> tupleReadOnly)
    {
-      set(other);
+      set(tupleReadOnly);
       clipToMinMax(min, max);
    }
 
+   /**
+    * Adds the given ({@code x}, {@code y}, {@code z}, {@code s})-tuple to this vector.
+    * <p>
+    * this = this + (x, y, z, s)
+    * </p>
+    *
+    * @param x the value to add to the x-component of this vector.
+    * @param y the value to add to the y-component of this vector.
+    * @param z the value to add to the z-component of this vector.
+    * @param s the value to add to the s-component of this vector.
+    */
    default void add(double x, double y, double z, double s)
    {
       set(getX() + x, getY() + y, getZ() + z, getS() + s);
    }
 
-   default void add(Tuple4DReadOnly<?> other)
+   /**
+    * Adds the given tuple to this vector.
+    * <p>
+    * this = this + tupleReadOnly
+    * </p>
+    *
+    * @param tupleReadOnly the tuple to add to this vector.
+    */
+   default void add(Tuple4DReadOnly<?> tupleReadOnly)
    {
-      add(other.getX(), other.getY(), other.getZ(), other.getS());
+      add(tupleReadOnly.getX(), tupleReadOnly.getY(), tupleReadOnly.getZ(), tupleReadOnly.getS());
    }
 
+   /**
+    * Sets this vector to the sum of the two given tuples.
+    * <p>
+    * this = tuple1 + tuple2
+    * </p>
+    *
+    * @param tuple1 the first tuple to sum. Not modified.
+    * @param tuple2 the second tuple to sum. Not modified.
+    */
    default void add(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2)
    {
       set(tuple1.getX() + tuple2.getX(), tuple1.getY() + tuple2.getY(), tuple1.getZ() + tuple2.getZ(), tuple1.getS() + tuple2.getS());
    }
 
+   /**
+    * Subtracts the given ({@code x}, {@code y}, {@code z}, {@code s})-tuple to this vector.
+    * <p>
+    * this = this - (x, y, z, s)
+    * </p>
+    *
+    * @param x the value to add to the x-component of this vector.
+    * @param y the value to add to the y-component of this vector.
+    * @param z the value to add to the z-component of this vector.
+    * @param s the value to add to the s-component of this vector.
+    */
    default void sub(double x, double y, double z, double s)
    {
       set(getX() - x, getY() - y, getZ() - z, getS() - s);
    }
 
+   /**
+    * Subtracts the given tuple to this vector.
+    * <p>
+    * this = this - tupleReadOnly
+    * </p>
+    *
+    * @param other the tuple to add to this vector.
+    */
    default void sub(Tuple4DReadOnly<?> tupleReadOnly)
    {
       sub(tupleReadOnly.getX(), tupleReadOnly.getY(), tupleReadOnly.getZ(), tupleReadOnly.getS());
    }
 
+   /**
+    * Sets this vector to the difference of the two given tuples.
+    * <p>
+    * this = tuple1 - tuple2
+    * </p>
+    *
+    * @param tuple1 the first tuple. Not modified.
+    * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
+    */
    default void sub(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2)
    {
       set(tuple1.getX() - tuple2.getX(), tuple1.getY() - tuple2.getY(), tuple1.getZ() - tuple2.getZ(), tuple1.getS() - tuple2.getS());
    }
 
+   /**
+    * Scales the components of this vector by the given {@code scalar}.
+    * <p>
+    * this = scalar * this
+    * </p>
+    *
+    * @param scalar the scale factor to use.
+    */
    default void scale(double scalar)
    {
       scale(scalar, scalar, scalar, scalar);
    }
 
+   /**
+    * Scales independently each component of this vector.
+    * <pre>
+    * / this.x \   / scalarX * this.x \
+    * | this.y | = | scalarY * this.y |
+    * | this.z |   | scalarZ * this.z |
+    * \ this.s /   \ scalarS * this.s /
+    * </pre>
+    *
+    * @param scalarX the scalar factor to use on the x-component of this vector.
+    * @param scalarY the scalar factor to use on the y-component of this vector.
+    * @param scalarZ the scalar factor to use on the z-component of this vector.
+    * @param scalarS the scalar factor to use on the s-component of this vector.
+    */
    default void scale(double scalarX, double scalarY, double scalarZ, double scalarS)
    {
       set(scalarX * getX(), scalarY * getY(), scalarZ * getZ(), scalarS * getS());
    }
 
-   default void scaleAdd(double scalar, Tuple4DReadOnly<?> other)
+   /**
+    * Scales this vector and adds {@code tupleReadOnly}.
+    * <p>
+    * this = scalar * this + tupleReadOnly
+    * </p>
+    *
+    * @param scalar the scale factor to use.
+    * @param tupleReadOnly the tuple to add to this. Not modified.
+    */
+   default void scaleAdd(double scalar, Tuple4DReadOnly<?> tupleReadOnly)
    {
       scale(scalar);
-      add(other);
+      add(tupleReadOnly);
    }
 
+   /**
+    * Sets this vector to the sum of {@code tuple1} scaled and {@code tuple2}.
+    * <p>
+    * this = scalar * tuple1 + tuple2
+    * </p>
+    *
+    * @param scalar the scale factor to use on {@code tuple1}.
+    * @param tuple1 the first tuple of the sum. Not modified.
+    * @param tuple2 the second tuple of the sum. Not modified.
+    */
    default void scaleAdd(double scalar, Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2)
    {
       setAndScale(scalar, tuple1);
       add(tuple2);
    }
 
-   default void interpolate(Tuple4DReadOnly<?> other, double alpha)
+   /**
+    * Performs a linear interpolation from this vector to {@code tupleReadOnly} given
+    * the percentage {@code alpha}.
+    * <p>
+    * this = (1.0 - alpha) * this + alpha * tupleReadOnly
+    * </p>
+    *
+    * @param tupleReadOnly the tuple used for the interpolation. Not modified.
+    * @param alpha the percentage used for the interpolation.
+    * A value of 0 will result in not modifying this vector, while a value of 1
+    * is equivalent to setting this vector to {@code tupleReadOnly}.
+    */
+   default void interpolate(Tuple4DReadOnly<?> tupleReadOnly, double alpha)
    {
-      interpolate(this, other, alpha);
+      interpolate(this, tupleReadOnly, alpha);
    }
 
+   /**
+    * Performs a linear interpolation from {@code tuple1} to {@code tuple2} given
+    * the percentage {@code alpha}.
+    * <p>
+    * this = (1.0 - alpha) * tuple1 + alpha * tuple2
+    * </p>
+    *
+    * @param tuple1 the first tuple used in the interpolation. Not modified.
+    * @param tuple2 the second tuple used in the interpolation. Not modified.
+    * @param alpha the percentage to use for the interpolation.
+    * A value of 0 will result in setting this vector to {@code tuple1}, while a
+    * value of 1 is equivalent to setting this vector to {@code tuple2}.
+    */
    default void interpolate(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2, double alpha)
    {
       double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
@@ -160,6 +393,18 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
       set(x, y, z, s);
    }
 
+   /**
+    * Transforms the vector part (x, y, z) of the given {@code vector4DToTransform} as a 3D vector.
+    * The scalar part (s) remains unchanged.
+    * <p>
+    *    <li> {@link RigidBodyTransform} rotates a vector.
+    *    <li> {@link QuaternionBasedTransform} rotates a vector.
+    *    <li> {@link AffineTransform} scales then rotates a vector.
+    * </p>
+    * 
+    * @param vectorToTransform the 4D vector to transform. Modified.
+    */
+   // FIXME
    @Override
    default void applyTransform(Transform transform)
    {
