@@ -249,11 +249,11 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly<T>>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T tuple1 = createRandomTuple(random);
-         double length1 = tuple1.length();
+         double length1 = tuple1.norm();
          double scalar = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
          T tuple2 = createTuple(scalar * tuple1.getX(), scalar * tuple1.getY(), scalar * tuple1.getZ(), scalar * tuple1.getS());
          double expectedLength2 = scalar * length1;
-         double actualLength2 = tuple2.length();
+         double actualLength2 = tuple2.norm();
          assertEquals(expectedLength2, actualLength2, 5.0 * getEpsilon());
       }
    }
@@ -266,11 +266,11 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly<T>>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T tuple1 = createRandomTuple(random);
-         double length1 = tuple1.length();
+         double length1 = tuple1.norm();
          double scalar = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
          T tuple2 = createTuple(scalar * tuple1.getX(), scalar * tuple1.getY(), scalar * tuple1.getZ(), scalar * tuple1.getS());
          double expectedLength2 = scalar * length1;
-         double actualLength2 = tuple2.lengthSquared();
+         double actualLength2 = tuple2.normSquared();
          assertEquals(expectedLength2, Math.sqrt(actualLength2), 5.0 * getEpsilon());
       }
    }

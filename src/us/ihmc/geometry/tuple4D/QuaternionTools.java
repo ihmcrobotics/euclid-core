@@ -132,7 +132,7 @@ public abstract class QuaternionTools
          qz = -qz;
       }
 
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
 
       if (norm < EPS)
       {
@@ -185,7 +185,7 @@ public abstract class QuaternionTools
          qz = -qz;
       }
 
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
 
       if (norm < EPS)
       {
@@ -236,7 +236,7 @@ public abstract class QuaternionTools
       if (checkIfTransformInXYPlane)
          quaternion.checkIfIsZOnly(EPS);
       
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
       
       if (norm < EPS)
       {
@@ -298,7 +298,7 @@ public abstract class QuaternionTools
    private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Vector4DReadOnly<?> vectorOriginal,
                                      Vector4DBasics<?> vectorTransformed)
    {
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
 
       if (norm < EPS)
       {
@@ -358,7 +358,7 @@ public abstract class QuaternionTools
    private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Matrix3DReadOnly<?> matrixOriginal,
                                      Matrix3D matrixTransformed)
    {
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
 
       if (norm < EPS)
       {
@@ -552,7 +552,7 @@ public abstract class QuaternionTools
    private static void multiplyImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix,
                                     RotationMatrix matrixToPack)
    {
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
 
       if (norm < EPS)
       {
@@ -651,7 +651,7 @@ public abstract class QuaternionTools
    private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion,
                                     RotationMatrix matrixToPack)
    {
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
 
       if (norm < EPS)
       {

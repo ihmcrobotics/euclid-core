@@ -43,7 +43,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics<T>> extends Tupl
          tuple1.normalize();
 
          double expectedLength = 1.0;
-         double actualLength = tuple1.length();
+         double actualLength = tuple1.norm();
          assertEquals(expectedLength, actualLength, getEpsilon());
 
          T tuple2 = createRandomTuple(random);
@@ -67,7 +67,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics<T>> extends Tupl
          tuple2.setAndNormalize(tuple1);
 
          double expectedLength = 1.0;
-         double actualLength = tuple2.length();
+         double actualLength = tuple2.norm();
          assertEquals(expectedLength, actualLength, getEpsilon());
 
          tuple2 = createRandomTuple(random);

@@ -165,7 +165,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
       if (norm < EPS)
          return 0.0;
 
@@ -191,7 +191,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
       if (norm < EPS)
          return 0.0;
 
@@ -214,7 +214,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
       if (norm < EPS)
          return 0.0;
 
@@ -245,7 +245,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
       if (norm < EPS)
       {
          yawPitchRollToPack[0] = 0.0;
@@ -287,7 +287,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
       if (norm < EPS)
       {
          eulerAnglesToPack.setToZero();

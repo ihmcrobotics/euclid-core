@@ -30,6 +30,9 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
 {
    /**
     * Calculates and returns the magnitude of this vector.
+    * <p>
+    * length = &radic;(x<sup>2</sup> + y<sup>2</sup>)
+    * </p>
     * 
     * @return the magnitude of this vector.
     */
@@ -40,6 +43,9 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
 
    /**
     * Calculates and returns the square of the magnitude of this vector.
+    * <p>
+    * length<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup>
+    * </p>
     * <p>
     * This method is usually preferred over {@link #length()}
     * when calculation speed matters and knowledge of the actual magnitude does not,
@@ -55,6 +61,10 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
 
    /**
     * Calculates and returns the value of the dot product of this vector with {@code other}.
+    * <p>
+    * For instance, the dot product of two vectors p and q is defined as:
+    * <br> p . q = &sum;<sub>i=1:2</sub>(p<sub>i</sub> * q<sub>i</sub>)
+    * </p>
     * 
     * @param other the other vector used for the dot product. Not modified.
     * @return the value of the dot product.

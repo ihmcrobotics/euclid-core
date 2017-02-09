@@ -148,7 +148,8 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components of this tuple in an array starting from its first index.
+    * Packs the components {@code x}, {@code y}, {@code z} in order
+    * in an array starting from its first index.
     * 
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
     */
@@ -158,7 +159,8 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components of this tuple in an array starting from {@code startIndex}.
+    * Packs the components {@code x}, {@code y}, {@code z} in order
+    * in an array starting from {@code startIndex}.
     *
     * @param startIndex the index in the array where the first component is stored.
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
@@ -171,7 +173,8 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components of this tuple in an array starting from its first index.
+    * Packs the components {@code x}, {@code y}, {@code z} in order
+    * in an array starting from its first index.
     * 
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
     */
@@ -181,7 +184,8 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components of this tuple in an array starting from {@code startIndex}.
+    * Packs the components {@code x}, {@code y}, {@code z} in order
+    * in an array starting from {@code startIndex}.
     *
     * @param startIndex the index in the array where the first component is stored.
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
@@ -194,7 +198,8 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components of this tuple in a column vector starting from its first row index.
+    * Packs the components {@code x}, {@code y}, {@code z} in order
+    * in a column vector starting from its first row index.
     * 
     * @param tupleMatrixToPack the array in which this tuple is stored. Modified.
     */
@@ -204,7 +209,8 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components of this tuple in a column vector starting from {@code startRow}.
+    * Packs the components {@code x}, {@code y}, {@code z} in order
+    * in a column vector starting from {@code startRow}.
     * 
     * @param startRow the first row index to start writing in the dense-matrix.
     * @param tupleMatrixToPack the column vector in which this tuple is stored. Modified.
@@ -215,7 +221,8 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components of this tuple in a matrix starting from {@code startRow} at the column index {@code column}.
+    * Packs the components {@code x}, {@code y}, {@code z} in order
+    * in a column vector starting from {@code startRow} at the column index {@code column}.
     * 
     * @param startRow the first row index to start writing in the dense-matrix.
     * @param column the column index to write in the dense-matrix.

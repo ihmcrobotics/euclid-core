@@ -219,7 +219,7 @@ public abstract class GeometryBasicsTestTools
       {
          Vector4D difference = new Vector4D(actual);
          difference.sub(expected);
-         fail(message + " Expected = " + expected + ", actual = " + actual + ". Difference magnitude = " + difference.length());
+         fail(message + " Expected = " + expected + ", actual = " + actual + ". Difference magnitude = " + difference.norm());
       }
    }
 

@@ -24,7 +24,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    {
       if (containsNaN())
          return;
-      scale(1.0 / length());
+      scale(1.0 / norm());
    }
 
    default void clipToMax(double max)

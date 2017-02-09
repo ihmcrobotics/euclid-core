@@ -193,7 +193,7 @@ public abstract class RotationMatrixConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = quaternion.length();
+      double norm = quaternion.norm();
 
       if (norm < EPS)
       {

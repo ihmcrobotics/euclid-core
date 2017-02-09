@@ -47,7 +47,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
       if (containsNaN())
          return;
 
-      double invNorm = length();
+      double invNorm = norm();
 
       if (invNorm == 0.0)
       {

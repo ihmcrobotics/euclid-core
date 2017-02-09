@@ -19,7 +19,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
 {
    default boolean isUnitary(double epsilon)
    {
-      return Math.abs(length() - 1.0) < epsilon;
+      return Math.abs(norm() - 1.0) < epsilon;
    }
 
    default boolean isZOnly(double epsilon)
@@ -34,9 +34,9 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
    }
 
    @Override
-   default double length()
+   default double norm()
    {
-      return GeometryBasicsTools.fastSquareRoot(lengthSquared());
+      return GeometryBasicsTools.fastSquareRoot(normSquared());
    }
 
    default double getAngle()

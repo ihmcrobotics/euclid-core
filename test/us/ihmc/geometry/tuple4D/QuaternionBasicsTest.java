@@ -660,7 +660,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       qActual.setUnsafe(scale * qx, scale * qy, scale * qz, scale * qs);
       qActual.normalizeAndLimitToPiMinusPi();
 
-      assertEquals(1.0, qActual.length(), getEpsilon());
+      assertEquals(1.0, qActual.norm(), getEpsilon());
       GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
 
       // Test that the quaternion is kept within [-Pi, Pi]
@@ -710,7 +710,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
          assertNotEquals(quaternion.getY(), y, getEpsilon());
          assertNotEquals(quaternion.getZ(), z, getEpsilon());
          assertNotEquals(quaternion.getS(), s, getEpsilon());
-         assertEquals(1.0, quaternion.length(), getEpsilon());
+         assertEquals(1.0, quaternion.norm(), getEpsilon());
 
          T original = createRandomTuple(random);
          x = original.getX();
