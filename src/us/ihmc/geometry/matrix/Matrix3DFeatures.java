@@ -476,7 +476,58 @@ public abstract class Matrix3DFeatures
    }
 
    /**
-    * Verify on a per coefficient basis if
+    * Tests on a per component basis if the two given matrices are equal to an {@code epsilon}.
+    * 
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two matrices are equal, {@code false} otherwise.
+    */
+   public static boolean epsilonEquals(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, double epsilon)
+   {
+      double diff;
+
+      diff = m1.getM00() - m2.getM00();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      diff = m1.getM01() - m2.getM01();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      diff = m1.getM02() - m2.getM02();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      diff = m1.getM10() - m2.getM10();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      diff = m1.getM11() - m2.getM11();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      diff = m1.getM12() - m2.getM12();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      diff = m1.getM20() - m2.getM20();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      diff = m1.getM21() - m2.getM21();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      diff = m1.getM22() - m2.getM22();
+      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+         return false;
+
+      return true;
+   }
+
+   /**
+    * Tests on a per coefficient basis if
     *  the two matrices {@code m1} and {@code m2} are <b>exactly</b> equal.
     * <p>
     * If any of the two matrices is {@code null},

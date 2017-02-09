@@ -700,10 +700,10 @@ public class Matrix3DFeaturesTest
          delta.fill(0.1 * epsilon);
 
          m2.add(m1, delta);
-         assertTrue(m1.epsilonEquals(m2, epsilon));
+         assertTrue(Matrix3DFeatures.epsilonEquals(m1, m2, epsilon));
 
          m2.sub(m1, delta);
-         assertTrue(m1.epsilonEquals(m2, epsilon));
+         assertTrue(Matrix3DFeatures.epsilonEquals(m1, m2, epsilon));
 
          for (int row = 0; row < 3; row++)
          {
@@ -712,10 +712,10 @@ public class Matrix3DFeaturesTest
                delta.fill(0.1 * epsilon);
                delta.setElement(row, column, 1.1 * epsilon);
                m2.add(m1, delta);
-               assertFalse(m1.epsilonEquals(m2, epsilon));
+               assertFalse(Matrix3DFeatures.epsilonEquals(m1, m2, epsilon));
 
                m2.sub(m1, delta);
-               assertFalse(m1.epsilonEquals(m2, epsilon));
+               assertFalse(Matrix3DFeatures.epsilonEquals(m1, m2, epsilon));
             }
          }
       }

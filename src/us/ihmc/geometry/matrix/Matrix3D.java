@@ -1371,17 +1371,4 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
       bits = 31L * bits + Double.doubleToLongBits(m22);
       return (int) (bits ^ bits >> 32);
    }
-
-   /**
-    * Tests on a per component basis, if this matrix is equal to {@code other} to an {@code epsilon}.
-    * 
-    * @param other the other matrix to compare against this. Not modified.
-    * @param epsilon tolerance to use when comparing each component.
-    * @return {@code true} if the two matrix are equal component-wise, {@code false} otherwise.
-    */
-   @Override
-   public boolean epsilonEquals(Matrix3D other, double epsilon)
-   {
-      return epsilonEquals((Matrix3DReadOnly<?>) other, epsilon);
-   }
 }

@@ -10,6 +10,7 @@ import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
@@ -246,7 +247,7 @@ public abstract class GeometryBasicsTestTools
    public static <T extends Matrix3DReadOnly<T>> void assertMatrix3DEquals(String message, Matrix3DReadOnly<?> expected, Matrix3DReadOnly<?> actual,
                                                                            double epsilon)
    {
-      if (!expected.epsilonEquals(actual, epsilon))
+      if (!Matrix3DFeatures.epsilonEquals(expected, actual, epsilon))
       {
          fail(message + " Expected =\n" + expected + "\nActual =\n" + actual);
       }

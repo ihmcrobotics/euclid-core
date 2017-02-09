@@ -861,7 +861,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two matrices are equal, {@code false} otherwise.
     */
-   default boolean epsilonEquals(Matrix3DReadOnly<?> other, double epsilon)
+   default boolean epsilonEquals(T other, double epsilon)
    {
       double diff;
 
