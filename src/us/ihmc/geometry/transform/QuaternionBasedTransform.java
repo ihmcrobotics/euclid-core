@@ -742,6 +742,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       quaternion.transform(vectorOriginal, vectorTransformed);
+      vectorTransformed.addX(vectorTransformed.getS() * translationVector.getX());
+      vectorTransformed.addY(vectorTransformed.getS() * translationVector.getY());
+      vectorTransformed.addZ(vectorTransformed.getS() * translationVector.getZ());
    }
 
    /** {@inheritDoc} */
@@ -800,7 +803,11 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    @Override
    public void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
-      quaternion.inverseTransform(vectorOriginal, vectorTransformed);
+      vectorTransformed.set(vectorOriginal);
+      vectorTransformed.subX(vectorTransformed.getS() * translationVector.getX());
+      vectorTransformed.subY(vectorTransformed.getS() * translationVector.getY());
+      vectorTransformed.subZ(vectorTransformed.getS() * translationVector.getZ());
+      quaternion.inverseTransform(vectorTransformed, vectorTransformed);
    }
 
    /** {@inheritDoc} */

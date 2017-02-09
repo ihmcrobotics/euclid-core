@@ -329,6 +329,26 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
+    * Adds the given {@code x} to this tuple's x-component.
+    * 
+    * @param x the value to add.
+    */
+   default void addX(double x)
+   {
+      setX(getX() + x);
+   }
+
+   /**
+    * Adds the given {@code y} to this tuple's y-component.
+    * 
+    * @param y the value to add.
+    */
+   default void addY(double y)
+   {
+      setY(getY() + y);
+   }
+
+   /**
     * Adds the given ({@code x}, {@code y})-tuple to this tuple.
     * <p>
     * this = this + (x, y)
@@ -367,6 +387,26 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    default void add(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
    {
       set(tuple1.getX() + tuple2.getX(), tuple1.getY() + tuple2.getY());
+   }
+
+   /**
+    * Subtracts the given {@code x} to this tuple's x-component.
+    * 
+    * @param x the value to add.
+    */
+   default void subX(double x)
+   {
+      setX(getX() - x);
+   }
+
+   /**
+    * Subtracts the given {@code y} to this tuple's y-component.
+    * 
+    * @param y the value to add.
+    */
+   default void subY(double y)
+   {
+      setY(getY() - y);
    }
 
    /**

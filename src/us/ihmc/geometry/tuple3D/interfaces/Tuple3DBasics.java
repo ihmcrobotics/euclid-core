@@ -341,6 +341,36 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
+    * Adds the given {@code x} to this tuple's x-component.
+    * 
+    * @param x the value to add.
+    */
+   default void addX(double x)
+   {
+      setX(getX() + x);
+   }
+
+   /**
+    * Adds the given {@code y} to this tuple's y-component.
+    * 
+    * @param y the value to add.
+    */
+   default void addY(double y)
+   {
+      setY(getY() + y);
+   }
+
+   /**
+    * Adds the given {@code z} to this tuple's z-component.
+    * 
+    * @param z the value to add.
+    */
+   default void addZ(double z)
+   {
+      setZ(getZ() + z);
+   }
+
+   /**
     * Adds the given ({@code x}, {@code y}, {@code z})-tuple to this tuple.
     * <p>
     * this = this + (x, y, z)
@@ -380,6 +410,36 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    default void add(Tuple3DReadOnly<?> tuple1, Tuple3DReadOnly<?> tuple2)
    {
       set(tuple1.getX() + tuple2.getX(), tuple1.getY() + tuple2.getY(), tuple1.getZ() + tuple2.getZ());
+   }
+
+   /**
+    * Subtracts the given {@code x} to this tuple's x-component.
+    * 
+    * @param x the value to add.
+    */
+   default void subX(double x)
+   {
+      setX(getX() - x);
+   }
+
+   /**
+    * Subtracts the given {@code y} to this tuple's y-component.
+    * 
+    * @param y the value to add.
+    */
+   default void subY(double y)
+   {
+      setY(getY() - y);
+   }
+
+   /**
+    * Subtracts the given {@code z} to this tuple's z-component.
+    * 
+    * @param z the value to add.
+    */
+   default void subZ(double z)
+   {
+      setZ(getZ() - z);
    }
 
    /**

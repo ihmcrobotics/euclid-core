@@ -1417,12 +1417,26 @@ public class RigidBodyTransformTest
       transform.transform(vector3D);
       vectorExpected.set(vector3D);
       vectorExpected.setS(vectorOriginal.getS());
+      vectorExpected.addX(vectorExpected.getS() * transform.getM03());
+      vectorExpected.addY(vectorExpected.getS() * transform.getM13());
+      vectorExpected.addZ(vectorExpected.getS() * transform.getM23());
 
       transform.transform(vectorOriginal, vectorActual);
       GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
 
       vectorActual.set(vectorOriginal);
       transform.transform(vectorActual);
+      GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
+
+      // Try with dense-matrix
+      DenseMatrix64F transformDenseMatrix = new DenseMatrix64F(4, 4);
+      transform.get(transformDenseMatrix);
+      DenseMatrix64F vectorOriginalDenseMatrix = new DenseMatrix64F(4, 1);
+      vectorOriginal.get(vectorOriginalDenseMatrix);
+      DenseMatrix64F vectorTransformedDenseMatrix = new DenseMatrix64F(4, 1);
+      CommonOps.mult(transformDenseMatrix, vectorOriginalDenseMatrix, vectorTransformedDenseMatrix);
+      vectorExpected.set(vectorTransformedDenseMatrix);
+
       GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
    }
 

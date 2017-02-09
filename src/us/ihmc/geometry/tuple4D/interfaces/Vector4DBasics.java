@@ -206,6 +206,46 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    }
 
    /**
+    * Adds the given {@code x} to this vector's x-component.
+    * 
+    * @param x the value to add.
+    */
+   default void addX(double x)
+   {
+      setX(getX() + x);
+   }
+
+   /**
+    * Adds the given {@code y} to this vector's y-component.
+    * 
+    * @param y the value to add.
+    */
+   default void addY(double y)
+   {
+      setY(getY() + y);
+   }
+
+   /**
+    * Adds the given {@code z} to this vector's z-component.
+    * 
+    * @param z the value to add.
+    */
+   default void addZ(double z)
+   {
+      setZ(getZ() + z);
+   }
+
+   /**
+    * Adds the given {@code s} to this vector's s-component.
+    * 
+    * @param s the value to add.
+    */
+   default void addS(double s)
+   {
+      setS(getS() + s);
+   }
+
+   /**
     * Adds the given ({@code x}, {@code y}, {@code z}, {@code s})-tuple to this vector.
     * <p>
     * this = this + (x, y, z, s)
@@ -246,6 +286,46 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    default void add(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2)
    {
       set(tuple1.getX() + tuple2.getX(), tuple1.getY() + tuple2.getY(), tuple1.getZ() + tuple2.getZ(), tuple1.getS() + tuple2.getS());
+   }
+
+   /**
+    * Subtracts the given {@code x} to this vector's x-component.
+    * 
+    * @param x the value to add.
+    */
+   default void subX(double x)
+   {
+      setX(getX() - x);
+   }
+
+   /**
+    * Subtracts the given {@code y} to this vector's y-component.
+    * 
+    * @param y the value to add.
+    */
+   default void subY(double y)
+   {
+      setY(getY() - y);
+   }
+
+   /**
+    * Subtracts the given {@code z} to this vector's z-component.
+    * 
+    * @param z the value to add.
+    */
+   default void subZ(double z)
+   {
+      setZ(getZ() - z);
+   }
+
+   /**
+    * Subtracts the given {@code s} to this vector's s-component.
+    * 
+    * @param s the value to add.
+    */
+   default void subS(double s)
+   {
+      setS(getS() - s);
    }
 
    /**
@@ -394,17 +474,21 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    }
 
    /**
-    * Transforms the vector part (x, y, z) of the given {@code vector4DToTransform} as a 3D vector.
+    * Transforms the vector part (x, y, z) of this vector as a 3D vector
+    * and translates it by {@code s} times the translation part of the transform.
     * The scalar part (s) remains unchanged.
     * <p>
-    *    <li> {@link RigidBodyTransform} rotates a vector.
-    *    <li> {@link QuaternionBasedTransform} rotates a vector.
-    *    <li> {@link AffineTransform} scales then rotates a vector.
+    * Note that for {@code s = 0}, a 4D vector behaves as a 3D vector, and for {@code s = 1}
+    * it behaves as a 3D point.
+    * </p>
+    * <p>
+    *    <li> {@link RigidBodyTransform} rotates then translates a vector.
+    *    <li> {@link QuaternionBasedTransform} rotates then translates a vector.
+    *    <li> {@link AffineTransform} scales, rotates, then translates a vector.
     * </p>
     * 
-    * @param vectorToTransform the 4D vector to transform. Modified.
+    * @param transform the geometric transform to apply on this vector. Not modified.
     */
-   // FIXME
    @Override
    default void applyTransform(Transform transform)
    {

@@ -1114,6 +1114,9 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       rotationMatrix.transform(vectorOriginal, vectorTransformed);
+      vectorTransformed.addX(vectorTransformed.getS() * translationVector.getX());
+      vectorTransformed.addY(vectorTransformed.getS() * translationVector.getY());
+      vectorTransformed.addZ(vectorTransformed.getS() * translationVector.getZ());
    }
 
    /** {@inheritDoc} */
@@ -1170,9 +1173,13 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector4DReadOnly<?> vector4DOriginal, Vector4DBasics<?> vector4DTransformed)
+   public void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
-      rotationMatrix.inverseTransform(vector4DOriginal, vector4DTransformed);
+      vectorTransformed.set(vectorOriginal);
+      vectorTransformed.subX(vectorTransformed.getS() * translationVector.getX());
+      vectorTransformed.subY(vectorTransformed.getS() * translationVector.getY());
+      vectorTransformed.subZ(vectorTransformed.getS() * translationVector.getZ());
+      rotationMatrix.inverseTransform(vectorTransformed, vectorTransformed);
    }
 
    /** {@inheritDoc} */
