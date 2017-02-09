@@ -5,6 +5,8 @@ import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.transform.interfaces.Transform;
+import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 
 /**
  * Write and read interface for a 4 dimensional vector representing a generic quaternion.
@@ -150,6 +152,34 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
       setY(y);
       setZ(z);
       setS(s);
+   }
+
+   /**
+    * Sets this 4D vector to represent the given 3D vector
+    * <p>
+    * this.xyz = vector3D<br>
+    * this.s = 0.0
+    * </p>
+    * 
+    * @param vector3D the 3D vector used to set this 4D vector. Not modified.
+    */
+   default void set(Vector3DReadOnly<?> vector3D)
+   {
+      set(vector3D.getX(), vector3D.getY(), vector3D.getZ(), 0.0);
+   }
+
+   /**
+    * Sets this 4D vector to represent the given 3D point
+    * <p>
+    * this.xyz = point3D<br>
+    * this.s = 1.0
+    * </p>
+    * 
+    * @param point3D the 3D point used to set this 4D vector. Not modified.
+    */
+   default void set(Point3DReadOnly<?> point3D)
+   {
+      set(point3D.getX(), point3D.getY(), point3D.getZ(), 1.0);
    }
 
    /**

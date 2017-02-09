@@ -63,7 +63,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
     * The quaternion is immediately normalized.
     * </p>
     *
-    * @param pointArray the array containing this vector's components. Not modified.
+    * @param pointArray the array containing this quaternion's components. Not modified.
     */
    public Quaternion(double[] quaternionArray)
    {
@@ -71,7 +71,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    }
 
    /**
-    * Creates a new quaternion and initializes it to {@code other}
+    * Creates a new quaternion and initializes it to {@code other}.
     * 
     * @param other the quaternion to copy the components from. Not modified.
     */

@@ -57,7 +57,7 @@ public class Vector2D32 implements Serializable, Vector2DBasics<Vector2D32>
    }
 
    /**
-    * Creates a new vector and initializes it to {@code other}
+    * Creates a new vector and initializes it to {@code other}.
     * 
     * @param other the tuple to copy the components from. Not modified.
     */

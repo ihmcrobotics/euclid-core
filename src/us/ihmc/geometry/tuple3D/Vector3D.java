@@ -58,7 +58,7 @@ public class Vector3D implements Serializable, Vector3DBasics<Vector3D>
    }
 
    /**
-    * Creates a new vector and initializes it to {@code other}
+    * Creates a new vector and initializes it to {@code other}.
     *
     * @param other the tuple to copy the components from. Not modified.
     */

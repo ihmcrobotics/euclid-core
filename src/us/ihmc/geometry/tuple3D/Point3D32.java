@@ -58,7 +58,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
    }
 
    /**
-    * Creates a new point and initializes it to {@code other}
+    * Creates a new point and initializes it to {@code other}.
     * 
     * @param other the tuple to copy the coordinates from. Not modified.
     */

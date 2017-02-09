@@ -55,7 +55,7 @@ public class Point2D32 implements Serializable, Point2DBasics<Point2D32>
    }
 
    /**
-    * Creates a new point and initializes it to {@code other}
+    * Creates a new point and initializes it to {@code other}.
     * 
     * @param other the tuple to copy the coordinates from. Not modified.
     */
