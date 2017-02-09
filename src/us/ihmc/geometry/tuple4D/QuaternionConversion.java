@@ -2,9 +2,9 @@ package us.ihmc.geometry.tuple4D;
 
 import org.apache.commons.math3.util.FastMath;
 
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
@@ -39,7 +39,7 @@ public abstract class QuaternionConversion
 
    public static final void convertAxisAngleToQuaternionImpl(double ux, double uy, double uz, double angle, QuaternionBasics<?> quaternionToPack)
    {
-      if (AxisAngleTools.containsNaN(ux, uy, uz, angle))
+      if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
       {
          quaternionToPack.setToNaN();
          return;
@@ -81,7 +81,7 @@ public abstract class QuaternionConversion
    static void convertMatrixToQuaternionImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
                                              QuaternionBasics<?> quaternionToPack)
    {
-      if (Matrix3DFeatures.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
+      if (GeometryBasicsTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
          quaternionToPack.setToNaN();
          return;
@@ -154,7 +154,7 @@ public abstract class QuaternionConversion
 
    public static void convertRotationVectorToQuaternionImpl(double rx, double ry, double rz, QuaternionBasics<?> quaternionToPack)
    {
-      if (Double.isNaN(rx) || Double.isNaN(ry) || Double.isNaN(rz))
+      if (GeometryBasicsTools.containsNaN(rx, ry, rz))
       {
          quaternionToPack.setToNaN();
          return;

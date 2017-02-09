@@ -117,7 +117,7 @@ public class AxisAngleConversion
    static void convertMatrixToAxisAngleImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
                                             AxisAngleBasics<?> axisAngleToPack)
    {
-      if (Matrix3DFeatures.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
+      if (GeometryBasicsTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
          axisAngleToPack.setToNaN();
          return;
@@ -276,7 +276,7 @@ public class AxisAngleConversion
     */
    public static void convertRotationVectorToAxisAngle(double rx, double ry, double rz, AxisAngleBasics<?> axisAngleToPack)
    {
-      if (Double.isNaN(rx) || Double.isNaN(ry) || Double.isNaN(rz))
+      if (GeometryBasicsTools.containsNaN(rx, ry, rz))
       {
          axisAngleToPack.setToNaN();
          return;
@@ -353,7 +353,7 @@ public class AxisAngleConversion
     */
    public static void convertYawPitchRollToAxisAngle(double yaw, double pitch, double roll, AxisAngleBasics<?> axisAngleToPack)
    {
-      if (Double.isNaN(yaw) || Double.isNaN(pitch) || Double.isNaN(roll))
+      if (GeometryBasicsTools.containsNaN(yaw, pitch, roll))
       {
          axisAngleToPack.setToNaN();
          return;

@@ -25,17 +25,6 @@ public class Matrix3DFeaturesTest
    @Test
    public void testContainsNaN() throws Exception
    {
-      assertFalse(Matrix3DFeatures.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0));
-      assertTrue(Matrix3DFeatures.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN));
-
       Matrix3D matrix = new Matrix3D();
       matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       assertFalse(matrix.containsNaN());

@@ -17,19 +17,6 @@ public class Tuple3DToolsTest
    private static final int NUMBER_OF_ITERATIONS = 100;
 
    @Test
-   public void testContainsNaN() throws Exception
-   {
-      Tuple3DBasics<?> point = new Point3D();
-      assertFalse(Tuple3DTools.containsNaN(point));
-      point.set(Double.NaN, 0.0, 0.0);
-      assertTrue(Tuple3DTools.containsNaN(point));
-      point.set(0.0, Double.NaN, 0.0);
-      assertTrue(Tuple3DTools.containsNaN(point));
-      point.set(0.0, 0.0, Double.NaN);
-      assertTrue(Tuple3DTools.containsNaN(point));
-   }
-
-   @Test
    public void testEpsilonEqualsTuple() throws Exception
    {
       Random random = new Random(621541L);

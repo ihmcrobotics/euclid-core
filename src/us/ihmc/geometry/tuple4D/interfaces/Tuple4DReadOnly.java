@@ -2,6 +2,7 @@ package us.ihmc.geometry.tuple4D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
 
@@ -113,7 +114,7 @@ public interface Tuple4DReadOnly<T extends Tuple4DReadOnly<T>> extends EpsilonCo
     */
    default boolean containsNaN()
    {
-      return Double.isNaN(getX()) || Double.isNaN(getY()) || Double.isNaN(getZ()) || Double.isNaN(getS());
+      return GeometryBasicsTools.containsNaN(getX(), getY(), getZ(), getS());
    }
 
    /**

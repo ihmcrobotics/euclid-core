@@ -2,11 +2,11 @@ package us.ihmc.geometry.yawPitchRoll;
 
 import org.apache.commons.math3.util.FastMath;
 
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
@@ -23,7 +23,7 @@ public abstract class YawPitchRollConversion
 
    static double computeYawImpl(double m00, double m10)
    {
-      if (Double.isNaN(m00) || Double.isNaN(m10))
+      if (GeometryBasicsTools.containsNaN(m00, m10))
          return Double.NaN;
 
       return Math.atan2(m10, m00);
@@ -43,7 +43,7 @@ public abstract class YawPitchRollConversion
 
    static double computeRollImpl(double m21, double m22)
    {
-      if (Double.isNaN(m21) || Double.isNaN(m22))
+      if (GeometryBasicsTools.containsNaN(m21, m22))
          return Double.NaN;
 
       return Math.atan2(m21, m22);
@@ -523,7 +523,7 @@ public abstract class YawPitchRollConversion
 
    public static double computeYaw(Vector3DReadOnly<?> rotationVector)
    {
-      if (Tuple3DTools.containsNaN(rotationVector))
+      if (rotationVector.containsNaN())
          return Double.NaN;
 
       double ux = rotationVector.getX();

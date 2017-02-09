@@ -37,32 +37,6 @@ public abstract class Matrix3DFeatures
    }
 
    /**
-    * Tests if at least one element of the matrix described the 9 given
-    * coefficients is equal to {@linkplain Double#NaN}.
-    * 
-    * @param m00 first matrix element in the first row.
-    * @param m01 second matrix element in the first row.
-    * @param m02 third matrix element in the first row.
-    * @param m10 first matrix element in the second row.
-    * @param m11 second matrix element in the second row.
-    * @param m12 third matrix element in the second row.
-    * @param m20 first matrix element in the third row.
-    * @param m21 second matrix element in the third row.
-    * @param m22 third matrix element in the third row.
-    * @return {@code true} if at least one element of the matrix is equal to {@link Double#NaN}, {@code false} otherwise.
-    */
-   public static boolean containsNaN(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
-   {
-      if (Double.isNaN(m00) || Double.isNaN(m01) || Double.isNaN(m02))
-         return true;
-      if (Double.isNaN(m10) || Double.isNaN(m11) || Double.isNaN(m12))
-         return true;
-      if (Double.isNaN(m20) || Double.isNaN(m21) || Double.isNaN(m22))
-         return true;
-      return false;
-   }
-
-   /**
     * Asserts that the given dense-matrix is a rotation matrix.
     * <p>
     * The given matrix is a rotation matrix if:

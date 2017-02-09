@@ -1,6 +1,6 @@
 package us.ihmc.geometry.tuple3D;
 
-import us.ihmc.geometry.axisAngle.AxisAngleTools;
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
@@ -19,7 +19,7 @@ public abstract class RotationVectorConversion
 
    public static void convertAxisAngleToRotationVectorImpl(double ux, double uy, double uz, double angle, Vector3DBasics<?> rotationVectorToPack)
    {
-      if (AxisAngleTools.containsNaN(ux, uy, uz, angle))
+      if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
       {
          rotationVectorToPack.setToNaN();
          return;
@@ -91,7 +91,7 @@ public abstract class RotationVectorConversion
    public static void convertMatrixToRotationVectorImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21,
                                                         double m22, Vector3DBasics<?> rotationVectorToPack)
    {
-      if (Matrix3DFeatures.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
+      if (GeometryBasicsTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
          rotationVectorToPack.setToNaN();
          return;
@@ -162,7 +162,7 @@ public abstract class RotationVectorConversion
 
    public static void convertYawPitchRollToRotationVector(double yaw, double pitch, double roll, Vector3DBasics<?> rotationVectorToPack)
    {
-      if (Double.isNaN(yaw) || Double.isNaN(pitch) || Double.isNaN(roll))
+      if (GeometryBasicsTools.containsNaN(yaw, pitch, roll))
       {
          rotationVectorToPack.setToNaN();
          return;

@@ -1,5 +1,6 @@
 package us.ihmc.geometry.axisAngle.interfaces;
 
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
@@ -84,7 +85,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
     */
    default boolean containsNaN()
    {
-      return Double.isNaN(getX()) || Double.isNaN(getY()) || Double.isNaN(getZ()) || Double.isNaN(getAngle());
+      return GeometryBasicsTools.containsNaN(getX(), getY(), getZ(), getAngle());
    }
 
    /**

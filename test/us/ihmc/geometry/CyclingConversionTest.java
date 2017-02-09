@@ -105,7 +105,7 @@ public class CyclingConversionTest
          if (originalYawPitchRoll == null)
             originalYawPitchRoll = initialRotationType.convertToYawPitchRoll();
 
-         boolean isYawPitchRollNaN = Double.isNaN(originalYawPitchRoll[0]) || Double.isNaN(originalYawPitchRoll[1]) || Double.isNaN(originalYawPitchRoll[2]);
+         boolean isYawPitchRollNaN = GeometryBasicsTools.containsNaN(originalYawPitchRoll);
 
          AllRotations previousRotationType = initialRotationType;
 

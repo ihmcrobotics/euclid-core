@@ -5,20 +5,6 @@ import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 public abstract class AxisAngleTools
 {
    /**
-    * Tests if at least one component of the given axis-angle has a value of {@link Double#NaN}.
-    * 
-    * @param ux x-component of the axis-angle to test. Not modified.
-    * @param uy y-component of the axis-angle to test. Not modified.
-    * @param uz z-component of the axis-angle to test. Not modified.
-    * @param angle component of the axis-angle to test. Not modified.
-    * @return {@code true} if at least one component is {@link Double#NaN}, {@code false} otherwise.
-    */
-   public static boolean containsNaN(double ux, double uy, double uz, double angle)
-   {
-      return Double.isNaN(ux) || Double.isNaN(uy) || Double.isNaN(uz) || Double.isNaN(angle);
-   }
-
-   /**
     * Calculates the norm squared of the axis in {@code axisAngle}.
     * 
     * @param axisAngle the axis-angle with the axis to compute the norm squared of. Not modified.

@@ -1,6 +1,8 @@
 package us.ihmc.geometry;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static us.ihmc.geometry.GeometryBasicsTools.EPS_NORM_FAST_SQRT;
 
 import java.util.Random;
@@ -47,4 +49,61 @@ public class GeometryBasicsToolsTest
       }
    }
 
+   @Test
+   public void testContainsNaNWith2Elements() throws Exception
+   {
+      assertFalse(GeometryBasicsTools.containsNaN(0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(Double.NaN, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, Double.NaN));
+   }
+
+   @Test
+   public void testContainsNaNWith3Elements() throws Exception
+   {
+      assertFalse(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(Double.NaN, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, Double.NaN, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, Double.NaN));
+   }
+   @Test
+   public void testContainsNaNWith4Elements() throws Exception
+   {
+      assertFalse(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(Double.NaN, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, Double.NaN, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, Double.NaN, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, Double.NaN));
+   }
+   
+   @Test
+   public void testContainsNaNWith9Elements() throws Exception
+   {
+      assertFalse(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0));
+      assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN));
+   }
+
+   
+   @Test
+   public void testContainsNaNWithArray() throws Exception
+   {
+      assertFalse(GeometryBasicsTools.containsNaN(new double[0]));
+      assertFalse(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0}));
+      assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN}));
+   }
 }

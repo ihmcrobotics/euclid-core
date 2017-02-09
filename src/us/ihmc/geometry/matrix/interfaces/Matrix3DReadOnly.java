@@ -2,6 +2,7 @@ package us.ihmc.geometry.matrix.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
@@ -355,7 +356,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     */
    default boolean containsNaN()
    {
-      return Matrix3DFeatures.containsNaN(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
+      return GeometryBasicsTools.containsNaN(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
    }
 
    /**
