@@ -1,22 +1,86 @@
 package us.ihmc.geometry.tuple3D;
 
 import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
+import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
+import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
+/**
+ * This class gathers all the methods necessary to converts any type of rotation into a rotation
+ * vector.
+ * <p>
+ * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+ * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+ * same axis-angle.
+ * </p>
+ * <p>
+ * To convert an orientation into other data structure types see:
+ * <ul>
+ * <li>for axis-angle: {@link AxisAngleConversion},
+ * <li>for quaternion: {@link QuaternionConversion},
+ * <li>for rotation matrix: {@link RotationMatrixConversion},
+ * <li>for yaw-pitch-roll: {@link YawPitchRollConversion}.
+ * </ul>
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public abstract class RotationVectorConversion
 {
    private static final double EPS = 1.0e-12;
 
+   /**
+    * Converts the given axis-angle into a rotation vector.
+    * <p>
+    * After calling this method, the axis-angle and the rotation vector represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the axis-angle is {@link Double#NaN}, the rotation vector is set to
+    * {@link Double#NaN}.
+    * <li>if the length of the axis is below {@link #EPS}, the rotation vector is set to zero.
+    * </ul>
+    * </p>
+    * 
+    * @param axisAngle the axis-angle to use for the conversion. Not modified.
+    * @param rotationVectorToPack the vector in which the result is stored. Modified.
+    */
    public static void convertAxisAngleToRotationVector(AxisAngleReadOnly<?> axisAngle, Vector3DBasics<?> rotationVectorToPack)
    {
       convertAxisAngleToRotationVectorImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), rotationVectorToPack);
    }
 
+   /**
+    * Converts the given axis-angle into a rotation vector.
+    * <p>
+    * After calling this method, the axis-angle and the rotation vector represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the axis-angle is {@link Double#NaN}, the rotation vector is set to
+    * {@link Double#NaN}.
+    * <li>if the length of the axis is below {@link #EPS}, the rotation vector is set to zero.
+    * </ul>
+    * </p>
+    * 
+    * @param ux the axis x-component of the axis-angle to use for the conversion.
+    * @param uy the axis y-component of the axis-angle to use for the conversion.
+    * @param uz the axis z-component of the axis-angle to use for the conversion.
+    * @param angle the angle of the axis-angle to use for the conversion.
+    * @param rotationVectorToPack the vector in which the result is stored. Modified.
+    */
    public static void convertAxisAngleToRotationVectorImpl(double ux, double uy, double uz, double angle, Vector3DBasics<?> rotationVectorToPack)
    {
       if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
@@ -40,6 +104,24 @@ public abstract class RotationVectorConversion
       }
    }
 
+   /**
+    * Converts the given quaternion into a rotation vector.
+    * <p>
+    * After calling this method, the quaternion and the rotation vector represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the quaternion is {@link Double#NaN}, the rotation vector is set to
+    * {@link Double#NaN}.
+    * <li>if the norm of the quaternion is below {@link #EPS}, the rotation vector is set to zero.
+    * </ul>
+    * </p>
+    * 
+    * @param quaternion the quaternion to use for the conversion. Not modified.
+    * @param rotationVectorToPack the vector in which the result is stored. Modified.
+    */
    public static void convertQuaternionToRotationVector(QuaternionReadOnly<?> quaternion, Vector3DBasics<?> rotationVectorToPack)
    {
       if (quaternion.containsNaN())
@@ -68,11 +150,46 @@ public abstract class RotationVectorConversion
       }
    }
 
+   /**
+    * Converts the rotation part of the given rotation-scale matrix into a rotation vector.
+    * <p>
+    * After calling this method, the rotation matrix and the rotation vector represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is
+    * set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param rotationScaleMatrix a 3-by-3 matrix representing an orientation and a scale. Only the
+    *           orientation part is used during the conversion. Not modified.
+    * @param rotationVectorToPack the vector in which the result is stored. Modified.
+    */
    public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Vector3DBasics<?> rotationVectorToPack)
    {
       convertMatrixToRotationVector(rotationScaleMatrix.getRotationMatrix(), rotationVectorToPack);
    }
 
+   /**
+    * Converts the given rotation matrix into a rotation vector.
+    * <p>
+    * After calling this method, the rotation matrix and the rotation vector represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is
+    * set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
+    * @param rotationVectorToPack the vector in which the result is stored. Modified.
+    */
    public static void convertMatrixToRotationVector(RotationMatrixReadOnly<?> rotationMatrix, Vector3DBasics<?> rotationVectorToPack)
    {
       double m00 = rotationMatrix.getM00();
@@ -88,6 +205,37 @@ public abstract class RotationVectorConversion
       convertMatrixToRotationVectorImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, rotationVectorToPack);
    }
 
+   /**
+    * Converts the given rotation matrix into a rotation vector.
+    * <p>
+    * <b> This method is for internal use. Use
+    * {@link #convertMatrixToRotationVector(RotationMatrixReadOnly, Vector3DBasics)} or
+    * {@link #convertMatrixToRotationVector(RotationScaleMatrixReadOnly, Vector3DBasics)} instead.
+    * </b>
+    * </p>
+    * <p>
+    * After calling this method, the rotation matrix and the rotation vector represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is
+    * set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param m00 the new 1st row 1st column coefficient for the matrix to use for the conversion.
+    * @param m01 the new 1st row 2nd column coefficient for the matrix to use for the conversion.
+    * @param m02 the new 1st row 3rd column coefficient for the matrix to use for the conversion.
+    * @param m10 the new 2nd row 1st column coefficient for the matrix to use for the conversion.
+    * @param m11 the new 2nd row 2nd column coefficient for the matrix to use for the conversion.
+    * @param m12 the new 2nd row 3rd column coefficient for the matrix to use for the conversion.
+    * @param m20 the new 3rd row 1st column coefficient for the matrix to use for the conversion.
+    * @param m21 the new 3rd row 2nd column coefficient for the matrix to use for the conversion.
+    * @param m22 the new 3rd row 3rd column coefficient for the matrix to use for the conversion.
+    * @param rotationVectorToPack the vector in which the result is stored. Modified.
+    */
    public static void convertMatrixToRotationVectorImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21,
                                                         double m22, Vector3DBasics<?> rotationVectorToPack)
    {
@@ -155,11 +303,61 @@ public abstract class RotationVectorConversion
       rotationVectorToPack.setZ(z * angle);
    }
 
+   /**
+    * Converts the given yaw-pitch-roll angles into a rotation vector.
+    * <p>
+    * After calling this method, the yaw-pitch-roll and the rotation vector represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the
+    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
+    * representation is: <br>
+    * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
+    * </p>
+    * 
+    * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
+    * @param rotationVectorToPack the vector in which the result is stored. Modified.
+    */
    public static void convertYawPitchRollToRotationVector(double[] yawPitchRoll, Vector3DBasics<?> rotationVectorToPack)
    {
       convertYawPitchRollToRotationVector(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], rotationVectorToPack);
    }
 
+   /**
+    * Converts the given yaw-pitch-roll angles into a rotation vector.
+    * <p>
+    * After calling this method, the yaw-pitch-roll and the rotation vector represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the
+    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
+    * representation is: <br>
+    * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
+    * </p>
+    * 
+    * @param yaw the yaw angle to use in the conversion.
+    * @param pitch the pitch angle to use in the conversion.
+    * @param roll the roll angle to use in the conversion.
+    * @param rotationVectorToPack the vector in which the result is stored. Modified.
+    */
    public static void convertYawPitchRollToRotationVector(double yaw, double pitch, double roll, Vector3DBasics<?> rotationVectorToPack)
    {
       if (GeometryBasicsTools.containsNaN(yaw, pitch, roll))

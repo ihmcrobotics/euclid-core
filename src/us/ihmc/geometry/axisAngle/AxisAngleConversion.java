@@ -302,7 +302,7 @@ public class AxisAngleConversion
    }
 
    /**
-    * Converts the given yaw-pitch-roll angles into an axis-angles.
+    * Converts the given yaw-pitch-roll angles into an axis-angle.
     * <p>
     * After calling this method, the yaw-pitch-roll and the axis-angle represent the same
     * orientation.
@@ -331,7 +331,7 @@ public class AxisAngleConversion
    }
 
    /**
-    * Converts the given yaw-pitch-roll angles into an axis-angles.
+    * Converts the given yaw-pitch-roll angles into an axis-angle.
     * <p>
     * After calling this method, the yaw-pitch-roll and the axis-angle represent the same
     * orientation.
