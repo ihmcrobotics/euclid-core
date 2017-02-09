@@ -1,5 +1,6 @@
 package us.ihmc.geometry.matrix;
 
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
@@ -15,7 +16,6 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
 public abstract class Matrix3DTools
 {
-   private static final double EPS_NORM = 2.107342e-08;
    static final double EPS_INVERT = 1.0e-16;
 
    /**
@@ -382,24 +382,9 @@ public abstract class Matrix3DTools
       m22 -= tmp * m20 + tmp1 * m21;
 
       // Compute orthogonalized vector magnitudes and normalize
-      double invMagX = m00 * m00 + m10 * m10 + m20 * m20;
-      double invMagY = m01 * m01 + m11 * m11 + m21 * m21;
-      double invMagZ = m02 * m02 + m12 * m12 + m22 * m22;
-
-      if (Math.abs(1.0 - invMagX) < EPS_NORM)
-         invMagX = 2.0 / (1.0 + invMagX);
-      else
-         invMagX = 1.0 / Math.sqrt(invMagX);
-
-      if (Math.abs(1.0 - invMagY) < EPS_NORM)
-         invMagY = 2.0 / (1.0 + invMagY);
-      else
-         invMagY = 1.0 / Math.sqrt(invMagY);
-
-      if (Math.abs(1.0 - invMagZ) < EPS_NORM)
-         invMagZ = 2.0 / (1.0 + invMagZ);
-      else
-         invMagZ = 1.0 / Math.sqrt(invMagZ);
+      double invMagX = 1.0 / GeometryBasicsTools.norm(m00, m10, m20);
+      double invMagY = 1.0 / GeometryBasicsTools.norm(m01, m11, m21);
+      double invMagZ = 1.0 / GeometryBasicsTools.norm(m02, m12, m22);
 
       m00 *= invMagX;
       m01 *= invMagY;
