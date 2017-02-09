@@ -82,43 +82,8 @@ public class AxisAngleConversion
       double m20 = rotationMatrix.getM20();
       double m21 = rotationMatrix.getM21();
       double m22 = rotationMatrix.getM22();
-      convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, axisAngleToPack);
-   }
 
-   /**
-    * Converts the given rotation matrix into an axis-angle.
-    * <p>
-    * <b> This method is for internal use. Use
-    * {@link #convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)} or
-    * {@link #convertMatrixToAxisAngle(RotationScaleMatrixReadOnly, AxisAngleBasics)} instead. </b>
-    * </p>
-    * <p>
-    * After calling this method, the orientation represented by the axis-angle is the same as the
-    * given rotation matrix.
-    * </p>
-    * <p>
-    * Edge case:
-    * <ul>
-    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the axis-angle is set to
-    * {@link Double#NaN}.
-    * </ul>
-    * </p>
-    * 
-    * @param m00 the new 1st row 1st column coefficient for the matrix to use for the conversion.
-    * @param m01 the new 1st row 2nd column coefficient for the matrix to use for the conversion.
-    * @param m02 the new 1st row 3rd column coefficient for the matrix to use for the conversion.
-    * @param m10 the new 2nd row 1st column coefficient for the matrix to use for the conversion.
-    * @param m11 the new 2nd row 2nd column coefficient for the matrix to use for the conversion.
-    * @param m12 the new 2nd row 3rd column coefficient for the matrix to use for the conversion.
-    * @param m20 the new 3rd row 1st column coefficient for the matrix to use for the conversion.
-    * @param m21 the new 3rd row 2nd column coefficient for the matrix to use for the conversion.
-    * @param m22 the new 3rd row 3rd column coefficient for the matrix to use for the conversion.
-    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
-    */
-   static void convertMatrixToAxisAngleImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-                                            AxisAngleBasics<?> axisAngleToPack)
-   {
-      if (GeometryBasicsTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
+      if (rotationMatrix.containsNaN())
       {
          axisAngleToPack.setToNaN();
          return;

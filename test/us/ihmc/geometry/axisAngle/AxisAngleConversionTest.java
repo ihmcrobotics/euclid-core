@@ -182,6 +182,7 @@ public class AxisAngleConversionTest
       AxisAngle actualAxisAngle = new AxisAngle();
       double minMaxAngleRange = Math.PI;
       double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+      RotationMatrix rotationMatrix = new RotationMatrix();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -206,7 +207,8 @@ public class AxisAngleConversionTest
          m12 = uy * uz * (1.0 - cos(angle)) - ux * sin(angle);
          m21 = uy * uz * (1.0 - cos(angle)) + ux * sin(angle);
 
-         AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+         rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
 
          GeometryBasicsTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
          GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
@@ -240,7 +242,8 @@ public class AxisAngleConversionTest
          m12 = uy * uz * (1.0 - cos(angle)) - ux * sin(angle);
          m21 = uy * uz * (1.0 - cos(angle)) + ux * sin(angle);
 
-         AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+         rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
 
          GeometryBasicsTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
          GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
@@ -251,7 +254,8 @@ public class AxisAngleConversionTest
       m00 = m11 = m22 = 1.0;
       m01 = m02 = m12 = 0.0;
       m10 = m20 = m21 = 0.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleIsSetToZero(actualAxisAngle);
 
       // Pi/2 around x
@@ -264,7 +268,8 @@ public class AxisAngleConversionTest
       m20 = 0.0;
       m21 = 1.0;
       m22 = 0.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(1.0, actualAxisAngle.getX(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getY(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getZ(), EPSILON);
@@ -280,7 +285,8 @@ public class AxisAngleConversionTest
       m20 = 0.0;
       m21 = 0.0;
       m22 = -1.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(1.0, actualAxisAngle.getX(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getY(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getZ(), EPSILON);
@@ -296,7 +302,8 @@ public class AxisAngleConversionTest
       m20 = -1.0;
       m21 = 0.0;
       m22 = 0.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(0.0, actualAxisAngle.getX(), EPSILON);
       assertEquals(1.0, actualAxisAngle.getY(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getZ(), EPSILON);
@@ -312,7 +319,8 @@ public class AxisAngleConversionTest
       m20 = 0.0;
       m21 = 0.0;
       m22 = -1.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(0.0, actualAxisAngle.getX(), EPSILON);
       assertEquals(1.0, actualAxisAngle.getY(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getZ(), EPSILON);
@@ -328,7 +336,8 @@ public class AxisAngleConversionTest
       m20 = 0.0;
       m21 = 0.0;
       m22 = 1.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(0.0, actualAxisAngle.getX(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getY(), EPSILON);
       assertEquals(1.0, actualAxisAngle.getZ(), EPSILON);
@@ -344,7 +353,8 @@ public class AxisAngleConversionTest
       m20 = 0.0;
       m21 = 0.0;
       m22 = 1.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(0.0, actualAxisAngle.getX(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getY(), EPSILON);
       assertEquals(1.0, actualAxisAngle.getZ(), EPSILON);
@@ -361,7 +371,8 @@ public class AxisAngleConversionTest
       m20 = 0.0;
       m21 = 0.0;
       m22 = -1.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(sqrt2Over2, actualAxisAngle.getX(), EPSILON);
       assertEquals(sqrt2Over2, actualAxisAngle.getY(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getZ(), EPSILON);
@@ -377,7 +388,8 @@ public class AxisAngleConversionTest
       m20 = 1.0;
       m21 = 0.0;
       m22 = 0.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(sqrt2Over2, actualAxisAngle.getX(), EPSILON);
       assertEquals(0.0, actualAxisAngle.getY(), EPSILON);
       assertEquals(sqrt2Over2, actualAxisAngle.getZ(), EPSILON);
@@ -393,52 +405,40 @@ public class AxisAngleConversionTest
       m20 = 0.0;
       m21 = 1.0;
       m22 = 0.0;
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualAxisAngle);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       assertEquals(0.0, actualAxisAngle.getX(), EPSILON);
       assertEquals(sqrt2Over2, actualAxisAngle.getY(), EPSILON);
       assertEquals(sqrt2Over2, actualAxisAngle.getZ(), EPSILON);
       assertEquals(Math.PI, actualAxisAngle.getAngle(), EPSILON);
 
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualAxisAngle);
+      rotationMatrix.setUnsafe(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualAxisAngle);
+      rotationMatrix.setUnsafe(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualAxisAngle);
+      rotationMatrix.setUnsafe(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, actualAxisAngle);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, actualAxisAngle);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, actualAxisAngle);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, actualAxisAngle);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, actualAxisAngle);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-      AxisAngleConversion.convertMatrixToAxisAngleImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, actualAxisAngle);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
+      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
-
-      // Test with an actual matrix
-      for (int i = 0; i < 1000; i++)
-      {
-         RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         RotationMatrix rotationMatrixCopy = new RotationMatrix(rotationMatrix);
-         m00 = rotationMatrix.getM00();
-         m01 = rotationMatrix.getM01();
-         m02 = rotationMatrix.getM02();
-         m10 = rotationMatrix.getM10();
-         m11 = rotationMatrix.getM11();
-         m12 = rotationMatrix.getM12();
-         m20 = rotationMatrix.getM20();
-         m21 = rotationMatrix.getM21();
-         m22 = rotationMatrix.getM22();
-         AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-         AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, expectedAxisAngle);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, EPSILON);
-         GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
-         // Assert the parameter does not get modified
-         assertTrue(rotationMatrix.equals(rotationMatrixCopy));
-      }
 
       // Test with a RotationScaleMatrix
       for (int i = 0; i < 1000; i++)
@@ -455,7 +455,7 @@ public class AxisAngleConversionTest
          m21 = rotationScaleMatrix.getRotationMatrix().getM21();
          m22 = rotationScaleMatrix.getRotationMatrix().getM22();
          AxisAngleConversion.convertMatrixToAxisAngle(rotationScaleMatrix, actualAxisAngle);
-         AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, expectedAxisAngle);
+         AxisAngleConversion.convertMatrixToAxisAngle(rotationScaleMatrix.getRotationMatrix(), expectedAxisAngle);
          GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, EPSILON);
          GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
          // Assert the parameter does not get modified
@@ -468,6 +468,7 @@ public class AxisAngleConversionTest
    {
       AxisAngle expectedAxisAngle = new AxisAngle();
       AxisAngle actualAxisAngle = new AxisAngle();
+      RotationMatrix rotationMatrix = new RotationMatrix();
       double m00, m01, m02, m10, m11, m12, m20, m21, m22;
 
       double deltaAngle = 0.1 * Math.PI;
@@ -495,7 +496,8 @@ public class AxisAngleConversionTest
                m21 = cPitch * sRoll;
                m22 = cPitch * cRoll;
 
-               AxisAngleConversion.convertMatrixToAxisAngleImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, expectedAxisAngle);
+               rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+               AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, expectedAxisAngle);
                AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, actualAxisAngle);
                GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
 
