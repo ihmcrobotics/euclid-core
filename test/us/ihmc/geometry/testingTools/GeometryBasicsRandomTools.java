@@ -27,6 +27,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Quaternion32;
 import us.ihmc.geometry.tuple4D.Vector4D;
+import us.ihmc.geometry.tuple4D.Vector4D32;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 /**
@@ -832,6 +833,23 @@ public abstract class GeometryBasicsRandomTools
       Point2D32 point = new Point2D32();
       randomizeTuple2D(random, point);
       return point;
+   }
+
+   /**
+    * Generates a random 4D vector.
+    * <p>
+    * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
+    * </p>
+    * 
+    * @param random the random generator to use.
+    * @return the random 4D vector.
+    */
+   public static Vector4D32 generateRandomVector4D32(Random random)
+   {
+      Vector4D32 vector = new Vector4D32();
+      for (int i = 0; i < 4; i++)
+         vector.set(i, generateRandomDouble(random));
+      return vector;
    }
 
    /**

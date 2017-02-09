@@ -6,7 +6,10 @@ import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
 
 /**
- * Read-only inter
+ * Read-only interface for a 4 dimensional tuple.
+ * <p>
+ * A tuple 4D represents what is commonly called a quaternion.
+ * Although the definition of a quaternion does not necessarily 
  * 
  * @author Sylvain Bertrand
  *

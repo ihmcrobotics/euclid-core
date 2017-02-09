@@ -6,7 +6,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 
-public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D>
+public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D32>
 {
    private static final long serialVersionUID = 3048835798807478377L;
 
@@ -17,12 +17,12 @@ public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D>
       setToZero();
    }
 
-   public Vector4D32(double x, double y, double z, double s)
+   public Vector4D32(float x, float y, float z, float s)
    {
       set(x, y, z, s);
    }
 
-   public Vector4D32(double[] vectorArray)
+   public Vector4D32(float[] vectorArray)
    {
       set(vectorArray);
    }

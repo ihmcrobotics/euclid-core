@@ -1,7 +1,6 @@
 package us.ihmc.geometry.axisAngle.interfaces;
 
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
-import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
@@ -75,7 +74,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    @Override
    default boolean containsNaN()
    {
-      return AxisAngleTools.containsNaN(this);
+      return AxisAngleReadOnly.super.containsNaN();
    }
 
    /**
