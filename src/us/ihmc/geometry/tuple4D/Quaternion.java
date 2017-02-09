@@ -8,47 +8,117 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
+/**
+ * Class used to represent unit-quaternions which are used to represent 3D orientations.
+ * <p>
+ * This version of quaternion uses double precision fields to save the value of each component. It
+ * is meant for garbage free usage.
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
 {
    private static final long serialVersionUID = -3523313039213464150L;
 
-   private double x, y, z, s;
+   /** The x-component. */
+   private double x;
+   /** The y-component. */
+   private double y;
+   /** The z-component. */
+   private double z;
+   /** The s-component. */
+   private double s;
 
+   /**
+    * Creates a new quaternion and initializes it to the neutral quaternion which represents a
+    * 'zero' rotation.
+    */
    public Quaternion()
    {
       setToZero();
    }
 
+   /**
+    * Creates a new quaternion and initializes it with the given components.
+    * <p>
+    * The quaternion is immediately normalized.
+    * </p>
+    *
+    * @param x the x-component.
+    * @param y the y-component.
+    * @param z the z-component.
+    * @param s the s-component.
+    */
    public Quaternion(double x, double y, double z, double s)
    {
       set(x, y, z, s);
    }
 
+   /**
+    * Creates a new quaternion and initializes its component {@code x}, {@code y}, {@code z},
+    * {@code s} in order from the given array.
+    * <p>
+    * The quaternion is immediately normalized.
+    * </p>
+    *
+    * @param pointArray the array containing this vector's components. Not modified.
+    */
    public Quaternion(double[] quaternionArray)
    {
       set(quaternionArray);
    }
 
+   /**
+    * Creates a new quaternion and initializes it to {@code other}
+    * 
+    * @param other the quaternion to copy the components from. Not modified.
+    */
    public Quaternion(QuaternionReadOnly<?> other)
    {
       set(other);
    }
 
+   /**
+    * Creates a new quaternion and initializes such that it represents the same orientation as the
+    * given {@code rotationMatrix}.
+    * 
+    * @param rotationMatrix the rotation matrix to initialize this quaternion. Not modified.
+    */
    public Quaternion(RotationMatrixReadOnly<?> rotationMatrix)
    {
       set(rotationMatrix);
    }
 
+   /**
+    * Creates a new quaternion and initializes such that it represents the same orientation as the
+    * given {@code axisAngle}.
+    * 
+    * @param axisAngle the axis-angle to initialize this quaternion. Not modified.
+    */
    public Quaternion(AxisAngleReadOnly<?> axisAngle)
    {
       set(axisAngle);
    }
 
+   /**
+    * Creates a new quaternion and initializes such that it represents the same orientation as the
+    * given {@code rotationVector}.
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    * 
+    * @param rotationVector the rotation vector to initialize this quaternion. Not modified.
+    */
    public Quaternion(Vector3DReadOnly<?> rotationVector)
    {
       set(rotationVector);
    }
 
+   /** {@inheritDoc} */
    @Override
    public void setUnsafe(double qx, double qy, double qz, double qs)
    {
@@ -58,30 +128,41 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       s = qs;
    }
 
-   @Override
-   public double getS()
-   {
-      return s;
-   }
-
+   /** {@inheritDoc} */
    @Override
    public double getX()
    {
       return x;
    }
 
+   /** {@inheritDoc} */
    @Override
    public double getY()
    {
       return y;
    }
 
+   /** {@inheritDoc} */
    @Override
    public double getZ()
    {
       return z;
    }
 
+   /** {@inheritDoc} */
+   @Override
+   public double getS()
+   {
+      return s;
+   }
+
+   /**
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(Quaternion)}, it returns {@code false} otherwise.
+    * 
+    * @param object the object to compare against this. Not modified.
+    * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
+    */
    @Override
    public boolean equals(Object object)
    {
@@ -95,17 +176,33 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       }
    }
 
+   /**
+    * Provides a {@code String} representation of this quaternion converted to yaw-pitch-roll angles
+    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
+    * 
+    * @return
+    */
    public String toStringAsYawPitchRoll()
    {
       return "yaw-pitch-roll: (" + getYaw() + ", " + getPitch() + ", " + getRoll() + ")";
    }
 
+   /**
+    * Provides a {@code String} representation of this quaternion as follows: (x, y, z, s).
+    * 
+    * @return the {@code String} representing this quaternion.
+    */
    @Override
    public String toString()
    {
       return "(" + x + ", " + y + ", " + z + ", " + s + ")";
    }
 
+   /**
+    * Calculates and returns a hash code value from the value of each component of this quaternion.
+    * 
+    * @return the hash code value for this quaternion.
+    */
    @Override
    public int hashCode()
    {

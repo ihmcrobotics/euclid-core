@@ -44,7 +44,8 @@ public class Point2D32 implements Serializable, Point2DBasics<Point2D32>
    }
 
    /**
-    * Creates a new point and initializes it from the given array.
+    * Creates a new point and initializes its component {@code x}, {@code y} in order from the given
+    * array.
     * 
     * @param pointArray the array containing this point's coordinates. Not modified.
     */

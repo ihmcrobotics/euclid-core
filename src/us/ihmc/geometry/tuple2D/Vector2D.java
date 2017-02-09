@@ -45,7 +45,8 @@ public class Vector2D implements Serializable, Vector2DBasics<Vector2D>
    }
 
    /**
-    * Creates a new vector and initializes it from the given array.
+    * Creates a new vector and initializes its component {@code x}, {@code y} in order from the
+    * given array.
     * 
     * @param pointArray the array containing this vector's components. Not modified.
     */

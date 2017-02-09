@@ -46,7 +46,8 @@ public class Point3D implements Serializable, Point3DBasics<Point3D>
    }
 
    /**
-    * Creates a new point and initializes it from the given array.
+    * Creates a new point and initializes its component {@code x}, {@code y}, {@code z} in order
+    * from the given array.
     * 
     * @param pointArray the array containing this point's coordinates. Not modified.
     */
