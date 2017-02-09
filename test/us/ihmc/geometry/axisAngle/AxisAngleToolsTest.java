@@ -18,15 +18,10 @@ public class AxisAngleToolsTest
    {
       AxisAngle axisAngle = new AxisAngle();
       axisAngle.set(0.0, 0.0, 0.0, 0.0);
-      assertFalse(AxisAngleTools.containsNaN(axisAngle));
       axisAngle.set(Double.NaN, 0.0, 0.0, 0.0);
-      assertTrue(AxisAngleTools.containsNaN(axisAngle));
       axisAngle.set(0.0, Double.NaN, 0.0, 0.0);
-      assertTrue(AxisAngleTools.containsNaN(axisAngle));
       axisAngle.set(0.0, 0.0, Double.NaN, 0.0);
-      assertTrue(AxisAngleTools.containsNaN(axisAngle));
       axisAngle.set(0.0, 0.0, 0.0, Double.NaN);
-      assertTrue(AxisAngleTools.containsNaN(axisAngle));
    }
 
    @Test

@@ -7,17 +7,6 @@ public abstract class AxisAngleTools
    /**
     * Tests if at least one component of the given axis-angle has a value of {@link Double#NaN}.
     * 
-    * @param axisAngle the axis-angle to test. Not modified.
-    * @return {@code true} if at least one component is {@link Double#NaN}, {@code false} otherwise.
-    */
-   public static boolean containsNaN(AxisAngleReadOnly<?> axisAngle)
-   {
-      return containsNaN(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle());
-   }
-
-   /**
-    * Tests if at least one component of the given axis-angle has a value of {@link Double#NaN}.
-    * 
     * @param ux x-component of the axis-angle to test. Not modified.
     * @param uy y-component of the axis-angle to test. Not modified.
     * @param uz z-component of the axis-angle to test. Not modified.

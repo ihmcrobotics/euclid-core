@@ -341,7 +341,7 @@ public abstract class YawPitchRollConversion
 
    public static double computeYaw(AxisAngleReadOnly<?> axisAngle)
    {
-      if (AxisAngleTools.containsNaN(axisAngle))
+      if (axisAngle.containsNaN())
          return Double.NaN;
 
       double ux = axisAngle.getX();
@@ -367,7 +367,7 @@ public abstract class YawPitchRollConversion
 
    public static double computePitch(AxisAngleReadOnly<?> axisAngle)
    {
-      if (AxisAngleTools.containsNaN(axisAngle))
+      if (axisAngle.containsNaN())
          return Double.NaN;
 
       double ux = axisAngle.getX();
@@ -390,7 +390,7 @@ public abstract class YawPitchRollConversion
 
    public static double computeRoll(AxisAngleReadOnly<?> axisAngle)
    {
-      if (AxisAngleTools.containsNaN(axisAngle))
+      if (axisAngle.containsNaN())
          return Double.NaN;
 
       double ux = axisAngle.getX();
@@ -416,7 +416,7 @@ public abstract class YawPitchRollConversion
 
    public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, double[] yawPitchRollToPack)
    {
-      if (AxisAngleTools.containsNaN(axisAngle))
+      if (axisAngle.containsNaN())
       {
          yawPitchRollToPack[0] = Double.NaN;
          yawPitchRollToPack[1] = Double.NaN;
@@ -472,7 +472,7 @@ public abstract class YawPitchRollConversion
 
    public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, Tuple3DBasics<?> eulerAnglesToPack)
    {
-      if (AxisAngleTools.containsNaN(axisAngle))
+      if (axisAngle.containsNaN())
       {
          eulerAnglesToPack.setToNaN();
          return;
@@ -549,7 +549,7 @@ public abstract class YawPitchRollConversion
 
    public static double computePitch(Vector3DReadOnly<?> rotationVector)
    {
-      if (Tuple3DTools.containsNaN(rotationVector))
+      if (rotationVector.containsNaN())
          return Double.NaN;
 
       double ux = rotationVector.getX();
@@ -571,7 +571,7 @@ public abstract class YawPitchRollConversion
 
    public static double computeRoll(Vector3DReadOnly<?> rotationVector)
    {
-      if (Tuple3DTools.containsNaN(rotationVector))
+      if (rotationVector.containsNaN())
          return Double.NaN;
 
       double ux = rotationVector.getX();
@@ -597,7 +597,7 @@ public abstract class YawPitchRollConversion
 
    public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly<?> rotationVector, double[] yawPitchRollToPack)
    {
-      if (Tuple3DTools.containsNaN(rotationVector))
+      if (rotationVector.containsNaN())
       {
          yawPitchRollToPack[0] = Double.NaN;
          yawPitchRollToPack[1] = Double.NaN;
@@ -630,7 +630,7 @@ public abstract class YawPitchRollConversion
 
    public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly<?> rotationVector, Vector3DBasics<?> eulerAnglesToPack)
    {
-      if (Tuple3DTools.containsNaN(rotationVector))
+      if (rotationVector.containsNaN())
       {
          eulerAnglesToPack.setToNaN();
          return;
