@@ -6,8 +6,6 @@ import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
-import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
@@ -184,38 +182,18 @@ public abstract class RotationMatrixConversion
     */
    public static void convertQuaternionToMatrix(QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
    {
-      convertQuaternionToMatrixImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), matrixToPack);
-   }
-
-   /**
-    * Converts the given quaternion into a rotation matrix.
-    * <p>
-    * After calling this method, the quaternion and the rotation matrix represent the same orientation.
-    * </p>
-    * <p>
-    * Edge case:
-    * <ul>
-    *    <li> if either component of the quaternion is {@link Double#NaN}, the rotation matrix is set
-    *     to {@link Double#NaN}.
-    *    <li> if the norm of the quaternion is below {@link #EPS}, the rotation matrix is set to identity.
-    * </ul>
-    * </p>
-    * 
-    * @param qx the vector part x-component of the unit quaternion to use for the conversion.
-    * @param qy the vector part y-component of the unit quaternion to use for the conversion.
-    * @param qz the vector part z-component of the unit quaternion to use for the conversion.
-    * @param qs the scalar part of the unit quaternion to use for the conversion.
-    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
-    */
-   public static void convertQuaternionToMatrixImpl(double qx, double qy, double qz, double qs, RotationMatrix matrixToPack)
-   {
-      if (Tuple4DTools.containsNaN(qx, qy, qz, qs))
+      if (quaternion.containsNaN())
       {
          matrixToPack.setToNaN();
          return;
       }
 
-      double norm = QuaternionTools.norm(qx, qy, qz, qs);
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      double norm = quaternion.length();
 
       if (norm < EPS)
       {

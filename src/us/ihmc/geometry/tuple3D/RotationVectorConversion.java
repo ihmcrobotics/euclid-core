@@ -6,7 +6,6 @@ import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 public abstract class RotationVectorConversion
@@ -43,22 +42,21 @@ public abstract class RotationVectorConversion
 
    public static void convertQuaternionToRotationVector(QuaternionReadOnly<?> quaternion, Vector3DBasics<?> rotationVectorToPack)
    {
-      convertQuaternionToRotationVectorImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), rotationVectorToPack);
-   }
-
-   public static void convertQuaternionToRotationVectorImpl(double qx, double qy, double qz, double qs, Vector3DBasics<?> rotationVectorToPack)
-   {
-      if (Tuple4DTools.containsNaN(qx, qy, qz, qs))
+      if (quaternion.containsNaN())
       {
          rotationVectorToPack.setToNaN();
          return;
       }
 
-      double uNorm = qx * qx + qy * qy + qz * qz;
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      double uNorm = Math.sqrt(qx * qx + qy * qy + qz * qz);
 
       if (uNorm > EPS)
       {
-         uNorm = Math.sqrt(uNorm);
          double angle = 2.0 * Math.atan2(uNorm, qs) / uNorm;
          rotationVectorToPack.setX(qx * angle);
          rotationVectorToPack.setY(qy * angle);
@@ -164,6 +162,12 @@ public abstract class RotationVectorConversion
 
    public static void convertYawPitchRollToRotationVector(double yaw, double pitch, double roll, Vector3DBasics<?> rotationVectorToPack)
    {
+      if (Double.isNaN(yaw) || Double.isNaN(pitch) || Double.isNaN(roll))
+      {
+         rotationVectorToPack.setToNaN();
+         return;
+      }
+
       double halfYaw = yaw / 2.0;
       double cYaw = Math.cos(halfYaw);
       double sYaw = Math.sin(halfYaw);
@@ -181,6 +185,18 @@ public abstract class RotationVectorConversion
       double qy = sYaw * cPitch * sRoll + cYaw * sPitch * cRoll;
       double qz = sYaw * cPitch * cRoll - cYaw * sPitch * sRoll;
 
-      convertQuaternionToRotationVectorImpl(qx, qy, qz, qs, rotationVectorToPack);
+      double uNorm = Math.sqrt(qx * qx + qy * qy + qz * qz);
+
+      if (uNorm > EPS)
+      {
+         double angle = 2.0 * Math.atan2(uNorm, qs) / uNorm;
+         rotationVectorToPack.setX(qx * angle);
+         rotationVectorToPack.setY(qy * angle);
+         rotationVectorToPack.setZ(qz * angle);
+      }
+      else
+      {
+         rotationVectorToPack.setToZero();
+      }
    }
 }

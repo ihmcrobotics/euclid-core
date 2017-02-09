@@ -371,7 +371,7 @@ public abstract class GeometryBasicsTestTools
    {
       try
       {
-         double sign = Math.signum(Tuple4DTools.dot(expectedQuaternion, actualQuaternion));
+         double sign = Math.signum(expectedQuaternion.dot(actualQuaternion));
          assertEquals(expectedQuaternion.getS(), sign * actualQuaternion.getS(), epsilon);
          assertEquals(expectedQuaternion.getX(), sign * actualQuaternion.getX(), epsilon);
          assertEquals(expectedQuaternion.getY(), sign * actualQuaternion.getY(), epsilon);
@@ -551,7 +551,7 @@ public abstract class GeometryBasicsTestTools
     */
    public static void assertQuaternionIsUnitary(QuaternionReadOnly<?> quaternionToAssert, double epsilon)
    {
-      if (!Tuple4DTools.isUnitary(quaternionToAssert, epsilon))
+      if (!quaternionToAssert.isUnitary(epsilon))
          fail("The axis of the given Quaternion is not unitary: " + quaternionToAssert);
    }
 

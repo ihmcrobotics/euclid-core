@@ -27,6 +27,7 @@ public class AxisAngleConversionTest
    {
       Random random = new Random(51651L);
       AxisAngle axisAngle = new AxisAngle();
+      Quaternion quaternion = new Quaternion();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -44,7 +45,8 @@ public class AxisAngleConversionTest
          double qx = ux * Math.sin(angle / 2.0);
          double qy = uy * Math.sin(angle / 2.0);
          double qz = uz * Math.sin(angle / 2.0);
-         AxisAngleConversion.convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngle);
+         quaternion.setUnsafe(qx, qy, qz, qs);
+         AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
 
          if (axisAngle.getAngle() * angle < 0.0)
          {
@@ -67,7 +69,8 @@ public class AxisAngleConversionTest
          double qx = originalAxisAngle.getX() * Math.sin(originalAxisAngle.getAngle() / 2.0);
          double qy = originalAxisAngle.getY() * Math.sin(originalAxisAngle.getAngle() / 2.0);
          double qz = originalAxisAngle.getZ() * Math.sin(originalAxisAngle.getAngle() / 2.0);
-         AxisAngleConversion.convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngle);
+         quaternion.setUnsafe(qx, qy, qz, qs);
+         AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
 
          GeometryBasicsTestTools.assertAxisAngleEqualsSmart(originalAxisAngle, axisAngle, EPSILON);
          GeometryBasicsTestTools.assertAxisUnitary(axisAngle, EPSILON);
@@ -89,7 +92,8 @@ public class AxisAngleConversionTest
       double qx = scale * ux * Math.sin(angle / 2.0);
       double qy = scale * uy * Math.sin(angle / 2.0);
       double qz = scale * uz * Math.sin(angle / 2.0);
-      AxisAngleConversion.convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngle);
+      quaternion.setUnsafe(qx, qy, qz, qs);
+      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
 
       if (axisAngle.getAngle() * angle < 0.0)
       {
@@ -102,34 +106,25 @@ public class AxisAngleConversionTest
       assertEquals(angle, axisAngle.getAngle(), EPSILON);
       GeometryBasicsTestTools.assertAxisUnitary(axisAngle, EPSILON);
 
-      AxisAngleConversion.convertQuaternionToAxisAngle(0.0, 0.0, 0.0, 0.0, axisAngle);
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleIsSetToZero(axisAngle);
 
-      AxisAngleConversion.convertQuaternionToAxisAngle(0.0, 0.0, 0.0, Double.NaN, axisAngle);
+      quaternion.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
+      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
-      AxisAngleConversion.convertQuaternionToAxisAngle(0.0, 0.0, Double.NaN, 0.0, axisAngle);
+      quaternion.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
+      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
-      AxisAngleConversion.convertQuaternionToAxisAngle(0.0, Double.NaN, 0.0, 0.0, axisAngle);
+      quaternion.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
+      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
-      AxisAngleConversion.convertQuaternionToAxisAngle(Double.NaN, 0.0, 0.0, 0.0, axisAngle);
+      quaternion.setUnsafe(Double.NaN, 0.0, 0.0, 0.0);
+      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
       GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
-
-      // Test with an actual Quaternion
-      AxisAngle expectedAxisAngle = new AxisAngle();
-      for (int i = 0; i < 1000; i++)
-      {
-         Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
-         AxisAngleConversion.convertQuaternionToAxisAngle(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), expectedAxisAngle);
-         assertTrue(expectedAxisAngle.getX() == axisAngle.getX());
-         assertTrue(expectedAxisAngle.getY() == axisAngle.getY());
-         assertTrue(expectedAxisAngle.getZ() == axisAngle.getZ());
-         assertTrue(expectedAxisAngle.getAngle() == axisAngle.getAngle());
-         GeometryBasicsTestTools.assertAxisUnitary(axisAngle, EPSILON);
-      }
    }
 
    @Test

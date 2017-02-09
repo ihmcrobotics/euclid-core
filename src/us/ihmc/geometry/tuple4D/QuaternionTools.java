@@ -1,9 +1,7 @@
 package us.ihmc.geometry.tuple4D;
 
-import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
@@ -19,63 +17,6 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 public abstract class QuaternionTools
 {
    private static final double EPS = 1.0e-12;
-   public static final double EPS_NORM_FAST_SQRT = 2.107342e-08;
-
-   public static boolean isQuaternionZOnly(double qx, double qy, double qz, double qs)
-   {
-      return isQuaternionZOnly(qx, qy, qz, qs, EPS);
-   }
-
-   public static boolean isQuaternionZOnly(double qx, double qy, double qz, double qs, double epsilon)
-   {
-      return Math.abs(qx) < epsilon && Math.abs(qy) < epsilon;
-   }
-
-   public static boolean isQuaternionZOnly(QuaternionReadOnly<?> quaternion)
-   {
-      return isQuaternionZOnly(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS());
-   }
-
-   public static void checkIfQuaternionIsZOnly(double qx, double qy, double qz, double qs)
-   {
-      boolean isZOnly = isQuaternionZOnly(qx, qy, qz, qs);
-      if (!isZOnly)
-         throw new NotAMatrix2DException("The quaternion is not in XY plane: " + Tuple4DTools.toString(qx, qy, qz, qs));
-   }
-
-   public static void checkIfQuaternionIsZOnly(QuaternionReadOnly<?> quaternion)
-   {
-      checkIfQuaternionIsZOnly(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS());
-   }
-
-   public static void interpolate(QuaternionReadOnly<?> q0, QuaternionReadOnly<?> qf, double alpha, QuaternionBasics<?> quaternionToPack)
-   {
-      double cosHalfTheta = Tuple4DTools.dot(q0, qf);
-      double sign = 1.0;
-
-      if (cosHalfTheta < 0.0)
-      {
-         sign = -1.0;
-         cosHalfTheta = -cosHalfTheta;
-      }
-
-      double alpha0 = 1.0 - alpha;
-      double alphaf = alpha;
-
-      if (1.0 - cosHalfTheta > EPS)
-      {
-         double halfTheta = Math.acos(cosHalfTheta);
-         double sinHalfTheta = Math.sin(halfTheta);
-         alpha0 = Math.sin(alpha0 * halfTheta) / sinHalfTheta;
-         alphaf = Math.sin(alphaf * halfTheta) / sinHalfTheta;
-      }
-
-      double qx = alpha0 * q0.getX() + sign * alphaf * qf.getX();
-      double qy = alpha0 * q0.getY() + sign * alphaf * qf.getY();
-      double qz = alpha0 * q0.getZ() + sign * alphaf * qf.getZ();
-      double qs = alpha0 * q0.getS() + sign * alphaf * qf.getS();
-      quaternionToPack.set(qx, qy, qz, qs);
-   }
 
    public static void multiply(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, QuaternionBasics<?> quaternionToPack)
    {
@@ -92,7 +33,8 @@ public abstract class QuaternionTools
       multiplyImpl(q1, false, q2, true, quaternionToPack);
    }
 
-   private static void multiplyImpl(QuaternionReadOnly<?> q1, boolean conjugateQ1, QuaternionReadOnly<?> q2, boolean conjugateQ2, QuaternionBasics<?> quaternionToPack)
+   private static void multiplyImpl(QuaternionReadOnly<?> q1, boolean conjugateQ1, QuaternionReadOnly<?> q2, boolean conjugateQ2,
+                                    QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(q1.getX(), q1.getY(), q1.getZ(), q1.getS(), conjugateQ1, q2.getX(), q2.getY(), q2.getZ(), q2.getS(), conjugateQ2, quaternionToPack);
    }
@@ -118,7 +60,7 @@ public abstract class QuaternionTools
       double y = q1s * q2y - q1x * q2z + q1y * q2s + q1z * q2x;
       double z = q1s * q2z + q1x * q2y - q1y * q2x + q1z * q2s;
       double s = q1s * q2s - q1x * q2x - q1y * q2y - q1z * q2z;
-      quaternionToPack.set(x, y, z, s);
+      quaternionToPack.setUnsafe(x, y, z, s);
    }
 
    public static void multiply(Tuple4DReadOnly<?> t1, Tuple4DReadOnly<?> t2, Vector4DBasics<?> vectorToPack)
@@ -165,62 +107,6 @@ public abstract class QuaternionTools
       vectorToPack.set(x, y, z, s);
    }
 
-   public static void normalize(QuaternionBasics<?> q)
-   {
-      if (Tuple4DTools.containsNaN(q))
-         return;
-
-      double invNorm = norm(q);
-
-      if (invNorm == 0.0)
-      {
-         q.setToZero();
-         return;
-      }
-
-      invNorm = 1.0 / invNorm;
-      double qx = q.getX() * invNorm;
-      double qy = q.getY() * invNorm;
-      double qz = q.getZ() * invNorm;
-      double qs = q.getS() * invNorm;
-      q.setUnsafe(qx, qy, qz, qs);
-   }
-
-   public static void normalizeAndLimitToPiMinusPi(QuaternionBasics<?> q)
-   {
-      normalize(q);
-
-      if (q.getS() < 0.0)
-         q.negate();
-   }
-
-   public static double normSquared(QuaternionReadOnly<?> quaternion)
-   {
-      return normSquared(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS());
-   }
-
-   public static double normSquared(double qx, double qy, double qz, double qs)
-   {
-      return qx * qx + qy * qy + qz * qz + qs * qs;
-   }
-
-   public static double norm(QuaternionReadOnly<?> quaternion)
-   {
-      return norm(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS());
-   }
-
-   public static double norm(double qx, double qy, double qz, double qs)
-   {
-      double norm = normSquared(qx, qy, qz, qs);
-
-      if (Math.abs(1.0 - norm) < EPS_NORM_FAST_SQRT)
-         norm = 0.5 * (1.0 + norm);
-      else
-         norm = Math.sqrt(norm);
-
-      return norm;
-   }
-
    public static void transform(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       transformImpl(quaternion, false, tupleOriginal, tupleTransformed);
@@ -246,7 +132,7 @@ public abstract class QuaternionTools
          qz = -qz;
       }
 
-      double norm = norm(qx, qy, qz, qs);
+      double norm = quaternion.length();
 
       if (norm < EPS)
       {
@@ -299,7 +185,7 @@ public abstract class QuaternionTools
          qz = -qz;
       }
 
-      double norm = norm(qx, qy, qz, qs);
+      double norm = quaternion.length();
 
       if (norm < EPS)
       {
@@ -347,6 +233,17 @@ public abstract class QuaternionTools
    private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Tuple2DReadOnly<?> tupleOriginal,
                                      Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
    {
+      if (checkIfTransformInXYPlane)
+         quaternion.checkIfIsZOnly(EPS);
+      
+      double norm = quaternion.length();
+      
+      if (norm < EPS)
+      {
+         tupleTransformed.set(tupleOriginal);
+         return;
+      }
+      
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
@@ -357,17 +254,6 @@ public abstract class QuaternionTools
          qx = -qx;
          qy = -qy;
          qz = -qz;
-      }
-
-      if (checkIfTransformInXYPlane)
-         checkIfQuaternionIsZOnly(qx, qy, qz, qs);
-
-      double norm = norm(qx, qy, qz, qs);
-
-      if (norm < EPS)
-      {
-         tupleTransformed.set(tupleOriginal);
-         return;
       }
 
       norm = 1.0 / norm;
@@ -412,6 +298,14 @@ public abstract class QuaternionTools
    private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Vector4DReadOnly<?> vectorOriginal,
                                      Vector4DBasics<?> vectorTransformed)
    {
+      double norm = quaternion.length();
+
+      if (norm < EPS)
+      {
+         vectorTransformed.set(vectorOriginal);
+         return;
+      }
+
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
@@ -425,14 +319,6 @@ public abstract class QuaternionTools
       }
 
       // It's the same as transforming a vector 3D. The scalar of the transformed vector 4D is the same as the original.
-      double norm = norm(qx, qy, qz, qs);
-
-      if (norm < EPS)
-      {
-         vectorTransformed.set(vectorOriginal);
-         return;
-      }
-
       norm = 1.0 / norm;
       qx *= norm;
       qy *= norm;
@@ -469,8 +355,17 @@ public abstract class QuaternionTools
       transformImpl(quaternion, true, matrixOriginal, matrixTransformed);
    }
 
-   private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Matrix3DReadOnly<?> matrixOriginal,
+                                     Matrix3D matrixTransformed)
    {
+      double norm = quaternion.length();
+
+      if (norm < EPS)
+      {
+         matrixTransformed.set(matrixOriginal);
+         return;
+      }
+
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
@@ -481,14 +376,6 @@ public abstract class QuaternionTools
          qx = -qx;
          qy = -qy;
          qz = -qz;
-      }
-
-      double norm = norm(qx, qy, qz, qs);
-
-      if (norm < EPS)
-      {
-         matrixTransformed.set(matrixOriginal);
-         return;
       }
 
       norm = 1.0 / norm;
@@ -656,7 +543,8 @@ public abstract class QuaternionTools
       multiplyImpl(quaternion, false, matrix, true, matrixToPack);
    }
 
-   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix,
+                                                                 RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, true, matrix, false, matrixToPack);
    }
@@ -664,6 +552,14 @@ public abstract class QuaternionTools
    private static void multiplyImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix,
                                     RotationMatrix matrixToPack)
    {
+      double norm = quaternion.length();
+
+      if (norm < EPS)
+      {
+         matrixToPack.set(matrix);
+         return;
+      }
+
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
@@ -676,75 +572,59 @@ public abstract class QuaternionTools
          qz = -qz;
       }
 
-      if (matrix != matrixToPack)
+      norm = 1.0 / norm;
+      qx *= norm;
+      qy *= norm;
+      qz *= norm;
+      qs *= norm;
+
+      double yy2 = 2.0 * qy * qy;
+      double zz2 = 2.0 * qz * qz;
+      double xx2 = 2.0 * qx * qx;
+      double xy2 = 2.0 * qx * qy;
+      double sz2 = 2.0 * qs * qz;
+      double xz2 = 2.0 * qx * qz;
+      double sy2 = 2.0 * qs * qy;
+      double yz2 = 2.0 * qy * qz;
+      double sx2 = 2.0 * qs * qx;
+
+      double qM00 = 1.0 - yy2 - zz2;
+      double qM01 = xy2 - sz2;
+      double qM02 = xz2 + sy2;
+      double qM10 = xy2 + sz2;
+      double qM11 = 1.0 - xx2 - zz2;
+      double qM12 = yz2 - sx2;
+      double qM20 = xz2 - sy2;
+      double qM21 = yz2 + sx2;
+      double qM22 = 1.0 - xx2 - yy2;
+
+      double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+
+      if (transposeMatrix)
       {
-         RotationMatrixConversion.convertQuaternionToMatrixImpl(qx, qy, qz, qs, matrixToPack);
-         matrixToPack.multiply(matrix);
+         m00 = qM00 * matrix.getM00() + qM01 * matrix.getM01() + qM02 * matrix.getM02();
+         m01 = qM00 * matrix.getM10() + qM01 * matrix.getM11() + qM02 * matrix.getM12();
+         m02 = qM00 * matrix.getM20() + qM01 * matrix.getM21() + qM02 * matrix.getM22();
+         m10 = qM10 * matrix.getM00() + qM11 * matrix.getM01() + qM12 * matrix.getM02();
+         m11 = qM10 * matrix.getM10() + qM11 * matrix.getM11() + qM12 * matrix.getM12();
+         m12 = qM10 * matrix.getM20() + qM11 * matrix.getM21() + qM12 * matrix.getM22();
+         m20 = qM20 * matrix.getM00() + qM21 * matrix.getM01() + qM22 * matrix.getM02();
+         m21 = qM20 * matrix.getM10() + qM21 * matrix.getM11() + qM22 * matrix.getM12();
+         m22 = qM20 * matrix.getM20() + qM21 * matrix.getM21() + qM22 * matrix.getM22();
       }
       else
       {
-         double norm = norm(qx, qy, qz, qs);
-
-         if (norm < EPS)
-         {
-            matrixToPack.set(matrix);
-            return;
-         }
-
-         norm = 1.0 / norm;
-         qx *= norm;
-         qy *= norm;
-         qz *= norm;
-         qs *= norm;
-
-         double yy2 = 2.0 * qy * qy;
-         double zz2 = 2.0 * qz * qz;
-         double xx2 = 2.0 * qx * qx;
-         double xy2 = 2.0 * qx * qy;
-         double sz2 = 2.0 * qs * qz;
-         double xz2 = 2.0 * qx * qz;
-         double sy2 = 2.0 * qs * qy;
-         double yz2 = 2.0 * qy * qz;
-         double sx2 = 2.0 * qs * qx;
-
-         double qM00 = 1.0 - yy2 - zz2;
-         double qM01 = xy2 - sz2;
-         double qM02 = xz2 + sy2;
-         double qM10 = xy2 + sz2;
-         double qM11 = 1.0 - xx2 - zz2;
-         double qM12 = yz2 - sx2;
-         double qM20 = xz2 - sy2;
-         double qM21 = yz2 + sx2;
-         double qM22 = 1.0 - xx2 - yy2;
-
-         double m00, m01, m02, m10, m11, m12, m20, m21, m22;
-
-         if (transposeMatrix)
-         {
-            m00 = qM00 * matrix.getM00() + qM01 * matrix.getM01() + qM02 * matrix.getM02();
-            m01 = qM00 * matrix.getM10() + qM01 * matrix.getM11() + qM02 * matrix.getM12();
-            m02 = qM00 * matrix.getM20() + qM01 * matrix.getM21() + qM02 * matrix.getM22();
-            m10 = qM10 * matrix.getM00() + qM11 * matrix.getM01() + qM12 * matrix.getM02();
-            m11 = qM10 * matrix.getM10() + qM11 * matrix.getM11() + qM12 * matrix.getM12();
-            m12 = qM10 * matrix.getM20() + qM11 * matrix.getM21() + qM12 * matrix.getM22();
-            m20 = qM20 * matrix.getM00() + qM21 * matrix.getM01() + qM22 * matrix.getM02();
-            m21 = qM20 * matrix.getM10() + qM21 * matrix.getM11() + qM22 * matrix.getM12();
-            m22 = qM20 * matrix.getM20() + qM21 * matrix.getM21() + qM22 * matrix.getM22();
-         }
-         else
-         {
-            m00 = qM00 * matrix.getM00() + qM01 * matrix.getM10() + qM02 * matrix.getM20();
-            m01 = qM00 * matrix.getM01() + qM01 * matrix.getM11() + qM02 * matrix.getM21();
-            m02 = qM00 * matrix.getM02() + qM01 * matrix.getM12() + qM02 * matrix.getM22();
-            m10 = qM10 * matrix.getM00() + qM11 * matrix.getM10() + qM12 * matrix.getM20();
-            m11 = qM10 * matrix.getM01() + qM11 * matrix.getM11() + qM12 * matrix.getM21();
-            m12 = qM10 * matrix.getM02() + qM11 * matrix.getM12() + qM12 * matrix.getM22();
-            m20 = qM20 * matrix.getM00() + qM21 * matrix.getM10() + qM22 * matrix.getM20();
-            m21 = qM20 * matrix.getM01() + qM21 * matrix.getM11() + qM22 * matrix.getM21();
-            m22 = qM20 * matrix.getM02() + qM21 * matrix.getM12() + qM22 * matrix.getM22();
-         }
-         matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         m00 = qM00 * matrix.getM00() + qM01 * matrix.getM10() + qM02 * matrix.getM20();
+         m01 = qM00 * matrix.getM01() + qM01 * matrix.getM11() + qM02 * matrix.getM21();
+         m02 = qM00 * matrix.getM02() + qM01 * matrix.getM12() + qM02 * matrix.getM22();
+         m10 = qM10 * matrix.getM00() + qM11 * matrix.getM10() + qM12 * matrix.getM20();
+         m11 = qM10 * matrix.getM01() + qM11 * matrix.getM11() + qM12 * matrix.getM21();
+         m12 = qM10 * matrix.getM02() + qM11 * matrix.getM12() + qM12 * matrix.getM22();
+         m20 = qM20 * matrix.getM00() + qM21 * matrix.getM10() + qM22 * matrix.getM20();
+         m21 = qM20 * matrix.getM01() + qM21 * matrix.getM11() + qM22 * matrix.getM21();
+         m22 = qM20 * matrix.getM02() + qM21 * matrix.getM12() + qM22 * matrix.getM22();
       }
+      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
@@ -762,7 +642,8 @@ public abstract class QuaternionTools
       multiplyImpl(matrix, true, quaternion, false, matrixToPack);
    }
 
-   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion,
+                                                                 RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, true, quaternion, true, matrixToPack);
    }
@@ -770,6 +651,14 @@ public abstract class QuaternionTools
    private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion,
                                     RotationMatrix matrixToPack)
    {
+      double norm = quaternion.length();
+
+      if (norm < EPS)
+      {
+         matrixToPack.set(matrix);
+         return;
+      }
+
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
@@ -782,73 +671,57 @@ public abstract class QuaternionTools
          qz = -qz;
       }
 
-      if (matrix != matrixToPack)
+      norm = 1.0 / norm;
+      qx *= norm;
+      qy *= norm;
+      qz *= norm;
+      qs *= norm;
+
+      double yy2 = 2.0 * qy * qy;
+      double zz2 = 2.0 * qz * qz;
+      double xx2 = 2.0 * qx * qx;
+      double xy2 = 2.0 * qx * qy;
+      double sz2 = 2.0 * qs * qz;
+      double xz2 = 2.0 * qx * qz;
+      double sy2 = 2.0 * qs * qy;
+      double yz2 = 2.0 * qy * qz;
+      double sx2 = 2.0 * qs * qx;
+
+      double qM00 = 1.0 - yy2 - zz2;
+      double qM01 = xy2 - sz2;
+      double qM02 = xz2 + sy2;
+      double qM10 = xy2 + sz2;
+      double qM11 = 1.0 - xx2 - zz2;
+      double qM12 = yz2 - sx2;
+      double qM20 = xz2 - sy2;
+      double qM21 = yz2 + sx2;
+      double qM22 = 1.0 - xx2 - yy2;
+
+      double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+      if (transposeMatrix)
       {
-         RotationMatrixConversion.convertQuaternionToMatrixImpl(qx, qy, qz, qs, matrixToPack);
-         matrixToPack.preMultiply(matrix);
+         m00 = matrix.getM00() * qM00 + matrix.getM10() * qM10 + matrix.getM20() * qM20;
+         m01 = matrix.getM00() * qM01 + matrix.getM10() * qM11 + matrix.getM20() * qM21;
+         m02 = matrix.getM00() * qM02 + matrix.getM10() * qM12 + matrix.getM20() * qM22;
+         m10 = matrix.getM01() * qM00 + matrix.getM11() * qM10 + matrix.getM21() * qM20;
+         m11 = matrix.getM01() * qM01 + matrix.getM11() * qM11 + matrix.getM21() * qM21;
+         m12 = matrix.getM01() * qM02 + matrix.getM11() * qM12 + matrix.getM21() * qM22;
+         m20 = matrix.getM02() * qM00 + matrix.getM12() * qM10 + matrix.getM22() * qM20;
+         m21 = matrix.getM02() * qM01 + matrix.getM12() * qM11 + matrix.getM22() * qM21;
+         m22 = matrix.getM02() * qM02 + matrix.getM12() * qM12 + matrix.getM22() * qM22;
       }
       else
       {
-         double norm = norm(qx, qy, qz, qs);
-
-         if (norm < EPS)
-         {
-            matrixToPack.set(matrix);
-            return;
-         }
-
-         norm = 1.0 / norm;
-         qx *= norm;
-         qy *= norm;
-         qz *= norm;
-         qs *= norm;
-
-         double yy2 = 2.0 * qy * qy;
-         double zz2 = 2.0 * qz * qz;
-         double xx2 = 2.0 * qx * qx;
-         double xy2 = 2.0 * qx * qy;
-         double sz2 = 2.0 * qs * qz;
-         double xz2 = 2.0 * qx * qz;
-         double sy2 = 2.0 * qs * qy;
-         double yz2 = 2.0 * qy * qz;
-         double sx2 = 2.0 * qs * qx;
-
-         double qM00 = 1.0 - yy2 - zz2;
-         double qM01 = xy2 - sz2;
-         double qM02 = xz2 + sy2;
-         double qM10 = xy2 + sz2;
-         double qM11 = 1.0 - xx2 - zz2;
-         double qM12 = yz2 - sx2;
-         double qM20 = xz2 - sy2;
-         double qM21 = yz2 + sx2;
-         double qM22 = 1.0 - xx2 - yy2;
-
-         double m00, m01, m02, m10, m11, m12, m20, m21, m22;
-         if (transposeMatrix)
-         {
-            m00 = matrix.getM00() * qM00 + matrix.getM10() * qM10 + matrix.getM20() * qM20;
-            m01 = matrix.getM00() * qM01 + matrix.getM10() * qM11 + matrix.getM20() * qM21;
-            m02 = matrix.getM00() * qM02 + matrix.getM10() * qM12 + matrix.getM20() * qM22;
-            m10 = matrix.getM01() * qM00 + matrix.getM11() * qM10 + matrix.getM21() * qM20;
-            m11 = matrix.getM01() * qM01 + matrix.getM11() * qM11 + matrix.getM21() * qM21;
-            m12 = matrix.getM01() * qM02 + matrix.getM11() * qM12 + matrix.getM21() * qM22;
-            m20 = matrix.getM02() * qM00 + matrix.getM12() * qM10 + matrix.getM22() * qM20;
-            m21 = matrix.getM02() * qM01 + matrix.getM12() * qM11 + matrix.getM22() * qM21;
-            m22 = matrix.getM02() * qM02 + matrix.getM12() * qM12 + matrix.getM22() * qM22;
-         }
-         else
-         {
-            m00 = matrix.getM00() * qM00 + matrix.getM01() * qM10 + matrix.getM02() * qM20;
-            m01 = matrix.getM00() * qM01 + matrix.getM01() * qM11 + matrix.getM02() * qM21;
-            m02 = matrix.getM00() * qM02 + matrix.getM01() * qM12 + matrix.getM02() * qM22;
-            m10 = matrix.getM10() * qM00 + matrix.getM11() * qM10 + matrix.getM12() * qM20;
-            m11 = matrix.getM10() * qM01 + matrix.getM11() * qM11 + matrix.getM12() * qM21;
-            m12 = matrix.getM10() * qM02 + matrix.getM11() * qM12 + matrix.getM12() * qM22;
-            m20 = matrix.getM20() * qM00 + matrix.getM21() * qM10 + matrix.getM22() * qM20;
-            m21 = matrix.getM20() * qM01 + matrix.getM21() * qM11 + matrix.getM22() * qM21;
-            m22 = matrix.getM20() * qM02 + matrix.getM21() * qM12 + matrix.getM22() * qM22;
-         }
-         matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         m00 = matrix.getM00() * qM00 + matrix.getM01() * qM10 + matrix.getM02() * qM20;
+         m01 = matrix.getM00() * qM01 + matrix.getM01() * qM11 + matrix.getM02() * qM21;
+         m02 = matrix.getM00() * qM02 + matrix.getM01() * qM12 + matrix.getM02() * qM22;
+         m10 = matrix.getM10() * qM00 + matrix.getM11() * qM10 + matrix.getM12() * qM20;
+         m11 = matrix.getM10() * qM01 + matrix.getM11() * qM11 + matrix.getM12() * qM21;
+         m12 = matrix.getM10() * qM02 + matrix.getM11() * qM12 + matrix.getM12() * qM22;
+         m20 = matrix.getM20() * qM00 + matrix.getM21() * qM10 + matrix.getM22() * qM20;
+         m21 = matrix.getM20() * qM01 + matrix.getM21() * qM11 + matrix.getM22() * qM21;
+         m22 = matrix.getM20() * qM02 + matrix.getM21() * qM12 + matrix.getM22() * qM22;
       }
+      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 }

@@ -83,7 +83,7 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(double x, double y, double z, double s)
          expected = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
-         quaternion = new Quaternion32(quaternion.getX32(), quaternion.getY32(), quaternion.getZ32(), quaternion.getS32());
+         quaternion = new Quaternion32(expected.getX32(), expected.getY32(), expected.getZ32(), expected.getS32());
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
       }

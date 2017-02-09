@@ -1,5 +1,6 @@
 package us.ihmc.geometry.axisAngle;
 
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.RotationMatrixConversion;
@@ -8,7 +9,6 @@ import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
-import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
@@ -198,37 +198,16 @@ public class AxisAngleConversion
     */
    public static void convertQuaternionToAxisAngle(QuaternionReadOnly<?> quaternion, AxisAngleBasics<?> axisAngleToPack)
    {
-      convertQuaternionToAxisAngle(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), axisAngleToPack);
-   }
-
-   /**
-    * Converts the given quaternion into an axis-angle.
-    * <p>
-    * After calling this method, the quaternion and the axis-angle represent the same orientation.
-    * </p>
-    * <p>
-    * Edge case:
-    * <ul>
-    *   <li> if the quaternion contains at least one {@link Double#NaN}, the axis-angle is 
-    *    set to {@link Double#NaN}.
-    *   <li> if the norm of the vector part of the quaternion is less than {@value #EPS}, the axis-angle
-    *    is set to zero via {@link AxisAngleBasics#setToZero()}.
-    * </ul>
-    * </p>
-    * 
-    * @param qx the vector part x-component of the unit quaternion to use for the conversion.
-    * @param qy the vector part y-component of the unit quaternion to use for the conversion.
-    * @param qz the vector part z-component of the unit quaternion to use for the conversion.
-    * @param qs the scalar part of the unit quaternion to use for the conversion.
-    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
-    */
-   public static void convertQuaternionToAxisAngle(double qx, double qy, double qz, double qs, AxisAngleBasics<?> axisAngleToPack)
-   {
-      if (Tuple4DTools.containsNaN(qx, qy, qz, qs))
+      if (quaternion.containsNaN())
       {
          axisAngleToPack.setToNaN();
          return;
       }
+
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
 
       double uNorm = Math.sqrt(qx * qx + qy * qy + qz * qz);
 
@@ -374,6 +353,12 @@ public class AxisAngleConversion
     */
    public static void convertYawPitchRollToAxisAngle(double yaw, double pitch, double roll, AxisAngleBasics<?> axisAngleToPack)
    {
+      if (Double.isNaN(yaw) || Double.isNaN(pitch) || Double.isNaN(roll))
+      {
+         axisAngleToPack.setToNaN();
+         return;
+      }
+
       double halfYaw = yaw / 2.0;
       double cYaw = Math.cos(halfYaw);
       double sYaw = Math.sin(halfYaw);
@@ -391,6 +376,19 @@ public class AxisAngleConversion
       double qy = sYaw * cPitch * sRoll + cYaw * sPitch * cRoll;
       double qz = sYaw * cPitch * cRoll - cYaw * sPitch * sRoll;
 
-      convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);
+      double uNorm = GeometryBasicsTools.fastSquareRoot(qx * qx + qy * qy + qz * qz);
+
+      if (uNorm > EPS)
+      {
+         axisAngleToPack.setAngle(2.0 * Math.atan2(uNorm, qs));
+         uNorm = 1.0 / uNorm;
+         axisAngleToPack.setX(qx * uNorm);
+         axisAngleToPack.setY(qy * uNorm);
+         axisAngleToPack.setZ(qz * uNorm);
+      }
+      else
+      {
+         axisAngleToPack.setToZero();
+      }
    }
 }

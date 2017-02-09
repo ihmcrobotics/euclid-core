@@ -5,6 +5,13 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.tuple4D.Tuple4DTools;
 
+/**
+ * Read-only inter
+ * 
+ * @author Sylvain Bertrand
+ *
+ * @param <T>
+ */
 public interface Tuple4DReadOnly<T extends Tuple4DReadOnly<T>> extends EpsilonComparable<T>
 {
    double getX();

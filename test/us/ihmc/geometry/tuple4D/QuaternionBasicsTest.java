@@ -30,7 +30,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 {
    // Read-only part
    @Test
-   public void testIsNormalized()
+   public void testIsUnitary()
    {
       Random random = new Random(65445L);
 
@@ -38,22 +38,118 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       {
          T q1 = createRandomTuple(random);
 
-         assertTrue(q1.isNormalized(getEpsilon())); // Quaternion should have norm = 1
+         assertTrue(q1.isUnitary(getEpsilon())); // Quaternion should have norm = 1
 
          T q2 = createRandomTuple(random);
          q1 = createTuple(q2.getX(), q2.getY(), q2.getZ(), q2.getS());
-         assertTrue(q1.isNormalized(getEpsilon()));
+         assertTrue(q1.isUnitary(getEpsilon()));
 
-         double delta = Math.sqrt(getEpsilon());
+         double delta = 2.0 * Math.sqrt(getEpsilon());
 
          q1 = createTuple(delta + q2.getX(), q2.getY(), q2.getZ(), q2.getS());
-         assertFalse(q1.isNormalized(getEpsilon()));
+         assertFalse(q1.isUnitary(getEpsilon()));
          q1 = createTuple(q2.getX(), delta + q2.getY(), q2.getZ(), q2.getS());
-         assertFalse(q1.isNormalized(getEpsilon()));
+         assertFalse(q1.isUnitary(getEpsilon()));
          q1 = createTuple(q2.getX(), q2.getY(), delta + q2.getZ(), q2.getS());
-         assertFalse(q1.isNormalized(getEpsilon()));
+         assertFalse(q1.isUnitary(getEpsilon()));
          q1 = createTuple(q2.getX(), q2.getY(), q2.getZ(), delta + q2.getS());
-         assertFalse(q1.isNormalized(getEpsilon()));
+         assertFalse(q1.isUnitary(getEpsilon()));
+      }
+   }
+
+   @Test
+   public void testIsQuaternionZOnly() throws Exception
+   {
+      Random random = new Random(23905872L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double qx = random.nextDouble();
+         double qy = random.nextDouble();
+         double qz = random.nextDouble();
+         double qs = random.nextDouble();
+         Quaternion quaternion = new Quaternion();
+
+         quaternion.set(qx, qy, qz, qs);
+         assertFalse(quaternion.isZOnly(getEpsilon()));
+
+         quaternion.set(0.0, qy, qz, qs);
+         assertFalse(quaternion.isZOnly(getEpsilon()));
+
+         quaternion.set(qx, 0.0, qz, qs);
+         assertFalse(quaternion.isZOnly(getEpsilon()));
+
+         quaternion.set(0.0, 0.0, qz, qs);
+         assertTrue(quaternion.isZOnly(getEpsilon()));
+
+         quaternion.set(2.0 * getEpsilon(), 0.0, qz, qs);
+         assertFalse(quaternion.isZOnly(getEpsilon()));
+         quaternion.set(0.0, 2.0 * getEpsilon(), qz, qs);
+         assertFalse(quaternion.isZOnly(getEpsilon()));
+      }
+   }
+
+   @Test
+   public void testCheckIfIsZOnly() throws Exception
+   {
+      Random random = new Random(23905872L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double qx = random.nextDouble();
+         double qy = random.nextDouble();
+         double qz = random.nextDouble();
+         double qs = random.nextDouble();
+         T quaternion = createEmptyTuple();
+
+         quaternion.set(qx, qy, qz, qs);
+
+         try
+         {
+            quaternion.checkIfIsZOnly(getEpsilon());
+            fail("Should have thrown a RuntimeException");
+         }
+         catch (RuntimeException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a RuntimeException");
+         }
+
+         quaternion.set(0.0, qy, qz, qs);
+         try
+         {
+            quaternion.checkIfIsZOnly(getEpsilon());
+            fail("Should have thrown a RuntimeException");
+         }
+         catch (RuntimeException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a RuntimeException");
+         }
+
+         quaternion.set(qx, 0.0, qz, qs);
+         try
+         {
+            quaternion.checkIfIsZOnly(getEpsilon());
+            fail("Should have thrown a RuntimeException");
+         }
+         catch (RuntimeException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a RuntimeException");
+         }
+
+         quaternion.set(0.0, 0.0, qz, qs);
+         quaternion.checkIfIsZOnly(getEpsilon());
       }
    }
 
@@ -564,7 +660,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       qActual.setUnsafe(scale * qx, scale * qy, scale * qz, scale * qs);
       qActual.normalizeAndLimitToPiMinusPi();
 
-      assertEquals(1.0, QuaternionTools.norm(qActual), getEpsilon());
+      assertEquals(1.0, qActual.length(), getEpsilon());
       GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
 
       // Test that the quaternion is kept within [-Pi, Pi]
@@ -940,35 +1036,115 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
    }
 
    @Test
-   public void testInterpolate()
+   public void testInterpolate() throws Exception
    {
-      Random random = new Random(6464L);
+      Random random = new Random(723459L);
+      T q0 = createEmptyTuple();
+      T qf = createEmptyTuple();
+      T qActual = createEmptyTuple();
+      T qExpected = createEmptyTuple();
+      double epsilon = 10.0 * getEpsilon();
 
+      // Check that interpolating with two zero angle quaternions, we obtain a zero angle quaternion.
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         T qOther1 = createRandomTuple(random);
-         T qOther2 = createRandomTuple(random);
-         T qActual = createRandomTuple(random);
-         T qExpected = createEmptyTuple();
+         double alpha = GeometryBasicsRandomTools.generateRandomDouble(random, 10.0);
+         qActual.interpolate(q0, qf, alpha);
+         qExpected.setToZero();
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, epsilon);
+         GeometryBasicsTestTools.assertQuaternionIsSetToZero(q0);
+         GeometryBasicsTestTools.assertQuaternionIsSetToZero(qf);
 
-         {// Test interpolate (QuaternionBasics q1, double alpha)
-            double alpha = random.nextDouble();
-            qActual.set(qOther1);
-            qExpected.set(qOther1);
-            qActual.interpolate(qOther2, alpha);
-            QuaternionTools.interpolate(qExpected, qOther2, alpha, qExpected);
+         qActual.set(q0);
+         qActual.interpolate(qf, alpha);
+         qExpected.setToZero();
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, epsilon);
+         GeometryBasicsTestTools.assertQuaternionIsSetToZero(q0);
+         GeometryBasicsTestTools.assertQuaternionIsSetToZero(qf);
+      }
 
-            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+      // Check that when q0 == qf, qActual == q0 == qf
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q0 = createRandomTuple(random);
+         qf.set(q0);
+         double alpha = GeometryBasicsRandomTools.generateRandomDouble(random, 10.0);
+         qActual.interpolate(q0, qf, alpha);
+         qExpected.set(q0);
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, epsilon);
+
+         qActual.set(q0);
+         qActual.interpolate(qf, alpha);
+         qExpected.set(q0);
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, epsilon);
+      }
+
+      // Simplify the interpolation by making q0 and qf describe rotation of different angle but around the same axis.
+      // Such that the interpolation becomes a simple interpolation over the angle.
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double angle0 = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
+         double anglef = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
+         Vector3D axis = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
+         QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angle0, q0);
+         QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), anglef, qf);
+         double alpha = GeometryBasicsRandomTools.generateRandomDouble(random, 10.0);
+
+         double angleInterpolated = (1.0 - alpha) * angle0 + alpha * anglef;
+         QuaternionConversion.convertAxisAngleToQuaternionImpl(axis.getX(), axis.getY(), axis.getZ(), angleInterpolated, qExpected);
+         qActual.interpolate(q0, qf, alpha);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+
+         qActual.set(q0);
+         qActual.interpolate(qf, alpha);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+      }
+
+      // Test when swapping q0 and qf and 'inverting' alpha
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q0 = createRandomTuple(random);
+         qf = createRandomTuple(random);
+         double alpha = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 1.0);
+         qExpected.interpolate(q0, qf, alpha);
+         qActual.interpolate(qf, q0, 1.0 - alpha);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+
+         qActual.set(qf);
+         qActual.interpolate(q0, 1.0 - alpha);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+      }
+
+      // Test with a different algorithm
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q0 = createRandomTuple(random);
+         qf = createRandomTuple(random);
+         double alpha = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 1.0);
+
+         Quaternion qDiff = new Quaternion();
+         if (q0.dot(qf) < 0.0)
+         {
+            Quaternion qfCopy = new Quaternion(qf);
+            qfCopy.negate();
+            qDiff.difference(q0, qfCopy);
+         }
+         else
+         {
+            qDiff.difference(q0, qf);
          }
 
-         { // Test interpolate (QuaternionBasics q1, QuaternionBasics q2, double alpha)
-            double alpha = random.nextDouble();
+         AxisAngle axisAngleDiff = new AxisAngle(qDiff);
+         axisAngleDiff.setAngle(axisAngleDiff.getAngle() * alpha);
+         qDiff.set(axisAngleDiff);
+         qExpected.multiply(q0, qDiff);
 
-            qActual.interpolate(qOther1, qOther2, alpha);
-            QuaternionTools.interpolate(qOther1, qOther2, alpha, qExpected);
+         qActual.interpolate(q0, qf, alpha);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
 
-            GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
-         }
+         qActual.set(q0);
+         qActual.interpolate(qf, alpha);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
       }
    }
 }

@@ -1,5 +1,7 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
+import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
@@ -15,10 +17,26 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tuple4DReadOnly<T>
 {
-   default boolean isNormalized(double epsilon)
+   default boolean isUnitary(double epsilon)
    {
-      double normSquared = lengthSquared();
-      return !Double.isNaN(normSquared) && Math.abs(normSquared - 1.0) < epsilon;
+      return Math.abs(length() - 1.0) < epsilon;
+   }
+
+   default boolean isZOnly(double epsilon)
+   {
+      return Math.abs(getX()) < epsilon && Math.abs(getY()) < epsilon;
+   }
+
+   default void checkIfIsZOnly(double epsilon)
+   {
+      if (!isZOnly(epsilon))
+         throw new NotAMatrix2DException("The quaternion is not in XY plane: " + toString());
+   }
+
+   @Override
+   default double length()
+   {
+      return GeometryBasicsTools.fastSquareRoot(lengthSquared());
    }
 
    default double getAngle()

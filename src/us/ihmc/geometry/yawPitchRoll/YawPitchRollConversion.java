@@ -11,8 +11,6 @@ import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
-import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 public abstract class YawPitchRollConversion
@@ -159,7 +157,7 @@ public abstract class YawPitchRollConversion
 
    public static double computeYaw(QuaternionReadOnly<?> quaternion)
    {
-      if (Tuple4DTools.containsNaN(quaternion))
+      if (quaternion.containsNaN())
          return Double.NaN;
 
       double qx = quaternion.getX();
@@ -167,7 +165,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = QuaternionTools.norm(quaternion);
+      double norm = quaternion.length();
       if (norm < EPS)
          return 0.0;
 
@@ -185,7 +183,7 @@ public abstract class YawPitchRollConversion
 
    public static double computePitch(QuaternionReadOnly<?> quaternion)
    {
-      if (Tuple4DTools.containsNaN(quaternion))
+      if (quaternion.containsNaN())
          return Double.NaN;
 
       double qx = quaternion.getX();
@@ -193,7 +191,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = QuaternionTools.norm(quaternion);
+      double norm = quaternion.length();
       if (norm < EPS)
          return 0.0;
 
@@ -208,7 +206,7 @@ public abstract class YawPitchRollConversion
 
    public static double computeRoll(QuaternionReadOnly<?> quaternion)
    {
-      if (Tuple4DTools.containsNaN(quaternion))
+      if (quaternion.containsNaN())
          return Double.NaN;
 
       double qx = quaternion.getX();
@@ -216,7 +214,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = QuaternionTools.norm(quaternion);
+      double norm = quaternion.length();
       if (norm < EPS)
          return 0.0;
 
@@ -234,7 +232,7 @@ public abstract class YawPitchRollConversion
 
    public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly<?> quaternion, double[] yawPitchRollToPack)
    {
-      if (Tuple4DTools.containsNaN(quaternion))
+      if (quaternion.containsNaN())
       {
          yawPitchRollToPack[0] = Double.NaN;
          yawPitchRollToPack[1] = Double.NaN;
@@ -247,7 +245,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = QuaternionTools.norm(quaternion);
+      double norm = quaternion.length();
       if (norm < EPS)
       {
          yawPitchRollToPack[0] = 0.0;
@@ -278,7 +276,7 @@ public abstract class YawPitchRollConversion
 
    public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly<?> quaternion, Vector3D eulerAnglesToPack)
    {
-      if (Tuple4DTools.containsNaN(quaternion))
+      if (quaternion.containsNaN())
       {
          eulerAnglesToPack.setToNaN();
          return;
@@ -289,7 +287,7 @@ public abstract class YawPitchRollConversion
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = QuaternionTools.norm(quaternion);
+      double norm = quaternion.length();
       if (norm < EPS)
       {
          eulerAnglesToPack.setToZero();

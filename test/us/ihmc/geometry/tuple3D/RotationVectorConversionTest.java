@@ -14,8 +14,6 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple3D.RotationVectorConversion;
-import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
 
@@ -95,6 +93,7 @@ public class RotationVectorConversionTest
       double minMaxAngleRange = 2.0 * Math.PI;
       Vector3D expectedRotationVector = new Vector3D();
       Vector3D actualRotationVector = new Vector3D();
+      Quaternion quaternion = new Quaternion();
 
       for (int i = 0; i < 10000; i++)
       {
@@ -112,33 +111,30 @@ public class RotationVectorConversionTest
          double qy = uy * Math.sin(angle / 2.0);
          double qz = uz * Math.sin(angle / 2.0);
 
-         RotationVectorConversion.convertQuaternionToRotationVectorImpl(qx, qy, qz, qs, actualRotationVector);
-         GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
-      }
-
-      RotationVectorConversion.convertQuaternionToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(actualRotationVector);
-
-      RotationVectorConversion.convertQuaternionToRotationVectorImpl(Double.NaN, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
-
-      RotationVectorConversion.convertQuaternionToRotationVectorImpl(0.0, Double.NaN, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
-
-      RotationVectorConversion.convertQuaternionToRotationVectorImpl(0.0, 0.0, Double.NaN, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
-
-      RotationVectorConversion.convertQuaternionToRotationVectorImpl(0.0, 0.0, 0.0, Double.NaN, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
-
-      for (int i = 0; i < 100; i++)
-      {
-         Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, minMaxAngleRange);
-         RotationVectorConversion.convertQuaternionToRotationVectorImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(),
-                                                                        expectedRotationVector);
+         quaternion.setUnsafe(qx, qy, qz, qs);
          RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
          GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
       }
+
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
+      GeometryBasicsTestTools.assertTupleIsSetToZero(actualRotationVector);
+
+      quaternion.setUnsafe(Double.NaN, 0.0, 0.0, 0.0);
+      RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
+      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+
+      quaternion.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
+      RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
+      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+
+      quaternion.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
+      RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
+      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+
+      quaternion.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
+      RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
+      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
    }
 
    @Test

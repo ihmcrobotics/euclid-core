@@ -197,60 +197,51 @@ public class RotationMatrixConversionTest
       for (int i = 0; i < RotationMatrixConversionTest.NUMBER_OF_ITERATIONS; i++)
       {
          expectedQuaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, minMaxAngleRange);
-         double qx = expectedQuaternion.getX();
-         double qy = expectedQuaternion.getY();
-         double qz = expectedQuaternion.getZ();
-         double qs = expectedQuaternion.getS();
-         RotationMatrixConversion.convertQuaternionToMatrixImpl(qx, qy, qz, qs, actualMatrix);
+         RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
          GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
          // Assuming the quaternion conversion is well tested
          QuaternionConversion.convertMatrixToQuaternion(actualMatrix, actualQuaternion);
          GeometryBasicsTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
       }
 
-      RotationMatrixConversion.convertQuaternionToMatrixImpl(0.0, 0.0, 0.0, 0.0, actualMatrix);
+      expectedQuaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
       GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
 
-      RotationMatrixConversion.convertQuaternionToMatrixImpl(Double.NaN, 0.0, 0.0, 0.0, actualMatrix);
+      expectedQuaternion.setUnsafe(Double.NaN, 0.0, 0.0, 0.0);
+      RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
       GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
-      RotationMatrixConversion.convertQuaternionToMatrixImpl(0.0, Double.NaN, 0.0, 0.0, actualMatrix);
+      expectedQuaternion.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
+      RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
       GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
-      RotationMatrixConversion.convertQuaternionToMatrixImpl(0.0, 0.0, Double.NaN, 0.0, actualMatrix);
+      expectedQuaternion.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
+      RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
       GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
-      RotationMatrixConversion.convertQuaternionToMatrixImpl(0.0, 0.0, 0.0, Double.NaN, actualMatrix);
+      expectedQuaternion.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
+      RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
       GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       for (double angle = -2.0 * Math.PI; angle <= 2.0 * Math.PI; angle += 0.01 * Math.PI)
       {
          double scale = 1.5 * random.nextDouble();
          RotationMatrixConversion.computeRollMatrix(angle, expectedMatrix);
-         RotationMatrixConversion.convertQuaternionToMatrixImpl(scale * sin(angle / 2.0), 0.0, 0.0, scale * cos(angle / 2.0), actualMatrix);
+         expectedQuaternion.setUnsafe(scale * sin(angle / 2.0), 0.0, 0.0, scale * cos(angle / 2.0));
+         RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
          GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
 
          RotationMatrixConversion.computePitchMatrix(angle, expectedMatrix);
-         RotationMatrixConversion.convertQuaternionToMatrixImpl(0.0, scale * sin(angle / 2.0), 0.0, scale * cos(angle / 2.0), actualMatrix);
+         expectedQuaternion.setUnsafe(0.0, scale * sin(angle / 2.0), 0.0, scale * cos(angle / 2.0));
+         RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
          GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
 
          RotationMatrixConversion.computeYawMatrix(angle, expectedMatrix);
-         RotationMatrixConversion.convertQuaternionToMatrixImpl(0.0, 0.0, scale * sin(angle / 2.0), scale * cos(angle / 2.0), actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
-      }
-
-      for (int i = 0; i < 1000; i++)
-      {
-         Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, minMaxAngleRange);
-         double qx = quaternion.getX();
-         double qy = quaternion.getY();
-         double qz = quaternion.getZ();
-         double qs = quaternion.getS();
-         RotationMatrixConversion.convertQuaternionToMatrixImpl(qx, qy, qz, qs, expectedMatrix);
-         RotationMatrixConversion.convertQuaternionToMatrix(quaternion, actualMatrix);
+         expectedQuaternion.setUnsafe(0.0, 0.0, scale * sin(angle / 2.0), scale * cos(angle / 2.0));
+         RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
          GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
       }
