@@ -181,7 +181,8 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
-    * Sets this tuple's components from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y} in order
+    * from the given array {@code tupleArray}.
     * 
     * @param tupleArray the array containing the new values for this tuple's components. Not modified.
     */
@@ -191,7 +192,8 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
-    * Sets this tuple's components from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y} in order
+    * from the given array {@code tupleArray}.
     * 
     * @param startIndex the first index to start reading from in the array.
     * @param tupleArray the array containing the new values for this tuple's components. Not modified.
@@ -202,7 +204,8 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
-    * Sets this tuple's components from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y} in order
+    * from the given array {@code tupleArray}.
     * 
     * @param tupleArray the array containing the new values for this tuple's components. Not modified.
     */
@@ -212,7 +215,8 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
-    * Sets this tuple's components from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y} in order
+    * from the given array {@code tupleArray}.
     * 
     * @param startIndex the first index to start reading from in the array.
     * @param tupleArray the array containing the new values for this tuple's components. Not modified.
@@ -223,7 +227,8 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
-    * Sets this tuple's components from the given column vector starting to read from its first row index.
+    * Sets this tuple's components {@code x}, {@code y} in order
+    * from the given column vector starting to read from its first row index.
     * 
     * @param matrix the column vector containing the new values for this tuple's components. Not modified.
     */
@@ -233,7 +238,8 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
-    * Sets this tuple's components from the given column vector starting to read from {@code startRow}.
+    * Sets this tuple's components {@code x}, {@code y} in order
+    * from the given column vector starting to read from {@code startRow}.
     * 
     * @param startRow the first row index to start reading in the dense-matrix.
     * @param matrix the column vector containing the new values for this tuple's components. Not modified.
@@ -244,7 +250,8 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
-    * Sets this tuple's components from the given matrix starting to read from {@code startRow} at the column index {@code column}.
+    * Sets this tuple's components {@code x}, {@code y} in order
+    * from the given matrix starting to read from {@code startRow} at the column index {@code column}.
     * 
     * @param startRow the first row index to start reading in the dense-matrix.
     * @param column the column index to read in the dense-matrix.
