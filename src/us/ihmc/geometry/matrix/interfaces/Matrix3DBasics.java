@@ -7,9 +7,8 @@ import us.ihmc.geometry.interfaces.Settable;
 /**
  * Write and read interface for a 3-by-3 matrix object.
  * <p>
- * In this interface, the matrix is assumed to be generic purpose.
- * Therefore, the algorithms used here are limited to generic applications
- * without violating potential constraints of more specific
+ * In this interface, the matrix is assumed to be generic purpose. Therefore, the algorithms used
+ * here are limited to generic applications without violating potential constraints of more specific
  * matrices such a rotation matrix.
  * </p>
  * 
@@ -36,6 +35,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Sets this matrix to contain only {@linkplain Double#NaN}:
+    * 
     * <pre>
     *     / NaN  NaN  NaN \
     * m = | NaN  NaN  NaN |
@@ -56,6 +56,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Sets this matrix to identity:
+    * 
     * <pre>
     *     / 1  0  0 \
     * m = | 0  1  0 |
@@ -88,6 +89,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Copies the values in the given array into this matrix as follows:
+    * 
     * <pre>
     *     / matrixArray[0]  matrixArray[1]  matrixArray[2] \
     * m = | matrixArray[3]  matrixArray[4]  matrixArray[5] |
@@ -112,6 +114,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Copies the values in the given array into this matrix as follows:
+    * 
     * <pre>
     *     / matrixArray[startIndex + 0]  matrixArray[startIndex + 1]  matrixArray[startIndex + 2] \
     * m = | matrixArray[startIndex + 3]  matrixArray[startIndex + 4]  matrixArray[startIndex + 5] |
@@ -155,8 +158,8 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
    }
 
    /**
-    * Copies the values in the given dense-matrix into this matrix
-    * given index offsets for the row and column.
+    * Copies the values in the given dense-matrix into this matrix given index offsets for the row
+    * and column.
     * 
     * @param matrix the dense-matrix containing the new values for this matrix. Not modified.
     * @param startRow the first row index to start reading from in the dense-matrix.

@@ -31,7 +31,8 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts that the two given angles are equal to an {@code epsilon}.
     * <p>
-    * The method returns {@code true} for angles such as: {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
     * 
     * @param expectedAngle the expected angle.
@@ -54,9 +55,11 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two sets of yaw-pitch-roll angles are equal to an {@code epsilon}.
+    * Asserts on a per component basis that the two sets of yaw-pitch-roll angles are equal to an
+    * {@code epsilon}.
     * <p>
-    * The method returns {@code true} for angles such as: {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
     * 
     * @param expectedYawPitchRoll the expected set of yaw-pitch-roll angles. Not modified.
@@ -79,9 +82,11 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two rotation vectors are equal to an {@code epsilon}.
+    * Asserts on a per component basis that the two rotation vectors are equal to an
+    * {@code epsilon}.
     * <p>
-    * The method returns {@code true} for angles such as: {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
     * 
     * @param expectedRotationVector the expected rotation vector. Not modified.
@@ -255,6 +260,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts that the given matrix is skew-symmetric:
+    * 
     * <pre>
     *     |  0 -z  y |
     * m = |  z  0 -x |
@@ -263,10 +269,10 @@ public abstract class GeometryBasicsTestTools
     * <p>
     * This matrix is considered to be skew symmetric if:
     * <ul>
-    *    <li> each diagonal coefficient is equal to 0.0 +/- {@code epsilon},
-    *    <li> the sums of each pair of cross-diagonal coefficients
-    *     ({@code m10}, {@code m01}), ({@code m12}, {@code m21}), and ({@code m20}, {@code m02})
-    *     are equal to 0.0 +/- {@code epsilon}.
+    * <li>each diagonal coefficient is equal to 0.0 +/- {@code epsilon},
+    * <li>the sums of each pair of cross-diagonal coefficients ({@code m10}, {@code m01}),
+    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
+    * {@code epsilon}.
     * </ul>
     * </p>
     *
@@ -285,9 +291,9 @@ public abstract class GeometryBasicsTestTools
     * <p>
     * This matrix is a rotation matrix if:
     * <ul>
-    *    <li> the length of each row vector is equal to 1.0 +/- {@code epsilon},
-    *    <li> the dot product of each pair of row vectors is equal to 0.0 +/- {@code epsilon},
-    *    <li> the determinant of the matrix is equal to 1.0 +/- {@code epsilon}.
+    * <li>the length of each row vector is equal to 1.0 +/- {@code epsilon},
+    * <li>the dot product of each pair of row vectors is equal to 0.0 +/- {@code epsilon},
+    * <li>the determinant of the matrix is equal to 1.0 +/- {@code epsilon}.
     * </ul>
     * </p>
     * 
@@ -302,7 +308,8 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts on a per coefficient basis that this matrix is equal to identity to an {@code epsilon}.
+    * Asserts on a per coefficient basis that this matrix is equal to identity to an
+    * {@code epsilon}.
     * 
     * @param matrix the query. Not modified.
     * @param epsilon the tolerance to use.
@@ -358,7 +365,8 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two quaternions are equal to an {@code epsilon}.
     * <p>
-    * This method changes the sign of one of the two quaternions when comparing if their dot product is negative.
+    * This method changes the sign of one of the two quaternions when comparing if their dot product
+    * is negative.
     * </p>
     * 
     * @param expectedQuaternion the expected quaternion. Not modified.
@@ -383,7 +391,8 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts that the two given quaternions represents the same orientation to an {@code epsilon} by calculating the magnitude of their difference.
+    * Asserts that the two given quaternions represents the same orientation to an {@code epsilon}
+    * by calculating the magnitude of their difference.
     * 
     * @param expectedQuaternion the expected quaternion. Not modified.
     * @param actualQuaternion the actual quaternion. Not modified.
@@ -432,7 +441,8 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis if the two axis-angles are equal to an {@code epsilon}.
     * <p>
-    * This method changes the sign of one of the two axis-angles when comparing if the dot product of their axis is negative.
+    * This method changes the sign of one of the two axis-angles when comparing if the dot product
+    * of their axis is negative.
     * </p>
     * 
     * @param expectedAxisAngle the expected axis-angle. Not modified.
@@ -501,7 +511,7 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts that the length of the axis of the axis-angle is equal to {@code 1.0 +/- epsilon}. 
+    * Asserts that the length of the axis of the axis-angle is equal to {@code 1.0 +/- epsilon}.
     * 
     * @param axisAngleToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
@@ -581,7 +591,8 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two given rigid-body transform are equal to an {@code epsilon}.
+    * Asserts on a per component basis that the two given rigid-body transform are equal to an
+    * {@code epsilon}.
     * 
     * @param expected the expected rigid-body transform. Not modified.
     * @param actual the actual rigid-body transform. Not modified.
@@ -597,7 +608,8 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two quaternion-based transforms are equal to an {@code epsilon}.
+    * Asserts on a per component basis that the two quaternion-based transforms are equal to an
+    * {@code epsilon}.
     * 
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
@@ -613,9 +625,11 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two quaternion-based transforms are equal to an {@code epsilon}.
+    * Asserts on a per component basis that the two quaternion-based transforms are equal to an
+    * {@code epsilon}.
     * <p>
-    * This method compares the quaternions using {@link #assertQuaternionEqualsSmart(QuaternionReadOnly, QuaternionReadOnly, double)}.
+    * This method compares the quaternions using
+    * {@link #assertQuaternionEqualsSmart(QuaternionReadOnly, QuaternionReadOnly, double)}.
     * </p>
     * 
     * @param expected the expected quaternion-based transform. Not modified.
@@ -637,7 +651,8 @@ public abstract class GeometryBasicsTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two given affine transforms are equal to an {@code epsilon}.
+    * Asserts on a per component basis that the two given affine transforms are equal to an
+    * {@code epsilon}.
     * 
     * @param expected the expected affine transform. Not modified.
     * @param actual the actual affine transform. Not modified.

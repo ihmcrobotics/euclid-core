@@ -1,8 +1,7 @@
 package us.ihmc.geometry.interfaces;
 
 /**
- * This interface is used for any object that can be compared with a
- * tolerance {@code epsilon}.
+ * This interface is used for any object that can be compared with a tolerance {@code epsilon}.
  * 
  * @author Sylvain
  *
@@ -11,10 +10,9 @@ package us.ihmc.geometry.interfaces;
 public interface EpsilonComparable<T>
 {
    /**
-    * Tests if {@code this} is equal to {@code other} to an {@code epsilon}.
-    * The test is usually achieved on a per component basis.
-    * Sometimes a failing test does not necessarily mean that the two objects are different
-    * in a geometric way.
+    * Tests if {@code this} is equal to {@code other} to an {@code epsilon}. The test is usually
+    * achieved on a per component basis. Sometimes a failing test does not necessarily mean that the
+    * two objects are different in a geometric way.
     * 
     * @param other the other object to compare against this. Not modified.
     * @param epsilon tolerance to use when comparing each component.

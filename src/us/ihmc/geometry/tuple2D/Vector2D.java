@@ -6,11 +6,12 @@ import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 
 /**
- * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane.
- * For instance, it can be used to represent a 2D velocity, force, or translation from one 2D point to another.
+ * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane. For
+ * instance, it can be used to represent a 2D velocity, force, or translation from one 2D point to
+ * another.
  * <p>
- * This version of 2D vector uses double precision fields to save the value of each component.
- * It is meant for garbage free usage.
+ * This version of 2D vector uses double precision fields to save the value of each component. It is
+ * meant for garbage free usage.
  * </p>
  * 
  * @author Sylvain Bertrand
@@ -108,9 +109,8 @@ public class Vector2D implements Serializable, Vector2DBasics<Vector2D>
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this,
-    * in which case the method returns {@link #equals(Vector2D)}, it returns {@code false}
-    * otherwise.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(Vector2D)}, it returns {@code false} otherwise.
     * 
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -129,8 +129,7 @@ public class Vector2D implements Serializable, Vector2DBasics<Vector2D>
    }
 
    /**
-    * Provides a {@code String} representation of this vector 2D as follows:
-    * (x, y).
+    * Provides a {@code String} representation of this vector 2D as follows: (x, y).
     * 
     * @return the {@code String} representing this vector 2D.
     */
@@ -141,8 +140,7 @@ public class Vector2D implements Serializable, Vector2DBasics<Vector2D>
    }
 
    /**
-    * Calculates and returns a hash code value from the value
-    * of each component of this vector 2D.
+    * Calculates and returns a hash code value from the value of each component of this vector 2D.
     * 
     * @return the hash code value for this vector 2D.
     */

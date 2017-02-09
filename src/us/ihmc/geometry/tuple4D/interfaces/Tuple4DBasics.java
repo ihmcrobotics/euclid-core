@@ -7,31 +7,30 @@ import us.ihmc.geometry.interfaces.GeometryObject;
 /**
  * Write and read interface for a 4 dimensional tuple.
  * <p>
- * A tuple 4D represents what is commonly called a quaternion.
- * Although from definition, a quaternion does not necessarily represent an 3D orientation, in this library
- * the classes implementing {@link QuaternionReadOnly} and {@link QuaternionBasics} represent unit-quaternions
- * meant to represent 3D orientations.
- * The classes implementing {@link Vector4DReadOnly} and {@link Vector4DBasics} are used to represent generic quaternions.
+ * A tuple 4D represents what is commonly called a quaternion. Although from definition, a
+ * quaternion does not necessarily represent an 3D orientation, in this library the classes
+ * implementing {@link QuaternionReadOnly} and {@link QuaternionBasics} represent unit-quaternions
+ * meant to represent 3D orientations. The classes implementing {@link Vector4DReadOnly} and
+ * {@link Vector4DBasics} are used to represent generic quaternions.
  * </p>
  * <p>
- * The write interface for a 4D tuple is more restricted than for the 2D and 3D tuples to improve data safety
- * for the classes representing unit-quaternions.
+ * The write interface for a 4D tuple is more restricted than for the 2D and 3D tuples to improve
+ * data safety for the classes representing unit-quaternions.
  * </p>
  * <p>
- * When describing a 4D tuple, its 4 components are often gathered in two groups: the scalar part {@code s}
- * and the vector part ({@code x}, {@code y}, {@code z}).
+ * When describing a 4D tuple, its 4 components are often gathered in two groups: the scalar part
+ * {@code s} and the vector part ({@code x}, {@code y}, {@code z}).
  * </p>
  * <p>
  * Note on the difference between applying a 3D transform on a quaternion and a 4D vector:
  * <ul>
- *    <li> When transformed by a homogeneous transformation matrix, a quaternion is only
- *     pre-multiplied by the rotation part of the transform, resulting in concatenating
- *     the orientations of the transform and the quaternion.
- *    <li> When transformed by a homogeneous transformation matrix, a 4D vector scalar
- *     part {@code s} remains unchanged. The vector part ({@code x}, {@code y}, {@code z})
- *     is scaled and rotated, and translated by {@code s} times the translation part of the transform.
- *     Note that for {@code s = 0}, a 4D vector behaves as a 3D vector, and for {@code s = 1}
- *     it behaves as a 3D point.
+ * <li>When transformed by a homogeneous transformation matrix, a quaternion is only pre-multiplied
+ * by the rotation part of the transform, resulting in concatenating the orientations of the
+ * transform and the quaternion.
+ * <li>When transformed by a homogeneous transformation matrix, a 4D vector scalar part {@code s}
+ * remains unchanged. The vector part ({@code x}, {@code y}, {@code z}) is scaled and rotated, and
+ * translated by {@code s} times the translation part of the transform. Note that for {@code s = 0},
+ * a 4D vector behaves as a 3D vector, and for {@code s = 1} it behaves as a 3D point.
  * </ul>
  * </p>
  * 
@@ -52,12 +51,12 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    void set(double x, double y, double z, double s);
 
    /**
-    * Normalizes this tuple such that its norm is equal to 1 after
-    * calling this method and its direction remains unchanged.
+    * Normalizes this tuple such that its norm is equal to 1 after calling this method and its
+    * direction remains unchanged.
     * <p>
     * Edge cases:
     * <ul>
-    *    <li> if this tuple contains {@link Double#NaN}, this method is ineffective.
+    * <li>if this tuple contains {@link Double#NaN}, this method is ineffective.
     * </ul>
     * </p>
     */
@@ -114,10 +113,11 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order
-    * from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order from the
+    * given array {@code tupleArray}.
     *
-    * @param tupleArray the array containing the new values for this tuple's components. Not modified.
+    * @param tupleArray the array containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(double[] tupleArray)
    {
@@ -125,11 +125,12 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order
-    * from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order from the
+    * given array {@code tupleArray}.
     *
     * @param startIndex the first index to start reading from in the array.
-    * @param tupleArray the array containing the new values for this tuple's components. Not modified.
+    * @param tupleArray the array containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(int startIndex, double[] tupleArray)
    {
@@ -137,10 +138,11 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order
-    * from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order from the
+    * given array {@code tupleArray}.
     *
-    * @param tupleArray the array containing the new values for this tuple's components. Not modified.
+    * @param tupleArray the array containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(float[] tupleArray)
    {
@@ -148,11 +150,12 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order
-    * from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order from the
+    * given array {@code tupleArray}.
     *
     * @param startIndex the first index to start reading from in the array.
-    * @param tupleArray the array containing the new values for this tuple's components. Not modified.
+    * @param tupleArray the array containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(int startIndex, float[] tupleArray)
    {
@@ -160,10 +163,11 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order
-    * from the given column vector starting to read from its first row index.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order from the
+    * given column vector starting to read from its first row index.
     *
-    * @param matrix the column vector containing the new values for this tuple's components. Not modified.
+    * @param matrix the column vector containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(DenseMatrix64F matrix)
    {
@@ -171,11 +175,12 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order
-    * from the given column vector starting to read from {@code startRow}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order from the
+    * given column vector starting to read from {@code startRow}.
     *
     * @param startRow the first row index to start reading in the dense-matrix.
-    * @param matrix the column vector containing the new values for this tuple's components. Not modified.
+    * @param matrix the column vector containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(int startRow, DenseMatrix64F matrix)
    {
@@ -183,12 +188,13 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order
-    * from the given matrix starting to read from {@code startRow} at the column index {@code column}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z}, {@code s} in order from the
+    * given matrix starting to read from {@code startRow} at the column index {@code column}.
     *
     * @param startRow the first row index to start reading in the dense-matrix.
     * @param column the column index to read in the dense-matrix.
-    * @param matrix the column vector containing the new values for this tuple's components. Not modified.
+    * @param matrix the column vector containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(int startRow, int column, DenseMatrix64F matrix)
    {

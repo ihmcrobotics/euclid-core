@@ -17,15 +17,15 @@ public abstract class TupleTools
    public static boolean epsilonEquals(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2, double epsilon)
    {
       double difference;
-      
+
       difference = tuple1.getX() - tuple2.getX();
       if (Double.isNaN(difference) || Math.abs(difference) > epsilon)
          return false;
-      
+
       difference = tuple1.getY() - tuple2.getY();
       if (Double.isNaN(difference) || Math.abs(difference) > epsilon)
          return false;
-      
+
       return true;
    }
 
@@ -67,37 +67,37 @@ public abstract class TupleTools
    public static boolean epsilonEquals(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2, double epsilon)
    {
       double difference;
-   
+
       difference = tuple1.getX() - tuple2.getX();
       if (Double.isNaN(difference) || Math.abs(difference) > epsilon)
          return false;
-   
+
       difference = tuple1.getY() - tuple2.getY();
       if (Double.isNaN(difference) || Math.abs(difference) > epsilon)
          return false;
-   
+
       difference = tuple1.getZ() - tuple2.getZ();
       if (Double.isNaN(difference) || Math.abs(difference) > epsilon)
          return false;
-   
+
       difference = tuple1.getS() - tuple2.getS();
       if (Double.isNaN(difference) || Math.abs(difference) > epsilon)
          return false;
-   
+
       return true;
    }
 
    /**
-    * Performs a linear interpolation from {@code a} to {@code b} given the 
-    * percentage {@code alpha}.
+    * Performs a linear interpolation from {@code a} to {@code b} given the percentage
+    * {@code alpha}.
     * <p>
     * result = (1.0 - alpha) * a + alpha * b
     * </p>
     * 
     * @param a the first value used in the interpolation.
     * @param b the second value used in the interpolation.
-    * @param alpha the percentage to use for the interpolation.
-    * A value of 0 will return {@code a}, while a value of 1 will return {@code b}.
+    * @param alpha the percentage to use for the interpolation. A value of 0 will return {@code a},
+    *           while a value of 1 will return {@code b}.
     * @return the interpolated value.
     */
    public static double interpolate(double a, double b, double alpha)

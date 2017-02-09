@@ -45,9 +45,9 @@ public abstract class GeometryBasicsRandomTools
     * Generates random yaw-pitch-roll angles and returns it in an array.
     * <p>
     * <ul>
-    *    <li> yaw &in; [-<i>pi</i>; <i>pi</i>],
-    *    <li> pitch &in; [-<i>pi</i>/2.0; <i>pi</i>/2.0],
-    *    <li> roll &in; [-<i>pi</i>; <i>pi</i>],
+    * <li>yaw &in; [-<i>pi</i>; <i>pi</i>],
+    * <li>pitch &in; [-<i>pi</i>/2.0; <i>pi</i>/2.0],
+    * <li>roll &in; [-<i>pi</i>; <i>pi</i>],
     * </ul>
     * </p>
     * 
@@ -63,9 +63,9 @@ public abstract class GeometryBasicsRandomTools
     * Generates random yaw-pitch-roll angles and returns it in an array.
     * <p>
     * <ul>
-    *    <li> yaw &in; [-{@code minMaxYaw}; {@code minMaxYaw}],
-    *    <li> pitch &in; [-{@code minMaxPitch}; {@code minMaxPitch}],
-    *    <li> roll &in; [-{@code minMaxRoll}; {@code minMaxRoll}],
+    * <li>yaw &in; [-{@code minMaxYaw}; {@code minMaxYaw}],
+    * <li>pitch &in; [-{@code minMaxPitch}; {@code minMaxPitch}],
+    * <li>roll &in; [-{@code minMaxRoll}; {@code minMaxRoll}],
     * </ul>
     * </p>
     * 
@@ -74,7 +74,8 @@ public abstract class GeometryBasicsRandomTools
     * @param minMaxPitch the maximum absolute angle for the generated pitch angle.
     * @param minMaxRoll the maximum absolute angle for the generated roll angle.
     * @return an array containing the random yaw-pitch-roll angles.
-    * @throws RuntimeException if {@code minMaxYaw < 0},  {@code minMaxPitch < 0},  {@code minMaxRoll < 0}.
+    * @throws RuntimeException if {@code minMaxYaw < 0}, {@code minMaxPitch < 0},
+    *            {@code minMaxRoll < 0}.
     */
    public static double[] generateRandomYawPitchRoll(Random random, double minMaxYaw, double minMaxPitch, double minMaxRoll)
    {
@@ -124,9 +125,9 @@ public abstract class GeometryBasicsRandomTools
     * {@code axisAngle.getAngle()} &in; [-<i>pi</i>; <i>pi</i>].
     * </p>
     * <p>
-    * The approach used here generates uniformly a point on a sphere to create uniformly distributed random axes,
-    * <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>.
-    * The angle is then generated as a normal bounded random double.
+    * The approach used here generates uniformly a point on a sphere to create uniformly distributed
+    * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
+    * angle is then generated as a normal bounded random double.
     * </p>
     * 
     * @param random the random generator to use.
@@ -145,9 +146,9 @@ public abstract class GeometryBasicsRandomTools
     * {@code axisAngle.getAngle()} &in; [-{@code minMaxAngle}; {@code minMaxAngle}].
     * </p>
     * <p>
-    * The approach used here generates uniformly a point on a sphere to create uniformly distributed random axes,
-    * <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>.
-    * The angle is then generated as a normal bounded random double.
+    * The approach used here generates uniformly a point on a sphere to create uniformly distributed
+    * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
+    * angle is then generated as a normal bounded random double.
     * </p>
     * 
     * @param random the random generator to use.
@@ -168,9 +169,9 @@ public abstract class GeometryBasicsRandomTools
     * {@code axisAngle.getAngle()} &in; [-<i>pi</i>; <i>pi</i>].
     * </p>
     * <p>
-    * The approach used here generates uniformly a point on a sphere to create uniformly distributed random axes,
-    * <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>.
-    * The angle is then generated as a normal bounded random double.
+    * The approach used here generates uniformly a point on a sphere to create uniformly distributed
+    * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
+    * angle is then generated as a normal bounded random double.
     * </p>
     * 
     * @param random the random generator to use.
@@ -189,9 +190,9 @@ public abstract class GeometryBasicsRandomTools
     * {@code axisAngle.getAngle()} &in; [-{@code minMaxAngle}; {@code minMaxAngle}].
     * </p>
     * <p>
-    * The approach used here generates uniformly a point on a sphere to create uniformly distributed random axes,
-    * <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>.
-    * The angle is then generated as a normal bounded random double.
+    * The approach used here generates uniformly a point on a sphere to create uniformly distributed
+    * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
+    * angle is then generated as a normal bounded random double.
     * </p>
     * 
     * @param random the random generator to use.
@@ -210,9 +211,9 @@ public abstract class GeometryBasicsRandomTools
     * Generates a random diagonal 3-by-3 matrix.
     * <p>
     * <ul>
-    *    <li> {@code matrix.getM00()} &in; [-1.0; 1.0].
-    *    <li> {@code matrix.getM11()} &in; [-1.0; 1.0].
-    *    <li> {@code matrix.getM22()} &in; [-1.0; 1.0].
+    * <li>{@code matrix.getM00()} &in; [-1.0; 1.0].
+    * <li>{@code matrix.getM11()} &in; [-1.0; 1.0].
+    * <li>{@code matrix.getM22()} &in; [-1.0; 1.0].
     * </ul>
     * </p>
     * 
@@ -228,9 +229,9 @@ public abstract class GeometryBasicsRandomTools
     * Generates a random diagonal 3-by-3 matrix.
     * <p>
     * <ul>
-    *    <li> {@code matrix.getM00()} &in; [-{@code minMaxValue}; {@code minMaxValue}].
-    *    <li> {@code matrix.getM11()} &in; [-{@code minMaxValue}; {@code minMaxValue}].
-    *    <li> {@code matrix.getM22()} &in; [-{@code minMaxValue}; {@code minMaxValue}].
+    * <li>{@code matrix.getM00()} &in; [-{@code minMaxValue}; {@code minMaxValue}].
+    * <li>{@code matrix.getM11()} &in; [-{@code minMaxValue}; {@code minMaxValue}].
+    * <li>{@code matrix.getM22()} &in; [-{@code minMaxValue}; {@code minMaxValue}].
     * </ul>
     * </p>
     * 
@@ -248,9 +249,9 @@ public abstract class GeometryBasicsRandomTools
     * Generates a random diagonal 3-by-3 matrix.
     * <p>
     * <ul>
-    *    <li> {@code matrix.getM00()} &in; [{@code minValue}; {@code maxValue}].
-    *    <li> {@code matrix.getM11()} &in; [{@code minValue}; {@code maxValue}].
-    *    <li> {@code matrix.getM22()} &in; [{@code minValue}; {@code maxValue}].
+    * <li>{@code matrix.getM00()} &in; [{@code minValue}; {@code maxValue}].
+    * <li>{@code matrix.getM11()} &in; [{@code minValue}; {@code maxValue}].
+    * <li>{@code matrix.getM22()} &in; [{@code minValue}; {@code maxValue}].
     * </ul>
     * </p>
     * 
@@ -381,7 +382,8 @@ public abstract class GeometryBasicsRandomTools
    /**
     * Generates a random quaternion uniformly distributed on the unit-sphere.
     * <p>
-    * The rotation magnitude described by the generated quaternion is in [-{@code minMaxAngle}; {@code minMaxAngle}].
+    * The rotation magnitude described by the generated quaternion is in [-{@code minMaxAngle};
+    * {@code minMaxAngle}].
     * </p>
     * 
     * @param random the random generator to use.
@@ -411,7 +413,8 @@ public abstract class GeometryBasicsRandomTools
    /**
     * Generates a random quaternion uniformly distributed on the unit-sphere.
     * <p>
-    * The rotation magnitude described by the generated quaternion is in [-{@code minMaxAngle}; {@code minMaxAngle}].
+    * The rotation magnitude described by the generated quaternion is in [-{@code minMaxAngle};
+    * {@code minMaxAngle}].
     * </p>
     * 
     * @param random the random generator to use.
@@ -428,8 +431,9 @@ public abstract class GeometryBasicsRandomTools
     * Generates a random rigid-body transform.
     * <p>
     * <ul>
-    *    <li> The rotation part is uniformly distributed on the unit sphere and describes an rotation angle in [-<i>pi</i>; <i>pi</i>].
-    *    <li> Each component of the translation part is in [-1.0; 1.0].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
+    * angle in [-<i>pi</i>; <i>pi</i>].
+    * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
     * </p>
     * 
@@ -445,8 +449,9 @@ public abstract class GeometryBasicsRandomTools
     * Generates a random quaternion-based transform.
     * <p>
     * <ul>
-    *    <li> The rotation part is uniformly distributed on the unit sphere and describes an rotation angle in [-<i>pi</i>; <i>pi</i>].
-    *    <li> Each component of the translation part is in [-1.0; 1.0].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
+    * angle in [-<i>pi</i>; <i>pi</i>].
+    * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
     * </p>
     * 
@@ -462,9 +467,10 @@ public abstract class GeometryBasicsRandomTools
     * Generates a random affine transform.
     * <p>
     * <ul>
-    *    <li> The rotation part is uniformly distributed on the unit sphere and describes an rotation angle in [-<i>pi</i>; <i>pi</i>].
-    *    <li> Each scale factor is in ]0.0; 10.0].
-    *    <li> Each component of the translation part is in [-1.0; 1.0].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
+    * angle in [-<i>pi</i>; <i>pi</i>].
+    * <li>Each scale factor is in ]0.0; 10.0].
+    * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
     * </p>
     * 
@@ -477,7 +483,8 @@ public abstract class GeometryBasicsRandomTools
    }
 
    /**
-    * Generates a random rotation matrix uniformly distributed on the unit sphere and describes an rotation angle in [-<i>pi</i>; <i>pi</i>].
+    * Generates a random rotation matrix uniformly distributed on the unit sphere and describes an
+    * rotation angle in [-<i>pi</i>; <i>pi</i>].
     * 
     * @param random the random generator to use.
     * @return the random rotation matrix.
@@ -488,7 +495,8 @@ public abstract class GeometryBasicsRandomTools
    }
 
    /**
-    * Generates a random rotation matrix uniformly distributed on the unit sphere and describes an rotation angle in [-{@code minMaxAngle}; {@code minMaxAngle}].
+    * Generates a random rotation matrix uniformly distributed on the unit sphere and describes an
+    * rotation angle in [-{@code minMaxAngle}; {@code minMaxAngle}].
     * 
     * @param random the random generator to use.
     * @param minMaxAngle the maximum absolute angle described by the generated rotation matrix.
@@ -504,8 +512,9 @@ public abstract class GeometryBasicsRandomTools
     * Generates a random rotation-scale matrix.
     * <p>
     * <ul>
-    *    <li> The rotation part is uniformly distributed on the unit sphere and describes an rotation angle in [-<i>pi</i>; <i>pi</i>].
-    *    <li> Each scale factor is in ]0.0; {@code maxScale}].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
+    * angle in [-<i>pi</i>; <i>pi</i>].
+    * <li>Each scale factor is in ]0.0; {@code maxScale}].
     * </ul>
     * </p>
     * 
@@ -523,13 +532,15 @@ public abstract class GeometryBasicsRandomTools
     * Generates a random rotation-scale matrix.
     * <p>
     * <ul>
-    *    <li> The rotation part is uniformly distributed on the unit sphere and describes an rotation angle in [-{@code minMaxAngle}; {@code minMaxAngle}].
-    *    <li> Each scale factor is in ]0.0; {@code maxScale}].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
+    * angle in [-{@code minMaxAngle}; {@code minMaxAngle}].
+    * <li>Each scale factor is in ]0.0; {@code maxScale}].
     * </ul>
     * </p>
     * 
     * @param random the random generator to use.
-    * @param minMaxAngle the maximum absolute angle value that describes the generated rotation-scale matrix.
+    * @param minMaxAngle the maximum absolute angle value that describes the generated
+    *           rotation-scale matrix.
     * @param maxScale the maximum scale value used for each scale factor.
     * @return the random rotation-scale matrix.
     * @throws RuntimeException if {@code minMaxAngle < 0}.
@@ -621,7 +632,8 @@ public abstract class GeometryBasicsRandomTools
     * </p>
     * 
     * @param random the random generator to use.
-    * @param minMax tuple used to bound the maximum absolute value of each component of the generated vector. Not modified.
+    * @param minMax tuple used to bound the maximum absolute value of each component of the
+    *           generated vector. Not modified.
     * @return the random vector.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
@@ -724,7 +736,8 @@ public abstract class GeometryBasicsRandomTools
     * </p>
     * 
     * @param random the random generator to use.
-    * @param minMax tuple used to bound the maximum absolute value of each component of the generated 2D vector. Not modified.
+    * @param minMax tuple used to bound the maximum absolute value of each component of the
+    *           generated 2D vector. Not modified.
     * @return the random 2D vector.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
@@ -742,8 +755,10 @@ public abstract class GeometryBasicsRandomTools
     * </p>
     * 
     * @param random the random generator to use.
-    * @param min tuple used as upper-bound for each component of the generated 2D vector. Not modified.
-    * @param max tuple used as lower-bound for each component of the generated 2D vector. Not modified.
+    * @param min tuple used as upper-bound for each component of the generated 2D vector. Not
+    *           modified.
+    * @param max tuple used as lower-bound for each component of the generated 2D vector. Not
+    *           modified.
     * @return the random 2D vector.
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     */
@@ -858,9 +873,9 @@ public abstract class GeometryBasicsRandomTools
     * {@code axisAngle.getAngle()} &in; [-<i>pi</i>; <i>pi</i>].
     * </p>
     * <p>
-    * The approach used here generates uniformly a point on a sphere to create uniformly distributed random axes,
-    * <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>.
-    * The angle is then generated as a normal bounded random double.
+    * The approach used here generates uniformly a point on a sphere to create uniformly distributed
+    * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
+    * angle is then generated as a normal bounded random double.
     * </p>
     * 
     * @param random the random generator to use.
@@ -877,9 +892,9 @@ public abstract class GeometryBasicsRandomTools
     * {@code axisAngle.getAngle()} &in; [-{@code minMaxAngle}; {@code minMaxAngle}].
     * </p>
     * <p>
-    * The approach used here generates uniformly a point on a sphere to create uniformly distributed random axes,
-    * <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>.
-    * The angle is then generated as a normal bounded random double.
+    * The approach used here generates uniformly a point on a sphere to create uniformly distributed
+    * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
+    * angle is then generated as a normal bounded random double.
     * </p>
     * 
     * @param random the random generator to use.
@@ -917,7 +932,8 @@ public abstract class GeometryBasicsRandomTools
     * </p>
     * 
     * @param random the random generator to use.
-    * @param minMax tuple used to bound the maximum absolute value of each component of the generated vector. Not modified.
+    * @param minMax tuple used to bound the maximum absolute value of each component of the
+    *           generated vector. Not modified.
     * @param tupleToRandomize the tuple to randomize. Modified.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
@@ -966,7 +982,8 @@ public abstract class GeometryBasicsRandomTools
     * </p>
     * 
     * @param random the random generator to use.
-    * @param minMax tuple used to bound the maximum absolute value of each component of the generated vector. Not modified.
+    * @param minMax tuple used to bound the maximum absolute value of each component of the
+    *           generated vector. Not modified.
     * @param tupleToRandomize the 2D tuple to randomize. Modified.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */

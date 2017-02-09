@@ -10,14 +10,15 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 /**
- * This class gathers all the methods necessary to converts any type of rotation into a rotation matrix.
+ * This class gathers all the methods necessary to converts any type of rotation into a rotation
+ * matrix.
  * <p>
  * To convert an orientation into other data structure types see:
  * <ul>
- *    <li> for quaternion: {@link QuaternionConversion},
- *    <li> for axis-angle: {@link AxisAngleConversion},
- *    <li> for rotation vector: {@link RotationVectorConversion},
- *    <li> for yaw-pitch-roll: {@link YawPitchRollConversion}.
+ * <li>for quaternion: {@link QuaternionConversion},
+ * <li>for axis-angle: {@link AxisAngleConversion},
+ * <li>for rotation vector: {@link RotationVectorConversion},
+ * <li>for yaw-pitch-roll: {@link YawPitchRollConversion}.
  * </ul>
  * </p>
  * 
@@ -29,7 +30,9 @@ public abstract class RotationMatrixConversion
    private static final double EPS = 1.0e-12;
 
    /**
-    * Sets the given rotation matrix to represent a counter clockwise rotation around the z-axis of an angle {@code yaw}.
+    * Sets the given rotation matrix to represent a counter clockwise rotation around the z-axis of
+    * an angle {@code yaw}.
+    * 
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \
     * this = | sin(yaw)  cos(yaw) 0 |
@@ -46,7 +49,9 @@ public abstract class RotationMatrixConversion
    }
 
    /**
-    * Sets the given rotation matrix to represent a counter clockwise rotation around the y-axis of an angle {@code pitch}.
+    * Sets the given rotation matrix to represent a counter clockwise rotation around the y-axis of
+    * an angle {@code pitch}.
+    * 
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
@@ -63,7 +68,9 @@ public abstract class RotationMatrixConversion
    }
 
    /**
-    * Sets the given rotation matrix to represent a counter clockwise rotation around the x-axis of an angle {@code roll}.
+    * Sets the given rotation matrix to represent a counter clockwise rotation around the x-axis of
+    * an angle {@code roll}.
+    * 
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
@@ -82,14 +89,15 @@ public abstract class RotationMatrixConversion
    /**
     * Converts the given axis-angle into a rotation matrix.
     * <p>
-    * After calling this method, the axis-angle and the rotation matrix represent the same orientation.
+    * After calling this method, the axis-angle and the rotation matrix represent the same
+    * orientation.
     * </p>
     * <p>
     * Edge case:
     * <ul>
-    *    <li> if either component of the axis-angle is {@link Double#NaN}, the rotation matrix is set
-    *     to {@link Double#NaN}.
-    *    <li> if the length of the axis is below {@link #EPS}, the rotation matrix is set to identity.
+    * <li>if either component of the axis-angle is {@link Double#NaN}, the rotation matrix is set to
+    * {@link Double#NaN}.
+    * <li>if the length of the axis is below {@link #EPS}, the rotation matrix is set to identity.
     * </ul>
     * </p>
     * 
@@ -104,14 +112,15 @@ public abstract class RotationMatrixConversion
    /**
     * Converts the given axis-angle into a rotation matrix.
     * <p>
-    * After calling this method, the axis-angle and the rotation matrix represent the same orientation.
+    * After calling this method, the axis-angle and the rotation matrix represent the same
+    * orientation.
     * </p>
     * <p>
     * Edge case:
     * <ul>
-    *    <li> if either component of the axis-angle is {@link Double#NaN}, the rotation matrix is set
-    *     to {@link Double#NaN}.
-    *    <li> if the length of the axis is below {@link #EPS}, the rotation matrix is set to identity.
+    * <li>if either component of the axis-angle is {@link Double#NaN}, the rotation matrix is set to
+    * {@link Double#NaN}.
+    * <li>if the length of the axis is below {@link #EPS}, the rotation matrix is set to identity.
     * </ul>
     * </p>
     * 
@@ -166,14 +175,16 @@ public abstract class RotationMatrixConversion
    /**
     * Converts the given quaternion into a rotation matrix.
     * <p>
-    * After calling this method, the quaternion and the rotation matrix represent the same orientation.
+    * After calling this method, the quaternion and the rotation matrix represent the same
+    * orientation.
     * </p>
     * <p>
     * Edge case:
     * <ul>
-    *    <li> if either component of the quaternion is {@link Double#NaN}, the rotation matrix is set
-    *     to {@link Double#NaN}.
-    *    <li> if the norm of the quaternion is below {@link #EPS}, the rotation matrix is set to identity.
+    * <li>if either component of the quaternion is {@link Double#NaN}, the rotation matrix is set to
+    * {@link Double#NaN}.
+    * <li>if the norm of the quaternion is below {@link #EPS}, the rotation matrix is set to
+    * identity.
     * </ul>
     * </p>
     * 
@@ -232,21 +243,26 @@ public abstract class RotationMatrixConversion
    /**
     * Converts the given yaw-pitch-roll angles into a rotation matrix.
     * <p>
-    * After calling this method, the yaw-pitch-roll angles and the rotation matrix represent the same orientation.
+    * After calling this method, the yaw-pitch-roll angles and the rotation matrix represent the
+    * same orientation.
     * </p>
     * <p>
     * Edge case:
     * <ul>
-    *    <li> if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation matrix is set
-    *     to {@link Double#NaN}.
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation matrix is
+    * set to {@link Double#NaN}.
     * </ul>
     * </p>
     * <p>
-    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds
-    * to the representation of an orientation by decomposing it by three successive rotations around
-    * the three axes: Z (yaw), Y (pitch), and X (roll).
-    * The equivalent rotation matrix of such representation is:
-    * <pre> R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </pre>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the
+    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
+    * representation is:
+    * 
+    * <pre>
+    *  R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll)
+    * </pre>
+    * 
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -265,21 +281,26 @@ public abstract class RotationMatrixConversion
    /**
     * Converts the given yaw-pitch-roll angles into a rotation matrix.
     * <p>
-    * After calling this method, the yaw-pitch-roll angles and the rotation matrix represent the same orientation.
+    * After calling this method, the yaw-pitch-roll angles and the rotation matrix represent the
+    * same orientation.
     * </p>
     * <p>
     * Edge case:
     * <ul>
-    *    <li> if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation matrix is set
-    *     to {@link Double#NaN}.
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation matrix is
+    * set to {@link Double#NaN}.
     * </ul>
     * </p>
     * <p>
-    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds
-    * to the representation of an orientation by decomposing it by three successive rotations around
-    * the three axes: Z (yaw), Y (pitch), and X (roll).
-    * The equivalent rotation matrix of such representation is:
-    * <pre> R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </pre>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the
+    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
+    * representation is:
+    * 
+    * <pre>
+    *  R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll)
+    * </pre>
+    * 
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -319,13 +340,14 @@ public abstract class RotationMatrixConversion
    /**
     * Converts the given rotation vector into a rotation matrix.
     * <p>
-    * After calling this method, the rotation vector and the rotation matrix represent the same orientation.
+    * After calling this method, the rotation vector and the rotation matrix represent the same
+    * orientation.
     * </p>
     * <p>
     * Edge case:
     * <ul>
-    *    <li> if either component of the rotation vector is {@link Double#NaN}, the rotation matrix is set
-    *     to {@link Double#NaN}.
+    * <li>if either component of the rotation vector is {@link Double#NaN}, the rotation matrix is
+    * set to {@link Double#NaN}.
     * </ul>
     * </p>
     * <p>
@@ -345,13 +367,14 @@ public abstract class RotationMatrixConversion
    /**
     * Converts the given rotation vector into a rotation matrix.
     * <p>
-    * After calling this method, the rotation vector and the rotation matrix represent the same orientation.
+    * After calling this method, the rotation vector and the rotation matrix represent the same
+    * orientation.
     * </p>
     * <p>
     * Edge case:
     * <ul>
-    *    <li> if either component of the rotation vector is {@link Double#NaN}, the rotation matrix is set
-    *     to {@link Double#NaN}.
+    * <li>if either component of the rotation vector is {@link Double#NaN}, the rotation matrix is
+    * set to {@link Double#NaN}.
     * </ul>
     * </p>
     * <p>

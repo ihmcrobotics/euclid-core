@@ -7,9 +7,8 @@ public class GeometryBasicsTools
    /**
     * Calculates and returns the square root of the given value.
     * <p>
-    * This method is optimized when {@code squaredValueClosedToOne} is 
-    * equal to 1+/-{@value #EPS_NORM_FAST_SQRT} by using an approximation
-    * of the square root.
+    * This method is optimized when {@code squaredValueClosedToOne} is equal to
+    * 1+/-{@value #EPS_NORM_FAST_SQRT} by using an approximation of the square root.
     * 
     * @param squaredValueClosedToOne the value to calculates the square root of.
     * @return the value of the square root.
@@ -29,7 +28,8 @@ public class GeometryBasicsTools
     * 
     * @param a the first element.
     * @param b the second element.
-    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false}
+    *         otherwise.
     */
    public static boolean containsNaN(double a, double b)
    {
@@ -42,7 +42,8 @@ public class GeometryBasicsTools
     * @param a the first element.
     * @param b the second element.
     * @param c the third element.
-    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false}
+    *         otherwise.
     */
    public static boolean containsNaN(double a, double b, double c)
    {
@@ -56,7 +57,8 @@ public class GeometryBasicsTools
     * @param b the second element.
     * @param c the third element.
     * @param d the fourth element.
-    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false}
+    *         otherwise.
     */
    public static boolean containsNaN(double a, double b, double c, double d)
    {
@@ -75,7 +77,8 @@ public class GeometryBasicsTools
     * @param a6 the seventh element.
     * @param a7 the eighth element.
     * @param a8 the ninth element.
-    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false}
+    *         otherwise.
     */
    public static boolean containsNaN(double a0, double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
    {
@@ -92,7 +95,8 @@ public class GeometryBasicsTools
     * Tests if at least one element in the given array is equal to {@link Double#NaN}.
     * 
     * @param array the array containing the elements to test for {@link Double#NaN}. Not modified.
-    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false}
+    *         otherwise.
     */
    public static boolean containsNaN(double[] array)
    {
@@ -158,9 +162,9 @@ public class GeometryBasicsTools
     * norm = &radic;(x<sup>2</sup> + y<sup>2</sup>)
     * </p>
     * <p>
-    * This method is optimized for calculating norms closed to 1 by using {@link #fastSquareRoot(double)}.
-    * For computing norms that are not closed to 1, prefer using the usual {@link Math#sqrt(double)}
-    * on the norm squared.
+    * This method is optimized for calculating norms closed to 1 by using
+    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
+    * the usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
     * 
     * @param x the first element.
@@ -178,9 +182,9 @@ public class GeometryBasicsTools
     * norm = &radic;(x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup>)
     * </p>
     * <p>
-    * This method is optimized for calculating norms closed to 1 by using {@link #fastSquareRoot(double)}.
-    * For computing norms that are not closed to 1, prefer using the usual {@link Math#sqrt(double)}
-    * on the norm squared.
+    * This method is optimized for calculating norms closed to 1 by using
+    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
+    * the usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
     * 
     * @param x the first element.
@@ -199,9 +203,9 @@ public class GeometryBasicsTools
     * norm = &radic;(x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup> + s<sup>2</sup>)
     * </p>
     * <p>
-    * This method is optimized for calculating norms closed to 1 by using {@link #fastSquareRoot(double)}.
-    * For computing norms that are not closed to 1, prefer using the usual {@link Math#sqrt(double)}
-    * on the norm squared.
+    * This method is optimized for calculating norms closed to 1 by using
+    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
+    * the usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
     * 
     * @param x the first element.

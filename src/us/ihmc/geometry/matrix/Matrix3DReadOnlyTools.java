@@ -5,11 +5,10 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 public abstract class Matrix3DReadOnlyTools
 {
    /**
-    * Provides a {@code String} representation of the given
-    * matrix as follows:
-    * <br> m00, m01, m02
-    * <br> m10, m11, m12
-    * <br> m20, m21, m22
+    * Provides a {@code String} representation of the given matrix as follows: <br>
+    * m00, m01, m02 <br>
+    * m10, m11, m12 <br>
+    * m20, m21, m22
     * 
     * @param matrix the matrix to get a {@code String} representation of. Not modified.
     * @return the {@code String} representing the given matrix.
@@ -29,11 +28,10 @@ public abstract class Matrix3DReadOnlyTools
    }
 
    /**
-    * Provides a {@code String} representation of the given
-    * matrix as follows:
-    * <br> m00, m01, m02
-    * <br> m10, m11, m12
-    * <br> m20, m21, m22
+    * Provides a {@code String} representation of the given matrix as follows: <br>
+    * m00, m01, m02 <br>
+    * m10, m11, m12 <br>
+    * m20, m21, m22
     * 
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.

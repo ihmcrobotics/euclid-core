@@ -8,21 +8,23 @@ import us.ihmc.geometry.interfaces.GeometryObject;
 /**
  * Write and read interface for a 3 dimensional tuple.
  * <p>
- * A tuple is an abstract geometry object holding onto the common math between a 3D point and vector.
+ * A tuple is an abstract geometry object holding onto the common math between a 3D point and
+ * vector.
  * </p>
  * <p>
- * Although a point and vector hold onto the same type of information, the distinction is made between them
- * as they represent different geometry objects and are typically not handled the same way:
+ * Although a point and vector hold onto the same type of information, the distinction is made
+ * between them as they represent different geometry objects and are typically not handled the same
+ * way:
  * <ul>
- *    <li> a point represents the coordinate of a location in space.
- *     A notable difference with a vector is that the distance between two points has a physical meaning.
- *     When a point is transformed with a homogeneous transformation matrix,
- *     a point's coordinates are susceptible to be scaled, rotated, and translated.
- *    <li> a vector is not constrained to a location in space. Instead, a vector represents some
- *     physical quantity that has a direction and a magnitude such as: a velocity, a force, the translation from one
- *     point to another, etc.
- *     When a vector is transformed with a homogeneous transformation matrix,
- *     its components are susceptible to be scaled and rotated, but never to be translated.
+ * <li>a point represents the coordinate of a location in space. A notable difference with a vector
+ * is that the distance between two points has a physical meaning. When a point is transformed with
+ * a homogeneous transformation matrix, a point's coordinates are susceptible to be scaled, rotated,
+ * and translated.
+ * <li>a vector is not constrained to a location in space. Instead, a vector represents some
+ * physical quantity that has a direction and a magnitude such as: a velocity, a force, the
+ * translation from one point to another, etc. When a vector is transformed with a homogeneous
+ * transformation matrix, its components are susceptible to be scaled and rotated, but never to be
+ * translated.
  * </ul>
  * </p>
  *
@@ -116,7 +118,8 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Clips each component of this tuple to a minimum value {@code min} and a maximum value {@code max}.
+    * Clips each component of this tuple to a minimum value {@code min} and a maximum value
+    * {@code max}.
     *
     * @param min the minimum value for each component.
     * @param max the maximum value for each component.
@@ -128,11 +131,10 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Selects a component of this tuple based on {@code index}
-    * and sets it to {@code value}.
+    * Selects a component of this tuple based on {@code index} and sets it to {@code value}.
     * <p>
-    * For an {@code index} of 0, the corresponding component is {@code x}, 1
-    * it is {@code y}, 2 it is {@code z}.
+    * For an {@code index} of 0, the corresponding component is {@code x}, 1 it is {@code y}, 2 it
+    * is {@code z}.
     * </p>
     *
     * @param index the index of the component to set.
@@ -193,10 +195,11 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order
-    * from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order from the given array
+    * {@code tupleArray}.
     *
-    * @param tupleArray the array containing the new values for this tuple's components. Not modified.
+    * @param tupleArray the array containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(double[] tupleArray)
    {
@@ -204,11 +207,12 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order
-    * from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order from the given array
+    * {@code tupleArray}.
     *
     * @param startIndex the first index to start reading from in the array.
-    * @param tupleArray the array containing the new values for this tuple's components. Not modified.
+    * @param tupleArray the array containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(int startIndex, double[] tupleArray)
    {
@@ -216,10 +220,11 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order
-    * from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order from the given array
+    * {@code tupleArray}.
     *
-    * @param tupleArray the array containing the new values for this tuple's components. Not modified.
+    * @param tupleArray the array containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(float[] tupleArray)
    {
@@ -227,11 +232,12 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order
-    * from the given array {@code tupleArray}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order from the given array
+    * {@code tupleArray}.
     *
     * @param startIndex the first index to start reading from in the array.
-    * @param tupleArray the array containing the new values for this tuple's components. Not modified.
+    * @param tupleArray the array containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(int startIndex, float[] tupleArray)
    {
@@ -239,10 +245,11 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order
-    * from the given column vector starting to read from its first row index.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order from the given column
+    * vector starting to read from its first row index.
     *
-    * @param matrix the column vector containing the new values for this tuple's components. Not modified.
+    * @param matrix the column vector containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(DenseMatrix64F matrix)
    {
@@ -250,11 +257,12 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order
-    * from the given column vector starting to read from {@code startRow}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order from the given column
+    * vector starting to read from {@code startRow}.
     *
     * @param startRow the first row index to start reading in the dense-matrix.
-    * @param matrix the column vector containing the new values for this tuple's components. Not modified.
+    * @param matrix the column vector containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(int startRow, DenseMatrix64F matrix)
    {
@@ -262,12 +270,13 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order
-    * from the given matrix starting to read from {@code startRow} at the column index {@code column}.
+    * Sets this tuple's components {@code x}, {@code y}, {@code z} in order from the given matrix
+    * starting to read from {@code startRow} at the column index {@code column}.
     *
     * @param startRow the first row index to start reading in the dense-matrix.
     * @param column the column index to read in the dense-matrix.
-    * @param matrix the column vector containing the new values for this tuple's components. Not modified.
+    * @param matrix the column vector containing the new values for this tuple's components. Not
+    *           modified.
     */
    default void set(int startRow, int column, DenseMatrix64F matrix)
    {
@@ -499,6 +508,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
 
    /**
     * Scales independently each component of this tuple.
+    * 
     * <pre>
     * / this.x \   / scalarX * this.x \
     * | this.y | = | scalarY * this.y |
@@ -546,16 +556,16 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Performs a linear interpolation from this tuple to {@code other} given
-    * the percentage {@code alpha}.
+    * Performs a linear interpolation from this tuple to {@code other} given the percentage
+    * {@code alpha}.
     * <p>
     * this = (1.0 - alpha) * this + alpha * other
     * </p>
     *
     * @param other the other tuple used for the interpolation. Not modified.
-    * @param alpha the percentage used for the interpolation.
-    * A value of 0 will result in not modifying this tuple, while a value of 1
-    * is equivalent to setting this tuple to {@code other}.
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
+    *           modifying this tuple, while a value of 1 is equivalent to setting this tuple to
+    *           {@code other}.
     */
    default void interpolate(Tuple3DReadOnly<?> other, double alpha)
    {
@@ -563,17 +573,17 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
    }
 
    /**
-    * Performs a linear interpolation from {@code tuple1} to {@code tuple2} given
-    * the percentage {@code alpha}.
+    * Performs a linear interpolation from {@code tuple1} to {@code tuple2} given the percentage
+    * {@code alpha}.
     * <p>
     * this = (1.0 - alpha) * tuple1 + alpha * tuple2
     * </p>
     *
     * @param tuple1 the first tuple used in the interpolation. Not modified.
     * @param tuple2 the second tuple used in the interpolation. Not modified.
-    * @param alpha the percentage to use for the interpolation.
-    * A value of 0 will result in setting this tuple to {@code tuple1}, while a
-    * value of 1 is equivalent to setting this tuple to {@code tuple2}.
+    * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
+    *           this tuple to {@code tuple1}, while a value of 1 is equivalent to setting this tuple
+    *           to {@code tuple2}.
     */
    default void interpolate(Tuple3DReadOnly<?> tuple1, Tuple3DReadOnly<?> tuple2, double alpha)
    {

@@ -19,8 +19,8 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 /**
  * A {@code Matrix3D} is a 3-by-3 matrix used for general linear applications.
  * <p>
- * This version of 3D matrix uses double precision fields to save the value of each component.
- * It is meant for garbage free usage.
+ * This version of 3D matrix uses double precision fields to save the value of each component. It is
+ * meant for garbage free usage.
  * </p>
  * 
  * 
@@ -59,6 +59,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Creates a new 3D matrix and initializes it from the given array.
+    * 
     * <pre>
     *        / matrixArray[0]  matrixArray[1]  matrixArray[2] \
     * this = | matrixArray[3]  matrixArray[4]  matrixArray[5] |
@@ -135,6 +136,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Converts a vector to tilde form (matrix implementation of cross product).
+    * 
     * <pre>
     *        /  0 -z  y \
     * this = |  z  0 -x |
@@ -186,8 +188,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets this matrix to equal the other matrix and then
-    * normalizes this, see {@link #normalize()}.
+    * Sets this matrix to equal the other matrix and then normalizes this, see {@link #normalize()}.
     * 
     * @param other the other matrix used to update this matrix. Not modified.
     */
@@ -198,8 +199,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets this matrix to equal the other matrix and then
-    * transposes this.
+    * Sets this matrix to equal the other matrix and then transposes this.
     * <p>
     * this = other<sup>T</sup>
     * </p>
@@ -236,8 +236,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets this matrix coefficients to the per-component sum of the two given
-    * matrices.
+    * Sets this matrix coefficients to the per-component sum of the two given matrices.
     * <p>
     * this = matrix1 + matrix2
     * </p>
@@ -284,8 +283,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets this matrix coefficients to the per-component difference
-    * of the two given matrices.
+    * Sets this matrix coefficients to the per-component difference of the two given matrices.
     * <p>
     * this = matrix1 - matrix2
     * </p>
@@ -310,6 +308,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets all the coefficients of this matrix to be equal to {@code scalar}.
+    * 
     * <pre>
     *        / scalar scalar scalar \
     * this = | scalar scalar scalar |
@@ -358,14 +357,16 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales individually each row of this matrix.
+    * 
     * <pre>
     *        / scalarRow0 * m00 scalarRow0 * m01 scalarRow0 * m02 \
     * this = | scalarRow1 * m10 scalarRow1 * m11 scalarRow1 * m12 |
     *        \ scalarRow2 * m20 scalarRow2 * m21 scalarRow2 * m22 /
     * </pre>
     * <p>
-    * This operation is equivalent to pre-multiplying this matrix,
-    * i.e. this = D * this, by the following diagonal matrix D:
+    * This operation is equivalent to pre-multiplying this matrix, i.e. this = D * this, by the
+    * following diagonal matrix D:
+    * 
     * <pre>
     *     / scaleRow0     0         0     \
     * D = |     0     scaleRow1     0     |
@@ -394,14 +395,16 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales individually each column of this matrix.
+    * 
     * <pre>
     *        / scalarColumn0 * m00 scalarColumn1 * m01 scalarColumn2 * m02 \
     * this = | scalarColumn0 * m10 scalarColumn1 * m11 scalarColumn2 * m12 |
     *        \ scalarColumn0 * m20 scalarColumn1 * m21 scalarColumn2 * m22 /
     * </pre>
     * <p>
-    * This operation is equivalent to multiplying this matrix,
-    * i.e. this = this * D, by the following diagonal matrix D:
+    * This operation is equivalent to multiplying this matrix, i.e. this = this * D, by the
+    * following diagonal matrix D:
+    * 
     * <pre>
     *     / scalarColumn0       0             0       \
     * D = |       0       scalarColumn1       0       |
@@ -446,8 +449,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * where 'R' is the 3-by-3 matrix representing the rotation part of the {@code transform}.
     * </p>
     * <p>
-    * Note: the transformation of a {@code Matrix3D} strongly differs from the
-    * transformation of a {@link RotationMatrix}.
+    * Note: the transformation of a {@code Matrix3D} strongly differs from the transformation of a
+    * {@link RotationMatrix}.
     * </p>
     */
    @Override
@@ -566,8 +569,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * this = this * other<sup>-1</sup>
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of the rotation matrix preventing to actually compute its inverse.
     * </p>
     * 
@@ -584,8 +587,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * this = this * other<sup>-1</sup>
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
     * of the rotation-scale matrix preventing to actually compute its inverse.
     * </p>
     * 
@@ -682,8 +685,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * this = other<sup>-1</sup> * this
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of the rotation matrix preventing to actually compute its inverse.
     * </p>
     * 
@@ -700,8 +703,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * this = other<sup>-1</sup> * this
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
     * of the rotation-scale matrix preventing to actually compute its inverse.
     * </p>
     * 
@@ -776,15 +779,12 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets the {@code row}<sup>th</sup> row components
-    * to the values contained in the given array
+    * Sets the {@code row}<sup>th</sup> row components to the values contained in the given array
     * {@code rowArray}.
     * 
     * @param row the index of the row to set the values of.
-    * @param rowArray the array containing the new values
-    *  for the row. Not modified.
-    * @throws ArrayIndexOutOfBoundsException if {@code row}
-    * &notin; [0, 2].
+    * @param rowArray the array containing the new values for the row. Not modified.
+    * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
     */
    public void setRow(int row, double rowArray[])
    {
@@ -792,15 +792,12 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets the {@code row}<sup>th</sup> row components
-    * to the values contained in the given tuple
+    * Sets the {@code row}<sup>th</sup> row components to the values contained in the given tuple
     * {@code rowValues}.
     * 
     * @param row the index of the row to set the values of.
-    * @param rowValues the tuple containing the new values
-    *  for the row. Not modified.
-    * @throws ArrayIndexOutOfBoundsException if {@code row}
-    * &notin; [0, 2].
+    * @param rowValues the tuple containing the new values for the row. Not modified.
+    * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
     */
    public void setRow(int row, Tuple3DReadOnly<?> rowValues)
    {
@@ -808,15 +805,13 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets the {@code row}<sup>th</sup> row components
-    * to the given values.
+    * Sets the {@code row}<sup>th</sup> row components to the given values.
     * 
     * @param row the index of the row to set the values of.
     * @param x the new value of the first component in the row.
     * @param y the new value of the second component in the row.
     * @param z the new value of the third component in the row.
-    * @throws ArrayIndexOutOfBoundsException if {@code row}
-    * &notin; [0, 2].
+    * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
     */
    public void setRow(int row, double x, double y, double z)
    {
@@ -846,15 +841,12 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets the {@code column}<sup>th</sup> column components
-    * to the values contained in the given array
-    * {@code columnArray}.
+    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given
+    * array {@code columnArray}.
     * 
     * @param column the index of the column to set the values of.
-    * @param columnArray the array containing the new values
-    *  for the column. Not modified.
-    * @throws ArrayIndexOutOfBoundsException if {@code column}
-    * &notin; [0, 2].
+    * @param columnArray the array containing the new values for the column. Not modified.
+    * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
     */
    public void setColumn(int column, double columnArray[])
    {
@@ -862,15 +854,12 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets the {@code column}<sup>th</sup> column components
-    * to the values contained in the given tuple
-    * {@code columnValues}.
+    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given
+    * tuple {@code columnValues}.
     * 
     * @param column the index of the column to set the values of.
-    * @param columnValues the tuple containing the new values
-    *  for the column. Not modified.
-    * @throws ArrayIndexOutOfBoundsException if {@code column}
-    * &notin; [0, 2].
+    * @param columnValues the tuple containing the new values for the column. Not modified.
+    * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
     */
    public void setColumn(int column, Tuple3DReadOnly<?> columnValues)
    {
@@ -878,15 +867,13 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets the {@code column}<sup>th</sup> column components
-    * to the given values.
+    * Sets the {@code column}<sup>th</sup> column components to the given values.
     * 
     * @param column the index of the column to set the values of.
     * @param x the new value of the first component in the column.
     * @param y the new value of the second component in the column.
     * @param z the new value of the third component in the column.
-    * @throws ArrayIndexOutOfBoundsException if {@code column}
-    * &notin; [0, 2].
+    * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
     */
    public void setColumn(int column, double x, double y, double z)
    {
@@ -916,13 +903,11 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Scales the components of the {@code row}<sup>th</sup>
-    * row of this matrix.
+    * Scales the components of the {@code row}<sup>th</sup> row of this matrix.
     * 
     * @param row the index of the row to scale.
     * @param scalar the scale factor to apply.
-    * @throws ArrayIndexOutOfBoundsException if {@code row}
-    * &notin; [0, 2].
+    * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
     */
    public void scaleRow(int row, double scalar)
    {
@@ -952,13 +937,11 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Scales the components of the {@code column}<sup>th</sup>
-    * column of this matrix.
+    * Scales the components of the {@code column}<sup>th</sup> column of this matrix.
     * 
     * @param column the index of the column to scale.
     * @param scalar the scale factor to apply.
-    * @throws ArrayIndexOutOfBoundsException if {@code column}
-    * &notin; [0, 2].
+    * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
     */
    public void scaleColumn(int column, double scalar)
    {
@@ -988,14 +971,13 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Sets the value of the component of this matrix
-    * located by its row and column indices.
+    * Sets the value of the component of this matrix located by its row and column indices.
     * 
     * @param row the index of the component's row.
     * @param column the index of the component's column.
     * @param value the new value of the component.
-    * @throws ArrayIndexOutOfBoundsException
-    *  if {@code row} &notin; [0, 2] or {@code column} &notin; [0, 2]
+    * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2] or {@code column} &notin;
+    *            [0, 2]
     */
    public void setElement(int row, int column, double value)
    {
@@ -1298,9 +1280,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this,
-    * in which case the method returns {@link #equals(Matrix3D)}, 
-    * it returns {@code false} otherwise or if the {@code object}
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(Matrix3D)}, it returns {@code false} otherwise or if the {@code object}
     * is {@code null}.
     * 
     * @param object the object to compare against this. Not modified.
@@ -1320,16 +1301,14 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Tests on a per component basis if this matrix is
-    * exactly equal to {@code other}.
+    * Tests on a per component basis if this matrix is exactly equal to {@code other}.
     * <p>
-    * The method returns {@code false} if the given matrix
-    * is {@code null}.
+    * The method returns {@code false} if the given matrix is {@code null}.
     * </p>
     * 
     * @param other the other matrix to compare against this. Not modified.
-    * @return {@code true} if the two matrices are exactly equal
-    *  component-wise, {@code false} otherwise.
+    * @return {@code true} if the two matrices are exactly equal component-wise, {@code false}
+    *         otherwise.
     */
    public boolean equals(Matrix3D other)
    {
@@ -1337,10 +1316,10 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Provides a {@code String} representation of this matrix as follows:
-    * <br> m00, m01, m02
-    * <br> m10, m11, m12
-    * <br> m20, m21, m22
+    * Provides a {@code String} representation of this matrix as follows: <br>
+    * m00, m01, m02 <br>
+    * m10, m11, m12 <br>
+    * m20, m21, m22
     * 
     * @return the {@code String} representing this matrix.
     */
@@ -1351,8 +1330,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    }
 
    /**
-    * Calculates and returns a hash code value from the value
-    * of each component of this matrix.
+    * Calculates and returns a hash code value from the value of each component of this matrix.
     * 
     * @return the hash code value for this matrix.
     */

@@ -9,12 +9,12 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
- * An {@code AxisAngle}  is used to represent a 3D orientation by a unitary axis
- * of components (x, y, z) and an angle of rotation usually expressed in radians.
+ * An {@code AxisAngle} is used to represent a 3D orientation by a unitary axis of components (x, y,
+ * z) and an angle of rotation usually expressed in radians.
  * 
- * This version of axis-angle uses single precision fields to save the value of each component.
- * It is meant for garbage free usage and for situations where heap memory is limited.
- * When memory is not a constraint, the use of {@link AxisAngle} is preferable.
+ * This version of axis-angle uses single precision fields to save the value of each component. It
+ * is meant for garbage free usage and for situations where heap memory is limited. When memory is
+ * not a constraint, the use of {@link AxisAngle} is preferable.
  * 
  * @author Sylvain
  */
@@ -32,8 +32,8 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    private float angle;
 
    /**
-    * Creates an axis-angle that represents a "zero" rotation.
-    * The axis is equal to (1, 0, 0) and the angle to 0.
+    * Creates an axis-angle that represents a "zero" rotation. The axis is equal to (1, 0, 0) and
+    * the angle to 0.
     */
    public AxisAngle32()
    {
@@ -51,8 +51,8 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Creates an axis-angle with the given values of the axis
-    * ({@code x}, {@code y}, {@code z}) and of the angle {@code angle}.
+    * Creates an axis-angle with the given values of the axis ({@code x}, {@code y}, {@code z}) and
+    * of the angle {@code angle}.
     * 
     * @param x x-component of the axis.
     * @param y y-component of the axis.
@@ -67,10 +67,10 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    /**
     * Creates an axis-angle initialized with the values contained in the given array:
     * <ul>
-    *    <li> {@code this.setX(axisAngleArray[0]);}
-    *    <li> {@code this.setY(axisAngleArray[1]);}
-    *    <li> {@code this.setZ(axisAngleArray[2]);}
-    *    <li> {@code this.setAngle(axisAngleArray[3]);}
+    * <li>{@code this.setX(axisAngleArray[0]);}
+    * <li>{@code this.setY(axisAngleArray[1]);}
+    * <li>{@code this.setZ(axisAngleArray[2]);}
+    * <li>{@code this.setAngle(axisAngleArray[3]);}
     * </ul>
     * 
     * @param axisAngleArray the array containing the values for this axis-angle. Not modified.
@@ -92,9 +92,9 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Creates an axis-angle such that it represents the same
-    * orientation the quaternion represents.
-    * See {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
+    * Creates an axis-angle such that it represents the same orientation the quaternion represents.
+    * See
+    * {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
     * 
     * @param quaternion the quaternion used to create this axis-angle. Not modified.
     */
@@ -104,9 +104,9 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Creates an axis-angle such that it represents the same
-    * orientation the rotation matrix represents.
-    * See {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
+    * Creates an axis-angle such that it represents the same orientation the rotation matrix
+    * represents. See
+    * {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
     * 
     * @param rotationMatrix the rotation matrix used to create this axis-angle. Not modified.
     */
@@ -116,9 +116,9 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Creates an axis-angle such that it represents the same
-    * orientation the rotation vector represents.
-    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
+    * Creates an axis-angle such that it represents the same orientation the rotation vector
+    * represents. See
+    * {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
     * 
     * @param rotationVector the rotation vector used to create this axis-angle. Not modified.
     */
@@ -128,9 +128,9 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Creates an axis-angle such that it represents the same
-    * orientation the yaw-pitch-roll angles represents.
-    * See {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
+    * Creates an axis-angle such that it represents the same orientation the yaw-pitch-roll angles
+    * represents. See
+    * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
     * 
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
@@ -142,8 +142,8 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Sets this axis-angle to represent a new rotation of axis ({@code x}, {@code y}, {@code z})
-    * and angle of {@code angle}.
+    * Sets this axis-angle to represent a new rotation of axis ({@code x}, {@code y}, {@code z}) and
+    * angle of {@code angle}.
     *
     * @param x x-component of the new axis.
     * @param y y-component of the new axis.
@@ -243,9 +243,8 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this,
-    * in which case the method returns {@link #equals(AxisAngle)}, it returns {@code false}
-    * otherwise.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(AxisAngle)}, it returns {@code false} otherwise.
     * 
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -264,8 +263,7 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Provides a {@code String} representation of this axis-angle as follows:
-    * (x, y, z, angle).
+    * Provides a {@code String} representation of this axis-angle as follows: (x, y, z, angle).
     * 
     * @return the {@code String} representing this axis-angle.
     */
@@ -276,8 +274,7 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    }
 
    /**
-    * Calculates and returns a hash code value from the value
-    * of each component of this axis-angle.
+    * Calculates and returns a hash code value from the value of each component of this axis-angle.
     * 
     * @return the hash code value for this axis-angle.
     */

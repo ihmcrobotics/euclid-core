@@ -14,21 +14,21 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 /**
  * Read interface for 3-by-3 rotation-scale matrices.
  * <p>
- * A rotation-scale matrix <i>M</i> is equal to: <i> M = R * S </i>.
- * Where <i>R</i> is a rotation matrix, and <i>S</i> is a scaling
- * matrix as follows:
+ * A rotation-scale matrix <i>M</i> is equal to: <i> M = R * S </i>. Where <i>R</i> is a rotation
+ * matrix, and <i>S</i> is a scaling matrix as follows:
+ * 
  * <pre>
  *     / s<sub>x</sub> 0 0 \
  * <i>S</i> = | 0 s<sub>y</sub> 0 |
  *     \ 0 0 s<sub>z</sub> /
  * </pre>
+ * 
  * where s<sub>x</sub>, s<sub>y</sub>, and s<sub>z</sub> three non-zero positive scale factors.
  * </p>
  * <p>
- * Note: To conserve the form <i> M = R * S </i>, the algebra with a rotation-scale
- * matrix is rather restrictive.
- * For instance, an rotation-scale matrix cannot be inverted.
- * However, it can still perform the inverse of the transform it represents on geometry objects.
+ * Note: To conserve the form <i> M = R * S </i>, the algebra with a rotation-scale matrix is rather
+ * restrictive. For instance, an rotation-scale matrix cannot be inverted. However, it can still
+ * perform the inverse of the transform it represents on geometry objects.
  * </p>
  * 
  * @author Sylvain Bertrand
@@ -38,40 +38,37 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOnly<T>> extends Matrix3DReadOnly<T>
 {
    /**
-    * Returns the read-only reference to the rotation matrix
-    * used to compose this rotation-scale matrix. 
+    * Returns the read-only reference to the rotation matrix used to compose this rotation-scale
+    * matrix.
     * 
     * @return the read-only reference to the rotation matrix.
     */
    public RotationMatrixReadOnly<?> getRotationMatrix();
 
    /**
-    * Returns the read-only reference to the scale factors
-    * used to compose this rotation-scale matrix.
+    * Returns the read-only reference to the scale factors used to compose this rotation-scale
+    * matrix.
     * 
     * @return the read-only reference to the scale factors.
     */
    public Tuple3DReadOnly<?> getScale();
 
    /**
-    * Returns the current value of the first scale factor
-    * of this rotation-scale matrix.
+    * Returns the current value of the first scale factor of this rotation-scale matrix.
     * 
     * @return the value of the first scale factor.
     */
    public double getScaleX();
 
    /**
-    * Returns the current value of the second scale factor
-    * of this rotation-scale matrix.
+    * Returns the current value of the second scale factor of this rotation-scale matrix.
     * 
     * @return the value of the second scale factor.
     */
    public double getScaleY();
 
    /**
-    * Returns the current value of the third scale factor
-    * of this rotation-scale matrix.
+    * Returns the current value of the third scale factor of this rotation-scale matrix.
     * 
     * @return the value of the third scale factor.
     */
@@ -110,12 +107,11 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
    }
 
    /**
-    * Transforms the given quaternion by the rotation part
-    * of this rotation-scale matrix.
+    * Transforms the given quaternion by the rotation part of this rotation-scale matrix.
     * <p>
     * quaternionToTransform = Q(this.getRotationMatrix()) * quaternionToTransform <br>
-    * where Q(this.getRotationMatrix()) is the equivalent quaternion
-    * for the rotation part of this rotation-scale matrix.
+    * where Q(this.getRotationMatrix()) is the equivalent quaternion for the rotation part of this
+    * rotation-scale matrix.
     * </p>
     * 
     * @param quaternionToTransform the quaternion to transform. Modified.
@@ -126,13 +122,12 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
    }
 
    /**
-    * Transforms the given quaternion
-    * {@code quaternionOriginal} and stores the result into
+    * Transforms the given quaternion {@code quaternionOriginal} and stores the result into
     * {@code quaternionTransformed}.
     * <p>
     * quaternionToTransform = Q(this.getRotationMatrix()) * quaternionToTransform <br>
-    * where Q(this.getRotationMatrix()) is the equivalent quaternion
-    * for the rotation part of this rotation-scale matrix.
+    * where Q(this.getRotationMatrix()) is the equivalent quaternion for the rotation part of this
+    * rotation-scale matrix.
     * </p>
     * 
     * @param quaternionOriginal the quaternion to transform. Not modified.
@@ -156,8 +151,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
    }
 
    /**
-    * Transforms the given rotation matrix by the
-    * rotation part of this rotation-scale matrix.
+    * Transforms the given rotation matrix by the rotation part of this rotation-scale matrix.
     * <p>
     * matrixToTransform = this.getRotationMatrix() * matrixToTransform
     * </p>
@@ -170,9 +164,8 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
    }
 
    /**
-    * Transforms the given rotation matrix {@code matrixOriginal} by the
-    * rotation part of this rotation-scale matrix and stores the result
-    * in {@code matrixTransformed}.
+    * Transforms the given rotation matrix {@code matrixOriginal} by the rotation part of this
+    * rotation-scale matrix and stores the result in {@code matrixTransformed}.
     * <p>
     * matrixTransformed = this.getRotationMatrix() * matrixOriginal
     * </p>
@@ -219,16 +212,16 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion by the rotation part
-    * of this rotation-scale matrix.
+    * Performs the inverse of the transform to the given quaternion by the rotation part of this
+    * rotation-scale matrix.
     * <p>
     * quaternionToTransform = Q(this.getRotationMatrix()<sup>-1</sup>) * quaternionToTransform <br>
-    * where Q(this.getRotationMatrix()<sup>-1</sup>) is the equivalent quaternion
-    * for the inverse of the rotation part of this rotation-scale matrix.
+    * where Q(this.getRotationMatrix()<sup>-1</sup>) is the equivalent quaternion for the inverse of
+    * the rotation part of this rotation-scale matrix.
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> q<sup>-1</sup> = conjugate(q) </br>
+    * This operation uses the property: <br>
+    * q<sup>-1</sup> = conjugate(q) </br>
     * of a quaternion preventing to actually compute the inverse of the matrix.
     * </p>
     * 
@@ -240,17 +233,16 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion
-    * {@code quaternionOriginal} and stores the result into
-    * {@code quaternionTransformed}.
+    * Performs the inverse of the transform to the given quaternion {@code quaternionOriginal} and
+    * stores the result into {@code quaternionTransformed}.
     * <p>
     * quaternionToTransform = Q(this.getRotationMatrix()<sup>-1</sup>) * quaternionToTransform <br>
-    * where Q(this.getRotationMatrix()<sup>-1</sup>) is the equivalent quaternion
-    * for the inverse of the rotation part of this rotation-scale matrix.
+    * where Q(this.getRotationMatrix()<sup>-1</sup>) is the equivalent quaternion for the inverse of
+    * the rotation part of this rotation-scale matrix.
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> q<sup>-1</sup> = conjugate(q) </br>
+    * This operation uses the property: <br>
+    * q<sup>-1</sup> = conjugate(q) </br>
     * of a quaternion preventing to actually compute the inverse of the matrix.
     * </p>
     * 
@@ -274,14 +266,14 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
    }
 
    /**
-    * Performs the inverse of the transform to the given rotation matrix by the
-    * rotation part of this rotation-scale matrix.
+    * Performs the inverse of the transform to the given rotation matrix by the rotation part of
+    * this rotation-scale matrix.
     * <p>
     * matrixToTransform = this.getRotationMatrix()<sup>-1</sup> * matrixToTransform
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
     * 
@@ -293,15 +285,14 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
    }
 
    /**
-    * Transforms the given rotation matrix {@code matrixOriginal} by the
-    * rotation part of this rotation-scale matrix and stores the result
-    * in {@code matrixTransformed}.
+    * Transforms the given rotation matrix {@code matrixOriginal} by the rotation part of this
+    * rotation-scale matrix and stores the result in {@code matrixTransformed}.
     * <p>
     * matrixTransformed = this.getRotationMatrix()<sup>-1</sup> * matrixOriginal
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
     * 

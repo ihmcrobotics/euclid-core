@@ -9,22 +9,24 @@ import us.ihmc.geometry.interfaces.EpsilonComparable;
 /**
  * Read-only interface for a 2 dimensional tuple.
  * <p>
- * A tuple is an abstract geometry object holding onto the common math between a 2D point and vector.
+ * A tuple is an abstract geometry object holding onto the common math between a 2D point and
+ * vector.
  * </p>
  * <p>
- * Although a point and vector hold onto the same type of information, the distinction is made between them
- * as they represent different geometry objects and are typically not handled the same way:
+ * Although a point and vector hold onto the same type of information, the distinction is made
+ * between them as they represent different geometry objects and are typically not handled the same
+ * way:
  * <ul>
- *    <li> a point represents the coordinate of a location in space.
- *     A notable difference with a vector is that the distance between two points has a physical meaning.
- *     When a point is transformed with a homogeneous transformation matrix,
- *     a point's coordinates are susceptible to be scaled, rotated, and translated.
- *    <li> a vector is not constrained to a location in space. Instead, a vector represents some
- *     physical quantity that has a direction and a magnitude such as: a velocity, a force, the translation from one
- *     point to another, etc.
- *     When a vector is transformed with a homogeneous transformation matrix,
- *     its components are susceptible to be scaled and rotated, but never to be translated.
- * </ul> 
+ * <li>a point represents the coordinate of a location in space. A notable difference with a vector
+ * is that the distance between two points has a physical meaning. When a point is transformed with
+ * a homogeneous transformation matrix, a point's coordinates are susceptible to be scaled, rotated,
+ * and translated.
+ * <li>a vector is not constrained to a location in space. Instead, a vector represents some
+ * physical quantity that has a direction and a magnitude such as: a velocity, a force, the
+ * translation from one point to another, etc. When a vector is transformed with a homogeneous
+ * transformation matrix, its components are susceptible to be scaled and rotated, but never to be
+ * translated.
+ * </ul>
  * </p>
  * 
  * @author Sylvain Bertrand
@@ -78,11 +80,10 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Selects a component of this tuple based on {@code index}
-    * and returns its value.
+    * Selects a component of this tuple based on {@code index} and returns its value.
     * <p>
-    * For an {@code index} of 0, the corresponding component is {@code x}, while for 1
-    * it is {@code y}.
+    * For an {@code index} of 0, the corresponding component is {@code x}, while for 1 it is
+    * {@code y}.
     * </p>
     * 
     * @param index the index of the component to get.
@@ -103,10 +104,8 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Selects a component of this tuple based on {@code index}
-    * and returns its value.
-    * For an {@code index} of 0, the corresponding component is {@code x}, while for 1
-    * it is {@code y}.
+    * Selects a component of this tuple based on {@code index} and returns its value. For an
+    * {@code index} of 0, the corresponding component is {@code x}, while for 1 it is {@code y}.
     * 
     * @param index the index of the component to get.
     * @return the value of the component.
@@ -126,8 +125,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components {@code x}, {@code y} in order
-    * in an array starting from its first index.
+    * Packs the components {@code x}, {@code y} in order in an array starting from its first index.
     * 
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
     */
@@ -137,8 +135,8 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components {@code x}, {@code y} in order
-    * in an array starting from {@code startIndex}.
+    * Packs the components {@code x}, {@code y} in order in an array starting from
+    * {@code startIndex}.
     *
     * @param startIndex the index in the array where the first component is stored.
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
@@ -150,8 +148,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components {@code x}, {@code y} in order
-    * in an array starting from its first index.
+    * Packs the components {@code x}, {@code y} in order in an array starting from its first index.
     * 
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
     */
@@ -161,8 +158,8 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components {@code x}, {@code y} in order
-    * in an array starting from {@code startIndex}.
+    * Packs the components {@code x}, {@code y} in order in an array starting from
+    * {@code startIndex}.
     *
     * @param startIndex the index in the array where the first component is stored.
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
@@ -174,8 +171,8 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components {@code x}, {@code y} in order
-    * in a column vector starting from its first row index.
+    * Packs the components {@code x}, {@code y} in order in a column vector starting from its first
+    * row index.
     * 
     * @param tupleMatrixToPack the array in which this tuple is stored. Modified.
     */
@@ -185,8 +182,8 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components {@code x}, {@code y} in order
-    * in a column vector starting from {@code startRow}.
+    * Packs the components {@code x}, {@code y} in order in a column vector starting from
+    * {@code startRow}.
     * 
     * @param startRow the first row index to start writing in the dense-matrix.
     * @param tupleMatrixToPack the column vector in which this tuple is stored. Modified.
@@ -197,8 +194,8 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Packs the components {@code x}, {@code y} in order
-    * in a column vector starting from {@code startRow} at the column index {@code column}.
+    * Packs the components {@code x}, {@code y} in order in a column vector starting from
+    * {@code startRow} at the column index {@code column}.
     * 
     * @param startRow the first row index to start writing in the dense-matrix.
     * @param column the column index to write in the dense-matrix.
@@ -211,7 +208,8 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    }
 
    /**
-    * Tests on a per component basis if this tuple is equal to the given {@code other} to an {@code epsilon}.
+    * Tests on a per component basis if this tuple is equal to the given {@code other} to an
+    * {@code epsilon}.
     * 
     * @param other the other tuple to compare against this. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
@@ -227,7 +225,8 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
     * Tests on a per component basis, if this tuple is exactly equal to {@code other}.
     * 
     * @param other the other tuple to compare against this. Not modified.
-    * @return {@code true} if the two tuples are exactly equal component-wise, {@code false} otherwise.
+    * @return {@code true} if the two tuples are exactly equal component-wise, {@code false}
+    *         otherwise.
     */
    default boolean equals(T other)
    {

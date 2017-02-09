@@ -9,20 +9,19 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 /**
  * Write and read interface for a 4 dimensional vector representing a generic quaternion.
  * <p>
- * When describing a 4D tuple, its 4 components are often gathered in two groups: the scalar part {@code s}
- * and the vector part ({@code x}, {@code y}, {@code z}).
+ * When describing a 4D tuple, its 4 components are often gathered in two groups: the scalar part
+ * {@code s} and the vector part ({@code x}, {@code y}, {@code z}).
  * </p>
  * <p>
  * Note on the difference between applying a 3D transform on a quaternion and a 4D vector:
  * <ul>
- *    <li> When transformed by a homogeneous transformation matrix, a quaternion is only
- *     pre-multiplied by the rotation part of the transform, resulting in concatenating
- *     the orientations of the transform and the quaternion.
- *    <li> When transformed by a homogeneous transformation matrix, a 4D vector scalar
- *     part {@code s} remains unchanged. The vector part ({@code x}, {@code y}, {@code z})
- *     is scaled and rotated, and translated by {@code s} times the translation part of the transform.
- *     Note that for {@code s = 0}, a 4D vector behaves as a 3D vector, and for {@code s = 1}
- *     it behaves as a 3D point.
+ * <li>When transformed by a homogeneous transformation matrix, a quaternion is only pre-multiplied
+ * by the rotation part of the transform, resulting in concatenating the orientations of the
+ * transform and the quaternion.
+ * <li>When transformed by a homogeneous transformation matrix, a 4D vector scalar part {@code s}
+ * remains unchanged. The vector part ({@code x}, {@code y}, {@code z}) is scaled and rotated, and
+ * translated by {@code s} times the translation part of the transform. Note that for {@code s = 0},
+ * a 4D vector behaves as a 3D vector, and for {@code s = 1} it behaves as a 3D point.
  * </ul>
  * </p>
  * 
@@ -99,7 +98,8 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    }
 
    /**
-    * Clips each component of this vector to a minimum value {@code min} and a maximum value {@code max}.
+    * Clips each component of this vector to a minimum value {@code min} and a maximum value
+    * {@code max}.
     *
     * @param min the minimum value for each component.
     * @param max the maximum value for each component.
@@ -111,11 +111,10 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    }
 
    /**
-    * Selects a component of this vector based on {@code index}
-    * and sets it to {@code value}.
+    * Selects a component of this vector based on {@code index} and sets it to {@code value}.
     * <p>
-    * For an {@code index} value going from 0 up to 3, the corresponding components
-    * are {@code x}, {@code y}, {@code z}, and {@code s}, respectively.
+    * For an {@code index} value going from 0 up to 3, the corresponding components are {@code x},
+    * {@code y}, {@code z}, and {@code s}, respectively.
     * </p>
     *
     * @param index the index of the component to set.
@@ -187,7 +186,8 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    }
 
    /**
-    * Sets this vector to {@code tupleReadOnly} and then calls {@link #clipToMinMax(double, double)}.
+    * Sets this vector to {@code tupleReadOnly} and then calls
+    * {@link #clipToMinMax(double, double)}.
     *
     * @param min the minimum value for each component of this tuple.
     * @param max the maximum value for each component of this tuple.
@@ -380,6 +380,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Scales independently each component of this vector.
+    * 
     * <pre>
     * / this.x \   / scalarX * this.x \
     * | this.y | = | scalarY * this.y |
@@ -429,16 +430,16 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    }
 
    /**
-    * Performs a linear interpolation from this vector to {@code tupleReadOnly} given
-    * the percentage {@code alpha}.
+    * Performs a linear interpolation from this vector to {@code tupleReadOnly} given the percentage
+    * {@code alpha}.
     * <p>
     * this = (1.0 - alpha) * this + alpha * tupleReadOnly
     * </p>
     *
     * @param tupleReadOnly the tuple used for the interpolation. Not modified.
-    * @param alpha the percentage used for the interpolation.
-    * A value of 0 will result in not modifying this vector, while a value of 1
-    * is equivalent to setting this vector to {@code tupleReadOnly}.
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
+    *           modifying this vector, while a value of 1 is equivalent to setting this vector to
+    *           {@code tupleReadOnly}.
     */
    default void interpolate(Tuple4DReadOnly<?> tupleReadOnly, double alpha)
    {
@@ -446,17 +447,17 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    }
 
    /**
-    * Performs a linear interpolation from {@code tuple1} to {@code tuple2} given
-    * the percentage {@code alpha}.
+    * Performs a linear interpolation from {@code tuple1} to {@code tuple2} given the percentage
+    * {@code alpha}.
     * <p>
     * this = (1.0 - alpha) * tuple1 + alpha * tuple2
     * </p>
     *
     * @param tuple1 the first tuple used in the interpolation. Not modified.
     * @param tuple2 the second tuple used in the interpolation. Not modified.
-    * @param alpha the percentage to use for the interpolation.
-    * A value of 0 will result in setting this vector to {@code tuple1}, while a
-    * value of 1 is equivalent to setting this vector to {@code tuple2}.
+    * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
+    *           this vector to {@code tuple1}, while a value of 1 is equivalent to setting this
+    *           vector to {@code tuple2}.
     */
    default void interpolate(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2, double alpha)
    {
@@ -468,17 +469,16 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
    }
 
    /**
-    * Transforms the vector part (x, y, z) of this vector as a 3D vector
-    * and translates it by {@code s} times the translation part of the transform.
-    * The scalar part (s) remains unchanged.
+    * Transforms the vector part (x, y, z) of this vector as a 3D vector and translates it by
+    * {@code s} times the translation part of the transform. The scalar part (s) remains unchanged.
     * <p>
-    * Note that for {@code s = 0}, a 4D vector behaves as a 3D vector, and for {@code s = 1}
-    * it behaves as a 3D point.
+    * Note that for {@code s = 0}, a 4D vector behaves as a 3D vector, and for {@code s = 1} it
+    * behaves as a 3D point.
     * </p>
     * <p>
-    *    <li> {@link RigidBodyTransform} rotates then translates a vector.
-    *    <li> {@link QuaternionBasedTransform} rotates then translates a vector.
-    *    <li> {@link AffineTransform} scales, rotates, then translates a vector.
+    * <li>{@link RigidBodyTransform} rotates then translates a vector.
+    * <li>{@link QuaternionBasedTransform} rotates then translates a vector.
+    * <li>{@link AffineTransform} scales, rotates, then translates a vector.
     * </p>
     * 
     * @param transform the geometric transform to apply on this vector. Not modified.

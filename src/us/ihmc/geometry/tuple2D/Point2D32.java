@@ -8,9 +8,9 @@ import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 /**
  * A 2D point represents the 2D coordinates of a location on the XY-plane.
  * <p>
- * This version of 2D point uses single precision fields to save the value of each component.
- * It is meant for garbage free usage and for situations where heap memory is limited.
- * When memory is not a constraint, the use of {@link Point2D} is preferable.
+ * This version of 2D point uses single precision fields to save the value of each component. It is
+ * meant for garbage free usage and for situations where heap memory is limited. When memory is not
+ * a constraint, the use of {@link Point2D} is preferable.
  * </p>
  * 
  * @author Sylvain Bertrand
@@ -150,9 +150,8 @@ public class Point2D32 implements Serializable, Point2DBasics<Point2D32>
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this,
-    * in which case the method returns {@link #equals(Point2D32)}, it returns {@code false}
-    * otherwise.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(Point2D32)}, it returns {@code false} otherwise.
     * 
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -171,8 +170,7 @@ public class Point2D32 implements Serializable, Point2DBasics<Point2D32>
    }
 
    /**
-    * Provides a {@code String} representation of this point 2D as follows:
-    * (x, y).
+    * Provides a {@code String} representation of this point 2D as follows: (x, y).
     * 
     * @return the {@code String} representing this point 2D.
     */
@@ -183,8 +181,7 @@ public class Point2D32 implements Serializable, Point2DBasics<Point2D32>
    }
 
    /**
-    * Calculates and returns a hash code value from the value
-    * of each component of this point 2D.
+    * Calculates and returns a hash code value from the value of each component of this point 2D.
     * 
     * @return the hash code value for this point 2D.
     */

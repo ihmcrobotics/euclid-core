@@ -4,11 +4,9 @@ import us.ihmc.geometry.matrix.Matrix3DReadOnlyTools;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 
 /**
- * {@code RuntimeException} dedicated to matrix operations
- * in the xy-plane.
- * It is thrown when a transformation matrix refers to a
- * complete 3D operation making impossible the operation
- * with a 2D object restricted to the xy-plane.
+ * {@code RuntimeException} dedicated to matrix operations in the xy-plane. It is thrown when a
+ * transformation matrix refers to a complete 3D operation making impossible the operation with a 2D
+ * object restricted to the xy-plane.
  * 
  * @author Sylvain
  *
@@ -18,8 +16,7 @@ public class NotAMatrix2DException extends RuntimeException
    private static final long serialVersionUID = 8769481575502495447L;
 
    /**
-    * Constructs an {@code NotAMatrix2DException} with no
-    * detail message.
+    * Constructs an {@code NotAMatrix2DException} with no detail message.
     */
    public NotAMatrix2DException()
    {
@@ -27,8 +24,7 @@ public class NotAMatrix2DException extends RuntimeException
    }
 
    /**
-    * Constructs an {@code NotAMatrix2DException} with the
-    * specified detail message.
+    * Constructs an {@code NotAMatrix2DException} with the specified detail message.
     *
     * @param message the detail message.
     */
@@ -38,8 +34,8 @@ public class NotAMatrix2DException extends RuntimeException
    }
 
    /**
-    * Constructs an {@code NotAMatrix2DException} with a
-    * default detail message outputting the given matrix coefficients.
+    * Constructs an {@code NotAMatrix2DException} with a default detail message outputting the given
+    * matrix coefficients.
     *
     * @param matrix the matrix to be displayed in the detail message. Not modified.
     */
@@ -49,18 +45,27 @@ public class NotAMatrix2DException extends RuntimeException
    }
 
    /**
-    * Constructs an {@code NotAMatrix2DException} with a
-    * default detail message outputting the given matrix coefficients.
+    * Constructs an {@code NotAMatrix2DException} with a default detail message outputting the given
+    * matrix coefficients.
     *
-    * @param m00 the 1st row 1st column coefficient of the matrix to be displayed in the detail message.
-    * @param m01 the 1st row 2nd column coefficient of the matrix to be displayed in the detail message.
-    * @param m02 the 1st row 3rd column coefficient of the matrix to be displayed in the detail message.
-    * @param m10 the 2nd row 1st column coefficient of the matrix to be displayed in the detail message.
-    * @param m11 the 2nd row 2nd column coefficient of the matrix to be displayed in the detail message.
-    * @param m12 the 2nd row 3rd column coefficient of the matrix to be displayed in the detail message.
-    * @param m20 the 3rd row 1st column coefficient of the matrix to be displayed in the detail message.
-    * @param m21 the 3rd row 2nd column coefficient of the matrix to be displayed in the detail message.
-    * @param m22 the 3rd row 3rd column coefficient of the matrix to be displayed in the detail message.
+    * @param m00 the 1st row 1st column coefficient of the matrix to be displayed in the detail
+    *           message.
+    * @param m01 the 1st row 2nd column coefficient of the matrix to be displayed in the detail
+    *           message.
+    * @param m02 the 1st row 3rd column coefficient of the matrix to be displayed in the detail
+    *           message.
+    * @param m10 the 2nd row 1st column coefficient of the matrix to be displayed in the detail
+    *           message.
+    * @param m11 the 2nd row 2nd column coefficient of the matrix to be displayed in the detail
+    *           message.
+    * @param m12 the 2nd row 3rd column coefficient of the matrix to be displayed in the detail
+    *           message.
+    * @param m20 the 3rd row 1st column coefficient of the matrix to be displayed in the detail
+    *           message.
+    * @param m21 the 3rd row 2nd column coefficient of the matrix to be displayed in the detail
+    *           message.
+    * @param m22 the 3rd row 3rd column coefficient of the matrix to be displayed in the detail
+    *           message.
     */
    public NotAMatrix2DException(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {

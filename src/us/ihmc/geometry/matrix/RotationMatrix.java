@@ -23,18 +23,18 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * <p>
  * A rotation matrix has to comply to several constraints:
  * <ul>
- *    <li> each column of the matrix represents a unitary vector,
- *    <li> each row of the matrix represents a unitary vector,
- *    <li> every pair of columns of the matrix represents two orthogonal vectors,
- *    <li> every pair of rows of the matrix represents two orthogonal vectors,
- *    <li> the matrix determinant is equal to {@code 1}.
+ * <li>each column of the matrix represents a unitary vector,
+ * <li>each row of the matrix represents a unitary vector,
+ * <li>every pair of columns of the matrix represents two orthogonal vectors,
+ * <li>every pair of rows of the matrix represents two orthogonal vectors,
+ * <li>the matrix determinant is equal to {@code 1}.
  * </ul>
  * A rotation matrix has the nice property <i>R<sup>T</sup> = R<sup>-1</sup></i>.
  * </p>
  * <p>
- * A best effort has been put in the interface of {@code RotationMatrix} to maximize
- * the use of the inherent properties of a rotation matrix and to minimize
- * manipulation errors resulting in an improper rotation matrix.
+ * A best effort has been put in the interface of {@code RotationMatrix} to maximize the use of the
+ * inherent properties of a rotation matrix and to minimize manipulation errors resulting in an
+ * improper rotation matrix.
  * </p>
  * 
  * @author Sylvain Bertrand
@@ -92,6 +92,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Creates a new rotation matrix and initializes it from the given array.
+    * 
     * <pre>
     *        / rotationMatrixArray[0]  rotationMatrixArray[1]  rotationMatrixArray[2] \
     * this = | rotationMatrixArray[3]  rotationMatrixArray[4]  rotationMatrixArray[5] |
@@ -139,7 +140,8 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Creates a new rotation matrix representing the same orientation as the given {@code axisAngle}.
+    * Creates a new rotation matrix representing the same orientation as the given
+    * {@code axisAngle}.
     * 
     * @param axisAngle the axis-angle used to initialize this rotation matrix. Not modified.
     */
@@ -149,10 +151,10 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Creates a new rotation matrix representing the same orientation as the given {@code quaternion}.
+    * Creates a new rotation matrix representing the same orientation as the given
+    * {@code quaternion}.
     * 
-    * @param quaternion the quaternion used to initialize this
-    *  rotation matrix. Not modified.
+    * @param quaternion the quaternion used to initialize this rotation matrix. Not modified.
     */
    public RotationMatrix(QuaternionReadOnly<?> quaternion)
    {
@@ -160,14 +162,16 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Creates a new rotation matrix representing the same orientation as the given rotation vector {@code rotationVector}.
+    * Creates a new rotation matrix representing the same orientation as the given rotation vector
+    * {@code rotationVector}.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
     * 
-    * @param rotationVector the rotation vector used to initialize this rotation matrix. Not modified.
+    * @param rotationVector the rotation vector used to initialize this rotation matrix. Not
+    *           modified.
     */
    public RotationMatrix(Vector3DReadOnly<?> rotationVector)
    {
@@ -191,11 +195,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets the 9 coefficients of this rotation matrix without performing any checks on the data provided.
+    * Sets the 9 coefficients of this rotation matrix without performing any checks on the data
+    * provided.
     * <p>
-    * This method is meant for internal usage.
-    * Prefer using {@link #set(double, double, double, double, double, double, double, double, double)}
-    * or {@link #setAndNormalize(double, double, double, double, double, double, double, double, double)}.
+    * This method is meant for internal usage. Prefer using
+    * {@link #set(double, double, double, double, double, double, double, double, double)} or
+    * {@link #setAndNormalize(double, double, double, double, double, double, double, double, double)}.
     * </p>
     * 
     * @param m00 the new 1st row 1st column coefficient for this matrix.
@@ -285,7 +290,8 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to equal the 3D matrix {@code matrix} and then normalizes {@code this}.
+    * Sets this rotation matrix to equal the 3D matrix {@code matrix} and then normalizes
+    * {@code this}.
     * 
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
@@ -305,7 +311,8 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to equal the other given one {@code other} and then normalizes {@code this}.
+    * Sets this rotation matrix to equal the other given one {@code other} and then normalizes
+    * {@code this}.
     * 
     * @param other the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
@@ -319,14 +326,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to the invert of the given {@code matrix}.
     * <p>
-    * This operation uses the property:
-    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
     * 
     * @param matrix the matrix to copy the values from. Not modified.
-    * @throws NotARotationMatrixException if {@code matrix} is not a
-    *  rotation matrix.
+    * @throws NotARotationMatrixException if {@code matrix} is not a rotation matrix.
     */
    public void setAndInvert(Matrix3DReadOnly<?> matrix)
    {
@@ -336,8 +342,8 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to the invert of the given one {@code other}.
     * <p>
-    * This operation uses the property:
-    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
     * 
@@ -392,10 +398,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to the same orientation described by the given rotation vector {@code rotationVector}.
+    * Sets this rotation matrix to the same orientation described by the given rotation vector
+    * {@code rotationVector}.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the same axis-angle.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
     * </p>
     * 
     * @param rotation vector the rotation vector used to set this matrix. Not modified.
@@ -406,7 +414,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to represent a counter clockwise rotation around the z-axis of an angle {@code yaw}.
+    * Sets this rotation matrix to represent a counter clockwise rotation around the z-axis of an
+    * angle {@code yaw}.
+    * 
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \
     * this = | sin(yaw)  cos(yaw) 0 |
@@ -421,7 +431,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to represent a counter clockwise rotation around the y-axis of an angle {@code pitch}.
+    * Sets this rotation matrix to represent a counter clockwise rotation around the y-axis of an
+    * angle {@code pitch}.
+    * 
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
@@ -436,7 +448,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to represent a counter clockwise rotation around the x-axis of an angle {@code roll}.
+    * Sets this rotation matrix to represent a counter clockwise rotation around the x-axis of an
+    * angle {@code roll}.
+    * 
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
@@ -451,14 +465,17 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll {@code yawPitchRoll}.
+    * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
+    * {@code yawPitchRoll}.
+    * 
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
     * 
-    * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not modified.
+    * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
+    *           modified.
     */
    public void setYawPitchRoll(double[] yawPitchRoll)
    {
@@ -466,8 +483,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to represent the same orientation
-    * as the given yaw-pitch-roll {@code yaw}, {@code pitch}, and {@code roll}.
+    * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
+    * {@code yaw}, {@code pitch}, and {@code roll}.
+    * 
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -484,14 +502,17 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to represent the same orientation as the given Euler angles {@code eulerAngles}.
+    * Sets this rotation matrix to represent the same orientation as the given Euler angles
+    * {@code eulerAngles}.
+    * 
     * <pre>
     *        / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
     * this = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
     *        \         0                   0          1 /   \ -sin(eulerAngles.y) 0 cos(eulerAngles.y) /   \ 0 sin(eulerAngles.x)  cos(eulerAngles.x) /
     * </pre>
     * <p>
-    * This is equivalent to {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
+    * This is equivalent to
+    * {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
     * </p>
     * 
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
@@ -502,7 +523,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Sets this rotation matrix to represent the same orientation as the given Euler angles {@code rotX}, {@code rotY}, and {@code rotZ}.
+    * Sets this rotation matrix to represent the same orientation as the given Euler angles
+    * {@code rotX}, {@code rotY}, and {@code rotZ}.
+    * 
     * <pre>
     *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
     * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
@@ -524,8 +547,8 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Inverts this rotation matrix.
     * <p>
-    * This operation uses the property:
-    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
     * <p>
@@ -644,11 +667,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * {@inheritDoc}
     * <p>
-    * this = R * this
-    * where 'R' is the 3-by-3 matrix representing the rotation part of the {@code transform}.
+    * this = R * this where 'R' is the 3-by-3 matrix representing the rotation part of the
+    * {@code transform}.
     * </p>
     * <p>
-    * Note: the transformation of a {@code RotationMatrix} strongly differs from the transformation of a {@link Matrix3D}.
+    * Note: the transformation of a {@code RotationMatrix} strongly differs from the transformation
+    * of a {@link Matrix3D}.
     * </p>
     */
    @Override
@@ -659,15 +683,15 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Computes and packs the orientation described
-    * by this rotation matrix as a rotation vector.
+    * Computes and packs the orientation described by this rotation matrix as a rotation vector.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the same axis-angle.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
     * </p>
     * 
-    * @param rotationVectorToPack the rotation vector representing
-    *  the same orientation as this. Modified.
+    * @param rotationVectorToPack the rotation vector representing the same orientation as this.
+    *           Modified.
     */
    public void get(Vector3DBasics<?> rotationVectorToPack)
    {
@@ -677,8 +701,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Computes and packs the orientation described by this rotation matrix as the Euler angles.
     * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is sometimes undefined.
-    * </p> 
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
     * 
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
@@ -688,10 +713,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Computes and packs the orientation described by this rotation matrix as the yaw-pitch-roll angles.
+    * Computes and packs the orientation described by this rotation matrix as the yaw-pitch-roll
+    * angles.
     * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is sometimes undefined.
-    * </p> 
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
     * 
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
     */
@@ -701,10 +728,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Computes and returns the yaw angle from the yaw-pitch-roll representation of this rotation matrix.
+    * Computes and returns the yaw angle from the yaw-pitch-roll representation of this rotation
+    * matrix.
     * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is sometimes undefined.
-    * </p> 
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
     * 
     * @return the yaw angle around the z-axis.
     */
@@ -714,10 +743,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this rotation matrix.
+    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this rotation
+    * matrix.
     * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is sometimes undefined.
-    * </p> 
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
     * 
     * @return the pitch angle around the y-axis.
     */
@@ -727,10 +758,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Computes and returns the roll angle from the yaw-pitch-roll representation of this rotation matrix.
+    * Computes and returns the roll angle from the yaw-pitch-roll representation of this rotation
+    * matrix.
     * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is sometimes undefined.
-    * </p> 
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
     * 
     * @return the roll angle around the x-axis.
     */
@@ -803,10 +836,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this,
-    * in which case the method returns {@link #equals(RotationMatrix)}, 
-    * it returns {@code false} otherwise or if the {@code object}
-    * is {@code null}.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(RotationMatrix)}, it returns {@code false} otherwise or if the
+    * {@code object} is {@code null}.
     * 
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -825,16 +857,14 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Tests on a per component basis if this matrix is
-    * exactly equal to {@code other}.
+    * Tests on a per component basis if this matrix is exactly equal to {@code other}.
     * <p>
-    * The method returns {@code false} if the given matrix
-    * is {@code null}.
+    * The method returns {@code false} if the given matrix is {@code null}.
     * </p>
     * 
     * @param other the other matrix to compare against this. Not modified.
-    * @return {@code true} if the two matrices are exactly equal
-    *  component-wise, {@code false} otherwise.
+    * @return {@code true} if the two matrices are exactly equal component-wise, {@code false}
+    *         otherwise.
     */
    public boolean equals(RotationMatrix other)
    {
@@ -842,10 +872,10 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Provides a {@code String} representation of this matrix as follows:
-    * <br> m00, m01, m02
-    * <br> m10, m11, m12
-    * <br> m20, m21, m22
+    * Provides a {@code String} representation of this matrix as follows: <br>
+    * m00, m01, m02 <br>
+    * m10, m11, m12 <br>
+    * m20, m21, m22
     * 
     * @return the {@code String} representing this matrix.
     */
@@ -856,8 +886,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
-    * Calculates and returns a hash code value from the value
-    * of each component of this matrix.
+    * Calculates and returns a hash code value from the value of each component of this matrix.
     * 
     * @return the hash code value for this matrix.
     */

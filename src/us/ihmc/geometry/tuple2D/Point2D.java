@@ -8,8 +8,8 @@ import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 /**
  * A 2D point represents the 2D coordinates of a location on the XY-plane.
  * <p>
- * This version of 2D point uses double precision fields to save the value of each component.
- * It is meant for garbage free usage.
+ * This version of 2D point uses double precision fields to save the value of each component. It is
+ * meant for garbage free usage.
  * </p>
  * 
  * @author Sylvain Bertrand
@@ -107,9 +107,8 @@ public class Point2D implements Serializable, Point2DBasics<Point2D>
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this,
-    * in which case the method returns {@link #equals(Point2D)}, it returns {@code false}
-    * otherwise.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(Point2D)}, it returns {@code false} otherwise.
     * 
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -128,8 +127,7 @@ public class Point2D implements Serializable, Point2DBasics<Point2D>
    }
 
    /**
-    * Provides a {@code String} representation of this point 2D as follows:
-    * (x, y).
+    * Provides a {@code String} representation of this point 2D as follows: (x, y).
     * 
     * @return the {@code String} representing this point 2D.
     */
@@ -140,8 +138,7 @@ public class Point2D implements Serializable, Point2DBasics<Point2D>
    }
 
    /**
-    * Calculates and returns a hash code value from the value
-    * of each component of this point 2D.
+    * Calculates and returns a hash code value from the value of each component of this point 2D.
     * 
     * @return the hash code value for this point 2D.
     */

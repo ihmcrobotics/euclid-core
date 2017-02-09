@@ -5,7 +5,8 @@ import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 public abstract class RotationMatrixTools
 {
    /**
-    * Performs the multiplication: {@code m1} * {@code m2} and stores the result in {@code matrixToPack}.
+    * Performs the multiplication: {@code m1} * {@code m2} and stores the result in
+    * {@code matrixToPack}.
     * <p>
     * All the matrices can be the same object.
     * </p>
@@ -29,7 +30,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Performs the multiplication: {@code m1}<sup>T</sup> * {@code m2}<sup>T</sup> and stores the result in {@code matrixToPack}.
+    * Performs the multiplication: {@code m1}<sup>T</sup> * {@code m2}<sup>T</sup> and stores the
+    * result in {@code matrixToPack}.
     * <p>
     * All the matrices can be the same object.
     * <p>
@@ -53,7 +55,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Performs the multiplication: {@code m1}<sup>T</sup> * {@code m2} and stores the result in {@code matrixToPack}.
+    * Performs the multiplication: {@code m1}<sup>T</sup> * {@code m2} and stores the result in
+    * {@code matrixToPack}.
     * <p>
     * All the matrices can be the same object.
     * <p>
@@ -77,7 +80,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Performs the multiplication: {@code m1} * {@code m2}<sup>T</sup> and stores the result in {@code matrixToPack}.
+    * Performs the multiplication: {@code m1} * {@code m2}<sup>T</sup> and stores the result in
+    * {@code matrixToPack}.
     * <p>
     * All the matrices can be the same object.
     * <p>

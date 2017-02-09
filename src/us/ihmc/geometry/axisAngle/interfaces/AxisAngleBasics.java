@@ -9,8 +9,8 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 /**
  * Write and read interface for an axis-angle object.
  * <p>
- * An axis-angle is used to represent a 3D orientation by a unitary axis
- * of components (x, y, z) and an angle of rotation usually expressed in radians.
+ * An axis-angle is used to represent a 3D orientation by a unitary axis of components (x, y, z) and
+ * an angle of rotation usually expressed in radians.
  * </p>
  * 
  * @author Sylvain
@@ -48,8 +48,8 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    void setZ(double z);
 
    /**
-    * Sets the components of this axis-angle to represent a "zero" rotation.
-    * After calling the axis is equal to (1, 0, 0) and the angle to 0.
+    * Sets the components of this axis-angle to represent a "zero" rotation. After calling the axis
+    * is equal to (1, 0, 0) and the angle to 0.
     */
    @Override
    default void setToZero()
@@ -69,7 +69,8 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    /**
     * Tests if this axis-angle contains a {@link Double#NaN}.
     * 
-    * @return {@code true} if this axis-angle contains a {@link Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if this axis-angle contains a {@link Double#NaN}, {@code false}
+    *         otherwise.
     */
    @Override
    default boolean containsNaN()
@@ -86,8 +87,8 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    }
 
    /**
-    * Sets this axis-angle to represent a new rotation of axis ({@code x}, {@code y}, {@code z})
-    * and angle of {@code angle}.
+    * Sets this axis-angle to represent a new rotation of axis ({@code x}, {@code y}, {@code z}) and
+    * angle of {@code angle}.
     *
     * @param x x-component of the new axis.
     * @param y y-component of the new axis.
@@ -136,10 +137,10 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    /**
     * Copies the values in the given array into this axis-angle as follows:
     * <ul>
-    *    <li> {@code this.setX(axisAngleArray[0]);}
-    *    <li> {@code this.setY(axisAngleArray[1]);}
-    *    <li> {@code this.setZ(axisAngleArray[2]);}
-    *    <li> {@code this.setAngle(axisAngleArray[3]);}
+    * <li>{@code this.setX(axisAngleArray[0]);}
+    * <li>{@code this.setY(axisAngleArray[1]);}
+    * <li>{@code this.setZ(axisAngleArray[2]);}
+    * <li>{@code this.setAngle(axisAngleArray[3]);}
     * </ul>
     * 
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
@@ -152,11 +153,12 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    /**
     * Copies the values in the given array into this axis-angle as follows:
     * <ul>
-    *    <li> {@code this.setX(axisAngleArray[startIndex + 0]);}
-    *    <li> {@code this.setY(axisAngleArray[startIndex + 1]);}
-    *    <li> {@code this.setZ(axisAngleArray[startIndex + 2]);}
-    *    <li> {@code this.setAngle(axisAngleArray[startIndex + 3]);}
+    * <li>{@code this.setX(axisAngleArray[startIndex + 0]);}
+    * <li>{@code this.setY(axisAngleArray[startIndex + 1]);}
+    * <li>{@code this.setZ(axisAngleArray[startIndex + 2]);}
+    * <li>{@code this.setAngle(axisAngleArray[startIndex + 3]);}
     * </ul>
+    * 
     * @param startIndex the first index to start reading from in the array.
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     */
@@ -171,10 +173,10 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    /**
     * Copies the values in the given array into this axis-angle as follows:
     * <ul>
-    *    <li> {@code this.setX(axisAngleArray[0]);}
-    *    <li> {@code this.setY(axisAngleArray[1]);}
-    *    <li> {@code this.setZ(axisAngleArray[2]);}
-    *    <li> {@code this.setAngle(axisAngleArray[3]);}
+    * <li>{@code this.setX(axisAngleArray[0]);}
+    * <li>{@code this.setY(axisAngleArray[1]);}
+    * <li>{@code this.setZ(axisAngleArray[2]);}
+    * <li>{@code this.setAngle(axisAngleArray[3]);}
     * </ul>
     * 
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
@@ -187,11 +189,12 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    /**
     * Copies the values in the given array into this axis-angle as follows:
     * <ul>
-    *    <li> {@code this.setX(axisAngleArray[startIndex + 0]);}
-    *    <li> {@code this.setY(axisAngleArray[startIndex + 1]);}
-    *    <li> {@code this.setZ(axisAngleArray[startIndex + 2]);}
-    *    <li> {@code this.setAngle(axisAngleArray[startIndex + 3]);}
+    * <li>{@code this.setX(axisAngleArray[startIndex + 0]);}
+    * <li>{@code this.setY(axisAngleArray[startIndex + 1]);}
+    * <li>{@code this.setZ(axisAngleArray[startIndex + 2]);}
+    * <li>{@code this.setAngle(axisAngleArray[startIndex + 3]);}
     * </ul>
+    * 
     * @param startIndex the first index to start reading from in the array.
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     */
@@ -204,9 +207,9 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    }
 
    /**
-    * Sets the components of this axis-angle such that it represents the same
-    * orientation as the given {@code quaternion}.
-    * See {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
+    * Sets the components of this axis-angle such that it represents the same orientation as the
+    * given {@code quaternion}. See
+    * {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
     * 
     * @param quaternion the quaternion to convert. Not modified.
     */
@@ -216,9 +219,9 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    }
 
    /**
-    * Sets the components of this axis-angle such that it represents the same
-    * orientation as the given {@code rotationMatrix}.
-    * See {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
+    * Sets the components of this axis-angle such that it represents the same orientation as the
+    * given {@code rotationMatrix}. See
+    * {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
     * 
     * @param rotationMatrix the rotation matrix to convert. Not modified.
     */
@@ -228,9 +231,9 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    }
 
    /**
-    * Sets the components of this axis-angle such that it represents the same
-    * orientation as the given {@code rotationVector}.
-    * See {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
+    * Sets the components of this axis-angle such that it represents the same orientation as the
+    * given {@code rotationVector}. See
+    * {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
@@ -245,9 +248,9 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    }
 
    /**
-    * Sets the components of this axis-angle such that it represents the same
-    * orientation as the given yaw-pitch-roll angles.
-    * See {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double[], AxisAngleBasics)}.
+    * Sets the components of this axis-angle such that it represents the same orientation as the
+    * given yaw-pitch-roll angles. See
+    * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double[], AxisAngleBasics)}.
     * 
     * @param yawPitchRoll array containing the yaw, pitch, and roll angles. Not modified.
     */
@@ -257,9 +260,9 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    }
 
    /**
-    * Sets the components of this axis-angle such that it represents the same
-    * orientation as the given yaw-pitch-roll angles.
-    * See {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
+    * Sets the components of this axis-angle such that it represents the same orientation as the
+    * given yaw-pitch-roll angles. See
+    * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
     * 
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
@@ -271,11 +274,10 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    }
 
    /**
-    * Selects a component of this axis-angle based on {@code index}
-    * and sets it to {@code value}.
+    * Selects a component of this axis-angle based on {@code index} and sets it to {@code value}.
     * <p>
-    * For {@code index} values of 0, 1, and 2, the corresponding components
-    * are x, y, and z, respectively, while 3 corresponds to the angle.
+    * For {@code index} values of 0, 1, and 2, the corresponding components are x, y, and z,
+    * respectively, while 3 corresponds to the angle.
     * </p>
     * 
     * @param index the index of the component to set.

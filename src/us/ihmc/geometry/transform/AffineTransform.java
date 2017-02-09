@@ -34,30 +34,33 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
 /**
- * An {@code AffineTransform} represents a 4-by-4 transformation matrix that can scale, rotate, and translate.
+ * An {@code AffineTransform} represents a 4-by-4 transformation matrix that can scale, rotate, and
+ * translate.
  * <p>
  * For efficiency and readability, the transform is never stored in a 4-by-4 matrix.
  * </p>
  * <p>
- * The {@code AffineTransform} is composed of {@link RotationScaleMatrix} to scale and rotate, and a {@link Vector3D} to translate.
+ * The {@code AffineTransform} is composed of {@link RotationScaleMatrix} to scale and rotate, and a
+ * {@link Vector3D} to translate.
  * </p>
  * <p>
- * Because the {@code RotationScaleMatrix} a restrictive type of matrix, the algebra available with this is somewhat
- * restricted to keep the rotation-scale matrix proper at all time.
- * For instance, an affine transform cannot be inverted.
- * However, it can still perform the inverse of the transform it represents on geometry objects.
+ * Because the {@code RotationScaleMatrix} a restrictive type of matrix, the algebra available with
+ * this is somewhat restricted to keep the rotation-scale matrix proper at all time. For instance,
+ * an affine transform cannot be inverted. However, it can still perform the inverse of the
+ * transform it represents on geometry objects.
  * </p>
  * <p>
  * A few special cases to keep in mind:
  * <ul>
- *    <li> when transforming a {@link QuaternionBasics}, the rotation part of this transform is prepend to the quaternion,
- *     such that the output remains a proper unit-quaternion that still only describes a rotation.
- *    <li> when transforming a {@link RotationMatrix}, the rotation part of this transform is prepend to the rotation matrix,
- *     such that the output remains a proper rotation matrix.
- *    <li> when applying this transform on a {@link Point3DBasics} or {@link Point2DBasics}, this object is, in order, scaled, 
- *     rotated, and then translated.
- *    <li> when applying this transform on a {@link Vector3DBasics} or {@link Vector2DBasics}, this object is, in order, scaled, 
- *     and then rotated. It is NOT translated.
+ * <li>when transforming a {@link QuaternionBasics}, the rotation part of this transform is prepend
+ * to the quaternion, such that the output remains a proper unit-quaternion that still only
+ * describes a rotation.
+ * <li>when transforming a {@link RotationMatrix}, the rotation part of this transform is prepend to
+ * the rotation matrix, such that the output remains a proper rotation matrix.
+ * <li>when applying this transform on a {@link Point3DBasics} or {@link Point2DBasics}, this object
+ * is, in order, scaled, rotated, and then translated.
+ * <li>when applying this transform on a {@link Vector3DBasics} or {@link Vector2DBasics}, this
+ * object is, in order, scaled, and then rotated. It is NOT translated.
  * </ul>
  * </p>
  * 
@@ -74,8 +77,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Creates a new affine transform set to identity.
     * <p>
-    * When set to identity, this transform has no effect when transforming a
-    * geometry object.
+    * When set to identity, this transform has no effect when transforming a geometry object.
     * </p>
     */
    public AffineTransform()
@@ -106,8 +108,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Creates a new affine transform and initializes it from the given rotation-scale matrix
-    * and the given translation.
+    * Creates a new affine transform and initializes it from the given rotation-scale matrix and the
+    * given translation.
     * 
     * @param rotationScaleMatrix the rotation-scale matrix to copy. Not modified.
     * @param translation the translation to copy. Not modified.
@@ -120,8 +122,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Resets this affine transform to identity.
     * <p>
-    * When set to identity, this transform has no effect when transforming a
-    * geometry object.
+    * When set to identity, this transform has no effect when transforming a geometry object.
     * </p>
     */
    public void setIdentity()
@@ -133,8 +134,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Resets this affine transform to identity.
     * <p>
-    * When set to identity, this transform has no effect when transforming a
-    * geometry object.
+    * When set to identity, this transform has no effect when transforming a geometry object.
     * </p>
     */
    @Override
@@ -205,7 +205,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Tests if at least one element of this transform is equal to {@linkplain Double#NaN}.
     * 
-    * @return {@code true} if at least one element of this transform is equal to {@linkplain Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if at least one element of this transform is equal to
+    *         {@linkplain Double#NaN}, {@code false} otherwise.
     */
    @Override
    public boolean containsNaN()
@@ -241,8 +242,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param m21 the 3rd row 2nd column component of the rotation-scale part of this transform.
     * @param m22 the 3rd row 3rd column component of the rotation-scale part of this transform.
     * @param m23 the z-component of the translation part of this transform.
-    * @throws NotARotationScaleMatrixException if the components for the rotation-scale part do not represent
-    *  a rotation-scale matrix.
+    * @throws NotARotationScaleMatrixException if the components for the rotation-scale part do not
+    *            represent a rotation-scale matrix.
     */
    public void set(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22,
                    double m23)
@@ -280,12 +281,15 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * Sets the raw components of this affine transform from the given {@code matrix}.
     * <p>
     * The rotation-scale part M is set as follows:
+    * 
     * <pre>
     *     / matrix.get(0, 0) matrix.get(0, 1) matrix.get(0, 2) \
     * M = | matrix.get(1, 0) matrix.get(1, 1) matrix.get(1, 2) |
     *     \ matrix.get(2, 0) matrix.get(2, 1) matrix.get(2, 2) /
     * </pre>
+    * 
     * The translation part T is set as follows:
+    * 
     * <pre>
     *     / matrix.get(0, 3) \
     * T = | matrix.get(1, 3) |
@@ -294,8 +298,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * </p>
     * 
     * @param matrix the matrix to get this transform's components from. Not modified.
-    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale
-    *  part of this transform is not a rotation-scale matrix.
+    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part
+    *            of this transform is not a rotation-scale matrix.
     */
    public void set(DenseMatrix64F matrix)
    {
@@ -307,12 +311,15 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * Sets the raw components of this affine transform from the given {@code matrix}.
     * <p>
     * The rotation-scale part M is set as follows:
+    * 
     * <pre>
     *     / matrix.get(startRow + 0, startColumn + 0) matrix.get(startRow + 0, startColumn + 1) matrix.get(startRow + 0, startColumn + 2) \
     * M = | matrix.get(startRow + 1, startColumn + 0) matrix.get(startRow + 1, startColumn + 1) matrix.get(startRow + 1, startColumn + 2) |
     *     \ matrix.get(startRow + 2, startColumn + 0) matrix.get(startRow + 2, startColumn + 1) matrix.get(startRow + 2, startColumn + 2) /
     * </pre>
+    * 
     * The translation part T is set as follows:
+    * 
     * <pre>
     *     / matrix.get(startRow + 0, startColumn + 3) \
     * T = | matrix.get(startRow + 1, startColumn + 3) |
@@ -323,8 +330,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param matrix the matrix to get this transform's components from. Not modified.
     * @param startRow the row index of the first component to read.
     * @param startColumn the column index of the first component to read.
-    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale
-    *  part of this transform is not a rotation-scale matrix.
+    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part
+    *            of this transform is not a rotation-scale matrix.
     */
    public void set(DenseMatrix64F matrix, int startRow, int startColumn)
    {
@@ -336,12 +343,15 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * Sets the raw components of this affine transform from the given {@code transformArray}.
     * <p>
     * The rotation-scale part M is set as follows:
+    * 
     * <pre>
     *     / transformArray[0] transformArray[1] transformArray[ 2] \
     * M = | transformArray[4] transformArray[5] transformArray[ 6] |
     *     \ transformArray[8] transformArray[9] transformArray[10] /
     * </pre>
+    * 
     * The translation part T is set as follows:
+    * 
     * <pre>
     *     / transformArray[ 3] \
     * T = | transformArray[ 7] |
@@ -349,9 +359,10 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * </pre>
     * </p>
     * 
-    * @param transformArray the 1D row-major array to get this transform's components from. Not modified.
-    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale
-    *  part of this transform is not a rotation-scale matrix.
+    * @param transformArray the 1D row-major array to get this transform's components from. Not
+    *           modified.
+    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part
+    *            of this transform is not a rotation-scale matrix.
     */
    public void set(double[] transformArray)
    {
@@ -375,9 +386,11 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation-scale and translation parts of this transform separately.
     * 
-    * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform. Not modified.
+    * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform.
+    *           Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationScaleMatrixException if the given {@code rotationScaleMatrix} is not a rotation-scale matrix.
+    * @throws NotARotationScaleMatrixException if the given {@code rotationScaleMatrix} is not a
+    *            rotation-scale matrix.
     */
    public void set(Matrix3DReadOnly<?> rotationScaleMatrix, Tuple3DReadOnly<?> translation)
    {
@@ -388,7 +401,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation-scale and translation parts of this transform separately.
     * 
-    * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform. Not modified.
+    * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform.
+    *           Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
    public void set(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DReadOnly<?> translation)
@@ -400,10 +414,12 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
     * @param scale the scalar used to set the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
+    *            matrix.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
    public void set(Matrix3DReadOnly<?> rotationMatrix, double scale, Tuple3DReadOnly<?> translation)
@@ -415,12 +431,14 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
     * @param scaleX the new x-component of the scale part of this transform.
     * @param scaleY the new y-component of the scale part of this transform.
     * @param scaleZ the new z-component of the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
+    *            matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
    public void set(Matrix3DReadOnly<?> rotationMatrix, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly<?> translation)
@@ -432,10 +450,12 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
     * @param scales the tuple used to set the scale part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
+    *            matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
    public void set(Matrix3DReadOnly<?> rotationMatrix, Tuple3DReadOnly<?> scales, Tuple3DReadOnly<?> translation)
@@ -447,7 +467,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
     * @param scale the scalar used to set the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -461,7 +482,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
     * @param scaleX the new x-component of the scale part of this transform.
     * @param scaleY the new y-component of the scale part of this transform.
     * @param scaleZ the new z-component of the scale part of this transform.
@@ -477,7 +499,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
     * @param scales the tuple used to set the scale part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
@@ -535,7 +558,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
+    * @param quaternion the quaternion used to set the rotation part of this transform. Not
+    *           modified.
     * @param scale the scalar used to set the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -549,7 +573,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
+    * @param quaternion the quaternion used to set the rotation part of this transform. Not
+    *           modified.
     * @param scaleX the new x-component of the scale part of this transform.
     * @param scaleY the new y-component of the scale part of this transform.
     * @param scaleZ the new z-component of the scale part of this transform.
@@ -565,7 +590,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     * 
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
+    * @param quaternion the quaternion used to set the rotation part of this transform. Not
+    *           modified.
     * @param scales the tuple used to set the scale part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
@@ -600,7 +626,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * of the same axis-angle.
     * </p>
     * 
-    * @param rotationVector the rotation vector used to set the rotation part of this transform. Not modified.
+    * @param rotationVector the rotation vector used to set the rotation part of this transform. Not
+    *           modified.
     */
    public void setRotation(Vector3DReadOnly<?> rotationVector)
    {
@@ -613,8 +640,10 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
+    *            matrix.
     */
    public void setRotation(DenseMatrix64F rotationMatrix)
    {
@@ -627,7 +656,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     * 
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
+    * @param quaternion the quaternion used to set the rotation part of this transform. Not
+    *           modified.
     */
    public void setRotation(QuaternionReadOnly<?> quaternion)
    {
@@ -640,8 +670,10 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
+    *            matrix.
     */
    public void setRotation(Matrix3DReadOnly<?> rotationMatrix)
    {
@@ -654,7 +686,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     * 
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
     */
    public void setRotation(RotationMatrix rotationMatrix)
    {
@@ -662,8 +695,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Sets the rotation part of this transform to represent a counter clockwise rotation
-    * around the z-axis of an angle {@code yaw}.
+    * Sets the rotation part of this transform to represent a counter clockwise rotation around the
+    * z-axis of an angle {@code yaw}.
+    * 
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \
     * R = | sin(yaw)  cos(yaw) 0 |
@@ -681,8 +715,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Sets the rotation part of this transform to represent a counter clockwise rotation
-    * around the y-axis of an angle {@code pitch}. 
+    * Sets the rotation part of this transform to represent a counter clockwise rotation around the
+    * y-axis of an angle {@code pitch}.
+    * 
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
@@ -700,8 +735,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Sets the rotation part of this transform to represent a counter clockwise rotation
-    * around the x-axis of an angle {@code roll}. 
+    * Sets the rotation part of this transform to represent a counter clockwise rotation around the
+    * x-axis of an angle {@code roll}.
+    * 
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
@@ -721,6 +757,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given
     * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
+    * 
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -740,6 +777,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given
     * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
+    * 
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -759,8 +797,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Sets the rotation part of this transform to represent
-    * the same orientation as the given Euler angles {@code eulerAngles}.
+    * Sets the rotation part of this transform to represent the same orientation as the given Euler
+    * angles {@code eulerAngles}.
+    * 
     * <pre>
     *     / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
     * R = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
@@ -770,7 +809,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     * <p>
-    * This is equivalent to {@code this.setRotationYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
+    * This is equivalent to
+    * {@code this.setRotationYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
     * </p>
     * 
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
@@ -781,8 +821,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Sets the rotation part of this transform to represent
-    * the same orientation as the given Euler angles {@code rotX}, {@code rotY}, and {@code rotZ}.
+    * Sets the rotation part of this transform to represent the same orientation as the given Euler
+    * angles {@code rotX}, {@code rotY}, and {@code rotZ}.
+    * 
     * <pre>
     *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
     * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
@@ -1017,11 +1058,10 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Packs the rotation and translation parts of this transform in the given
-    * rigid-body transform.
+    * Packs the rotation and translation parts of this transform in the given rigid-body transform.
     * 
-    * @param rigidBodyTransformToPack the transform in which the rotation and translation parts
-    *  of this affine transform are stored. Modified.
+    * @param rigidBodyTransformToPack the transform in which the rotation and translation parts of
+    *           this affine transform are stored. Modified.
     */
    public void getRigidBodyTransform(RigidBodyTransform rigidBodyTransformToPack)
    {
@@ -1031,14 +1071,16 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Packs this transform as a 4-by-4 matrix.
+    * 
     * <pre>
     *     / M(0, 0) M(0, 1) M(0, 2) Tx \
     * H = | M(1, 0) M(1, 1) M(1, 2) Ty |
     *     | M(2, 0) M(2, 1) M(2, 2) Tz |
     *     \    0       0       0     1 /
     * </pre>
-    * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation
-    * part of this transform.
+    * 
+    * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation part of this
+    * transform.
     * 
     * @param matrixToPack the matrix in which this transform is stored. Modified.
     */
@@ -1054,14 +1096,16 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Packs this transform as a 4-by-4 matrix.
+    * 
     * <pre>
     *     / M(0, 0) M(0, 1) M(0, 2) Tx \
     * H = | M(1, 0) M(1, 1) M(1, 2) Ty |
     *     | M(2, 0) M(2, 1) M(2, 2) Tz |
     *     \    0       0       0     1 /
     * </pre>
-    * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation
-    * part of this transform.
+    * 
+    * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation part of this
+    * transform.
     * 
     * @param startRow the first row index to start writing in {@code matrixToPack}.
     * @param startColumn the first column index to start writing in {@code matrixToPack}.
@@ -1080,14 +1124,16 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Packs this transform as a 4-by-4 matrix into a 1D row-major array.
+    * 
     * <pre>
     *     / M(0, 0) M(0, 1) M(0, 2) Tx \
     * H = | M(1, 0) M(1, 1) M(1, 2) Ty |
     *     | M(2, 0) M(2, 1) M(2, 2) Tz |
     *     \    0       0       0     1 /
     * </pre>
-    * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation
-    * part of this transform.
+    * 
+    * where M is the 3-by-3 rotation-scale matrix and (Tx, Ty, Tz) is the translation part of this
+    * transform.
     * 
     * @param transformArrayToPack the array in which this transform is stored. Modified.
     */
@@ -1114,8 +1160,10 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation-scale matrix and the translation vector of this affine transform.
     * 
-    * @param rotationScaleMarixToPack matrix in which the rotation-scale matrix of this affine transform is stored. Modified.
-    * @param translationToPack tuple in which the translation vector of this affine transform is stored. Modified.
+    * @param rotationScaleMarixToPack matrix in which the rotation-scale matrix of this affine
+    *           transform is stored. Modified.
+    * @param translationToPack tuple in which the translation vector of this affine transform is
+    *           stored. Modified.
     */
    public void get(Matrix3DBasics<?> rotationScaleMarixToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
@@ -1126,8 +1174,10 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation-scale matrix and the translation vector of this affine transform.
     * 
-    * @param rotationScaleMarixToPack matrix in which the rotation-scale matrix of this affine transform is stored. Modified.
-    * @param translationToPack tuple in which the translation vector of this affine transform is stored. Modified.
+    * @param rotationScaleMarixToPack matrix in which the rotation-scale matrix of this affine
+    *           transform is stored. Modified.
+    * @param translationToPack tuple in which the translation vector of this affine transform is
+    *           stored. Modified.
     */
    public void get(RotationScaleMatrix rotationScaleMarixToPack, Tuple3DBasics<Vector3D> translationToPack)
    {
@@ -1148,7 +1198,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform.
     * 
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored. Modified.
+    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
+    *           Modified.
     */
    public void getRotation(Matrix3DBasics<?> rotationMatrixToPack)
    {
@@ -1158,7 +1209,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform.
     * 
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored. Modified.
+    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
+    *           Modified.
     */
    public void getRotation(RotationMatrix rotationMatrixToPack)
    {
@@ -1168,7 +1220,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform.
     * 
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored. Modified.
+    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
+    *           Modified.
     */
    public void getRotation(DenseMatrix64F rotationMatrixToPack)
    {
@@ -1178,7 +1231,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform in 1D row-major array.
     * 
-    * @param rotationMatrixArrayToPack the array in which the rotation part of this transform is stored. Modified.
+    * @param rotationMatrixArrayToPack the array in which the rotation part of this transform is
+    *           stored. Modified.
     */
    public void getRotation(double[] rotationMatrixArrayToPack)
    {
@@ -1188,7 +1242,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform as a quaternion.
     * 
-    * @param quaternionToPack the quaternion that is set to the rotation part of this transform. Modified.
+    * @param quaternionToPack the quaternion that is set to the rotation part of this transform.
+    *           Modified.
     */
    public void getRotation(QuaternionBasics<?> quaternionToPack)
    {
@@ -1198,7 +1253,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform as an axis-angle.
     * 
-    * @param axisAngleToPack the axis-angle that is set to the rotation part of this transform. Modified.
+    * @param axisAngleToPack the axis-angle that is set to the rotation part of this transform.
+    *           Modified.
     */
    public void getRotation(AxisAngleBasics<?> axisAngleToPack)
    {
@@ -1213,7 +1269,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * of the same axis-angle.
     * </p>
     * 
-    * @param rotationVectorToPack the rotation vector that is set to the rotation part of this transform. Modified.
+    * @param rotationVectorToPack the rotation vector that is set to the rotation part of this
+    *           transform. Modified.
     */
    public void getRotation(Vector3DBasics<?> rotationVectorToPack)
    {
@@ -1278,7 +1335,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform.
     * 
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored. Modified.
+    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
+    *           Modified.
     */
    public void getRotationScale(Matrix3DBasics<?> rotationMatrixToPack)
    {
@@ -1288,7 +1346,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform.
     * 
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored. Modified.
+    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
+    *           Modified.
     */
    public void getRotationScale(RotationScaleMatrix rotationScaleMatrixToPack)
    {
@@ -1298,7 +1357,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the rotation part of this affine transform.
     * 
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored. Modified.
+    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
+    *           Modified.
     */
    public void getRotationScale(DenseMatrix64F rotationScaleMatrixToPack)
    {
@@ -1318,7 +1378,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    /**
     * Packs the translation part of this affine transform.
     * 
-    * @param translationToPack the tuple in which the translation part of this transform is stored. Modified.
+    * @param translationToPack the tuple in which the translation part of this transform is stored.
+    *           Modified.
     */
    public void getTranslation(Tuple3DBasics<Vector3D> translationToPack)
    {
@@ -1331,7 +1392,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param row the row of the coefficient to return.
     * @param column the column of the coefficient to return.
     * @return the coefficient's value.
-    * @throws ArrayIndexOutOfBoundsException if either {@code row} &notin; [0, 3] or {@code column} &notin; [0, 3].
+    * @throws ArrayIndexOutOfBoundsException if either {@code row} &notin; [0, 3] or {@code column}
+    *            &notin; [0, 3].
     */
    public double getElement(int row, int column)
    {
@@ -1544,8 +1606,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Tests separately and on a per component basis if the rotation part, the scale part, and the translation
-    * part of this transform and {@code other} are equal to an {@code epsilon}.
+    * Tests separately and on a per component basis if the rotation part, the scale part, and the
+    * translation part of this transform and {@code other} are equal to an {@code epsilon}.
     * 
     * @param other the other affine transform to compare against this. Not modified.
     */
@@ -1556,10 +1618,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this,
-    * in which case the method returns {@link #equals(AffineTransform)}, 
-    * it returns {@code false} otherwise or if the {@code object}
-    * is {@code null}.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(AffineTransform)}, it returns {@code false} otherwise or if the
+    * {@code object} is {@code null}.
     * 
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -1578,8 +1639,8 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Tests separately and on a per component basis if the rotation part, the scale part, and the translation
-    * part of this transform and {@code other} are exactly equal.
+    * Tests separately and on a per component basis if the rotation part, the scale part, and the
+    * translation part of this transform and {@code other} are exactly equal.
     * <p>
     * The method returns {@code false} if the given transform is {@code null}.
     * </p>
@@ -1596,10 +1657,10 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Provides a {@code String} representation of this transform as follows:
-    * <br> m00, m01, m02 | m03
-    * <br> m10, m11, m12 | m13
-    * <br> m20, m21, m22 | m23
+    * Provides a {@code String} representation of this transform as follows: <br>
+    * m00, m01, m02 | m03 <br>
+    * m10, m11, m12 | m13 <br>
+    * m20, m21, m22 | m23
     * 
     * @return the {@code String} representing this transform.
     */

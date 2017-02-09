@@ -235,15 +235,15 @@ public abstract class QuaternionTools
    {
       if (checkIfTransformInXYPlane)
          quaternion.checkIfIsZOnly(EPS);
-      
+
       double norm = quaternion.norm();
-      
+
       if (norm < EPS)
       {
          tupleTransformed.set(tupleOriginal);
          return;
       }
-      
+
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();

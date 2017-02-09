@@ -9,23 +9,25 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 /**
  * Write and read interface for a 2 dimensional vector.
  * <p>
- * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane.
- * For instance, it can be used to represent a 2D velocity, force, or translation from one 2D point to another.
+ * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane. For
+ * instance, it can be used to represent a 2D velocity, force, or translation from one 2D point to
+ * another.
  * </p>
  * <p>
- * Although a point and vector hold onto the same type of information, the distinction is made between them
- * as they represent different geometry objects and are typically not handled the same way:
+ * Although a point and vector hold onto the same type of information, the distinction is made
+ * between them as they represent different geometry objects and are typically not handled the same
+ * way:
  * <ul>
- *    <li> a point represents the coordinate of a location in space.
- *     A notable difference with a vector is that the distance between two points has a physical meaning.
- *     When a point is transformed with a homogeneous transformation matrix,
- *     a point's coordinates are susceptible to be scaled, rotated, and translated.
- *    <li> a vector is not constrained to a location in space. Instead, a vector represents some
- *     physical quantity that has a direction and a magnitude such as: a velocity, a force, the translation from one
- *     point to another, etc.
- *     When a vector is transformed with a homogeneous transformation matrix,
- *     its components are susceptible to be scaled and rotated, but never to be translated.
- * </ul> 
+ * <li>a point represents the coordinate of a location in space. A notable difference with a vector
+ * is that the distance between two points has a physical meaning. When a point is transformed with
+ * a homogeneous transformation matrix, a point's coordinates are susceptible to be scaled, rotated,
+ * and translated.
+ * <li>a vector is not constrained to a location in space. Instead, a vector represents some
+ * physical quantity that has a direction and a magnitude such as: a velocity, a force, the
+ * translation from one point to another, etc. When a vector is transformed with a homogeneous
+ * transformation matrix, its components are susceptible to be scaled and rotated, but never to be
+ * translated.
+ * </ul>
  * </p>
  * 
  * @author Sylvain Bertrand
@@ -35,12 +37,12 @@ import us.ihmc.geometry.transform.interfaces.Transform;
 public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasics<T>, Vector2DReadOnly<T>
 {
    /**
-    * Normalizes this vector such that its magnitude is equal to 1 after
-    * calling this method and its direction remains unchanged.
+    * Normalizes this vector such that its magnitude is equal to 1 after calling this method and its
+    * direction remains unchanged.
     * <p>
     * Edge cases:
     * <ul>
-    *    <li> if this vector contains {@link Double#NaN}, this method is ineffective.
+    * <li>if this vector contains {@link Double#NaN}, this method is ineffective.
     * </ul>
     * </p>
     */
@@ -67,15 +69,15 @@ public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasi
     * <p>
     * The transformation depends on the implementation of the transform, here are a few examples:
     * <ul>
-    *    <li> {@link RigidBodyTransform} rotates a vector.
-    *    <li> {@link QuaternionBasedTransform} rotates a vector.
-    *    <li> {@link AffineTransform} scales then rotates a vector.
+    * <li>{@link RigidBodyTransform} rotates a vector.
+    * <li>{@link QuaternionBasedTransform} rotates a vector.
+    * <li>{@link AffineTransform} scales then rotates a vector.
     * </ul>
     * </p>
     * 
     * @param transform the geometric transform to apply on this vector. Not modified.
-    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a transformation
-    *  in the XY plane.
+    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
+    *            transformation in the XY plane.
     */
    @Override
    default void applyTransform(Transform transform)
@@ -86,23 +88,23 @@ public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasi
    /**
     * Transforms this vector by the given {@code transform}.
     * <p>
-    * Note: transforming a point differs from transforming a vector in the way that the point
-    * can be translated, whereas the vector can be only rotated and scaled.
+    * Note: transforming a point differs from transforming a vector in the way that the point can be
+    * translated, whereas the vector can be only rotated and scaled.
     * </p>
     * <p>
     * The transformation depends on the implementation of the transform, here are a few examples:
     * <ul>
-    *    <li> {@link RigidBodyTransform} rotates then translates a point.
-    *    <li> {@link QuaternionBasedTransform} rotates then translates a point.
-    *    <li> {@link AffineTransform} scales, rotates, then translates a point.
+    * <li>{@link RigidBodyTransform} rotates then translates a point.
+    * <li>{@link QuaternionBasedTransform} rotates then translates a point.
+    * <li>{@link AffineTransform} scales, rotates, then translates a point.
     * </ul>
     * </p>
     * 
     * @param transform the geometric transform to apply on this vector. Not modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part
-    * of the given transform represents a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and
-    * the rotation part of {@code transform} is not a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
+    *           the given transform represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
+    *            part of {@code transform} is not a transformation in the XY plane.
     */
    default void applyTransform(Transform transform, boolean checkIfTransformInXYplane)
    {

@@ -276,7 +276,8 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly<T>>
    }
 
    /**
-    * Using the property from <a href="https://en.wikipedia.org/wiki/Quaternion"> Wikipedia (section Quaternion and the Geometry of R<sup>3</sup>)</a>.
+    * Using the property from <a href="https://en.wikipedia.org/wiki/Quaternion"> Wikipedia (section
+    * Quaternion and the Geometry of R<sup>3</sup>)</a>.
     * <p>
     * p . q = s(p * q^-1) = s(q * p^-1) = s(p^-1 * q) = s(q^-1 * p) <br>
     * where s(q) is the function returning the scalar part of the quaternion q.
@@ -303,11 +304,11 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly<T>>
          QuaternionTools.multiplyConjugateRight(q, p, product);
          expectedDot = product.getS();
          assertEquals(expectedDot, actualDot, getEpsilon());
-         
+
          QuaternionTools.multiplyConjugateLeft(p, q, product);
          expectedDot = product.getS();
          assertEquals(expectedDot, actualDot, getEpsilon());
-         
+
          QuaternionTools.multiplyConjugateLeft(q, p, product);
          expectedDot = product.getS();
          assertEquals(expectedDot, actualDot, getEpsilon());
@@ -346,7 +347,7 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly<T>>
 
       assertFalse(tuple.epsilonEquals(createTuple(x, y, z + 1.001 * epsilon, s), epsilon));
       assertFalse(tuple.epsilonEquals(createTuple(x, y, z - 1.001 * epsilon, s), epsilon));
-      
+
       assertFalse(tuple.epsilonEquals(createTuple(x, y, z, s + 1.001 * epsilon), epsilon));
       assertFalse(tuple.epsilonEquals(createTuple(x, y, z, s - 1.001 * epsilon), epsilon));
    }
@@ -377,7 +378,7 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly<T>>
 
       assertFalse(tuple.equals(createTuple(x, y, z + getEpsilon(), s)));
       assertFalse(tuple.equals(createTuple(x, y, z - getEpsilon(), s)));
-      
+
       assertFalse(tuple.equals(createTuple(x, y, z, s + getEpsilon())));
       assertFalse(tuple.equals(createTuple(x, y, z, s - getEpsilon())));
    }

@@ -195,7 +195,7 @@ public class TupleToolsTest
       tuple2.setZ(tuple1.getZ() + 1.1 * epsilon);
       tuple2.setS(tuple1.getS() + 0.1 * epsilon);
       assertFalse(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
-      
+
       tuple2.setX(tuple1.getX() + 0.1 * epsilon);
       tuple2.setY(tuple1.getY() + 0.1 * epsilon);
       tuple2.setZ(tuple1.getZ() + 0.1 * epsilon);

@@ -3,23 +3,25 @@ package us.ihmc.geometry.tuple2D.interfaces;
 /**
  * Read-only interface for a 2 dimensional vector.
  * <p>
- * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane.
- * For instance, it can be used to represent a 2D velocity, force, or translation from one 2D point to another.
+ * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane. For
+ * instance, it can be used to represent a 2D velocity, force, or translation from one 2D point to
+ * another.
  * </p>
  * <p>
- * Although a point and vector hold onto the same type of information, the distinction is made between them
- * as they represent different geometry objects and are typically not handled the same way:
+ * Although a point and vector hold onto the same type of information, the distinction is made
+ * between them as they represent different geometry objects and are typically not handled the same
+ * way:
  * <ul>
- *    <li> a point represents the coordinate of a location in space.
- *     A notable difference with a vector is that the distance between two points has a physical meaning.
- *     When a point is transformed with a homogeneous transformation matrix,
- *     a point's coordinates are susceptible to be scaled, rotated, and translated.
- *    <li> a vector is not constrained to a location in space. Instead, a vector represents some
- *     physical quantity that has a direction and a magnitude such as: a velocity, a force, the translation from one
- *     point to another, etc.
- *     When a vector is transformed with a homogeneous transformation matrix,
- *     its components are susceptible to be scaled and rotated, but never to be translated.
- * </ul> 
+ * <li>a point represents the coordinate of a location in space. A notable difference with a vector
+ * is that the distance between two points has a physical meaning. When a point is transformed with
+ * a homogeneous transformation matrix, a point's coordinates are susceptible to be scaled, rotated,
+ * and translated.
+ * <li>a vector is not constrained to a location in space. Instead, a vector represents some
+ * physical quantity that has a direction and a magnitude such as: a velocity, a force, the
+ * translation from one point to another, etc. When a vector is transformed with a homogeneous
+ * transformation matrix, its components are susceptible to be scaled and rotated, but never to be
+ * translated.
+ * </ul>
  * </p>
  * 
  * @author Sylvain Bertrand
@@ -47,9 +49,9 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * length<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup>
     * </p>
     * <p>
-    * This method is usually preferred over {@link #length()}
-    * when calculation speed matters and knowledge of the actual magnitude does not,
-    * i.e. when comparing several vectors by theirs magnitude.
+    * This method is usually preferred over {@link #length()} when calculation speed matters and
+    * knowledge of the actual magnitude does not, i.e. when comparing several vectors by theirs
+    * magnitude.
     * </p>
     * 
     * @return the square of the magnitude of this vector.
@@ -62,8 +64,8 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
    /**
     * Calculates and returns the value of the dot product of this vector with {@code other}.
     * <p>
-    * For instance, the dot product of two vectors p and q is defined as:
-    * <br> p . q = &sum;<sub>i=1:2</sub>(p<sub>i</sub> * q<sub>i</sub>)
+    * For instance, the dot product of two vectors p and q is defined as: <br>
+    * p . q = &sum;<sub>i=1:2</sub>(p<sub>i</sub> * q<sub>i</sub>)
     * </p>
     * 
     * @param other the other vector used for the dot product. Not modified.
@@ -82,7 +84,8 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * <p>
     * Edge cases:
     * <ul>
-    *    <li> if the length of either vector is below {@code 1.0E-7}, this method fails and returns an angle of {@code 0.0} radian.
+    * <li>if the length of either vector is below {@code 1.0E-7}, this method fails and returns an
+    * angle of {@code 0.0} radian.
     * </ul>
     * </p>
     * 
