@@ -7,7 +7,9 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
@@ -169,6 +171,50 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly<T>>
       assertTrue(axisAngle.containsNaN());
       axisAngle = createAxisAngle(0.0, 0.0, 0.0, Double.NaN);
       assertTrue(axisAngle.containsNaN());
+   }
+
+   @Test
+   public void testIsAxisUnitary() throws Exception
+   {
+      Random random = new Random(51651L);
+      AxisAngle axisAngle = new AxisAngle();
+
+      for (int i = 0; i < 20; i++)
+      {
+         double smallScale = GeometryBasicsRandomTools.generateRandomDouble(random, 0.90, 0.95);
+         double bigScale = GeometryBasicsRandomTools.generateRandomDouble(random, 1.05, 1.10);
+
+         double ux = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
+         double uy = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
+         double uz = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
+         double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 10.0);
+         double norm = GeometryBasicsTools.norm(ux, uy, uz);
+
+         ux /= norm;
+         uy /= norm;
+         uz /= norm;
+
+         axisAngle.set(ux, uy, uz, angle);
+         assertTrue(axisAngle.isAxisUnitary(getEpsilon()));
+
+         axisAngle.set(ux * smallScale, uy, uz, angle);
+         assertFalse(axisAngle.isAxisUnitary(getEpsilon()));
+         axisAngle.set(ux, uy * smallScale, uz, angle);
+         assertFalse(axisAngle.isAxisUnitary(getEpsilon()));
+         axisAngle.set(ux, uy, uz * smallScale, angle);
+         assertFalse(axisAngle.isAxisUnitary(getEpsilon()));
+         axisAngle.set(ux, uy, uz, angle * smallScale);
+         assertTrue(axisAngle.isAxisUnitary(getEpsilon()));
+
+         axisAngle.set(ux * bigScale, uy, uz, angle);
+         assertFalse(axisAngle.isAxisUnitary(getEpsilon()));
+         axisAngle.set(ux, uy * bigScale, uz, angle);
+         assertFalse(axisAngle.isAxisUnitary(getEpsilon()));
+         axisAngle.set(ux, uy, uz * bigScale, angle);
+         assertFalse(axisAngle.isAxisUnitary(getEpsilon()));
+         axisAngle.set(ux, uy, uz, angle * bigScale);
+         assertTrue(axisAngle.isAxisUnitary(getEpsilon()));
+      }
    }
 
    @Test

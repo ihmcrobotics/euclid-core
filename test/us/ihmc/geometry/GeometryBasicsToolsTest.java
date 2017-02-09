@@ -65,6 +65,7 @@ public class GeometryBasicsToolsTest
       assertTrue(GeometryBasicsTools.containsNaN(0.0, Double.NaN, 0.0));
       assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, Double.NaN));
    }
+
    @Test
    public void testContainsNaNWith4Elements() throws Exception
    {
@@ -74,7 +75,7 @@ public class GeometryBasicsToolsTest
       assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, Double.NaN, 0.0));
       assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, Double.NaN));
    }
-   
+
    @Test
    public void testContainsNaNWith9Elements() throws Exception
    {
@@ -90,7 +91,6 @@ public class GeometryBasicsToolsTest
       assertTrue(GeometryBasicsTools.containsNaN(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN));
    }
 
-   
    @Test
    public void testContainsNaNWithArray() throws Exception
    {
@@ -105,5 +105,131 @@ public class GeometryBasicsToolsTest
       assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0}));
       assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0}));
       assertTrue(GeometryBasicsTools.containsNaN(new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN}));
+   }
+
+   @Test
+   public void testNormSquaredWith2Elements() throws Exception
+   {
+      assertTrue(GeometryBasicsTools.normSquared(1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 1.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0) == 0.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(-1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, -1.0) == 1.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(2.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 2.0) == 4.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(-2.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, -2.0) == 4.0);
+   }
+
+   @Test
+   public void testNormSquaredWith3Elements() throws Exception
+   {
+      assertTrue(GeometryBasicsTools.normSquared(1.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 1.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 0.0) == 0.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(-1.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, -1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, -1.0) == 1.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(2.0, 0.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 2.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 2.0) == 4.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(-2.0, 0.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, -2.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, -2.0) == 4.0);
+   }
+
+   @Test
+   public void testNormSquaredWith4Elements() throws Exception
+   {
+      assertTrue(GeometryBasicsTools.normSquared(1.0, 0.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 1.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 0.0, 1.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 0.0, 0.0) == 0.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(-1.0, 0.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, -1.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, -1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 0.0, -1.0) == 1.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(2.0, 0.0, 0.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 2.0, 0.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 2.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 0.0, 2.0) == 4.0);
+
+      assertTrue(GeometryBasicsTools.normSquared(-2.0, 0.0, 0.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, -2.0, 0.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, -2.0, 0.0) == 4.0);
+      assertTrue(GeometryBasicsTools.normSquared(0.0, 0.0, 0.0, -2.0) == 4.0);
+   }
+
+   @Test
+   public void testNormWith2Elements() throws Exception
+   {
+      assertTrue(GeometryBasicsTools.norm(1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 1.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0) == 0.0);
+
+      assertTrue(GeometryBasicsTools.norm(-1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, -1.0) == 1.0);
+
+      assertTrue(GeometryBasicsTools.norm(2.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 2.0) == 2.0);
+
+      assertTrue(GeometryBasicsTools.norm(-2.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, -2.0) == 2.0);
+   }
+
+   @Test
+   public void testNormWith3Elements() throws Exception
+   {
+      assertTrue(GeometryBasicsTools.norm(1.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 1.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 0.0) == 0.0);
+
+      assertTrue(GeometryBasicsTools.norm(-1.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, -1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, -1.0) == 1.0);
+
+      assertTrue(GeometryBasicsTools.norm(2.0, 0.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 2.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 2.0) == 2.0);
+
+      assertTrue(GeometryBasicsTools.norm(-2.0, 0.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, -2.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, -2.0) == 2.0);
+   }
+
+   @Test
+   public void testNormWith4Elements() throws Exception
+   {
+      assertTrue(GeometryBasicsTools.norm(1.0, 0.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 1.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 0.0, 1.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 0.0, 0.0) == 0.0);
+
+      assertTrue(GeometryBasicsTools.norm(-1.0, 0.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, -1.0, 0.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, -1.0, 0.0) == 1.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 0.0, -1.0) == 1.0);
+
+      assertTrue(GeometryBasicsTools.norm(2.0, 0.0, 0.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 2.0, 0.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 2.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 0.0, 2.0) == 2.0);
+
+      assertTrue(GeometryBasicsTools.norm(-2.0, 0.0, 0.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, -2.0, 0.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, -2.0, 0.0) == 2.0);
+      assertTrue(GeometryBasicsTools.norm(0.0, 0.0, 0.0, -2.0) == 2.0);
    }
 }

@@ -93,4 +93,115 @@ public class GeometryBasicsTools
       }
       return false;
    }
+
+   /**
+    * Calculates and returns the norm squared of the given two elements.
+    * <p>
+    * norm<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup>
+    * </p>
+    * 
+    * @param x the first element.
+    * @param y the second element.
+    * @return the value of the square of the norm.
+    */
+   public static double normSquared(double x, double y)
+   {
+      return x * x + y * y;
+   }
+
+   /**
+    * Calculates and returns the norm squared of the given three elements.
+    * <p>
+    * norm<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup>
+    * </p>
+    * 
+    * @param x the first element.
+    * @param y the second element.
+    * @param z the third element.
+    * @return the value of the square of the norm.
+    */
+   public static double normSquared(double x, double y, double z)
+   {
+      return x * x + y * y + z * z;
+   }
+
+   /**
+    * Calculates and returns the norm squared of the given four elements.
+    * <p>
+    * norm<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup> + s<sup>2</sup>
+    * </p>
+    * 
+    * @param x the first element.
+    * @param y the second element.
+    * @param z the third element.
+    * @param s the fourth element.
+    * @return the value of the square of the norm.
+    */
+   public static double normSquared(double x, double y, double z, double s)
+   {
+      return x * x + y * y + z * z + s * s;
+   }
+
+   /**
+    * Calculates and returns the norm squared of the given two elements.
+    * <p>
+    * norm = &radic;(x<sup>2</sup> + y<sup>2</sup>)
+    * </p>
+    * <p>
+    * This method is optimized for calculating norms closed to 1 by using {@link #fastSquareRoot(double)}.
+    * For computing norms that are not closed to 1, prefer using the usual {@link Math#sqrt(double)}
+    * on the norm squared.
+    * </p>
+    * 
+    * @param x the first element.
+    * @param y the second element.
+    * @return the value of the square of the norm.
+    */
+   public static double norm(double x, double y)
+   {
+      return fastSquareRoot(normSquared(x, y));
+   }
+
+   /**
+    * Calculates and returns the norm squared of the given three elements.
+    * <p>
+    * norm = &radic;(x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup>)
+    * </p>
+    * <p>
+    * This method is optimized for calculating norms closed to 1 by using {@link #fastSquareRoot(double)}.
+    * For computing norms that are not closed to 1, prefer using the usual {@link Math#sqrt(double)}
+    * on the norm squared.
+    * </p>
+    * 
+    * @param x the first element.
+    * @param y the second element.
+    * @param z the third element.
+    * @return the value of the square of the norm.
+    */
+   public static double norm(double x, double y, double z)
+   {
+      return fastSquareRoot(normSquared(x, y, z));
+   }
+
+   /**
+    * Calculates and returns the norm squared of the given four elements.
+    * <p>
+    * norm = &radic;(x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup> + s<sup>2</sup>)
+    * </p>
+    * <p>
+    * This method is optimized for calculating norms closed to 1 by using {@link #fastSquareRoot(double)}.
+    * For computing norms that are not closed to 1, prefer using the usual {@link Math#sqrt(double)}
+    * on the norm squared.
+    * </p>
+    * 
+    * @param x the first element.
+    * @param y the second element.
+    * @param z the third element.
+    * @param s the fourth element.
+    * @return the value of the square of the norm.
+    */
+   public static double norm(double x, double y, double z, double s)
+   {
+      return fastSquareRoot(normSquared(x, y, z, s));
+   }
 }

@@ -3,7 +3,6 @@ package us.ihmc.geometry.tuple4D;
 import org.apache.commons.math3.util.FastMath;
 
 import us.ihmc.geometry.GeometryBasicsTools;
-import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -45,7 +44,7 @@ public abstract class QuaternionConversion
          return;
       }
 
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = GeometryBasicsTools.norm(ux, uy, uz);
       if (uNorm < EPS)
       {
          quaternionToPack.setToZero();

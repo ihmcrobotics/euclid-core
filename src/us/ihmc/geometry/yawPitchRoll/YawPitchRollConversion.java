@@ -3,7 +3,6 @@ package us.ihmc.geometry.yawPitchRoll;
 import org.apache.commons.math3.util.FastMath;
 
 import us.ihmc.geometry.GeometryBasicsTools;
-import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -349,7 +348,7 @@ public abstract class YawPitchRollConversion
       double uz = axisAngle.getZ();
       double angle = axisAngle.getAngle();
 
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = axisAngle.axisNorm();
 
       if (uNorm < EPS)
          return 0.0;
@@ -375,7 +374,7 @@ public abstract class YawPitchRollConversion
       double uz = axisAngle.getZ();
       double angle = axisAngle.getAngle();
 
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = axisAngle.axisNorm();
 
       if (uNorm < EPS)
          return 0.0;
@@ -398,7 +397,7 @@ public abstract class YawPitchRollConversion
       double uz = axisAngle.getZ();
       double angle = axisAngle.getAngle();
 
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = axisAngle.axisNorm();
 
       if (uNorm < EPS)
          return 0.0;
@@ -530,7 +529,7 @@ public abstract class YawPitchRollConversion
       double uy = rotationVector.getY();
       double uz = rotationVector.getZ();
       double angle = 0.0;
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = GeometryBasicsTools.norm(ux, uy, uz);
 
       if (uNorm < EPS)
          return 0.0;
@@ -556,7 +555,7 @@ public abstract class YawPitchRollConversion
       double uy = rotationVector.getY();
       double uz = rotationVector.getZ();
       double angle = 0.0;
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = GeometryBasicsTools.norm(ux, uy, uz);
       angle = uNorm;
 
       if (uNorm < EPS)
@@ -578,7 +577,7 @@ public abstract class YawPitchRollConversion
       double uy = rotationVector.getY();
       double uz = rotationVector.getZ();
       double angle = 0.0;
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = GeometryBasicsTools.norm(ux, uy, uz);
 
       if (uNorm < EPS)
          return 0.0;
@@ -609,7 +608,7 @@ public abstract class YawPitchRollConversion
       double uy = rotationVector.getY();
       double uz = rotationVector.getZ();
       double angle = 0.0;
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = GeometryBasicsTools.norm(ux, uy, uz);
 
       if (uNorm < EPS)
       {
@@ -640,7 +639,7 @@ public abstract class YawPitchRollConversion
       double uy = rotationVector.getY();
       double uz = rotationVector.getZ();
       double angle = 0.0;
-      double uNorm = AxisAngleTools.axisNorm(ux, uy, uz, angle);
+      double uNorm = GeometryBasicsTools.norm(ux, uy, uz);
 
       if (uNorm < EPS)
       {

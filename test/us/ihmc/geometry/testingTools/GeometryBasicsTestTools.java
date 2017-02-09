@@ -7,7 +7,6 @@ import static org.junit.Assert.fail;
 import java.util.Arrays;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
-import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
@@ -510,7 +509,7 @@ public abstract class GeometryBasicsTestTools
     */
    public static void assertAxisUnitary(AxisAngleReadOnly<?> axisAngleToAssert, double epsilon)
    {
-      if (!AxisAngleTools.isAxisUnitary(axisAngleToAssert, epsilon))
+      if (!axisAngleToAssert.isAxisUnitary(epsilon))
          fail("The axis of the given AxisAngle is not unitary: " + axisAngleToAssert);
    }
 

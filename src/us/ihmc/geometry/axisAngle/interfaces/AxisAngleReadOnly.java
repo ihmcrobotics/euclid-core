@@ -89,6 +89,30 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
    }
 
    /**
+    * Calculates and returns the norm of the axis of this axis-angle.
+    * <p>
+    * norm = &radic;(x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup>)
+    * </p>
+    * 
+    * @return the norm's value of the axis.
+    */
+   default double axisNorm()
+   {
+      return GeometryBasicsTools.norm(getX(), getY(), getZ());
+   }
+
+   /**
+    * Tests if the axis of this axis-angle is of unit-length.
+    * 
+    * @param epsilon tolerance to use in this test.
+    * @return {@code true} if the axis is unitary, {@code false} otherwise.
+    */
+   default boolean isAxisUnitary(double epsilon)
+   {
+      return Math.abs(1.0 - axisNorm()) < epsilon;
+   }
+
+   /**
     * Converts and gets the orientation represented by this axis-angle
     * as a rotation vector.
     * See {@link RotationVectorConversion#convertAxisAngleToRotationVector(AxisAngleReadOnly, Vector3DBasics)}.
