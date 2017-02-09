@@ -1,5 +1,6 @@
 package us.ihmc.geometry.tuple4D;
 
+import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
@@ -14,33 +15,124 @@ import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
+/**
+ * This gathers common mathematical operations involving quaternions.
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public abstract class QuaternionTools
 {
    private static final double EPS = 1.0e-12;
 
+   /**
+    * Performs the multiplication of {@code q1} and {@code q2} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * quaternionToPack = q1 * q2
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param q1 the first quaternion in the multiplication. Not modified.
+    * @param q2 the second quaternion in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stores. Modified.
+    */
    public static void multiply(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(q1, false, q2, false, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code q1} conjugated and {@code q2} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * quaternionToPack = q1* * q2
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param q1 the first quaternion in the multiplication. Not modified.
+    * @param q2 the second quaternion in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stores. Modified.
+    */
    public static void multiplyConjugateLeft(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(q1, true, q2, false, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code q1} and {@code q2} conjugated and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * quaternionToPack = q1 * q2*
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param q1 the first quaternion in the multiplication. Not modified.
+    * @param q2 the second quaternion in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stores. Modified.
+    */
    public static void multiplyConjugateRight(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(q1, false, q2, true, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code q1} and {@code q2} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Provides the option to conjugate either quaternion when multiplying them.
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param q1 the first quaternion in the multiplication. Not modified.
+    * @param conjugateQ1 whether to conjugate {@code q1} or not.
+    * @param q2 the second quaternion in the multiplication. Not modified.
+    * @param conjugateQ2 whether to conjugate {@code q2} or not.
+    * @param quaternionToPack the quaternion in which the result is stores. Modified.
+    */
    private static void multiplyImpl(QuaternionReadOnly<?> q1, boolean conjugateQ1, QuaternionReadOnly<?> q2, boolean conjugateQ2,
                                     QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(q1.getX(), q1.getY(), q1.getZ(), q1.getS(), conjugateQ1, q2.getX(), q2.getY(), q2.getZ(), q2.getS(), conjugateQ2, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code q1} and {@code q2} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Provides the option to conjugate either quaternion when multiplying them.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param q1x the x-component of the first quaternion in the multiplication. Not modified.
+    * @param q1y the y-component of the first quaternion in the multiplication. Not modified.
+    * @param q1z the z-component of the first quaternion in the multiplication. Not modified.
+    * @param q1s the s-component of the first quaternion in the multiplication. Not modified.
+    * @param conjugateQ1 whether to conjugate {@code q1} or not.
+    * @param q2x the x-component of the second quaternion in the multiplication. Not modified.
+    * @param q2y the y-component of the second quaternion in the multiplication. Not modified.
+    * @param q2z the z-component of the second quaternion in the multiplication. Not modified.
+    * @param q2s the s-component of the second quaternion in the multiplication. Not modified.
+    * @param conjugateQ2 whether to conjugate {@code q2} or not.
+    * @param quaternionToPack the quaternion in which the result is stores. Modified.
+    */
    private static void multiplyImpl(double q1x, double q1y, double q1z, double q1s, boolean conjugateQ1, double q2x, double q2y, double q2z, double q2s,
-                                    boolean conjugateq2, QuaternionBasics<?> quaternionToPack)
+                                    boolean conjugateQ2, QuaternionBasics<?> quaternionToPack)
    {
       if (conjugateQ1)
       {
@@ -49,7 +141,7 @@ public abstract class QuaternionTools
          q1z = -q1z;
       }
 
-      if (conjugateq2)
+      if (conjugateQ2)
       {
          q2x = -q2x;
          q2y = -q2y;
@@ -63,26 +155,117 @@ public abstract class QuaternionTools
       quaternionToPack.setUnsafe(x, y, z, s);
    }
 
+   /**
+    * Performs the multiplication, in the sense of quaternion multiplication, of {@code t1} and
+    * {@code t2} and stores the result in {@code vectorToPack}.
+    * <p>
+    * vectorToPack = t1 * t2
+    * </p>
+    * <p>
+    * This
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param t1 the first tuple in the multiplication. Not modified.
+    * @param t2 the second tuple in the multiplication. Not modified.
+    * @param vectorToPack the vector in which the result is stores. Modified.
+    */
    public static void multiply(Tuple4DReadOnly<?> t1, Tuple4DReadOnly<?> t2, Vector4DBasics<?> vectorToPack)
    {
       multiplyImpl(t1, false, t2, false, vectorToPack);
    }
 
+   /**
+    * Performs the multiplication, in the sense of quaternion multiplication, of {@code t1}
+    * conjugated and {@code t2} and stores the result in {@code vectorToPack}.
+    * <p>
+    * vectorToPack = t1* * t2
+    * </p>
+    * <p>
+    * This
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param t1 the first tuple in the multiplication. Not modified.
+    * @param t2 the second tuple in the multiplication. Not modified.
+    * @param vectorToPack the vector in which the result is stores. Modified.
+    */
    public static void multiplyConjugateLeft(Tuple4DReadOnly<?> t1, Tuple4DReadOnly<?> t2, Vector4DBasics<?> vectorToPack)
    {
       multiplyImpl(t1, true, t2, false, vectorToPack);
    }
 
+   /**
+    * Performs the multiplication, in the sense of quaternion multiplication, of {@code t1} and
+    * {@code t2} conjugated and stores the result in {@code vectorToPack}.
+    * <p>
+    * vectorToPack = t1 * t2*
+    * </p>
+    * <p>
+    * This
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param t1 the first tuple in the multiplication. Not modified.
+    * @param t2 the second tuple in the multiplication. Not modified.
+    * @param vectorToPack the vector in which the result is stores. Modified.
+    */
    public static void multiplyConjugateRight(Tuple4DReadOnly<?> t1, Tuple4DReadOnly<?> t2, Vector4DBasics<?> vectorToPack)
    {
       multiplyImpl(t1, false, t2, true, vectorToPack);
    }
 
+   /**
+    * Performs the multiplication, in the sense of quaternion multiplication, of {@code t1} and
+    * {@code t2} and stores the result in {@code vectorToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Provides the option to conjugate either tuple when multiplying them.
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param t1 the first tuple in the multiplication. Not modified.
+    * @param conjugateT1 whether to conjugate {@code t1} or not.
+    * @param t2 the second tuple in the multiplication. Not modified.
+    * @param conjugateT2 whether to conjugate {@code t2} or not.
+    * @param vectorToPack the vector in which the result is stores. Modified.
+    */
    private static void multiplyImpl(Tuple4DReadOnly<?> t1, boolean conjugateT1, Tuple4DReadOnly<?> t2, boolean conjugateT2, Vector4DBasics<?> vectorToPack)
    {
       multiplyImpl(t1.getX(), t1.getY(), t1.getZ(), t1.getS(), conjugateT1, t2.getX(), t2.getY(), t2.getZ(), t2.getS(), conjugateT2, vectorToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code t1} and {@code t2} and stores the result in
+    * {@code vectorToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Provides the option to conjugate either tuple when multiplying them.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param x1 the x-component of the first tuple in the multiplication. Not modified.
+    * @param y1 the y-component of the first tuple in the multiplication. Not modified.
+    * @param z1 the z-component of the first tuple in the multiplication. Not modified.
+    * @param s1 the s-component of the first tuple in the multiplication. Not modified.
+    * @param conjugateT1 whether to conjugate {@code t1} or not.
+    * @param x2 the x-component of the second tuple in the multiplication. Not modified.
+    * @param y2 the y-component of the second tuple in the multiplication. Not modified.
+    * @param z2 the z-component of the second tuple in the multiplication. Not modified.
+    * @param s2 the s-component of the second tuple in the multiplication. Not modified.
+    * @param conjugateT2 whether to conjugate {@code t2} or not.
+    * @param vectorToPack the vector in which the result is stores. Modified.
+    */
    private static void multiplyImpl(double x1, double y1, double z1, double s1, boolean conjugateT1, double x2, double y2, double z2, double s2,
                                     boolean conjugateT2, Vector4DBasics<?> vectorToPack)
    {
@@ -107,16 +290,67 @@ public abstract class QuaternionTools
       vectorToPack.set(x, y, z, s);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and stores the result in
+    * {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    public static void transform(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       transformImpl(quaternion, false, tupleOriginal, tupleTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using
+    * {@code quaternion} and stores the result in {@code tupleTransformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(QuaternionReadOnly, Tuple3DReadOnly, Tuple3DBasics)} with the inverse of the
+    * given quaternion.
+    * </p>
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = quaternion<sup>-1</sup> * tupleOriginal * quaternion
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    public static void inverseTransform(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       transformImpl(quaternion, true, tupleOriginal, tupleTransformed);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and stores the result in
+    * {@code tupleTransformed}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Tuple3DReadOnly<?> tupleOriginal,
                                      Tuple3DBasics<?> tupleTransformed)
    {
@@ -165,11 +399,43 @@ public abstract class QuaternionTools
       tupleTransformed.setZ(z + qs * crossZ + crossCrossZ);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and adds the result to
+    * {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = tupleTransformed + quaternion * tupleOriginal * quaternion<sup>-1</sup>
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    public static void addTransform(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       addTransform(quaternion, false, tupleOriginal, tupleTransformed);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and adds the result to
+    * {@code tupleTransformed}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = tupleTransformed + quaternion * tupleOriginal * quaternion<sup>-1</sup>
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    private static void addTransform(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Tuple3DReadOnly<?> tupleOriginal,
                                     Tuple3DBasics<?> tupleTransformed)
    {
@@ -218,18 +484,81 @@ public abstract class QuaternionTools
       tupleTransformed.setZ(tupleTransformed.getZ() + z + qs * crossZ + crossCrossZ);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and stores the result in
+    * {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion
+    *           represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
+    *            does not represent a transformation in the XY plane.
+    */
    public static void transform(QuaternionReadOnly<?> quaternion, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
                                 boolean checkIfTransformInXYPlane)
    {
       transformImpl(quaternion, false, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
 
+   /**
+    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using
+    * {@code quaternion} and stores the result in {@code tupleTransformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(QuaternionReadOnly, Tuple2DReadOnly, Tuple2DBasics, boolean)} with the
+    * inverse of the given quaternion.
+    * </p>
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = quaternion<sup>-1</sup> * tupleOriginal * quaternion
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion
+    *           represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
+    *            does not represent a transformation in the XY plane.
+    */
    public static void inverseTransform(QuaternionReadOnly<?> quaternion, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
                                        boolean checkIfTransformInXYPlane)
    {
       transformImpl(quaternion, true, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and stores the result in
+    * {@code tupleTransformed}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion
+    *           represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
+    *            does not represent a transformation in the XY plane.
+    */
    private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Tuple2DReadOnly<?> tupleOriginal,
                                      Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
    {
@@ -275,26 +604,119 @@ public abstract class QuaternionTools
       tupleTransformed.setY(y + qs * crossY + crossCrossY);
    }
 
+   /**
+    * Transforms the quaternion {@code quaternionOriginal} using {@code quaternion} and stores the
+    * result in {@code quaternionTransformed}.
+    * <p>
+    * Both {@code quaternionOriginal} and {@code quaternionTransformed} can be the same object for
+    * performing in place transformation.
+    * </p>
+    * <p>
+    * quaternionTransformed = quaternion * quaternionOriginal
+    * </p>
+    * <p>
+    * Note that this transformation is equivalent to concatenating the orientations of
+    * {@code quaternion} and {@code quaternionOriginal}.
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the quaternion. Not modified.
+    * @param quaternionOriginal the quaternion to transform. Not modified.
+    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
+    */
    public static void transform(QuaternionReadOnly<?> quaternion, QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
    {
       multiplyImpl(quaternion, false, quaternionOriginal, false, quaternionTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform of the quaternion {@code quaternionOriginal} using
+    * {@code quaternion} and stores the result in {@code quaternionTransformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(QuaternionReadOnly, QuaternionReadOnly, QuaternionBasics)} with the inverse
+    * of the given quaternion.
+    * </p>
+    * <p>
+    * Both {@code quaternionOriginal} and {@code quaternionTransformed} can be the same object for
+    * performing in place transformation.
+    * </p>
+    * <p>
+    * quaternionTransformed = quaternion<sup>-1</sup> * quaternionOriginal
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the quaternion. Not modified.
+    * @param quaternionOriginal the quaternion to transform. Not modified.
+    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
+    */
    public static void inverseTransform(QuaternionReadOnly<?> quaternion, QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
    {
       multiplyImpl(quaternion, true, quaternionOriginal, false, quaternionTransformed);
    }
 
+   /**
+    * Transforms the vector part of {@code vectorOriginal} using {@code quaternion} and stores the
+    * result in {@code vectorTransformed}.
+    * <p>
+    * Both vectors can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * vectorTransformed.s = vecorOriginal.s <br>
+    * vectorTransformed.xyz = quaternion * vectorOriginal.xyz * quaternion<sup>-1</sup>
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the vector. Not modified.
+    * @param vectorOriginal the vector to transform. Not modified.
+    * @param vectorTransformed the vector in which the result is stored. Modified.
+    */
    public static void transform(QuaternionReadOnly<?> quaternion, Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       transformImpl(quaternion, false, vectorOriginal, vectorTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform of the vector part of {@code vectorOriginal} using
+    * {@code quaternion} and stores the result in {@code vectorTransformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(QuaternionReadOnly, Tuple3DReadOnly, Tuple3DBasics)} with the inverse of the
+    * given quaternion.
+    * </p>
+    * <p>
+    * Both vectors can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * vectorTransformed.s = vecorOriginal.s <br>
+    * vectorTransformed.xyz = quaternion<sup>-1</sup> * vectorOriginal.xyz * quaternion
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the vector. Not modified.
+    * @param vectorOriginal the vector to transform. Not modified.
+    * @param vectorTransformed the vector in which the result is stored. Modified.
+    */
    public static void inverseTransform(QuaternionReadOnly<?> quaternion, Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
    {
       transformImpl(quaternion, true, vectorOriginal, vectorTransformed);
    }
 
+   /**
+    * Transforms the vector part of {@code vectorOriginal} using {@code quaternion} and stores the
+    * result in {@code vectorTransformed}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Both vectors can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * vectorTransformed.s = vecorOriginal.s <br>
+    * vectorTransformed.xyz = quaternion * vectorOriginal.xyz * quaternion<sup>-1</sup>
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the vector. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param vectorOriginal the vector to transform. Not modified.
+    * @param vectorTransformed the vector in which the result is stored. Modified.
+    */
    private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Vector4DReadOnly<?> vectorOriginal,
                                      Vector4DBasics<?> vectorTransformed)
    {
@@ -345,16 +767,71 @@ public abstract class QuaternionTools
       vectorTransformed.setS(vectorOriginal.getS());
    }
 
+   /**
+    * Transforms the matrix {@code matrixOriginal} using {@code quaternion} and stores the result in
+    * {@code matrixTransformed}.
+    * <p>
+    * Both matrices can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * matrixTransformed = R(quaternion) * matrixOriginal * R(quaternion)<sup>-1</sup> <br>
+    * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the matrix. Not modified.
+    * @param matrixOriginal the matrix to transform. Not modified.
+    * @param matrixTransformed the matrix in which the result is stored. Modified.
+    */
    public static void transform(QuaternionReadOnly<?> quaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       transformImpl(quaternion, false, matrixOriginal, matrixTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform of the matrix {@code matrixOriginal} using
+    * {@code quaternion} and stores the result in {@code matrixTransformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(QuaternionReadOnly, Matrix3DReadOnly, Matrix3D)} with the inverse of the
+    * given quaternion.
+    * </p>
+    * <p>
+    * Both matrices can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * matrixTransformed = R(quaternion)<sup>-1</sup> * matrixOriginal * R(quaternion) <br>
+    * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the matrix. Not modified.
+    * @param matrixOriginal the matrix to transform. Not modified.
+    * @param matrixTransformed the matrix in which the result is stored. Modified.
+    */
    public static void inverseTransform(QuaternionReadOnly<?> quaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
       transformImpl(quaternion, true, matrixOriginal, matrixTransformed);
    }
 
+   /**
+    * Transforms the matrix {@code matrixOriginal} using {@code quaternion} and stores the result in
+    * {@code matrixTransformed}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * <p>
+    * Both matrices can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * matrixTransformed = R(quaternion) * matrixOriginal * R(quaternion)<sup>-1</sup> <br>
+    * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the matrix. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param matrixOriginal the matrix to transform. Not modified.
+    * @param matrixTransformed the matrix in which the result is stored. Modified.
+    */
    private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Matrix3DReadOnly<?> matrixOriginal,
                                      Matrix3D matrixTransformed)
    {
@@ -427,38 +904,162 @@ public abstract class QuaternionTools
       matrixTransformed.set(qMqt00, qMqt01, qMqt02, qMqt10, qMqt11, qMqt12, qMqt20, qMqt21, qMqt22);
    }
 
+   /**
+    * Transforms the rotation matrix {@code rotationMatrixOriginal} using {@code quaternion} and
+    * stores the result in {@code rotationMatrixTransformed}.
+    * <p>
+    * Both rotation matrices can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * rotationMatrixTransformed = R(quaternion) * rotationMatrixOriginal <br>
+    * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
+    * </p>
+    * <p>
+    * Note that this transformation is equivalent to concatenating the orientations of
+    * {@code quaternion} and {@code rotationMatrixOriginal}.
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
+    * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
+    */
    public static void transform(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
    {
       multiplyImpl(quaternion, false, rotationMatrixOriginal, false, rotationMatrixTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform of the rotation matrix {@code rotationMatrixOriginal}
+    * using {@code quaternion} and stores the result in {@code rotationMatrixTransformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(QuaternionReadOnly, RotationMatrixReadOnly, RotationMatrix)} with the
+    * inverse of the given quaternion.
+    * </p>
+    * <p>
+    * Both rotation matrices can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * rotationMatrixTransformed = R(quaternion)<sup>-1</sup> * rotationMatrixOriginal <br>
+    * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
+    * </p>
+    * <p>
+    * Note that this transformation is equivalent to concatenating the orientations of
+    * {@code quaternion} and {@code rotationMatrixOriginal}.
+    * </p>
+    * 
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
+    * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
+    */
    public static void inverseTransform(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> rotationMatrixOriginal,
                                        RotationMatrix rotationMatrixTransformed)
    {
       multiplyImpl(quaternion, true, rotationMatrixOriginal, false, rotationMatrixTransformed);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} and {@code matrix} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = quaternion * Q(matrix) <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(quaternion, false, matrix, false, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} conjugated and {@code matrix} and stores the
+    * result in {@code quaternionToPack}.
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = quaternion* * Q(matrix) <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(quaternion, true, matrix, false, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} and {@code matrix} transposed and stores the
+    * result in {@code quaternionToPack}.
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = quaternion * Q(matrix<sup>T</sup>) <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(quaternion, false, matrix, true, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} conjugated and {@code matrix} transposed and
+    * stores the result in {@code quaternionToPack}.
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = quaternion* * Q(matrix<sup>T</sup>) <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix,
                                                                  QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(quaternion, true, matrix, true, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} and {@code matrix} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = quaternion * Q(matrix) <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param transposeMatrix whether to transpose the rotation matrix or not.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    private static void multiplyImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix,
                                     QuaternionBasics<?> quaternionToPack)
    {
@@ -476,41 +1077,114 @@ public abstract class QuaternionTools
       multiplyImpl(q1x, q1y, q1z, q1s, conjugateQuaternion, q2x, q2y, q2z, q2s, transposeMatrix, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} and {@code quaternion} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = Q(matrix) * quaternion <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(matrix, false, quaternion, false, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} and {@code quaternion} conjugated and stores the
+    * result in {@code quaternionToPack}.
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = Q(matrix) * quaternion* <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(matrix, false, quaternion, true, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} transposed and {@code quaternion} and stores the
+    * result in {@code quaternionToPack}.
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = Q(matrix<sup>T</sup>) * quaternion <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiplyTransposeMatrix(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(matrix, true, quaternion, false, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} transposed and {@code quaternion} conjugated and
+    * stores the result in {@code quaternionToPack}.
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = Q(matrix<sup>T</sup>) * quaternion* <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion,
                                                                  QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(matrix, true, quaternion, true, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} and {@code quaternion} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Both quaternions can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * quaternionToPack = Q(matrix) * quaternion <br>
+    * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param transposeMatrix whether to transpose the rotation matrix or not.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion,
                                     QuaternionBasics<?> quaternionToPack)
    {
-      double qx = quaternion.getX();
-      double qy = quaternion.getY();
-      double qz = quaternion.getZ();
-      double qs = quaternion.getS();
-
-      if (conjugateQuaternion)
-      {
-         qx = -qx;
-         qy = -qy;
-         qz = -qz;
-      }
+      double q2x = quaternion.getX();
+      double q2y = quaternion.getY();
+      double q2z = quaternion.getZ();
+      double q2s = quaternion.getS();
 
       QuaternionConversion.convertMatrixToQuaternion(matrix, quaternionToPack);
       double q1x = quaternionToPack.getX();
@@ -518,37 +1192,111 @@ public abstract class QuaternionTools
       double q1z = quaternionToPack.getZ();
       double q1s = quaternionToPack.getS();
 
-      if (transposeMatrix)
-      {
-         q1x = -q1x;
-         q1y = -q1y;
-         q1z = -q1z;
-      }
-
-      multiplyImpl(q1x, q1y, q1z, q1s, false, qx, qy, qz, qs, false, quaternionToPack);
+      multiplyImpl(q1x, q1y, q1z, q1s, transposeMatrix, q2x, q2y, q2z, q2s, conjugateQuaternion, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} and {@code matrix} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = R(quaternion) * matrix <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, false, matrix, false, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} conjugated and {@code matrix} and stores the
+    * result in {@code matrixToPack}.
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = R(quaternion*) * matrix <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, true, matrix, false, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} and {@code matrix} transposed and stores the
+    * result in {@code matrixToPack}.
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = R(quaternion) * matrix<sup>T</sup> <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, false, matrix, true, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} conjugated and {@code matrix} transposed and
+    * stores the result in {@code matrixToPack}.
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = R(quaternion*) * matrix<sup>T</sup> <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix,
                                                                  RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, true, matrix, false, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code quaternion} and {@code matrix} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = R(quaternion) * matrix <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param quaternion the first term in the multiplication. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param transposeMatrix whether to transpose the rotation matrix or not.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    private static void multiplyImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix,
                                     RotationMatrix matrixToPack)
    {
@@ -627,27 +1375,108 @@ public abstract class QuaternionTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} and {@code quaternion} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = matrix * R(quaternion) <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, false, quaternion, false, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} and {@code quaternion} conjugated and stores the
+    * result in {@code matrixToPack}.
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = matrix * R(quaternion*) <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, false, quaternion, true, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} transposed and {@code quaternion} and stores the
+    * result in {@code matrixToPack}.
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = matrix<sup>T</sup> * R(quaternion) <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiplyTransposeMatrix(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, true, quaternion, false, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} transposed and {@code quaternion} conjugated and
+    * stores the result in {@code matrixToPack}.
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = matrix<sup>T</sup> * R(quaternion*) <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion,
                                                                  RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, true, quaternion, true, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code matrix} and {@code quaternion} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = matrix * R(quaternion) <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    * 
+    * @param matrix the first term in the multiplication. Not modified.
+    * @param transposeMatrix whether to transpose the rotation matrix or not.
+    * @param quaternion the second term in the multiplication. Not modified.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion,
                                     RotationMatrix matrixToPack)
    {
