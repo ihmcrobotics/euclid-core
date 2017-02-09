@@ -9,6 +9,7 @@ import java.util.Random;
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -684,9 +685,9 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple2.setZ(random.nextDouble());
 
          tuple1.interpolate(tuple2, alpha);
-         assertEquals(tuple1.getX(), Tuple3DTools.interpolate(xOld, tuple2.getX(), alpha), getEpsilon());
-         assertEquals(tuple1.getY(), Tuple3DTools.interpolate(yOld, tuple2.getY(), alpha), getEpsilon());
-         assertEquals(tuple1.getZ(), Tuple3DTools.interpolate(zOld, tuple2.getZ(), alpha), getEpsilon());
+         assertEquals(tuple1.getX(), TupleTools.interpolate(xOld, tuple2.getX(), alpha), getEpsilon());
+         assertEquals(tuple1.getY(), TupleTools.interpolate(yOld, tuple2.getY(), alpha), getEpsilon());
+         assertEquals(tuple1.getZ(), TupleTools.interpolate(zOld, tuple2.getZ(), alpha), getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -697,9 +698,9 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
          tuple3.set(random.nextDouble(), random.nextDouble(), random.nextDouble());
 
          tuple1.interpolate(tuple2, tuple3, alpha);
-         assertEquals(tuple1.getX(), Tuple3DTools.interpolate(tuple2.getX(), tuple3.getX(), alpha), getEpsilon());
-         assertEquals(tuple1.getY(), Tuple3DTools.interpolate(tuple2.getY(), tuple3.getY(), alpha), getEpsilon());
-         assertEquals(tuple1.getZ(), Tuple3DTools.interpolate(tuple2.getZ(), tuple3.getZ(), alpha), getEpsilon());
+         assertEquals(tuple1.getX(), TupleTools.interpolate(tuple2.getX(), tuple3.getX(), alpha), getEpsilon());
+         assertEquals(tuple1.getY(), TupleTools.interpolate(tuple2.getY(), tuple3.getY(), alpha), getEpsilon());
+         assertEquals(tuple1.getZ(), TupleTools.interpolate(tuple2.getZ(), tuple3.getZ(), alpha), getEpsilon());
       }
    }
 }

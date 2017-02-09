@@ -2,8 +2,8 @@ package us.ihmc.geometry.tuple3D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.interfaces.GeometryObject;
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
 /**
  * Write and read interface for a 3 dimensional tuple.
@@ -510,9 +510,9 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     */
    default void interpolate(Tuple3DReadOnly<?> tuple1, Tuple3DReadOnly<?> tuple2, double alpha)
    {
-      double x = Tuple3DTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
-      double y = Tuple3DTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
-      double z = Tuple3DTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
+      double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
+      double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
+      double z = TupleTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
       set(x, y, z);
    }
 }

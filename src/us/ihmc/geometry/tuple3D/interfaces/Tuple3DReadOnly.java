@@ -3,8 +3,8 @@ package us.ihmc.geometry.tuple3D.interfaces;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
 /**
  * Read-only interface for a 3 dimensional tuple.
@@ -246,7 +246,7 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
    @Override
    default boolean epsilonEquals(T other, double epsilon)
    {
-      return Tuple3DTools.epsilonEquals(this, other, epsilon);
+      return TupleTools.epsilonEquals(this, other, epsilon);
    }
 
    /**

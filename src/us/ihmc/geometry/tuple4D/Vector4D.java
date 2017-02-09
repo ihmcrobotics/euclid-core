@@ -104,7 +104,7 @@ public class Vector4D implements Serializable, Vector4DBasics<Vector4D>
    @Override
    public String toString()
    {
-      return Tuple4DTools.toString(this);
+      return "(" + x + ", " + y + ", " + z + ", " + s + ")";
    }
 
    @Override

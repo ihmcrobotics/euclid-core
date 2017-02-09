@@ -8,9 +8,9 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.tuple3D.Point3D;
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -74,7 +74,7 @@ public class GeometryBasicsRandomToolsTest
             assertTrue(-1.0 <= tupleToRandomize.getZ());
             assertTrue(tupleToRandomize.getZ() <= 1.0);
 
-            assertFalse(Tuple3DTools.epsilonEquals(tupleToRandomize, previousValue, 1.0e-10));
+            assertFalse(TupleTools.epsilonEquals(tupleToRandomize, previousValue, 1.0e-10));
             previousValue.set(tupleToRandomize);
          }
       }

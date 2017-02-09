@@ -9,7 +9,7 @@ import java.util.Random;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 
 public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tuple4DBasicsTest<T>
@@ -582,10 +582,10 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tu
          tuple2.setS(random.nextDouble());
 
          tuple1.interpolate(tuple2, alpha);
-         assertEquals(tuple1.getX(), Tuple3DTools.interpolate(xOld, tuple2.getX(), alpha), getEpsilon());
-         assertEquals(tuple1.getY(), Tuple3DTools.interpolate(yOld, tuple2.getY(), alpha), getEpsilon());
-         assertEquals(tuple1.getZ(), Tuple3DTools.interpolate(zOld, tuple2.getZ(), alpha), getEpsilon());
-         assertEquals(tuple1.getS(), Tuple3DTools.interpolate(sOld, tuple2.getS(), alpha), getEpsilon());
+         assertEquals(tuple1.getX(), TupleTools.interpolate(xOld, tuple2.getX(), alpha), getEpsilon());
+         assertEquals(tuple1.getY(), TupleTools.interpolate(yOld, tuple2.getY(), alpha), getEpsilon());
+         assertEquals(tuple1.getZ(), TupleTools.interpolate(zOld, tuple2.getZ(), alpha), getEpsilon());
+         assertEquals(tuple1.getS(), TupleTools.interpolate(sOld, tuple2.getS(), alpha), getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -596,10 +596,10 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tu
          tuple3.set(random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble());
 
          tuple1.interpolate(tuple2, tuple3, alpha);
-         assertEquals(tuple1.getX(), Tuple3DTools.interpolate(tuple2.getX(), tuple3.getX(), alpha), getEpsilon());
-         assertEquals(tuple1.getY(), Tuple3DTools.interpolate(tuple2.getY(), tuple3.getY(), alpha), getEpsilon());
-         assertEquals(tuple1.getZ(), Tuple3DTools.interpolate(tuple2.getZ(), tuple3.getZ(), alpha), getEpsilon());
-         assertEquals(tuple1.getS(), Tuple3DTools.interpolate(tuple2.getS(), tuple3.getS(), alpha), getEpsilon());
+         assertEquals(tuple1.getX(), TupleTools.interpolate(tuple2.getX(), tuple3.getX(), alpha), getEpsilon());
+         assertEquals(tuple1.getY(), TupleTools.interpolate(tuple2.getY(), tuple3.getY(), alpha), getEpsilon());
+         assertEquals(tuple1.getZ(), TupleTools.interpolate(tuple2.getZ(), tuple3.getZ(), alpha), getEpsilon());
+         assertEquals(tuple1.getS(), TupleTools.interpolate(tuple2.getS(), tuple3.getS(), alpha), getEpsilon());
       }
    }
 

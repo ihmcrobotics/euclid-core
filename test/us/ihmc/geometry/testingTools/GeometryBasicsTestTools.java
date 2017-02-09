@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
@@ -15,12 +16,10 @@ import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
-import us.ihmc.geometry.tuple4D.Tuple4DTools;
 import us.ihmc.geometry.tuple4D.Vector4D;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
@@ -129,7 +128,7 @@ public abstract class GeometryBasicsTestTools
     */
    public static void assertTuple3DEquals(String message, Tuple3DReadOnly<?> expected, Tuple3DReadOnly<?> actual, double epsilon)
    {
-      boolean areEqual = Tuple3DTools.epsilonEquals(expected, actual, epsilon);
+      boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
 
       if (message.equals(""))
       {
@@ -168,7 +167,7 @@ public abstract class GeometryBasicsTestTools
     */
    public static void assertTuple2DEquals(String message, Tuple2DReadOnly<?> expected, Tuple2DReadOnly<?> actual, double epsilon)
    {
-      boolean areEqual = Tuple3DTools.epsilonEquals(expected, actual, epsilon);
+      boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
 
       if (message.equals(""))
       {
@@ -207,7 +206,7 @@ public abstract class GeometryBasicsTestTools
     */
    public static void assertTuple4DEquals(String message, Tuple4DReadOnly<?> expected, Tuple4DReadOnly<?> actual, double epsilon)
    {
-      boolean areEqual = Tuple4DTools.epsilonEquals(expected, actual, epsilon);
+      boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
 
       if (message.equals(""))
       {

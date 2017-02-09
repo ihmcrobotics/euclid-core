@@ -1,7 +1,7 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
 
 public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DReadOnly<T>, Tuple4DBasics<T>
 {
@@ -153,10 +153,10 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    default void interpolate(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2, double alpha)
    {
-      double x = Tuple3DTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
-      double y = Tuple3DTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
-      double z = Tuple3DTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
-      double s = Tuple3DTools.interpolate(tuple1.getS(), tuple2.getS(), alpha);
+      double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
+      double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
+      double z = TupleTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
+      double s = TupleTools.interpolate(tuple1.getS(), tuple2.getS(), alpha);
       set(x, y, z, s);
    }
 

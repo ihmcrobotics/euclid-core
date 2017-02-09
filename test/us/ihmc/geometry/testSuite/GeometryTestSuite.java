@@ -12,6 +12,7 @@ import org.pitest.mutationtest.commandline.MutationCoverageReport;
 
 import us.ihmc.geometry.CyclingConversionTest;
 import us.ihmc.geometry.GeometryBasicsToolsTest;
+import us.ihmc.geometry.TupleToolsTest;
 import us.ihmc.geometry.axisAngle.AxisAngle32Test;
 import us.ihmc.geometry.axisAngle.AxisAngleConversionTest;
 import us.ihmc.geometry.axisAngle.AxisAngleTest;
@@ -33,7 +34,6 @@ import us.ihmc.geometry.tuple2D.Vector2DTest;
 import us.ihmc.geometry.tuple3D.Point3D32Test;
 import us.ihmc.geometry.tuple3D.Point3DTest;
 import us.ihmc.geometry.tuple3D.RotationVectorConversionTest;
-import us.ihmc.geometry.tuple3D.Tuple3DToolsTest;
 import us.ihmc.geometry.tuple3D.Vector3D32Test;
 import us.ihmc.geometry.tuple3D.Vector3DTest;
 import us.ihmc.geometry.tuple4D.Quaternion32Test;
@@ -51,7 +51,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
 
       // Tools tests
       GeometryBasicsToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class, Matrix3DReadOnlyToolsTest.class,
-      RotationScaleMatrixToolsTest.class, Tuple3DToolsTest.class,
+      RotationScaleMatrixToolsTest.class, TupleToolsTest.class,
 
       // Conversion tests
       AxisAngleConversionTest.class, RotationVectorConversionTest.class, QuaternionConversionTest.class, RotationMatrixConversionTest.class,

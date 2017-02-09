@@ -103,7 +103,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    @Override
    public String toString()
    {
-      return Tuple4DTools.toString(this);
+      return "(" + x + ", " + y + ", " + z + ", " + s + ")";
    }
 
    @Override

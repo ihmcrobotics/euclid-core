@@ -3,8 +3,8 @@ package us.ihmc.geometry.tuple4D.interfaces;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
-import us.ihmc.geometry.tuple4D.Tuple4DTools;
 
 /**
  * Read-only interface for a 4 dimensional tuple.
@@ -322,7 +322,7 @@ public interface Tuple4DReadOnly<T extends Tuple4DReadOnly<T>> extends EpsilonCo
    @Override
    default boolean epsilonEquals(T other, double epsilon)
    {
-      return Tuple4DTools.epsilonEquals(this, other, epsilon);
+      return TupleTools.epsilonEquals(this, other, epsilon);
    }
 
    /**

@@ -9,6 +9,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.matrix.Matrix3D;
@@ -20,7 +21,6 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.Tuple3DTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -603,12 +603,12 @@ public class QuaternionToolsTest
          tupleActual.set(tupleExpected);
 
          QuaternionTools.transform(quaternion, tupleActual, tupleActual);
-         assertFalse(Tuple3DTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
+         assertFalse(TupleTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
          GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
 
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
-         assertFalse(Tuple3DTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
+         assertFalse(TupleTools.epsilonEquals(tupleExpected, tupleActual, EPSILON));
          QuaternionTools.transform(quaternion, tupleActual, tupleActual);
          GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
       }
@@ -832,7 +832,7 @@ public class QuaternionToolsTest
          tupleActual.setToZero();
          QuaternionTools.transform(quaternion, tupleOriginal, tupleTransformed, true);
          tupleTransformedCopy.set(tupleTransformed);
-         assertFalse(Tuple3DTools.epsilonEquals(tupleOriginal, tupleTransformed, EPSILON));
+         assertFalse(TupleTools.epsilonEquals(tupleOriginal, tupleTransformed, EPSILON));
          QuaternionTools.inverseTransform(quaternion, tupleTransformed, tupleActual, true);
          GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPSILON);
          assertTrue(tupleTransformed.equals(tupleTransformedCopy));
