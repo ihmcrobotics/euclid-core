@@ -4,6 +4,16 @@ public class GeometryBasicsTools
 {
    public static final double EPS_NORM_FAST_SQRT = 2.107342e-08;
 
+   /**
+    * Calculates and returns the square root of the given value.
+    * <p>
+    * This method is optimized when {@code squaredValueClosedToOne} is 
+    * equal to 1+/-{@value #EPS_NORM_FAST_SQRT} by using an approximation
+    * of the square root.
+    * 
+    * @param squaredValueClosedToOne the value to calculates the square root of.
+    * @return the value of the square root.
+    */
    public static double fastSquareRoot(double squaredValueClosedToOne)
    {
       if (Math.abs(1.0 - squaredValueClosedToOne) < EPS_NORM_FAST_SQRT)
