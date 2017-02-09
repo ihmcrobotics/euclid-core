@@ -137,11 +137,46 @@ public abstract class QuaternionConversion
       }
    }
 
+   /**
+    * Converts the given rotation part of the given rotation-scale matrix into a quaternion.
+    * <p>
+    * After calling this method, the rotation part of the rotation-scale matrix and the quaternion
+    * represent the same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param rotationScaleMatrix a 3-by-3 matrix representing an orientation and a scale. Only the
+    *           orientation part is used during the conversion. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, QuaternionBasics<?> quaternionToPack)
    {
       convertMatrixToQuaternion(rotationScaleMatrix.getRotationMatrix(), quaternionToPack);
    }
 
+   /**
+    * Converts the given rotation matrix into a quaternion.
+    * <p>
+    * After calling this method, the rotation matrix and the quaternion represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static void convertMatrixToQuaternion(RotationMatrixReadOnly<?> rotationMatrix, QuaternionBasics<?> quaternionToPack)
    {
       if (rotationMatrix.containsNaN())
@@ -220,11 +255,57 @@ public abstract class QuaternionConversion
       quaternionToPack.setUnsafe(qx, qy, qz, qs);
    }
 
+   /**
+    * Converts the rotation vector into a quaternion.
+    * <p>
+    * After calling this method, the rotation vector and the quaternion represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation vector contains at least a {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    * 
+    * @param rotationVector the rotation vector to use in the conversion. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static void convertRotationVectorToQuaternion(Vector3DReadOnly<?> rotationVector, QuaternionBasics<?> quaternionToPack)
    {
       convertRotationVectorToQuaternionImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), quaternionToPack);
    }
 
+   /**
+    * Converts the rotation vector into a quaternion.
+    * <p>
+    * After calling this method, the rotation vector and the quaternion represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation vector contains at least a {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    * 
+    * @param rx the x-component of the rotation vector to use in the conversion.
+    * @param ry the y-component of the rotation vector to use in the conversion.
+    * @param rz the z-component of the rotation vector to use in the conversion.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static void convertRotationVectorToQuaternionImpl(double rx, double ry, double rz, QuaternionBasics<?> quaternionToPack)
    {
       if (GeometryBasicsTools.containsNaN(rx, ry, rz))
@@ -248,11 +329,61 @@ public abstract class QuaternionConversion
       }
    }
 
+   /**
+    * Converts the given yaw-pitch-roll angles into a quaternion.
+    * <p>
+    * After calling this method, the yaw-pitch-roll and the quaternion represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the
+    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
+    * representation is: <br>
+    * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
+    * </p>
+    * 
+    * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static void convertYawPitchRollToQuaternion(double[] yawPitchRoll, QuaternionBasics<?> quaternionToPack)
    {
       convertYawPitchRollToQuaternion(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], quaternionToPack);
    }
 
+   /**
+    * Converts the given yaw-pitch-roll angles into a quaternion.
+    * <p>
+    * After calling this method, the yaw-pitch-roll and the quaternion represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the
+    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
+    * representation is: <br>
+    * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
+    * </p>
+    * 
+    * @param yaw the yaw angle to use in the conversion.
+    * @param pitch the pitch angle to use in the conversion.
+    * @param roll the roll angle to use in the conversion.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static void convertYawPitchRollToQuaternion(double yaw, double pitch, double roll, QuaternionBasics<?> quaternionToPack)
    {
       double halfYaw = 0.5 * yaw;
