@@ -144,6 +144,12 @@ public abstract class QuaternionConversion
 
    public static void convertMatrixToQuaternion(RotationMatrixReadOnly<?> rotationMatrix, QuaternionBasics<?> quaternionToPack)
    {
+      if (rotationMatrix.containsNaN())
+      {
+         quaternionToPack.setToNaN();
+         return;
+      }
+
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();
       double m02 = rotationMatrix.getM02();
@@ -153,17 +159,6 @@ public abstract class QuaternionConversion
       double m20 = rotationMatrix.getM20();
       double m21 = rotationMatrix.getM21();
       double m22 = rotationMatrix.getM22();
-      convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, quaternionToPack);
-   }
-
-   static void convertMatrixToQuaternionImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-                                             QuaternionBasics<?> quaternionToPack)
-   {
-      if (GeometryBasicsTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
-      {
-         quaternionToPack.setToNaN();
-         return;
-      }
 
       // There are different ways to compute the quaternions elements from the matrix. They all involve computing one element from
       // the diagonal of the matrix, and computing the three other ones using a formula involving a division by the first element,
