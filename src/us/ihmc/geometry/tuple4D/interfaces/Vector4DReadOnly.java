@@ -1,13 +1,7 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
 /**
- * Read-only interface for a 4 dimensional vector.
- * <p>
- * A tuple 4D represents what is commonly called a quaternion.
- * The classes implementing this interface are meant for representing a generic quaternion.
- * For unit-quaternions, the interfaces {@link QuaternionReadOnly} and {@link QuaternionBasics}
- * should be implemented.
- * </p>
+ * Read-only interface for a 4 dimensional vector representing a generic quaternion.
  * <p>
  * When describing a 4D tuple, its 4 components are often gathered in two groups: the scalar part {@code s}
  * and the vector part ({@code x}, {@code y}, {@code z}).
@@ -28,7 +22,7 @@ package us.ihmc.geometry.tuple4D.interfaces;
  * 
  * @author Sylvain Bertrand
  *
- * @param <T> The final type of the tuple used.
+ * @param <T> The final type of the vector used.
  */
 public interface Vector4DReadOnly<T extends Vector4DReadOnly<T>> extends Tuple4DReadOnly<T>
 {

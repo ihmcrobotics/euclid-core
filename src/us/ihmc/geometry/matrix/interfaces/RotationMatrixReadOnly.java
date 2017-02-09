@@ -18,15 +18,14 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 /**
  * Read interface used for 3-by-3 rotation matrices.
  * <p>
- * A rotation matrix is used to represent a 3D orientation
- * through its 9 coefficients.
- * A rotation matrix has to comply to several constraints:
+ * A rotation matrix is used to represent a 3D orientation through its 9 coefficients. A rotation
+ * matrix has to comply to several constraints:
  * <ul>
- *    <li> each column of the matrix represents a unitary vector,
- *    <li> each row of the matrix represents a unitary vector,
- *    <li> every pair of columns of the matrix represents two orthogonal vectors,
- *    <li> every pair of rows of the matrix represents two orthogonal vectors,
- *    <li> the matrix determinant is equal to {@code 1}.
+ * <li>each column of the matrix represents a unitary vector,
+ * <li>each row of the matrix represents a unitary vector,
+ * <li>every pair of columns of the matrix represents two orthogonal vectors,
+ * <li>every pair of rows of the matrix represents two orthogonal vectors,
+ * <li>the matrix determinant is equal to {@code 1}.
  * </ul>
  * A rotation matrix has the nice property <i>R<sup>T</sup> = R<sup>-1</sup></i>.
  * </p>
@@ -84,8 +83,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
    }
 
    /**
-    * Transforms the given quaternion
-    * {@code quaternionOriginal} and stores the result into
+    * Transforms the given quaternion {@code quaternionOriginal} and stores the result into
     * {@code quaternionTransformed}.
     * <p>
     * quaternionTransformed = Q(this) * quaternionOriginal <br>
@@ -110,8 +108,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
    }
 
    /**
-    * Transforms the given rotation matrix by this
-    * rotation matrix.
+    * Transforms the given rotation matrix by this rotation matrix.
     * <p>
     * matrixToTransform = this * matrixToTransform
     * </p>
@@ -124,8 +121,8 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
    }
 
    /**
-    * Transforms the given rotation matrix {@code matrixOriginal} by this
-    * rotation matrix and stores the result in {@code matrixTransformed}.
+    * Transforms the given rotation matrix {@code matrixOriginal} by this rotation matrix and stores
+    * the result in {@code matrixTransformed}.
     * <p>
     * matrixTransformed = this * matrixOriginal
     * </p>
@@ -174,11 +171,11 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion
-    * {@code quaternionToTransform}.
+    * Performs the inverse of the transform to the given quaternion {@code quaternionToTransform}.
     * <p>
     * quaternionToTransform = Q(this<sup>-1</sup>) * quaternionToTransform <br>
-    * where Q(this<sup>-1</sup>) is the equivalent quaternion for the inverse of this rotation matrix.
+    * where Q(this<sup>-1</sup>) is the equivalent quaternion for the inverse of this rotation
+    * matrix.
     * </p>
     * 
     * @param quaternionToTransform the quaternion to transform. Modified.
@@ -189,16 +186,16 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion
-    * {@code quaternionOriginal} and stores the result into
-    * {@code quaternionTransformed}.
+    * Performs the inverse of the transform to the given quaternion {@code quaternionOriginal} and
+    * stores the result into {@code quaternionTransformed}.
     * <p>
     * quaternionTransformed = Q(this<sup>-1</sup>) * quaternionOriginal <br>
-    * where Q(this<sup>-1</sup>) is the equivalent quaternion for the inverse of this rotation matrix.
+    * where Q(this<sup>-1</sup>) is the equivalent quaternion for the inverse of this rotation
+    * matrix.
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> q<sup>-1</sup> = conjugate(q) </br>
+    * This operation uses the property: <br>
+    * q<sup>-1</sup> = conjugate(q) </br>
     * of a quaternion preventing to actually compute the inverse of the matrix.
     * </p>
     * 
@@ -223,14 +220,33 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
    }
 
    /**
-    * Performs the inverse of the transform to the given rotation matrix {@code matrixOriginal} by this
-    * rotation matrix and stores the result in {@code matrixTransformed}.
+    * Performs the inverse of the transform to the given rotation matrix {@code matrixToTransform}
+    * by this rotation matrix.
+    * <p>
+    * matrixToTransform = this<sup>-1</sup> * matrixToTransform
+    * </p>
+    * <p>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the matrix.
+    * </p>
+    * 
+    * @param matrixToTransform the rotation matrix to transform. Modified.
+    */
+   default void inverseTransform(RotationMatrix matrixToTransform)
+   {
+      inverseTransform(matrixToTransform, matrixToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform to the given rotation matrix {@code matrixOriginal} by
+    * this rotation matrix and stores the result in {@code matrixTransformed}.
     * <p>
     * matrixTransformed = this<sup>-1</sup> * matrixOriginal
     * </p>
     * <p>
-    * This operation uses the property:
-    * <br> R<sup>-1</sup> = R<sup>T</sup> </br>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
     * 
@@ -243,6 +259,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
       RotationMatrixTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
    {
