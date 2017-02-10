@@ -1,14 +1,16 @@
 package us.ihmc.geometry.tuple3D;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.Random;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.transform.AffineTransform;
+import us.ihmc.geometry.transform.QuaternionBasedTransform;
+import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 
 public abstract class Point3DBasicsTest<T extends Point3DBasics<T>> extends Tuple3DBasicsTest<T>
@@ -50,9 +52,50 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics<T>> extends Tupl
 
    // Basics part
    @Test
-   @Ignore
-   public void testApplyTransform()
+   public void testApplyTransform() throws Exception
    {
-      fail("Not yet implemented");
+      Random random = new Random(23523L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, 10.0 * getEpsilon());
+      }
    }
 }

@@ -5,11 +5,12 @@ import static org.junit.Assert.fail;
 
 import java.util.Random;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
+import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
 
@@ -167,10 +168,65 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
       }
    }
 
-   @Ignore
    @Test
-   public void testApplyTransform()
+   public void testApplyTransform() throws Exception
    {
-      fail("Not yet implemented");
+      Random random = new Random(2342L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T original = createRandomTuple(random);
+         T actual = createEmptyTuple();
+         T expected = createEmptyTuple();
+
+         RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
+         rigidBodyTransform.setRotationYaw(GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI));
+         rigidBodyTransform.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random, 0.0, 10.0));
+
+         expected.set(original);
+         rigidBodyTransform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(rigidBodyTransform);
+         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+
+         actual.set(original);
+         actual.applyTransform(rigidBodyTransform, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+
+         actual.set(original);
+         actual.applyTransform(rigidBodyTransform, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+
+         rigidBodyTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+
+         try
+         {
+            actual.applyTransform(rigidBodyTransform);
+            fail("Should have thrown a NotAMatrix2DException.");
+         }
+         catch (NotAMatrix2DException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a NotAMatrix2DException.");
+         }
+
+         try
+         {
+            actual.applyTransform(rigidBodyTransform, true);
+            fail("Should have thrown a NotAMatrix2DException.");
+         }
+         catch (NotAMatrix2DException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a NotAMatrix2DException.");
+         }
+         actual.applyTransform(rigidBodyTransform, false);
+      }
    }
 }

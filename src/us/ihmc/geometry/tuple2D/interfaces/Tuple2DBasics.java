@@ -3,7 +3,9 @@ package us.ihmc.geometry.tuple2D.interfaces;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.TupleTools;
+import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.interfaces.GeometryObject;
+import us.ihmc.geometry.transform.interfaces.Transform;
 
 /**
  * Write and read interface for a 2 dimensional tuple.
@@ -556,4 +558,36 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
       double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
       set(x, y);
    }
+
+   /**
+    * Transforms this tuple by the given {@code transform}.
+    * <p>
+    * Note: transforming a point differs from transforming a vector in the way that the point can be
+    * translated, whereas the vector can be only rotated and scaled.
+    * </p>
+    * s
+    * @param transform the geometric transform to apply on this vector. Not modified.
+    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
+    *            transformation in the XY plane.
+    */
+   @Override
+   default void applyTransform(Transform transform)
+   {
+      applyTransform(transform, true);
+   }
+
+   /**
+    * Transforms this tuple by the given {@code transform}.
+    * <p>
+    * Note: transforming a point differs from transforming a vector in the way that the point can be
+    * translated, whereas the vector can be only rotated and scaled.
+    * </p>
+    * 
+    * @param transform the geometric transform to apply on this tuple. Not modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
+    *           the given transform represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
+    *            part of {@code transform} is not a transformation in the XY plane.
+    */
+   void applyTransform(Transform transform, boolean checkIfTransformInXYplane);
 }

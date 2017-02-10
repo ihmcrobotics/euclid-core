@@ -55,6 +55,29 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
       }
    }
 
+   @Override
+   public void testSetters() throws Exception
+   {
+      super.testSetters();
+
+      Random random = new Random(621541L);
+      Vector2D32 tuple1 = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setX(float x)
+         float x = random.nextFloat();
+         tuple1.setX(x);
+         assertEquals(tuple1.getX32(), x, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setY(float y)
+         float y = random.nextFloat();
+         tuple1.setY(y);
+         assertEquals(tuple1.getY32(), y, getEpsilon());
+      }
+   }
+
    @Test
    public void testHashCode() throws Exception
    {

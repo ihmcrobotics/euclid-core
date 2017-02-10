@@ -3,7 +3,15 @@ package us.ihmc.geometry.testingTools;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static us.ihmc.geometry.GeometryBasicsIOTools.*;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getAffineTransformString;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getAxisAngleString;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getMatrixString;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getQuaternionBasedTransformString;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getRigidBodyTransformString;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getStringFormat;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getTuple2DString;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getTuple3DString;
+import static us.ihmc.geometry.GeometryBasicsIOTools.getTuple4DString;
 
 import java.util.Arrays;
 

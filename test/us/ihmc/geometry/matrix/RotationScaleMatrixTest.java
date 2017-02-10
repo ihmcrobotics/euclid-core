@@ -1,6 +1,9 @@
 package us.ihmc.geometry.matrix;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
@@ -12,14 +15,24 @@ import org.junit.Test;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
+import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
+import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
+import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
+import us.ihmc.geometry.tuple4D.QuaternionTools;
 import us.ihmc.geometry.tuple4D.Vector4D;
+import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
+import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
+import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMatrix>
@@ -1481,6 +1494,217 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          actual.setToNaN();
          matrix.inverseTransform(original, actual);
          GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testInverseTransform() throws Exception
+   {
+      super.testInverseTransform();
+
+      Random random = new Random(6787L);
+      RotationScaleMatrix rotationScaleMatrix = createEmptyMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleToTransform)
+         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
+         Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationScaleMatrix, tuple, expectedTuple);
+         rotationScaleMatrix.inverseTransform((Tuple3DBasics<?>) actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
+         Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationScaleMatrix, tuple, expectedTuple);
+         rotationScaleMatrix.inverseTransform(tuple, actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleToTransform)
+         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
+         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         rotationScaleMatrix.setToYawMatrix(theta);
+
+         Matrix3DTools.inverseTransform(rotationScaleMatrix, tuple, expectedTuple, false);
+         rotationScaleMatrix.inverseTransform(actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+         actualTuple.set(tuple);
+         rotationScaleMatrix.inverseTransform(actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+         actualTuple.set(tuple);
+         rotationScaleMatrix.inverseTransform(actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
+         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
+         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         rotationScaleMatrix.setToYawMatrix(theta);
+
+         Matrix3DTools.inverseTransform(rotationScaleMatrix, tuple, expectedTuple, false);
+         rotationScaleMatrix.inverseTransform(tuple, actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+         rotationScaleMatrix.inverseTransform(tuple, actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+         rotationScaleMatrix.inverseTransform(tuple, actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+      }
+
+      // Test exceptions
+      try
+      {
+         rotationScaleMatrix = createRandomMatrix(random);
+         rotationScaleMatrix.inverseTransform(new Vector2D());
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      try
+      {
+         rotationScaleMatrix = createRandomMatrix(random);
+         rotationScaleMatrix.inverseTransform(new Vector2D(), new Vector2D());
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+      try
+      {
+         rotationScaleMatrix = createRandomMatrix(random);
+         rotationScaleMatrix.inverseTransform(new Vector2D(), true);
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      try
+      {
+         rotationScaleMatrix = createRandomMatrix(random);
+         rotationScaleMatrix.inverseTransform(new Vector2D(), new Vector2D(), true);
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(QuaternionBasics<?> quaternionToTransform)
+         QuaternionReadOnly<?> original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics<?> actual = new Quaternion(original);
+         QuaternionBasics<?> expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         QuaternionTools.multiplyTransposeMatrix(rotationScaleMatrix.getRotationMatrix(), original, expected);
+         rotationScaleMatrix.inverseTransform(actual);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+         QuaternionReadOnly<?> original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics<?> actual = new Quaternion(original);
+         QuaternionBasics<?> expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         QuaternionTools.multiplyTransposeMatrix(rotationScaleMatrix.getRotationMatrix(), original, expected);
+         rotationScaleMatrix.inverseTransform(original, actual);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Vector4DBasics<?> vectorToTransform)
+         Vector4DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics<?> actual = new Vector4D(original);
+         Vector4DBasics<?> expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationScaleMatrix, original, expected);
+         rotationScaleMatrix.inverseTransform(actual);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+         Vector4DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics<?> actual = new Vector4D(original);
+         Vector4DBasics<?> expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationScaleMatrix, original, expected);
+         rotationScaleMatrix.inverseTransform(original, actual);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Matrix3D matrixToTransform)
+         Matrix3DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = new Matrix3D(original);
+         Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationScaleMatrix, original, expected);
+         rotationScaleMatrix.inverseTransform(actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+         Matrix3DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = new Matrix3D(original);
+         Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationScaleMatrix, original, expected);
+         rotationScaleMatrix.inverseTransform(original, actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(RotationMatrix matrixToTransform)
+         RotationMatrixReadOnly<?> original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix actual = new RotationMatrix(original);
+         RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         RotationMatrixTools.multiplyTransposeLeft(rotationScaleMatrix.getRotationMatrix(), original, expected);
+         rotationScaleMatrix.inverseTransform(actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+         RotationMatrixReadOnly<?> original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix actual = new RotationMatrix(original);
+         RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         rotationScaleMatrix = createRandomMatrix(random);
+
+         RotationMatrixTools.multiplyTransposeLeft(rotationScaleMatrix.getRotationMatrix(), original, expected);
+         rotationScaleMatrix.inverseTransform(original, actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 

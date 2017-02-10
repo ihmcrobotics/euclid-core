@@ -833,6 +833,7 @@ public class Matrix3DFeaturesTest
       // Test that it handles null pointers.
       assertFalse(Matrix3DFeatures.equals(m1, null));
       assertFalse(Matrix3DFeatures.equals(null, m2));
+      assertFalse(Matrix3DFeatures.equals(new RotationMatrix(), m2));
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {

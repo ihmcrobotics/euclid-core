@@ -1,6 +1,10 @@
 package us.ihmc.geometry.tuple4D;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
@@ -8,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
+import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
@@ -308,43 +313,59 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       {
          quaternion = createRandomTuple(random);
          quaternion.transform(new Vector2D());
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (RuntimeException e)
+      catch (NotAMatrix2DException e)
       {
          // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
       }
 
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.transform(new Vector2D(), new Vector2D());
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (RuntimeException e)
+      catch (NotAMatrix2DException e)
       {
          // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
       }
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.transform(new Vector2D(), true);
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (RuntimeException e)
+      catch (NotAMatrix2DException e)
       {
          // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
       }
 
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.transform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (RuntimeException e)
+      catch (NotAMatrix2DException e)
       {
          // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
       }
 
       {// Test transform quaternion
@@ -493,43 +514,59 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       {
          quaternion = createRandomTuple(random);
          quaternion.inverseTransform(new Vector2D());
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (RuntimeException e)
+      catch (NotAMatrix2DException e)
       {
          // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
       }
 
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.inverseTransform(new Vector2D(), new Vector2D());
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (RuntimeException e)
+      catch (NotAMatrix2DException e)
       {
          // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
       }
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.inverseTransform(new Vector2D(), true);
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (RuntimeException e)
+      catch (NotAMatrix2DException e)
       {
          // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
       }
 
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.inverseTransform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (RuntimeException e)
+      catch (NotAMatrix2DException e)
       {
          // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
