@@ -566,7 +566,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * translated, whereas the vector can be only rotated and scaled.
     * </p>
     * s
-    * 
+    *
     * @param transform the geometric transform to apply on this vector. Not modified.
     * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
     *            transformation in the XY plane.

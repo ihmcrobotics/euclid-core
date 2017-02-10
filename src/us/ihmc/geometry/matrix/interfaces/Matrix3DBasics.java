@@ -151,7 +151,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
    /**
     * Copies the values in the given dense-matrix into this matrix given index offsets for the row
     * and column.
-    * 
+    *
     * @param startRow the first row index to start reading from in the dense-matrix.
     * @param startColumn the first column index to start reading from in the dense-matrix.
     * @param matrix the dense-matrix containing the new values for this matrix. Not modified.
