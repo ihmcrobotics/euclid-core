@@ -1668,6 +1668,6 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getHomogeneousTransformString(rotationScaleMatrix, translationVector);
+      return GeometryBasicsIOTools.getAffineTransformString(this);
    }
 }

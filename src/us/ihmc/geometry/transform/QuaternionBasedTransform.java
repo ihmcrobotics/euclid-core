@@ -1123,6 +1123,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getQuaternionBasedTransformString(quaternion, translationVector);
+      return GeometryBasicsIOTools.getQuaternionBasedTransformString(this);
    }
 }

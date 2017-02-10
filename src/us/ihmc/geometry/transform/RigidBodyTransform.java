@@ -1857,6 +1857,6 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getHomogeneousTransformString(rotationMatrix, translationVector);
+      return GeometryBasicsIOTools.getRigidBodyTransformString(this);
    }
 }
