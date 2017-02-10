@@ -2,6 +2,7 @@ package us.ihmc.geometry.matrix;
 
 import java.io.Serializable;
 
+import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
@@ -1326,7 +1327,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    @Override
    public String toString()
    {
-      return Matrix3DReadOnlyTools.toString(this);
+      return GeometryBasicsIOTools.getMatrixString(this);
    }
 
    /**

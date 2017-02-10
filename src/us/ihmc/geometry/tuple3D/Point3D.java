@@ -2,6 +2,7 @@ package us.ihmc.geometry.tuple3D;
 
 import java.io.Serializable;
 
+import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -160,7 +161,7 @@ public class Point3D implements Serializable, Point3DBasics<Point3D>
    @Override
    public String toString()
    {
-      return "(" + x + ", " + y + ", " + z + ")";
+      return GeometryBasicsIOTools.getTuple3DString(this);
    }
 
    /**

@@ -2,6 +2,7 @@ package us.ihmc.geometry.axisAngle;
 
 import java.io.Serializable;
 
+import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
@@ -270,7 +271,7 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>
    @Override
    public String toString()
    {
-      return "(" + x + ", " + y + ", " + z + ", " + angle + ")";
+      return GeometryBasicsIOTools.getAxisAngleString(this);
    }
 
    /**

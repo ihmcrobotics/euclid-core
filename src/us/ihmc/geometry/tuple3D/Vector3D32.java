@@ -2,6 +2,7 @@ package us.ihmc.geometry.tuple3D;
 
 import java.io.Serializable;
 
+import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.tuple2D.Vector2D32;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
@@ -226,7 +227,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
    @Override
    public String toString()
    {
-      return "(" + x + ", " + y + ", " + z + ")";
+      return GeometryBasicsIOTools.getTuple3DString(this);
    }
 
    /**

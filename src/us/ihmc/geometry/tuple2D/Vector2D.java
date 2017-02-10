@@ -2,6 +2,7 @@ package us.ihmc.geometry.tuple2D;
 
 import java.io.Serializable;
 
+import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 
@@ -137,7 +138,7 @@ public class Vector2D implements Serializable, Vector2DBasics<Vector2D>
    @Override
    public String toString()
    {
-      return "(" + x + ", " + y + ")";
+      return GeometryBasicsIOTools.getTuple2DString(this);
    }
 
    /**

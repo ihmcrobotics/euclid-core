@@ -393,7 +393,8 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     */
    default void checkIfRotationMatrix()
    {
-      Matrix3DFeatures.checkIfRotationMatrix(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
+      if (!isRotationMatrix())
+         throw new NotARotationMatrixException(this);
    }
 
    /**

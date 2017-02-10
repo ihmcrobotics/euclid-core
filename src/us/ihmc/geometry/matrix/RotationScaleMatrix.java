@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.ejml.data.DenseMatrix64F;
 
+import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
@@ -1412,7 +1413,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    @Override
    public String toString()
    {
-      return Matrix3DReadOnlyTools.toString(this);
+      return GeometryBasicsIOTools.getMatrixString(this);
    }
 
    /**
