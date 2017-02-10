@@ -336,7 +336,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     */
    public void set(DenseMatrix64F matrix, int startRow, int startColumn)
    {
-      rotationScaleMatrix.set(matrix, startRow, startColumn);
+      rotationScaleMatrix.set(startRow, startColumn, matrix);
       translationVector.set(startRow, startColumn + 3, matrix);
    }
 

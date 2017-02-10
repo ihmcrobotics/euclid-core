@@ -3,6 +3,7 @@ package us.ihmc.geometry.testingTools;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static us.ihmc.geometry.GeometryBasicsIOTools.*;
 
 import java.util.Arrays;
 
@@ -28,6 +29,8 @@ import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
 public abstract class GeometryBasicsTestTools
 {
+   private static final String DEFAULT_FORMAT = getStringFormat(18, 15);
+
    /**
     * Asserts that the two given angles are equal to an {@code epsilon}.
     * <p>
@@ -106,7 +109,8 @@ public abstract class GeometryBasicsTestTools
       }
       catch (AssertionError e)
       {
-         throw new AssertionError("expected:" + expectedRotationVector + " but was:" + actualRotationVector);
+         throw new AssertionError("expected:" + getTuple3DString(DEFAULT_FORMAT, expectedRotationVector) + " but was:"
+               + getTuple3DString(DEFAULT_FORMAT, actualRotationVector));
       }
    }
 
@@ -145,7 +149,8 @@ public abstract class GeometryBasicsTestTools
       {
          Vector3D difference = new Vector3D(actual);
          difference.sub(expected);
-         fail(message + " Expected = " + expected + ", actual = " + actual + ". Difference magnitude = " + difference.length());
+         fail(message + " Expected = " + getTuple3DString(DEFAULT_FORMAT, expected) + ", actual = " + getTuple3DString(DEFAULT_FORMAT, actual)
+               + ". Difference magnitude = " + difference.length());
       }
    }
 
@@ -184,7 +189,8 @@ public abstract class GeometryBasicsTestTools
       {
          Vector2D difference = new Vector2D(actual);
          difference.sub(expected);
-         fail(message + " Expected = " + expected + ", actual = " + actual + ". Difference magnitude = " + difference.length());
+         fail(message + " Expected = " + getTuple2DString(DEFAULT_FORMAT, expected) + ", actual = " + getTuple2DString(DEFAULT_FORMAT, actual)
+               + ". Difference magnitude = " + difference.length());
       }
    }
 
@@ -223,7 +229,8 @@ public abstract class GeometryBasicsTestTools
       {
          Vector4D difference = new Vector4D(actual);
          difference.sub(expected);
-         fail(message + " Expected = " + expected + ", actual = " + actual + ". Difference magnitude = " + difference.norm());
+         fail(message + " Expected = " + getTuple4DString(DEFAULT_FORMAT, expected) + ", actual = " + getTuple4DString(DEFAULT_FORMAT, actual)
+               + ". Difference magnitude = " + difference.norm());
       }
    }
 
@@ -254,7 +261,7 @@ public abstract class GeometryBasicsTestTools
    {
       if (!Matrix3DFeatures.epsilonEquals(expected, actual, epsilon))
       {
-         fail(message + " Expected =\n" + expected + "\nActual =\n" + actual);
+         fail(message + " Expected =\n" + getMatrixString(DEFAULT_FORMAT, expected) + "\nActual =\n" + getMatrixString(DEFAULT_FORMAT, actual));
       }
    }
 
@@ -283,7 +290,7 @@ public abstract class GeometryBasicsTestTools
    public static void assertSkewSymmetric(Matrix3DReadOnly<?> matrix, double epsilon)
    {
       if (!matrix.isMatrixSkewSymmetric(epsilon))
-         fail("The matrix is not skew-symmetric:\n" + matrix);
+         fail("The matrix is not skew-symmetric:\n" + getMatrixString(DEFAULT_FORMAT, matrix));
    }
 
    /**
@@ -304,7 +311,7 @@ public abstract class GeometryBasicsTestTools
    public static void assertRotationMatrix(Matrix3DReadOnly<?> matrix, double epsilon)
    {
       if (!matrix.isRotationMatrix(epsilon))
-         fail("This is not a rotation matrix:\n" + matrix);
+         fail("This is not a rotation matrix:\n" + getMatrixString(DEFAULT_FORMAT, matrix));
    }
 
    /**
@@ -318,7 +325,7 @@ public abstract class GeometryBasicsTestTools
    public static void assertIdentity(Matrix3DReadOnly<?> matrix, double epsilon)
    {
       if (!matrix.isIdentity(epsilon))
-         fail("The matrix is not identity:\n" + matrix);
+         fail("The matrix is not identity:\n" + getMatrixString(DEFAULT_FORMAT, matrix));
    }
 
    /**
@@ -334,7 +341,7 @@ public abstract class GeometryBasicsTestTools
          for (int column = 0; column < 3; column++)
          {
             if (!Double.isNaN(matrix.getElement(row, column)))
-               fail("The matrix does not contain only NaN:\n" + matrix);
+               fail("The matrix does not contain only NaN:\n" + getMatrixString(DEFAULT_FORMAT, matrix));
          }
       }
    }
@@ -358,7 +365,8 @@ public abstract class GeometryBasicsTestTools
       }
       catch (AssertionError e)
       {
-         throw new AssertionError("expected:\n<" + expectedQuaternion + ">\n but was:\n<" + actualQuaternion + ">");
+         throw new AssertionError("expected:\n<" + getTuple4DString(DEFAULT_FORMAT, expectedQuaternion) + ">\n but was:\n<"
+               + getTuple4DString(DEFAULT_FORMAT, actualQuaternion) + ">");
       }
    }
 
@@ -386,7 +394,8 @@ public abstract class GeometryBasicsTestTools
       }
       catch (AssertionError e)
       {
-         throw new AssertionError("expected:\n<" + expectedQuaternion + ">\n but was:\n<" + actualQuaternion + ">");
+         throw new AssertionError("expected:\n<" + getTuple4DString(DEFAULT_FORMAT, expectedQuaternion) + ">\n but was:\n<"
+               + getTuple4DString(DEFAULT_FORMAT, actualQuaternion) + ">");
       }
    }
 
@@ -411,7 +420,8 @@ public abstract class GeometryBasicsTestTools
       }
       catch (AssertionError e)
       {
-         throw new AssertionError("expected:\n<" + expectedQuaternion + ">\n but was:\n<" + actualQuaternion + ">");
+         throw new AssertionError("expected:\n<" + getTuple4DString(DEFAULT_FORMAT, expectedQuaternion) + ">\n but was:\n<"
+               + getTuple4DString(DEFAULT_FORMAT, actualQuaternion) + ">");
       }
    }
 
@@ -434,7 +444,8 @@ public abstract class GeometryBasicsTestTools
       }
       catch (AssertionError e)
       {
-         throw new AssertionError("expected:\n<" + expectedAxisAngle + ">\n but was:\n<" + actualAxisAngle + ">");
+         throw new AssertionError("expected:\n<" + getAxisAngleString(DEFAULT_FORMAT, expectedAxisAngle) + ">\n but was:\n<"
+               + getAxisAngleString(DEFAULT_FORMAT, actualAxisAngle) + ">");
       }
    }
 
@@ -478,7 +489,8 @@ public abstract class GeometryBasicsTestTools
       }
       catch (AssertionError e)
       {
-         throw new AssertionError("expected:\n<" + expectedAxisAngle + ">\n but was:\n<" + actualAxisAngle + ">");
+         throw new AssertionError("expected:\n<" + getAxisAngleString(DEFAULT_FORMAT, expectedAxisAngle) + ">\n but was:\n<"
+               + getAxisAngleString(DEFAULT_FORMAT, actualAxisAngle) + ">");
       }
    }
 
@@ -520,7 +532,7 @@ public abstract class GeometryBasicsTestTools
    public static void assertAxisUnitary(AxisAngleReadOnly<?> axisAngleToAssert, double epsilon)
    {
       if (!axisAngleToAssert.isAxisUnitary(epsilon))
-         fail("The axis of the given AxisAngle is not unitary: " + axisAngleToAssert);
+         fail("The axis of the given AxisAngle is not unitary: " + getAxisAngleString(DEFAULT_FORMAT, axisAngleToAssert));
    }
 
    /**
@@ -561,7 +573,7 @@ public abstract class GeometryBasicsTestTools
    public static void assertQuaternionIsUnitary(QuaternionReadOnly<?> quaternionToAssert, double epsilon)
    {
       if (!quaternionToAssert.isUnitary(epsilon))
-         fail("The axis of the given Quaternion is not unitary: " + quaternionToAssert);
+         fail("The axis of the given Quaternion is not unitary: " + getTuple4DString(DEFAULT_FORMAT, quaternionToAssert));
    }
 
    /**
@@ -603,7 +615,8 @@ public abstract class GeometryBasicsTestTools
    {
       if (!expected.epsilonEquals(actual, epsilon))
       {
-         throw new AssertionError("expected:\n<" + expected + ">\n but was:\n<" + actual + ">");
+         throw new AssertionError("expected:\n<" + getRigidBodyTransformString(DEFAULT_FORMAT, expected) + ">\n but was:\n<"
+               + getRigidBodyTransformString(DEFAULT_FORMAT, actual) + ">");
       }
    }
 
@@ -620,7 +633,8 @@ public abstract class GeometryBasicsTestTools
    {
       if (!expected.epsilonEquals(actual, epsilon))
       {
-         throw new AssertionError("expected:\n<" + expected + ">\n but was:\n<" + actual + ">");
+         throw new AssertionError("expected:\n<" + getQuaternionBasedTransformString(DEFAULT_FORMAT, expected) + ">\n but was:\n<"
+               + getQuaternionBasedTransformString(DEFAULT_FORMAT, actual) + ">");
       }
    }
 
@@ -646,7 +660,8 @@ public abstract class GeometryBasicsTestTools
       }
       catch (AssertionError e)
       {
-         throw new AssertionError("expected:\n<" + expected + ">\n but was:\n<" + actual + ">");
+         throw new AssertionError("expected:\n<" + getQuaternionBasedTransformString(DEFAULT_FORMAT, expected) + ">\n but was:\n<"
+               + getQuaternionBasedTransformString(DEFAULT_FORMAT, actual) + ">");
       }
    }
 
@@ -663,7 +678,8 @@ public abstract class GeometryBasicsTestTools
    {
       if (!expected.epsilonEquals(actual, epsilon))
       {
-         throw new AssertionError("expected:\n<" + expected + ">\n but was:\n<" + actual + ">");
+         throw new AssertionError("expected:\n<" + getAffineTransformString(DEFAULT_FORMAT, expected) + ">\n but was:\n<"
+               + getAffineTransformString(DEFAULT_FORMAT, actual) + ">");
       }
    }
 }

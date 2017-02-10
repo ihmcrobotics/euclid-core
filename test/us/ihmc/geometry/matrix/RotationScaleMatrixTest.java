@@ -1,13 +1,11 @@
 package us.ihmc.geometry.matrix;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.ops.CommonOps;
 import org.ejml.ops.EjmlUnitTests;
 import org.junit.Test;
 
@@ -24,10 +22,35 @@ import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
-public class RotationScaleMatrixTest
+public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMatrix>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
    public static final double EPS = 1.0e-10;
+
+   @Test
+   public void testDefinition() throws Exception
+   {
+      // Tests that the rotation-scale matrix M can be expressed as M = R * S, with R a rotation matrix, S a diagonal matrix.
+      Random random = new Random(324234L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         Vector3D scale = GeometryBasicsRandomTools.generateRandomVector3D(random, 1.0, 10.0);
+         RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix(rotationMatrix, scale);
+
+         DenseMatrix64F rotationDenseMatrix = new DenseMatrix64F(3, 3);
+         rotationMatrix.get(rotationDenseMatrix);
+         DenseMatrix64F scaleDenseMatrix = new DenseMatrix64F(3, 3);
+         for (int index = 0; index < 3; index++)
+            scaleDenseMatrix.set(index, index, scale.get(index));
+         DenseMatrix64F rotationScaleDenseMatrix = new DenseMatrix64F(3, 3);
+         CommonOps.mult(rotationDenseMatrix, scaleDenseMatrix, rotationScaleDenseMatrix);
+         Matrix3D expectedRotationScaleMatrix = new Matrix3D();
+         expectedRotationScaleMatrix.set(rotationScaleDenseMatrix);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScaleMatrix, rotationScaleMatrix, EPS);
+      }
+   }
 
    @Test
    public void testConstructors() throws Exception
@@ -492,29 +515,13 @@ public class RotationScaleMatrixTest
    @Test
    public void testContainsNaN() throws Exception
    {
-      RotationScaleMatrix matrix = new RotationScaleMatrix();
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertFalse(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0);
-      assertTrue(matrix.containsNaN());
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
-      assertTrue(matrix.containsNaN());
+      super.testContainsNaN();
 
-      matrix.setToZero();
+      /*
+       * Also test for NaN in the scale part.
+       */
+
+      RotationScaleMatrix matrix = new RotationScaleMatrix();
       matrix.setScale(Double.NaN, 1.0, 1.0);
       assertTrue(matrix.containsNaN());
       matrix.setScale(1.0, Double.NaN, 1.0);
@@ -606,7 +613,7 @@ public class RotationScaleMatrixTest
          }
 
          RotationScaleMatrix matrixActual = new RotationScaleMatrix();
-         matrixActual.set(denseMatrix, startRow, startColumn);
+         matrixActual.set(startRow, startColumn, denseMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
@@ -1637,7 +1644,7 @@ public class RotationScaleMatrixTest
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          int startIndex = random.nextInt(10);
          double[] matrixArray = new double[9 + startIndex];
-         rotationScaleMatrix.get(matrixArray, startIndex);
+         rotationScaleMatrix.get(startIndex, matrixArray);
 
          for (int row = 0; row < 3; row++)
          {
@@ -1676,169 +1683,6 @@ public class RotationScaleMatrixTest
                assertTrue(denseMatrix.get(row + startRow, column + startColumn) == rotationScaleMatrix.getElement(row, column));
             }
          }
-      }
-   }
-
-   @Test
-   public void testGetColumn() throws Exception
-   {
-      Random random = new Random(23543L);
-      RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-
-      { // Test getColumn(int column, double columnArrayToPack[])
-         double[] columnArray = new double[3];
-         for (int column = 0; column < 3; column++)
-         {
-            rotationScaleMatrix.getColumn(column, columnArray);
-            for (int row = 0; row < 3; row++)
-               assertTrue(columnArray[row] == rotationScaleMatrix.getElement(row, column));
-         }
-         try
-         {
-            rotationScaleMatrix.getColumn(3, columnArray);
-            fail("Should have thrown an exception");
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-            // Good
-         }
-      }
-
-      { // Test getColumn(int column, TupleBasics columnToPack)
-         Vector3D columnArray = new Vector3D();
-         for (int column = 0; column < 3; column++)
-         {
-            rotationScaleMatrix.getColumn(column, columnArray);
-            for (int row = 0; row < 3; row++)
-               assertTrue(columnArray.get(row) == rotationScaleMatrix.getElement(row, column));
-         }
-         try
-         {
-            rotationScaleMatrix.getColumn(3, columnArray);
-            fail("Should have thrown an exception");
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-            // Good
-         }
-      }
-   }
-
-   @Test
-   public void testGetRow() throws Exception
-   {
-      Random random = new Random(23543L);
-      RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-
-      { // Test getColumn(int column, double columnArrayToPack[])
-         double[] rowArray = new double[3];
-         for (int row = 0; row < 3; row++)
-         {
-            rotationScaleMatrix.getRow(row, rowArray);
-            for (int column = 0; column < 3; column++)
-               assertTrue(rowArray[column] == rotationScaleMatrix.getElement(row, column));
-         }
-         try
-         {
-            rotationScaleMatrix.getRow(3, rowArray);
-            fail("Should have thrown an exception");
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-            // Good
-         }
-      }
-
-      { // Test getColumn(int column, TupleBasics columnToPack)
-         Vector3D rowArray = new Vector3D();
-         for (int row = 0; row < 3; row++)
-         {
-            rotationScaleMatrix.getRow(row, rowArray);
-            for (int column = 0; column < 3; column++)
-               assertTrue(rowArray.get(column) == rotationScaleMatrix.getElement(row, column));
-         }
-         try
-         {
-            rotationScaleMatrix.getRow(3, rowArray);
-            fail("Should have thrown an exception");
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-            // Good
-         }
-      }
-   }
-
-   @Test
-   public void testGetElement() throws Exception
-   {
-      Random random = new Random(5464L);
-      RotationScaleMatrix matrix = new RotationScaleMatrix();
-      double coeff;
-
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(coeff = random.nextDouble(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.getM00() == coeff);
-      assertTrue(matrix.getElement(0, 0) == coeff);
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, coeff = random.nextDouble(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.getM01() == coeff);
-      assertTrue(matrix.getElement(0, 1) == coeff);
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, coeff = random.nextDouble(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.getM02() == coeff);
-      assertTrue(matrix.getElement(0, 2) == coeff);
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, coeff = random.nextDouble(), 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.getM10() == coeff);
-      assertTrue(matrix.getElement(1, 0) == coeff);
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, coeff = random.nextDouble(), 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.getM11() == coeff);
-      assertTrue(matrix.getElement(1, 1) == coeff);
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, coeff = random.nextDouble(), 0.0, 0.0, 0.0);
-      assertTrue(matrix.getM12() == coeff);
-      assertTrue(matrix.getElement(1, 2) == coeff);
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, coeff = random.nextDouble(), 0.0, 0.0);
-      assertTrue(matrix.getM20() == coeff);
-      assertTrue(matrix.getElement(2, 0) == coeff);
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, coeff = random.nextDouble(), 0.0);
-      assertTrue(matrix.getM21() == coeff);
-      assertTrue(matrix.getElement(2, 1) == coeff);
-      ((RotationMatrix) matrix.getRotationMatrix()).setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, coeff = random.nextDouble());
-      assertTrue(matrix.getM22() == coeff);
-      assertTrue(matrix.getElement(2, 2) == coeff);
-
-      try
-      {
-         matrix.getElement(0, 3);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-      try
-      {
-         matrix.getElement(1, 3);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-      try
-      {
-         matrix.getElement(2, 3);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-      try
-      {
-         matrix.getElement(3, 0);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
       }
    }
 
@@ -1883,6 +1727,12 @@ public class RotationScaleMatrixTest
    @Test
    public void testEpsilonEquals() throws Exception
    {
+      /*
+       * This test needs to be custom as the method calls epsilonEquals on the rotationMatrix and
+       * the scale separately. This means that two rotation-scale matrices can have different
+       * rotation and scale parts but still being epsilon-equal when looking at the resulting
+       * matrix.
+       */
       Random random = new Random(2354L);
       RotationScaleMatrix m1 = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
       RotationScaleMatrix m2 = new RotationScaleMatrix();
@@ -1930,5 +1780,27 @@ public class RotationScaleMatrixTest
             assertFalse(m1.epsilonEquals(m2, epsilon));
          }
       }
+   }
+
+   @Override
+   public RotationScaleMatrix createEmptyMatrix()
+   {
+      return new RotationScaleMatrix();
+   }
+
+   @Override
+   public RotationScaleMatrix createMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      RotationMatrix rotationMatrix = new RotationMatrix();
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
+      rotationScaleMatrix.setRotation(rotationMatrix);
+      return rotationScaleMatrix;
+   }
+
+   @Override
+   public RotationScaleMatrix createRandomMatrix(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
    }
 }

@@ -147,6 +147,19 @@ public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
          }
       }
+
+      { // Test AxisAngle(double yaw, double pitch, double roll)
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         {
+            double[] yawPitchRoll = GeometryBasicsRandomTools.generateRandomYawPitchRoll(random);
+
+            axisAngle = new AxisAngle32(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
+            AxisAngle32 expectedAxisAngle = new AxisAngle32();
+            AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, (AxisAngleBasics<?>) expectedAxisAngle);
+
+            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
+         }
+      }
    }
 
    @Test

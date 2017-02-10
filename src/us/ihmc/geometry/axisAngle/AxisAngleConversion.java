@@ -106,7 +106,7 @@ public class AxisAngleConversion
          y /= s;
          z /= s;
       }
-      else if (Matrix3DFeatures.isZeroRotation(m00, m01, m02, m10, m11, m12, m20, m21, m22))
+      else if (Matrix3DFeatures.isIdentity(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
          axisAngleToPack.setToZero();
          return;

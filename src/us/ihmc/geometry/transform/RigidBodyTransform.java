@@ -464,7 +464,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     */
    public void set(DenseMatrix64F matrix, int startRow, int startColumn)
    {
-      rotationMatrix.set(matrix, startRow, startColumn);
+      rotationMatrix.set(startRow, startColumn, matrix);
       translationVector.set(startRow, startColumn + 3, matrix);
    }
 

@@ -187,64 +187,6 @@ public abstract class Matrix3DFeatures
    }
 
    /**
-    * Tests if the matrix described by the 9 coefficients represents a negligible rotation.
-    * <p>
-    * This matrix represents a 'zero' rotation if:
-    * <ul>
-    * <li>its trace is equal to {@code 3} +/- {@link EPS_CHECK_ZERO_ROTATION},
-    * <li>the sums of each pair of cross-diagonal coefficients ({@code m10}, {@code m01}),
-    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
-    * {@link EPS_CHECK_ZERO_ROTATION}.
-    * </ul>
-    * </p>
-    * 
-    * @param m00 first matrix element in the first row.
-    * @param m01 second matrix element in the first row.
-    * @param m02 third matrix element in the first row.
-    * @param m10 first matrix element in the second row.
-    * @param m11 second matrix element in the second row.
-    * @param m12 third matrix element in the second row.
-    * @param m20 first matrix element in the third row.
-    * @param m21 second matrix element in the third row.
-    * @param m22 third matrix element in the third row.
-    * @return {@code true} if this matrix represents a 'zero' rotation, {@code false} otherwise.
-    */
-   public static boolean isZeroRotation(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
-   {
-      return isZeroRotation(m00, m01, m02, m10, m11, m12, m20, m21, m22, EPS_CHECK_ZERO_ROTATION);
-   }
-
-   /**
-    * Tests if the matrix described by the 9 coefficients represents a negligible rotation.
-    * <p>
-    * This matrix represents a 'zero' rotation if:
-    * <ul>
-    * <li>its trace is equal to {@code 3} +/- {@code epsilon},
-    * <li>the sums of each pair of cross-diagonal coefficients ({@code m10}, {@code m01}),
-    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
-    * {@code epsilon}.
-    * </ul>
-    * </p>
-    * 
-    * @param m00 first matrix element in the first row.
-    * @param m01 second matrix element in the first row.
-    * @param m02 third matrix element in the first row.
-    * @param m10 first matrix element in the second row.
-    * @param m11 second matrix element in the second row.
-    * @param m12 third matrix element in the second row.
-    * @param m20 first matrix element in the third row.
-    * @param m21 second matrix element in the third row.
-    * @param m22 third matrix element in the third row.
-    * @param epsilon the tolerance to use.
-    * @return {@code true} if this matrix represents a 'zero' rotation, {@code false} otherwise.
-    */
-   public static boolean isZeroRotation(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-                                        double epsilon)
-   {
-      return Math.abs(m00 + m11 + m22 - 3) < epsilon && Math.abs(m01 + m10) < epsilon && Math.abs(m02 + m20) < epsilon && Math.abs(m12 + m21) < epsilon;
-   }
-
-   /**
     * Tests if the given matrix is a rotation matrix.
     * <p>
     * The given matrix is a rotation matrix if:

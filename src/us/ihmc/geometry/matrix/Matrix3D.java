@@ -111,6 +111,27 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
       set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
    }
 
+   /**
+    * Transposes this matrix: m = m<sup>T</sup>.
+    * 
+    */
+   public void transpose()
+   {
+      double temp;
+
+      temp = m01;
+      m01 = m10;
+      m10 = temp;
+
+      temp = m02;
+      m02 = m20;
+      m20 = temp;
+
+      temp = m12;
+      m12 = m21;
+      m21 = temp;
+   }
+
    /** {@inheritDoc} */
    @Override
    public void set(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)

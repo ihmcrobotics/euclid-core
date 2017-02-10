@@ -455,7 +455,6 @@ public abstract class QuaternionTools
 
       if (norm < EPS)
       {
-         tupleTransformed.set(tupleOriginal);
          return;
       }
 
@@ -1273,7 +1272,7 @@ public abstract class QuaternionTools
    public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix,
                                                                  RotationMatrix matrixToPack)
    {
-      multiplyImpl(quaternion, true, matrix, false, matrixToPack);
+      multiplyImpl(quaternion, true, matrix, true, matrixToPack);
    }
 
    /**

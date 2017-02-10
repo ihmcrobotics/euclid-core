@@ -69,15 +69,6 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
    }
 
    /**
-    * Transposes this matrix: m = m<sup>T</sup>.
-    * 
-    */
-   default void transpose()
-   {
-      set(getM00(), getM10(), getM20(), getM01(), getM11(), getM21(), getM02(), getM12(), getM22());
-   }
-
-   /**
     * Sets this matrix to {@code other}.
     * 
     * @param other the other matrix to copy the values of. Not modified.
@@ -160,12 +151,11 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
    /**
     * Copies the values in the given dense-matrix into this matrix given index offsets for the row
     * and column.
-    * 
-    * @param matrix the dense-matrix containing the new values for this matrix. Not modified.
     * @param startRow the first row index to start reading from in the dense-matrix.
     * @param startColumn the first column index to start reading from in the dense-matrix.
+    * @param matrix the dense-matrix containing the new values for this matrix. Not modified.
     */
-   default void set(DenseMatrix64F matrix, int startRow, int startColumn)
+   default void set(int startRow, int startColumn, DenseMatrix64F matrix)
    {
       int row = startRow;
       int column = startColumn;

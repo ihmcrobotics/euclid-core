@@ -12,7 +12,6 @@ import org.ejml.ops.CommonOps;
 import org.junit.Test;
 
 import us.ihmc.geometry.GeometryBasicsIOTools;
-import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
@@ -457,6 +456,153 @@ public class Matrix3DFeaturesTest
          assertEquals(1.0, Matrix3DFeatures.determinant(m00, m01, m02, m10, m11, m12, m20, m21, m22), EPS);
       }
 
+      // Check det == 0.0 when a column is zero
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         int zeroColumn = random.nextInt(3);
+         double[] row0 = new double[3];
+         double[] row1 = new double[3];
+         double[] row2 = new double[3];
+
+         for (int column = 0; column < 3; column++)
+         {
+            row0[column] = column == zeroColumn ? 0.0 : random.nextDouble();
+            row1[column] = column == zeroColumn ? 0.0 : random.nextDouble();
+            row2[column] = column == zeroColumn ? 0.0 : random.nextDouble();
+         }
+
+         double det = Matrix3DFeatures.determinant(row0[0], row0[1], row0[2], row1[0], row1[1], row1[2], row2[0], row2[1], row2[2]);
+         assertEquals(0.0, det, EPS);
+      }
+
+      // Check that row swap negates the determinant
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double[] column0 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] column1 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] column2 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+
+         double det = Matrix3DFeatures.determinant(column0[0], column1[0], column2[0], column0[1], column1[1], column2[1], column0[2], column1[2], column2[2]);
+
+         int rowSwap1 = random.nextInt(3);
+         int rowSwap2 = (rowSwap1 + 1 + random.nextInt(2)) % 3;
+
+         double temp0 = column0[rowSwap1];
+         double temp1 = column1[rowSwap1];
+         double temp2 = column2[rowSwap1];
+         column0[rowSwap1] = column0[rowSwap2];
+         column1[rowSwap1] = column1[rowSwap2];
+         column2[rowSwap1] = column2[rowSwap2];
+         column0[rowSwap2] = temp0;
+         column1[rowSwap2] = temp1;
+         column2[rowSwap2] = temp2;
+
+         double detSwapped = Matrix3DFeatures.determinant(column0[0], column1[0], column2[0], column0[1], column1[1], column2[1], column0[2], column1[2], column2[2]);
+         assertEquals(detSwapped, -det, EPS);
+      }
+
+      // Check that column swap negates the determinant
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double[] row0 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] row1 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] row2 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+
+         double det = Matrix3DFeatures.determinant(row0[0], row0[1], row0[2], row1[0], row1[1], row1[2], row2[0], row2[1], row2[2]);
+
+         int columnSwap1 = random.nextInt(3);
+         int columnSwap2 = (columnSwap1 + 1 + random.nextInt(2)) % 3;
+
+         double temp0 = row0[columnSwap1];
+         double temp1 = row1[columnSwap1];
+         double temp2 = row2[columnSwap1];
+         row0[columnSwap1] = row0[columnSwap2];
+         row1[columnSwap1] = row1[columnSwap2];
+         row2[columnSwap1] = row2[columnSwap2];
+         row0[columnSwap2] = temp0;
+         row1[columnSwap2] = temp1;
+         row2[columnSwap2] = temp2;
+
+         double detSwapped = Matrix3DFeatures.determinant(row0[0], row0[1], row0[2], row1[0], row1[1], row1[2], row2[0], row2[1], row2[2]);
+         assertEquals(detSwapped, -det, EPS);
+      }
+
+      // Check that scaling a row scales the determinant
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double[] column0 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] column1 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] column2 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+
+         double det = Matrix3DFeatures.determinant(column0[0], column1[0], column2[0], column0[1], column1[1], column2[1], column0[2], column1[2], column2[2]);
+
+         int rowScale = random.nextInt(3);
+         double scale = GeometryBasicsRandomTools.generateRandomDouble(random, 5.0);
+
+         column0[rowScale] *= scale;
+         column1[rowScale] *= scale;
+         column2[rowScale] *= scale;
+
+         double detScaled = Matrix3DFeatures.determinant(column0[0], column1[0], column2[0], column0[1], column1[1], column2[1], column0[2], column1[2], column2[2]);
+         assertEquals(detScaled, scale * det, EPS);
+      }
+
+      // Check that scaling a column scales the determinant
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double[] row0 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] row1 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] row2 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+
+         double det = Matrix3DFeatures.determinant(row0[0], row0[1], row0[2], row1[0], row1[1], row1[2], row2[0], row2[1], row2[2]);
+
+         int columnScale = random.nextInt(3);
+         double scale = GeometryBasicsRandomTools.generateRandomDouble(random, 5.0);
+
+         row0[columnScale] *= scale;
+         row1[columnScale] *= scale;
+         row2[columnScale] *= scale;
+
+         double detScaled = Matrix3DFeatures.determinant(row0[0], row0[1], row0[2], row1[0], row1[1], row1[2], row2[0], row2[1], row2[2]);
+         assertEquals(detScaled, scale * det, EPS);
+      }
+
+      // Check that det(M) == 0 when M has two equal rows
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double[] column0 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] column1 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] column2 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+
+         int rowCopyDest = random.nextInt(3);
+         int rowCopySrc = (rowCopyDest + 1 + random.nextInt(2)) % 3;
+
+         column0[rowCopyDest] = column0[rowCopySrc];
+         column1[rowCopyDest] = column1[rowCopySrc];
+         column2[rowCopyDest] = column2[rowCopySrc];
+
+         double det = Matrix3DFeatures.determinant(column0[0], column1[0], column2[0], column0[1], column1[1], column2[1], column0[2], column1[2], column2[2]);
+         assertEquals(0.0, det, EPS);
+      }
+
+      // Check that det(M) == 0 when M has two equal columns
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double[] row0 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] row1 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+         double[] row2 = {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+
+         int columnCopyDest = random.nextInt(3);
+         int columnCopySrc = (columnCopyDest + 1 + random.nextInt(2)) % 3;
+
+         row0[columnCopyDest] = row0[columnCopySrc];
+         row1[columnCopyDest] = row1[columnCopySrc];
+         row2[columnCopyDest] = row2[columnCopySrc];
+
+         double det = Matrix3DFeatures.determinant(row0[0], row0[1], row0[2], row1[0], row1[1], row1[2], row2[0], row2[1], row2[2]);
+         assertEquals(0.0, det, EPS);
+      }
+
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Finally test against EJML
          Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
@@ -546,51 +692,6 @@ public class Matrix3DFeaturesTest
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
             assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
-   }
-
-   @Test
-   public void testIsZeroRotation() throws Exception
-   {
-      Random random = new Random(982364L);
-      RotationMatrix matrix = new RotationMatrix();
-      // Test with a zero matrix
-      testAllIsZeroRotationMethods(new Matrix3D(), false);
-
-      // Test with identity
-      matrix.setIdentity();
-      testAllIsZeroRotationMethods(matrix, true);
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // With normal angles
-         AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-         boolean isAngleZero = Math.abs(axisAngle.getAngle()) < 1.0e-5;
-         RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, matrix);
-         testAllIsZeroRotationMethods(matrix, isAngleZero);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // With small angles
-         AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random, 0.001);
-         boolean isAngleZero = Math.abs(axisAngle.getAngle()) < 1.0e-5;
-         RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, matrix);
-         testAllIsZeroRotationMethods(matrix, isAngleZero);
-      }
-   }
-
-   private void testAllIsZeroRotationMethods(Matrix3DReadOnly<?> matrix, boolean isZeroRotation)
-   {
-      double m00 = matrix.getM00();
-      double m01 = matrix.getM01();
-      double m02 = matrix.getM02();
-      double m10 = matrix.getM10();
-      double m11 = matrix.getM11();
-      double m12 = matrix.getM12();
-      double m20 = matrix.getM20();
-      double m21 = matrix.getM21();
-      double m22 = matrix.getM22();
-
-      assertTrue(Matrix3DFeatures.isZeroRotation(m00, m01, m02, m10, m11, m12, m20, m21, m22) == isZeroRotation);
-      assertTrue(Matrix3DFeatures.isZeroRotation(m00, m01, m02, m10, m11, m12, m20, m21, m22, Matrix3DFeatures.EPS_CHECK_ZERO_ROTATION) == isZeroRotation);
    }
 
    @Test

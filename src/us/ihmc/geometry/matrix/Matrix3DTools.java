@@ -604,23 +604,44 @@ public abstract class Matrix3DTools
    public static void inverseTransform(Matrix3DReadOnly<?> matrix, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
                                        boolean checkIfTransformInXYPlane)
    {
-      if (checkIfTransformInXYPlane)
-         matrix.checkIfMatrix2D();
+      boolean isMatrix2D = matrix.isMatrix2D();
 
-      // Compute only the determinant of the sub matrix that transforms in the XY plane.
-      double det = matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01(); //determinant(matrix);
-      if (Math.abs(det) < EPS_INVERT)
-         throw new SingularMatrixException(matrix);
+      if (checkIfTransformInXYPlane || isMatrix2D)
+      {
+         if (!isMatrix2D)
+            throw new NotAMatrix2DException(matrix);
 
-      det = 1.0 / det;
-      double invM00 = matrix.getM11() * det;
-      double invM01 = -matrix.getM01() * det;
-      double invM10 = -matrix.getM10() * det;
-      double invM11 = matrix.getM00() * det;
+         // Compute only the determinant of the sub matrix that transforms in the XY plane.
+         double det = matrix.getM00() * matrix.getM11() - matrix.getM10() * matrix.getM01(); //determinant(matrix);
+         if (Math.abs(det) < EPS_INVERT)
+            throw new SingularMatrixException(matrix);
 
-      double x = invM00 * tupleOriginal.getX() + invM01 * tupleOriginal.getY();
-      double y = invM10 * tupleOriginal.getX() + invM11 * tupleOriginal.getY();
-      tupleTransformed.set(x, y);
+         det = 1.0 / det;
+         double invM00 = matrix.getM11() * det;
+         double invM01 = -matrix.getM01() * det;
+         double invM10 = -matrix.getM10() * det;
+         double invM11 = matrix.getM00() * det;
+
+         double x = invM00 * tupleOriginal.getX() + invM01 * tupleOriginal.getY();
+         double y = invM10 * tupleOriginal.getX() + invM11 * tupleOriginal.getY();
+         tupleTransformed.set(x, y);
+      }
+      else
+      {
+         double det = matrix.determinant();
+         if (Math.abs(det) < EPS_INVERT)
+            throw new SingularMatrixException(matrix);
+
+         det = 1.0 / det;
+         double invM00 = (matrix.getM11() * matrix.getM22() - matrix.getM21() * matrix.getM12()) * det;
+         double invM01 = -(matrix.getM01() * matrix.getM22() - matrix.getM21() * matrix.getM02()) * det;
+         double invM10 = -(matrix.getM10() * matrix.getM22() - matrix.getM20() * matrix.getM12()) * det;
+         double invM11 = (matrix.getM00() * matrix.getM22() - matrix.getM20() * matrix.getM02()) * det;
+
+         double x = invM00 * tupleOriginal.getX() + invM01 * tupleOriginal.getY();
+         double y = invM10 * tupleOriginal.getX() + invM11 * tupleOriginal.getY();
+         tupleTransformed.set(x, y);
+      }
    }
 
    /**
@@ -704,6 +725,7 @@ public abstract class Matrix3DTools
       else
          return b > c ? b : c;
    }
+
    /**
     * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad column index.
     * 

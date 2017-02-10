@@ -168,11 +168,11 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * Packs the coefficients of this matrix into a row-major 1D array starting at the given index
     * {@code startIndex}.
     * 
+    * @param startIndex index in the array to store the first coefficient of this matrix.
     * @param matrixArrayToPack the array in which the coefficients of this matrix are stored.
     *           Modified.
-    * @param startIndex index in the array to store the first coefficient of this matrix.
     */
-   default void get(double[] matrixArrayToPack, int startIndex)
+   default void get(int startIndex, double[] matrixArrayToPack)
    {
       matrixArrayToPack[startIndex++] = getM00();
       matrixArrayToPack[startIndex++] = getM01();
@@ -420,6 +420,22 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    /**
     * Tests if this matrix is equal to the identity matrix.
     * <p>
+    * The assertion is done on a per coefficient basis using
+    * {@link Matrix3DFeatures#EPS_CHECK_IDENTITY} as the tolerance.
+    * </p>
+    * 
+    * @param epsilon the tolerance as shown above.
+    * @return {@code true} if the given matrix is considered to be equal to the identity matrix,
+    *         {@code false} otherwise.
+    */
+   default boolean isIdentity()
+   {
+      return isIdentity(Matrix3DFeatures.EPS_CHECK_IDENTITY);
+   }
+
+   /**
+    * Tests if this matrix is equal to the identity matrix.
+    * <p>
     * The assertion is done on a per coefficient basis using {@code epsilon} as the tolerance.
     * </p>
     * 
@@ -430,45 +446,6 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    default boolean isIdentity(double epsilon)
    {
       return Matrix3DFeatures.isIdentity(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22(), epsilon);
-   }
-
-   /**
-    * Tests if this matrix represents a negligible rotation.
-    * <p>
-    * This matrix represents a 'zero' rotation if:
-    * <ul>
-    * <li>its trace is equal to {@code 3} +/- {@link Matrix3DFeatures#EPS_CHECK_ZERO_ROTATION},
-    * <li>the sums of each pair of cross-diagonal coefficients ({@code m10}, {@code m01}),
-    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
-    * {@link Matrix3DFeatures#EPS_CHECK_ZERO_ROTATION}.
-    * </ul>
-    * </p>
-    * 
-    * @return {@code true} if this matrix represents a 'zero' rotation, {@code false} otherwise.
-    */
-   default boolean isZeroRotation()
-   {
-      return Matrix3DFeatures.isZeroRotation(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
-   }
-
-   /**
-    * Tests if this matrix represents a negligible rotation given a tolerance {@code epsilon}.
-    * <p>
-    * This matrix represents a 'zero' rotation if:
-    * <ul>
-    * <li>its trace is equal to {@code 3} +/- {@code epsilon},
-    * <li>the sums of each pair of cross-diagonal coefficients ({@code m10}, {@code m01}),
-    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
-    * {@code epsilon}.
-    * </ul>
-    * </p>
-    * 
-    * @param epsilon the tolerance to use.
-    * @return {@code true} if this matrix represents a 'zero' rotation, {@code false} otherwise.
-    */
-   default boolean isZeroRotation(double epsilon)
-   {
-      return Matrix3DFeatures.isZeroRotation(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22(), epsilon);
    }
 
    /**
@@ -503,6 +480,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * </ul>
     * </p>
     * 
+    * @param epsilon the tolerance to use.
     * @return {@code true} if this matrix is a rotation matrix, {@code false} otherwise.
     */
    default boolean isRotationMatrix(double epsilon)
@@ -528,8 +506,54 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     */
    default boolean isMatrix2D()
    {
-      return Matrix3DFeatures.isMatrix2D(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22(),
-                                         Matrix3DFeatures.EPS_CHECK_2D);
+      return isMatrix2D(Matrix3DFeatures.EPS_CHECK_2D);
+   }
+
+   /**
+    * Tests if this matrix describes transformation in the XY plane.
+    * 
+    * <p>
+    * This matrix is considered to be a 2D transformation in the XY plane if:
+    * <ul>
+    * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@code epsilon},
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
+    * +/- {@code epsilon}.
+    * </ul>
+    * </p>
+    * 
+    * @param epsilon the tolerance to use.
+    * @return {@code true} if the given matrix describes a 2D transformation in the XY plane,
+    *         {@code false} otherwise.
+    */
+   default boolean isMatrix2D(double epsilon)
+   {
+      return Matrix3DFeatures.isMatrix2D(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22(), epsilon);
+   }
+
+   /**
+    * Tests if this matrix is skew symmetric:
+    * 
+    * <pre>
+    *     |  0 -z  y |
+    * m = |  z  0 -x |
+    *     | -y  x  0 |
+    * </pre>
+    * 
+    * <p>
+    * This matrix is considered to be skew symmetric if:
+    * <ul>
+    * <li>each diagonal coefficient is equal to 0.0 +/- {@link Matrix3DFeatures#EPS_CHECK_SKEW},
+    * <li>the sums of each pair of cross-diagonal coefficients ({@code m10}, {@code m01}),
+    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
+    * {@link Matrix3DFeatures#EPS_CHECK_SKEW}.
+    * </ul>
+    * </p>
+    * 
+    * @return {@code true} if the matrix is skew symmetric, {@code false} otherwise.
+    */
+   default boolean isMatrixSkewSymmetric()
+   {
+      return isMatrixSkewSymmetric(Matrix3DFeatures.EPS_CHECK_SKEW);
    }
 
    /**

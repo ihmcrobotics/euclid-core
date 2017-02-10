@@ -621,6 +621,15 @@ public class QuaternionToolsTest
       quaternion.setUnsafe(10.0, 10.0, 10.0, 10.0);
       QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual);
       assertEquals(tupleExpected.length(), tupleActual.length(), EPSILON);
+
+      // Test that a quaternion with zeros does not do anything
+      tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      QuaternionTools.inverseTransform(quaternion, tupleExpected, tupleActual);
+      GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
+      tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+      QuaternionTools.transform(quaternion, tupleExpected, tupleActual);
+      GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
    }
 
    @Test
@@ -651,6 +660,14 @@ public class QuaternionToolsTest
          QuaternionTools.addTransform(quaternion, tupleOriginal, tupleActual);
          GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
       }
+
+      // Test that a quaternion with zeros does not do anything
+      tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+      tupleActual.set(tupleExpected);
+      Quaternion quaternion = new Quaternion();
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      QuaternionTools.addTransform(quaternion, tupleExpected, tupleActual);
+      GeometryBasicsTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
    }
 
    @Test
@@ -742,6 +759,12 @@ public class QuaternionToolsTest
          GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPSILON);
          assertTrue(tupleOriginal.equals(tupleOriginalCopy));
       }
+
+      // Test that a quaternion with zeros does not do anything
+      tupleExpected = GeometryBasicsRandomTools.generateRandomVector2D(random);
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      QuaternionTools.transform(quaternion, tupleExpected, tupleActual, false);
+      GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPSILON);
    }
 
    @Test
@@ -847,7 +870,7 @@ public class QuaternionToolsTest
       Vector4D vectorActual = new Vector4D();
       Vector4D vectorExpected = new Vector4D();
 
-      // Test against transform with Tuple
+      // Test against transform with Tuple and check that v = inverseTransform(transform(v))
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
@@ -870,7 +893,17 @@ public class QuaternionToolsTest
          vectorActual.set(vectorOriginal);
          QuaternionTools.transform(quaternion, vectorActual, vectorActual);
          GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPSILON);
+
+         QuaternionTools.inverseTransform(quaternion, vectorActual, vectorActual);
+         GeometryBasicsTestTools.assertTuple4DEquals(vectorOriginal, vectorActual, EPSILON);
       }
+
+      // Test that a quaternion with zeros does not do anything
+      vectorExpected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+      Quaternion quaternion = new Quaternion();
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      QuaternionTools.transform(quaternion, vectorExpected, vectorActual);
+      GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPSILON);
    }
 
    @Test
@@ -882,7 +915,7 @@ public class QuaternionToolsTest
       Quaternion quaternionExpected = new Quaternion();
       Quaternion quaternionActual = new Quaternion();
 
-      // Test with the multiply: qTransformed = q * qOriginal
+      // Test with the multiply: qTransformed = q * qOriginal and check that  q = inverseTransform(transform(q))
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
@@ -898,6 +931,9 @@ public class QuaternionToolsTest
          quaternionActual.setToNaN();
          QuaternionTools.transform(quaternion, quaternionOriginal, quaternionActual);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
+
+         QuaternionTools.inverseTransform(quaternion, quaternionActual, quaternionActual);
+         GeometryBasicsTestTools.assertQuaternionEquals(quaternionOriginal, quaternionActual, EPSILON);
       }
    }
 
@@ -941,7 +977,16 @@ public class QuaternionToolsTest
          QuaternionTools.transform(quaternion, matrixOriginal, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
          assertTrue(matrixOriginal.equals(matrixOriginalCopy));
+
+         QuaternionTools.inverseTransform(quaternion, matrixActual, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixOriginal, matrixActual, EPSILON);
       }
+
+      // Test that a quaternion with zeros does not do anything
+      matrixExpected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      QuaternionTools.transform(quaternion, matrixExpected, matrixActual);
+      GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
    }
 
    @Test
@@ -979,6 +1024,9 @@ public class QuaternionToolsTest
          matrixActual.setToNaN();
          QuaternionTools.transform(quaternion, matrixOriginal, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
+
+         QuaternionTools.inverseTransform(quaternion, matrixActual, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixOriginal, matrixActual, EPSILON);
       }
    }
 
@@ -994,7 +1042,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { // multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix matrixCopy = new RotationMatrix(matrix);
@@ -1010,35 +1058,46 @@ public class QuaternionToolsTest
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
          assertTrue(matrix.equals(matrixCopy));
       }
-   }
-
-   @Test
-   public void testMultiplyConjugateQuaternionMatrixResultPutInQuaternion() throws Exception
-   {
-      Random random = new Random(3466L);
-      Quaternion quaternion = new Quaternion();
-      RotationMatrix matrix = new RotationMatrix();
-
-      Quaternion quaternionExpected = new Quaternion();
-      Quaternion quaternionActual = new Quaternion();
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion conjugate = new Quaternion(quaternion);
+         conjugate.conjugate();
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         RotationMatrix matrixCopy = new RotationMatrix(matrix);
 
-         QuaternionTools.multiplyConjugateLeft(quaternion, new Quaternion(matrix), quaternionExpected);
+         QuaternionTools.multiply(conjugate, new Quaternion(matrix), quaternionExpected);
          QuaternionTools.multiplyConjugateQuaternion(quaternion, matrix, quaternionActual);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
-         assertTrue(matrix.equals(matrixCopy));
+      }
 
-         // Check that is works even the two quaternion arguments are the same object
-         quaternionActual.set(quaternion);
-         QuaternionTools.multiplyConjugateQuaternion(quaternionActual, matrix, quaternionActual);
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
-         assertTrue(matrix.equals(matrixCopy));
+      // Simply test against the multiply(quaternion, quaternion, quaternion)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix transposed = new RotationMatrix(matrix);
+         transposed.transpose();
+
+         QuaternionTools.multiply(quaternion, new Quaternion(transposed), quaternionExpected);
+         QuaternionTools.multiplyTransposeMatrix(quaternion, matrix, quaternionActual);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(quaternionExpected, quaternionActual, EPSILON);
+      }
+
+      // Simply test against the multiply(quaternion, quaternion, quaternion)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion conjugate = new Quaternion(quaternion);
+         conjugate.conjugate();
+         matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix transposed = new RotationMatrix(matrix);
+         transposed.transpose();
+
+         QuaternionTools.multiply(conjugate, new Quaternion(transposed), quaternionExpected);
+         QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, matrix, quaternionActual);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(quaternionExpected, quaternionActual, EPSILON);
       }
    }
 
@@ -1054,7 +1113,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { // multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix matrixCopy = new RotationMatrix(matrix);
@@ -1070,35 +1129,46 @@ public class QuaternionToolsTest
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
          assertTrue(matrix.equals(matrixCopy));
       }
-   }
-
-   @Test
-   public void testMultiplyMatrixConjugateQuaternionResultPutInQuaternion() throws Exception
-   {
-      Random random = new Random(3466L);
-      Quaternion quaternion = new Quaternion();
-      RotationMatrix matrix = new RotationMatrix();
-
-      Quaternion quaternionExpected = new Quaternion();
-      Quaternion quaternionActual = new Quaternion();
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion conjugate = new Quaternion(quaternion);
+         conjugate.conjugate();
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         RotationMatrix matrixCopy = new RotationMatrix(matrix);
 
-         QuaternionTools.multiplyConjugateRight(new Quaternion(matrix), quaternion, quaternionExpected);
+         QuaternionTools.multiply(new Quaternion(matrix), conjugate, quaternionExpected);
          QuaternionTools.multiplyConjugateQuaternion(matrix, quaternion, quaternionActual);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
-         assertTrue(matrix.equals(matrixCopy));
+      }
 
-         // Check that is works even the two quaternion arguments are the same object
-         quaternionActual.set(quaternion);
-         QuaternionTools.multiplyConjugateQuaternion(matrix, quaternionActual, quaternionActual);
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
-         assertTrue(matrix.equals(matrixCopy));
+      // Simply test against the multiply(quaternion, quaternion, quaternion)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix transposed = new RotationMatrix(matrix);
+         transposed.transpose();
+
+         QuaternionTools.multiply(new Quaternion(transposed), quaternion, quaternionExpected);
+         QuaternionTools.multiplyTransposeMatrix(matrix, quaternion, quaternionActual);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(quaternionExpected, quaternionActual, EPSILON);
+      }
+
+      // Simply test against the multiply(quaternion, quaternion, quaternion)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion conjugate = new Quaternion(quaternion);
+         conjugate.conjugate();
+         matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix transposed = new RotationMatrix(matrix);
+         transposed.transpose();
+
+         QuaternionTools.multiply(new Quaternion(transposed), conjugate, quaternionExpected);
+         QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, quaternionActual);
+         GeometryBasicsTestTools.assertQuaternionEqualsSmart(quaternionExpected, quaternionActual, EPSILON);
       }
    }
 
@@ -1114,7 +1184,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { //multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
@@ -1127,33 +1197,52 @@ public class QuaternionToolsTest
          QuaternionTools.multiply(quaternion, matrixActual, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
       }
-   }
-
-   @Test
-   public void testMultiplyConjugateQuaternionMatrixResultPutInMatrix() throws Exception
-   {
-      Random random = new Random(3466L);
-      Quaternion quaternion = new Quaternion();
-      RotationMatrix matrix = new RotationMatrix();
-
-      Matrix3D matrixExpected = new Matrix3D();
-      RotationMatrix matrixActual = new RotationMatrix();
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion conjugate = new Quaternion(quaternion);
+         conjugate.conjugate();
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
-         Matrix3DTools.multiplyTransposeLeft(new RotationMatrix(quaternion), matrix, matrixExpected);
-         QuaternionTools.multiplyConjugateQuaternion(quaternion, matrix, matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-
-         // Check that is works even the two matrix arguments are the same object
-         matrixActual.set(matrix);
-         QuaternionTools.multiplyConjugateQuaternion(quaternion, matrixActual, matrixActual);
+         Matrix3DTools.multiply(new RotationMatrix(quaternion), matrix, matrixExpected);
+         QuaternionTools.multiplyConjugateQuaternion(conjugate, matrix, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
       }
+
+      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix transposed = new RotationMatrix(matrix);
+         transposed.transpose();
+
+         Matrix3DTools.multiply(new RotationMatrix(quaternion), matrix, matrixExpected);
+         QuaternionTools.multiplyTransposeMatrix(quaternion, transposed, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
+      }
+
+      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion conjugate = new Quaternion(quaternion);
+         conjugate.conjugate();
+         matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix transposed = new RotationMatrix(matrix);
+         transposed.transpose();
+
+         Matrix3DTools.multiply(new RotationMatrix(quaternion), matrix, matrixExpected);
+         QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(conjugate, transposed, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
+      }
+
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+      QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, matrix, matrixActual);
+      GeometryBasicsTestTools.assertMatrix3DEquals(matrix, matrixActual, EPSILON);
    }
 
    @Test
@@ -1168,7 +1257,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { // multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
@@ -1189,32 +1278,51 @@ public class QuaternionToolsTest
          QuaternionTools.multiply(matrixActual, quaternion, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
       }
-   }
-
-   @Test
-   public void testMultiplyMatrixConjugateQuaternionResultPutInMatrix() throws Exception
-   {
-      Random random = new Random(3466L);
-      Quaternion quaternion = new Quaternion();
-      RotationMatrix matrix = new RotationMatrix();
-
-      Matrix3D matrixExpected = new Matrix3D();
-      RotationMatrix matrixActual = new RotationMatrix();
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { // multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion conjugate = new Quaternion(quaternion);
+         conjugate.conjugate();
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
-         Matrix3DTools.multiplyTransposeRight(matrix, new RotationMatrix(quaternion), matrixExpected);
+         Matrix3DTools.multiply(matrix, new RotationMatrix(conjugate), matrixExpected);
          QuaternionTools.multiplyConjugateQuaternion(matrix, quaternion, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
+      }
 
-         // Check that is works even the two matrix arguments are the same object
-         matrixActual.set(matrix);
-         QuaternionTools.multiplyConjugateQuaternion(matrixActual, quaternion, matrixActual);
+      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // multiplyTransposeMatrix(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix transposed = new RotationMatrix(matrix);
+         transposed.transpose();
+
+         Matrix3DTools.multiply(transposed, new RotationMatrix(quaternion), matrixExpected);
+         QuaternionTools.multiplyTransposeMatrix(matrix, quaternion, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
       }
+
+      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion conjugate = new Quaternion(quaternion);
+         conjugate.conjugate();
+         matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix transposed = new RotationMatrix(matrix);
+         transposed.transpose();
+
+         Matrix3DTools.multiply(transposed, new RotationMatrix(conjugate), matrixExpected);
+         QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
+      }
+      
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+      QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, matrixActual);
+      GeometryBasicsTestTools.assertMatrix3DEquals(matrix, matrixActual, EPSILON);
    }
 }

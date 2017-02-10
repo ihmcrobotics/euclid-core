@@ -1192,18 +1192,6 @@ public class Matrix3DToolsTest
          GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPS);
       }
 
-      // Test that: tuple == inverseTransform(transform(tuple))
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         tupleOriginal = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         tupleExpected.set(tupleOriginal);
-
-         Matrix3DTools.transform(matrix, tupleOriginal, tupleActual, false);
-         Matrix3DTools.inverseTransform(matrix, tupleActual, tupleActual, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPS);
-      }
-
       // Test with rotation matrix
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {

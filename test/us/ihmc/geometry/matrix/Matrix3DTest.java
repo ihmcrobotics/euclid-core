@@ -2,6 +2,7 @@ package us.ihmc.geometry.matrix;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -17,10 +18,9 @@ import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 
-public class Matrix3DTest
+public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
    public static final double EPS = 1.0e-10;
@@ -196,7 +196,7 @@ public class Matrix3DTest
          int startRow = random.nextInt(10);
          int startColumn = random.nextInt(10);
          DenseMatrix64F denseMatrix = RandomMatrices.createRandom(3 + startRow, 3 + startColumn, random);
-         actualMatrix.set(denseMatrix, startRow, startColumn);
+         actualMatrix.set(startRow, startColumn, denseMatrix);
 
          for (int row = 0; row < 3; row++)
          {
@@ -557,20 +557,6 @@ public class Matrix3DTest
    }
 
    @Test
-   public void testDeterminant() throws Exception
-   {
-      Random random = new Random(51665L);
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         double expectedDeterminant = matrix.determinant();
-         double actualDeterminant = matrix.determinant();
-         assertEquals(expectedDeterminant, actualDeterminant, EPS);
-      }
-   }
-
-   @Test
    public void testInvert() throws Exception
    {
       Random random = new Random(54654L);
@@ -605,17 +591,6 @@ public class Matrix3DTest
    }
 
    @Test
-   public void testIsRotationMatrix() throws Exception
-   {
-      Random random = new Random(654651L);
-      Matrix3D matrix = new Matrix3D();
-      matrix.set(GeometryBasicsRandomTools.generateRandomRotationMatrix(random));
-      assertTrue(matrix.isRotationMatrix());
-      matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      assertFalse(matrix.isRotationMatrix());
-   }
-
-   @Test
    public void testNormalize() throws Exception
    {
       Random random = new Random(541654L);
@@ -642,68 +617,6 @@ public class Matrix3DTest
          actualMatrix.setAndNormalize(matrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
-   }
-
-   @Test
-   public void testSetIdentity() throws Exception
-   {
-      Random random = new Random(541654L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      matrix.setIdentity();
-
-      for (int row = 0; row < 3; row++)
-      {
-         for (int column = 0; column < 3; column++)
-         {
-            if (row == column)
-               assertEquals(1.0, matrix.getElement(row, column), EPS);
-            else
-               assertEquals(0.0, matrix.getElement(row, column), EPS);
-         }
-      }
-   }
-
-   @Test
-   public void testSetToNaN() throws Exception
-   {
-      Random random = new Random(541654L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      matrix.setToNaN();
-
-      for (int row = 0; row < 3; row++)
-      {
-         for (int column = 0; column < 3; column++)
-         {
-            assertTrue(Double.isNaN(matrix.getElement(row, column)));
-         }
-      }
-   }
-
-   @Test
-   public void testContainsNaN() throws Exception
-   {
-      Matrix3D matrix = new Matrix3D();
-
-      matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertFalse(matrix.containsNaN());
-      matrix.set(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      matrix.set(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      matrix.set(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      matrix.set(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      matrix.set(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0);
-      assertTrue(matrix.containsNaN());
-      matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0);
-      assertTrue(matrix.containsNaN());
-      matrix.set(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
-      assertTrue(matrix.containsNaN());
    }
 
    @Test
@@ -779,6 +692,27 @@ public class Matrix3DTest
    }
 
    @Test
+   public void testMultiplyInvertThis() throws Exception
+   {
+      Random random = new Random(65561L);
+      Matrix3D m1 = new Matrix3D();
+      Matrix3D m2 = new Matrix3D();
+      Matrix3D expected = new Matrix3D();
+      Matrix3D actual = new Matrix3D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+
+         Matrix3DTools.multiplyInvertLeft(m1, m2, expected);
+         actual.set(m1);
+         actual.multiplyInvertThis(m2);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testMultiplyTransposeOther() throws Exception
    {
       Random random = new Random(65561L);
@@ -795,6 +729,39 @@ public class Matrix3DTest
          Matrix3DTools.multiplyTransposeRight(m1, m2, expected);
          actual.set(m1);
          actual.multiplyTransposeOther(m2);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyInvertOther() throws Exception
+   {
+      Random random = new Random(65561L);
+      Matrix3D m1 = new Matrix3D();
+      Matrix3D m2 = new Matrix3D();
+      Matrix3D expected = new Matrix3D();
+      Matrix3D actual = new Matrix3D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+
+         Matrix3DTools.multiplyInvertRight(m1, m2, expected);
+         actual.set(m1);
+         actual.multiplyInvertOther(m2);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+
+         RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         Matrix3DTools.multiplyInvertRight(m1, rotationMatrix, expected);
+         actual.set(m1);
+         actual.multiplyInvertOther(rotationMatrix);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+
+         RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         Matrix3DTools.multiplyInvertRight(m1, rotationScaleMatrix, expected);
+         actual.set(m1);
+         actual.multiplyInvertOther(rotationScaleMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
@@ -863,6 +830,27 @@ public class Matrix3DTest
    }
 
    @Test
+   public void testPreMultiplyInvertThis() throws Exception
+   {
+      Random random = new Random(65561L);
+      Matrix3D m1 = new Matrix3D();
+      Matrix3D m2 = new Matrix3D();
+      Matrix3D expected = new Matrix3D();
+      Matrix3D actual = new Matrix3D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+
+         Matrix3DTools.multiplyInvertRight(m2, m1, expected);
+         actual.set(m1);
+         actual.preMultiplyInvertThis(m2);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testPreMultiplyTransposeOther() throws Exception
    {
       Random random = new Random(65561L);
@@ -879,6 +867,39 @@ public class Matrix3DTest
          Matrix3DTools.multiplyTransposeLeft(m2, m1, expected);
          actual.set(m1);
          actual.preMultiplyTransposeOther(m2);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyInvertOther() throws Exception
+   {
+      Random random = new Random(65561L);
+      Matrix3D m1 = new Matrix3D();
+      Matrix3D m2 = new Matrix3D();
+      Matrix3D expected = new Matrix3D();
+      Matrix3D actual = new Matrix3D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+
+         Matrix3DTools.multiplyInvertLeft(m2, m1, expected);
+         actual.set(m1);
+         actual.preMultiplyInvertOther(m2);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+
+         RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         Matrix3DTools.multiplyInvertLeft(rotationMatrix, m1, expected);
+         actual.set(m1);
+         actual.preMultiplyInvertOther(rotationMatrix);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+
+         RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         Matrix3DTools.multiplyInvertLeft(rotationScaleMatrix, m1, expected);
+         actual.set(m1);
+         actual.preMultiplyInvertOther(rotationScaleMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
@@ -901,135 +922,6 @@ public class Matrix3DTest
          actual.set(m1);
          actual.preMultiplyTransposeBoth(m2);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
-      }
-   }
-
-   @Test
-   public void testTransformTuple() throws Exception
-   {
-      Random random = new Random(435L);
-      Vector3D actual = new Vector3D();
-      Vector3D expected = new Vector3D();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
-
-         Matrix3DTools.transform(matrix, original, expected);
-         actual.set(original);
-         matrix.transform(actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, EPS);
-
-         actual.setToNaN();
-         matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, EPS);
-      }
-   }
-
-   @Test
-   public void testTransformTuple2D() throws Exception
-   {
-      Random random = new Random(435L);
-      Vector2D actual = new Vector2D();
-      Vector2D expected = new Vector2D();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         matrix.setRow(2, 0.0, 0.0, 1.0);
-         matrix.setColumn(2, 0.0, 0.0, 1.0);
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
-
-         Matrix3DTools.transform(matrix, original, expected, true);
-         actual.set(original);
-         matrix.transform(actual);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, EPS);
-
-         actual.setToNaN();
-         matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, EPS);
-
-         actual.setToNaN();
-         Matrix3DTools.transform(matrix, original, expected, true);
-         actual.set(original);
-         matrix.transform(actual, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, EPS);
-
-         actual.setToNaN();
-         matrix.transform(original, actual, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, EPS);
-      }
-   }
-
-   @Test
-   public void testTransformMatrix() throws Exception
-   {
-      Random random = new Random(435L);
-      Matrix3D actual = new Matrix3D();
-      Matrix3D expected = new Matrix3D();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         Matrix3D original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-
-         Matrix3DTools.transform(matrix, original, expected);
-         actual.set(original);
-         matrix.transform(actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
-
-         actual.setToNaN();
-         matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
-      }
-   }
-
-   @Test
-   public void testInverseTransformTuple() throws Exception
-   {
-      Random random = new Random(435L);
-      Vector3D actual = new Vector3D();
-      Vector3D expected = new Vector3D();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
-
-         Matrix3DTools.inverseTransform(matrix, original, expected);
-         actual.set(original);
-         matrix.inverseTransform(actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, EPS);
-
-         actual.setToNaN();
-         matrix.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, EPS);
-      }
-   }
-
-   @Test
-   public void testInverseTransformTuple2D() throws Exception
-   {
-      Random random = new Random(435L);
-      Vector2D actual = new Vector2D();
-      Vector2D expected = new Vector2D();
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         matrix.setRow(2, 0.0, 0.0, 1.0);
-         matrix.setColumn(2, 0.0, 0.0, 1.0);
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
-
-         Matrix3DTools.inverseTransform(matrix, original, expected, true);
-         actual.set(original);
-         matrix.inverseTransform(actual);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, EPS);
-
-         actual.setToNaN();
-         matrix.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, EPS);
       }
    }
 
@@ -1278,43 +1170,6 @@ public class Matrix3DTest
       {
          // Good
       }
-
-      try
-      {
-         matrix.getElement(0, 3);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-      try
-      {
-         matrix.getElement(1, 3);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-      try
-      {
-         matrix.getElement(2, 3);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-      try
-      {
-         matrix.getElement(3, 0);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
    }
 
    @Test
@@ -1342,184 +1197,6 @@ public class Matrix3DTest
       assertTrue(matrix.getM21() == coeff);
       matrix.setM22(coeff = random.nextDouble());
       assertTrue(matrix.getM22() == coeff);
-   }
-
-   @Test
-   public void testGetArray() throws Exception
-   {
-      Random random = new Random(4356L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      double[] matrixArray = new double[9];
-      matrix.get(matrixArray);
-
-      for (int row = 0; row < 3; row++)
-      {
-         for (int column = 0; column < 3; column++)
-         {
-            assertTrue(matrix.getElement(row, column) == matrixArray[row * 3 + column]);
-         }
-      }
-
-      int startIndex = random.nextInt(10);
-      matrixArray = new double[9 + startIndex];
-      matrix.get(matrixArray, startIndex);
-
-      for (int row = 0; row < 3; row++)
-      {
-         for (int column = 0; column < 3; column++)
-         {
-            assertTrue(matrix.getElement(row, column) == matrixArray[row * 3 + column + startIndex]);
-         }
-      }
-   }
-
-   @Test
-   public void testGetDenseMatrix() throws Exception
-   {
-      Random random = new Random(4356L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-
-      DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
-      matrix.get(denseMatrix);
-
-      for (int row = 0; row < 3; row++)
-      {
-         for (int column = 0; column < 3; column++)
-         {
-            assertTrue(matrix.getElement(row, column) == denseMatrix.get(row, column));
-         }
-      }
-
-      int startRow = random.nextInt(10);
-      int startColumn = random.nextInt(10);
-      denseMatrix = new DenseMatrix64F(3 + startRow, 3 + startColumn);
-      matrix.get(startRow, startColumn, denseMatrix);
-
-      for (int row = 0; row < 3; row++)
-      {
-         for (int column = 0; column < 3; column++)
-         {
-            assertTrue(matrix.getElement(row, column) == denseMatrix.get(row + startRow, column + startColumn));
-         }
-      }
-   }
-
-   @Test
-   public void testGetColumn() throws Exception
-   {
-      Random random = new Random(655L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      double[] columnArray = new double[3];
-
-      matrix.getColumn(0, columnArray);
-      assertTrue(matrix.getM00() == columnArray[0]);
-      assertTrue(matrix.getM10() == columnArray[1]);
-      assertTrue(matrix.getM20() == columnArray[2]);
-
-      matrix.getColumn(1, columnArray);
-      assertTrue(matrix.getM01() == columnArray[0]);
-      assertTrue(matrix.getM11() == columnArray[1]);
-      assertTrue(matrix.getM21() == columnArray[2]);
-
-      matrix.getColumn(2, columnArray);
-      assertTrue(matrix.getM02() == columnArray[0]);
-      assertTrue(matrix.getM12() == columnArray[1]);
-      assertTrue(matrix.getM22() == columnArray[2]);
-
-      try
-      {
-         matrix.getColumn(3, columnArray);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-
-      Vector3D columnVector = new Vector3D();
-      matrix.getColumn(0, columnVector);
-      assertTrue(matrix.getM00() == columnVector.get(0));
-      assertTrue(matrix.getM10() == columnVector.get(1));
-      assertTrue(matrix.getM20() == columnVector.get(2));
-
-      matrix.getColumn(1, columnVector);
-      assertTrue(matrix.getM01() == columnVector.get(0));
-      assertTrue(matrix.getM11() == columnVector.get(1));
-      assertTrue(matrix.getM21() == columnVector.get(2));
-
-      matrix.getColumn(2, columnVector);
-      assertTrue(matrix.getM02() == columnVector.get(0));
-      assertTrue(matrix.getM12() == columnVector.get(1));
-      assertTrue(matrix.getM22() == columnVector.get(2));
-
-      try
-      {
-         matrix.getColumn(3, columnVector);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-   }
-
-   @Test
-   public void testGetRow() throws Exception
-   {
-      Random random = new Random(6465L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-
-      double[] rowArray = new double[3];
-      matrix.getRow(0, rowArray);
-      assertTrue(matrix.getM00() == rowArray[0]);
-      assertTrue(matrix.getM01() == rowArray[1]);
-      assertTrue(matrix.getM02() == rowArray[2]);
-
-      matrix.getRow(1, rowArray);
-      assertTrue(matrix.getM10() == rowArray[0]);
-      assertTrue(matrix.getM11() == rowArray[1]);
-      assertTrue(matrix.getM12() == rowArray[2]);
-
-      matrix.getRow(2, rowArray);
-      assertTrue(matrix.getM20() == rowArray[0]);
-      assertTrue(matrix.getM21() == rowArray[1]);
-      assertTrue(matrix.getM22() == rowArray[2]);
-
-      try
-      {
-         matrix.getRow(3, rowArray);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
-
-      Vector3D rowVector = new Vector3D();
-      matrix.getRow(0, rowVector);
-      assertTrue(matrix.getM00() == rowVector.get(0));
-      assertTrue(matrix.getM01() == rowVector.get(1));
-      assertTrue(matrix.getM02() == rowVector.get(2));
-
-      matrix.getRow(1, rowVector);
-      assertTrue(matrix.getM10() == rowVector.get(0));
-      assertTrue(matrix.getM11() == rowVector.get(1));
-      assertTrue(matrix.getM12() == rowVector.get(2));
-
-      matrix.getRow(2, rowVector);
-      assertTrue(matrix.getM20() == rowVector.get(0));
-      assertTrue(matrix.getM21() == rowVector.get(1));
-      assertTrue(matrix.getM22() == rowVector.get(2));
-
-      try
-      {
-         matrix.getRow(3, rowVector);
-         fail("Should have thrown an exception");
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         // Good
-      }
    }
 
    @Test
@@ -1556,41 +1233,25 @@ public class Matrix3DTest
    }
 
    @Test
-   public void testEpsilonEquals() throws Exception
+   public void testHashCode() throws Exception
    {
-      Random random = new Random(2354L);
-      Matrix3D m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      Matrix3D m2 = new Matrix3D();
-      double epsilon = 1.0e-3;
+      Random random = new Random(621541L);
+      Matrix3D tuple1 = createRandomMatrix(random);
 
-      assertFalse(m1.epsilonEquals(m2, epsilon));
-      m2.set(m1);
-      assertTrue(m1.epsilonEquals(m2, epsilon));
+      int newHashCode, previousHashCode;
+      newHashCode = tuple1.hashCode();
+      assertEquals(newHashCode, tuple1.hashCode());
 
-      for (int row = 0; row < 3; row++)
+      previousHashCode = tuple1.hashCode();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         for (int column = 0; column < 3; column++)
-         {
-            m2.set(m1);
-            assertTrue(m1.epsilonEquals(m2, epsilon));
-            m2.setElement(row, column, m2.getElement(row, column) + 0.999 * epsilon);
-            assertTrue(m1.epsilonEquals(m2, epsilon));
-
-            m2.set(m1);
-            assertTrue(m1.epsilonEquals(m2, epsilon));
-            m2.setElement(row, column, m2.getElement(row, column) + 1.001 * epsilon);
-            assertFalse(m1.epsilonEquals(m2, epsilon));
-
-            m2.set(m1);
-            assertTrue(m1.epsilonEquals(m2, epsilon));
-            m2.setElement(row, column, m2.getElement(row, column) - 0.999 * epsilon);
-            assertTrue(m1.epsilonEquals(m2, epsilon));
-
-            m2.set(m1);
-            assertTrue(m1.epsilonEquals(m2, epsilon));
-            m2.setElement(row, column, m2.getElement(row, column) - 1.001 * epsilon);
-            assertFalse(m1.epsilonEquals(m2, epsilon));
-         }
+         int row = random.nextInt(3);
+         int column = random.nextInt(3);
+         tuple1.setElement(row, column, random.nextDouble());
+         newHashCode = tuple1.hashCode();
+         assertNotEquals(newHashCode, previousHashCode);
+         previousHashCode = newHashCode;
       }
    }
 
@@ -1599,5 +1260,23 @@ public class Matrix3DTest
    public void testApplyTransform()
    {
       fail("Not yet implemented");
+   }
+
+   @Override
+   public Matrix3D createEmptyMatrix()
+   {
+      return new Matrix3D();
+   }
+
+   @Override
+   public Matrix3D createMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      return new Matrix3D(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+   }
+
+   @Override
+   public Matrix3D createRandomMatrix(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomMatrix3D(random);
    }
 }
