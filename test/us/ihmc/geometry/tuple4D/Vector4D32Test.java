@@ -1,5 +1,7 @@
 package us.ihmc.geometry.tuple4D;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
@@ -8,6 +10,8 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
 public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
@@ -62,6 +66,43 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
          Tuple4DReadOnly<?> quaternion = GeometryBasicsRandomTools.generateRandomQuaternion32(random);
          Vector4D32 vector = new Vector4D32(quaternion);
          GeometryBasicsTestTools.assertTuple4DEquals(quaternion, vector, EPS);
+      }
+
+      { // Test Vector4D(Vector3DReadOnly<?> vector3D)
+         Vector3DReadOnly<?> vector3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector4D32 vector = new Vector4D32(vector3D);
+         for (int i = 0; i < 3; i++)
+            assertTrue(vector.get32(i) == vector3D.get32(i));
+         assertTrue(vector.getS32() == 0.0f);
+      }
+
+      { // Test Vector4D(Point3DReadOnly<?> vector3D)
+         Point3DReadOnly<?> point3D = GeometryBasicsRandomTools.generateRandomPoint3D(random);
+         Vector4D32 vector = new Vector4D32(point3D);
+         for (int i = 0; i < 3; i++)
+            assertTrue(vector.get32(i) == point3D.get32(i));
+         assertTrue(vector.getS32() == 1.0f);
+      }
+   }
+
+   @Test
+   public void testHashCode() throws Exception
+   {
+      Random random = new Random(621541L);
+      Vector4D32 vector = createRandomTuple(random);
+
+      int newHashCode, previousHashCode;
+      newHashCode = vector.hashCode();
+      assertEquals(newHashCode, vector.hashCode());
+
+      previousHashCode = vector.hashCode();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         vector.set(i % 4, random.nextDouble());
+         newHashCode = vector.hashCode();
+         assertNotEquals(newHashCode, previousHashCode);
+         previousHashCode = newHashCode;
       }
    }
 

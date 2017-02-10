@@ -39,12 +39,13 @@ import us.ihmc.geometry.tuple4D.Quaternion32Test;
 import us.ihmc.geometry.tuple4D.QuaternionConversionTest;
 import us.ihmc.geometry.tuple4D.QuaternionTest;
 import us.ihmc.geometry.tuple4D.QuaternionToolsTest;
+import us.ihmc.geometry.tuple4D.Vector4D32Test;
 import us.ihmc.geometry.tuple4D.Vector4DTest;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({Point3DTest.class, Point3D32Test.class, Point2DTest.class, Point2D32Test.class, Vector3DTest.class, Vector3D32Test.class,
-      Vector2DTest.class, Vector2D32Test.class, Vector4DTest.class, AxisAngleTest.class, AxisAngle32Test.class, QuaternionTest.class, Quaternion32Test.class,
+      Vector2DTest.class, Vector2D32Test.class, Vector4DTest.class, Vector4D32Test.class, AxisAngleTest.class, AxisAngle32Test.class, QuaternionTest.class, Quaternion32Test.class,
       Matrix3DTest.class, RotationMatrixTest.class, RotationScaleMatrixTest.class, RigidBodyTransformTest.class, QuaternionBasedTransformTest.class,
       AffineTransformTest.class,
 
