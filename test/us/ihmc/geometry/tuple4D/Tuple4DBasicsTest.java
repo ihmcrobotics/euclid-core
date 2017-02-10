@@ -151,6 +151,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics<T>> extends Tupl
                   double sOriginal = signS * original.getS();
                   tuple1 = createTuple(xOriginal, yOriginal, zOriginal, sOriginal);
 
+                  tuple2.setToNaN();
                   tuple2.setAndNegate(tuple1);
                   assertEquals(tuple2.getX(), -xOriginal, getEpsilon());
                   assertEquals(tuple2.getY(), -yOriginal, getEpsilon());

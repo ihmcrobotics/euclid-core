@@ -6,10 +6,16 @@ import static org.junit.Assert.fail;
 
 import java.util.Random;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.TupleTools;
+import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.transform.AffineTransform;
+import us.ihmc.geometry.transform.QuaternionBasedTransform;
+import us.ihmc.geometry.transform.RigidBodyTransform;
+import us.ihmc.geometry.tuple3D.Point3D;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 
 public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tuple4DBasicsTest<T>
@@ -51,6 +57,32 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tu
          assertTrue(tuple.getX() == 0.0);
          assertTrue(tuple.getY() == 0.0);
          assertTrue(tuple.getZ() == 0.0);
+         assertTrue(tuple.getS() == 0.0);
+      }
+   }
+
+   @Test
+   public void testTuple3DSetters() throws Exception
+   {
+      Random random = new Random(4325234L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T tuple = createEmptyTuple();
+         Point3D point3D = GeometryBasicsRandomTools.generateRandomPoint3D(random);
+         tuple.set(point3D);
+         for (int index = 0; index < 3; index++)
+            assertEquals(tuple.get(index), point3D.get(index), getEpsilon());
+         assertTrue(tuple.getS() == 1.0);
+      }
+      
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T tuple = createEmptyTuple();
+         Vector3D vector3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         tuple.set(vector3D);
+         for (int index = 0; index < 3; index++)
+            assertEquals(tuple.get(index), vector3D.get(index), getEpsilon());
          assertTrue(tuple.getS() == 0.0);
       }
    }
@@ -334,6 +366,31 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tu
       T tuple3 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test addX, addY, addZ, addS
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         double zOld = random.nextDouble();
+         double sOld = random.nextDouble();
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         double z = random.nextDouble();
+         double s = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+         tuple1.setZ(zOld);
+         tuple1.setS(sOld);
+
+         tuple1.addX(x);
+         assertEquals(tuple1.getX(), xOld + x, getEpsilon());
+         tuple1.addY(y);
+         assertEquals(tuple1.getY(), yOld + y, getEpsilon());
+         tuple1.addZ(z);
+         assertEquals(tuple1.getZ(), zOld + z, getEpsilon());
+         tuple1.addS(s);
+         assertEquals(tuple1.getS(), sOld + s, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test add(double x, double y)
          double xOld = random.nextDouble();
          double yOld = random.nextDouble();
@@ -407,6 +464,31 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tu
       T tuple1 = createEmptyTuple();
       T tuple2 = createEmptyTuple();
       T tuple3 = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test subX, subY, subZ, subS
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         double zOld = random.nextDouble();
+         double sOld = random.nextDouble();
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         double z = random.nextDouble();
+         double s = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+         tuple1.setZ(zOld);
+         tuple1.setS(sOld);
+
+         tuple1.subX(x);
+         assertEquals(tuple1.getX(), xOld - x, getEpsilon());
+         tuple1.subY(y);
+         assertEquals(tuple1.getY(), yOld - y, getEpsilon());
+         tuple1.subZ(z);
+         assertEquals(tuple1.getZ(), zOld - z, getEpsilon());
+         tuple1.subS(s);
+         assertEquals(tuple1.getS(), sOld - s, getEpsilon());
+      }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test sub(double x, double y)
@@ -603,10 +685,51 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tu
       }
    }
 
-   @Ignore
    @Test
    public void testApplyTransform() throws Exception
    {
-      fail("Not implemented yet.");
+      Random random = new Random(23523L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, 10.0 * getEpsilon());
+      }
    }
 }
