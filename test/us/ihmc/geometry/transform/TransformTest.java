@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
@@ -175,6 +176,30 @@ public abstract class TransformTest<T extends Transform>
       { // Test inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
          RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix();
+         transform.inverseTransform(expected, actual);
+         transform.transform(actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testInverseTransformWithMatrix3D() throws Exception
+   {
+      Random random = new Random(3454L);
+      T transform = createRandomTransform(random);
+
+      { // Test inverseTransform(RotationMatrix matrixToTransform)
+         Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = new Matrix3D();
+         actual.set(expected);
+         transform.transform(actual);
+         transform.inverseTransform(actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      { // Test inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+         Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = new Matrix3D();
          transform.inverseTransform(expected, actual);
          transform.transform(actual);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);

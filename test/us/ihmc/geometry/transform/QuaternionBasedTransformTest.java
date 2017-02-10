@@ -411,12 +411,15 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actualTransform.setRotationYawPitchRoll(yaw, pitch, roll);
          GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
 
+         actualTransform.setRotationToZero();
          actualTransform.setRotationYawPitchRoll(new double[] {yaw, pitch, roll});
          GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
 
+         actualTransform.setRotationToZero();
          actualTransform.setRotationEuler(new Vector3D(roll, pitch, yaw));
          GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
 
+         actualTransform.setRotationToZero();
          actualTransform.setRotationEuler(roll, pitch, yaw);
          GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
       }

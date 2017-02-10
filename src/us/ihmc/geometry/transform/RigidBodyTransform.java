@@ -1860,4 +1860,11 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    {
       return GeometryBasicsIOTools.getRigidBodyTransformString(this);
    }
+
+   @Override
+   public int hashCode()
+   {
+      long bits = 31L * rotationMatrix.hashCode() + translationVector.hashCode();
+      return (int) (bits ^ bits >> 32);
+   }
 }

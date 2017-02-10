@@ -1114,4 +1114,11 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    {
       return GeometryBasicsIOTools.getQuaternionBasedTransformString(this);
    }
+
+   @Override
+   public int hashCode()
+   {
+      long bits = 31L * quaternion.hashCode() + translationVector.hashCode();
+      return (int) (bits ^ bits >> 32);
+   }
 }

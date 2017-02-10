@@ -754,13 +754,20 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          transform.setRotationYawPitchRoll(yaw, pitch, roll);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
+      }
 
+      { // Test setRotationYawPitchRoll(double[] yawPitchRoll)
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random);
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random);
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random);
+         transform.getRotationScale(expectedRotationScale);
+         expectedRotationScale.setRotationYawPitchRoll(yaw, pitch, roll);
          transform.setRotationYawPitchRoll(new double[] {yaw, pitch, roll});
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
 
-      { // Test setRotationEuler(double rotX, double rotY, double rotZ)
+      { // Test setRotationEuler(Vector3DReadOnly<?> eulerAngles)
          Vector3D eulerAngles = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          transform.getRotationScale(expectedRotationScale);
          expectedRotationScale.setRotationEuler(eulerAngles);
@@ -1315,9 +1322,10 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       AffineTransform affineTransform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
       affineTransform.setScale(scales);
       GeometryBasicsTestTools.assertTuple3DEquals(scales, affineTransform.getScale(), EPS);
-      assertEquals(scales.getX(), affineTransform.getScale().getX(), EPS);
-      assertEquals(scales.getY(), affineTransform.getScale().getY(), EPS);
-      assertEquals(scales.getZ(), affineTransform.getScale().getZ(), EPS);
+
+      assertEquals(scales.getX(), affineTransform.getScaleX(), EPS);
+      assertEquals(scales.getY(), affineTransform.getScaleY(), EPS);
+      assertEquals(scales.getZ(), affineTransform.getScaleZ(), EPS);
 
       Vector3D actualScales = new Vector3D();
       affineTransform.getScale(actualScales);
