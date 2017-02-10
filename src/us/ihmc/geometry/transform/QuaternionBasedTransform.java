@@ -993,17 +993,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Packs the rotation part of this quaternion-based transform.
-    * 
-    * @param rotationMarixToPack the rotation-scale matrix that is set to this transform's
-    *           quaternion. The scale part is reset. Modified.
-    */
-   public void getRotation(RotationScaleMatrix rotationMarixToPack)
-   {
-      rotationMarixToPack.set(quaternion, 1.0);
-   }
-
-   /**
     * Packs the rotation part of this affine transform as a quaternion.
     * 
     * @param quaternionToPack the quaternion that is set to the rotation part of this transform.

@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
+import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
@@ -129,6 +130,27 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          RotationMatrixConversion.convertRotationVectorToMatrix(rotationVector, expectedRotationMatrix);
 
          GeometryBasicsTestTools.assertMatrix3DEquals(actualRotationMatrix, expectedRotationMatrix, EPS);
+      }
+   }
+
+   @Override
+   public void testSetDoubles()
+   {
+      super.testSetDoubles();
+
+      try
+      {
+         RotationMatrix rotationMatrix = new RotationMatrix();
+         rotationMatrix.set(45.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+         fail("should have thrown a NotARotationMatrixException");
+      }
+      catch (NotARotationMatrixException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("should have thrown a NotARotationMatrixException");
       }
    }
 

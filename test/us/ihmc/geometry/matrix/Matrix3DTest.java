@@ -11,13 +11,15 @@ import java.util.Random;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.RandomMatrices;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.transform.AffineTransform;
+import us.ihmc.geometry.transform.QuaternionBasedTransform;
+import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple3D.Vector3D;
 
 public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
@@ -1256,10 +1258,51 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
    }
 
    @Test
-   @Ignore
-   public void testApplyTransform()
+   public void testApplyTransform() throws Exception
    {
-      fail("Not yet implemented");
+      Random random = new Random(23523L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         Matrix3D original = createRandomMatrix(random);
+         Matrix3D expected = createEmptyMatrix();
+         Matrix3D actual = createEmptyMatrix();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
+         Matrix3D original = createRandomMatrix(random);
+         Matrix3D expected = createEmptyMatrix();
+         Matrix3D actual = createEmptyMatrix();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
+         Matrix3D original = createRandomMatrix(random);
+         Matrix3D expected = createEmptyMatrix();
+         Matrix3D actual = createEmptyMatrix();
+
+         expected.set(original);
+         transform.transform(expected);
+         actual.set(original);
+         actual.applyTransform(transform);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
    }
 
    @Override

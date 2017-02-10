@@ -378,19 +378,75 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       RotationScaleMatrix matrix = new RotationScaleMatrix();
 
       matrix.checkIfRotationMatrixProper(); // Should not throw any exception
+      matrix.checkIfRotationScaleMatrixProper(); // Should not throw any exception
+      matrix.checkIfScalesProper(); // Should not throw any exception
 
       RotationMatrix rotationMatrix = (RotationMatrix) matrix.getRotationMatrix();
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      matrix.checkIfScalesProper(); // Should not throw any exception
 
       try
       {
          matrix.checkIfRotationMatrixProper();
-         fail("Should have thrown an exception");
+         fail("Should have thrown a NotARotationScaleMatrixException");
       }
       catch (NotARotationScaleMatrixException e)
       {
          // good
       }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotARotationScaleMatrixException");
+      }
+
+      try
+      {
+         matrix.checkIfRotationScaleMatrixProper();
+         fail("Should have thrown a NotARotationScaleMatrixException");
+      }
+      catch (NotARotationScaleMatrixException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotARotationScaleMatrixException");
+      }
+
+      rotationMatrix.setIdentity();
+      Vector3D scale = (Vector3D) matrix.getScale();
+      scale.setX(-1.0);
+
+      matrix.checkIfRotationMatrixProper(); // Should not throw any exception
+
+      try
+      {
+         matrix.checkIfScalesProper();
+         fail("Should have thrown a NotARotationScaleMatrixException");
+      }
+      catch (NotARotationScaleMatrixException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotARotationScaleMatrixException");
+      }
+
+      try
+      {
+         matrix.checkIfRotationScaleMatrixProper();
+         fail("Should have thrown a NotARotationScaleMatrixException");
+      }
+      catch (NotARotationScaleMatrixException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotARotationScaleMatrixException");
+      }
+
    }
 
    @Test
@@ -1230,6 +1286,42 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       rotationScaleMatrix.setYawPitchRoll(yaw, pitch, roll);
       GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
       GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
+
+      rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      rotationScaleMatrix.setYawPitchRoll(new double[]{yaw, pitch, roll});
+      GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
+
+      rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      rotationScaleMatrix.setEuler(new Vector3D(roll, pitch, yaw));
+      GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
+
+      rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      rotationScaleMatrix.setEuler(roll, pitch, yaw);
+      GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
+      
+      rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      Vector3D expectedScales = new Vector3D(rotationScaleMatrix.getScale());
+      rotationScaleMatrix.setRotationYawPitchRoll(yaw, pitch, roll);
+      GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix.getRotationMatrix(), EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(expectedScales, rotationScaleMatrix.getScale(), EPS);
+
+      rotationScaleMatrix.setRotationToZero();
+      rotationScaleMatrix.setRotationYawPitchRoll(new double[]{yaw, pitch, roll});
+      GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix.getRotationMatrix(), EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(expectedScales, rotationScaleMatrix.getScale(), EPS);
+
+      rotationScaleMatrix.setRotationToZero();
+      rotationScaleMatrix.setRotationEuler(new Vector3D(roll, pitch, yaw));
+      GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix.getRotationMatrix(), EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(expectedScales, rotationScaleMatrix.getScale(), EPS);
+
+      rotationScaleMatrix.setRotationToZero();
+      rotationScaleMatrix.setRotationEuler(roll, pitch, yaw);
+      GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix.getRotationMatrix(), EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(expectedScales, rotationScaleMatrix.getScale(), EPS);
    }
 
    @Test

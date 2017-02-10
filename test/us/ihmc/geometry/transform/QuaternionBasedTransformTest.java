@@ -24,7 +24,7 @@ import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
-public class QuaternionBasedTransformTest
+public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedTransform>
 {
    private static final double EPS = 1.0e-10;
    public static final int NUMBER_OF_ITERATIONS = 100;
@@ -136,6 +136,19 @@ public class QuaternionBasedTransformTest
       transform.setToNaN();
 
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(transform.getQuaternion());
+      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(transform.getTranslationVector());
+
+      transform.setToZero();
+      GeometryBasicsTestTools.assertTuple4DEquals(new Quaternion(), transform.getQuaternion(), EPS);
+      GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(), transform.getTranslationVector(), EPS);
+
+      transform.setRotationToNaN();
+      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(transform.getQuaternion());
+      GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(), transform.getTranslationVector(), EPS);
+
+      transform.setToZero();
+      transform.setTranslationToNaN();
+      GeometryBasicsTestTools.assertTuple4DEquals(new Quaternion(), transform.getQuaternion(), EPS);
       GeometryBasicsTestTools.assertTupleContainsOnlyNaN(transform.getTranslationVector());
    }
 
@@ -359,6 +372,53 @@ public class QuaternionBasedTransformTest
          actualTransform.setRotation(rotationVector);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, actualTransform.getQuaternion(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTransform.getTranslationVector(), EPS);
+      }
+
+      { // Test setRotationYaw(double yaw)
+         RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         rigidBodyTransform.setRotationYaw(yaw);
+         QuaternionBasedTransform expectedTransform = new QuaternionBasedTransform(rigidBodyTransform);
+         actualTransform.setRotationYaw(yaw);
+         GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+      }
+
+      { // Test setRotationPitch(double pitch)
+         RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         rigidBodyTransform.setRotationPitch(pitch);
+         QuaternionBasedTransform expectedTransform = new QuaternionBasedTransform(rigidBodyTransform);
+         actualTransform.setRotationPitch(pitch);
+         GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+      }
+
+      { // Test setRotationRoll(double roll)
+         RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         rigidBodyTransform.setRotationRoll(roll);
+         QuaternionBasedTransform expectedTransform = new QuaternionBasedTransform(rigidBodyTransform);
+         actualTransform.setRotationRoll(roll);
+         GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+      }
+
+      { // Test setRotationYawPitchRoll(double roll)
+         RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         rigidBodyTransform.setRotationYawPitchRoll(yaw, pitch, roll);
+         QuaternionBasedTransform expectedTransform = new QuaternionBasedTransform(rigidBodyTransform);
+         actualTransform.setRotationYawPitchRoll(yaw, pitch, roll);
+         GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+
+         actualTransform.setRotationYawPitchRoll(new double[] {yaw, pitch, roll});
+         GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+
+         actualTransform.setRotationEuler(new Vector3D(roll, pitch, yaw));
+         GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+
+         actualTransform.setRotationEuler(roll, pitch, yaw);
+         GeometryBasicsTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
       }
    }
 
@@ -962,5 +1022,21 @@ public class QuaternionBasedTransformTest
          m2.setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6]);
          assertFalse(m1.epsilonEquals(m2, epsilon));
       }
+   }
+
+   @Override
+   public QuaternionBasedTransform createRandomTransform(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
+   }
+
+   @Override
+   public QuaternionBasedTransform createRandomTransform2D(Random random)
+   {
+      RigidBodyTransform rTransform2D = new RigidBodyTransform();
+      rTransform2D.setRotationYaw(2.0 * Math.PI * random.nextDouble() - Math.PI);
+      rTransform2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random));
+      QuaternionBasedTransform qTransform2D = new QuaternionBasedTransform(rTransform2D);
+      return qTransform2D;
    }
 }

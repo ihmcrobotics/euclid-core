@@ -1670,4 +1670,11 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    {
       return GeometryBasicsIOTools.getAffineTransformString(this);
    }
+
+   @Override
+   public int hashCode()
+   {
+      long bits = 31L * rotationScaleMatrix.hashCode() + translationVector.hashCode();
+      return (int) (bits ^ bits >> 32);
+   }
 }

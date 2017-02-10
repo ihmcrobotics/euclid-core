@@ -881,6 +881,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void setRotationAndZeroTranslation(Vector3DReadOnly<?> rotationVector)
    {
       rotationMatrix.set(rotationVector);
+      translationVector.setToZero();
    }
 
    /**

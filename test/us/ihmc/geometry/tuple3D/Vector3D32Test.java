@@ -68,6 +68,36 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
       }
    }
 
+   @Override
+   public void testSetters() throws Exception
+   {
+      super.testSetters();
+
+      Random random = new Random(621541L);
+      Vector3D32 tuple1 = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setX(float x)
+         float x = random.nextFloat();
+         tuple1.setX(x);
+         assertEquals(tuple1.getX32(), x, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setY(float y)
+         float y = random.nextFloat();
+         tuple1.setY(y);
+         assertEquals(tuple1.getY32(), y, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setZ(float z)
+         float z = random.nextFloat();
+         tuple1.setZ(z);
+         assertEquals(tuple1.getZ32(), z, getEpsilon());
+      }
+   }
+
    @Test
    public void testHashCode() throws Exception
    {
