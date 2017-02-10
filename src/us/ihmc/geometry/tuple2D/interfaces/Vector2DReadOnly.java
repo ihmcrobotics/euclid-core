@@ -23,7 +23,7 @@ package us.ihmc.geometry.tuple2D.interfaces;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the vector used.
@@ -35,7 +35,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * <p>
     * length = &radic;(x<sup>2</sup> + y<sup>2</sup>)
     * </p>
-    * 
+    *
     * @return the magnitude of this vector.
     */
    default double length()
@@ -53,7 +53,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * knowledge of the actual magnitude does not, i.e. when comparing several vectors by theirs
     * magnitude.
     * </p>
-    * 
+    *
     * @return the square of the magnitude of this vector.
     */
    default double lengthSquared()
@@ -67,7 +67,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * For instance, the dot product of two vectors p and q is defined as: <br>
     * p . q = &sum;<sub>i=1:2</sub>(p<sub>i</sub> * q<sub>i</sub>)
     * </p>
-    * 
+    *
     * @param other the other vector used for the dot product. Not modified.
     * @return the value of the dot product.
     */
@@ -88,7 +88,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * angle of {@code 0.0} radian.
     * </ul>
     * </p>
-    * 
+    *
     * @param other the other vector used to compute the angle. Not modified.
     * @return the value of the angle from this vector to {@code other}.
     */
@@ -124,7 +124,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
 
    /**
     * Calculates and returns the value of the cross product of this vector with {@code other}.
-    * 
+    *
     * @param other the second vector of the cross product. Not modified.
     * @return the value of the cross product.
     */
@@ -135,7 +135,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
 
    /**
     * Calculates and returns the value of the cross product of {@code vector1} with {@code vector2}.
-    * 
+    *
     * @param vector1 the first vector in the cross product. Not modified.
     * @param vector2 the second vector in the cross product. Not modified.
     * @return the value of the cross product.

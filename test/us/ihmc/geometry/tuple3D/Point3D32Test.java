@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public class Point3D32Test extends Point3DBasicsTest<Point3D32>
 {
@@ -59,7 +58,7 @@ public class Point3D32Test extends Point3DBasicsTest<Point3D32>
       { // Test Point32(TupleBasics tuple)
          Point3D32 point;
          Point3D32 point2 = GeometryBasicsRandomTools.generateRandomPoint3D32(random);
-         point = new Point3D32((Tuple3DReadOnly<?>) point2);
+         point = new Point3D32(point2);
          GeometryBasicsTestTools.assertTuple3DEquals(point, point2, EPS);
       }
    }

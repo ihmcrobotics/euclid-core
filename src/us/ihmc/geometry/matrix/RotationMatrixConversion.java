@@ -21,7 +21,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * <li>for yaw-pitch-roll: {@link YawPitchRollConversion}.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -32,13 +32,13 @@ public abstract class RotationMatrixConversion
    /**
     * Sets the given rotation matrix to represent a counter clockwise rotation around the z-axis of
     * an angle {@code yaw}.
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \
     * this = | sin(yaw)  cos(yaw) 0 |
     *        \    0         0     1 /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
@@ -52,13 +52,13 @@ public abstract class RotationMatrixConversion
    /**
     * Sets the given rotation matrix to represent a counter clockwise rotation around the y-axis of
     * an angle {@code pitch}.
-    * 
+    *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
     *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
@@ -72,13 +72,13 @@ public abstract class RotationMatrixConversion
    /**
     * Sets the given rotation matrix to represent a counter clockwise rotation around the x-axis of
     * an angle {@code roll}.
-    * 
+    *
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
     *        \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
@@ -103,7 +103,7 @@ public abstract class RotationMatrixConversion
     * <li>if the length of the axis is below {@link #EPS}, the rotation matrix is set to identity.
     * </ul>
     * </p>
-    * 
+    *
     * @param axisAngle the axis-angle to use for the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
@@ -126,7 +126,7 @@ public abstract class RotationMatrixConversion
     * <li>if the length of the axis is below {@link #EPS}, the rotation matrix is set to identity.
     * </ul>
     * </p>
-    * 
+    *
     * @param ux the axis x-component of the axis-angle to use for the conversion.
     * @param uy the axis y-component of the axis-angle to use for the conversion.
     * @param uz the axis z-component of the axis-angle to use for the conversion.
@@ -190,7 +190,7 @@ public abstract class RotationMatrixConversion
     * identity.
     * </ul>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to use for the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
@@ -261,18 +261,18 @@ public abstract class RotationMatrixConversion
     * representation of an orientation by decomposing it by three successive rotations around the
     * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
     * representation is:
-    * 
+    *
     * <pre>
     *  R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll)
     * </pre>
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
     * </p>
-    * 
+    *
     * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
@@ -299,18 +299,18 @@ public abstract class RotationMatrixConversion
     * representation of an orientation by decomposing it by three successive rotations around the
     * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
     * representation is:
-    * 
+    *
     * <pre>
     *  R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll)
     * </pre>
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
     * </p>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -358,7 +358,7 @@ public abstract class RotationMatrixConversion
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
@@ -385,7 +385,7 @@ public abstract class RotationMatrixConversion
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rx the x-component of the rotation vector to use in the conversion.
     * @param ry the y-component of the rotation vector to use in the conversion.
     * @param rz the z-component of the rotation vector to use in the conversion.

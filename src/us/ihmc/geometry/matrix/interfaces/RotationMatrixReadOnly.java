@@ -29,7 +29,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * </ul>
  * A rotation matrix has the nice property <i>R<sup>T</sup> = R<sup>-1</sup></i>.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> the final type of matrix used.
@@ -39,7 +39,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
    /**
     * Orthonormalization of the rotation matrix using the
     * <a href="https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process"> Gram-Schmidt method</a>.
-    * 
+    *
     * @throws NotARotationMatrixException if the orthonormalization failed.
     */
    void normalize();
@@ -74,7 +74,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * quaternionToTransform = Q(this) * quaternionToTransform <br>
     * where Q(this) is the equivalent quaternion for this rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
    default void transform(QuaternionBasics<?> quaternionToTransform)
@@ -89,7 +89,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * quaternionTransformed = Q(this) * quaternionOriginal <br>
     * where Q(this) is the equivalent quaternion for this rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
@@ -112,7 +112,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * <p>
     * matrixToTransform = this * matrixToTransform
     * </p>
-    * 
+    *
     * @param matrixToTransform the rotation matrix to transform. Modified.
     */
    default void transform(RotationMatrix matrixToTransform)
@@ -126,7 +126,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * <p>
     * matrixTransformed = this * matrixOriginal
     * </p>
-    * 
+    *
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
@@ -177,7 +177,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * where Q(this<sup>-1</sup>) is the equivalent quaternion for the inverse of this rotation
     * matrix.
     * </p>
-    * 
+    *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
    default void inverseTransform(QuaternionBasics<?> quaternionToTransform)
@@ -198,7 +198,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * q<sup>-1</sup> = conjugate(q) </br>
     * of a quaternion preventing to actually compute the inverse of the matrix.
     * </p>
-    * 
+    *
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
@@ -230,7 +230,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
-    * 
+    *
     * @param matrixToTransform the rotation matrix to transform. Modified.
     */
    default void inverseTransform(RotationMatrix matrixToTransform)
@@ -249,7 +249,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
     * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
-    * 
+    *
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */

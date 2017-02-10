@@ -45,7 +45,7 @@ public abstract class GeometryBasicsTestTools
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
-    * 
+    *
     * @param expectedAngle the expected angle.
     * @param actualAngle the actual angle.
     * @param epsilon the tolerance to use.
@@ -54,7 +54,7 @@ public abstract class GeometryBasicsTestTools
    public static void assertAngleEquals(double expectedAngle, double actualAngle, double epsilon)
    {
       double differenceAngle = Math.abs(expectedAngle - actualAngle);
-      differenceAngle = ((differenceAngle + Math.PI) % (2.0 * Math.PI)) - Math.PI;
+      differenceAngle = (differenceAngle + Math.PI) % (2.0 * Math.PI) - Math.PI;
       try
       {
          assertEquals(0.0, differenceAngle, epsilon);
@@ -72,7 +72,7 @@ public abstract class GeometryBasicsTestTools
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
-    * 
+    *
     * @param expectedYawPitchRoll the expected set of yaw-pitch-roll angles. Not modified.
     * @param actualYawPitchRoll the actual set of yaw-pitch-roll angles. Not modified.
     * @param epsilon the tolerance to use.
@@ -99,7 +99,7 @@ public abstract class GeometryBasicsTestTools
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
-    * 
+    *
     * @param expectedRotationVector the expected rotation vector. Not modified.
     * @param actualRotationVector the actual rotation vector. Not modified.
     * @param epsilon the tolerance to use.
@@ -124,7 +124,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
@@ -137,7 +137,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param message prefix to add to the automated message.
     * @param expected the expected tuple.
     * @param actual the actual tuple.
@@ -164,7 +164,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
@@ -177,7 +177,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param message prefix to add to the automated message.
     * @param expected the expected tuple.
     * @param actual the actual tuple.
@@ -204,7 +204,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
@@ -217,7 +217,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param message prefix to add to the automated message.
     * @param expected the expected tuple.
     * @param actual the actual tuple.
@@ -244,7 +244,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two matrices are equal to an {@code epsilon}.
-    * 
+    *
     * @param expected the expected matrix.
     * @param actual the actual matrix.
     * @param epsilon the tolerance to use.
@@ -257,7 +257,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two matrices are equal to an {@code epsilon}.
-    * 
+    *
     * @param message prefix to add to the automated message.
     * @param expected the expected matrix.
     * @param actual the actual matrix.
@@ -275,7 +275,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts that the given matrix is skew-symmetric:
-    * 
+    *
     * <pre>
     *     |  0 -z  y |
     * m = |  z  0 -x |
@@ -311,7 +311,7 @@ public abstract class GeometryBasicsTestTools
     * <li>the determinant of the matrix is equal to 1.0 +/- {@code epsilon}.
     * </ul>
     * </p>
-    * 
+    *
     * @param matrix the query. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the matrix is not a rotation matrix.
@@ -325,7 +325,7 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per coefficient basis that this matrix is equal to identity to an
     * {@code epsilon}.
-    * 
+    *
     * @param matrix the query. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the matrix is not identity.
@@ -338,7 +338,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts that the given matrix contains on {@link Double#NaN}.
-    * 
+    *
     * @param matrix the query. Not modified.
     * @throws AssertionError if the matrix does not only contain {@link Double#NaN}.
     */
@@ -356,7 +356,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two quaternions are equal to an {@code epsilon}.
-    * 
+    *
     * @param expectedQuaternion the expected quaternion. Not modified.
     * @param actualQuaternion the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
@@ -384,7 +384,7 @@ public abstract class GeometryBasicsTestTools
     * This method changes the sign of one of the two quaternions when comparing if their dot product
     * is negative.
     * </p>
-    * 
+    *
     * @param expectedQuaternion the expected quaternion. Not modified.
     * @param actualQuaternion the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
@@ -410,7 +410,7 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts that the two given quaternions represents the same orientation to an {@code epsilon}
     * by calculating the magnitude of their difference.
-    * 
+    *
     * @param expectedQuaternion the expected quaternion. Not modified.
     * @param actualQuaternion the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
@@ -435,7 +435,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis if the two axis-angles are equal to an {@code epsilon}.
-    * 
+    *
     * @param expectedAxisAngle the expected axis-angle. Not modified.
     * @param actualAxisAngle the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
@@ -463,7 +463,7 @@ public abstract class GeometryBasicsTestTools
     * This method changes the sign of one of the two axis-angles when comparing if the dot product
     * of their axis is negative.
     * </p>
-    * 
+    *
     * @param expectedAxisAngle the expected axis-angle. Not modified.
     * @param actualAxisAngle the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
@@ -504,7 +504,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts that the given axis-angle contains only {@link Double#NaN}.
-    * 
+    *
     * @param axisAngleToAssert the query. Not modified.
     * @throws AssertionError if the axis-angle does not only contain {@link Double#NaN}.
     */
@@ -518,7 +518,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Assert that {@link AxisAngleBasics#setToZero()} has just been called on the given axis-angle.
-    * 
+    *
     * @param axisAngleToAssert the query. Not modified.
     * @throws AssertionError if the axis-angle has not been set to zero.
     */
@@ -532,7 +532,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts that the length of the axis of the axis-angle is equal to {@code 1.0 +/- epsilon}.
-    * 
+    *
     * @param axisAngleToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the axis is not unitary.
@@ -545,7 +545,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts that the given quaternion contains only {@link Double#NaN}.
-    * 
+    *
     * @param quaternionToAssert the query. Not modified.
     * @throws AssertionError if the quaternion does not only contain {@link Double#NaN}.
     */
@@ -559,7 +559,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Assert that {@link QuaternionBasics#setToZero()} has just been called on the given quaternion.
-    * 
+    *
     * @param quaternionToAssert the query. Not modified.
     * @throws AssertionError if the quaternion has not been set to zero.
     */
@@ -573,7 +573,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts that the norm of the given quaternion is equal to {@code 1.0 +/- epsilon}.
-    * 
+    *
     * @param quaternionToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the quaternion is not a unit-quaternion.
@@ -586,7 +586,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts that the given tuple contains only {@link Double#NaN}.
-    * 
+    *
     * @param tupleToAssert the query. Not modified.
     * @throws AssertionError if the tuple does not only contain {@link Double#NaN}.
     */
@@ -599,7 +599,7 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Assert that {@link TupleBasics#setToZero()} has just been called on the given tuple.
-    * 
+    *
     * @param tupleToAssert the query. Not modified.
     * @throws AssertionError if the tuple has not been set to zero.
     */
@@ -613,7 +613,7 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two given rigid-body transform are equal to an
     * {@code epsilon}.
-    * 
+    *
     * @param expected the expected rigid-body transform. Not modified.
     * @param actual the actual rigid-body transform. Not modified.
     * @param epsilon the tolerance to use.
@@ -631,7 +631,7 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two quaternion-based transforms are equal to an
     * {@code epsilon}.
-    * 
+    *
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
     * @param epsilon the tolerance to use.
@@ -653,7 +653,7 @@ public abstract class GeometryBasicsTestTools
     * This method compares the quaternions using
     * {@link #assertQuaternionEqualsSmart(QuaternionReadOnly, QuaternionReadOnly, double)}.
     * </p>
-    * 
+    *
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
     * @param epsilon the tolerance to use.
@@ -676,7 +676,7 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two given affine transforms are equal to an
     * {@code epsilon}.
-    * 
+    *
     * @param expected the expected affine transform. Not modified.
     * @param actual the actual affine transform. Not modified.
     * @param epsilon the tolerance to use.

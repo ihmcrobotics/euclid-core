@@ -10,7 +10,7 @@ import us.ihmc.geometry.tuple3D.Vector3D;
 /**
  * This test is designed to measure the speed of transform code after it has been compiled by the
  * JVM.
- * 
+ *
  * @author Duncan Calvert <a href="mailto:dcalvert@ihmc.us">(dcalvert@ihmc.us)</a>
  */
 public class CompiledTransformPerformanceTest

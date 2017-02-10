@@ -87,6 +87,7 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
 
    }
 
+   @Override
    @Test
    @Ignore
    public void testApplyTransform()

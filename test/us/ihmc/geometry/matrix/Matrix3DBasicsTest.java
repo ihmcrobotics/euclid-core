@@ -9,7 +9,6 @@ import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
-import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 
@@ -68,7 +67,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics<T>> extends Ma
       { // set(Matrix3DReadOnly<?> other)
          RotationMatrix expectedMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          T actualMatrix = createEmptyMatrix();
-         actualMatrix.set((Matrix3DReadOnly<?>) expectedMatrix);
+         actualMatrix.set(expectedMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
       }
 

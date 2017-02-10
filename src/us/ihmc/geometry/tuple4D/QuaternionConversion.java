@@ -24,7 +24,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * <li>for yaw-pitch-roll: {@link YawPitchRollConversion}.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -35,7 +35,7 @@ public abstract class QuaternionConversion
    /**
     * Sets the given quaternion to represent a counter clockwise rotation around the z-axis of an
     * angle {@code yaw}.
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
@@ -48,7 +48,7 @@ public abstract class QuaternionConversion
    /**
     * Sets the given quaternion to represent a counter clockwise rotation around the y-axis of an
     * angle {@code pitch}.
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
@@ -61,7 +61,7 @@ public abstract class QuaternionConversion
    /**
     * Sets the given quaternion to represent a counter clockwise rotation around the x-axis of an
     * angle {@code roll}.
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
@@ -85,7 +85,7 @@ public abstract class QuaternionConversion
     * quaternion.
     * </ul>
     * </p>
-    * 
+    *
     * @param axisAngle the axis-angle to use for the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
@@ -108,7 +108,7 @@ public abstract class QuaternionConversion
     * quaternion.
     * </ul>
     * </p>
-    * 
+    *
     * @param ux the axis x-component of the axis-angle to use for the conversion.
     * @param uy the axis y-component of the axis-angle to use for the conversion.
     * @param uz the axis z-component of the axis-angle to use for the conversion.
@@ -150,7 +150,7 @@ public abstract class QuaternionConversion
     * {@link Double#NaN}.
     * </ul>
     * </p>
-    * 
+    *
     * @param rotationScaleMatrix a 3-by-3 matrix representing an orientation and a scale. Only the
     *           orientation part is used during the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
@@ -173,7 +173,7 @@ public abstract class QuaternionConversion
     * {@link Double#NaN}.
     * </ul>
     * </p>
-    * 
+    *
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
@@ -273,7 +273,7 @@ public abstract class QuaternionConversion
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
@@ -300,7 +300,7 @@ public abstract class QuaternionConversion
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rx the x-component of the rotation vector to use in the conversion.
     * @param ry the y-component of the rotation vector to use in the conversion.
     * @param rz the z-component of the rotation vector to use in the conversion.
@@ -349,7 +349,7 @@ public abstract class QuaternionConversion
     * representation is: <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
-    * 
+    *
     * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
@@ -378,7 +378,7 @@ public abstract class QuaternionConversion
     * representation is: <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
-    * 
+    *
     * @param yaw the yaw angle to use in the conversion.
     * @param pitch the pitch angle to use in the conversion.
     * @param roll the roll angle to use in the conversion.

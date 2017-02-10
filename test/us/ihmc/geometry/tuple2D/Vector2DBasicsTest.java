@@ -99,7 +99,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
       Random random = new Random(56461L);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // cross(Vector2DReadOnly<?> other) 
+      { // cross(Vector2DReadOnly<?> other)
          T vector1 = createRandomTuple(random);
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();

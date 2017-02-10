@@ -13,7 +13,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
  * meant for garbage free usage and for situations where heap memory is limited. When memory is not
  * a constraint, the use of {@link Point3D} is preferable.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  */
 public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
@@ -37,7 +37,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Creates a new point and initializes it with the given coordinates.
-    * 
+    *
     * @param x the x-coordinate.
     * @param y the y-coordinate.
     * @param z the z-coordinate.
@@ -50,7 +50,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
    /**
     * Creates a new point and initializes its component {@code x}, {@code y}, {@code z} in order
     * from the given array.
-    * 
+    *
     * @param pointArray the array containing this point's coordinates. Not modified.
     */
    public Point3D32(float[] pointArray)
@@ -60,7 +60,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Creates a new point and initializes it to {@code other}.
-    * 
+    *
     * @param other the tuple to copy the coordinates from. Not modified.
     */
    public Point3D32(Tuple3DReadOnly<?> other)
@@ -70,7 +70,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Sets the x-coordinate of this point.
-    * 
+    *
     * @param x the x-coordinate.
     */
    @Override
@@ -81,7 +81,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Sets the y-coordinate of this point.
-    * 
+    *
     * @param y the y-coordinate.
     */
    @Override
@@ -92,7 +92,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Sets the z-coordinate of this point.
-    * 
+    *
     * @param z the z-coordinate.
     */
    @Override
@@ -103,7 +103,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Sets the x-coordinate of this point.
-    * 
+    *
     * @param x the x-coordinate.
     */
    public void setX(float x)
@@ -113,7 +113,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Sets the y-coordinate of this point.
-    * 
+    *
     * @param y the y-coordinate.
     */
    public void setY(float y)
@@ -123,7 +123,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Sets the z-coordinate of this point.
-    * 
+    *
     * @param z the z-coordinate.
     */
    public void setZ(float z)
@@ -133,7 +133,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Returns the value of the x-coordinate of this point.
-    * 
+    *
     * @return the x-coordinate's value.
     */
    @Override
@@ -144,7 +144,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Returns the value of the y-coordinate of this point.
-    * 
+    *
     * @return the y-coordinate's value.
     */
    @Override
@@ -155,7 +155,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Returns the value of the z-coordinate of this point.
-    * 
+    *
     * @return the z-coordinate's value.
     */
    @Override
@@ -166,7 +166,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Returns the value of the x-coordinate of this point.
-    * 
+    *
     * @return the x-coordinate's value.
     */
    @Override
@@ -177,7 +177,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Returns the value of the y-coordinate of this point.
-    * 
+    *
     * @return the y-coordinate's value.
     */
    @Override
@@ -188,7 +188,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Returns the value of the z-coordinate of this point.
-    * 
+    *
     * @return the z-coordinate's value.
     */
    @Override
@@ -200,7 +200,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
     * returns {@link #equals(Point3D32)}, it returns {@code false} otherwise.
-    * 
+    *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
     */
@@ -219,7 +219,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Provides a {@code String} representation of this point 3D as follows: (x, y, z).
-    * 
+    *
     * @return the {@code String} representing this point 3D.
     */
    @Override
@@ -230,7 +230,7 @@ public class Point3D32 implements Serializable, Point3DBasics<Point3D32>
 
    /**
     * Calculates and returns a hash code value from the value of each component of this point 3D.
-    * 
+    *
     * @return the hash code value for this point 3D.
     */
    @Override

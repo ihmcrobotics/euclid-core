@@ -68,7 +68,7 @@ public class Matrix3DToolsTest
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test the inverse of a rotation matrix 
+      { // Test the inverse of a rotation matrix
          RotationMatrix original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix expected = new RotationMatrix();
          expected.setAndTranspose(original);

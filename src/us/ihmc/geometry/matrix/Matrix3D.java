@@ -23,8 +23,8 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * This version of 3D matrix uses double precision fields to save the value of each component. It is
  * meant for garbage free usage.
  * </p>
- * 
- * 
+ *
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -60,13 +60,13 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Creates a new 3D matrix and initializes it from the given array.
-    * 
+    *
     * <pre>
     *        / matrixArray[0]  matrixArray[1]  matrixArray[2] \
     * this = | matrixArray[3]  matrixArray[4]  matrixArray[5] |
     *        \ matrixArray[6]  matrixArray[7]  matrixArray[8] /
     * </pre>
-    * 
+    *
     * @param matrixArray the array containing the values for this matrix. Not modified.
     */
    public Matrix3D(double[] matrixArray)
@@ -76,7 +76,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Creates a new 3D matrix and initializes it from the given 9 coefficients.
-    * 
+    *
     * @param m00 the 1st row 1st column coefficient for this matrix.
     * @param m01 the 1st row 2nd column coefficient for this matrix.
     * @param m02 the 1st row 3rd column coefficient for this matrix.
@@ -94,7 +94,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Creates a new 3D matrix that is the same as {@code other}.
-    * 
+    *
     * @param other the other 3D matrix to copy the values from. Not modified.
     */
    public Matrix3D(Matrix3DReadOnly<?> other)
@@ -113,7 +113,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Transposes this matrix: m = m<sup>T</sup>.
-    * 
+    *
     */
    public void transpose()
    {
@@ -158,13 +158,13 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Converts a vector to tilde form (matrix implementation of cross product).
-    * 
+    *
     * <pre>
     *        /  0 -z  y \
     * this = |  z  0 -x |
     *        \ -y  x  0 /
     * </pre>
-    * 
+    *
     * @param tuple the tuple to use to create its tilde form. Not modified.
     */
    public void setToTildeForm(Tuple3DReadOnly<?> tuple)
@@ -199,7 +199,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = other<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix. Not modified.
     * @throws SingularMatrixException if the matrix is not invertible.
     */
@@ -211,7 +211,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets this matrix to equal the other matrix and then normalizes this, see {@link #normalize()}.
-    * 
+    *
     * @param other the other matrix used to update this matrix. Not modified.
     */
    public void setAndNormalize(Matrix3DReadOnly<?> other)
@@ -225,7 +225,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = other<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix used to update this matrix. Not modified.
     */
    public void setAndTranspose(Matrix3DReadOnly<?> other)
@@ -239,7 +239,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this + other
     * </p>
-    * 
+    *
     * @param other the other matrix to use for the addition. Not modified.
     */
    public void add(Matrix3DReadOnly<?> other)
@@ -262,7 +262,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = matrix1 + matrix2
     * </p>
-    * 
+    *
     * @param matrix1 the first term of the addition. Not modified.
     * @param matrix2 the second term of the addition. Not modified.
     */
@@ -286,7 +286,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this - other
     * </p>
-    * 
+    *
     * @param other the other matrix to use for the subtraction. Not modified.
     */
    public void sub(Matrix3DReadOnly<?> other)
@@ -309,7 +309,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = matrix1 - matrix2
     * </p>
-    * 
+    *
     * @param matrix1 the first term of the addition. Not modified.
     * @param matrix2 the second term of the addition. Not modified.
     */
@@ -330,13 +330,13 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets all the coefficients of this matrix to be equal to {@code scalar}.
-    * 
+    *
     * <pre>
     *        / scalar scalar scalar \
     * this = | scalar scalar scalar |
     *        \ scalar scalar scalar /
     * </pre>
-    * 
+    *
     * @param scalar the scalar value to fill this matrix with.
     */
    public void fill(double scalar)
@@ -359,7 +359,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = scalar * this
     * </p>
-    * 
+    *
     * @param scalar the scale factor to use on the components of this matrix.
     */
    public void scale(double scalar)
@@ -379,7 +379,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales individually each row of this matrix.
-    * 
+    *
     * <pre>
     *        / scalarRow0 * m00 scalarRow0 * m01 scalarRow0 * m02 \
     * this = | scalarRow1 * m10 scalarRow1 * m11 scalarRow1 * m12 |
@@ -388,14 +388,14 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * This operation is equivalent to pre-multiplying this matrix, i.e. this = D * this, by the
     * following diagonal matrix D:
-    * 
+    *
     * <pre>
     *     / scaleRow0     0         0     \
     * D = |     0     scaleRow1     0     |
     *     \     0         0     scaleRow2 /
     * </pre>
     * </p>
-    * 
+    *
     * @param scalarRow0 the scale factor to use on the components of the 1st row.
     * @param scalarRow1 the scale factor to use on the components of the 2nd row.
     * @param scalarRow2 the scale factor to use on the components of the 3rd row.
@@ -417,7 +417,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales individually each column of this matrix.
-    * 
+    *
     * <pre>
     *        / scalarColumn0 * m00 scalarColumn1 * m01 scalarColumn2 * m02 \
     * this = | scalarColumn0 * m10 scalarColumn1 * m11 scalarColumn2 * m12 |
@@ -426,14 +426,14 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * This operation is equivalent to multiplying this matrix, i.e. this = this * D, by the
     * following diagonal matrix D:
-    * 
+    *
     * <pre>
     *     / scalarColumn0       0             0       \
     * D = |       0       scalarColumn1       0       |
     *     \       0             0       scalarColumn2 /
     * </pre>
     * </p>
-    * 
+    *
     * @param scalarColumn0 the scale factor to use on the components of the 1st column.
     * @param scalarColumn1 the scale factor to use on the components of the 2nd column.
     * @param scalarColumn2 the scale factor to use on the components of the 3rd column.
@@ -486,7 +486,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @throws SingularMatrixException if the matrix is not invertible.
     */
    public void invert()
@@ -510,7 +510,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this * other
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiply(Matrix3DReadOnly<?> other)
@@ -523,7 +523,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this<sup>T</sup> * other
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiplyTransposeThis(Matrix3DReadOnly<?> other)
@@ -536,7 +536,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this * other<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiplyTransposeOther(Matrix3DReadOnly<?> other)
@@ -549,7 +549,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this<sup>T</sup> * other<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiplyTransposeBoth(Matrix3DReadOnly<?> other)
@@ -562,7 +562,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this<sup>-1</sup> * other
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     * @throws SingularMatrixException if {@code this} is not invertible.
     */
@@ -576,7 +576,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = this * other<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     * @throws SingularMatrixException if {@code other} is not invertible.
     */
@@ -595,7 +595,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of the rotation matrix preventing to actually compute its inverse.
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiplyInvertOther(RotationMatrixReadOnly<?> other)
@@ -613,7 +613,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
     * of the rotation-scale matrix preventing to actually compute its inverse.
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiplyInvertOther(RotationScaleMatrixReadOnly<?> other)
@@ -626,7 +626,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = other * this
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiply(Matrix3DReadOnly<?> other)
@@ -639,7 +639,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = other * this<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyTransposeThis(Matrix3DReadOnly<?> other)
@@ -652,7 +652,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = other<sup>T</sup> * this
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyTransposeOther(Matrix3DReadOnly<?> other)
@@ -665,7 +665,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = other<sup>T</sup> * this<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyTransposeBoth(Matrix3DReadOnly<?> other)
@@ -678,7 +678,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = other * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     * @throws SingularMatrixException if {@code this} is not invertible.
     */
@@ -692,7 +692,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * this = other<sup>-1</sup> * this
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     * @throws SingularMatrixException if {@code other} is not invertible.
     */
@@ -711,7 +711,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of the rotation matrix preventing to actually compute its inverse.
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyInvertOther(RotationMatrixReadOnly<?> other)
@@ -729,7 +729,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
     * of the rotation-scale matrix preventing to actually compute its inverse.
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyInvertOther(RotationScaleMatrixReadOnly<?> other)
@@ -803,7 +803,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    /**
     * Sets the {@code row}<sup>th</sup> row components to the values contained in the given array
     * {@code rowArray}.
-    * 
+    *
     * @param row the index of the row to set the values of.
     * @param rowArray the array containing the new values for the row. Not modified.
     * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
@@ -816,7 +816,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    /**
     * Sets the {@code row}<sup>th</sup> row components to the values contained in the given tuple
     * {@code rowValues}.
-    * 
+    *
     * @param row the index of the row to set the values of.
     * @param rowValues the tuple containing the new values for the row. Not modified.
     * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
@@ -828,7 +828,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the {@code row}<sup>th</sup> row components to the given values.
-    * 
+    *
     * @param row the index of the row to set the values of.
     * @param x the new value of the first component in the row.
     * @param y the new value of the second component in the row.
@@ -865,7 +865,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    /**
     * Sets the {@code column}<sup>th</sup> column components to the values contained in the given
     * array {@code columnArray}.
-    * 
+    *
     * @param column the index of the column to set the values of.
     * @param columnArray the array containing the new values for the column. Not modified.
     * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
@@ -878,7 +878,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    /**
     * Sets the {@code column}<sup>th</sup> column components to the values contained in the given
     * tuple {@code columnValues}.
-    * 
+    *
     * @param column the index of the column to set the values of.
     * @param columnValues the tuple containing the new values for the column. Not modified.
     * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
@@ -890,7 +890,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the {@code column}<sup>th</sup> column components to the given values.
-    * 
+    *
     * @param column the index of the column to set the values of.
     * @param x the new value of the first component in the column.
     * @param y the new value of the second component in the column.
@@ -926,7 +926,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the components of the {@code row}<sup>th</sup> row of this matrix.
-    * 
+    *
     * @param row the index of the row to scale.
     * @param scalar the scale factor to apply.
     * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
@@ -960,7 +960,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the components of the {@code column}<sup>th</sup> column of this matrix.
-    * 
+    *
     * @param column the index of the column to scale.
     * @param scalar the scale factor to apply.
     * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
@@ -994,7 +994,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the component of this matrix located by its row and column indices.
-    * 
+    *
     * @param row the index of the component's row.
     * @param column the index of the component's column.
     * @param value the new value of the component.
@@ -1060,7 +1060,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 1st row 1st column component.
-    * 
+    *
     * @param m00 the new value of the component.
     */
    public void setM00(double m00)
@@ -1070,7 +1070,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 1st row 2nd column component.
-    * 
+    *
     * @param m01 the new value of the component.
     */
    public void setM01(double m01)
@@ -1080,7 +1080,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 1st row 3rd column component.
-    * 
+    *
     * @param m02 the new value of the component.
     */
    public void setM02(double m02)
@@ -1090,7 +1090,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 2nd row 1st column component.
-    * 
+    *
     * @param m10 the new value of the component.
     */
    public void setM10(double m10)
@@ -1100,7 +1100,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 2nd row 2nd column component.
-    * 
+    *
     * @param m11 the new value of the component.
     */
    public void setM11(double m11)
@@ -1110,7 +1110,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 2nd row 3rd column component.
-    * 
+    *
     * @param m12 the new value of the component.
     */
    public void setM12(double m12)
@@ -1120,7 +1120,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 3rd row 1st column component.
-    * 
+    *
     * @param m20 the new value of the component.
     */
    public void setM20(double m20)
@@ -1130,7 +1130,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 3rd row 2nd column component.
-    * 
+    *
     * @param m21 the new value of the component.
     */
    public void setM21(double m21)
@@ -1140,7 +1140,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Sets the value of the 3rd row 3rd column component.
-    * 
+    *
     * @param m22 the new value of the component.
     */
    public void setM22(double m22)
@@ -1150,7 +1150,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 1st row 1st column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM00(double scalar)
@@ -1160,7 +1160,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 1st row 2nd column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM01(double scalar)
@@ -1170,7 +1170,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 1st row 3rd column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM02(double scalar)
@@ -1180,7 +1180,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 2nd row 1st column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM10(double scalar)
@@ -1190,7 +1190,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 2nd row 2nd column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM11(double scalar)
@@ -1200,7 +1200,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 2nd row 3rd column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM12(double scalar)
@@ -1210,7 +1210,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 3rd row 1st column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM20(double scalar)
@@ -1220,7 +1220,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 3rd row 2nd column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM21(double scalar)
@@ -1230,7 +1230,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Scales the value of the 3rd row 3rd column component.
-    * 
+    *
     * @param scalar the scale factor to apply.
     */
    public void scaleM22(double scalar)
@@ -1305,7 +1305,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * Tests if the given {@code object}'s class is the same as this, in which case the method
     * returns {@link #equals(Matrix3D)}, it returns {@code false} otherwise or if the {@code object}
     * is {@code null}.
-    * 
+    *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
     */
@@ -1327,7 +1327,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * <p>
     * The method returns {@code false} if the given matrix is {@code null}.
     * </p>
-    * 
+    *
     * @param other the other matrix to compare against this. Not modified.
     * @return {@code true} if the two matrices are exactly equal component-wise, {@code false}
     *         otherwise.
@@ -1342,7 +1342,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * m00, m01, m02 <br>
     * m10, m11, m12 <br>
     * m20, m21, m22
-    * 
+    *
     * @return the {@code String} representing this matrix.
     */
    @Override
@@ -1353,7 +1353,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /**
     * Calculates and returns a hash code value from the value of each component of this matrix.
-    * 
+    *
     * @return the hash code value for this matrix.
     */
    @Override

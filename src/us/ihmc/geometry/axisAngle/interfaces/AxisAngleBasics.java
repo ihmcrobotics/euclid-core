@@ -12,9 +12,9 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  * An axis-angle is used to represent a 3D orientation by a unitary axis of components (x, y, z) and
  * an angle of rotation usually expressed in radians.
  * </p>
- * 
+ *
  * @author Sylvain
- * 
+ *
  * @param T the final type of the axis-angle used.
  */
 public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngleReadOnly<T>, Settable<T>
@@ -68,7 +68,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
 
    /**
     * Tests if this axis-angle contains a {@link Double#NaN}.
-    * 
+    *
     * @return {@code true} if this axis-angle contains a {@link Double#NaN}, {@code false}
     *         otherwise.
     */
@@ -105,7 +105,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
 
    /**
     * Sets the axis and the angle of this axis-angle.
-    * 
+    *
     * @param axis the new axis. Not modified.
     * @param angle the new angle.
     */
@@ -116,9 +116,10 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
 
    /**
     * Sets this axis-angle to the same value as the given axis-angle {@code other}.
-    * 
+    *
     * @param other the other axis-angle. Not modified.
     */
+   @Override
    default void set(T other)
    {
       set((AxisAngleReadOnly<T>) other);
@@ -126,7 +127,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
 
    /**
     * Sets this axis-angle to the same value as the given axis-angle {@code other}.
-    * 
+    *
     * @param other the other axis-angle. Not modified.
     */
    default void set(AxisAngleReadOnly<?> other)
@@ -142,7 +143,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * <li>{@code this.setZ(axisAngleArray[2]);}
     * <li>{@code this.setAngle(axisAngleArray[3]);}
     * </ul>
-    * 
+    *
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     */
    default void set(double[] axisAngleArray)
@@ -158,7 +159,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * <li>{@code this.setZ(axisAngleArray[startIndex + 2]);}
     * <li>{@code this.setAngle(axisAngleArray[startIndex + 3]);}
     * </ul>
-    * 
+    *
     * @param startIndex the first index to start reading from in the array.
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     */
@@ -178,7 +179,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * <li>{@code this.setZ(axisAngleArray[2]);}
     * <li>{@code this.setAngle(axisAngleArray[3]);}
     * </ul>
-    * 
+    *
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     */
    default void set(float[] axisAngleArray)
@@ -194,7 +195,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * <li>{@code this.setZ(axisAngleArray[startIndex + 2]);}
     * <li>{@code this.setAngle(axisAngleArray[startIndex + 3]);}
     * </ul>
-    * 
+    *
     * @param startIndex the first index to start reading from in the array.
     * @param axisAngleArray the array containing the new values for this axis-angle. Not modified.
     */
@@ -210,7 +211,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * Sets the components of this axis-angle such that it represents the same orientation as the
     * given {@code quaternion}. See
     * {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
-    * 
+    *
     * @param quaternion the quaternion to convert. Not modified.
     */
    default void set(QuaternionReadOnly<?> quaternion)
@@ -222,7 +223,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * Sets the components of this axis-angle such that it represents the same orientation as the
     * given {@code rotationMatrix}. See
     * {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix to convert. Not modified.
     */
    default void set(RotationMatrixReadOnly<?> rotationMatrix)
@@ -239,7 +240,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVector the rotation vector to convert. Not modified.
     */
    default void set(Vector3DReadOnly<?> rotationVector)
@@ -251,7 +252,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * Sets the components of this axis-angle such that it represents the same orientation as the
     * given yaw-pitch-roll angles. See
     * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double[], AxisAngleBasics)}.
-    * 
+    *
     * @param yawPitchRoll array containing the yaw, pitch, and roll angles. Not modified.
     */
    default void setYawPitchRoll(double[] yawPitchRoll)
@@ -263,7 +264,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * Sets the components of this axis-angle such that it represents the same orientation as the
     * given yaw-pitch-roll angles. See
     * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -279,7 +280,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     * For {@code index} values of 0, 1, and 2, the corresponding components are x, y, and z,
     * respectively, while 3 corresponds to the angle.
     * </p>
-    * 
+    *
     * @param index the index of the component to set.
     * @param value the new value of the selected component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 3].

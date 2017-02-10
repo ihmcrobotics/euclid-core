@@ -29,7 +29,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * <li>for yaw-pitch-roll: {@link YawPitchRollConversion}.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -51,7 +51,7 @@ public abstract class RotationVectorConversion
     * <li>if the length of the axis is below {@link #EPS}, the rotation vector is set to zero.
     * </ul>
     * </p>
-    * 
+    *
     * @param axisAngle the axis-angle to use for the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
@@ -74,7 +74,7 @@ public abstract class RotationVectorConversion
     * <li>if the length of the axis is below {@link #EPS}, the rotation vector is set to zero.
     * </ul>
     * </p>
-    * 
+    *
     * @param ux the axis x-component of the axis-angle to use for the conversion.
     * @param uy the axis y-component of the axis-angle to use for the conversion.
     * @param uz the axis z-component of the axis-angle to use for the conversion.
@@ -118,7 +118,7 @@ public abstract class RotationVectorConversion
     * <li>if the norm of the quaternion is below {@link #EPS}, the rotation vector is set to zero.
     * </ul>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to use for the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
@@ -163,7 +163,7 @@ public abstract class RotationVectorConversion
     * set to {@link Double#NaN}.
     * </ul>
     * </p>
-    * 
+    *
     * @param rotationScaleMatrix a 3-by-3 matrix representing an orientation and a scale. Only the
     *           orientation part is used during the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
@@ -186,7 +186,7 @@ public abstract class RotationVectorConversion
     * set to {@link Double#NaN}.
     * </ul>
     * </p>
-    * 
+    *
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
@@ -224,7 +224,7 @@ public abstract class RotationVectorConversion
     * set to {@link Double#NaN}.
     * </ul>
     * </p>
-    * 
+    *
     * @param m00 the new 1st row 1st column coefficient for the matrix to use for the conversion.
     * @param m01 the new 1st row 2nd column coefficient for the matrix to use for the conversion.
     * @param m02 the new 1st row 3rd column coefficient for the matrix to use for the conversion.
@@ -312,8 +312,8 @@ public abstract class RotationVectorConversion
     * <p>
     * Edge case:
     * <ul>
-    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is set to
-    * {@link Double#NaN}.
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is
+    * set to {@link Double#NaN}.
     * </ul>
     * </p>
     * <p>
@@ -323,7 +323,7 @@ public abstract class RotationVectorConversion
     * representation is: <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
-    * 
+    *
     * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
@@ -341,8 +341,8 @@ public abstract class RotationVectorConversion
     * <p>
     * Edge case:
     * <ul>
-    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is set to
-    * {@link Double#NaN}.
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is
+    * set to {@link Double#NaN}.
     * </ul>
     * </p>
     * <p>
@@ -352,7 +352,7 @@ public abstract class RotationVectorConversion
     * representation is: <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
-    * 
+    *
     * @param yaw the yaw angle to use in the conversion.
     * @param pitch the pitch angle to use in the conversion.
     * @param roll the roll angle to use in the conversion.

@@ -706,7 +706,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly<T>>
 
          Matrix3DTools.transform(matrix, original, expected);
          matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, 10.0*SMALL_EPS);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, 10.0 * SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -772,7 +772,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly<T>>
 
          Matrix3DTools.inverseTransform(matrix, original, expected);
          matrix.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, 10.0*SMALL_EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, 10.0 * SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);

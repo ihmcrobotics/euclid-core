@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
-import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
 public class Vector3DTest extends Vector3DBasicsTest<Vector3D>
 {
@@ -55,7 +54,7 @@ public class Vector3DTest extends Vector3DBasicsTest<Vector3D>
          vector2.setY(random.nextDouble());
          vector2.setZ(random.nextDouble());
 
-         vector = new Vector3D((Tuple3DReadOnly<?>) vector2);
+         vector = new Vector3D(vector2);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
          Assert.assertTrue(vector.getY() == vector2.getY());

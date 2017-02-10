@@ -33,7 +33,7 @@ import us.ihmc.geometry.interfaces.GeometryObject;
  * a 4D vector behaves as a 3D vector, and for {@code s = 1} it behaves as a 3D point.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the tuple used.
@@ -223,7 +223,7 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #normalize()}.
-    * 
+    *
     * @param other the other tuple to copy the values from. Not modified.
     */
    default void setAndNormalize(Tuple4DReadOnly<?> other)

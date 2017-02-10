@@ -15,7 +15,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
  * meant for garbage free usage and for situations where heap memory is limited. When memory is not
  * a constraint, the use of {@link Vector2D32} is preferable.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  */
 public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
@@ -39,7 +39,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Creates a new vector and initializes it with the given components.
-    * 
+    *
     * @param x the x-component.
     * @param y the y-component.
     * @param z the z-component.
@@ -52,7 +52,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
    /**
     * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z} in order
     * from the given array.
-    * 
+    *
     * @param pointArray the array containing this vector's components. Not modified.
     */
    public Vector3D32(float[] vectorArray)
@@ -62,7 +62,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Creates a new vector and initializes it to {@code other}.
-    * 
+    *
     * @param other the tuple to copy the components from. Not modified.
     */
    public Vector3D32(Tuple3DReadOnly<?> tuple)
@@ -72,7 +72,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Sets the x-component of this vector.
-    * 
+    *
     * @param x the x-component.
     */
    @Override
@@ -83,7 +83,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Sets the y-component of this vector.
-    * 
+    *
     * @param y the y-component.
     */
    @Override
@@ -94,7 +94,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Sets the z-component of this vector.
-    * 
+    *
     * @param z the z-component.
     */
    @Override
@@ -105,7 +105,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Sets the x-component of this vector.
-    * 
+    *
     * @param x the x-component.
     */
    public void setX(float x)
@@ -115,7 +115,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Sets the y-component of this vector.
-    * 
+    *
     * @param y the y-component.
     */
    public void setY(float y)
@@ -125,7 +125,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Sets the z-component of this vector.
-    * 
+    *
     * @param z the z-component.
     */
    public void setZ(float z)
@@ -135,7 +135,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Returns the value of the x-component of this vector.
-    * 
+    *
     * @return the x-component's value.
     */
    @Override
@@ -146,7 +146,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Returns the value of the y-component of this vector.
-    * 
+    *
     * @return the y-component's value.
     */
    @Override
@@ -157,7 +157,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Returns the value of the z-component of this vector.
-    * 
+    *
     * @return the z-component's value.
     */
    @Override
@@ -168,7 +168,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Returns the value of the x-component of this vector.
-    * 
+    *
     * @return the x-component's value.
     */
    @Override
@@ -179,7 +179,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Returns the value of the y-component of this vector.
-    * 
+    *
     * @return the y-component's value.
     */
    @Override
@@ -190,7 +190,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Returns the value of the z-component of this vector.
-    * 
+    *
     * @return the z-component's value.
     */
    @Override
@@ -202,7 +202,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
     * returns {@link #equals(Vector3D32)}, it returns {@code false} otherwise.
-    * 
+    *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
     */
@@ -221,7 +221,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Provides a {@code String} representation of this vector 3D as follows: (x, y, z).
-    * 
+    *
     * @return the {@code String} representing this vector 3D.
     */
    @Override
@@ -232,7 +232,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
 
    /**
     * Calculates and returns a hash code value from the value of each component of this vector 3D.
-    * 
+    *
     * @return the hash code value for this vector 3D.
     */
    @Override

@@ -10,7 +10,7 @@ package us.ihmc.geometry.interfaces;
  * <li>{@code containsNaN()} that is commonly used to test if an object is invalid, i.e. if it
  * contains {@link Double#NaN}.
  * </ul>
- * 
+ *
  * @author Sylvain
  *
  * @param <T> the final type of the implementation of this interface.
@@ -19,7 +19,7 @@ public interface Settable<T>
 {
    /**
     * Tests if this object contains at least one value equal to {@link Double#NaN}.
-    * 
+    *
     * @return {@code true} if this object contains at least one value equal to {@link Double#NaN},
     *         {@code false} otherwise.
     */
@@ -27,7 +27,7 @@ public interface Settable<T>
 
    /**
     * Copies the values from {@code other} into this object.
-    * 
+    *
     * @param other the other object to copy the values from. Not modified.
     */
    void set(T other);

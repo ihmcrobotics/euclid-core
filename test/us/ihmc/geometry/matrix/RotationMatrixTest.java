@@ -91,14 +91,14 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       { // Test RotationMatrix(Matrix3DReadOnly<?> rotationMatrix)
          expectedRotationMatrix = createRandomMatrix(random);
          Matrix3D matrix3D = new Matrix3D(expectedRotationMatrix);
-         actualRotationMatrix = new RotationMatrix((Matrix3DReadOnly<?>) matrix3D);
+         actualRotationMatrix = new RotationMatrix(matrix3D);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test RotationMatrix(Matrix3DReadOnly<?> rotationMatrix)
          expectedRotationMatrix = createRandomMatrix(random);
-         actualRotationMatrix = new RotationMatrix((RotationMatrixReadOnly<?>) expectedRotationMatrix);
+         actualRotationMatrix = new RotationMatrix(expectedRotationMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, SMALL_EPS);
       }
 
@@ -1292,6 +1292,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
    }
 
+   @Override
    @Test
    public void testInverseTransform() throws Exception
    {
@@ -1308,7 +1309,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          rotationMatrix = createRandomMatrix(random);
 
          Matrix3DTools.inverseTransform(rotationMatrix, tuple, expectedTuple);
-         rotationMatrix.inverseTransform((Tuple3DBasics<?>) actualTuple);
+         rotationMatrix.inverseTransform(actualTuple);
 
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, EPS);
       }

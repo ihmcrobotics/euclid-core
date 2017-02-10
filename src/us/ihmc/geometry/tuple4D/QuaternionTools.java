@@ -17,7 +17,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
 /**
  * This gathers common mathematical operations involving quaternions.
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -34,7 +34,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param q1 the first quaternion in the multiplication. Not modified.
     * @param q2 the second quaternion in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stores. Modified.
@@ -53,7 +53,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param q1 the first quaternion in the multiplication. Not modified.
     * @param q2 the second quaternion in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stores. Modified.
@@ -72,7 +72,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param q1 the first quaternion in the multiplication. Not modified.
     * @param q2 the second quaternion in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stores. Modified.
@@ -93,7 +93,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param q1 the first quaternion in the multiplication. Not modified.
     * @param conjugateQ1 whether to conjugate {@code q1} or not.
     * @param q2 the second quaternion in the multiplication. Not modified.
@@ -118,7 +118,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param q1x the x-component of the first quaternion in the multiplication. Not modified.
     * @param q1y the y-component of the first quaternion in the multiplication. Not modified.
     * @param q1z the z-component of the first quaternion in the multiplication. Not modified.
@@ -166,7 +166,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param t1 the first tuple in the multiplication. Not modified.
     * @param t2 the second tuple in the multiplication. Not modified.
     * @param vectorToPack the vector in which the result is stores. Modified.
@@ -187,7 +187,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param t1 the first tuple in the multiplication. Not modified.
     * @param t2 the second tuple in the multiplication. Not modified.
     * @param vectorToPack the vector in which the result is stores. Modified.
@@ -208,7 +208,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param t1 the first tuple in the multiplication. Not modified.
     * @param t2 the second tuple in the multiplication. Not modified.
     * @param vectorToPack the vector in which the result is stores. Modified.
@@ -229,7 +229,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param t1 the first tuple in the multiplication. Not modified.
     * @param conjugateT1 whether to conjugate {@code t1} or not.
     * @param t2 the second tuple in the multiplication. Not modified.
@@ -253,7 +253,7 @@ public abstract class QuaternionTools
     * <p>
     * All three arguments can be the same object for in place operations.
     * </p>
-    * 
+    *
     * @param x1 the x-component of the first tuple in the multiplication. Not modified.
     * @param y1 the y-component of the first tuple in the multiplication. Not modified.
     * @param z1 the z-component of the first tuple in the multiplication. Not modified.
@@ -299,7 +299,7 @@ public abstract class QuaternionTools
     * <p>
     * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -323,7 +323,7 @@ public abstract class QuaternionTools
     * <p>
     * tupleTransformed = quaternion<sup>-1</sup> * tupleOriginal * quaternion
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -345,7 +345,7 @@ public abstract class QuaternionTools
     * <p>
     * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -408,7 +408,7 @@ public abstract class QuaternionTools
     * <p>
     * tupleTransformed = tupleTransformed + quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -430,7 +430,7 @@ public abstract class QuaternionTools
     * <p>
     * tupleTransformed = tupleTransformed + quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -492,7 +492,7 @@ public abstract class QuaternionTools
     * <p>
     * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -521,7 +521,7 @@ public abstract class QuaternionTools
     * <p>
     * tupleTransformed = quaternion<sup>-1</sup> * tupleOriginal * quaternion
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -548,7 +548,7 @@ public abstract class QuaternionTools
     * <p>
     * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -617,7 +617,7 @@ public abstract class QuaternionTools
     * Note that this transformation is equivalent to concatenating the orientations of
     * {@code quaternion} and {@code quaternionOriginal}.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the quaternion. Not modified.
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
@@ -642,7 +642,7 @@ public abstract class QuaternionTools
     * <p>
     * quaternionTransformed = quaternion<sup>-1</sup> * quaternionOriginal
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the quaternion. Not modified.
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
@@ -662,7 +662,7 @@ public abstract class QuaternionTools
     * vectorTransformed.s = vecorOriginal.s <br>
     * vectorTransformed.xyz = quaternion * vectorOriginal.xyz * quaternion<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the vector. Not modified.
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
@@ -687,7 +687,7 @@ public abstract class QuaternionTools
     * vectorTransformed.s = vecorOriginal.s <br>
     * vectorTransformed.xyz = quaternion<sup>-1</sup> * vectorOriginal.xyz * quaternion
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the vector. Not modified.
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
@@ -710,7 +710,7 @@ public abstract class QuaternionTools
     * vectorTransformed.s = vecorOriginal.s <br>
     * vectorTransformed.xyz = quaternion * vectorOriginal.xyz * quaternion<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the vector. Not modified.
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param vectorOriginal the vector to transform. Not modified.
@@ -776,7 +776,7 @@ public abstract class QuaternionTools
     * matrixTransformed = R(quaternion) * matrixOriginal * R(quaternion)<sup>-1</sup> <br>
     * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the matrix. Not modified.
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
@@ -801,7 +801,7 @@ public abstract class QuaternionTools
     * matrixTransformed = R(quaternion)<sup>-1</sup> * matrixOriginal * R(quaternion) <br>
     * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the matrix. Not modified.
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
@@ -825,7 +825,7 @@ public abstract class QuaternionTools
     * matrixTransformed = R(quaternion) * matrixOriginal * R(quaternion)<sup>-1</sup> <br>
     * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the matrix. Not modified.
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param matrixOriginal the matrix to transform. Not modified.
@@ -917,7 +917,7 @@ public abstract class QuaternionTools
     * Note that this transformation is equivalent to concatenating the orientations of
     * {@code quaternion} and {@code rotationMatrixOriginal}.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
     * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
@@ -946,7 +946,7 @@ public abstract class QuaternionTools
     * Note that this transformation is equivalent to concatenating the orientations of
     * {@code quaternion} and {@code rotationMatrixOriginal}.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
     * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
@@ -967,7 +967,7 @@ public abstract class QuaternionTools
     * quaternionToPack = quaternion * Q(matrix) <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param matrix the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -987,7 +987,7 @@ public abstract class QuaternionTools
     * quaternionToPack = quaternion* * Q(matrix) <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param matrix the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1007,7 +1007,7 @@ public abstract class QuaternionTools
     * quaternionToPack = quaternion * Q(matrix<sup>T</sup>) <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param matrix the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1027,7 +1027,7 @@ public abstract class QuaternionTools
     * quaternionToPack = quaternion* * Q(matrix<sup>T</sup>) <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param matrix the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1052,7 +1052,7 @@ public abstract class QuaternionTools
     * quaternionToPack = quaternion * Q(matrix) <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param matrix the second term in the multiplication. Not modified.
@@ -1086,7 +1086,7 @@ public abstract class QuaternionTools
     * quaternionToPack = Q(matrix) * quaternion <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param quaternion the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1106,7 +1106,7 @@ public abstract class QuaternionTools
     * quaternionToPack = Q(matrix) * quaternion* <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param quaternion the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1126,7 +1126,7 @@ public abstract class QuaternionTools
     * quaternionToPack = Q(matrix<sup>T</sup>) * quaternion <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param quaternion the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1146,7 +1146,7 @@ public abstract class QuaternionTools
     * quaternionToPack = Q(matrix<sup>T</sup>) * quaternion* <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param quaternion the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1170,7 +1170,7 @@ public abstract class QuaternionTools
     * quaternionToPack = Q(matrix) * quaternion <br>
     * where Q(matrix) is the function to convert a rotation matrix into a quaternion.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param transposeMatrix whether to transpose the rotation matrix or not.
     * @param quaternion the second term in the multiplication. Not modified.
@@ -1204,7 +1204,7 @@ public abstract class QuaternionTools
     * matrixToPack = R(quaternion) * matrix <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
@@ -1224,7 +1224,7 @@ public abstract class QuaternionTools
     * matrixToPack = R(quaternion*) * matrix <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
@@ -1244,7 +1244,7 @@ public abstract class QuaternionTools
     * matrixToPack = R(quaternion) * matrix<sup>T</sup> <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
@@ -1264,7 +1264,7 @@ public abstract class QuaternionTools
     * matrixToPack = R(quaternion*) * matrix<sup>T</sup> <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
@@ -1289,7 +1289,7 @@ public abstract class QuaternionTools
     * matrixToPack = R(quaternion) * matrix <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the first term in the multiplication. Not modified.
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param matrix the second term in the multiplication. Not modified.
@@ -1384,7 +1384,7 @@ public abstract class QuaternionTools
     * matrixToPack = matrix * R(quaternion) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
@@ -1404,7 +1404,7 @@ public abstract class QuaternionTools
     * matrixToPack = matrix * R(quaternion*) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
@@ -1424,7 +1424,7 @@ public abstract class QuaternionTools
     * matrixToPack = matrix<sup>T</sup> * R(quaternion) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
@@ -1444,7 +1444,7 @@ public abstract class QuaternionTools
     * matrixToPack = matrix<sup>T</sup> * R(quaternion*) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
@@ -1469,7 +1469,7 @@ public abstract class QuaternionTools
     * matrixToPack = matrix * R(quaternion) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param matrix the first term in the multiplication. Not modified.
     * @param transposeMatrix whether to transpose the rotation matrix or not.
     * @param quaternion the second term in the multiplication. Not modified.

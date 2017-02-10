@@ -88,7 +88,7 @@ public class CyclingConversionTest
          case YAW_PITCH_ROLL:
             originalYawPitchRoll = GeometryBasicsRandomTools.generateRandomYawPitchRoll(random);
             initialRotationType.rotationHolder = new double[3];
-            System.arraycopy(originalYawPitchRoll, 0, (double[]) initialRotationType.rotationHolder, 0, 3);
+            System.arraycopy(originalYawPitchRoll, 0, initialRotationType.rotationHolder, 0, 3);
             break;
          default:
             throw AllRotations.exception(initialRotationType);
@@ -327,7 +327,7 @@ public class CyclingConversionTest
             YawPitchRollConversion.convertRotationVectorToYawPitchRoll((Vector3DReadOnly<?>) rotationHolder, yawPitchRoll);
             break;
          case YAW_PITCH_ROLL:
-            System.arraycopy((double[]) rotationHolder, 0, yawPitchRoll, 0, 3);
+            System.arraycopy(rotationHolder, 0, yawPitchRoll, 0, 3);
             break;
          default:
             throw exception(this);

@@ -35,7 +35,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * <p>
  * The main application is for writing JUnit Tests.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -50,7 +50,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>roll &in; [-<i>pi</i>; <i>pi</i>],
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return an array containing the random yaw-pitch-roll angles.
     */
@@ -68,7 +68,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>roll &in; [-{@code minMaxRoll}; {@code minMaxRoll}],
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxYaw the maximum absolute angle for the generated yaw angle.
     * @param minMaxPitch the maximum absolute angle for the generated pitch angle.
@@ -91,7 +91,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code rotationVector.length()} &in; [-<i>pi</i>; <i>pi</i>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random rotation vector.
     */
@@ -105,7 +105,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code rotationVector.length()} &in; [-{@code minMaxAngle}; {@code minMaxAngle}].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxAngle the maximum length of the generated rotation vector.
     * @return the random rotation vector.
@@ -129,7 +129,7 @@ public abstract class GeometryBasicsRandomTools
     * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
     * angle is then generated as a normal bounded random double.
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random axis-angle.
     */
@@ -150,7 +150,7 @@ public abstract class GeometryBasicsRandomTools
     * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
     * angle is then generated as a normal bounded random double.
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxAngle the maximum absolute angle value.
     * @return the random axis-angle.
@@ -173,7 +173,7 @@ public abstract class GeometryBasicsRandomTools
     * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
     * angle is then generated as a normal bounded random double.
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random axis-angle.
     */
@@ -194,7 +194,7 @@ public abstract class GeometryBasicsRandomTools
     * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
     * angle is then generated as a normal bounded random double.
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxAngle the maximum absolute angle value.
     * @return the random axis-angle.
@@ -216,7 +216,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>{@code matrix.getM22()} &in; [-1.0; 1.0].
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random diagonal matrix.
     */
@@ -234,7 +234,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>{@code matrix.getM22()} &in; [-{@code minMaxValue}; {@code minMaxValue}].
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxValue the maximum absolute value for each diagonal element.
     * @return the random diagonal matrix.
@@ -254,7 +254,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>{@code matrix.getM22()} &in; [{@code minValue}; {@code maxValue}].
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minValue the minimum value of each diagonal element.
     * @param maxValue the maximum value of each diagonal element.
@@ -271,7 +271,7 @@ public abstract class GeometryBasicsRandomTools
 
    /**
     * Generates a random double &in; [-1.0; 1.0].
-    * 
+    *
     * @param random the random generator to use.
     * @return the random double.
     */
@@ -282,7 +282,7 @@ public abstract class GeometryBasicsRandomTools
 
    /**
     * Generates a random double &in; [-{@code minMax}; {@code minMax}].
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxValue the maximum absolute value of the generated double.
     * @return the random double.
@@ -295,7 +295,7 @@ public abstract class GeometryBasicsRandomTools
 
    /**
     * Generates a random double &in; [-{@code minValue}; {@code maxValue}].
-    * 
+    *
     * @param random the random generator to use.
     * @param minValue the minimum value of the generated double.
     * @param maxValue the maximum value of the generated double.
@@ -315,7 +315,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code matrix}<sub>ij</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random matrix.
     */
@@ -329,7 +329,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code matrix}<sub>ij</sub> &in; [-{@code minMaxValue}; {@code minMaxValue}].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxValue the maximum absolute value for each element.
     * @return the random matrix.
@@ -345,7 +345,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code matrix}<sub>ij</sub> &in; [{@code minValue}; {@code maxValue}].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minValue the minimum value for each element.
     * @param maxValue the maximum value for each element.
@@ -370,7 +370,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * The rotation magnitude described by the generated quaternion is in [-<i>pi</i>; <i>pi</i>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random quaternion.
     */
@@ -385,7 +385,7 @@ public abstract class GeometryBasicsRandomTools
     * The rotation magnitude described by the generated quaternion is in [-{@code minMaxAngle};
     * {@code minMaxAngle}].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxAngle the maximum absolute angle described by the generated quaternion.
     * @return the random quaternion.
@@ -401,7 +401,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * The rotation magnitude described by the generated quaternion is in [-<i>pi</i>; <i>pi</i>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random quaternion.
     */
@@ -416,7 +416,7 @@ public abstract class GeometryBasicsRandomTools
     * The rotation magnitude described by the generated quaternion is in [-{@code minMaxAngle};
     * {@code minMaxAngle}].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxAngle the maximum absolute angle described by the generated quaternion.
     * @return the random quaternion.
@@ -436,7 +436,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random rigid-body transform.
     */
@@ -454,7 +454,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random quaternion-based transform.
     */
@@ -473,7 +473,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random affine transform.
     */
@@ -485,7 +485,7 @@ public abstract class GeometryBasicsRandomTools
    /**
     * Generates a random rotation matrix uniformly distributed on the unit sphere and describes an
     * rotation angle in [-<i>pi</i>; <i>pi</i>].
-    * 
+    *
     * @param random the random generator to use.
     * @return the random rotation matrix.
     */
@@ -497,7 +497,7 @@ public abstract class GeometryBasicsRandomTools
    /**
     * Generates a random rotation matrix uniformly distributed on the unit sphere and describes an
     * rotation angle in [-{@code minMaxAngle}; {@code minMaxAngle}].
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxAngle the maximum absolute angle described by the generated rotation matrix.
     * @return the random rotation matrix.
@@ -517,7 +517,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>Each scale factor is in ]0.0; {@code maxScale}].
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param maxScale the maximum scale value used for each scale factor.
     * @return the random rotation-scale matrix.
@@ -537,7 +537,7 @@ public abstract class GeometryBasicsRandomTools
     * <li>Each scale factor is in ]0.0; {@code maxScale}].
     * </ul>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxAngle the maximum absolute angle value that describes the generated
     *           rotation-scale matrix.
@@ -558,7 +558,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random vector.
     */
@@ -574,7 +574,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code point}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random point.
     */
@@ -587,7 +587,7 @@ public abstract class GeometryBasicsRandomTools
 
    /**
     * Generates a random vector given its length {@code length}.
-    * 
+    *
     * @param random the random generator to use.
     * @param length the length of the generated vector.
     * @return the random vector.
@@ -602,7 +602,7 @@ public abstract class GeometryBasicsRandomTools
 
    /**
     * Generates a random vector that is perpendicular to {@code vectorToBeOrthogonalTo}.
-    * 
+    *
     * @param random the random generator to use.
     * @param vectorToBeOrthogonalTo the vector to be orthogonal to. Not modified.
     * @param normalize whether to normalize the generated vector or not.
@@ -630,7 +630,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [-{@code minMax}<sub>i</sub>; {@code minMax}<sub>i</sub>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMax tuple used to bound the maximum absolute value of each component of the
     *           generated vector. Not modified.
@@ -649,7 +649,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [{@code min}<sub>i</sub>; {@code max}<sub>i</sub>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min tuple used as upper-bound for each component of the generated vector. Not modified.
     * @param max tuple used as lower-bound for each component of the generated vector. Not modified.
@@ -668,7 +668,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [{@code min}; {@code max}].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min upper-bound for each component of the generated vector. Not modified.
     * @param max lower-bound for each component of the generated vector. Not modified.
@@ -687,7 +687,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random 2D vector.
     */
@@ -703,7 +703,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code point}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random 2D point.
     */
@@ -716,7 +716,7 @@ public abstract class GeometryBasicsRandomTools
 
    /**
     * Generates a random 2D vector given its length {@code length}.
-    * 
+    *
     * @param random the random generator to use.
     * @param length the length of the generated 2D vector.
     * @return the random 2D vector.
@@ -734,7 +734,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [-{@code minMax}<sub>i</sub>; {@code minMax}<sub>i</sub>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMax tuple used to bound the maximum absolute value of each component of the
     *           generated 2D vector. Not modified.
@@ -753,7 +753,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [{@code min}<sub>i</sub>; {@code max}<sub>i</sub>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min tuple used as upper-bound for each component of the generated 2D vector. Not
     *           modified.
@@ -774,7 +774,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random 4D vector.
     */
@@ -791,7 +791,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random vector.
     */
@@ -807,7 +807,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code point}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random point.
     */
@@ -823,7 +823,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random 2D vector.
     */
@@ -839,7 +839,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code point}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random 2D point.
     */
@@ -855,7 +855,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @return the random 4D vector.
     */
@@ -877,7 +877,7 @@ public abstract class GeometryBasicsRandomTools
     * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
     * angle is then generated as a normal bounded random double.
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param axisAngleToRandomize the axis-angle to randomize. Modified.
     */
@@ -896,7 +896,7 @@ public abstract class GeometryBasicsRandomTools
     * random axes, <a href="http://mathworld.wolfram.com/SpherePointPicking.html"> see link</a>. The
     * angle is then generated as a normal bounded random double.
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMaxAngle the maximum absolute angle value.
     * @param axisAngleToRandomize the axis-angle to randomize. Modified.
@@ -916,7 +916,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code tuple}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param tupleToRandomize the tuple to randomize. Modified.
     */
@@ -930,7 +930,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code tuple}<sub>i</sub> &in; [-{@code minMax}<sub>i</sub>; {@code minMax}<sub>i</sub>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMax tuple used to bound the maximum absolute value of each component of the
     *           generated vector. Not modified.
@@ -948,7 +948,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [{@code min}<sub>i</sub>; {@code max}<sub>i</sub>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min tuple used as upper-bound for each component of the generated vector. Not modified.
     * @param max tuple used as lower-bound for each component of the generated vector. Not modified.
@@ -966,7 +966,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code tuple}<sub>i</sub> &in; [-1.0; 1.0].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param tupleToRandomize the 2D tuple to randomize. Modified.
     */
@@ -980,7 +980,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code tuple}<sub>i</sub> &in; [-{@code minMax}<sub>i</sub>; {@code minMax}<sub>i</sub>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMax tuple used to bound the maximum absolute value of each component of the
     *           generated vector. Not modified.
@@ -998,7 +998,7 @@ public abstract class GeometryBasicsRandomTools
     * <p>
     * {@code vector}<sub>i</sub> &in; [{@code min}<sub>i</sub>; {@code max}<sub>i</sub>].
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min tuple used as upper-bound for each component of the generated vector. Not modified.
     * @param max tuple used as lower-bound for each component of the generated vector. Not modified.

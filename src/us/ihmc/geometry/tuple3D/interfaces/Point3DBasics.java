@@ -26,7 +26,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the point used.
@@ -43,7 +43,7 @@ public interface Point3DBasics<T extends Point3DBasics<T>> extends Tuple3DBasics
     * <li>{@link AffineTransform} scales, rotates, then translates a point.
     * </ul>
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this point. Not modified.
     */
    @Override

@@ -567,11 +567,11 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       transform.setToZero();
       GeometryBasicsTestTools.assertIdentity(transform.getRotationMatrix(), EPS);
       GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
-      
+
       transform.setRotationToNaN();
       GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(transform.getRotationMatrix());
       GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
-      
+
       transform.setToZero();
       transform.setTranslationToNaN();
       GeometryBasicsTestTools.assertIdentity(transform.getRotationMatrix(), EPS);

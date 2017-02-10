@@ -13,9 +13,6 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
-import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 {
@@ -38,7 +35,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(QuaternionBasics other)
          quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Quaternion quaternion2 = new Quaternion((QuaternionReadOnly<?>) quaternion);
+         Quaternion quaternion2 = new Quaternion(quaternion);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternion2, EPS);
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
@@ -71,7 +68,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
          quaternion = new Quaternion(rotationMatrix);
-         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, (QuaternionBasics<?>) expected);
+         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expected);
 
          GeometryBasicsTestTools.assertQuaternionEquals(expected, quaternion, EPS);
          GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
@@ -83,13 +80,14 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          quaternion = new Quaternion(rotationVector);
-         QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly<?>) rotationVector, (QuaternionBasics<?>) expected);
+         QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expected);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
          GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
       }
    }
 
+   @Override
    @Test
    @Ignore
    public void testApplyTransform()

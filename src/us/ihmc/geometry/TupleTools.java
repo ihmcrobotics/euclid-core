@@ -8,7 +8,7 @@ public abstract class TupleTools
 {
    /**
     * Tests on a per component basis if the two given tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param tuple1 the first tuple. Not modified.
     * @param tuple2 the second tuple. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
@@ -31,7 +31,7 @@ public abstract class TupleTools
 
    /**
     * Tests on a per component basis if the two given tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param tuple1 the first tuple. Not modified.
     * @param tuple2 the second tuple. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
@@ -58,7 +58,7 @@ public abstract class TupleTools
 
    /**
     * Tests on a per component basis if the two given tuples are equal to an {@code epsilon}.
-    * 
+    *
     * @param tuple1 the first tuple. Not modified.
     * @param tuple2 the second tuple. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
@@ -93,7 +93,7 @@ public abstract class TupleTools
     * <p>
     * result = (1.0 - alpha) * a + alpha * b
     * </p>
-    * 
+    *
     * @param a the first value used in the interpolation.
     * @param b the second value used in the interpolation.
     * @param alpha the percentage to use for the interpolation. A value of 0 will return {@code a},

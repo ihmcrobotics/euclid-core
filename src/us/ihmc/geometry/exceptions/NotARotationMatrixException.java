@@ -5,7 +5,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 
 /**
  * {@code RuntimeException} dedicated to operations expecting a rotation matrix.
- * 
+ *
  * @author Sylvain
  *
  */

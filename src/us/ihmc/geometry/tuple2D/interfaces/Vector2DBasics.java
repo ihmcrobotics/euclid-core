@@ -29,7 +29,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the vector used.
@@ -55,7 +55,7 @@ public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasi
 
    /**
     * Sets this vector to {@code other} and then calls {@link #normalize()}.
-    * 
+    *
     * @param other the other vector to copy the values from. Not modified.
     */
    default void setAndNormalize(Vector2DReadOnly<?> other)
@@ -74,7 +74,7 @@ public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasi
     * <li>{@link AffineTransform} scales then rotates a vector.
     * </ul>
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this vector. Not modified.
     * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
     *            transformation in the XY plane.
@@ -99,13 +99,14 @@ public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasi
     * <li>{@link AffineTransform} scales, rotates, then translates a point.
     * </ul>
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this vector. Not modified.
     * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
     *           the given transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     *            part of {@code transform} is not a transformation in the XY plane.
     */
+   @Override
    default void applyTransform(Transform transform, boolean checkIfTransformInXYplane)
    {
       transform.transform(this, checkIfTransformInXYplane);

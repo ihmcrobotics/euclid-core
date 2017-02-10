@@ -26,7 +26,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
  * a 4D vector behaves as a 3D vector, and for {@code s = 1} it behaves as a 3D point.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the vector used.
@@ -160,7 +160,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * this.xyz = vector3D<br>
     * this.s = 0.0
     * </p>
-    * 
+    *
     * @param vector3D the 3D vector used to set this 4D vector. Not modified.
     */
    default void set(Vector3DReadOnly<?> vector3D)
@@ -174,7 +174,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * this.xyz = point3D<br>
     * this.s = 1.0
     * </p>
-    * 
+    *
     * @param point3D the 3D point used to set this 4D vector. Not modified.
     */
    default void set(Point3DReadOnly<?> point3D)
@@ -231,7 +231,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Adds the given {@code x} to this vector's x-component.
-    * 
+    *
     * @param x the value to add.
     */
    default void addX(double x)
@@ -241,7 +241,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Adds the given {@code y} to this vector's y-component.
-    * 
+    *
     * @param y the value to add.
     */
    default void addY(double y)
@@ -251,7 +251,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Adds the given {@code z} to this vector's z-component.
-    * 
+    *
     * @param z the value to add.
     */
    default void addZ(double z)
@@ -261,7 +261,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Adds the given {@code s} to this vector's s-component.
-    * 
+    *
     * @param s the value to add.
     */
    default void addS(double s)
@@ -314,7 +314,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Subtracts the given {@code x} to this vector's x-component.
-    * 
+    *
     * @param x the value to add.
     */
    default void subX(double x)
@@ -324,7 +324,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Subtracts the given {@code y} to this vector's y-component.
-    * 
+    *
     * @param y the value to add.
     */
    default void subY(double y)
@@ -334,7 +334,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Subtracts the given {@code z} to this vector's z-component.
-    * 
+    *
     * @param z the value to add.
     */
    default void subZ(double z)
@@ -344,7 +344,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Subtracts the given {@code s} to this vector's s-component.
-    * 
+    *
     * @param s the value to add.
     */
    default void subS(double s)
@@ -410,7 +410,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
 
    /**
     * Scales independently each component of this vector.
-    * 
+    *
     * <pre>
     * / this.x \   / scalarX * this.x \
     * | this.y | = | scalarY * this.y |
@@ -510,7 +510,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * <li>{@link QuaternionBasedTransform} rotates then translates a vector.
     * <li>{@link AffineTransform} scales, rotates, then translates a vector.
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this vector. Not modified.
     */
    @Override

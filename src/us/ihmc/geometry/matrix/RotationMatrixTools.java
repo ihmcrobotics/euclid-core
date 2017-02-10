@@ -10,7 +10,7 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * </p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -35,7 +35,7 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -60,7 +60,7 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -85,7 +85,7 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.

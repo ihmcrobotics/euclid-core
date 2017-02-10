@@ -18,7 +18,7 @@ package us.ihmc.geometry.tuple4D.interfaces;
  * a 4D vector behaves as a 3D vector, and for {@code s = 1} it behaves as a 3D point.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the vector used.

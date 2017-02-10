@@ -250,7 +250,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
          quaternion = createRandomTuple(random);
 
          QuaternionTools.transform(quaternion, tuple, expectedTuple);
-         quaternion.transform((Tuple3DBasics<?>) actualTuple);
+         quaternion.transform(actualTuple);
 
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
       }
@@ -451,7 +451,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
          quaternion = createRandomTuple(random);
 
          QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple);
-         quaternion.inverseTransform((Tuple3DBasics<?>) actualTuple);
+         quaternion.inverseTransform(actualTuple);
 
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
       }
@@ -668,6 +668,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
    // Basics part
 
+   @Override
    @Test
    public void testNegate() throws Exception
    {
@@ -715,11 +716,12 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       }
    }
 
+   @Override
    @Test
    public void testNormalize()
    {
       super.testNormalize();
-      
+
       Quaternion expected = new Quaternion();
       Quaternion actual = new Quaternion();
       actual.setUnsafe(0.0, 0.0, 0.0, 0.0);

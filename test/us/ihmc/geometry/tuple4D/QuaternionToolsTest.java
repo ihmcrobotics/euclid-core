@@ -1320,7 +1320,7 @@ public class QuaternionToolsTest
          QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, matrixActual);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
       }
-      
+
       quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
       matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
       QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, matrixActual);

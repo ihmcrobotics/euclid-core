@@ -55,7 +55,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * object is only rotated. It is NOT translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -78,7 +78,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Creates a new rigid-body transform and sets it to {@code other}.
-    * 
+    *
     * @param other the other rigid-body transform to copy. Not modified.
     */
    public RigidBodyTransform(RigidBodyTransform other)
@@ -88,7 +88,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Creates a new rigid-body transform and sets it to {@code quaternionBasedTransform}.
-    * 
+    *
     * @param quaternionBasedTransform
     */
    public RigidBodyTransform(QuaternionBasedTransform quaternionBasedTransform)
@@ -100,22 +100,22 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Creates a new rigid-body transform and sets its raw components from the given {@code matrix}.
     * <p>
     * The rotation part R is set as follows:
-    * 
+    *
     * <pre>
     *     / matrix.get(0, 0) matrix.get(0, 1) matrix.get(0, 2) \
     * R = | matrix.get(1, 0) matrix.get(1, 1) matrix.get(1, 2) |
     *     \ matrix.get(2, 0) matrix.get(2, 1) matrix.get(2, 2) /
     * </pre>
-    * 
+    *
     * The translation part T is set as follows:
-    * 
+    *
     * <pre>
     *     / matrix.get(0, 3) \
     * T = | matrix.get(1, 3) |
     *     \ matrix.get(2, 3) /
     * </pre>
     * </p>
-    * 
+    *
     * @param matrix the matrix to get this transform's components from. Not modified.
     * @throws NotARotationMatrixException if the resulting matrix for the rotation part of this
     *            transform is not a rotation matrix.
@@ -129,22 +129,22 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Sets the raw components of this rigid-body transform from the given {@code transformArray}.
     * <p>
     * The rotation part R is set as follows:
-    * 
+    *
     * <pre>
     *     / transformArray[0] transformArray[1] transformArray[ 2] \
     * R = | transformArray[4] transformArray[5] transformArray[ 6] |
     *     \ transformArray[8] transformArray[9] transformArray[10] /
     * </pre>
-    * 
+    *
     * The translation part T is set as follows:
-    * 
+    *
     * <pre>
     *     / transformArray[ 3] \
     * T = | transformArray[ 7] |
     *     \ transformArray[11] /
     * </pre>
     * </p>
-    * 
+    *
     * @param transformArray the 1D row-major array to get this transform's components from. Not
     *           modified.
     * @throws NotARotationMatrixException if the resulting matrix for the rotation part of this
@@ -158,7 +158,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Creates a new rigid-body transform and sets it to the given {@code rotationMatrix} and
     * {@code translation}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to set this transform's rotation part. Not
     *           modified.
     * @param translation the tuple used to set this transform's translation part. Not modified.
@@ -171,7 +171,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Creates a new rigid-body transform and sets it to the given {@code quaternion} and
     * {@code translation}.
-    * 
+    *
     * @param quaternion the quaternion used to set this transform's rotation part. Not modified.
     * @param translation the tuple used to set this transform's translation part. Not modified.
     */
@@ -183,7 +183,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Creates a new rigid-body transform and sets it to the given {@code axisAngle} and
     * {@code translation}.
-    * 
+    *
     * @param axisAngle the axis-angle used to set this transform's rotation part. Not modified.
     * @param translation the tuple used to set this transform's translation part. Not modified.
     */
@@ -194,7 +194,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Creates a new rigid-body transform and sets it from the given 12 coefficients.
-    * 
+    *
     * @param m00 the 1st row 1st column component of the rotation part of this transform.
     * @param m01 the 1st row 2nd column component of the rotation part of this transform.
     * @param m02 the 1st row 3rd column component of the rotation part of this transform.
@@ -290,7 +290,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Tests if at least one element of this transform is equal to {@linkplain Double#NaN}.
-    * 
+    *
     * @return {@code true} if at least one element of this transform is equal to
     *         {@linkplain Double#NaN}, {@code false} otherwise.
     */
@@ -310,7 +310,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Computes the determinant of the rotation part of this transform.
-    * 
+    *
     * @return the determinant's value.
     */
    public double determinantRotationPart()
@@ -320,7 +320,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets this rigid-body transform from the given 12 coefficients.
-    * 
+    *
     * @param m00 the 1st row 1st column component of the rotation part of this transform.
     * @param m01 the 1st row 2nd column component of the rotation part of this transform.
     * @param m02 the 1st row 3rd column component of the rotation part of this transform.
@@ -350,7 +350,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * {@link #set(double, double, double, double, double, double, double, double, double, double, double, double)}
     * as it asserts that the coefficients for the rotation part represent a rotation matrix.
     * </p>
-    * 
+    *
     * @param m00 the 1st row 1st column component of the rotation part of this transform.
     * @param m01 the 1st row 2nd column component of the rotation part of this transform.
     * @param m02 the 1st row 3rd column component of the rotation part of this transform.
@@ -373,7 +373,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets this rigid-body transform to {@code other}.
-    * 
+    *
     * @param other the other rigid-body transform to copy the values from. Not modified.
     */
    @Override
@@ -385,7 +385,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets this rigid-body transform to {@code other} and then inverts it.
-    * 
+    *
     * @param other the other rigid-body transform to copy the values from. Not modified.
     */
    public void setAndInvert(RigidBodyTransform other)
@@ -396,7 +396,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets this rigid-body transform to the given {@code quaternionBasedTransform}.
-    * 
+    *
     * @param quaternionBasedTransform the quaternion-based transform to copy the values from. Not
     *           modified.
     */
@@ -410,22 +410,22 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Sets the raw components of this rigid-body transform from the given {@code matrix}.
     * <p>
     * The rotation-scale part R is set as follows:
-    * 
+    *
     * <pre>
     *     / matrix.get(0, 0) matrix.get(0, 1) matrix.get(0, 2) \
     * R = | matrix.get(1, 0) matrix.get(1, 1) matrix.get(1, 2) |
     *     \ matrix.get(2, 0) matrix.get(2, 1) matrix.get(2, 2) /
     * </pre>
-    * 
+    *
     * The translation part T is set as follows:
-    * 
+    *
     * <pre>
     *     / matrix.get(0, 3) \
     * T = | matrix.get(1, 3) |
     *     \ matrix.get(2, 3) /
     * </pre>
     * </p>
-    * 
+    *
     * @param matrix the matrix to get this transform's components from. Not modified.
     * @throws NotARotationMatrixException if the resulting matrix for the rotation part of this
     *            transform is not a rotation matrix.
@@ -440,22 +440,22 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Sets the raw components of this rigid-body transform from the given {@code matrix}.
     * <p>
     * The rotation part R is set as follows:
-    * 
+    *
     * <pre>
     *     / matrix.get(startRow + 0, startColumn + 0) matrix.get(startRow + 0, startColumn + 1) matrix.get(startRow + 0, startColumn + 2) \
     * R = | matrix.get(startRow + 1, startColumn + 0) matrix.get(startRow + 1, startColumn + 1) matrix.get(startRow + 1, startColumn + 2) |
     *     \ matrix.get(startRow + 2, startColumn + 0) matrix.get(startRow + 2, startColumn + 1) matrix.get(startRow + 2, startColumn + 2) /
     * </pre>
-    * 
+    *
     * The translation part T is set as follows:
-    * 
+    *
     * <pre>
     *     / matrix.get(startRow + 0, startColumn + 3) \
     * T = | matrix.get(startRow + 1, startColumn + 3) |
     *     \ matrix.get(startRow + 2, startColumn + 3) /
     * </pre>
     * </p>
-    * 
+    *
     * @param matrix the matrix to get this transform's components from. Not modified.
     * @param startRow the row index of the first component to read.
     * @param startColumn the column index of the first component to read.
@@ -472,22 +472,22 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Sets the raw components of this rigid-body transform from the given {@code transformArray}.
     * <p>
     * The rotation-scale part R is set as follows:
-    * 
+    *
     * <pre>
     *     / transformArray[0] transformArray[1] transformArray[ 2] \
     * R = | transformArray[4] transformArray[5] transformArray[ 6] |
     *     \ transformArray[8] transformArray[9] transformArray[10] /
     * </pre>
-    * 
+    *
     * The translation part T is set as follows:
-    * 
+    *
     * <pre>
     *     / transformArray[ 3] \
     * T = | transformArray[ 7] |
     *     \ transformArray[11] /
     * </pre>
     * </p>
-    * 
+    *
     * @param transformArray the 1D row-major array to get this transform's components from. Not
     *           modified.
     * @throws NotARotationMatrixException if the resulting matrix for the rotation part of this
@@ -514,7 +514,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets the rotation and translation parts of this transform separately.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
@@ -529,7 +529,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets the rotation and translation parts of this transform separately.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
@@ -546,7 +546,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Only the rotation matrix from {@code rotationScaleMatrix} is used to set the rotation part of
     * this transform.
     * </p>
-    * 
+    *
     * @param rotationScaleMatrix the matrix used to set the rotation part of this transform. Not
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
@@ -559,7 +559,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets the rotation and translation parts of this transform separately.
-    * 
+    *
     * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
@@ -571,7 +571,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets the rotation and translation parts of this transform separately.
-    * 
+    *
     * @param quaternion the quaternion used to set the rotation part of this transform. Not
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
@@ -584,7 +584,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets the rotation part of this transform from the given 9 coefficients.
-    * 
+    *
     * @param m00 the 1st row 1st column component of the rotation part of this transform.
     * @param m01 the 1st row 2nd column component of the rotation part of this transform.
     * @param m02 the 1st row 3rd column component of the rotation part of this transform.
@@ -609,7 +609,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * {@link #setRotation(double, double, double, double, double, double, double, double, double)}
     * as it asserts that the coefficients 0represent a rotation matrix.
     * </p>
-    * 
+    *
     * @param m00 the 1st row 1st column component of the rotation part of this transform.
     * @param m01 the 1st row 2nd column component of the rotation part of this transform.
     * @param m02 the 1st row 3rd column component of the rotation part of this transform.
@@ -630,7 +630,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
     */
    public void setRotation(AxisAngleReadOnly<?> axisAngle)
@@ -648,7 +648,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVector the rotation vector used to set the rotation part of this transform. Not
     *           modified.
     */
@@ -662,7 +662,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
     *           modified.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
@@ -678,7 +678,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to set the rotation part of this transform. Not
     *           modified.
     */
@@ -692,7 +692,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
     *           modified.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
@@ -706,7 +706,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent a counter clockwise rotation around the
     * z-axis of an angle {@code yaw}.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \
     * R = | sin(yaw)  cos(yaw) 0 |
@@ -715,7 +715,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    public void setRotationYaw(double yaw)
@@ -726,7 +726,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent a counter clockwise rotation around the
     * y-axis of an angle {@code pitch}.
-    * 
+    *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
@@ -735,7 +735,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    public void setRotationPitch(double pitch)
@@ -746,7 +746,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent a counter clockwise rotation around the
     * x-axis of an angle {@code roll}.
-    * 
+    *
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
@@ -755,7 +755,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    public void setRotationRoll(double roll)
@@ -766,7 +766,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given
     * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -775,7 +775,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
     */
    public void setRotationYawPitchRoll(double[] yawPitchRoll)
@@ -786,7 +786,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given
     * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
@@ -795,7 +795,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -808,7 +808,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given Euler
     * angles {@code eulerAngles}.
-    * 
+    *
     * <pre>
     *     / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
     * R = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
@@ -821,7 +821,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * This is equivalent to
     * {@code this.setRotationYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
     * </p>
-    * 
+    *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
    public void setRotationEuler(Vector3DReadOnly<?> eulerAngles)
@@ -832,7 +832,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given Euler
     * angles {@code rotX}, {@code rotY}, and {@code rotZ}.
-    * 
+    *
     * <pre>
     *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
     * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
@@ -844,7 +844,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This is equivalent to {@code this.setRotationYawPitchRoll(rotZ, rotY, rotX)}.
     * </p>
-    * 
+    *
     * @param rotX the angle to rotate about the x-axis.
     * @param rotY the angle to rotate about the y-axis.
     * @param rotZ the angle to rotate about the z-axis.
@@ -857,7 +857,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to the given axis-angle and sets the translation part
     * to zero.
-    * 
+    *
     * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
     */
    public void setRotationAndZeroTranslation(AxisAngleReadOnly<?> axisAngle)
@@ -874,7 +874,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVector the rotation vector used to set the rotation part of this transform. Not
     *           modified.
     */
@@ -887,7 +887,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to the given matrix and sets the translation part to
     * zero.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
     *           modified.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
@@ -905,7 +905,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion used to set the rotation part of this transform. Not
     *           modified.
     */
@@ -918,7 +918,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to the given matrix and sets the translation part to
     * zero.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
     *           modified.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
@@ -933,13 +933,13 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent a counter clockwise rotation around the
     * z-axis of an angle {@code yaw} and sets the translation part to zero.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \
     * R = | sin(yaw)  cos(yaw) 0 |
     *     \    0         0     1 /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    public void setRotationYawAndZeroTranslation(double yaw)
@@ -951,13 +951,13 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent a counter clockwise rotation around the
     * y-axis of an angle {@code pitch} and sets the translation part to zero.
-    * 
+    *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
     *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    public void setRotationPitchAndZeroTranslation(double pitch)
@@ -969,13 +969,13 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent a counter clockwise rotation around the
     * x-axis of an angle {@code roll} and sets the translation part to zero.
-    * 
+    *
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
     *        \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    public void setRotationRollAndZeroTranslation(double roll)
@@ -988,13 +988,13 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Sets the rotation part of this transform to represent the same orientation as the given
     * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll} and sets the translation
     * part to zero.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
     */
    public void setRotationYawPitchRollAndZeroTranslation(double[] yawPitchRoll)
@@ -1007,13 +1007,13 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Sets the rotation part of this transform to represent the same orientation as the given
     * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll} and sets the translation
     * part to zero.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -1027,7 +1027,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given Euler
     * angles {@code eulerAngles} and sets the translation part to zero.
-    * 
+    *
     * <pre>
     *     / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
     * R = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
@@ -1037,7 +1037,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * This is equivalent to
     * {@code this.setRotationYawPitchRollAndZeroTranslation(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
     * </p>
-    * 
+    *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
    public void setRotationEulerAndZeroTranslation(Vector3DReadOnly<?> eulerAngles)
@@ -1049,7 +1049,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given Euler
     * angles {@code rotX}, {@code rotY}, and {@code rotZ} and sets the translation part to zero.
-    * 
+    *
     * <pre>
     *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
     * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
@@ -1059,7 +1059,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * This is equivalent to
     * {@code this.setRotationYawPitchRollAndZeroTranslation(rotZ, rotY, rotX)}.
     * </p>
-    * 
+    *
     * @param rotX the angle to rotate about the x-axis.
     * @param rotY the angle to rotate about the y-axis.
     * @param rotZ the angle to rotate about the z-axis.
@@ -1075,7 +1075,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the rotation part nor the scale part of this transform.
     * </p>
-    * 
+    *
     * @param x the x-component of the translation part.
     * @param y the y-component of the translation part.
     * @param z the z-component of the translation part.
@@ -1090,7 +1090,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * This method does not affect the rotation part nor the scale part of this transform.
     * </p>
-    * 
+    *
     * @param translation tuple used to set the translation part of this transform. Not modified.
     */
    public void setTranslation(Tuple3DReadOnly<?> translation)
@@ -1100,7 +1100,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets the translation part of this transform and sets the rotation part to identity.
-    * 
+    *
     * @param x the x-component of the translation part.
     * @param y the y-component of the translation part.
     * @param z the z-component of the translation part.
@@ -1113,7 +1113,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Sets the translation part of this transform and sets the rotation part to identity.
-    * 
+    *
     * @param translation tuple used to set the translation part of this transform. Not modified.
     */
    public void setTranslationAndIdentityRotation(Tuple3DReadOnly<?> translation)
@@ -1137,7 +1137,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * this = this * other
     * </p>
-    * 
+    *
     * @param other the other transform to multiply with this. Not modified.
     */
    public void multiply(RigidBodyTransform other)
@@ -1151,7 +1151,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * this = rigidBodyTransform * this
     * </p>
-    * 
+    *
     * @param rigidBodyTransform the other transform to multiply with this. Not modified.
     */
    public void preMultiply(RigidBodyTransform other)
@@ -1288,17 +1288,17 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs this transform as a 4-by-4 matrix.
-    * 
+    *
     * <pre>
     *     / R(0, 0) R(0, 1) R(0, 2) Tx \
     * H = | R(1, 0) R(1, 1) R(1, 2) Ty |
     *     | R(2, 0) R(2, 1) R(2, 2) Tz |
     *     \    0       0       0     1 /
     * </pre>
-    * 
+    *
     * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this
     * transform.
-    * 
+    *
     * @param matrixToPack the matrix in which this transform is stored. Modified.
     */
    public void get(DenseMatrix64F matrixToPack)
@@ -1313,17 +1313,17 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs this transform as a 4-by-4 matrix.
-    * 
+    *
     * <pre>
     *     / R(0, 0) R(0, 1) R(0, 2) Tx \
     * H = | R(1, 0) R(1, 1) R(1, 2) Ty |
     *     | R(2, 0) R(2, 1) R(2, 2) Tz |
     *     \    0       0       0     1 /
     * </pre>
-    * 
+    *
     * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this
     * transform.
-    * 
+    *
     * @param startRow the first row index to start writing in {@code matrixToPack}.
     * @param startColumn the first column index to start writing in {@code matrixToPack}.
     * @param matrixToPack the matrix in which this transform is stored. Modified.
@@ -1341,17 +1341,17 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs this transform as a 4-by-4 matrix into a 1D row-major array.
-    * 
+    *
     * <pre>
     *     / R(0, 0) R(0, 1) R(0, 2) Tx \
     * H = | R(1, 0) R(1, 1) R(1, 2) Ty |
     *     | R(2, 0) R(2, 1) R(2, 2) Tz |
     *     \    0       0       0     1 /
     * </pre>
-    * 
+    *
     * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this
     * transform.
-    * 
+    *
     * @param transformArrayToPack the array in which this transform is stored. Modified.
     */
    public void get(double[] transformArrayToPack)
@@ -1376,7 +1376,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation matrix and translation vector of this rigid-body transform.
-    * 
+    *
     * @param quaternionToPack the quaternion to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
@@ -1388,7 +1388,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation matrix and translation vector of this rigid-body transform.
-    * 
+    *
     * @param axisAngleToPack the axis-angle to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
@@ -1405,7 +1405,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVectorToPack the rotation vector to set to the rotation of this transform.
     *           Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
@@ -1418,7 +1418,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation matrix and translation vector of this rigid-body transform.
-    * 
+    *
     * @param rotationMarixToPack the matrix to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
@@ -1430,7 +1430,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation matrix and translation vector of this rigid-body transform.
-    * 
+    *
     * @param rotationMarixToPack the matrix to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
@@ -1442,7 +1442,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation matrix and translation vector of this rigid-body transform.
-    * 
+    *
     * @param rotationMarixToPack the matrix to set to the rotation of this transform. The scale part
     *           is reset. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
@@ -1455,7 +1455,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the read-only reference to the rotation part of this transform.
-    * 
+    *
     * @return the rotation part of this transform.
     */
    public RotationMatrixReadOnly<?> getRotationMatrix()
@@ -1465,7 +1465,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation part of this rigid-body transform.
-    * 
+    *
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
@@ -1476,7 +1476,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation part of this rigid-body transform.
-    * 
+    *
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
@@ -1487,7 +1487,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation part of this rigid-body transform.
-    * 
+    *
     * @param rotationMarixToPack the rotation-scale matrix that is set to this transform's rotation.
     *           The scale part is reset. Modified.
     */
@@ -1498,7 +1498,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation part of this rigid-body transform.
-    * 
+    *
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
@@ -1509,7 +1509,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation part of this rigid-body transform in 1D row-major array.
-    * 
+    *
     * @param rotationMatrixArrayToPack the array in which the rotation part of this transform is
     *           stored. Modified.
     */
@@ -1520,7 +1520,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation part of this rigid-body transform as a quaternion.
-    * 
+    *
     * @param quaternionToPack the quaternion that is set to the rotation part of this transform.
     *           Modified.
     */
@@ -1531,7 +1531,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the rotation part of this rigid-body transform as an axis-angle.
-    * 
+    *
     * @param axisAngleToPack the axis-angle that is set to the rotation part of this transform.
     *           Modified.
     */
@@ -1547,7 +1547,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVectorToPack the rotation vector that is set to the rotation part of this
     *           transform. Modified.
     */
@@ -1558,7 +1558,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the read-only reference of the translation part of this rigid-body transform.
-    * 
+    *
     * @return the translation part of this transform.
     */
    public Vector3DReadOnly<Vector3D> getTranslationVector()
@@ -1568,7 +1568,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Packs the translation part of this rigid-body transform.
-    * 
+    *
     * @param translationToPack the tuple in which the translation part of this transform is stored.
     *           Modified.
     */
@@ -1579,7 +1579,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Retrieves and returns a coefficient of this transform given its row and column indices.
-    * 
+    *
     * @param row the row of the coefficient to return.
     * @param column the column of the coefficient to return.
     * @return the coefficient's value.
@@ -1626,7 +1626,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 1st row 1st column coefficient of this transform.
-    * 
+    *
     * @return the 1st row 1st column coefficient.
     */
    public double getM00()
@@ -1636,7 +1636,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 1st row 2nd column coefficient of this transform.
-    * 
+    *
     * @return the 1st row 2nd column coefficient.
     */
    public double getM01()
@@ -1646,7 +1646,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 1st row 3rd column coefficient of this transform.
-    * 
+    *
     * @return the 1st row 3rd column coefficient.
     */
    public double getM02()
@@ -1656,7 +1656,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 1st row 4th column coefficient of this transform.
-    * 
+    *
     * @return the 1st row 4th column coefficient.
     */
    public double getM03()
@@ -1666,7 +1666,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 2nd row 1st column coefficient of this transform.
-    * 
+    *
     * @return the 2nd row 1st column coefficient.
     */
    public double getM10()
@@ -1676,7 +1676,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 2nd row 2nd column coefficient of this transform.
-    * 
+    *
     * @return the 2nd row 2nd column coefficient.
     */
    public double getM11()
@@ -1686,7 +1686,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 2nd row 3rd column coefficient of this transform.
-    * 
+    *
     * @return the 2nd row 3rd column coefficient.
     */
    public double getM12()
@@ -1696,7 +1696,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 2nd row 4th column coefficient of this transform.
-    * 
+    *
     * @return the 2nd row 4th column coefficient.
     */
    public double getM13()
@@ -1706,7 +1706,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 3rd row 1st column coefficient of this transform.
-    * 
+    *
     * @return the 3rd row 1st column coefficient.
     */
    public double getM20()
@@ -1716,7 +1716,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 3rd row 2nd column coefficient of this transform.
-    * 
+    *
     * @return the 3rd row 2nd column coefficient.
     */
    public double getM21()
@@ -1726,7 +1726,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 3rd row 3rd column coefficient of this transform.
-    * 
+    *
     * @return the 3rd row 3rd column coefficient.
     */
    public double getM22()
@@ -1736,7 +1736,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the 3rd row 4th column coefficient of this transform.
-    * 
+    *
     * @return the 3rd row 4th column coefficient.
     */
    public double getM23()
@@ -1749,7 +1749,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * Note: {@code m30 = 0.0}.
     * </p>
-    * 
+    *
     * @return the 4th row 1st column coefficient.
     */
    public double getM30()
@@ -1762,7 +1762,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * Note: {@code m31 = 0.0}.
     * </p>
-    * 
+    *
     * @return the 4th row 2nd column coefficient.
     */
    public double getM31()
@@ -1775,7 +1775,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * Note: {@code m32 = 0.0}.
     * </p>
-    * 
+    *
     * @return the 4th row 3rd column coefficient.
     */
    public double getM32()
@@ -1788,7 +1788,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * Note: {@code m33 = 1.0}.
     * </p>
-    * 
+    *
     * @return the 4th row 4th column coefficient.
     */
    public double getM33()
@@ -1799,7 +1799,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Tests separately and on a per component basis if the rotation part and the translation part of
     * this transform and {@code other} are equal to an {@code epsilon}.
-    * 
+    *
     * @param other the other rigid-body transform to compare against this. Not modified.
     */
    @Override
@@ -1812,7 +1812,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * Tests if the given {@code object}'s class is the same as this, in which case the method
     * returns {@link #equals(RigidBodyTransform)}, it returns {@code false} otherwise or if the
     * {@code object} is {@code null}.
-    * 
+    *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
     */
@@ -1835,7 +1835,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * <p>
     * The method returns {@code false} if the given transform is {@code null}.
     * </p>
-    * 
+    *
     * @param other the other transform to compare against this. Not modified.
     * @return {@code true} if the two transforms are exactly equal, {@code false} otherwise.
     */
@@ -1852,7 +1852,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * m00, m01, m02 | m03 <br>
     * m10, m11, m12 | m13 <br>
     * m20, m21, m22 | m23
-    * 
+    *
     * @return the {@code String} representing this transform.
     */
    @Override

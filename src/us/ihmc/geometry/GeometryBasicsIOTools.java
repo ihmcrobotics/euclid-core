@@ -21,7 +21,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
  * At this time, only a few print tools are offered, additional features will come in future
  * releases.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -32,14 +32,14 @@ public abstract class GeometryBasicsIOTools
 
    /**
     * Gets a representative {@code String} of {@code rigidBodyTransform} as follows:
-    * 
+    *
     * <pre>
     *  0.596  0.630  0.930 | -0.435
     * -0.264  0.763  0.575 | -0.464
     * -0.430 -0.188 -0.048 |  0.611
     *  0.000  0.000  0.000 |  1.000
     * </pre>
-    * 
+    *
     * @param rigidBodyTransform the object to get the {@code String} of. Not modified.
     * @return the representative {@code String}.
     */
@@ -49,10 +49,11 @@ public abstract class GeometryBasicsIOTools
    }
 
    /**
-    * Gets a representative {@code String} of {@code rigidBodyTransform} given a specific format to use.
+    * Gets a representative {@code String} of {@code rigidBodyTransform} given a specific format to
+    * use.
     * <p>
     * Using the default format {@link #DEFAULT_FORMAT}, this provides a {@code String} as follows:
-    * 
+    *
     * <pre>
     *  0.596  0.630  0.930 | -0.435
     * -0.264  0.763  0.575 | -0.464
@@ -60,7 +61,7 @@ public abstract class GeometryBasicsIOTools
     *  0.000  0.000  0.000 |  1.000
     * </pre>
     * </p>
-    * 
+    *
     * @param format the format to use of each number.
     * @param rigidBodyTransform the object to get the {@code String} of. Not modified.
     * @return the representative {@code String}.
@@ -72,14 +73,14 @@ public abstract class GeometryBasicsIOTools
 
    /**
     * Gets a representative {@code String} of {@code affineTransform} as follows:
-    * 
+    *
     * <pre>
     *  0.596  0.630  0.930 | -0.435
     * -0.264  0.763  0.575 | -0.464
     * -0.430 -0.188 -0.048 |  0.611
     *  0.000  0.000  0.000 |  1.000
     * </pre>
-    * 
+    *
     * @param affineTransform the object to get the {@code String} of. Not modified.
     * @return the representative {@code String}.
     */
@@ -89,10 +90,11 @@ public abstract class GeometryBasicsIOTools
    }
 
    /**
-    * Gets a representative {@code String} of {@code affineTransform} given a specific format to use.
+    * Gets a representative {@code String} of {@code affineTransform} given a specific format to
+    * use.
     * <p>
     * Using the default format {@link #DEFAULT_FORMAT}, this provides a {@code String} as follows:
-    * 
+    *
     * <pre>
     *  0.596  0.630  0.930 | -0.435
     * -0.264  0.763  0.575 | -0.464
@@ -100,7 +102,7 @@ public abstract class GeometryBasicsIOTools
     *  0.000  0.000  0.000 |  1.000
     * </pre>
     * </p>
-    * 
+    *
     * @param format the format to use of each number.
     * @param affineTransform the object to get the {@code String} of. Not modified.
     * @return the representative {@code String}.

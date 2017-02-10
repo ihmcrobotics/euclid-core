@@ -21,7 +21,7 @@ package us.ihmc.geometry.tuple3D.interfaces;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the point used.
@@ -30,7 +30,7 @@ public interface Point3DReadOnly<T extends Point3DReadOnly<T>> extends Tuple3DRe
 {
    /**
     * Calculates and returns the distance between this point and {@code other}.
-    * 
+    *
     * @param other the other point used to measure the distance.
     * @return the distance between the two points.
     */
@@ -46,7 +46,7 @@ public interface Point3DReadOnly<T extends Point3DReadOnly<T>> extends Tuple3DRe
     * speed matters and knowledge of the actual distance does not, i.e. when comparing distances
     * between several pairs of points.
     * </p>
-    * 
+    *
     * @param other the other point used to measure the square of the distance.
     * @return the square of the distance between the two points.
     */

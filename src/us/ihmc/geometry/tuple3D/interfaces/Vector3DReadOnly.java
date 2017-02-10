@@ -22,7 +22,7 @@ package us.ihmc.geometry.tuple3D.interfaces;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the vector used.
@@ -34,7 +34,7 @@ public interface Vector3DReadOnly<T extends Vector3DReadOnly<T>> extends Tuple3D
     * <p>
     * length = &radic;(x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup>)
     * </p>
-    * 
+    *
     * @return the magnitude of this vector.
     */
    default double length()
@@ -52,7 +52,7 @@ public interface Vector3DReadOnly<T extends Vector3DReadOnly<T>> extends Tuple3D
     * knowledge of the actual magnitude does not, i.e. when comparing several vectors by theirs
     * magnitude.
     * </p>
-    * 
+    *
     * @return the square of the magnitude of this vector.
     */
    default double lengthSquared()
@@ -66,8 +66,8 @@ public interface Vector3DReadOnly<T extends Vector3DReadOnly<T>> extends Tuple3D
     * For instance, the dot product of two vectors p and q is defined as: <br>
     * p . q = &sum;<sub>i=1:3</sub>(p<sub>i</sub> * q<sub>i</sub>)
     * </p>
-    * 
-    * 
+    *
+    *
     * @param other the other vector used for the dot product. Not modified.
     * @return the value of the dot product.
     */
@@ -88,7 +88,7 @@ public interface Vector3DReadOnly<T extends Vector3DReadOnly<T>> extends Tuple3D
     * angle of {@code 0.0} radian.
     * </ul>
     * </p>
-    * 
+    *
     * @param other the other vector used to compute the angle. Not modified.
     * @return the value of the angle from this vector to {@code other}.
     */

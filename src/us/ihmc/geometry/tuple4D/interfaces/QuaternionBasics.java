@@ -29,7 +29,7 @@ import us.ihmc.geometry.tuple4D.QuaternionTools;
  * a 4D vector behaves as a 3D vector, and for {@code s = 1} it behaves as a 3D point.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the quaternion used.
@@ -42,7 +42,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * This method is meant for internal usage. Prefer using
     * {@link #set(double, double, double, double)}.
     * </p>
-    * 
+    *
     * @param qx the x-component of this quaternion.
     * @param qy the y-component of this quaternion.
     * @param qz the z-component of this quaternion.
@@ -75,7 +75,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
 
    /**
     * Sets this quaternion to its conjugate.
-    * 
+    *
     * <pre>
     *      / -qx \
     * q* = | -qy |
@@ -164,14 +164,14 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
 
    /**
     * Sets this quaternion to the conjugate of {@code other}.
-    * 
+    *
     * <pre>
     *      / -qx \
     * q* = | -qy |
     *      | -qz |
     *      \  qs /
     * </pre>
-    * 
+    *
     * @param other the other quaternion to copy the values from. Not modified.
     */
    default void setAndConjugate(QuaternionReadOnly<?> other)
@@ -182,7 +182,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
 
    /**
     * Sets this quaternion to {@code other} and then calls {@link #negate()}.
-    * 
+    *
     * @param other the other quaternion to copy the values from. Not modified.
     */
    default void setAndNegate(QuaternionReadOnly<?> other)
@@ -193,7 +193,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
 
    /**
     * Sets this quaternion to the inverse of {@code other}.
-    * 
+    *
     * @param other the other quaternion to copy the values from. Not modified.
     */
    default void setAndInverse(QuaternionReadOnly<?> other)
@@ -204,7 +204,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
 
    /**
     * Sets this quaternion to the same orientation described by the given {@code axisAngle}.
-    * 
+    *
     * @param axisAngle the axis-angle used to set this quaternion. Not modified.
     */
    default void set(AxisAngleReadOnly<?> axisAngle)
@@ -214,7 +214,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
 
    /**
     * Sets this quaternion to the same orientation described by the given {@code rotationMatrix}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to set this quaternion. Not modified.
     */
    default void set(RotationMatrixReadOnly<?> rotationMatrix)
@@ -230,7 +230,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotation vector the rotation vector used to set this quaternion. Not modified.
     */
    default void set(Vector3DReadOnly<?> rotationVector)
@@ -241,7 +241,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
    /**
     * Sets this quaternion to represent the same orientation as the given yaw-pitch-roll
     * {@code yawPitchRoll}.
-    * 
+    *
     * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
     *           modified.
     */
@@ -253,7 +253,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
    /**
     * Sets this quaternion to represent the same orientation as the given yaw-pitch-roll
     * {@code yaw}, {@code pitch}, and {@code roll}.
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -270,7 +270,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * This is equivalent to
     * {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
     * </p>
-    * 
+    *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
    default void setEuler(Vector3DReadOnly<?> eulerAngles)
@@ -284,7 +284,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * This is equivalent to {@code this.setYawPitchRoll(rotZ, rotY, rotX)}.
     * </p>
-    * 
+    *
     * @param rotX the angle to rotate about the x-axis.
     * @param rotY the angle to rotate about the y-axis.
     * @param rotZ the angle to rotate about the z-axis.
@@ -297,7 +297,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
    /**
     * Sets this quaternion to represent a counter clockwise rotation around the z-axis of an angle
     * {@code yaw}.
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    default void setToYawQuaternion(double yaw)
@@ -308,7 +308,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
    /**
     * Sets this quaternion to represent a counter clockwise rotation around the y-axis of an angle
     * {@code pitch}.
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    default void setToPitchQuaternion(double pitch)
@@ -319,7 +319,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
    /**
     * Sets this quaternion to represent a counter clockwise rotation around the x-axis of an angle
     * {@code roll}.
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    default void setToRollQuaternion(double roll)
@@ -332,7 +332,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * this = q1<sup>-1</sup> * q2
     * </p>
-    * 
+    *
     * @param q1 the first quaternion in the difference. Not modified.
     * @param q2 the second quaternion in the difference. Not modified.
     */
@@ -346,7 +346,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * this = this * other
     * </p>
-    * 
+    *
     * @param other the other quaternion to multiply this. Not modified.
     */
    default void multiply(QuaternionReadOnly<?> other)
@@ -359,7 +359,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * this = q1 * q2
     * </p>
-    * 
+    *
     * @param q1 the first quaternion in the multiplication. Not modified.
     * @param q2 the second quaternion in the multiplication. Not modified.
     */
@@ -374,7 +374,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * this = this * Q(matrix)<br>
     * where Q(matrix) is the equivalent quaternion for the given rotation matrix.
     * </p>
-    * 
+    *
     * @param matrix the rotation matrix to multiply this. Not modified.
     */
    default void multiply(RotationMatrixReadOnly<?> matrix)
@@ -387,7 +387,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * this = this * other*
     * </p>
-    * 
+    *
     * @param other the other quaternion to multiply this. Not modified.
     */
    default void multiplyConjugateOther(QuaternionReadOnly<?> other)
@@ -400,7 +400,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * this = this* * other
     * </p>
-    * 
+    *
     * @param other the other quaternion to multiply this. Not modified.
     */
    default void multiplyConjugateThis(QuaternionReadOnly<?> other)
@@ -413,7 +413,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * this = other * other
     * </p>
-    * 
+    *
     * @param other the other quaternion to multiply this. Not modified.
     */
    default void preMultiply(QuaternionReadOnly<?> other)
@@ -427,7 +427,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * this = Q(matrix) * this<br>
     * where Q(matrix) is the equivalent quaternion for the given rotation matrix.
     * </p>
-    * 
+    *
     * @param matrix the rotation matrix to multiply this. Not modified.
     */
    default void preMultiply(RotationMatrixReadOnly<?> matrix)
@@ -440,7 +440,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * this = other* * this
     * </p>
-    * 
+    *
     * @param other the other quaternion to multiply this. Not modified.
     */
    default void preMultiplyConjugateOther(QuaternionReadOnly<?> other)
@@ -453,7 +453,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * <p>
     * this = other * this*
     * </p>
-    * 
+    *
     * @param other the other quaternion to multiply this. Not modified.
     */
    default void preMultiplyConjugateThis(QuaternionReadOnly<?> other)
@@ -468,7 +468,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * The interpolation method used here is often called a <i>Spherical Linear Interpolation</i> or
     * SLERP.
     * </p>
-    * 
+    *
     * @param qf the other quaternion used for the interpolation. Not modified.
     * @param alpha the percentage used for the interpolation. A value of 0 will result in not
     *           modifying this quaternion, while a value of 1 is equivalent to setting this
@@ -486,7 +486,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * The interpolation method used here is often called a <i>Spherical Linear Interpolation</i> or
     * SLERP.
     * </p>
-    * 
+    *
     * @param q0 the first quaternion used in the interpolation. Not modified.
     * @param qf the second quaternion used in the interpolation. Not modified.
     * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
@@ -529,7 +529,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * prepend their rotation part the given quaternion. No scale or translation is applied to the
     * quaternion such that the output of this method is still a unit-quaternion.
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this vector. Not modified.
     */
    @Override

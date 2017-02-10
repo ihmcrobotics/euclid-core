@@ -20,7 +20,7 @@ public abstract class Matrix3DTools
 
    /**
     * Performs an in-place inversion of the given matrix such that: m = m<sup>-1</sup>.
-    * 
+    *
     * @param matrixToInvert the matrix to invert. Modified.
     * @return {@code true} if the inversion succeeds, {@code false} if the matrix is singular.
     */
@@ -34,7 +34,7 @@ public abstract class Matrix3DTools
     * <p>
     * The matrices can be the same object.
     * </p>
-    * 
+    *
     * @param matrix the matrix to compute the inverse of. Not modified.
     * @param inverseToPack the result to pack. Modified.
     * @return {@code true} if the inversion succeeds, {@code false} if the matrix is singular.
@@ -68,7 +68,7 @@ public abstract class Matrix3DTools
     * <p>
     * All the matrices can be the same object.
     * </p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -93,7 +93,7 @@ public abstract class Matrix3DTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -118,7 +118,7 @@ public abstract class Matrix3DTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -138,7 +138,7 @@ public abstract class Matrix3DTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -163,7 +163,7 @@ public abstract class Matrix3DTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -210,7 +210,7 @@ public abstract class Matrix3DTools
     * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the rotation matrix.
     * </p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -232,7 +232,7 @@ public abstract class Matrix3DTools
     * (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
     * of the rotation-scale matrix preventing to actually compute its inverse.
     * </p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -249,7 +249,7 @@ public abstract class Matrix3DTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -274,7 +274,7 @@ public abstract class Matrix3DTools
     * <p>
     * All the matrices can be the same object.
     * <p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -321,7 +321,7 @@ public abstract class Matrix3DTools
     * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the rotation matrix.
     * </p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -343,7 +343,7 @@ public abstract class Matrix3DTools
     * (R * S)<sup>-1</sup> = S<sup>-1</sup> * R<sup>T</sup> </br>
     * of the rotation-scale matrix preventing to actually compute its inverse.
     * </p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -358,7 +358,7 @@ public abstract class Matrix3DTools
    /**
     * Orthonormalization of the given matrix using the
     * <a href="https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process"> Gram-Schmidt method</a>.
-    * 
+    *
     * @param matrixToNormalize the matrix to normalize. Modified.
     */
    public static void normalize(Matrix3DBasics<?> matrixToNormalize)
@@ -418,7 +418,7 @@ public abstract class Matrix3DTools
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple used to store the result of the transformation. Modified.
@@ -440,7 +440,7 @@ public abstract class Matrix3DTools
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple to which the result of the transformation is added to.
@@ -468,7 +468,7 @@ public abstract class Matrix3DTools
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple used to stored the result of the transformation. Modified.
@@ -498,7 +498,7 @@ public abstract class Matrix3DTools
     * <p>
     * Both vectors can be the same instance to perform in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param vectorOriginal the original vector to use for the transformation. Not modified.
     * @param vectorTransformed the vector used to stored the result of the transformation. Modified.
@@ -527,7 +527,7 @@ public abstract class Matrix3DTools
     * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform
     * in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code matrixOriginal}. Not modified.
     * @param matrixOriginal the original matrix to use for the transformation. Not modified.
     * @param matrixTransformed the matrix used to stored the result of the transformation. Modified.
@@ -547,7 +547,7 @@ public abstract class Matrix3DTools
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple used to store the result of the transformation. Modified.
@@ -590,7 +590,7 @@ public abstract class Matrix3DTools
     * <p>
     * Both tuples can be the same instance to perform in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple used to stored the result of the transformation. Modified.
@@ -654,7 +654,7 @@ public abstract class Matrix3DTools
     * <p>
     * Both vectors can be the same instance to perform in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param vectorOriginal the original vector to use for the transformation. Not modified.
     * @param vectorTransformed the vector used to stored the result of the transformation. Modified.
@@ -699,7 +699,7 @@ public abstract class Matrix3DTools
     * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform
     * in-place transformation.
     * </p>
-    * 
+    *
     * @param matrix the matrix used to transform {@code matrixOriginal}. Not modified.
     * @param matrixOriginal the original matrix to use for the transformation. Not modified.
     * @param matrixTransformed the matrix used to stored the result of the transformation. Modified.
@@ -712,7 +712,7 @@ public abstract class Matrix3DTools
 
    /**
     * Find and return maximum the argument with the maximum value.
-    * 
+    *
     * @param a the first argument to compare.
     * @param b the second argument to compare.
     * @param c the third argument to compare.
@@ -728,7 +728,7 @@ public abstract class Matrix3DTools
 
    /**
     * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad column index.
-    * 
+    *
     * @param column the bad column index.
     * @return the exception
     */
@@ -739,7 +739,7 @@ public abstract class Matrix3DTools
 
    /**
     * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad row index.
-    * 
+    *
     * @param row the bad row index.
     * @return the exception
     */

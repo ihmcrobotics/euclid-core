@@ -27,7 +27,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the vector used.
@@ -53,7 +53,7 @@ public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasi
 
    /**
     * Sets this vector to {@code other} and then calls {@link #normalize()}.
-    * 
+    *
     * @param other the other vector to copy the values from. Not modified.
     */
    default void setAndNormalize(Tuple3DReadOnly<?> other)
@@ -67,7 +67,7 @@ public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasi
     * <p>
     * this = vector1 {@code x} vector2
     * </p>
-    * 
+    *
     * @param vector1 the first vector in the cross product. Not modified.
     * @param vector2 the second vector in the cross product. Not modified.
     */
@@ -89,7 +89,7 @@ public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasi
     * <li>{@link AffineTransform} scales then rotates a vector.
     * </ul>
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this vector. Not modified.
     */
    @Override

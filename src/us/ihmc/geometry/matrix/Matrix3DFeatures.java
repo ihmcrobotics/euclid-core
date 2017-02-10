@@ -15,7 +15,7 @@ public abstract class Matrix3DFeatures
 
    /**
     * Computes the determinant of the matrix described by the given 9 coefficients.
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -47,7 +47,7 @@ public abstract class Matrix3DFeatures
     * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @param matrix the matrix to verify. Not modified.
     * @throws NotARotationMatrixException if the matrix is not a rotation matrix.
     */
@@ -77,7 +77,7 @@ public abstract class Matrix3DFeatures
     * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @param matrixArray the matrix to verify, not null, not modified. The array is expected to be
     *           encoded in a row-major format.
     * @throws NotARotationMatrixException if the matrix is not a rotation matrix.
@@ -101,7 +101,7 @@ public abstract class Matrix3DFeatures
     * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -122,7 +122,7 @@ public abstract class Matrix3DFeatures
 
    /**
     * Asserts that the given matrix is a 3-by-3 matrix.
-    * 
+    *
     * @param matrix the matrix to verify. Not modified.
     * @throws RuntimeException if the matrix is not a 3-by-3 matrix.
     */
@@ -138,7 +138,7 @@ public abstract class Matrix3DFeatures
     * The assertion is done on a per coefficient basis using {@link EPS_CHECK_IDENTITY} as the
     * tolerance.
     * </p>
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -161,7 +161,7 @@ public abstract class Matrix3DFeatures
     * <p>
     * The assertion is done on a per coefficient basis using {@code epsilon} as the tolerance.
     * </p>
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -197,7 +197,7 @@ public abstract class Matrix3DFeatures
     * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @param matrix the matrix to verify, not null, not modified.
     * @return {@code true} if the given matrix is a rotation matrix, {@code false} otherwise.
     */
@@ -218,7 +218,7 @@ public abstract class Matrix3DFeatures
     * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @param matrixArray the matrix to verify, not null, not modified. The array is expected to be
     *           encoded in a row-major format.
     * @return {@code true} if the given matrix is a rotation matrix, {@code false} otherwise.
@@ -240,7 +240,7 @@ public abstract class Matrix3DFeatures
     * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -268,7 +268,7 @@ public abstract class Matrix3DFeatures
     * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -324,7 +324,7 @@ public abstract class Matrix3DFeatures
     * +/- {@code epsilon}.
     * </ul>
     * </p>
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -355,7 +355,7 @@ public abstract class Matrix3DFeatures
 
    /**
     * Verify if the matrix described by the 9 given coefficients is skew symmetric:
-    * 
+    *
     * <pre>
     *     |  0 -z  y |
     * m = |  z  0 -x |
@@ -370,7 +370,7 @@ public abstract class Matrix3DFeatures
     * {@link EPS_CHECK_SKEW}.
     * </ul>
     * </p>
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -389,7 +389,7 @@ public abstract class Matrix3DFeatures
 
    /**
     * Verify if the matrix described by the 9 given coefficients is skew symmetric:
-    * 
+    *
     * <pre>
     *     |  0 -z  y |
     * m = |  z  0 -x |
@@ -404,7 +404,7 @@ public abstract class Matrix3DFeatures
     * {@link EPS_CHECK_SKEW}.
     * </ul>
     * </p>
-    * 
+    *
     * @param m00 first matrix element in the first row.
     * @param m01 second matrix element in the first row.
     * @param m02 third matrix element in the first row.
@@ -429,7 +429,7 @@ public abstract class Matrix3DFeatures
 
    /**
     * Tests on a per component basis if the two given matrices are equal to an {@code epsilon}.
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
@@ -484,7 +484,7 @@ public abstract class Matrix3DFeatures
     * <p>
     * If any of the two matrices is {@code null}, this methods returns {@code false}.
     * </p>
-    * 
+    *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
     * @return {@code true} if the two matrices are <b>exactly</b> equal, {@code false} otherwise or

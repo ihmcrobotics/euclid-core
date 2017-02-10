@@ -15,7 +15,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  * This version of quaternion uses double precision fields to save the value of each component. It
  * is meant for garbage free usage.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -73,7 +73,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
 
    /**
     * Creates a new quaternion and initializes it to {@code other}.
-    * 
+    *
     * @param other the quaternion to copy the components from. Not modified.
     */
    public Quaternion(QuaternionReadOnly<?> other)
@@ -84,7 +84,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    /**
     * Creates a new quaternion and initializes such that it represents the same orientation as the
     * given {@code rotationMatrix}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix to initialize this quaternion. Not modified.
     */
    public Quaternion(RotationMatrixReadOnly<?> rotationMatrix)
@@ -95,7 +95,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    /**
     * Creates a new quaternion and initializes such that it represents the same orientation as the
     * given {@code axisAngle}.
-    * 
+    *
     * @param axisAngle the axis-angle to initialize this quaternion. Not modified.
     */
    public Quaternion(AxisAngleReadOnly<?> axisAngle)
@@ -111,7 +111,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVector the rotation vector to initialize this quaternion. Not modified.
     */
    public Quaternion(Vector3DReadOnly<?> rotationVector)
@@ -160,7 +160,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
     * returns {@link #equals(Quaternion)}, it returns {@code false} otherwise.
-    * 
+    *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
     */
@@ -180,7 +180,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    /**
     * Provides a {@code String} representation of this quaternion converted to yaw-pitch-roll angles
     * as follows: yaw-pitch-roll: (yaw, pitch, roll).
-    * 
+    *
     * @return
     */
    public String toStringAsYawPitchRoll()
@@ -190,7 +190,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
 
    /**
     * Provides a {@code String} representation of this quaternion as follows: (x, y, z, s).
-    * 
+    *
     * @return the {@code String} representing this quaternion.
     */
    @Override
@@ -201,7 +201,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
 
    /**
     * Calculates and returns a hash code value from the value of each component of this quaternion.
-    * 
+    *
     * @return the hash code value for this quaternion.
     */
    @Override

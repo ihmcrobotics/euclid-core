@@ -28,7 +28,7 @@ import us.ihmc.geometry.interfaces.EpsilonComparable;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the tuple used.
@@ -37,21 +37,21 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 {
    /**
     * Returns the x-component of this tuple.
-    * 
+    *
     * @return the x-component.
     */
    double getX();
 
    /**
     * Returns the y-component of this tuple.
-    * 
+    *
     * @return the y-component.
     */
    double getY();
 
    /**
     * Returns the x-component of this tuple.
-    * 
+    *
     * @return the x-component.
     */
    default float getX32()
@@ -61,7 +61,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 
    /**
     * Returns the y-component of this tuple.
-    * 
+    *
     * @return the y-component.
     */
    default float getY32()
@@ -71,7 +71,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 
    /**
     * Tests if this tuple contains a {@link Double#NaN}.
-    * 
+    *
     * @return {@code true} if this tuple contains a {@link Double#NaN}, {@code false} otherwise.
     */
    default boolean containsNaN()
@@ -85,7 +85,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
     * For an {@code index} of 0, the corresponding component is {@code x}, while for 1 it is
     * {@code y}.
     * </p>
-    * 
+    *
     * @param index the index of the component to get.
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 1].
@@ -106,7 +106,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    /**
     * Selects a component of this tuple based on {@code index} and returns its value. For an
     * {@code index} of 0, the corresponding component is {@code x}, while for 1 it is {@code y}.
-    * 
+    *
     * @param index the index of the component to get.
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 1].
@@ -126,7 +126,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 
    /**
     * Packs the components {@code x}, {@code y} in order in an array starting from its first index.
-    * 
+    *
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
     */
    default void get(double[] tupleArrayToPack)
@@ -149,7 +149,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 
    /**
     * Packs the components {@code x}, {@code y} in order in an array starting from its first index.
-    * 
+    *
     * @param tupleArrayToPack the array in which this tuple is stored. Modified.
     */
    default void get(float[] tupleArrayToPack)
@@ -173,7 +173,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    /**
     * Packs the components {@code x}, {@code y} in order in a column vector starting from its first
     * row index.
-    * 
+    *
     * @param tupleMatrixToPack the array in which this tuple is stored. Modified.
     */
    default void get(DenseMatrix64F tupleMatrixToPack)
@@ -184,7 +184,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    /**
     * Packs the components {@code x}, {@code y} in order in a column vector starting from
     * {@code startRow}.
-    * 
+    *
     * @param startRow the first row index to start writing in the dense-matrix.
     * @param tupleMatrixToPack the column vector in which this tuple is stored. Modified.
     */
@@ -196,7 +196,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    /**
     * Packs the components {@code x}, {@code y} in order in a column vector starting from
     * {@code startRow} at the column index {@code column}.
-    * 
+    *
     * @param startRow the first row index to start writing in the dense-matrix.
     * @param column the column index to write in the dense-matrix.
     * @param tupleMatrixToPack the matrix in which this tuple is stored. Modified.
@@ -210,7 +210,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
    /**
     * Tests on a per component basis if this tuple is equal to the given {@code other} to an
     * {@code epsilon}.
-    * 
+    *
     * @param other the other tuple to compare against this. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two tuples are equal, {@code false} otherwise.
@@ -223,7 +223,7 @@ public interface Tuple2DReadOnly<T extends Tuple2DReadOnly<T>> extends EpsilonCo
 
    /**
     * Tests on a per component basis, if this tuple is exactly equal to {@code other}.
-    * 
+    *
     * @param other the other tuple to compare against this. Not modified.
     * @return {@code true} if the two tuples are exactly equal component-wise, {@code false}
     *         otherwise.

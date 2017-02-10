@@ -33,7 +33,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * a 4D vector behaves as a 3D vector, and for {@code s = 1} it behaves as a 3D point.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the quaternion used.
@@ -42,7 +42,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
 {
    /**
     * Tests if this quaternion has a norm equal to 1+/-{@code epsilon}.
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @return {@code true} if this quaternion is a proper unit-quaternion, {@code false} otherwise.
     */
@@ -56,7 +56,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * This is commonly used to test if the quaternion can be used to transform 2D geometry object.
     * </p>
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @return {@code true} if this quaternion represents a rotation around the z-axis, {@code false}
     *         otherwise.
@@ -71,7 +71,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * This is commonly used to test if the quaternion can be used to transform 2D geometry object.
     * </p>
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @throws NotAMatrix2DException if this quaternion does not represent a rotation around the
     *            z-axis.
@@ -93,7 +93,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
 
    /**
     * Calculates and returns the angle of the rotation this quaternion represents.
-    * 
+    *
     * @return the angle &in; [-<i>pi</i>;<i>pi</i>].
     */
    default double getAngle()
@@ -109,7 +109,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
     */
    default void get(Vector3DBasics<?> rotationVectorToPack)
@@ -123,7 +123,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
     */
    default void getYawPitchRoll(double[] yawPitchRollToPack)
@@ -137,7 +137,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the yaw angle around the z-axis.
     */
    default double getYaw()
@@ -152,7 +152,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the pitch angle around the y-axis.
     */
    default double getPitch()
@@ -166,7 +166,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the roll angle around the x-axis.
     */
    default double getRoll()
@@ -179,7 +179,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleToTransform = this * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     */
    default void transform(Tuple3DBasics<?> tupleToTransform)
@@ -193,7 +193,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleTransformed = this * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
@@ -207,7 +207,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleToTransform = this * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
@@ -223,7 +223,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleTransformed = this * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
@@ -239,7 +239,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleToTransform = this * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that this quaternion
     *           represents a transformation in the XY plane.
@@ -257,7 +257,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleTransformed = this * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that this quaternion
@@ -275,7 +275,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * matrixToTransform = this * matrixToTransform * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param matrixToTransform the matrix to transform. Modified.
     */
    default void transform(Matrix3D matrixToTransform)
@@ -289,7 +289,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * matrixTransformed = this * matrixOriginal * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
@@ -303,7 +303,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * quaternionToTransform = this * quaternionToTransform <br>
     * </p>
-    * 
+    *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
    default void transform(QuaternionBasics<?> quaternionToTransform)
@@ -317,7 +317,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * quaternionTransformed = this * quaternionOriginal <br>
     * </p>
-    * 
+    *
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
@@ -332,7 +332,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * vectorToTransform.s = vectorToTransform.s <br>
     * vectorToTransform.xyz = this * vectorToTransform.xyz
     * </p>
-    * 
+    *
     * @param vectorToTransform the vector to transform. Modified.
     */
    default void transform(Vector4DBasics<?> vectorToTransform)
@@ -347,7 +347,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * vectorTransformed.s = vectorOriginal.s <br>
     * vectorTransformed.xyz = this * vectorOriginal.xyz
     * </p>
-    * 
+    *
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
@@ -361,7 +361,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * matrixToTransform = this * matrixToTransform
     * </p>
-    * 
+    *
     * @param matrixToTransform the rotation matrix to transform. Modified.
     */
    default void transform(RotationMatrix matrixToTransform)
@@ -375,7 +375,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * matrixTransformed = this * matrixOriginal
     * </p>
-    * 
+    *
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
@@ -390,7 +390,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     */
@@ -404,7 +404,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleToTransform = this<sup>-1</sup> * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
@@ -419,7 +419,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleToTransform = this<sup>-1</sup> * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
@@ -435,7 +435,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
@@ -451,7 +451,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleToTransform = this<sup>-1</sup> * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that this quaternion
     *           represents a transformation in the XY plane.
@@ -469,7 +469,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that this quaternion
@@ -487,7 +487,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * quaternionToTransform = this<sup>-1</sup> * quaternionToTransform <br>
     * </p>
-    * 
+    *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
    default void inverseTransform(QuaternionBasics<?> quaternionToTransform)
@@ -501,7 +501,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * quaternionTransformed = this<sup>-1</sup> * quaternionOriginal <br>
     * </p>
-    * 
+    *
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
@@ -517,7 +517,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * vectorToTransform.s = vectorToTransform.s <br>
     * vectorToTransform.xyz = this<sup>-1</sup> * vectorToTransform.xyz
     * </p>
-    * 
+    *
     * @param vectorToTransform the vector to transform. Modified.
     */
    default void inverseTransform(Vector4DBasics<?> vectorToTransform)
@@ -532,7 +532,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * vectorTransformed.s = vectorOriginal.s <br>
     * vectorTransformed.xyz = this<sup>-1</sup> * vectorOriginal.xyz
     * </p>
-    * 
+    *
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
@@ -547,7 +547,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * matrixToTransform = this<sup>-1</sup> * matrixToTransform * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param matrixToTransform the matrix to transform. Not modified.
     */
    default void inverseTransform(Matrix3D matrixToTransform)
@@ -561,7 +561,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * s matrixTransformed = this<sup>-1</sup> * matrixOriginal * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
@@ -576,7 +576,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * matrixToTransform = this<sup>-1</sup> * matrixToTransform
     * </p>
-    * 
+    *
     * @param matrixToTransform the rotation matrix to transform. Modified.
     */
    default void inverseTransform(RotationMatrix matrixToTransform)
@@ -590,7 +590,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * <p>
     * matrixTransformed = this<sup>-1</sup> * matrixOriginal
     * </p>
-    * 
+    *
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */

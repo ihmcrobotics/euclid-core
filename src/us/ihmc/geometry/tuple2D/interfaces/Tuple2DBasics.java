@@ -29,7 +29,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the tuple used.
@@ -39,14 +39,14 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 {
    /**
     * Sets the x-component of this tuple.
-    * 
+    *
     * @param x the new x-component's value.
     */
    void setX(double x);
 
    /**
     * Sets the y-component of this tuple.
-    * 
+    *
     * @param y the new y-component's value.
     */
    void setY(double y);
@@ -94,7 +94,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Clips each component of this tuple to a maximum value {@code max}.
-    * 
+    *
     * @param max the maximum value for each component.
     */
    default void clipToMax(double max)
@@ -104,7 +104,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Clips each component of this tuple to a minimum value {@code min}.
-    * 
+    *
     * @param min the minimum value for each component.
     */
    default void clipToMin(double min)
@@ -115,7 +115,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    /**
     * Clips each component of this tuple to a minimum value {@code min} and a maximum value
     * {@code max}.
-    * 
+    *
     * @param min the minimum value for each component.
     * @param max the maximum value for each component.
     */
@@ -131,7 +131,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * For an {@code index} of 0, the corresponding component is {@code x}, while for 1 it is
     * {@code y}.
     * </p>
-    * 
+    *
     * @param index the index of the component to set.
     * @param value the new value of the selected component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 1].
@@ -153,7 +153,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple's components to {@code x} and {@code y}.
-    * 
+    *
     * @param x the new value for the x-component of this tuple.
     * @param y the new value for the y-component of this tuple.
     */
@@ -165,7 +165,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple to {@code other}.
-    * 
+    *
     * @param other the other tuple to copy the values from. Not modified.
     */
    @Override
@@ -176,7 +176,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple to {@code tupleReadOnly}.
-    * 
+    *
     * @param tupleReadOnly the other tuple to copy the values from. Not modified.
     */
    default void set(Tuple2DReadOnly<?> tupleReadOnly)
@@ -187,7 +187,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    /**
     * Sets this tuple's components {@code x}, {@code y} in order from the given array
     * {@code tupleArray}.
-    * 
+    *
     * @param tupleArray the array containing the new values for this tuple's components. Not
     *           modified.
     */
@@ -199,7 +199,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    /**
     * Sets this tuple's components {@code x}, {@code y} in order from the given array
     * {@code tupleArray}.
-    * 
+    *
     * @param startIndex the first index to start reading from in the array.
     * @param tupleArray the array containing the new values for this tuple's components. Not
     *           modified.
@@ -212,7 +212,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    /**
     * Sets this tuple's components {@code x}, {@code y} in order from the given array
     * {@code tupleArray}.
-    * 
+    *
     * @param tupleArray the array containing the new values for this tuple's components. Not
     *           modified.
     */
@@ -224,7 +224,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    /**
     * Sets this tuple's components {@code x}, {@code y} in order from the given array
     * {@code tupleArray}.
-    * 
+    *
     * @param startIndex the first index to start reading from in the array.
     * @param tupleArray the array containing the new values for this tuple's components. Not
     *           modified.
@@ -237,7 +237,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    /**
     * Sets this tuple's components {@code x}, {@code y} in order from the given column vector
     * starting to read from its first row index.
-    * 
+    *
     * @param matrix the column vector containing the new values for this tuple's components. Not
     *           modified.
     */
@@ -249,7 +249,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    /**
     * Sets this tuple's components {@code x}, {@code y} in order from the given column vector
     * starting to read from {@code startRow}.
-    * 
+    *
     * @param startRow the first row index to start reading in the dense-matrix.
     * @param matrix the column vector containing the new values for this tuple's components. Not
     *           modified.
@@ -262,7 +262,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    /**
     * Sets this tuple's components {@code x}, {@code y} in order from the given matrix starting to
     * read from {@code startRow} at the column index {@code column}.
-    * 
+    *
     * @param startRow the first row index to start reading in the dense-matrix.
     * @param column the column index to read in the dense-matrix.
     * @param matrix the column vector containing the new values for this tuple's components. Not
@@ -275,7 +275,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #absolute()}.
-    * 
+    *
     * @param other the other tuple to copy the values from. Not modified.
     */
    default void setAndAbsolute(Tuple2DReadOnly<?> other)
@@ -285,7 +285,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #negate()}.
-    * 
+    *
     * @param other the other tuple to copy the values from. Not modified.
     */
    default void setAndNegate(Tuple2DReadOnly<?> other)
@@ -295,7 +295,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple to {@code other} and then scales it {@link #scale(double)}.
-    * 
+    *
     * @param scalar the scale factor to use on this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
@@ -306,7 +306,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #clipToMax(double)}.
-    * 
+    *
     * @param max the maximum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
@@ -317,7 +317,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #clipToMin(double)}.
-    * 
+    *
     * @param min the minimum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
@@ -328,7 +328,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Sets this tuple to {@code other} and then calls {@link #clipToMinMax(double, double)}.
-    * 
+    *
     * @param min the minimum value for each component of this tuple.
     * @param max the maximum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
@@ -341,7 +341,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Adds the given {@code x} to this tuple's x-component.
-    * 
+    *
     * @param x the value to add.
     */
    default void addX(double x)
@@ -351,7 +351,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Adds the given {@code y} to this tuple's y-component.
-    * 
+    *
     * @param y the value to add.
     */
    default void addY(double y)
@@ -364,7 +364,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = this + (x, y)
     * </p>
-    * 
+    *
     * @param x the value to add to the x-component of this tuple.
     * @param y the value to add to the y-component of this tuple.
     */
@@ -378,7 +378,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = this + other
     * </p>
-    * 
+    *
     * @param other the other tuple to add to this tuple.
     */
    default void add(Tuple2DReadOnly<?> other)
@@ -391,7 +391,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = tuple1 + tuple2
     * </p>
-    * 
+    *
     * @param tuple1 the first tuple to sum. Not modified.
     * @param tuple2 the second tuple to sum. Not modified.
     */
@@ -402,7 +402,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Subtracts the given {@code x} to this tuple's x-component.
-    * 
+    *
     * @param x the value to add.
     */
    default void subX(double x)
@@ -412,7 +412,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Subtracts the given {@code y} to this tuple's y-component.
-    * 
+    *
     * @param y the value to add.
     */
    default void subY(double y)
@@ -425,7 +425,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = this - (x, y)
     * </p>
-    * 
+    *
     * @param x the value to add to the x-component of this tuple.
     * @param y the value to add to the y-component of this tuple.
     */
@@ -439,7 +439,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = this - other
     * </p>
-    * 
+    *
     * @param other the other tuple to add to this tuple.
     */
    default void sub(Tuple2DReadOnly<?> tupleReadOnly)
@@ -452,7 +452,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = tuple1 - tuple2
     * </p>
-    * 
+    *
     * @param tuple1 the first tuple. Not modified.
     * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
     */
@@ -466,7 +466,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = scalar * this
     * </p>
-    * 
+    *
     * @param scalar the scale factor to use.
     */
    default void scale(double scalar)
@@ -476,13 +476,13 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
 
    /**
     * Scales independently each component of this tuple.
-    * 
+    *
     * <pre>
-    *  
+    *
     * / this.x \ = / scalarX * this.x \
     * \ this.y /   \ scalarY * this.y /
     * </pre>
-    * 
+    *
     * @param scalarX the scalar factor to use on the x-component of this tuple.
     * @param scalarY the scalar factor to use on the y-component of this tuple.
     */
@@ -496,7 +496,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = scalar * this + other
     * </p>
-    * 
+    *
     * @param scalar the scale factor to use.
     * @param other the tuple to add to this. Not modified.
     */
@@ -511,7 +511,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = scalar * tuple1 + tuple2
     * </p>
-    * 
+    *
     * @param scalar the scale factor to use on {@code tuple1}.
     * @param tuple1 the first tuple of the sum. Not modified.
     * @param tuple2 the second tuple of the sum. Not modified.
@@ -528,7 +528,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = (1.0 - alpha) * this + alpha * other
     * </p>
-    * 
+    *
     * @param other the other tuple used for the interpolation. Not modified.
     * @param alpha the percentage used for the interpolation. A value of 0 will result in not
     *           modifying this tuple, while a value of 1 is equivalent to setting this tuple to
@@ -545,7 +545,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * <p>
     * this = (1.0 - alpha) * tuple1 + alpha * tuple2
     * </p>
-    * 
+    *
     * @param tuple1 the first tuple used in the interpolation. Not modified.
     * @param tuple2 the second tuple used in the interpolation. Not modified.
     * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
@@ -566,6 +566,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * translated, whereas the vector can be only rotated and scaled.
     * </p>
     * s
+    * 
     * @param transform the geometric transform to apply on this vector. Not modified.
     * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
     *            transformation in the XY plane.
@@ -582,7 +583,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * Note: transforming a point differs from transforming a vector in the way that the point can be
     * translated, whereas the vector can be only rotated and scaled.
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this tuple. Not modified.
     * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
     *           the given transform represents a transformation in the XY plane.

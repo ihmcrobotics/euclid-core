@@ -7,7 +7,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
  * {@code RuntimeException} dedicated to matrix operations in the xy-plane. It is thrown when a
  * transformation matrix refers to a complete 3D operation making impossible the operation with a 2D
  * object restricted to the xy-plane.
- * 
+ *
  * @author Sylvain
  *
  */

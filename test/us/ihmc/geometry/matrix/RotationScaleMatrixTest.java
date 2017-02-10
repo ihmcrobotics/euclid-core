@@ -544,6 +544,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       assertEquals(new RotationMatrix(), matrix.getRotationMatrix());
    }
 
+   @Override
    @Test
    public void testSetToNaN() throws Exception
    {
@@ -556,6 +557,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       GeometryBasicsTestTools.assertTupleContainsOnlyNaN(matrix.getScale());
    }
 
+   @Override
    @Test
    public void testSetIdentity() throws Exception
    {
@@ -581,6 +583,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       assertEquals(new RotationMatrix(), matrix.getRotationMatrix());
    }
 
+   @Override
    @Test
    public void testContainsNaN() throws Exception
    {
@@ -1288,7 +1291,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
 
       rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-      rotationScaleMatrix.setYawPitchRoll(new double[]{yaw, pitch, roll});
+      rotationScaleMatrix.setYawPitchRoll(new double[] {yaw, pitch, roll});
       GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
       GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
 
@@ -1301,7 +1304,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       rotationScaleMatrix.setEuler(roll, pitch, yaw);
       GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix, EPS);
       GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(1.0, 1.0, 1.0), rotationScaleMatrix.getScale(), EPS);
-      
+
       rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
       Vector3D expectedScales = new Vector3D(rotationScaleMatrix.getScale());
       rotationScaleMatrix.setRotationYawPitchRoll(yaw, pitch, roll);
@@ -1309,7 +1312,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       GeometryBasicsTestTools.assertTuple3DEquals(expectedScales, rotationScaleMatrix.getScale(), EPS);
 
       rotationScaleMatrix.setRotationToZero();
-      rotationScaleMatrix.setRotationYawPitchRoll(new double[]{yaw, pitch, roll});
+      rotationScaleMatrix.setRotationYawPitchRoll(new double[] {yaw, pitch, roll});
       GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix.getRotationMatrix(), EPS);
       GeometryBasicsTestTools.assertTuple3DEquals(expectedScales, rotationScaleMatrix.getScale(), EPS);
 
@@ -1589,6 +1592,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
    }
 
+   @Override
    @Test
    public void testInverseTransform() throws Exception
    {
@@ -1605,7 +1609,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          rotationScaleMatrix = createRandomMatrix(random);
 
          Matrix3DTools.inverseTransform(rotationScaleMatrix, tuple, expectedTuple);
-         rotationScaleMatrix.inverseTransform((Tuple3DBasics<?>) actualTuple);
+         rotationScaleMatrix.inverseTransform(actualTuple);
 
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, EPS);
       }
@@ -2040,6 +2044,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
    }
 
+   @Override
    @Test
    public void testEpsilonEquals() throws Exception
    {

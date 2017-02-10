@@ -11,7 +11,7 @@ import us.ihmc.geometry.interfaces.Settable;
  * here are limited to generic applications without violating potential constraints of more specific
  * matrices such a rotation matrix.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> the final type of matrix used.
@@ -20,7 +20,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 {
    /**
     * Sets the 9 coefficients of this matrix to the given ones.
-    * 
+    *
     * @param m00 the new 1st row 1st column coefficient for this matrix.
     * @param m01 the new 1st row 2nd column coefficient for this matrix.
     * @param m02 the new 1st row 3rd column coefficient for this matrix.
@@ -35,7 +35,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Sets this matrix to contain only {@linkplain Double#NaN}:
-    * 
+    *
     * <pre>
     *     / NaN  NaN  NaN \
     * m = | NaN  NaN  NaN |
@@ -56,7 +56,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Sets this matrix to identity:
-    * 
+    *
     * <pre>
     *     / 1  0  0 \
     * m = | 0  1  0 |
@@ -70,7 +70,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Sets this matrix to {@code other}.
-    * 
+    *
     * @param other the other matrix to copy the values of. Not modified.
     */
    default void set(Matrix3DReadOnly<?> other)
@@ -80,13 +80,13 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Copies the values in the given array into this matrix as follows:
-    * 
+    *
     * <pre>
     *     / matrixArray[0]  matrixArray[1]  matrixArray[2] \
     * m = | matrixArray[3]  matrixArray[4]  matrixArray[5] |
     *     \ matrixArray[6]  matrixArray[7]  matrixArray[8] /
     * </pre>
-    * 
+    *
     * @param matrixArray the array containing the new values for this matrix. Not modified.
     */
    default void set(double[] matrixArray)
@@ -105,13 +105,13 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Copies the values in the given array into this matrix as follows:
-    * 
+    *
     * <pre>
     *     / matrixArray[startIndex + 0]  matrixArray[startIndex + 1]  matrixArray[startIndex + 2] \
     * m = | matrixArray[startIndex + 3]  matrixArray[startIndex + 4]  matrixArray[startIndex + 5] |
     *     \ matrixArray[startIndex + 6]  matrixArray[startIndex + 7]  matrixArray[startIndex + 8] /
     * </pre>
-    * 
+    *
     * @param startIndex the first index to start reading from in the array.
     * @param matrixArray the array containing the new values for this matrix. Not modified.
     */
@@ -131,7 +131,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
 
    /**
     * Copies the values in the given dense-matrix into this matrix.
-    * 
+    *
     * @param matrix the dense-matrix containing the new values for this matrix. Not modified.
     */
    default void set(DenseMatrix64F matrix)
@@ -151,6 +151,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
    /**
     * Copies the values in the given dense-matrix into this matrix given index offsets for the row
     * and column.
+    * 
     * @param startRow the first row index to start reading from in the dense-matrix.
     * @param startColumn the first column index to start reading from in the dense-matrix.
     * @param matrix the dense-matrix containing the new values for this matrix. Not modified.

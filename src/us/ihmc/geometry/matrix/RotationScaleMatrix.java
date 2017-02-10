@@ -31,13 +31,13 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  * <p>
  * A rotation-scale matrix <i>M</i> is equal to: <i> M = R * S </i>. Where <i>R</i> is a rotation
  * matrix, and <i>S</i> is a scaling matrix as follows:
- * 
+ *
  * <pre>
  *     / s<sub>x</sub> 0 0 \
  * <i>S</i> = | 0 s<sub>y</sub> 0 |
  *     \ 0 0 s<sub>z</sub> /
  * </pre>
- * 
+ *
  * where s<sub>x</sub>, s<sub>y</sub>, and s<sub>z</sub> three non-zero positive scale factors.
  * </p>
  * <p>
@@ -50,7 +50,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  * the inherent properties of its composition and to minimize manipulation errors resulting in an
  * improper rotation-scale matrix.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -73,7 +73,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Creates a new rotation-scale matrix that is the same as {@code other}.
-    * 
+    *
     * @param other the other 3D matrix to copy the values from. Not modified.
     */
    public RotationScaleMatrix(RotationScaleMatrix other)
@@ -83,7 +83,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Creates a new rotation-scale matrix that is the same as {@code rotationScaleMatrix}.
-    * 
+    *
     * @param rotationScaleMatrix the other 3D matrix to copy the values from. Not modified.
     * @throws NotARotationScaleMatrixException if the resulting matrix is not a rotation-scale
     *            matrix.
@@ -95,7 +95,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Creates a new rotation-scale matrix that is the same as {@code rotationScaleMatrix}.
-    * 
+    *
     * @param rotationScaleMatrix the other 3D matrix to copy the values from. Not modified.
     * @throws NotARotationScaleMatrixException if the resulting matrix is not a rotation-scale
     *            matrix.
@@ -107,13 +107,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Creates a new rotation-scale matrix and initializes it from the given array.
-    * 
+    *
     * <pre>
     *        / rotationScaleMatrixArray[0]  rotationScaleMatrixArray[1]  rotationScaleMatrixArray[2] \
     * this = | rotationScaleMatrixArray[3]  rotationScaleMatrixArray[4]  rotationScaleMatrixArray[5] |
     *        \ rotationScaleMatrixArray[6]  rotationScaleMatrixArray[7]  rotationScaleMatrixArray[8] /
     * </pre>
-    * 
+    *
     * @param rotationScaleMatrixArray the array containing the values for this matrix. Not modified.
     * @throws NotARotationScaleMatrixException if the resulting matrix is not a rotation-scale
     *            matrix.
@@ -126,7 +126,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code axisAngle} and all three scale factors initialized to {@code scale}.
-    * 
+    *
     * @param axisAngle the axis-angle used to initialized the rotation part. Not modified.
     * @param scale the non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -140,7 +140,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code axisAngle} and all three scale factors initialized to {@code scaleX}, {@code scaleY},
     * and {@code scaleZ}.
-    * 
+    *
     * @param axisAngle the axis-angle used to initialized the rotation part. Not modified.
     * @param scaleX the non-zero and positive scalar used to initialized the x-axis scale factor.
     * @param scaleY the non-zero and positive scalar used to initialized the y-axis scale factor.
@@ -155,7 +155,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code axisAngle} and all three scale factors initialized to {@code scales}.
-    * 
+    *
     * @param axisAngle the axis-angle used to initialized the rotation part. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale
     *           factors. Not modified.
@@ -169,7 +169,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code rotationMatrix} and all three scale factors initialized to {@code scale}.
-    * 
+    *
     * @param rotationMatrix the 3-by-3 matrix used to initialized the rotation part. Not modified.
     * @param scales non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
@@ -185,7 +185,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code rotationMatrix} and all three scale factors initialized to {@code scaleX},
     * {@code scaleY}, and {@code scaleZ}.
-    * 
+    *
     * @param rotationMatrix the 3-by-3 matrix used to initialized the rotation part. Not modified.
     * @param scaleX the non-zero and positive scalar used to initialized the x-axis scale factor.
     * @param scaleY the non-zero and positive scalar used to initialized the y-axis scale factor.
@@ -202,7 +202,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code rotationMatrix} and all three scale factors initialized to {@code scales}.
-    * 
+    *
     * @param rotationMatrix the 3-by-3 matrix used to initialized the rotation part. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale
     *           factors. Not modified.
@@ -218,7 +218,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code quaternion} and all three scale factors initialized to {@code scale}.
-    * 
+    *
     * @param quaternion the quaternion used to initialized the rotation part. Not modified.
     * @param scales non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -232,7 +232,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code quaternion} and all three scale factors initialized to {@code scaleX}, {@code scaleY},
     * and {@code scaleZ}.
-    * 
+    *
     * @param quaternion the quaternion used to initialized the rotation part. Not modified.
     * @param scaleX the non-zero and positive scalar used to initialized the x-axis scale factor.
     * @param scaleY the non-zero and positive scalar used to initialized the y-axis scale factor.
@@ -247,7 +247,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code quaternion} and all three scale factors initialized to {@code scales}.
-    * 
+    *
     * @param quaternion the quaternion used to initialized the rotation part. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale
     *           factors. Not modified.
@@ -261,7 +261,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code rotationMatrix} and all three scale factors initialized to {@code scale}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to initialized the rotation part. Not modified.
     * @param scales non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -275,7 +275,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code rotationMatrix} and all three scale factors initialized to {@code scaleX},
     * {@code scaleY}, and {@code scaleZ}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to initialized the rotation part. Not modified.
     * @param scaleX the non-zero and positive scalar used to initialized the x-axis scale factor.
     * @param scaleY the non-zero and positive scalar used to initialized the y-axis scale factor.
@@ -290,7 +290,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code rotationMatrix} and all three scale factors initialized to {@code scales}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to initialized the rotation part. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale
     *           factors. Not modified.
@@ -303,7 +303,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Asserts that this rotation-scale matrix is proper.
-    * 
+    *
     * @throws NotARotationScaleMatrixException if the rotation part is not a rotation matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
@@ -315,7 +315,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Asserts that the rotation part of this rotation-scale matrix is proper.
-    * 
+    *
     * @throws NotARotationScaleMatrixException if the rotation part is not a rotation matrix.
     */
    public void checkIfRotationMatrixProper()
@@ -326,7 +326,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Asserts that the scale part of this rotation-scale matrix is proper.
-    * 
+    *
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
    public void checkIfScalesProper()
@@ -337,7 +337,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Orthonormalization of the rotation part of this rotation-scale matrix using the
     * <a href="https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process"> Gram-Schmidt method</a>.
-    * 
+    *
     * @throws NotARotationMatrixException if the orthonormalization failed.
     */
    public void normalizeRotationMatrix()
@@ -394,7 +394,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets this rotation-scale matrix to equal the given one {@code other}.
-    * 
+    *
     * @param other the other rotation-scale matrix to copy the values from. Not modified.
     */
    @Override
@@ -406,7 +406,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets this rotation-scale matrix to equal the given one {@code other}.
-    * 
+    *
     * @param other the other rotation-scale matrix to copy the values from. Not modified.
     */
    public void set(RotationScaleMatrixReadOnly<?> other)
@@ -417,7 +417,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to the given rotation matrix and resets the scales.
-    * 
+    *
     * @param other the other rotation matrix to copy the values from. Not modified.
     */
    public void set(RotationMatrixReadOnly<?> rotationMatrix)
@@ -428,7 +428,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * {@inheritDoc}
-    * 
+    *
     * @throws NotARotationScaleMatrixException if the resulting matrix is not a rotation-scale
     *            matrix.
     */
@@ -463,7 +463,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to the {@code axisAngle} and all three scale factors to {@code scale}.
-    * 
+    *
     * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -476,7 +476,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code axisAngle} and all three scale factors to {@code scaleX},
     * {@code scaleY}, and {@code scaleZ}.
-    * 
+    *
     * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
     * @param scaleX the non-zero and positive scalar used to set the x-axis scale factor to.
     * @param scaleY the non-zero and positive scalar used to set the y-axis scale factor to.
@@ -491,7 +491,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to the {@code axisAngle} and all three scale factors to {@code scales}.
-    * 
+    *
     * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors
     *           to. Not modified.
@@ -505,7 +505,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scale}.
-    * 
+    *
     * @param rotationMatrix the 3-by-3 matrix used to set the rotation part to. Not modified.
     * @param scales non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
@@ -520,7 +520,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scaleX}, {@code scaleY}, and {@code scaleZ}.
-    * 
+    *
     * @param rotationMatrix the 3-by-3 matrix used to set the rotation part to. Not modified.
     * @param scaleX the non-zero and positive scalar used to set the x-axis scale factor to.
     * @param scaleY the non-zero and positive scalar used to set the y-axis scale factor to.
@@ -538,7 +538,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scales}.
-    * 
+    *
     * @param rotationMatrix the 3-by-3 matrix used to set the rotation part to. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors
     *           to. Not modified.
@@ -553,7 +553,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to the {@code quaternion} and all three scale factors to {@code scale}.
-    * 
+    *
     * @param quaternion the quaternion used to set the rotation part to. Not modified.
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -566,7 +566,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code quaternion} and all three scale factors to
     * {@code scaleX}, {@code scaleY}, and {@code scaleZ}.
-    * 
+    *
     * @param quaternion the quaternion used to set the rotation part to. Not modified.
     * @param scaleX the non-zero and positive scalar used to set the x-axis scale factor to.
     * @param scaleY the non-zero and positive scalar used to set the y-axis scale factor to.
@@ -582,7 +582,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code quaternion} and all three scale factors to
     * {@code scales}.
-    * 
+    *
     * @param quaternion the quaternion used to set the rotation part to. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors
     *           to. Not modified.
@@ -596,7 +596,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scale}.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part to. Not modified.
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
@@ -611,7 +611,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scaleX}, {@code scaleY}, and {@code scaleZ}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to set the rotation part to. Not modified.
     * @param scaleX the non-zero and positive scalar used to set the x-axis scale factor to.
     * @param scaleY the non-zero and positive scalar used to set the y-axis scale factor to.
@@ -629,7 +629,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scales}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to set the rotation part to. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors
     *           to. Not modified.
@@ -645,7 +645,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scale}.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part to. Not modified.
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -658,7 +658,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scaleX}, {@code scaleY}, and {@code scaleZ}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to set the rotation part to. Not modified.
     * @param scaleX the non-zero and positive scalar used to set the x-axis scale factor to.
     * @param scaleY the non-zero and positive scalar used to set the y-axis scale factor to.
@@ -674,7 +674,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scales}.
-    * 
+    *
     * @param rotationMatrix the rotation matrix used to set the rotation part to. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors
     *           to. Not modified.
@@ -687,7 +687,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to {@code rotationMatrix}.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part to. Not modified.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
     *            matrix.
@@ -699,7 +699,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to {@code rotationMatrixArray}.
-    * 
+    *
     * @param rotationMatrixArray the array containing the rotation part values. Not modified.
     * @throws NotARotationMatrixException if the given {@code rotationMatrixArray} is not a rotation
     *            matrix.
@@ -711,7 +711,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to {@code axisAngle}.
-    * 
+    *
     * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
     */
    public void setRotation(AxisAngleReadOnly<?> axisAngle)
@@ -721,7 +721,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to {@code quaternion}.
-    * 
+    *
     * @param quaternion the quaternion used to set the rotation part to. Not modified.
     */
    public void setRotation(QuaternionReadOnly<?> quaternion)
@@ -731,7 +731,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to {@code rotationMatrix}.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part to. Not modified.
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
     *            matrix.
@@ -743,7 +743,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the rotation part to {@code rotationMatrix}.
-    * 
+    *
     * @param rotationMatrix the matrix used to set the rotation part to. Not modified.
     */
    public void setRotation(RotationMatrixReadOnly<?> rotationMatrix)
@@ -758,7 +758,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
     */
    public void setRotation(Vector3DReadOnly<?> rotationVector)
@@ -769,13 +769,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to represent a counter clockwise rotation around the z-axis of an angle
     * {@code yaw}.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \
     * R = | sin(yaw)  cos(yaw) 0 |
     *     \    0         0     1 /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    public void setRotationYaw(double yaw)
@@ -786,13 +786,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to represent a counter clockwise rotation around the y-axis of an angle
     * {@code pitch}.
-    * 
+    *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
     *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    public void setRotationPitch(double pitch)
@@ -803,13 +803,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to represent a counter clockwise rotation around the x-axis of an angle
     * {@code roll}.
-    * 
+    *
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
     *        \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    public void setRotationRoll(double roll)
@@ -820,13 +820,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to represent the same orientation as the given yaw-pitch-roll angles
     * {@code yawPitchRoll}.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
     *           modified.
     */
@@ -838,13 +838,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to represent the same orientation as the given yaw-pitch-roll angles
     * {@code yaw}, {@code pitch}, and {@code roll}.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -857,7 +857,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to represent the same orientation as the given Euler angles
     * {@code eulerAngles}.
-    * 
+    *
     * <pre>
     *     / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
     * R = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
@@ -867,7 +867,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * This is equivalent to
     * {@code this.setRotationYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
     * </p>
-    * 
+    *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
    public void setRotationEuler(Vector3DReadOnly<?> eulerAngles)
@@ -878,7 +878,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Sets the rotation part to represent the same orientation as the given Euler angles
     * {@code rotX}, {@code rotY}, and {@code rotZ}.
-    * 
+    *
     * <pre>
     *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
     * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
@@ -887,7 +887,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * <p>
     * This is equivalent to {@code this.setRotationYawPitchRoll(rotZ, rotY, rotX)}.
     * </p>
-    * 
+    *
     * @param rotX the angle to rotate about the x-axis.
     * @param rotY the angle to rotate about the y-axis.
     * @param rotZ the angle to rotate about the z-axis.
@@ -899,7 +899,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets all the scale factors to {@code scale}.
-    * 
+    *
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
@@ -910,7 +910,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets all the scale factors to {@code scale}.
-    * 
+    *
     * @param scaleX the non-zero and positive scalar used to set the x-axis scale factor to.
     * @param scaleY the non-zero and positive scalar used to set the y-axis scale factor to.
     * @param scaleZ the non-zero and positive scalar used to set the z-axis scale factor to.
@@ -925,7 +925,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Sets the scale factors to {@code scales}.
-    * 
+    *
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors
     *           to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
@@ -944,13 +944,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Resets the scale factors and sets the rotation part to represent a counter clockwise rotation
     * around the z-axis of an angle {@code yaw}.
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \
     * this = | sin(yaw)  cos(yaw) 0 |
     *        \    0         0     1 /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    public void setToYawMatrix(double yaw)
@@ -962,13 +962,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Resets the scale factors and sets the rotation part to represent a counter clockwise rotation
     * around the y-axis of an angle {@code pitch}.
-    * 
+    *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
     *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    public void setToPitchMatrix(double pitch)
@@ -980,13 +980,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Resets the scale factors and sets the rotation part to represent a counter clockwise rotation
     * around the x-axis of an angle {@code roll}.
-    * 
+    *
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
     *        \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    public void setToRollMatrix(double roll)
@@ -998,13 +998,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Resets the scale factors and sets the rotation part to represent the same orientation as the
     * given yaw-pitch-roll angles {@code yawPitchRoll}.
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
     *           modified.
     */
@@ -1016,13 +1016,13 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Resets the scale factors and sets the rotation part to represent the same orientation as the
     * given yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll}.
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -1036,7 +1036,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Resets the scale factors and sets the rotation part to represent the same orientation as the
     * given Euler angles {@code eulerAngles}.
-    * 
+    *
     * <pre>
     *        / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
     * this = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
@@ -1046,7 +1046,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * This is equivalent to
     * {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
     * </p>
-    * 
+    *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
    public void setEuler(Vector3DReadOnly<?> eulerAngles)
@@ -1058,7 +1058,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
    /**
     * Resets the scale factors and sets the rotation part to represent the same orientation as the
     * given Euler angles {@code rotX}, {@code rotY}, and {@code rotZ}.
-    * 
+    *
     * <pre>
     *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
     * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
@@ -1067,7 +1067,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * <p>
     * This is equivalent to {@code this.setYawPitchRoll(rotZ, rotY, rotX)}.
     * </p>
-    * 
+    *
     * @param rotX the angle to rotate about the x-axis.
     * @param rotY the angle to rotate about the y-axis.
     * @param rotZ the angle to rotate about the z-axis.
@@ -1083,7 +1083,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * <p>
     * this = other * this
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiply(RotationMatrixReadOnly<?> rotationMatrix)
@@ -1096,7 +1096,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * <p>
     * this = other<sup>T</sup> * this
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyTransposeOther(RotationMatrixReadOnly<?> rotationMatrix)
@@ -1106,7 +1106,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Retrieves the scale factor with the maximum value and returns it.
-    * 
+    *
     * @return the maximum value among the scale factors.
     */
    public double getMaxScale()
@@ -1116,7 +1116,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Packs the rotation part as a rotation matrix.
-    * 
+    *
     * @param rotationMatrixToPack the rotation matrix in which the rotation part is stored.
     *           Modified.
     */
@@ -1127,7 +1127,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Packs the rotation part as a rotation matrix and stores it into a row-major 1D array.
-    * 
+    *
     * @param rotationMatrixArrayToPack the array in which the coefficients of the rotation part are
     *           stored. Modified.
     */
@@ -1138,7 +1138,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Packs the rotation part as a rotation matrix.
-    * 
+    *
     * @param rotationMatrixToPack the rotation matrix in which the rotation part is stored.
     *           Modified.
     */
@@ -1149,7 +1149,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Packs the rotation part as a quaternion.
-    * 
+    *
     * @param quaternionToPack the quaternion in which the rotation part is stored. Modified.
     */
    public void getRotation(QuaternionBasics<?> quaternionToPack)
@@ -1159,7 +1159,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Packs the rotation part as an axis-angle.
-    * 
+    *
     * @param axisAngleToPack the axis-angle in which the rotation part is stored. Modified.
     */
    public void getRotation(AxisAngleBasics<?> axisAngleToPack)
@@ -1174,7 +1174,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVectorToPack the rotation vector in which the rotation part is stored.
     *           Modified.
     */
@@ -1189,7 +1189,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
    public void getRotationEuler(Tuple3DBasics<?> eulerAnglesToPack)
@@ -1203,7 +1203,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
     */
    public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
@@ -1218,7 +1218,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the yaw angle around the z-axis.
     */
    public double getRotationYaw()
@@ -1233,7 +1233,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the pitch angle around the y-axis.
     */
    public double getRotationPitch()
@@ -1248,7 +1248,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the roll angle around the x-axis.
     */
    public double getRotationRoll()
@@ -1258,7 +1258,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Packs the scale factors in a tuple.
-    * 
+    *
     * @param scaleToPack the tuple in which the scale factors are stored. Modified.
     */
    public void getScale(Tuple3DBasics<?> scaleToPack)
@@ -1368,7 +1368,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * Tests if the given {@code object}'s class is the same as this, in which case the method
     * returns {@link #equals(RotationScaleMatrix)}, it returns {@code false} otherwise or if the
     * {@code object} is {@code null}.
-    * 
+    *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
     */
@@ -1390,7 +1390,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * <p>
     * The method returns {@code false} if the given matrix is {@code null}.
     * </p>
-    * 
+    *
     * @param other the other matrix to compare against this. Not modified.
     * @return {@code true} if the two matrices are exactly equal, {@code false} otherwise.
     */
@@ -1407,7 +1407,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * m00, m01, m02 <br>
     * m10, m11, m12 <br>
     * m20, m21, m22
-    * 
+    *
     * @return the {@code String} representing this matrix.
     */
    @Override
@@ -1418,7 +1418,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Calculates and returns a hash code value from the value of each component of this matrix.
-    * 
+    *
     * @return the hash code value for this matrix.
     */
    @Override
@@ -1430,7 +1430,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /**
     * Tests the rotation parts and scales of both matrices are equal to an {@code epsilon}.
-    * 
+    *
     * @param other the other matrix to compare against this. Not modified.
     * @param epsilon tolerance to use when comparing each component.
     * @return {@code true} if the two matrix are equal, {@code false} otherwise.

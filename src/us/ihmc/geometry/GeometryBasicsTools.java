@@ -9,7 +9,7 @@ public class GeometryBasicsTools
     * <p>
     * This method is optimized when {@code squaredValueClosedToOne} is equal to
     * 1+/-{@value #EPS_NORM_FAST_SQRT} by using an approximation of the square root.
-    * 
+    *
     * @param squaredValueClosedToOne the value to calculates the square root of.
     * @return the value of the square root.
     */
@@ -25,7 +25,7 @@ public class GeometryBasicsTools
 
    /**
     * Tests if at least one of the two given elements is equal to {@linkplain Double#NaN}.
-    * 
+    *
     * @param a the first element.
     * @param b the second element.
     * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false}
@@ -38,7 +38,7 @@ public class GeometryBasicsTools
 
    /**
     * Tests if at least one of the three given elements is equal to {@linkplain Double#NaN}.
-    * 
+    *
     * @param a the first element.
     * @param b the second element.
     * @param c the third element.
@@ -52,7 +52,7 @@ public class GeometryBasicsTools
 
    /**
     * Tests if at least one of the four given elements is equal to {@linkplain Double#NaN}.
-    * 
+    *
     * @param a the first element.
     * @param b the second element.
     * @param c the third element.
@@ -67,7 +67,7 @@ public class GeometryBasicsTools
 
    /**
     * Tests if at least one of the nine given elements is equal to {@linkplain Double#NaN}.
-    * 
+    *
     * @param a0 the first element.
     * @param a1 the second element.
     * @param a2 the third element.
@@ -93,7 +93,7 @@ public class GeometryBasicsTools
 
    /**
     * Tests if at least one element in the given array is equal to {@link Double#NaN}.
-    * 
+    *
     * @param array the array containing the elements to test for {@link Double#NaN}. Not modified.
     * @return {@code true} if at least one element is equal to {@link Double#NaN}, {@code false}
     *         otherwise.
@@ -113,7 +113,7 @@ public class GeometryBasicsTools
     * <p>
     * norm<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup>
     * </p>
-    * 
+    *
     * @param x the first element.
     * @param y the second element.
     * @return the value of the square of the norm.
@@ -128,7 +128,7 @@ public class GeometryBasicsTools
     * <p>
     * norm<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup>
     * </p>
-    * 
+    *
     * @param x the first element.
     * @param y the second element.
     * @param z the third element.
@@ -144,7 +144,7 @@ public class GeometryBasicsTools
     * <p>
     * norm<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup> + s<sup>2</sup>
     * </p>
-    * 
+    *
     * @param x the first element.
     * @param y the second element.
     * @param z the third element.
@@ -166,7 +166,7 @@ public class GeometryBasicsTools
     * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
     * the usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
-    * 
+    *
     * @param x the first element.
     * @param y the second element.
     * @return the value of the square of the norm.
@@ -186,7 +186,7 @@ public class GeometryBasicsTools
     * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
     * the usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
-    * 
+    *
     * @param x the first element.
     * @param y the second element.
     * @param z the third element.
@@ -207,7 +207,7 @@ public class GeometryBasicsTools
     * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
     * the usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
-    * 
+    *
     * @param x the first element.
     * @param y the second element.
     * @param z the third element.

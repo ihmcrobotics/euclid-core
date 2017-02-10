@@ -23,7 +23,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * <li>for yaw-pitch-roll: {@link YawPitchRollConversion}.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -44,7 +44,7 @@ public class AxisAngleConversion
     * {@link Double#NaN}.
     * </ul>
     * </p>
-    * 
+    *
     * @param rotationScaleMatrix a 3-by-3 matrix representing an orientation and a scale. Only the
     *           orientation part is used during the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
@@ -67,7 +67,7 @@ public class AxisAngleConversion
     * {@link Double#NaN}.
     * </ul>
     * </p>
-    * 
+    *
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
@@ -158,7 +158,7 @@ public class AxisAngleConversion
     * axis-angle is set to zero via {@link AxisAngleBasics#setToZero()}.
     * </ul>
     * </p>
-    * 
+    *
     * @param quaternion the unit quaternion to use for the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
@@ -209,7 +209,7 @@ public class AxisAngleConversion
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
@@ -236,7 +236,7 @@ public class AxisAngleConversion
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rx the x-component of the rotation vector to use in the conversion.
     * @param ry the y-component of the rotation vector to use in the conversion.
     * @param rz the z-component of the rotation vector to use in the conversion.
@@ -286,7 +286,7 @@ public class AxisAngleConversion
     * representation is: <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
-    * 
+    *
     * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
@@ -315,7 +315,7 @@ public class AxisAngleConversion
     * representation is: <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
-    * 
+    *
     * @param yaw the yaw angle to use in the conversion.
     * @param pitch the pitch angle to use in the conversion.
     * @param roll the roll angle to use in the conversion.

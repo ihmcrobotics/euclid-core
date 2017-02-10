@@ -429,7 +429,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       { // Test set(Matrix3DReadOnly rotationScaleMatrix, TupleReadOnly translation)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
-         actual.set((Matrix3DReadOnly<?>) rotationMatrix, translation);
+         actual.set(rotationMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
             for (int column = 0; column < 3; column++)
@@ -755,7 +755,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
 
-         transform.setRotationYawPitchRoll(new double[]{yaw, pitch, roll});
+         transform.setRotationYawPitchRoll(new double[] {yaw, pitch, roll});
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }

@@ -45,9 +45,9 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({Point3DTest.class, Point3D32Test.class, Point2DTest.class, Point2D32Test.class, Vector3DTest.class, Vector3D32Test.class,
-      Vector2DTest.class, Vector2D32Test.class, Vector4DTest.class, Vector4D32Test.class, AxisAngleTest.class, AxisAngle32Test.class, QuaternionTest.class, Quaternion32Test.class,
-      Matrix3DTest.class, RotationMatrixTest.class, RotationScaleMatrixTest.class, RigidBodyTransformTest.class, QuaternionBasedTransformTest.class,
-      AffineTransformTest.class,
+      Vector2DTest.class, Vector2D32Test.class, Vector4DTest.class, Vector4D32Test.class, AxisAngleTest.class, AxisAngle32Test.class, QuaternionTest.class,
+      Quaternion32Test.class, Matrix3DTest.class, RotationMatrixTest.class, RotationScaleMatrixTest.class, RigidBodyTransformTest.class,
+      QuaternionBasedTransformTest.class, AffineTransformTest.class,
 
       // Tools tests
       GeometryBasicsToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class, RotationScaleMatrixToolsTest.class,

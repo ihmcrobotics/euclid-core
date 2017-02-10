@@ -12,12 +12,12 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 /**
  * Class used to represent generic quaternions.
  * <p>
- * This version of 4D vector uses double precision fields to save the value of each component. It
- * is meant for garbage free usage and for situations where heap memory is limited. When memory is
- * not a constraint, the use of {@link Vector2D32} is preferable.
+ * This version of 4D vector uses double precision fields to save the value of each component. It is
+ * meant for garbage free usage and for situations where heap memory is limited. When memory is not
+ * a constraint, the use of {@link Vector2D32} is preferable.
  * </p>
- * 
- * 
+ *
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -56,8 +56,8 @@ public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D32>
    }
 
    /**
-    * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z},
-    * {@code s} in order from the given array.
+    * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z}, {@code s}
+    * in order from the given array.
     *
     * @param pointArray the array containing this vector's components. Not modified.
     */
@@ -82,7 +82,7 @@ public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D32>
     * this.xyz = vector3D<br>
     * this.s = 0.0
     * </p>
-    * 
+    *
     * @param vector3D the 3D vector used to set this 4D vector. Not modified.
     */
    public Vector4D32(Vector3DReadOnly<?> vector3D)
@@ -96,7 +96,7 @@ public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D32>
     * this.xyz = point3D<br>
     * this.s = 1.0
     * </p>
-    * 
+    *
     * @param point3D the 3D point used to set this 4D vector. Not modified.
     */
    public Vector4D32(Point3DReadOnly<?> point3D)
@@ -191,7 +191,7 @@ public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D32>
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
     * returns {@link #equals(Vector4D)}, it returns {@code false} otherwise.
-    * 
+    *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
     */
@@ -210,7 +210,7 @@ public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D32>
 
    /**
     * Provides a {@code String} representation of this 4D vector as follows: (x, y, z, s).
-    * 
+    *
     * @return the {@code String} representing this 4D vector.
     */
    @Override
@@ -221,7 +221,7 @@ public class Vector4D32 implements Serializable, Vector4DBasics<Vector4D32>
 
    /**
     * Calculates and returns a hash code value from the value of each component of this 4D vector.
-    * 
+    *
     * @return the hash code value for this 4D vector.
     */
    @Override

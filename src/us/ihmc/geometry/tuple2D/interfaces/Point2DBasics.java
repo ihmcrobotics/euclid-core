@@ -27,7 +27,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * translated.
  * </ul>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  * @param <T> The final type of the point used.
@@ -44,7 +44,7 @@ public interface Point2DBasics<T extends Point2DBasics<T>> extends Tuple2DBasics
     * <li>{@link AffineTransform} scales, rotates, then translates a point.
     * </ul>
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this point. Not modified.
     * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
     *            transformation in the XY plane.
@@ -65,13 +65,14 @@ public interface Point2DBasics<T extends Point2DBasics<T>> extends Tuple2DBasics
     * <li>{@link AffineTransform} scales, rotates, then translates a point.
     * </ul>
     * </p>
-    * 
+    *
     * @param transform the geometric transform to apply on this point. Not modified.
     * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
     *           the given transform represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     *            part of {@code transform} is not a transformation in the XY plane.
     */
+   @Override
    default void applyTransform(Transform transform, boolean checkIfTransformInXYplane)
    {
       transform.transform(this, checkIfTransformInXYplane);

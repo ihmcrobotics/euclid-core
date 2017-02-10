@@ -7,7 +7,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
  * {@code RuntimeException} dedicated to operations where a matrix needs to be inverted. Typically,
  * this corresponds to when a matrix is singular, i.e. its determinant is equal to zero, making
  * impossible to compute its inverse.
- * 
+ *
  * @author Sylvain
  *
  */

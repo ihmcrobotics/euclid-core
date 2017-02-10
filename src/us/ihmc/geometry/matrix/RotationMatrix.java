@@ -38,7 +38,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * inherent properties of a rotation matrix and to minimize manipulation errors resulting in an
  * improper rotation matrix.
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  *
  */
@@ -75,7 +75,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Creates a new rotation matrix and initializes it from the given 9 coefficients.
-    * 
+    *
     * @param m00 the 1st row 1st column coefficient for this matrix.
     * @param m01 the 1st row 2nd column coefficient for this matrix.
     * @param m02 the 1st row 3rd column coefficient for this matrix.
@@ -94,13 +94,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Creates a new rotation matrix and initializes it from the given array.
-    * 
+    *
     * <pre>
     *        / rotationMatrixArray[0]  rotationMatrixArray[1]  rotationMatrixArray[2] \
     * this = | rotationMatrixArray[3]  rotationMatrixArray[4]  rotationMatrixArray[5] |
     *        \ rotationMatrixArray[6]  rotationMatrixArray[7]  rotationMatrixArray[8] /
     * </pre>
-    * 
+    *
     * @param rotationMatrixArray the array containing the values for this matrix. Not modified.
     * @throws NotARotationMatrixException if the resulting matrix is not a rotation matrix.
     */
@@ -111,7 +111,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Creates a new rotation matrix that is the same as {@code rotationMatrix}.
-    * 
+    *
     * @param rotationMatrix the other 3D matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the resulting matrix is not a rotation matrix.
     */
@@ -122,7 +122,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Creates a new rotation matrix that is the same as {@code rotationMatrix}.
-    * 
+    *
     * @param rotationMatrix the other 3D matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the resulting matrix is not a rotation matrix.
     */
@@ -133,7 +133,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Creates a new rotation matrix that is the same as {@code other}.
-    * 
+    *
     * @param other the other 3D matrix to copy the values from. Not modified.
     */
    public RotationMatrix(RotationMatrixReadOnly<?> other)
@@ -144,7 +144,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Creates a new rotation matrix representing the same orientation as the given
     * {@code axisAngle}.
-    * 
+    *
     * @param axisAngle the axis-angle used to initialize this rotation matrix. Not modified.
     */
    public RotationMatrix(AxisAngleReadOnly<?> axisAngle)
@@ -155,7 +155,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Creates a new rotation matrix representing the same orientation as the given
     * {@code quaternion}.
-    * 
+    *
     * @param quaternion the quaternion used to initialize this rotation matrix. Not modified.
     */
    public RotationMatrix(QuaternionReadOnly<?> quaternion)
@@ -171,7 +171,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVector the rotation vector used to initialize this rotation matrix. Not
     *           modified.
     */
@@ -198,7 +198,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Transposes this matrix: m = m<sup>T</sup>.
-    * 
+    *
     */
    public void transpose()
    {
@@ -225,7 +225,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * {@link #set(double, double, double, double, double, double, double, double, double)} or
     * {@link #setAndNormalize(double, double, double, double, double, double, double, double, double)}.
     * </p>
-    * 
+    *
     * @param m00 the new 1st row 1st column coefficient for this matrix.
     * @param m01 the new 1st row 2nd column coefficient for this matrix.
     * @param m02 the new 1st row 3rd column coefficient for this matrix.
@@ -253,7 +253,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * {@inheritDoc}
-    * 
+    *
     * @throws NotARotationMatrixException if the resulting matrix is not a rotation matrix.
     */
    @Override
@@ -265,7 +265,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets the 9 coefficients of this rotation matrix and then normalizes {@code this}.
-    * 
+    *
     * @param m00 the new 1st row 1st column coefficient for this matrix.
     * @param m01 the new 1st row 2nd column coefficient for this matrix.
     * @param m02 the new 1st row 3rd column coefficient for this matrix.
@@ -285,7 +285,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets this rotation matrix to equal the given one {@code other}.
-    * 
+    *
     * @param other the other rotation matrix to copy the values from. Not modified.
     */
    @Override
@@ -296,7 +296,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets this rotation matrix to equal the given one {@code other}.
-    * 
+    *
     * @param other the other rotation matrix to copy the values from. Not modified.
     */
    public void set(RotationMatrixReadOnly<?> other)
@@ -315,7 +315,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to equal the 3D matrix {@code matrix} and then normalizes
     * {@code this}.
-    * 
+    *
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
     */
@@ -336,7 +336,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to equal the other given one {@code other} and then normalizes
     * {@code this}.
-    * 
+    *
     * @param other the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
     */
@@ -353,7 +353,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
-    * 
+    *
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if {@code matrix} is not a rotation matrix.
     */
@@ -369,7 +369,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * R<sup>-1</sup> = R<sup>T</sup> </br>
     * of a rotation matrix preventing to actually compute the inverse of the matrix.
     * </p>
-    * 
+    *
     * @param other the matrix to copy the values from. Not modified.
     */
    public void setAndInvert(RotationMatrixReadOnly<?> other)
@@ -379,7 +379,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets this rotation matrix to the transpose of the given {@code matrix}.
-    * 
+    *
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if {@code matrix} is not a rotation matrix.
     */
@@ -391,7 +391,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets this rotation matrix to the transpose of the given {@code other}.
-    * 
+    *
     * @param other the matrix to copy the values from. Not modified.
     */
    public void setAndTranspose(RotationMatrixReadOnly<?> other)
@@ -402,7 +402,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets this rotation matrix to the same orientation described by the given {@code axisAngle}.
-    * 
+    *
     * @param axisAngle the axis-angle used to set this matrix. Not modified.
     */
    public void set(AxisAngleReadOnly<?> axisAngle)
@@ -412,7 +412,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Sets this rotation matrix to the same orientation described by the given {@code quaternion}.
-    * 
+    *
     * @param quaternion the quaternion used to set this matrix. Not modified.
     */
    public void set(QuaternionReadOnly<?> quaternion)
@@ -428,7 +428,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotation vector the rotation vector used to set this matrix. Not modified.
     */
    public void set(Vector3DReadOnly<?> rotationVector)
@@ -439,13 +439,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to represent a counter clockwise rotation around the z-axis of an
     * angle {@code yaw}.
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \
     * this = | sin(yaw)  cos(yaw) 0 |
     *        \    0         0     1 /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    public void setToYawMatrix(double yaw)
@@ -456,13 +456,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to represent a counter clockwise rotation around the y-axis of an
     * angle {@code pitch}.
-    * 
+    *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      |
     *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    public void setToPitchMatrix(double pitch)
@@ -473,13 +473,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to represent a counter clockwise rotation around the x-axis of an
     * angle {@code roll}.
-    * 
+    *
     * <pre>
     *        / 1     0          0     \
     * this = | 0 cos(roll) -sin(roll) |
     *        \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    public void setToRollMatrix(double roll)
@@ -490,13 +490,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
     * {@code yawPitchRoll}.
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
     *           modified.
     */
@@ -508,13 +508,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
     * {@code yaw}, {@code pitch}, and {@code roll}.
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
     * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
     *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -527,7 +527,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to represent the same orientation as the given Euler angles
     * {@code eulerAngles}.
-    * 
+    *
     * <pre>
     *        / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
     * this = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
@@ -537,7 +537,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * This is equivalent to
     * {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
     * </p>
-    * 
+    *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
    public void setEuler(Vector3DReadOnly<?> eulerAngles)
@@ -548,7 +548,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    /**
     * Sets this rotation matrix to represent the same orientation as the given Euler angles
     * {@code rotX}, {@code rotY}, and {@code rotZ}.
-    * 
+    *
     * <pre>
     *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
     * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
@@ -557,7 +557,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * This is equivalent to {@code this.setYawPitchRoll(rotZ, rotY, rotX)}.
     * </p>
-    * 
+    *
     * @param rotX the angle to rotate about the x-axis.
     * @param rotY the angle to rotate about the y-axis.
     * @param rotZ the angle to rotate about the z-axis.
@@ -588,7 +588,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * this = this * other
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiply(RotationMatrixReadOnly<?> other)
@@ -602,7 +602,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * this = this * R(quaternion) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
    public void multiply(QuaternionReadOnly<?> quaternion)
@@ -615,7 +615,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * this = this<sup>T</sup> * other
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiplyTransposeThis(RotationMatrixReadOnly<?> other)
@@ -629,7 +629,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * this = this<sup>T</sup> * R(quaternion) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
    public void multiplyTransposeThis(QuaternionReadOnly<?> quaternion)
@@ -642,7 +642,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * this = this * other<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiplyTransposeOther(RotationMatrixReadOnly<?> other)
@@ -656,7 +656,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * this = this * R(quaternion*) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
    public void multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion)
@@ -669,7 +669,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * this = this<sup>T</sup> * other<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void multiplyTransposeBoth(RotationMatrixReadOnly<?> other)
@@ -683,7 +683,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * this = this<sup>T</sup> * R(quaternion*) <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
    public void multiplyTransposeThisConjugateQuaternion(QuaternionReadOnly<?> quaternion)
@@ -696,7 +696,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * this = other * this
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiply(RotationMatrixReadOnly<?> other)
@@ -710,7 +710,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * this = R(quaternion) * this <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
    public void preMultiply(QuaternionReadOnly<?> quaternion)
@@ -723,7 +723,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * this = other * this<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyTransposeThis(RotationMatrixReadOnly<?> other)
@@ -737,7 +737,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * this = R(quaternion) * this<sup>T</sup> <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
    public void preMultiplyTransposeThis(QuaternionReadOnly<?> quaternion)
@@ -750,7 +750,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * this = other<sup>T</sup> * this
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyTransposeOther(RotationMatrixReadOnly<?> other)
@@ -764,7 +764,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * this = R(quaternion*) * this <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
    public void preMultiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion)
@@ -777,7 +777,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * this = other<sup>T</sup> * this<sup>T</sup>
     * </p>
-    * 
+    *
     * @param other the other matrix to multiply this by. Not modified.
     */
    public void preMultiplyTransposeBoth(RotationMatrixReadOnly<?> other)
@@ -791,7 +791,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * this = R(quaternion*) * this<sup>T</sup> <br>
     * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
     * </p>
-    * 
+    *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
    public void preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly<?> quaternion)
@@ -824,7 +824,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param rotationVectorToPack the rotation vector representing the same orientation as this.
     *           Modified.
     */
@@ -839,7 +839,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
    public void getEuler(Tuple3DBasics<?> eulerAnglesToPack)
@@ -854,7 +854,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
     */
    public void getYawPitchRoll(double[] yawPitchRollToPack)
@@ -869,7 +869,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the yaw angle around the z-axis.
     */
    public double getYaw()
@@ -884,7 +884,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the pitch angle around the y-axis.
     */
    public double getPitch()
@@ -899,7 +899,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
     * </p>
-    * 
+    *
     * @return the roll angle around the x-axis.
     */
    public double getRoll()
@@ -974,7 +974,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * Tests if the given {@code object}'s class is the same as this, in which case the method
     * returns {@link #equals(RotationMatrix)}, it returns {@code false} otherwise or if the
     * {@code object} is {@code null}.
-    * 
+    *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
     */
@@ -996,7 +996,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * <p>
     * The method returns {@code false} if the given matrix is {@code null}.
     * </p>
-    * 
+    *
     * @param other the other matrix to compare against this. Not modified.
     * @return {@code true} if the two matrices are exactly equal component-wise, {@code false}
     *         otherwise.
@@ -1011,7 +1011,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * m00, m01, m02 <br>
     * m10, m11, m12 <br>
     * m20, m21, m22
-    * 
+    *
     * @return the {@code String} representing this matrix.
     */
    @Override
@@ -1022,7 +1022,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
 
    /**
     * Calculates and returns a hash code value from the value of each component of this matrix.
-    * 
+    *
     * @return the hash code value for this matrix.
     */
    @Override

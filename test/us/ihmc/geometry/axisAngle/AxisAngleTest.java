@@ -8,16 +8,11 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
-import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
-import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 
 public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
 {
@@ -41,7 +36,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
          {
             axisAngle = expected = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
 
-            AxisAngle axisAngle2 = new AxisAngle((AxisAngleReadOnly<AxisAngle>) axisAngle);
+            AxisAngle axisAngle2 = new AxisAngle(axisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, axisAngle2, EPS);
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
@@ -102,9 +97,9 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
             Quaternion quaternion, quaternionCopy;
             quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
 
-            axisAngle = new AxisAngle((QuaternionReadOnly<?>) quaternion);
+            axisAngle = new AxisAngle(quaternion);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, (AxisAngleBasics<?>) expectedAxisAngle);
+            AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
             GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
@@ -123,7 +118,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
 
             axisAngle = new AxisAngle(matrix);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly<?>) matrix, (AxisAngleBasics<?>) expectedAxisAngle);
+            AxisAngleConversion.convertMatrixToAxisAngle(matrix, expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
 
@@ -141,7 +136,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
 
             axisAngle = new AxisAngle(rotationVector);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertRotationVectorToAxisAngle((Vector3DReadOnly<?>) rotationVector, (AxisAngleBasics<?>) expectedAxisAngle);
+            AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
             GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
@@ -155,7 +150,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
 
             axisAngle = new AxisAngle(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
             AxisAngle expectedAxisAngle = new AxisAngle();
-            AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, (AxisAngleBasics<?>) expectedAxisAngle);
+            AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, expectedAxisAngle);
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
          }

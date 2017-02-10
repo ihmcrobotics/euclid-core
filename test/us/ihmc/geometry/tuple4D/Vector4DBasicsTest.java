@@ -75,7 +75,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics<T>> extends Tu
             assertEquals(tuple.get(index), point3D.get(index), getEpsilon());
          assertTrue(tuple.getS() == 1.0);
       }
-      
+
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T tuple = createEmptyTuple();

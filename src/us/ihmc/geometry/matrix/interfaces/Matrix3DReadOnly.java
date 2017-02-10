@@ -19,7 +19,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
 /**
  * Read-only interface for any type of 3-by-3 matrices.
- * 
+ *
  * @author Sylvain
  *
  * @param <T> the final type of matrix used.
@@ -28,70 +28,70 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 {
    /**
     * Gets the 1st row 1st column coefficient of this matrix.
-    * 
+    *
     * @return the 1st row 1st column coefficient.
     */
    double getM00();
 
    /**
     * Gets the 1st row 2nd column coefficient of this matrix.
-    * 
+    *
     * @return the 1st row 2nd column coefficient.
     */
    double getM01();
 
    /**
     * Gets the 1st row 3rd column coefficient of this matrix.
-    * 
+    *
     * @return the 1st row 3rd column coefficient.
     */
    double getM02();
 
    /**
     * Gets the 2nd row 1st column coefficient of this matrix.
-    * 
+    *
     * @return the 2nd row 1st column coefficient.
     */
    double getM10();
 
    /**
     * Gets the 2nd row 2nd column coefficient of this matrix.
-    * 
+    *
     * @return the 2nd row 2nd column coefficient.
     */
    double getM11();
 
    /**
     * Gets the 2nd row 3rd column coefficient of this matrix.
-    * 
+    *
     * @return the 2nd row 3rd column coefficient.
     */
    double getM12();
 
    /**
     * Gets the 3rd row 1st column coefficient of this matrix.
-    * 
+    *
     * @return the 3rd row 1st column coefficient.
     */
    double getM20();
 
    /**
     * Gets the 3rd row 2nd column coefficient of this matrix.
-    * 
+    *
     * @return the 3rd row 2nd column coefficient.
     */
    double getM21();
 
    /**
     * Gets the 3rd row 3rd column coefficient of this matrix.
-    * 
+    *
     * @return the 3rd row 3rd column coefficient.
     */
    double getM22();
 
    /**
     * Retrieves and returns a coefficient of this matrix given its row and column indices.
-    * 
+    *
     * @param row the row of the coefficient to return.
     * @param column the column of the coefficient to return.
     * @return the coefficient's value.
@@ -147,7 +147,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Packs the coefficients of this matrix into a row-major 1D array.
-    * 
+    *
     * @param matrixArrayToPack the array in which the coefficients of this matrix are stored.
     *           Modified.
     */
@@ -167,7 +167,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    /**
     * Packs the coefficients of this matrix into a row-major 1D array starting at the given index
     * {@code startIndex}.
-    * 
+    *
     * @param startIndex index in the array to store the first coefficient of this matrix.
     * @param matrixArrayToPack the array in which the coefficients of this matrix are stored.
     *           Modified.
@@ -187,7 +187,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Packs the coefficients of this matrix into a dense-matrix.
-    * 
+    *
     * @param matrixToPack the dense-matrix in which the coefficients of this matrix are stored.
     *           Modified.
     */
@@ -207,7 +207,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    /**
     * Packs the coefficients of this matrix into a dense-matrix given index offsets for the row and
     * the column.
-    * 
+    *
     * @param startRow the first row index to start writing in the dense-matrix.
     * @param startColumn the first column index to start writing in the dense-matrix.
     * @param matrixToPack the dense-matrix in which the coefficients of this matrix are stored.
@@ -232,7 +232,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Packs a column of this matrix into an array.
-    * 
+    *
     * @param column the index of the column to pack.
     * @param columnArrayToPack the array in which the column of this matrix is stored. Modified.
     * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
@@ -263,7 +263,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Packs a column of this matrix into a 3D tuple.
-    * 
+    *
     * @param column the index of the column to pack.
     * @param columnToPack the tuple in which the column of this matrix is stored. Modified.
     * @throws ArrayIndexOutOfBoundsException if {@code column} &notin; [0, 2].
@@ -294,7 +294,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Packs a row of this matrix into an array.
-    * 
+    *
     * @param row the index of the row to pack.
     * @param rowArrayToPack the array in which the row of this matrix is stored. Modified.
     * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
@@ -325,7 +325,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Packs a row of this matrix into a 3D tuple.
-    * 
+    *
     * @param row the index of the row to pack.
     * @param rowToPack the array in which the row of this matrix is stored. Modified.
     * @throws ArrayIndexOutOfBoundsException if {@code row} &notin; [0, 2].
@@ -356,7 +356,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Tests if at least one element of this matrix is equal to {@linkplain Double#NaN}.
-    * 
+    *
     * @return {@code true} if at least one element of this matrix is equal to
     *         {@linkplain Double#NaN}, {@code false} otherwise.
     */
@@ -367,7 +367,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Computes the determinant of this matrix.
-    * 
+    *
     * @return the determinant of this matrix.
     */
    default double determinant()
@@ -388,7 +388,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * {@link Matrix3DFeatures#EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @throws NotARotationMatrixException if the matrix is not a rotation matrix.
     */
    default void checkIfRotationMatrix()
@@ -408,7 +408,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
     * </ul>
     * </p>
-    * 
+    *
     * @throws NotAMatrix2DException if the matrix represents a 3D transformation.
     */
    default void checkIfMatrix2D()
@@ -423,7 +423,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * The assertion is done on a per coefficient basis using
     * {@link Matrix3DFeatures#EPS_CHECK_IDENTITY} as the tolerance.
     * </p>
-    * 
+    *
     * @param epsilon the tolerance as shown above.
     * @return {@code true} if the given matrix is considered to be equal to the identity matrix,
     *         {@code false} otherwise.
@@ -438,7 +438,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * The assertion is done on a per coefficient basis using {@code epsilon} as the tolerance.
     * </p>
-    * 
+    *
     * @param epsilon the tolerance as shown above.
     * @return {@code true} if the given matrix is considered to be equal to the identity matrix,
     *         {@code false} otherwise.
@@ -461,7 +461,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * {@link Matrix3DFeatures#EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
-    * 
+    *
     * @return {@code true} if this matrix is a rotation matrix, {@code false} otherwise.
     */
    default boolean isRotationMatrix()
@@ -479,7 +479,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <li>the determinant of the matrix is equal to 1.0 +/- {@code epsilon}.
     * </ul>
     * </p>
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @return {@code true} if this matrix is a rotation matrix, {@code false} otherwise.
     */
@@ -490,7 +490,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Tests if this matrix describes transformation in the XY plane.
-    * 
+    *
     * <p>
     * This matrix is considered to be a 2D transformation in the XY plane if:
     * <ul>
@@ -500,7 +500,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
     * </ul>
     * </p>
-    * 
+    *
     * @return {@code true} if the given matrix describes a 2D transformation in the XY plane,
     *         {@code false} otherwise.
     */
@@ -511,7 +511,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Tests if this matrix describes transformation in the XY plane.
-    * 
+    *
     * <p>
     * This matrix is considered to be a 2D transformation in the XY plane if:
     * <ul>
@@ -520,7 +520,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * +/- {@code epsilon}.
     * </ul>
     * </p>
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @return {@code true} if the given matrix describes a 2D transformation in the XY plane,
     *         {@code false} otherwise.
@@ -532,13 +532,13 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Tests if this matrix is skew symmetric:
-    * 
+    *
     * <pre>
     *     |  0 -z  y |
     * m = |  z  0 -x |
     *     | -y  x  0 |
     * </pre>
-    * 
+    *
     * <p>
     * This matrix is considered to be skew symmetric if:
     * <ul>
@@ -548,7 +548,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * {@link Matrix3DFeatures#EPS_CHECK_SKEW}.
     * </ul>
     * </p>
-    * 
+    *
     * @return {@code true} if the matrix is skew symmetric, {@code false} otherwise.
     */
    default boolean isMatrixSkewSymmetric()
@@ -558,13 +558,13 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
 
    /**
     * Tests if this matrix is skew symmetric:
-    * 
+    *
     * <pre>
     *     |  0 -z  y |
     * m = |  z  0 -x |
     *     | -y  x  0 |
     * </pre>
-    * 
+    *
     * <p>
     * This matrix is considered to be skew symmetric if:
     * <ul>
@@ -574,7 +574,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * {@code epsilon}.
     * </ul>
     * </p>
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @return {@code true} if the matrix is skew symmetric, {@code false} otherwise.
     */
@@ -588,7 +588,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleToTransform = this * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     */
    default void transform(Tuple3DBasics<?> tupleToTransform)
@@ -602,7 +602,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleTransformed = this * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
@@ -613,7 +613,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleToTransform = tupleToTransform + this * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     */
    default void addTransform(Tuple3DBasics<?> tupleToTransform)
@@ -627,7 +627,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleTransformed = tupleTransformed + this * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to add the result to. Modified.
     */
@@ -638,7 +638,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleToTransform = this * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY
     *            plane.
@@ -654,7 +654,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleTransformed = this * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY
@@ -670,7 +670,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleToTransform = this * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents
     *           a transformation in the XY plane.
@@ -688,7 +688,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleTransformed = this * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents
@@ -703,7 +703,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * matrixToTransform = this * matrixToTransform * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param matrixToTransform the matrix to transform. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
@@ -718,7 +718,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * matrixTransformed = this * matrixOriginal * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
@@ -731,7 +731,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * vectorToTransform.s = vectorToTransform.s <br>
     * vectorToTransform.xyz = this * vectorToTransform.xyz
     * </p>
-    * 
+    *
     * @param vectorToTransform the vector to transform. Modified.
     */
    default void transform(Vector4DBasics<?> vectorToTransform)
@@ -746,7 +746,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * vectorTransformed.s = vectorOriginal.s <br>
     * vectorTransformed.xyz = this * vectorOriginal.xyz
     * </p>
-    * 
+    *
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
@@ -757,7 +757,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleToTransform = this<sup>-1</sup> * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
@@ -772,7 +772,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
@@ -784,7 +784,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleToTransform = this<sup>-1</sup> * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY
     *            plane.
@@ -801,7 +801,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY
@@ -818,7 +818,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleToTransform = this<sup>-1</sup> * tupleToTransform
     * </p>
-    * 
+    *
     * @param tupleToTransform the tuple to transform. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents
     *           a transformation in the XY plane.
@@ -837,7 +837,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
-    * 
+    *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents
@@ -854,7 +854,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * matrixToTransform = this<sup>-1</sup> * matrixToTransform * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param matrixToTransform the matrix to transform. Not modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
@@ -869,7 +869,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * <p>
     * matrixTransformed = this<sup>-1</sup> * matrixOriginal * this<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
@@ -882,7 +882,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * vectorToTransform.s = vectorToTransform.s <br>
     * vectorToTransform.xyz = this<sup>-1</sup> * vectorToTransform.xyz
     * </p>
-    * 
+    *
     * @param vectorToTransform the vector to transform. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
@@ -898,7 +898,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * vectorTransformed.s = vectorOriginal.s <br>
     * vectorTransformed.xyz = this<sup>-1</sup> * vectorOriginal.xyz
     * </p>
-    * 
+    *
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
@@ -908,11 +908,12 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
    /**
     * Tests on a per coefficient basis if this matrix is equal to the given {@code other} to an
     * {@code epsilon}.
-    * 
+    *
     * @param other the other matrix to compare against this. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two matrices are equal, {@code false} otherwise.
     */
+   @Override
    default boolean epsilonEquals(T other, double epsilon)
    {
       double diff;
