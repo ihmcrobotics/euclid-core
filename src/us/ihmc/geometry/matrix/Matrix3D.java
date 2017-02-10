@@ -837,7 +837,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
          return;
 
       default:
-         throw Matrix3DReadOnlyTools.rowOutOfBoundsException(2, row);
+         throw Matrix3DTools.rowOutOfBoundsException(2, row);
       }
    }
 
@@ -899,7 +899,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
          break;
 
       default:
-         throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+         throw Matrix3DTools.columnOutOfBoundsException(2, column);
       }
    }
 
@@ -933,7 +933,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
          return;
 
       default:
-         throw Matrix3DReadOnlyTools.rowOutOfBoundsException(2, row);
+         throw Matrix3DTools.rowOutOfBoundsException(2, row);
       }
    }
 
@@ -967,7 +967,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
          break;
 
       default:
-         throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+         throw Matrix3DTools.columnOutOfBoundsException(2, column);
       }
    }
 
@@ -997,7 +997,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
             setM02(value);
             return;
          default:
-            throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+            throw Matrix3DTools.columnOutOfBoundsException(2, column);
          }
 
       case 1:
@@ -1013,7 +1013,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
             setM12(value);
             return;
          default:
-            throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+            throw Matrix3DTools.columnOutOfBoundsException(2, column);
          }
 
       case 2:
@@ -1029,11 +1029,11 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
             setM22(value);
             return;
          default:
-            throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+            throw Matrix3DTools.columnOutOfBoundsException(2, column);
          }
 
       default:
-         throw Matrix3DReadOnlyTools.rowOutOfBoundsException(2, row);
+         throw Matrix3DTools.rowOutOfBoundsException(2, row);
       }
    }
 

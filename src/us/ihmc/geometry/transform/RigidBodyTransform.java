@@ -9,7 +9,6 @@ import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.Matrix3D;
-import us.ihmc.geometry.matrix.Matrix3DReadOnlyTools;
 import us.ihmc.geometry.matrix.Matrix3DTools;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
@@ -1600,7 +1599,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
          }
          else
          {
-            throw Matrix3DReadOnlyTools.columnOutOfBoundsException(3, column);
+            throw Matrix3DTools.columnOutOfBoundsException(3, column);
          }
       }
       else if (row < 4)
@@ -1615,12 +1614,12 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
          }
          else
          {
-            throw Matrix3DReadOnlyTools.columnOutOfBoundsException(3, column);
+            throw Matrix3DTools.columnOutOfBoundsException(3, column);
          }
       }
       else
       {
-         throw Matrix3DReadOnlyTools.rowOutOfBoundsException(3, row);
+         throw Matrix3DTools.rowOutOfBoundsException(3, row);
       }
    }
 

@@ -17,7 +17,6 @@ import us.ihmc.geometry.axisAngle.AxisAngle32Test;
 import us.ihmc.geometry.axisAngle.AxisAngleConversionTest;
 import us.ihmc.geometry.axisAngle.AxisAngleTest;
 import us.ihmc.geometry.matrix.Matrix3DFeaturesTest;
-import us.ihmc.geometry.matrix.Matrix3DReadOnlyToolsTest;
 import us.ihmc.geometry.matrix.Matrix3DTest;
 import us.ihmc.geometry.matrix.Matrix3DToolsTest;
 import us.ihmc.geometry.matrix.RotationMatrixConversionTest;
@@ -50,8 +49,8 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
       AffineTransformTest.class,
 
       // Tools tests
-      GeometryBasicsToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class, Matrix3DReadOnlyToolsTest.class,
-      RotationScaleMatrixToolsTest.class, TupleToolsTest.class,
+      GeometryBasicsToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class, RotationScaleMatrixToolsTest.class,
+      TupleToolsTest.class,
 
       // Conversion tests
       AxisAngleConversionTest.class, RotationVectorConversionTest.class, QuaternionConversionTest.class, RotationMatrixConversionTest.class,

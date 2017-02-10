@@ -9,7 +9,7 @@ import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
-import us.ihmc.geometry.matrix.Matrix3DReadOnlyTools;
+import us.ihmc.geometry.matrix.Matrix3DTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
@@ -112,7 +112,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
          case 2:
             return getM02();
          default:
-            throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+            throw Matrix3DTools.columnOutOfBoundsException(2, column);
          }
       case 1:
          switch (column)
@@ -124,7 +124,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
          case 2:
             return getM12();
          default:
-            throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+            throw Matrix3DTools.columnOutOfBoundsException(2, column);
          }
 
       case 2:
@@ -137,11 +137,11 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
          case 2:
             return getM22();
          default:
-            throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+            throw Matrix3DTools.columnOutOfBoundsException(2, column);
          }
 
       default:
-         throw Matrix3DReadOnlyTools.rowOutOfBoundsException(2, row);
+         throw Matrix3DTools.rowOutOfBoundsException(2, row);
       }
    }
 
@@ -257,7 +257,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
          columnArrayToPack[2] = getM22();
          return;
       default:
-         throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+         throw Matrix3DTools.columnOutOfBoundsException(2, column);
       }
    }
 
@@ -288,7 +288,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
          columnToPack.setZ(getM22());
          return;
       default:
-         throw Matrix3DReadOnlyTools.columnOutOfBoundsException(2, column);
+         throw Matrix3DTools.columnOutOfBoundsException(2, column);
       }
    }
 
@@ -319,7 +319,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
          rowArrayToPack[2] = getM22();
          return;
       default:
-         throw Matrix3DReadOnlyTools.rowOutOfBoundsException(2, row);
+         throw Matrix3DTools.rowOutOfBoundsException(2, row);
       }
    }
 
@@ -350,7 +350,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
          rowToPack.setZ(getM22());
          return;
       default:
-         throw Matrix3DReadOnlyTools.rowOutOfBoundsException(2, row);
+         throw Matrix3DTools.rowOutOfBoundsException(2, row);
       }
    }
 

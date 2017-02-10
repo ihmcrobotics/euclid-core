@@ -11,6 +11,7 @@ import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.junit.Test;
 
+import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
@@ -220,7 +221,6 @@ public class Matrix3DFeaturesTest
       double m20 = matrix.getM20();
       double m21 = matrix.getM21();
       double m22 = matrix.getM22();
-      String matrixAsString = Matrix3DReadOnlyTools.toString(m00, m01, m02, m10, m11, m12, m20, m21, m22);
 
       try
       {
@@ -233,7 +233,7 @@ public class Matrix3DFeaturesTest
          if (isRotationMatrix)
             throw e;
          // else it is good
-         assertTrue(e.getMessage().equals("The matrix is not a rotation matrix: \n" + matrixAsString));
+         assertTrue(e.getMessage().equals("The matrix is not a rotation matrix: \n" + matrix));
       }
       assertTrue(Matrix3DFeatures.isRotationMatrix(m00, m01, m02, m10, m11, m12, m20, m21, m22) == isRotationMatrix);
 
@@ -248,7 +248,7 @@ public class Matrix3DFeaturesTest
          if (isRotationMatrix)
             throw e;
          // else it is good
-         assertTrue(e.getMessage().equals("The matrix is not a rotation matrix: \n" + matrixAsString));
+         assertTrue(e.getMessage().equals("The matrix is not a rotation matrix: \n" + matrix));
       }
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
@@ -269,7 +269,7 @@ public class Matrix3DFeaturesTest
          if (isRotationMatrix)
             throw e;
          // else it is good
-         assertTrue(e.getMessage().contains("The matrix is not a rotation matrix: \n" + matrixAsString));
+         assertTrue(e.getMessage().contains("The matrix is not a rotation matrix: \n" + matrix));
       }
       for (int index = 0; index < denseMatrix.getNumElements(); index++)
          assertTrue(denseMatrix.get(index) == denseMatrixCopy.get(index));
@@ -286,7 +286,7 @@ public class Matrix3DFeaturesTest
          if (isRotationMatrix)
             throw e;
          // else it is good
-         assertTrue(e.getMessage().contains("The matrix is not a rotation matrix: \n" + matrixAsString));
+         assertTrue(e.getMessage().contains("The matrix is not a rotation matrix: \n" + matrix));
       }
       for (int index = 0; index < 9; index++)
          assertTrue(matrixArray[index] == matrixArrayCopy[index]);
@@ -355,7 +355,7 @@ public class Matrix3DFeaturesTest
       double m20 = matrix.getM20();
       double m21 = matrix.getM21();
       double m22 = matrix.getM22();
-      String matrixAsString = Matrix3DReadOnlyTools.toString(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      String matrixAsString = GeometryBasicsIOTools.getMatrixString(m00, m01, m02, m10, m11, m12, m20, m21, m22);
 
       assertTrue(Matrix3DFeatures.isMatrix2D(m00, m01, m02, m10, m11, m12, m20, m21, m22, Matrix3DFeatures.EPS_CHECK_2D) == isMatrix2D);
 

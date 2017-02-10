@@ -704,4 +704,25 @@ public abstract class Matrix3DTools
       else
          return b > c ? b : c;
    }
+   /**
+    * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad column index.
+    * 
+    * @param column the bad column index.
+    * @return the exception
+    */
+   public static ArrayIndexOutOfBoundsException columnOutOfBoundsException(int maxColumnIndex, int column)
+   {
+      return new ArrayIndexOutOfBoundsException("column should be in [0, " + maxColumnIndex + "], but is: " + column);
+   }
+
+   /**
+    * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad row index.
+    * 
+    * @param row the bad row index.
+    * @return the exception
+    */
+   public static ArrayIndexOutOfBoundsException rowOutOfBoundsException(int maxRowIndex, int row)
+   {
+      return new ArrayIndexOutOfBoundsException("row should be in [0, " + maxRowIndex + "], but is: " + row);
+   }
 }

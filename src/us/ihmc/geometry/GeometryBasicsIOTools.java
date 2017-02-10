@@ -94,9 +94,21 @@ public abstract class GeometryBasicsIOTools
 
    public static String getMatrixString(Matrix3DReadOnly<?> matrix, String format)
    {
-      String ret = getStringOf("/", " \\\n", ", ", format, matrix.getM00(), matrix.getM01(), matrix.getM02());
-      ret += getStringOf("|", " |\n", ", ", format, matrix.getM10(), matrix.getM11(), matrix.getM12());
-      ret += getStringOf("\\", " /", ", ", format, matrix.getM20(), matrix.getM21(), matrix.getM22());
+      return getMatrixString(format, matrix.getM00(), matrix.getM01(), matrix.getM02(), matrix.getM10(), matrix.getM11(), matrix.getM12(), matrix.getM20(),
+                             matrix.getM21(), matrix.getM22());
+   }
+
+   public static String getMatrixString(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      return getMatrixString(DEFAULT_FORMAT, m00, m01, m02, m10, m11, m12, m20, m21, m22);
+   }
+
+   public static String getMatrixString(String format, double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21,
+                                        double m22)
+   {
+      String ret = getStringOf("/", " \\\n", ", ", format, m00, m01, m02);
+      ret += getStringOf("|", " |\n", ", ", format, m10, m11, m12);
+      ret += getStringOf("\\", " /", ", ", format, m20, m21, m22);
       return ret;
    }
 
