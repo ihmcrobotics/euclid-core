@@ -728,9 +728,9 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * y-axis of an angle {@code pitch}.
     *
     * <pre>
-    *        /  cos(pitch) 0 sin(pitch) \
-    * this = |      0      1     0      |
-    *        \ -sin(pitch) 0 cos(pitch) /
+    *     /  cos(pitch) 0 sin(pitch) \
+    * R = |      0      1     0      |
+    *     \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     * <p>
     * This method does not affect the translation part of this transform.
@@ -748,9 +748,9 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * x-axis of an angle {@code roll}.
     *
     * <pre>
-    *        / 1     0          0     \
-    * this = | 0 cos(roll) -sin(roll) |
-    *        \ 0 sin(roll)  cos(roll) /
+    *     / 1     0          0     \
+    * R = | 0 cos(roll) -sin(roll) |
+    *     \ 0 sin(roll)  cos(roll) /
     * </pre>
     * <p>
     * This method does not affect the translation part of this transform.
@@ -834,9 +834,9 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * angles {@code rotX}, {@code rotY}, and {@code rotZ}.
     *
     * <pre>
-    *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
-    * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
-    *        \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
+    *     / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
+    * R = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
+    *     \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
     * </pre>
     * <p>
     * This method does not affect the translation part of this transform.
@@ -1133,6 +1133,14 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    /**
+    * Inverts only the rotation part of this transform, the translation remains unchanged.
+    */
+   public void invertRotation()
+   {
+      rotationMatrix.invert();
+   }
+
+   /**
     * Performs the multiplication of this transform with {@code other}.
     * <p>
     * this = this * other
@@ -1144,6 +1152,63 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    {
       Matrix3DTools.addTransform(rotationMatrix, other.translationVector, translationVector);
       rotationMatrix.multiply(other.rotationMatrix);
+   }
+
+   /**
+    * Append a rotation about the z-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *         / cos(yaw) -sin(yaw) 0 \
+    * R = R * | sin(yaw)  cos(yaw) 0 |
+    *         \    0         0     1 /
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void appendYawRotation(double yaw)
+   {
+      rotationMatrix.appendYawRotation(yaw);
+   }
+
+   /**
+    * Append a rotation about the y-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *         /  cos(pitch) 0 sin(pitch) \
+    * R = R * |      0      1     0      |
+    *         \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void appendPitchRotation(double pitch)
+   {
+      rotationMatrix.appendPitchRotation(pitch);
+   }
+
+   /**
+    * Append a rotation about the x-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *         /  cos(pitch) 0 sin(pitch) \
+    * R = R * |      0      1     0      |
+    *         \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the x-axis.
+    */
+   public void appendRollRotation(double roll)
+   {
+      rotationMatrix.appendRollRotation(roll);
    }
 
    /**

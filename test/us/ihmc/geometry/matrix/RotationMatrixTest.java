@@ -374,6 +374,60 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
    }
 
    @Test
+   public void testAppendYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      RotationMatrix expected = new RotationMatrix();
+      RotationMatrix actual = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendYawRotation(double yaw)
+         RotationMatrix original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix yawRotation = new RotationMatrix();
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         yawRotation.setToYawMatrix(yaw);
+         RotationMatrixTools.multiply(original, yawRotation, expected);
+
+         actual.set(original);
+         actual.appendYawRotation(yaw);
+
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendPitchRotation(double pitch)
+         RotationMatrix original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix pitchRotation = new RotationMatrix();
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         pitchRotation.setToPitchMatrix(pitch);
+         RotationMatrixTools.multiply(original, pitchRotation, expected);
+
+         actual.set(original);
+         actual.appendPitchRotation(pitch);
+
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendRollRotation(double roll)
+         RotationMatrix original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rollRotation = new RotationMatrix();
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         rollRotation.setToRollMatrix(roll);
+         RotationMatrixTools.multiply(original, rollRotation, expected);
+
+         actual.set(original);
+         actual.appendRollRotation(roll);
+
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testSetToYawPitchRollMatrix()
    {
       Random random = new Random(35454L);

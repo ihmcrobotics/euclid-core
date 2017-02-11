@@ -692,6 +692,54 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    }
 
    /**
+    * Append a rotation about the z-axis to this rotation matrix.
+    * 
+    * <pre>
+    *               / cos(yaw) -sin(yaw) 0 \
+    * this = this * | sin(yaw)  cos(yaw) 0 |
+    *               \    0         0     1 /
+    * </pre>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void appendYawRotation(double yaw)
+   {
+      RotationMatrixTools.appendYawRotation(this, yaw, this);
+   }
+
+   /**
+    * Append a rotation about the y-axis to this rotation matrix.
+    * 
+    * <pre>
+    *               /  cos(pitch) 0 sin(pitch) \
+    * this = this * |      0      1     0      |
+    *               \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void appendPitchRotation(double pitch)
+   {
+      RotationMatrixTools.appendPitchRotation(this, pitch, this);
+   }
+
+   /**
+    * Append a rotation about the x-axis to this rotation matrix.
+    * 
+    * <pre>
+    *               /  cos(pitch) 0 sin(pitch) \
+    * this = this * |      0      1     0      |
+    *               \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    *
+    * @param yaw the angle to rotate about the x-axis.
+    */
+   public void appendRollRotation(double roll)
+   {
+      RotationMatrixTools.appendRollRotation(this, roll, this);
+   }
+
+   /**
     * Performs a matrix multiplication on this.
     * <p>
     * this = other * this

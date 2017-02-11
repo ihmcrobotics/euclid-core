@@ -720,9 +720,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * y-axis of an angle {@code pitch}.
     *
     * <pre>
-    *        /  cos(pitch) 0 sin(pitch) \
-    * this = |      0      1     0      |
-    *        \ -sin(pitch) 0 cos(pitch) /
+    *     /  cos(pitch) 0 sin(pitch) \
+    * R = |      0      1     0      |
+    *     \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     * <p>
     * This method does not affect the scale part nor the translation part of this transform.
@@ -740,9 +740,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * x-axis of an angle {@code roll}.
     *
     * <pre>
-    *        / 1     0          0     \
-    * this = | 0 cos(roll) -sin(roll) |
-    *        \ 0 sin(roll)  cos(roll) /
+    *     / 1     0          0     \
+    * R = | 0 cos(roll) -sin(roll) |
+    *     \ 0 sin(roll)  cos(roll) /
     * </pre>
     * <p>
     * This method does not affect the scale part nor the translation part of this transform.
@@ -826,9 +826,9 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * angles {@code rotX}, {@code rotY}, and {@code rotZ}.
     *
     * <pre>
-    *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
-    * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
-    *        \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
+    *     / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
+    * R = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
+    *     \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
     * </pre>
     * <p>
     * This method does not affect the scale part nor the translation part of this transform.

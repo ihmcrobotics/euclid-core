@@ -736,6 +736,57 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    }
 
    @Test
+   public void testAppendYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      RigidBodyTransform expected = new RigidBodyTransform();
+      RigidBodyTransform actual = new RigidBodyTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendYawRotation(double yaw)
+         RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendYawRotation(yaw);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendYawRotation(yaw);
+
+         GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendPitchRotation(double pitch)
+         RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendPitchRotation(pitch);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendPitchRotation(pitch);
+
+         GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendRollRotation(double roll)
+         RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendRollRotation(roll);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendRollRotation(roll);
+
+         GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testSetRotationYawPitchRoll() throws Exception
    {
       Random random = new Random(234L);
@@ -1372,6 +1423,15 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                assertEquals(denseMatrix.get(row, column), transform.getElement(row, column), EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotationPart = new RotationMatrix(transform.getRotationMatrix());
+         Vector3D expectedTranslationPart = new Vector3D(transform.getTranslationVector());
+         GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationPart, transform.getRotationMatrix(), EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslationPart, transform.getTranslationVector(), EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
