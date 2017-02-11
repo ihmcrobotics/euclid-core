@@ -163,7 +163,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     *
     * @param vector3D the 3D vector used to set this 4D vector. Not modified.
     */
-   default void set(Vector3DReadOnly<?> vector3D)
+   default void set(Vector3DReadOnly vector3D)
    {
       set(vector3D.getX(), vector3D.getY(), vector3D.getZ(), 0.0);
    }
@@ -177,7 +177,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     *
     * @param point3D the 3D point used to set this 4D vector. Not modified.
     */
-   default void set(Point3DReadOnly<?> point3D)
+   default void set(Point3DReadOnly point3D)
    {
       set(point3D.getX(), point3D.getY(), point3D.getZ(), 1.0);
    }

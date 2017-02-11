@@ -65,7 +65,7 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
     *
     * @param other the tuple to copy the components from. Not modified.
     */
-   public Vector3D32(Tuple3DReadOnly<?> tuple)
+   public Vector3D32(Tuple3DReadOnly tuple)
    {
       set(tuple);
    }

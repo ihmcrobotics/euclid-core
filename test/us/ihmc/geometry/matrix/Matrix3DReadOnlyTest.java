@@ -518,7 +518,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly<T>>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // transform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+      { // transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
          Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D actual = new Vector3D();
          Vector3D expected = new Vector3D();
@@ -546,7 +546,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly<T>>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // addTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+      { // addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
          Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D actual = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D expected = new Vector3D(actual);
@@ -763,7 +763,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly<T>>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // inverseTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+      { // inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
          Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector3D actual = new Vector3D();
          Vector3D expected = new Vector3D();

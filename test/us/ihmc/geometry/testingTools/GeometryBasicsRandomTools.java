@@ -612,7 +612,7 @@ public abstract class GeometryBasicsRandomTools
     * @param normalize whether to normalize the generated vector or not.
     * @return the random vector.
     */
-   public static Vector3D generateRandomOrthogonalVector3d(Random random, Vector3DReadOnly<?> vectorToBeOrthogonalTo, boolean normalize)
+   public static Vector3D generateRandomOrthogonalVector3d(Random random, Vector3DReadOnly vectorToBeOrthogonalTo, boolean normalize)
    {
       Vector3D v1 = new Vector3D(vectorToBeOrthogonalTo.getY(), -vectorToBeOrthogonalTo.getX(), 0.0);
       Vector3D v2 = new Vector3D(-vectorToBeOrthogonalTo.getZ(), 0.0, vectorToBeOrthogonalTo.getX());
@@ -641,7 +641,7 @@ public abstract class GeometryBasicsRandomTools
     * @return the random vector.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
-   public static Vector3D generateRandomVector3D(Random random, Tuple3DReadOnly<?> minMax)
+   public static Vector3D generateRandomVector3D(Random random, Tuple3DReadOnly minMax)
    {
       Vector3D vector = new Vector3D();
       randomizeTuple3D(random, minMax, vector);
@@ -660,7 +660,7 @@ public abstract class GeometryBasicsRandomTools
     * @return the random vector.
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     */
-   public static Vector3D generateRandomVector3D(Random random, Tuple3DReadOnly<?> min, Tuple3DReadOnly<?> max)
+   public static Vector3D generateRandomVector3D(Random random, Tuple3DReadOnly min, Tuple3DReadOnly max)
    {
       Vector3D vector = new Vector3D();
       randomizeTuple3D(random, min, max, vector);
@@ -941,7 +941,7 @@ public abstract class GeometryBasicsRandomTools
     * @param tupleToRandomize the tuple to randomize. Modified.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
-   public static void randomizeTuple3D(Random random, Tuple3DReadOnly<?> minMax, Tuple3DBasics<?> tupleToRandomize)
+   public static void randomizeTuple3D(Random random, Tuple3DReadOnly minMax, Tuple3DBasics<?> tupleToRandomize)
    {
       for (int i = 0; i < 3; i++)
          tupleToRandomize.set(i, generateRandomDouble(random, minMax.get(i)));
@@ -959,7 +959,7 @@ public abstract class GeometryBasicsRandomTools
     * @param tupleToRandomize the tuple to randomize. Modified.
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     */
-   public static void randomizeTuple3D(Random random, Tuple3DReadOnly<?> min, Tuple3DReadOnly<?> max, Tuple3DBasics<?> tupleToRandomize)
+   public static void randomizeTuple3D(Random random, Tuple3DReadOnly min, Tuple3DReadOnly max, Tuple3DBasics<?> tupleToRandomize)
    {
       for (int i = 0; i < 3; i++)
          tupleToRandomize.set(i, generateRandomDouble(random, min.get(i), max.get(i)));

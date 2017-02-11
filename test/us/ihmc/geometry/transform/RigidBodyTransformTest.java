@@ -719,7 +719,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          }
       }
 
-      { // Test setRotation(Vector3DReadOnly<?> rotationVector)
+      { // Test setRotation(Vector3DReadOnly rotationVector)
          Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          transform.getTranslation(translation);
@@ -1077,7 +1077,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          }
       }
 
-      { // Test setRotation(Vector3DReadOnly<?> rotationVector)
+      { // Test setRotation(Vector3DReadOnly rotationVector)
          Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          transform.setRotationAndZeroTranslation(rotationVector);

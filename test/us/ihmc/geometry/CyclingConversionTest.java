@@ -64,7 +64,7 @@ public class CyclingConversionTest
          Matrix3DReadOnly<?> originalMatrix = null;
          AxisAngleReadOnly<?> originalAxisAngle = null;
          QuaternionReadOnly<?> originalQuaternion = null;
-         Vector3DReadOnly<?> originalRotationVector = null;
+         Vector3DReadOnly originalRotationVector = null;
          double[] originalYawPitchRoll = null;
 
          switch (initialRotationType)
@@ -162,7 +162,7 @@ public class CyclingConversionTest
                GeometryBasicsTestTools.assertQuaternionEqualsSmart(originalQuaternion, (QuaternionReadOnly<?>) nextRotationType.rotationHolder, epsilon);
                break;
             case VECTOR:
-               GeometryBasicsTestTools.assertRotationVectorEquals(originalRotationVector, (Vector3DReadOnly<?>) nextRotationType.rotationHolder, epsilon);
+               GeometryBasicsTestTools.assertRotationVectorEquals(originalRotationVector, (Vector3DReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case YAW_PITCH_ROLL:
                GeometryBasicsTestTools.assertYawPitchRollEquals(originalYawPitchRoll, (double[]) nextRotationType.rotationHolder, epsilon);
@@ -220,7 +220,7 @@ public class CyclingConversionTest
             RotationMatrixConversion.convertQuaternionToMatrix((QuaternionReadOnly<?>) rotationHolder, matrix);
             break;
          case VECTOR:
-            RotationMatrixConversion.convertRotationVectorToMatrix((Vector3DReadOnly<?>) rotationHolder, matrix);
+            RotationMatrixConversion.convertRotationVectorToMatrix((Vector3DReadOnly) rotationHolder, matrix);
             break;
          case YAW_PITCH_ROLL:
             RotationMatrixConversion.convertYawPitchRollToMatrix((double[]) rotationHolder, matrix);
@@ -246,7 +246,7 @@ public class CyclingConversionTest
             AxisAngleConversion.convertQuaternionToAxisAngle((QuaternionReadOnly<?>) rotationHolder, axisAngle);
             break;
          case VECTOR:
-            AxisAngleConversion.convertRotationVectorToAxisAngle((Vector3DReadOnly<?>) rotationHolder, axisAngle);
+            AxisAngleConversion.convertRotationVectorToAxisAngle((Vector3DReadOnly) rotationHolder, axisAngle);
             break;
          case YAW_PITCH_ROLL:
             AxisAngleConversion.convertYawPitchRollToAxisAngle((double[]) rotationHolder, axisAngle);
@@ -272,7 +272,7 @@ public class CyclingConversionTest
             quaternion.set((QuaternionReadOnly<?>) rotationHolder);
             break;
          case VECTOR:
-            QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly<?>) rotationHolder, quaternion);
+            QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly) rotationHolder, quaternion);
             break;
          case YAW_PITCH_ROLL:
             QuaternionConversion.convertYawPitchRollToQuaternion((double[]) rotationHolder, quaternion);
@@ -283,7 +283,7 @@ public class CyclingConversionTest
          return quaternion;
       }
 
-      Vector3DReadOnly<?> convertToRotationVector()
+      Vector3DReadOnly convertToRotationVector()
       {
          Vector3D rotationVector = new Vector3D();
          switch (this)
@@ -298,7 +298,7 @@ public class CyclingConversionTest
             RotationVectorConversion.convertQuaternionToRotationVector((QuaternionReadOnly<?>) rotationHolder, rotationVector);
             break;
          case VECTOR:
-            rotationVector.set((Vector3DReadOnly<?>) rotationHolder);
+            rotationVector.set((Vector3DReadOnly) rotationHolder);
             break;
          case YAW_PITCH_ROLL:
             RotationVectorConversion.convertYawPitchRollToRotationVector((double[]) rotationHolder, rotationVector);
@@ -324,7 +324,7 @@ public class CyclingConversionTest
             YawPitchRollConversion.convertQuaternionToYawPitchRoll((QuaternionReadOnly<?>) rotationHolder, yawPitchRoll);
             break;
          case VECTOR:
-            YawPitchRollConversion.convertRotationVectorToYawPitchRoll((Vector3DReadOnly<?>) rotationHolder, yawPitchRoll);
+            YawPitchRollConversion.convertRotationVectorToYawPitchRoll((Vector3DReadOnly) rotationHolder, yawPitchRoll);
             break;
          case YAW_PITCH_ROLL:
             System.arraycopy(rotationHolder, 0, yawPitchRoll, 0, 3);

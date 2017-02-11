@@ -106,7 +106,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tu
       Random random = new Random(56461L);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // cross(Vector3DReadOnly<?> other)
+      { // cross(Vector3DReadOnly other)
          T vector1 = createRandomTuple(random);
          vector1.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 2.0));
          Vector3DBasics<?> axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);

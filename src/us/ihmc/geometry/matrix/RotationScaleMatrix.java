@@ -161,7 +161,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly<?> scales)
+   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly scales)
    {
       set(axisAngle, scales);
    }
@@ -210,7 +210,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *            matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(DenseMatrix64F rotationMatrix, Tuple3DReadOnly<?> scales)
+   public RotationScaleMatrix(DenseMatrix64F rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales);
    }
@@ -253,7 +253,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> scales)
+   public RotationScaleMatrix(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly scales)
    {
       set(quaternion, scales);
    }
@@ -296,7 +296,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly<?> scales)
+   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales);
    }
@@ -497,7 +497,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly<?> scales)
+   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly scales)
    {
       set(axisAngle, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -546,7 +546,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *            matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(DenseMatrix64F rotationMatrix, Tuple3DReadOnly<?> scales)
+   public void set(DenseMatrix64F rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -588,7 +588,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> scales)
+   public void set(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly scales)
    {
       set(quaternion, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -637,7 +637,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *            matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(Matrix3DReadOnly<?> rotationMatrix, Tuple3DReadOnly<?> scales)
+   public void set(Matrix3DReadOnly<?> rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -680,7 +680,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly<?> scales)
+   public void set(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -761,7 +761,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
     */
-   public void setRotation(Vector3DReadOnly<?> rotationVector)
+   public void setRotation(Vector3DReadOnly rotationVector)
    {
       rotationMatrix.set(rotationVector);
    }
@@ -870,7 +870,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setRotationEuler(Vector3DReadOnly<?> eulerAngles)
+   public void setRotationEuler(Vector3DReadOnly eulerAngles)
    {
       rotationMatrix.setEuler(eulerAngles);
    }
@@ -930,7 +930,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void setScale(Tuple3DReadOnly<?> scales)
+   public void setScale(Tuple3DReadOnly scales)
    {
       setScale(scales.getX(), scales.getY(), scales.getZ());
    }
@@ -1049,7 +1049,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setEuler(Vector3DReadOnly<?> eulerAngles)
+   public void setEuler(Vector3DReadOnly eulerAngles)
    {
       setRotationEuler(eulerAngles);
       resetScale();
@@ -1275,7 +1275,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /** {@inheritDoc} */
    @Override
-   public Tuple3DReadOnly<?> getScale()
+   public Tuple3DReadOnly getScale()
    {
       return scale;
    }

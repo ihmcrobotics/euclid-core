@@ -244,7 +244,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleToTransform)
-         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
          Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          quaternion = createRandomTuple(random);
@@ -257,7 +257,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
-         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
          Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          quaternion = createRandomTuple(random);
@@ -445,7 +445,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleToTransform)
-         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
          Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          quaternion = createRandomTuple(random);
@@ -458,7 +458,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
-         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
          Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          quaternion = createRandomTuple(random);
@@ -967,7 +967,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       Vector3D rotationVector;
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(Vector3DReadOnly<?> rotationVector)
+      { // Test set(Vector3DReadOnly rotationVector)
          rotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expectedQuaternion);
@@ -1009,7 +1009,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       Vector3D eulerAngles;
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test setEuler(Vector3DReadOnly<?> eulerAngles)
+      { // Test setEuler(Vector3DReadOnly eulerAngles)
          eulerAngles = GeometryBasicsRandomTools.generateRandomRotationVector(random);
 
          QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), expectedQuaternion);

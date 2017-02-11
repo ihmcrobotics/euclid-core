@@ -644,7 +644,7 @@ public class QuaternionToolsTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         Tuple3DReadOnly<?> tupleOriginal = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+         Tuple3DReadOnly tupleOriginal = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleActual.set(tupleExpected);
          Tuple3DBasics<?> tupleTransformed = new Vector3D();

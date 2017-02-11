@@ -24,10 +24,8 @@ package us.ihmc.geometry.tuple3D.interfaces;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the vector used.
  */
-public interface Vector3DReadOnly<T extends Vector3DReadOnly<T>> extends Tuple3DReadOnly<T>
+public interface Vector3DReadOnly extends Tuple3DReadOnly
 {
    /**
     * Calculates and returns the magnitude of this vector.
@@ -71,7 +69,7 @@ public interface Vector3DReadOnly<T extends Vector3DReadOnly<T>> extends Tuple3D
     * @param other the other vector used for the dot product. Not modified.
     * @return the value of the dot product.
     */
-   default double dot(Vector3DReadOnly<?> other)
+   default double dot(Vector3DReadOnly other)
    {
       return getX() * other.getX() + getY() * other.getY() + getZ() * other.getZ();
    }
@@ -92,7 +90,7 @@ public interface Vector3DReadOnly<T extends Vector3DReadOnly<T>> extends Tuple3D
     * @param other the other vector used to compute the angle. Not modified.
     * @return the value of the angle from this vector to {@code other}.
     */
-   default double angle(Vector3DReadOnly<?> other)
+   default double angle(Vector3DReadOnly other)
    {
       double thisLength = length();
 

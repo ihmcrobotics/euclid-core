@@ -362,7 +362,7 @@ public abstract class RotationMatrixConversion
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void convertRotationVectorToMatrix(Vector3DReadOnly<?> rotationVector, RotationMatrix matrixToPack)
+   public static void convertRotationVectorToMatrix(Vector3DReadOnly rotationVector, RotationMatrix matrixToPack)
    {
       convertRotationVectorToMatrix(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), matrixToPack);
    }

@@ -87,7 +87,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
     * @param axis the axis. Not modified
     * @param angle the angle value.
     */
-   public AxisAngle(Vector3DReadOnly<?> axis, double angle)
+   public AxisAngle(Vector3DReadOnly axis, double angle)
    {
       set(axis, angle);
    }
@@ -128,7 +128,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
     *
     * @param rotationVector the rotation vector used to create this axis-angle. Not modified.
     */
-   public AxisAngle(Vector3DReadOnly<?> rotationVector)
+   public AxisAngle(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
    }

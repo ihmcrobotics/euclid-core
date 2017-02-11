@@ -62,7 +62,7 @@ public class Point3D implements Serializable, Point3DBasics<Point3D>
     *
     * @param other the tuple to copy the coordinates from. Not modified.
     */
-   public Point3D(Tuple3DReadOnly<?> other)
+   public Point3D(Tuple3DReadOnly other)
    {
       set(other);
    }

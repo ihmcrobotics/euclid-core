@@ -1357,7 +1357,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleToTransform)
-         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
          Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          rotationMatrix = createRandomMatrix(random);
@@ -1370,7 +1370,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
-         Tuple3DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Tuple3DBasics<?> actualTuple = new Vector3D(tuple);
          Tuple3DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
          rotationMatrix = createRandomMatrix(random);

@@ -4,7 +4,6 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.TupleTools;
-import us.ihmc.geometry.interfaces.EpsilonComparable;
 
 /**
  * Read-only interface for a 3 dimensional tuple.
@@ -30,10 +29,8 @@ import us.ihmc.geometry.interfaces.EpsilonComparable;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the tuple used.
  */
-public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonComparable<T>
+public interface Tuple3DReadOnly
 {
    /**
     * Returns the x-component of this tuple.
@@ -244,8 +241,7 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two tuples are equal, {@code false} otherwise.
     */
-   @Override
-   default boolean epsilonEquals(T other, double epsilon)
+   default boolean epsilonEquals(Tuple3DReadOnly other, double epsilon)
    {
       return TupleTools.epsilonEquals(this, other, epsilon);
    }
@@ -257,7 +253,7 @@ public interface Tuple3DReadOnly<T extends Tuple3DReadOnly<T>> extends EpsilonCo
     * @return {@code true} if the two tuples are exactly equal component-wise, {@code false}
     *         otherwise.
     */
-   default boolean equals(T other)
+   default boolean equals(Tuple3DReadOnly other)
    {
       try
       {

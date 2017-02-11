@@ -233,7 +233,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param rotation vector the rotation vector used to set this quaternion. Not modified.
     */
-   default void set(Vector3DReadOnly<?> rotationVector)
+   default void set(Vector3DReadOnly rotationVector)
    {
       QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, this);
    }
@@ -273,7 +273,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   default void setEuler(Vector3DReadOnly<?> eulerAngles)
+   default void setEuler(Vector3DReadOnly eulerAngles)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), this);
    }

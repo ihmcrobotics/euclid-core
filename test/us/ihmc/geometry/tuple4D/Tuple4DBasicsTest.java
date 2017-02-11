@@ -188,7 +188,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics<T>> extends Tupl
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(Tuple3DReadOnly<?> tupleReadOnly)
+      { // Test set(Tuple3DReadOnly tupleReadOnly)
          tuple2 = createRandomTuple(random);
          tuple1.set((Tuple4DReadOnly<?>) tuple2);
          GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());

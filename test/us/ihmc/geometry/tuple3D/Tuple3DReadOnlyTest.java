@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public abstract class Tuple3DReadOnlyTest<T extends Tuple3DReadOnly<T>>
+public abstract class Tuple3DReadOnlyTest<T extends Tuple3DReadOnly>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
 

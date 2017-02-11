@@ -109,12 +109,12 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tupl
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(Tuple3DReadOnly<?> tupleReadOnly)
+      { // Test set(Tuple3DReadOnly tupleReadOnly)
          tuple2.setX(random.nextDouble());
          tuple2.setY(random.nextDouble());
          tuple2.setZ(random.nextDouble());
 
-         tuple1.set((Tuple3DReadOnly<?>) tuple2);
+         tuple1.set((Tuple3DReadOnly) tuple2);
          GeometryBasicsTestTools.assertTuple3DEquals(tuple1, tuple2, getEpsilon());
       }
 

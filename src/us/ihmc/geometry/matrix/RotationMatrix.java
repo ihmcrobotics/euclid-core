@@ -175,7 +175,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param rotationVector the rotation vector used to initialize this rotation matrix. Not
     *           modified.
     */
-   public RotationMatrix(Vector3DReadOnly<?> rotationVector)
+   public RotationMatrix(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
    }
@@ -431,7 +431,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param rotation vector the rotation vector used to set this matrix. Not modified.
     */
-   public void set(Vector3DReadOnly<?> rotationVector)
+   public void set(Vector3DReadOnly rotationVector)
    {
       RotationMatrixConversion.convertRotationVectorToMatrix(rotationVector, this);
    }
@@ -540,7 +540,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
     */
-   public void setEuler(Vector3DReadOnly<?> eulerAngles)
+   public void setEuler(Vector3DReadOnly eulerAngles)
    {
       setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX());
    }

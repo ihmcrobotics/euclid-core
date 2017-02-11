@@ -1046,7 +1046,7 @@ public abstract class YawPitchRollConversion
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @return the yaw angle.
     */
-   public static double computeYaw(Vector3DReadOnly<?> rotationVector)
+   public static double computeYaw(Vector3DReadOnly rotationVector)
    {
       if (rotationVector.containsNaN())
          return Double.NaN;
@@ -1085,7 +1085,7 @@ public abstract class YawPitchRollConversion
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @return the pitch angle.
     */
-   public static double computePitch(Vector3DReadOnly<?> rotationVector)
+   public static double computePitch(Vector3DReadOnly rotationVector)
    {
       if (rotationVector.containsNaN())
          return Double.NaN;
@@ -1120,7 +1120,7 @@ public abstract class YawPitchRollConversion
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @return the roll angle.
     */
-   public static double computeRoll(Vector3DReadOnly<?> rotationVector)
+   public static double computeRoll(Vector3DReadOnly rotationVector)
    {
       if (rotationVector.containsNaN())
          return Double.NaN;
@@ -1164,7 +1164,7 @@ public abstract class YawPitchRollConversion
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored, in the
     *           order {@code yaw}, {@code pitch}, then {@code roll}. Modified.
     */
-   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly<?> rotationVector, double[] yawPitchRollToPack)
+   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, double[] yawPitchRollToPack)
    {
       if (rotationVector.containsNaN())
       {
@@ -1215,7 +1215,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly<?> rotationVector, Vector3DBasics<?> eulerAnglesToPack)
+   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, Vector3DBasics<?> eulerAnglesToPack)
    {
       if (rotationVector.containsNaN())
       {

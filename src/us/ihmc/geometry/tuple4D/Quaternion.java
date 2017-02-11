@@ -114,7 +114,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
     *
     * @param rotationVector the rotation vector to initialize this quaternion. Not modified.
     */
-   public Quaternion(Vector3DReadOnly<?> rotationVector)
+   public Quaternion(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
    }

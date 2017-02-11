@@ -32,7 +32,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  *
  * @param <T> The final type of the vector used.
  */
-public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasics<T>, Vector3DReadOnly<T>
+public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasics<T>, Vector3DReadOnly
 {
    /**
     * Normalizes this vector such that its magnitude is equal to 1 after calling this method and its
@@ -56,7 +56,7 @@ public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasi
     *
     * @param other the other vector to copy the values from. Not modified.
     */
-   default void setAndNormalize(Tuple3DReadOnly<?> other)
+   default void setAndNormalize(Tuple3DReadOnly other)
    {
       set(other);
       normalize();
@@ -71,7 +71,7 @@ public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasi
     * @param vector1 the first vector in the cross product. Not modified.
     * @param vector2 the second vector in the cross product. Not modified.
     */
-   default void cross(Vector3DReadOnly<?> vector1, Vector3DReadOnly<?> vector2)
+   default void cross(Vector3DReadOnly vector1, Vector3DReadOnly vector2)
    {
       double x = vector1.getY() * vector2.getZ() - vector1.getZ() * vector2.getY();
       double y = vector1.getZ() * vector2.getX() - vector1.getX() * vector2.getZ();

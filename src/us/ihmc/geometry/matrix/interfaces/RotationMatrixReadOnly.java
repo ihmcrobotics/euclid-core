@@ -46,7 +46,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+   default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       normalize();
       Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
@@ -54,7 +54,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void addTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+   default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       normalize();
       Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
@@ -147,7 +147,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+   default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       normalize();
       double x = getM00() * tupleOriginal.getX() + getM10() * tupleOriginal.getY() + getM20() * tupleOriginal.getZ();

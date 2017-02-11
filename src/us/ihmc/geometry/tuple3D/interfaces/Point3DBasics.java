@@ -31,7 +31,7 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  *
  * @param <T> The final type of the point used.
  */
-public interface Point3DBasics<T extends Point3DBasics<T>> extends Tuple3DBasics<T>, Point3DReadOnly<T>
+public interface Point3DBasics<T extends Point3DBasics<T>> extends Tuple3DBasics<T>, Point3DReadOnly
 {
    /**
     * Transforms this point by the given {@code transform}.

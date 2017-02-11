@@ -83,7 +83,7 @@ public class Vector4D implements Serializable, Vector4DBasics<Vector4D>
     *
     * @param vector3D the 3D vector used to set this 4D vector. Not modified.
     */
-   public Vector4D(Vector3DReadOnly<?> vector3D)
+   public Vector4D(Vector3DReadOnly vector3D)
    {
       set(vector3D);
    }
@@ -97,7 +97,7 @@ public class Vector4D implements Serializable, Vector4DBasics<Vector4D>
     *
     * @param point3D the 3D point used to set this 4D vector. Not modified.
     */
-   public Vector4D(Point3DReadOnly<?> point3D)
+   public Vector4D(Point3DReadOnly point3D)
    {
       set(point3D);
    }

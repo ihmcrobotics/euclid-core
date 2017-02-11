@@ -68,16 +68,16 @@ public class Vector4DTest extends Vector4DBasicsTest<Vector4D>
          GeometryBasicsTestTools.assertTuple4DEquals(quaternion, vector, EPS);
       }
 
-      { // Test Vector4D(Vector3DReadOnly<?> vector3D)
-         Vector3DReadOnly<?> vector3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
+      { // Test Vector4D(Vector3DReadOnly vector3D)
+         Vector3DReadOnly vector3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
          Vector4D vector = new Vector4D(vector3D);
          for (int i = 0; i < 3; i++)
             assertTrue(vector.get(i) == vector3D.get(i));
          assertTrue(vector.getS() == 0.0);
       }
 
-      { // Test Vector4D(Point3DReadOnly<?> vector3D)
-         Point3DReadOnly<?> point3D = GeometryBasicsRandomTools.generateRandomPoint3D(random);
+      { // Test Vector4D(Point3DReadOnly vector3D)
+         Point3DReadOnly point3D = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          Vector4D vector = new Vector4D(point3D);
          for (int i = 0; i < 3; i++)
             assertTrue(vector.get(i) == point3D.get(i));

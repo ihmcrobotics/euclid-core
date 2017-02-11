@@ -108,12 +108,12 @@ public abstract class GeometryBasicsIOTools
       return getHomogeneousTransformString(format, affineTransform.getRotationScaleMatrix(), affineTransform.getTranslationVector());
    }
 
-   public static String getHomogeneousTransformString(Matrix3DReadOnly<?> matrix, Tuple3DReadOnly<?> translation)
+   public static String getHomogeneousTransformString(Matrix3DReadOnly<?> matrix, Tuple3DReadOnly translation)
    {
       return getHomogeneousTransformString(DEFAULT_FORMAT, matrix, translation);
    }
 
-   public static String getHomogeneousTransformString(String format, Matrix3DReadOnly<?> matrix, Tuple3DReadOnly<?> translation)
+   public static String getHomogeneousTransformString(String format, Matrix3DReadOnly<?> matrix, Tuple3DReadOnly translation)
    {
       String ret = "";
 
@@ -139,12 +139,12 @@ public abstract class GeometryBasicsIOTools
       return getQuaternionBasedTransformString(format, quaternionBasedTransform.getQuaternion(), quaternionBasedTransform.getTranslationVector());
    }
 
-   public static String getQuaternionBasedTransformString(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> translation)
+   public static String getQuaternionBasedTransformString(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly translation)
    {
       return getQuaternionBasedTransformString(DEFAULT_FORMAT, quaternion, translation);
    }
 
-   public static String getQuaternionBasedTransformString(String format, QuaternionReadOnly<?> quaternion, Tuple3DReadOnly<?> translation)
+   public static String getQuaternionBasedTransformString(String format, QuaternionReadOnly<?> quaternion, Tuple3DReadOnly translation)
    {
       String ret = "";
 
@@ -163,12 +163,12 @@ public abstract class GeometryBasicsIOTools
       return getStringOf("(", " )", ", ", format, tuple.getX(), tuple.getY());
    }
 
-   public static String getTuple3DString(Tuple3DReadOnly<?> tuple)
+   public static String getTuple3DString(Tuple3DReadOnly tuple)
    {
       return getTuple3DString(DEFAULT_FORMAT, tuple);
    }
 
-   public static String getTuple3DString(String format, Tuple3DReadOnly<?> tuple)
+   public static String getTuple3DString(String format, Tuple3DReadOnly tuple)
    {
       return getStringOf("(", " )", ", ", format, tuple.getX(), tuple.getY(), tuple.getZ());
    }

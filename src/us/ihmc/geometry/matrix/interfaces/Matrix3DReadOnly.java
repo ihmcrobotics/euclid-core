@@ -606,7 +606,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
-   void transform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed);
+   void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed);
 
    /**
     * Transforms the given tuple by this matrix and add the result to the tuple.
@@ -631,7 +631,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to add the result to. Modified.
     */
-   void addTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed);
+   void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed);
 
    /**
     * Transforms the given tuple by this matrix.
@@ -777,7 +777,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
-   void inverseTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed);
+   void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed);
 
    /**
     * Performs the inverse of the transform to the given tuple by this matrix.

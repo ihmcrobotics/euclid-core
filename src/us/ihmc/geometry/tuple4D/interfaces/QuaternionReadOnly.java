@@ -197,7 +197,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
-   default void transform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+   default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed);
    }
@@ -409,7 +409,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
     */
-   default void inverseTransform(Tuple3DReadOnly<?> tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+   default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }

@@ -277,7 +277,7 @@ public abstract class QuaternionConversion
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertRotationVectorToQuaternion(Vector3DReadOnly<?> rotationVector, QuaternionBasics<?> quaternionToPack)
+   public static void convertRotationVectorToQuaternion(Vector3DReadOnly rotationVector, QuaternionBasics<?> quaternionToPack)
    {
       convertRotationVectorToQuaternionImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), quaternionToPack);
    }

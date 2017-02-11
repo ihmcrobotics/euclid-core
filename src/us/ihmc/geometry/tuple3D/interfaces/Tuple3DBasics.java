@@ -33,7 +33,7 @@ import us.ihmc.geometry.interfaces.GeometryObject;
  * @param <T> The final type of the tuple used.
  */
 //TODO Think about renaming this interface to Tuple3D
-public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOnly<T>, GeometryObject<T>
+public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOnly, GeometryObject<T>
 {
    /**
     * Sets the x-component of this tuple.
@@ -189,7 +189,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *
     * @param tupleReadOnly the other tuple to copy the values from. Not modified.
     */
-   default void set(Tuple3DReadOnly<?> tupleReadOnly)
+   default void set(Tuple3DReadOnly tupleReadOnly)
    {
       set(tupleReadOnly.getX(), tupleReadOnly.getY(), tupleReadOnly.getZ());
    }
@@ -288,7 +288,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndAbsolute(Tuple3DReadOnly<?> other)
+   default void setAndAbsolute(Tuple3DReadOnly other)
    {
       set(Math.abs(other.getX()), Math.abs(other.getY()), Math.abs(other.getZ()));
    }
@@ -298,7 +298,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndNegate(Tuple3DReadOnly<?> other)
+   default void setAndNegate(Tuple3DReadOnly other)
    {
       set(-other.getX(), -other.getY(), -other.getZ());
    }
@@ -309,7 +309,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * @param scalar the scale factor to use on this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndScale(double scalar, Tuple3DReadOnly<?> other)
+   default void setAndScale(double scalar, Tuple3DReadOnly other)
    {
       set(scalar * other.getX(), scalar * other.getY(), scalar * other.getZ());
    }
@@ -320,7 +320,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * @param max the maximum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMax(double max, Tuple3DReadOnly<?> other)
+   default void setAndClipToMax(double max, Tuple3DReadOnly other)
    {
       set(Math.min(max, other.getX()), Math.min(max, other.getY()), Math.min(max, other.getZ()));
    }
@@ -331,7 +331,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * @param min the minimum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMin(double min, Tuple3DReadOnly<?> other)
+   default void setAndClipToMin(double min, Tuple3DReadOnly other)
    {
       set(Math.max(min, other.getX()), Math.max(min, other.getY()), Math.max(min, other.getZ()));
    }
@@ -343,7 +343,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * @param max the maximum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMinMax(double min, double max, Tuple3DReadOnly<?> other)
+   default void setAndClipToMinMax(double min, double max, Tuple3DReadOnly other)
    {
       set(other);
       clipToMinMax(min, max);
@@ -402,7 +402,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *
     * @param other the other tuple to add to this tuple.
     */
-   default void add(Tuple3DReadOnly<?> other)
+   default void add(Tuple3DReadOnly other)
    {
       add(other.getX(), other.getY(), other.getZ());
    }
@@ -416,7 +416,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * @param tuple1 the first tuple to sum. Not modified.
     * @param tuple2 the second tuple to sum. Not modified.
     */
-   default void add(Tuple3DReadOnly<?> tuple1, Tuple3DReadOnly<?> tuple2)
+   default void add(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
       set(tuple1.getX() + tuple2.getX(), tuple1.getY() + tuple2.getY(), tuple1.getZ() + tuple2.getZ());
    }
@@ -474,7 +474,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *
     * @param other the other tuple to add to this tuple.
     */
-   default void sub(Tuple3DReadOnly<?> other)
+   default void sub(Tuple3DReadOnly other)
    {
       sub(other.getX(), other.getY(), other.getZ());
    }
@@ -488,7 +488,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * @param tuple1 the first tuple. Not modified.
     * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
     */
-   default void sub(Tuple3DReadOnly<?> tuple1, Tuple3DReadOnly<?> tuple2)
+   default void sub(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
       set(tuple1.getX() - tuple2.getX(), tuple1.getY() - tuple2.getY(), tuple1.getZ() - tuple2.getZ());
    }
@@ -533,7 +533,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * @param scalar the scale factor to use.
     * @param other the tuple to add to this. Not modified.
     */
-   default void scaleAdd(double scalar, Tuple3DReadOnly<?> other)
+   default void scaleAdd(double scalar, Tuple3DReadOnly other)
    {
       scale(scalar);
       add(other);
@@ -549,7 +549,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     * @param tuple1 the first tuple of the sum. Not modified.
     * @param tuple2 the second tuple of the sum. Not modified.
     */
-   default void scaleAdd(double scalar, Tuple3DReadOnly<?> tuple1, Tuple3DReadOnly<?> tuple2)
+   default void scaleAdd(double scalar, Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
       setAndScale(scalar, tuple1);
       add(tuple2);
@@ -567,7 +567,7 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *           modifying this tuple, while a value of 1 is equivalent to setting this tuple to
     *           {@code other}.
     */
-   default void interpolate(Tuple3DReadOnly<?> other, double alpha)
+   default void interpolate(Tuple3DReadOnly other, double alpha)
    {
       interpolate(this, other, alpha);
    }
@@ -585,11 +585,17 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
     *           this tuple to {@code tuple1}, while a value of 1 is equivalent to setting this tuple
     *           to {@code tuple2}.
     */
-   default void interpolate(Tuple3DReadOnly<?> tuple1, Tuple3DReadOnly<?> tuple2, double alpha)
+   default void interpolate(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2, double alpha)
    {
       double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
       double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
       double z = TupleTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
       set(x, y, z);
+   }
+
+   @Override
+   public default boolean epsilonEquals(T other, double epsilon)
+   {
+      return Tuple3DReadOnly.super.epsilonEquals(other, epsilon);
    }
 }
