@@ -55,7 +55,7 @@ public abstract class RotationVectorConversion
     * @param axisAngle the axis-angle to use for the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertAxisAngleToRotationVector(AxisAngleReadOnly<?> axisAngle, Vector3DBasics rotationVectorToPack)
+   public static void convertAxisAngleToRotationVector(AxisAngleReadOnly axisAngle, Vector3DBasics rotationVectorToPack)
    {
       convertAxisAngleToRotationVectorImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), rotationVectorToPack);
    }

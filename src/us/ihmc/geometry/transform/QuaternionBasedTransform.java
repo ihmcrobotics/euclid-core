@@ -190,7 +190,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param translation the tuple used to initialize the translation part of this transform. Not
     *           modified.
     */
-   public QuaternionBasedTransform(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
+   public QuaternionBasedTransform(AxisAngleReadOnly axisAngle, Tuple3DReadOnly translation)
    {
       set(axisAngle, translation);
    }
@@ -435,7 +435,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param axisAngle the axis-angle used to set the quaternion of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
+   public void set(AxisAngleReadOnly axisAngle, Tuple3DReadOnly translation)
    {
       quaternion.set(axisAngle);
       translationVector.set(translation);
@@ -449,7 +449,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *
     * @param axisAngle the axis-angle used to set the quaternion of this transform. Not modified.
     */
-   public void setRotation(AxisAngleReadOnly<?> axisAngle)
+   public void setRotation(AxisAngleReadOnly axisAngle)
    {
       quaternion.set(axisAngle);
    }

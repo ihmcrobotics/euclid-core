@@ -131,7 +131,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scale the non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, double scale)
+   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, double scale)
    {
       set(axisAngle, scale);
    }
@@ -147,7 +147,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scaleZ the non-zero and positive scalar used to initialized the z-axis scale factor.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, double scaleX, double scaleY, double scaleZ)
+   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, double scaleX, double scaleY, double scaleZ)
    {
       set(axisAngle, scaleX, scaleY, scaleZ);
    }
@@ -161,7 +161,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly scales)
+   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, Tuple3DReadOnly scales)
    {
       set(axisAngle, scales);
    }
@@ -468,7 +468,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, double scale)
+   public void set(AxisAngleReadOnly axisAngle, double scale)
    {
       set(axisAngle, scale, scale, scale);
    }
@@ -483,7 +483,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scaleZ the non-zero and positive scalar used to set the z-axis scale factor to.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, double scaleX, double scaleY, double scaleZ)
+   public void set(AxisAngleReadOnly axisAngle, double scaleX, double scaleY, double scaleZ)
    {
       setRotation(axisAngle);
       setScale(scaleX, scaleY, scaleZ);
@@ -497,7 +497,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly scales)
+   public void set(AxisAngleReadOnly axisAngle, Tuple3DReadOnly scales)
    {
       set(axisAngle, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -714,7 +714,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
     */
-   public void setRotation(AxisAngleReadOnly<?> axisAngle)
+   public void setRotation(AxisAngleReadOnly axisAngle)
    {
       rotationMatrix.set(axisAngle);
    }

@@ -14,7 +14,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
 
-public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly<T>>
+public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
 

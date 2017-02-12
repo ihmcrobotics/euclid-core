@@ -1,7 +1,6 @@
 package us.ihmc.geometry.axisAngle.interfaces;
 
 import us.ihmc.geometry.GeometryBasicsTools;
-import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 
@@ -16,7 +15,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
  *
  * @param T the final type of the axis-angle used.
  */
-public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends EpsilonComparable<T>
+public interface AxisAngleReadOnly
 {
    /**
     * Returns the angle of this axis-angle, usually expressed in radians.
@@ -250,7 +249,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
     * @return {@code true} if the two axis-angles are exactly equal component-wise, {@code false}
     *         otherwise.
     */
-   default boolean equals(T other)
+   default boolean equals(AxisAngleReadOnly other)
    {
       try
       {
@@ -271,8 +270,7 @@ public interface AxisAngleReadOnly<T extends AxisAngleReadOnly<T>> extends Epsil
     * @param epsilon tolerance to use when comparing each component.
     * @return {@code true} if the two axis-angle are equal component-wise, {@code false} otherwise.
     */
-   @Override
-   default boolean epsilonEquals(T other, double epsilon)
+   default boolean epsilonEquals(AxisAngleReadOnly other, double epsilon)
    {
       double diff;
 

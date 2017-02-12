@@ -107,7 +107,7 @@ public abstract class RotationMatrixConversion
     * @param axisAngle the axis-angle to use for the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void convertAxisAngleToMatrix(AxisAngleReadOnly<?> axisAngle, RotationMatrix matrixToPack)
+   public static void convertAxisAngleToMatrix(AxisAngleReadOnly axisAngle, RotationMatrix matrixToPack)
    {
       convertAxisAngleToMatrix(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), matrixToPack);
    }

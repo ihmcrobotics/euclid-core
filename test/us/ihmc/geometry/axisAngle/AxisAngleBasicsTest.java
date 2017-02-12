@@ -180,11 +180,11 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics<T>> extends 
          }
       }
 
-      { // Test set(AxisAngleReadOnly<?> other)
+      { // Test set(AxisAngleReadOnly other)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             expectedAxisAngle = createRandomAxisAngle(random);
-            actualAxisAngle.set((AxisAngleReadOnly<?>) expectedAxisAngle);
+            actualAxisAngle.set((AxisAngleReadOnly) expectedAxisAngle);
             GeometryBasicsTestTools.assertAxisAngleEquals(actualAxisAngle, expectedAxisAngle, getEpsilon());
          }
       }

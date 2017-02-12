@@ -18,7 +18,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  *
  * @param T the final type of the axis-angle used.
  */
-public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngleReadOnly<T>, Settable<T>, Clearable
+public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngleReadOnly, Settable<T>, Clearable
 {
    /**
     * Sets a new angle to this axis-angle.
@@ -123,7 +123,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    @Override
    default void set(T other)
    {
-      set((AxisAngleReadOnly<T>) other);
+      set((AxisAngleReadOnly) other);
    }
 
    /**
@@ -131,7 +131,7 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
     *
     * @param other the other axis-angle. Not modified.
     */
-   default void set(AxisAngleReadOnly<?> other)
+   default void set(AxisAngleReadOnly other)
    {
       set(other.getX(), other.getY(), other.getZ(), other.getAngle());
    }

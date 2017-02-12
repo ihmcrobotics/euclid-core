@@ -183,12 +183,12 @@ public abstract class GeometryBasicsIOTools
       return getStringOf("(", " )", ", ", format, tuple.getX(), tuple.getY(), tuple.getZ(), tuple.getS());
    }
 
-   public static String getAxisAngleString(AxisAngleReadOnly<?> axisAngle)
+   public static String getAxisAngleString(AxisAngleReadOnly axisAngle)
    {
       return getAxisAngleString(DEFAULT_FORMAT, axisAngle);
    }
 
-   public static String getAxisAngleString(String format, AxisAngleReadOnly<?> axisAngle)
+   public static String getAxisAngleString(String format, AxisAngleReadOnly axisAngle)
    {
       return getStringOf("(", " )", ", ", format, axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle());
    }

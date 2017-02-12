@@ -521,7 +521,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, double scale, Tuple3DReadOnly translation)
+   public void set(AxisAngleReadOnly axisAngle, double scale, Tuple3DReadOnly translation)
    {
       rotationScaleMatrix.set(axisAngle, scale);
       translationVector.set(translation);
@@ -537,7 +537,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly translation)
+   public void set(AxisAngleReadOnly axisAngle, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly translation)
    {
       rotationScaleMatrix.set(axisAngle, scaleX, scaleY, scaleZ);
       translationVector.set(translation);
@@ -551,7 +551,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly scales, Tuple3DReadOnly translation)
+   public void set(AxisAngleReadOnly axisAngle, Tuple3DReadOnly scales, Tuple3DReadOnly translation)
    {
       rotationScaleMatrix.set(axisAngle, scales);
       translationVector.set(translation);
@@ -612,7 +612,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     *
     * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
     */
-   public void setRotation(AxisAngleReadOnly<?> axisAngle)
+   public void setRotation(AxisAngleReadOnly axisAngle)
    {
       rotationScaleMatrix.setRotation(axisAngle);
    }

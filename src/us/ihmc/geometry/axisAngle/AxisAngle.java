@@ -5,6 +5,7 @@ import java.io.Serializable;
 import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
@@ -19,7 +20,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  *
  * @author Sylvain
  */
-public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
+public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>, EpsilonComparable<AxisAngle>
 {
    private static final long serialVersionUID = -7238256250079419416L;
 
@@ -46,7 +47,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
     *
     * @param other the other axis-angle to copy the values from. Not modified.
     */
-   public AxisAngle(AxisAngleReadOnly<?> other)
+   public AxisAngle(AxisAngleReadOnly other)
    {
       set(other);
    }
@@ -221,6 +222,12 @@ public class AxisAngle implements Serializable, AxisAngleBasics<AxisAngle>
       {
          return false;
       }
+   }
+
+   @Override
+   public boolean epsilonEquals(AxisAngle other, double epsilon)
+   {
+      return AxisAngleBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

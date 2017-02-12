@@ -100,7 +100,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics<Quaternion32
     *
     * @param axisAngle the axis-angle to initialize this quaternion. Not modified.
     */
-   public Quaternion32(AxisAngleReadOnly<?> axisAngle)
+   public Quaternion32(AxisAngleReadOnly axisAngle)
    {
       set(axisAngle);
    }

@@ -89,7 +89,7 @@ public abstract class QuaternionConversion
     * @param axisAngle the axis-angle to use for the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly<?> axisAngle, QuaternionBasics<?> quaternionToPack)
+   public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly axisAngle, QuaternionBasics<?> quaternionToPack)
    {
       convertAxisAngleToQuaternion(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), quaternionToPack);
    }

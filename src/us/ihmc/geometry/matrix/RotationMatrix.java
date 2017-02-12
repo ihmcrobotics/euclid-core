@@ -147,7 +147,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param axisAngle the axis-angle used to initialize this rotation matrix. Not modified.
     */
-   public RotationMatrix(AxisAngleReadOnly<?> axisAngle)
+   public RotationMatrix(AxisAngleReadOnly axisAngle)
    {
       set(axisAngle);
    }
@@ -405,7 +405,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param axisAngle the axis-angle used to set this matrix. Not modified.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle)
+   public void set(AxisAngleReadOnly axisAngle)
    {
       RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, this);
    }

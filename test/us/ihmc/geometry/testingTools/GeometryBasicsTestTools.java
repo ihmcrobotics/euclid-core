@@ -441,7 +441,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two axis-angles are not equal.
     */
-   public static void assertAxisAngleEquals(AxisAngleReadOnly<?> expectedAxisAngle, AxisAngleReadOnly<?> actualAxisAngle, double epsilon)
+   public static void assertAxisAngleEquals(AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon)
    {
       try
       {
@@ -469,7 +469,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two axis-angles are not equal.
     */
-   public static void assertAxisAngleEqualsSmart(AxisAngleReadOnly<?> expectedAxisAngle, AxisAngleReadOnly<?> actualAxisAngle, double epsilon)
+   public static void assertAxisAngleEqualsSmart(AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon)
    {
       try
       {
@@ -508,7 +508,7 @@ public abstract class GeometryBasicsTestTools
     * @param axisAngleToAssert the query. Not modified.
     * @throws AssertionError if the axis-angle does not only contain {@link Double#NaN}.
     */
-   public static void assertAxisAngleContainsOnlyNaN(AxisAngleReadOnly<?> axisAngleToAssert)
+   public static void assertAxisAngleContainsOnlyNaN(AxisAngleReadOnly axisAngleToAssert)
    {
       assertTrue(Double.isNaN(axisAngleToAssert.getX()));
       assertTrue(Double.isNaN(axisAngleToAssert.getY()));
@@ -522,7 +522,7 @@ public abstract class GeometryBasicsTestTools
     * @param axisAngleToAssert the query. Not modified.
     * @throws AssertionError if the axis-angle has not been set to zero.
     */
-   public static void assertAxisAngleIsSetToZero(AxisAngleReadOnly<?> axisAngleToAssert)
+   public static void assertAxisAngleIsSetToZero(AxisAngleReadOnly axisAngleToAssert)
    {
       assertTrue(axisAngleToAssert.getX() == 1.0);
       assertTrue(axisAngleToAssert.getY() == 0.0);
@@ -537,7 +537,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the axis is not unitary.
     */
-   public static void assertAxisUnitary(AxisAngleReadOnly<?> axisAngleToAssert, double epsilon)
+   public static void assertAxisUnitary(AxisAngleReadOnly axisAngleToAssert, double epsilon)
    {
       if (!axisAngleToAssert.isAxisUnitary(epsilon))
          fail("The axis of the given AxisAngle is not unitary: " + getAxisAngleString(DEFAULT_FORMAT, axisAngleToAssert));

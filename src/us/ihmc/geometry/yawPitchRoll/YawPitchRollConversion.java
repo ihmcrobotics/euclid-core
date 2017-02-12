@@ -755,7 +755,7 @@ public abstract class YawPitchRollConversion
     * @param axisAngle the axis-angle to use in the conversion. Not modified.
     * @return the yaw angle.
     */
-   public static double computeYaw(AxisAngleReadOnly<?> axisAngle)
+   public static double computeYaw(AxisAngleReadOnly axisAngle)
    {
       if (axisAngle.containsNaN())
          return Double.NaN;
@@ -794,7 +794,7 @@ public abstract class YawPitchRollConversion
     * @param axisAngle the axis-angle to use in the conversion. Not modified.
     * @return the pitch angle.
     */
-   public static double computePitch(AxisAngleReadOnly<?> axisAngle)
+   public static double computePitch(AxisAngleReadOnly axisAngle)
    {
       if (axisAngle.containsNaN())
          return Double.NaN;
@@ -830,7 +830,7 @@ public abstract class YawPitchRollConversion
     * @param axisAngle the axis-angle to use in the conversion. Not modified.
     * @return the roll angle.
     */
-   public static double computeRoll(AxisAngleReadOnly<?> axisAngle)
+   public static double computeRoll(AxisAngleReadOnly axisAngle)
    {
       if (axisAngle.containsNaN())
          return Double.NaN;
@@ -874,7 +874,7 @@ public abstract class YawPitchRollConversion
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored, in the
     *           order {@code yaw}, {@code pitch}, then {@code roll}. Modified.
     */
-   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, double[] yawPitchRollToPack)
+   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly axisAngle, double[] yawPitchRollToPack)
    {
       if (axisAngle.containsNaN())
       {
@@ -922,7 +922,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, Tuple3DBasics eulerAnglesToPack)
+   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly axisAngle, Tuple3DBasics eulerAnglesToPack)
    {
       if (axisAngle.containsNaN())
       {

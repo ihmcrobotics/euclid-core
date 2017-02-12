@@ -188,7 +188,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param axisAngle the axis-angle used to set this transform's rotation part. Not modified.
     * @param translation the tuple used to set this transform's translation part. Not modified.
     */
-   public RigidBodyTransform(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
+   public RigidBodyTransform(AxisAngleReadOnly axisAngle, Tuple3DReadOnly translation)
    {
       set(axisAngle, translation);
    }
@@ -564,7 +564,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(AxisAngleReadOnly<?> axisAngle, Tuple3DReadOnly translation)
+   public void set(AxisAngleReadOnly axisAngle, Tuple3DReadOnly translation)
    {
       rotationMatrix.set(axisAngle);
       translationVector.set(translation);
@@ -634,7 +634,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     *
     * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
     */
-   public void setRotation(AxisAngleReadOnly<?> axisAngle)
+   public void setRotation(AxisAngleReadOnly axisAngle)
    {
       rotationMatrix.set(axisAngle);
    }
@@ -861,7 +861,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     *
     * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
     */
-   public void setRotationAndZeroTranslation(AxisAngleReadOnly<?> axisAngle)
+   public void setRotationAndZeroTranslation(AxisAngleReadOnly axisAngle)
    {
       setRotation(axisAngle);
       translationVector.setToZero();

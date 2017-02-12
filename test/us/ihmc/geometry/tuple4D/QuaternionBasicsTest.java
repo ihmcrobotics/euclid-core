@@ -929,7 +929,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       AxisAngle axisAngle;
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(AxisAngleReadOnly<?> axisAngle)
+      { // Test set(AxisAngleReadOnly axisAngle)
          axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
 
          QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, expectedQuaternion);

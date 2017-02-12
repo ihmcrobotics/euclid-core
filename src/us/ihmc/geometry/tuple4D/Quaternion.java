@@ -98,7 +98,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
     *
     * @param axisAngle the axis-angle to initialize this quaternion. Not modified.
     */
-   public Quaternion(AxisAngleReadOnly<?> axisAngle)
+   public Quaternion(AxisAngleReadOnly axisAngle)
    {
       set(axisAngle);
    }
