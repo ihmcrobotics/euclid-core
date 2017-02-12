@@ -2,7 +2,8 @@ package us.ihmc.geometry.tuple4D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.interfaces.GeometryObject;
+import us.ihmc.geometry.interfaces.Clearable;
+import us.ihmc.geometry.interfaces.Transformable;
 
 /**
  * Write and read interface for a 4 dimensional tuple.
@@ -38,7 +39,7 @@ import us.ihmc.geometry.interfaces.GeometryObject;
  *
  * @param <T> The final type of the tuple used.
  */
-public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOnly<T>, GeometryObject<T>
+public interface Tuple4DBasics extends Tuple4DReadOnly, Clearable, Transformable
 {
    /**
     * Sets this tuple's components to {@code x}, {@code y}, {@code z}, and {@code s}.
@@ -92,22 +93,11 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
    }
 
    /**
-    * Sets this tuple to {@code other}.
-    *
-    * @param other the other tuple to copy the values from. Not modified.
-    */
-   @Override
-   default void set(T other)
-   {
-      set(other.getX(), other.getY(), other.getZ(), other.getS());
-   }
-
-   /**
     * Sets this tuple to {@code tupleReadOnly}.
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void set(Tuple4DReadOnly<?> tupleReadOnly)
+   default void set(Tuple4DReadOnly tupleReadOnly)
    {
       set(tupleReadOnly.getX(), tupleReadOnly.getY(), tupleReadOnly.getZ(), tupleReadOnly.getS());
    }
@@ -206,7 +196,7 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndAbsolute(Tuple4DReadOnly<?> other)
+   default void setAndAbsolute(Tuple4DReadOnly other)
    {
       set(Math.abs(other.getX()), Math.abs(other.getY()), Math.abs(other.getZ()), Math.abs(other.getS()));
    }
@@ -216,7 +206,7 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndNegate(Tuple4DReadOnly<?> other)
+   default void setAndNegate(Tuple4DReadOnly other)
    {
       set(-other.getX(), -other.getY(), -other.getZ(), -other.getS());
    }
@@ -226,7 +216,7 @@ public interface Tuple4DBasics<T extends Tuple4DBasics<T>> extends Tuple4DReadOn
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndNormalize(Tuple4DReadOnly<?> other)
+   default void setAndNormalize(Tuple4DReadOnly other)
    {
       set(other);
       normalize();

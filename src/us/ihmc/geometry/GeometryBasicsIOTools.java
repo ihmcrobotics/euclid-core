@@ -139,12 +139,12 @@ public abstract class GeometryBasicsIOTools
       return getQuaternionBasedTransformString(format, quaternionBasedTransform.getQuaternion(), quaternionBasedTransform.getTranslationVector());
    }
 
-   public static String getQuaternionBasedTransformString(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly translation)
+   public static String getQuaternionBasedTransformString(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       return getQuaternionBasedTransformString(DEFAULT_FORMAT, quaternion, translation);
    }
 
-   public static String getQuaternionBasedTransformString(String format, QuaternionReadOnly<?> quaternion, Tuple3DReadOnly translation)
+   public static String getQuaternionBasedTransformString(String format, QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       String ret = "";
 
@@ -173,12 +173,12 @@ public abstract class GeometryBasicsIOTools
       return getStringOf("(", " )", ", ", format, tuple.getX(), tuple.getY(), tuple.getZ());
    }
 
-   public static String getTuple4DString(Tuple4DReadOnly<?> tuple)
+   public static String getTuple4DString(Tuple4DReadOnly tuple)
    {
       return getTuple4DString(DEFAULT_FORMAT, tuple);
    }
 
-   public static String getTuple4DString(String format, Tuple4DReadOnly<?> tuple)
+   public static String getTuple4DString(String format, Tuple4DReadOnly tuple)
    {
       return getStringOf("(", " )", ", ", format, tuple.getX(), tuple.getY(), tuple.getZ(), tuple.getS());
    }

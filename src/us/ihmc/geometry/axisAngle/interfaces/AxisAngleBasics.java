@@ -203,7 +203,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     *
     * @param quaternion the quaternion to convert. Not modified.
     */
-   default void set(QuaternionReadOnly<?> quaternion)
+   default void set(QuaternionReadOnly quaternion)
    {
       AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, this);
    }

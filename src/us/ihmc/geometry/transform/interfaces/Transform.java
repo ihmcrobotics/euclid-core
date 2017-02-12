@@ -131,7 +131,7 @@ public interface Transform
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
-   default void transform(QuaternionBasics<?> quaternionToTransform)
+   default void transform(QuaternionBasics quaternionToTransform)
    {
       transform(quaternionToTransform, quaternionToTransform);
    }
@@ -148,7 +148,7 @@ public interface Transform
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
-   void transform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed);
+   void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed);
 
    /**
     * Transforms the vector part (x, y, z) of the given {@code vector4DToTransform} as a 3D vector
@@ -166,7 +166,7 @@ public interface Transform
     *
     * @param vectorToTransform the 4D vector to transform. Modified.
     */
-   default void transform(Vector4DBasics<?> vectorToTransform)
+   default void transform(Vector4DBasics vectorToTransform)
    {
       transform(vectorToTransform, vectorToTransform);
    }
@@ -188,7 +188,7 @@ public interface Transform
     * @param vectorOriginal the 4D vector to transform. Not modified.
     * @param vectorTransformed the 4D vector in which the result is stored. Modified.
     */
-   void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed);
+   void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
 
    /**
     * Transforms the given {@code point2DToTransform} by this transform.
@@ -525,7 +525,7 @@ public interface Transform
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
-   default void inverseTransform(QuaternionBasics<?> quaternionToTransform)
+   default void inverseTransform(QuaternionBasics quaternionToTransform)
    {
       inverseTransform(quaternionToTransform, quaternionToTransform);
    }
@@ -541,7 +541,7 @@ public interface Transform
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
-   void inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed);
+   void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed);
 
    /**
     * Performs the inverse of the transform on the given vector {@code vectorToTransform}.
@@ -552,7 +552,7 @@ public interface Transform
     *
     * @param vectorToTransform the 4D vector to transform. Modified.
     */
-   default void inverseTransform(Vector4DBasics<?> vectorToTransform)
+   default void inverseTransform(Vector4DBasics vectorToTransform)
    {
       inverseTransform(vectorToTransform, vectorToTransform);
    }
@@ -568,7 +568,7 @@ public interface Transform
     * @param vectorOriginal the 4D vector to transform. Not modified.
     * @param vectorTransformed the 4D vector in which the result is stored. Modified.
     */
-   void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed);
+   void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
 
    /**
     * Performs the inverse of the transform on the given point {@code pointToTransform}.

@@ -64,7 +64,7 @@ public abstract class TupleTools
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two tuples are equal, {@code false} otherwise.
     */
-   public static boolean epsilonEquals(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2, double epsilon)
+   public static boolean epsilonEquals(Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2, double epsilon)
    {
       double difference;
 

@@ -162,7 +162,7 @@ public class AxisAngleConversion
     * @param quaternion the unit quaternion to use for the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertQuaternionToAxisAngle(QuaternionReadOnly<?> quaternion, AxisAngleBasics axisAngleToPack)
+   public static void convertQuaternionToAxisAngle(QuaternionReadOnly quaternion, AxisAngleBasics axisAngleToPack)
    {
       if (quaternion.containsNaN())
       {

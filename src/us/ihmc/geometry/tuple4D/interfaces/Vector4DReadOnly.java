@@ -23,6 +23,6 @@ package us.ihmc.geometry.tuple4D.interfaces;
  *
  * @param <T> The final type of the vector used.
  */
-public interface Vector4DReadOnly<T extends Vector4DReadOnly<T>> extends Tuple4DReadOnly<T>
+public interface Vector4DReadOnly extends Tuple4DReadOnly
 {
 }

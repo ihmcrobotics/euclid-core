@@ -35,7 +35,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
-public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extends Tuple4DBasicsTest<T>
+public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends Tuple4DBasicsTest<T>
 {
    // Read-only part
    @Test
@@ -570,10 +570,10 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(QuaternionBasics<?> quaternionToTransform)
-         QuaternionReadOnly<?> original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         QuaternionBasics<?> actual = new Quaternion(original);
-         QuaternionBasics<?> expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+      { // Test inverseTransform(QuaternionBasics quaternionToTransform)
+         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          quaternion = createRandomTuple(random);
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
@@ -582,10 +582,10 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
-         QuaternionReadOnly<?> original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         QuaternionBasics<?> actual = new Quaternion(original);
-         QuaternionBasics<?> expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+      { // Test inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          quaternion = createRandomTuple(random);
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
@@ -594,10 +594,10 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(Vector4DBasics<?> vectorToTransform)
-         Vector4DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomVector4D(random);
-         Vector4DBasics<?> actual = new Vector4D(original);
-         Vector4DBasics<?> expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+      { // Test inverseTransform(Vector4DBasics vectorToTransform)
+         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
          quaternion = createRandomTuple(random);
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
@@ -606,10 +606,10 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
-         Vector4DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomVector4D(random);
-         Vector4DBasics<?> actual = new Vector4D(original);
-         Vector4DBasics<?> expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+      { // Test inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
          quaternion = createRandomTuple(random);
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
@@ -674,7 +674,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
    {
       super.testNegate();
 
-      // Redo the test to make sure setAndNegate(QuaternionReadOnly<?> other) is called.
+      // Redo the test to make sure setAndNegate(QuaternionReadOnly other) is called.
       Random random = new Random(621541L);
       T tuple1 = createEmptyTuple();
       T tuple2 = createEmptyTuple();

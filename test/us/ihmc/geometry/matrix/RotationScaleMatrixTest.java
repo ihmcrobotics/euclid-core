@@ -1708,10 +1708,10 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(QuaternionBasics<?> quaternionToTransform)
-         QuaternionReadOnly<?> original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         QuaternionBasics<?> actual = new Quaternion(original);
-         QuaternionBasics<?> expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+      { // Test inverseTransform(QuaternionBasics quaternionToTransform)
+         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          rotationScaleMatrix = createRandomMatrix(random);
 
          QuaternionTools.multiplyTransposeMatrix(rotationScaleMatrix.getRotationMatrix(), original, expected);
@@ -1720,10 +1720,10 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
-         QuaternionReadOnly<?> original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         QuaternionBasics<?> actual = new Quaternion(original);
-         QuaternionBasics<?> expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+      { // Test inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          rotationScaleMatrix = createRandomMatrix(random);
 
          QuaternionTools.multiplyTransposeMatrix(rotationScaleMatrix.getRotationMatrix(), original, expected);
@@ -1732,10 +1732,10 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(Vector4DBasics<?> vectorToTransform)
-         Vector4DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomVector4D(random);
-         Vector4DBasics<?> actual = new Vector4D(original);
-         Vector4DBasics<?> expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+      { // Test inverseTransform(Vector4DBasics vectorToTransform)
+         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
          rotationScaleMatrix = createRandomMatrix(random);
 
          Matrix3DTools.inverseTransform(rotationScaleMatrix, original, expected);
@@ -1744,10 +1744,10 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
-         Vector4DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomVector4D(random);
-         Vector4DBasics<?> actual = new Vector4D(original);
-         Vector4DBasics<?> expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+      { // Test inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
          rotationScaleMatrix = createRandomMatrix(random);
 
          Matrix3DTools.inverseTransform(rotationScaleMatrix, original, expected);

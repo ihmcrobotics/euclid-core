@@ -122,7 +122,7 @@ public abstract class RotationVectorConversion
     * @param quaternion the quaternion to use for the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertQuaternionToRotationVector(QuaternionReadOnly<?> quaternion, Vector3DBasics rotationVectorToPack)
+   public static void convertQuaternionToRotationVector(QuaternionReadOnly quaternion, Vector3DBasics rotationVectorToPack)
    {
       if (quaternion.containsNaN())
       {

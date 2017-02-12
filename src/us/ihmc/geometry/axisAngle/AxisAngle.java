@@ -101,7 +101,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparab
     *
     * @param quaternion the quaternion used to create this axis-angle. Not modified.
     */
-   public AxisAngle(QuaternionReadOnly<?> quaternion)
+   public AxisAngle(QuaternionReadOnly quaternion)
    {
       set(quaternion);
    }

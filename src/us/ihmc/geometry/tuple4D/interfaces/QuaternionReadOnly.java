@@ -38,7 +38,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  *
  * @param <T> The final type of the quaternion used.
  */
-public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tuple4DReadOnly<T>
+public interface QuaternionReadOnly extends Tuple4DReadOnly
 {
    /**
     * Tests if this quaternion has a norm equal to 1+/-{@code epsilon}.
@@ -306,7 +306,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
-   default void transform(QuaternionBasics<?> quaternionToTransform)
+   default void transform(QuaternionBasics quaternionToTransform)
    {
       transform(quaternionToTransform, quaternionToTransform);
    }
@@ -321,7 +321,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
-   default void transform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+   default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.transform(this, quaternionOriginal, quaternionTransformed);
    }
@@ -335,7 +335,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     *
     * @param vectorToTransform the vector to transform. Modified.
     */
-   default void transform(Vector4DBasics<?> vectorToTransform)
+   default void transform(Vector4DBasics vectorToTransform)
    {
       transform(vectorToTransform, vectorToTransform);
    }
@@ -351,7 +351,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   default void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       QuaternionTools.transform(this, vectorOriginal, vectorTransformed);
    }
@@ -490,7 +490,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
-   default void inverseTransform(QuaternionBasics<?> quaternionToTransform)
+   default void inverseTransform(QuaternionBasics quaternionToTransform)
    {
       inverseTransform(quaternionToTransform, quaternionToTransform);
    }
@@ -505,7 +505,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
-   default void inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.inverseTransform(this, quaternionOriginal, quaternionTransformed);
    }
@@ -520,7 +520,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     *
     * @param vectorToTransform the vector to transform. Modified.
     */
-   default void inverseTransform(Vector4DBasics<?> vectorToTransform)
+   default void inverseTransform(Vector4DBasics vectorToTransform)
    {
       inverseTransform(vectorToTransform, vectorToTransform);
    }
@@ -536,7 +536,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   default void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       QuaternionTools.inverseTransform(this, vectorOriginal, vectorTransformed);
    }

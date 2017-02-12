@@ -459,7 +459,7 @@ public abstract class YawPitchRollConversion
     * @param quaternion the quaternion to use in the conversion. Not modified.
     * @return the yaw angle.
     */
-   public static double computeYaw(QuaternionReadOnly<?> quaternion)
+   public static double computeYaw(QuaternionReadOnly quaternion)
    {
       if (quaternion.containsNaN())
          return Double.NaN;
@@ -498,7 +498,7 @@ public abstract class YawPitchRollConversion
     * @param quaternion the quaternion to use in the conversion. Not modified.
     * @return the pitch angle.
     */
-   public static double computePitch(QuaternionReadOnly<?> quaternion)
+   public static double computePitch(QuaternionReadOnly quaternion)
    {
       if (quaternion.containsNaN())
          return Double.NaN;
@@ -534,7 +534,7 @@ public abstract class YawPitchRollConversion
     * @param quaternion the quaternion to use in the conversion. Not modified.
     * @return the roll angle.
     */
-   public static double computeRoll(QuaternionReadOnly<?> quaternion)
+   public static double computeRoll(QuaternionReadOnly quaternion)
    {
       if (quaternion.containsNaN())
          return Double.NaN;
@@ -578,7 +578,7 @@ public abstract class YawPitchRollConversion
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored, in the
     *           order {@code yaw}, {@code pitch}, then {@code roll}. Modified.
     */
-   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly<?> quaternion, double[] yawPitchRollToPack)
+   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, double[] yawPitchRollToPack)
    {
       if (quaternion.containsNaN())
       {
@@ -640,7 +640,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly<?> quaternion, Vector3D eulerAnglesToPack)
+   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, Vector3D eulerAnglesToPack)
    {
       if (quaternion.containsNaN())
       {

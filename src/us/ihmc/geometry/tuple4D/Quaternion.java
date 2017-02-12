@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
@@ -19,7 +20,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
+public class Quaternion implements Serializable, QuaternionBasics, GeometryObject<Quaternion>
 {
    private static final long serialVersionUID = -3523313039213464150L;
 
@@ -76,7 +77,7 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
     *
     * @param other the quaternion to copy the components from. Not modified.
     */
-   public Quaternion(QuaternionReadOnly<?> other)
+   public Quaternion(QuaternionReadOnly other)
    {
       set(other);
    }
@@ -117,6 +118,12 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
    public Quaternion(Vector3DReadOnly rotationVector)
    {
       set(rotationVector);
+   }
+
+   @Override
+   public void set(Quaternion other)
+   {
+      QuaternionBasics.super.set(other);
    }
 
    /** {@inheritDoc} */
@@ -175,6 +182,12 @@ public class Quaternion implements Serializable, QuaternionBasics<Quaternion>
       {
          return false;
       }
+   }
+
+   @Override
+   public boolean epsilonEquals(Quaternion other, double epsilon)
+   {
+      return QuaternionBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

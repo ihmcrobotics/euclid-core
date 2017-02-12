@@ -13,7 +13,7 @@ import org.junit.Test;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
-public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly<T>>
+public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
 

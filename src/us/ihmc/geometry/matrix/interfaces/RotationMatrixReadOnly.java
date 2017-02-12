@@ -75,7 +75,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
-   default void transform(QuaternionBasics<?> quaternionToTransform)
+   default void transform(QuaternionBasics quaternionToTransform)
    {
       transform(quaternionToTransform, quaternionToTransform);
    }
@@ -91,7 +91,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
-   default void transform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+   default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       normalize();
       QuaternionTools.multiply(this, quaternionOriginal, quaternionTransformed);
@@ -99,7 +99,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       normalize();
       Matrix3DTools.transform(this, vectorOriginal, vectorTransformed);
@@ -178,7 +178,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
-   default void inverseTransform(QuaternionBasics<?> quaternionToTransform)
+   default void inverseTransform(QuaternionBasics quaternionToTransform)
    {
       inverseTransform(quaternionToTransform, quaternionToTransform);
    }
@@ -200,7 +200,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
-   default void inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       normalize();
       QuaternionTools.multiplyTransposeMatrix(this, quaternionOriginal, quaternionTransformed);
@@ -208,7 +208,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       normalize();
       double x = getM00() * vectorOriginal.getX() + getM10() * vectorOriginal.getY() + getM20() * vectorOriginal.getZ();

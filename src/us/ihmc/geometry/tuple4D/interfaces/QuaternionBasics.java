@@ -1,7 +1,6 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
@@ -34,7 +33,7 @@ import us.ihmc.geometry.tuple4D.QuaternionTools;
  *
  * @param <T> The final type of the quaternion used.
  */
-public interface QuaternionBasics<T extends QuaternionBasics<T>> extends QuaternionReadOnly<T>, Tuple4DBasics<T>, GeometryObject<T>
+public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
 {
    /**
     * Sets the four components of this quaternion without normalizing.
@@ -143,21 +142,14 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
       normalize();
    }
 
-   /** {@inheritDoc} */
-   @Override
-   default void set(T other)
-   {
-      setUnsafe(other.getX(), other.getY(), other.getZ(), other.getS());
-   }
-
-   default void set(QuaternionReadOnly<?> other)
+   default void set(QuaternionReadOnly other)
    {
       setUnsafe(other.getX(), other.getY(), other.getZ(), other.getS());
    }
 
    /** {@inheritDoc} */
    @Override
-   default void setAndNormalize(Tuple4DReadOnly<?> other)
+   default void setAndNormalize(Tuple4DReadOnly other)
    {
       set(other);
    }
@@ -174,7 +166,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to copy the values from. Not modified.
     */
-   default void setAndConjugate(QuaternionReadOnly<?> other)
+   default void setAndConjugate(QuaternionReadOnly other)
    {
       set(other);
       conjugate();
@@ -185,7 +177,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to copy the values from. Not modified.
     */
-   default void setAndNegate(QuaternionReadOnly<?> other)
+   default void setAndNegate(QuaternionReadOnly other)
    {
       set(other);
       negate();
@@ -196,7 +188,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to copy the values from. Not modified.
     */
-   default void setAndInverse(QuaternionReadOnly<?> other)
+   default void setAndInverse(QuaternionReadOnly other)
    {
       set(other);
       inverse();
@@ -336,7 +328,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * @param q1 the first quaternion in the difference. Not modified.
     * @param q2 the second quaternion in the difference. Not modified.
     */
-   default void difference(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2)
+   default void difference(QuaternionReadOnly q1, QuaternionReadOnly q2)
    {
       QuaternionTools.multiplyConjugateLeft(q1, q2, this);
    }
@@ -349,7 +341,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to multiply this. Not modified.
     */
-   default void multiply(QuaternionReadOnly<?> other)
+   default void multiply(QuaternionReadOnly other)
    {
       QuaternionTools.multiply(this, other, this);
    }
@@ -363,7 +355,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     * @param q1 the first quaternion in the multiplication. Not modified.
     * @param q2 the second quaternion in the multiplication. Not modified.
     */
-   default void multiply(QuaternionReadOnly<?> q1, QuaternionReadOnly<?> q2)
+   default void multiply(QuaternionReadOnly q1, QuaternionReadOnly q2)
    {
       QuaternionTools.multiply(q1, q2, this);
    }
@@ -390,7 +382,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to multiply this. Not modified.
     */
-   default void multiplyConjugateOther(QuaternionReadOnly<?> other)
+   default void multiplyConjugateOther(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateRight(this, other, this);
    }
@@ -403,7 +395,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to multiply this. Not modified.
     */
-   default void multiplyConjugateThis(QuaternionReadOnly<?> other)
+   default void multiplyConjugateThis(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateLeft(this, other, this);
    }
@@ -416,7 +408,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to multiply this. Not modified.
     */
-   default void preMultiply(QuaternionReadOnly<?> other)
+   default void preMultiply(QuaternionReadOnly other)
    {
       QuaternionTools.multiply(other, this, this);
    }
@@ -443,7 +435,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to multiply this. Not modified.
     */
-   default void preMultiplyConjugateOther(QuaternionReadOnly<?> other)
+   default void preMultiplyConjugateOther(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateLeft(other, this, this);
    }
@@ -456,7 +448,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param other the other quaternion to multiply this. Not modified.
     */
-   default void preMultiplyConjugateThis(QuaternionReadOnly<?> other)
+   default void preMultiplyConjugateThis(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateRight(other, this, this);
    }
@@ -474,7 +466,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *           modifying this quaternion, while a value of 1 is equivalent to setting this
     *           quaternion to {@code qf}.
     */
-   default void interpolate(QuaternionReadOnly<?> qf, double alpha)
+   default void interpolate(QuaternionReadOnly qf, double alpha)
    {
       interpolate(this, qf, alpha);
    }
@@ -493,7 +485,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *           this quaternion to {@code q0}, while a value of 1 is equivalent to setting this
     *           quaternion to {@code qf}.
     */
-   default void interpolate(QuaternionReadOnly<?> q0, QuaternionReadOnly<?> qf, double alpha)
+   default void interpolate(QuaternionReadOnly q0, QuaternionReadOnly qf, double alpha)
    {
       double cosHalfTheta = q0.dot(qf);
       double sign = 1.0;

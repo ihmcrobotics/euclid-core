@@ -710,7 +710,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // transform(Vector4DBasics<?> vectorToTransform)
+      { // transform(Vector4DBasics vectorToTransform)
          Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          Vector4D expected = new Vector4D();
@@ -724,7 +724,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+      { // transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
          Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          Vector4D expected = new Vector4D();
@@ -962,7 +962,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // inverseTransform(Vector4DBasics<?> vectorToTransform)
+      { // inverseTransform(Vector4DBasics vectorToTransform)
          Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          Vector4D expected = new Vector4D();
@@ -981,7 +981,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+      { // inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
          Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          Vector4D expected = new Vector4D();

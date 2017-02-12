@@ -39,7 +39,7 @@ public abstract class QuaternionConversion
     * @param yaw the angle to rotate about the z-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static final void computeYawQuaternion(double yaw, QuaternionBasics<?> quaternionToPack)
+   public static final void computeYawQuaternion(double yaw, QuaternionBasics quaternionToPack)
    {
       double halfYaw = 0.5 * yaw;
       quaternionToPack.setUnsafe(0.0, 0.0, Math.sin(halfYaw), Math.cos(halfYaw));
@@ -52,7 +52,7 @@ public abstract class QuaternionConversion
     * @param pitch the angle to rotate about the y-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static final void computePitchQuaternion(double pitch, QuaternionBasics<?> quaternionToPack)
+   public static final void computePitchQuaternion(double pitch, QuaternionBasics quaternionToPack)
    {
       double halfPitch = 0.5 * pitch;
       quaternionToPack.setUnsafe(0.0, Math.sin(halfPitch), 0.0, Math.cos(halfPitch));
@@ -65,7 +65,7 @@ public abstract class QuaternionConversion
     * @param roll the angle to rotate about the x-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static final void computeRollQuaternion(double roll, QuaternionBasics<?> quaternionToPack)
+   public static final void computeRollQuaternion(double roll, QuaternionBasics quaternionToPack)
    {
       double halfRoll = 0.5 * roll;
       quaternionToPack.setUnsafe(Math.sin(halfRoll), 0.0, 0.0, Math.cos(halfRoll));
@@ -89,7 +89,7 @@ public abstract class QuaternionConversion
     * @param axisAngle the axis-angle to use for the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly axisAngle, QuaternionBasics<?> quaternionToPack)
+   public static final void convertAxisAngleToQuaternion(AxisAngleReadOnly axisAngle, QuaternionBasics quaternionToPack)
    {
       convertAxisAngleToQuaternion(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), quaternionToPack);
    }
@@ -115,7 +115,7 @@ public abstract class QuaternionConversion
     * @param angle the angle of the axis-angle to use for the conversion.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static final void convertAxisAngleToQuaternion(double ux, double uy, double uz, double angle, QuaternionBasics<?> quaternionToPack)
+   public static final void convertAxisAngleToQuaternion(double ux, double uy, double uz, double angle, QuaternionBasics quaternionToPack)
    {
       if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
       {
@@ -155,7 +155,7 @@ public abstract class QuaternionConversion
     *           orientation part is used during the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly rotationScaleMatrix, QuaternionBasics<?> quaternionToPack)
+   public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly rotationScaleMatrix, QuaternionBasics quaternionToPack)
    {
       convertMatrixToQuaternion(rotationScaleMatrix.getRotationMatrix(), quaternionToPack);
    }
@@ -177,7 +177,7 @@ public abstract class QuaternionConversion
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertMatrixToQuaternion(RotationMatrixReadOnly rotationMatrix, QuaternionBasics<?> quaternionToPack)
+   public static void convertMatrixToQuaternion(RotationMatrixReadOnly rotationMatrix, QuaternionBasics quaternionToPack)
    {
       if (rotationMatrix.containsNaN())
       {
@@ -277,7 +277,7 @@ public abstract class QuaternionConversion
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertRotationVectorToQuaternion(Vector3DReadOnly rotationVector, QuaternionBasics<?> quaternionToPack)
+   public static void convertRotationVectorToQuaternion(Vector3DReadOnly rotationVector, QuaternionBasics quaternionToPack)
    {
       convertRotationVectorToQuaternionImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), quaternionToPack);
    }
@@ -306,7 +306,7 @@ public abstract class QuaternionConversion
     * @param rz the z-component of the rotation vector to use in the conversion.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertRotationVectorToQuaternionImpl(double rx, double ry, double rz, QuaternionBasics<?> quaternionToPack)
+   public static void convertRotationVectorToQuaternionImpl(double rx, double ry, double rz, QuaternionBasics quaternionToPack)
    {
       if (GeometryBasicsTools.containsNaN(rx, ry, rz))
       {
@@ -353,7 +353,7 @@ public abstract class QuaternionConversion
     * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertYawPitchRollToQuaternion(double[] yawPitchRoll, QuaternionBasics<?> quaternionToPack)
+   public static void convertYawPitchRollToQuaternion(double[] yawPitchRoll, QuaternionBasics quaternionToPack)
    {
       convertYawPitchRollToQuaternion(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], quaternionToPack);
    }
@@ -384,7 +384,7 @@ public abstract class QuaternionConversion
     * @param roll the roll angle to use in the conversion.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertYawPitchRollToQuaternion(double yaw, double pitch, double roll, QuaternionBasics<?> quaternionToPack)
+   public static void convertYawPitchRollToQuaternion(double yaw, double pitch, double roll, QuaternionBasics quaternionToPack)
    {
       double halfYaw = 0.5 * yaw;
       double cYaw = Math.cos(halfYaw);

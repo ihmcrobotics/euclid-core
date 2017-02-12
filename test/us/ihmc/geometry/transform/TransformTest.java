@@ -116,7 +116,7 @@ public abstract class TransformTest<T extends Transform>
       Random random = new Random(3454L);
       T transform = createRandomTransform(random);
 
-      { // Test inverseTransform(QuaternionBasics<?> quaternionToTransform)
+      { // Test inverseTransform(QuaternionBasics quaternionToTransform)
          Quaternion expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion actual = new Quaternion();
          actual.set(expected);
@@ -125,7 +125,7 @@ public abstract class TransformTest<T extends Transform>
          GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, EPS);
       }
 
-      { // Test inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+      { // Test inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
          Quaternion expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion actual = new Quaternion();
          transform.inverseTransform(expected, actual);
@@ -140,7 +140,7 @@ public abstract class TransformTest<T extends Transform>
       Random random = new Random(3454L);
       T transform = createRandomTransform(random);
 
-      { // Test inverseTransform(Vector4DBasics<?> vectorToTransform)
+      { // Test inverseTransform(Vector4DBasics vectorToTransform)
          Vector4D expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          actual.set(expected);
@@ -149,7 +149,7 @@ public abstract class TransformTest<T extends Transform>
          GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, EPS);
       }
 
-      { // Test inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+      { // Test inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
          Vector4D expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          transform.inverseTransform(expected, actual);

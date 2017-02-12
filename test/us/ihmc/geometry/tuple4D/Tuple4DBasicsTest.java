@@ -13,7 +13,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
-public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics<T>> extends Tuple4DReadOnlyTest<T>
+public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4DReadOnlyTest<T>
 {
    @Test
    public abstract void testSetDoubles();
@@ -190,7 +190,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics<T>> extends Tupl
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test set(Tuple3DReadOnly tupleReadOnly)
          tuple2 = createRandomTuple(random);
-         tuple1.set((Tuple4DReadOnly<?>) tuple2);
+         tuple1.set((Tuple4DReadOnly) tuple2);
          GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
 

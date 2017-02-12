@@ -114,7 +114,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
-   default void transform(QuaternionBasics<?> quaternionToTransform)
+   default void transform(QuaternionBasics quaternionToTransform)
    {
       transform(quaternionToTransform, quaternionToTransform);
    }
@@ -131,14 +131,14 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
-   default void transform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+   default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       getRotationMatrix().transform(quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       vectorTransformed.setX(getScaleX() * vectorOriginal.getX());
       vectorTransformed.setY(getScaleY() * vectorOriginal.getY());
@@ -225,7 +225,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
-   default void inverseTransform(QuaternionBasics<?> quaternionToTransform)
+   default void inverseTransform(QuaternionBasics quaternionToTransform)
    {
       inverseTransform(quaternionToTransform, quaternionToTransform);
    }
@@ -247,14 +247,14 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
-   default void inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       getRotationMatrix().inverseTransform(quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       getRotationMatrix().inverseTransform(vectorOriginal, vectorTransformed);
 

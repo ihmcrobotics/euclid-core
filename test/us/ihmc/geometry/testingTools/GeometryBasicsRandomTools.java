@@ -1018,11 +1018,11 @@ public abstract class GeometryBasicsRandomTools
    public static void main(String[] args)
    {
       Random random = new Random();
-      Matrix3DReadOnly<?> matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      Tuple2DReadOnly<?> tuple2D = GeometryBasicsRandomTools.generateRandomVector2D(random);
-      Tuple3DReadOnly<?> tuple3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
-      Tuple4DReadOnly<?> tuple4D = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      AxisAngleReadOnly<?> axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+      Matrix3DReadOnly matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      Tuple2DReadOnly tuple2D = GeometryBasicsRandomTools.generateRandomVector2D(random);
+      Tuple3DReadOnly tuple3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
+      Tuple4DReadOnly tuple4D = GeometryBasicsRandomTools.generateRandomVector4D(random);
+      AxisAngleReadOnly axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
 
       System.out.println(GeometryBasicsIOTools.getHomogeneousTransformString(matrix, tuple3D));
       System.out.println();

@@ -760,7 +760,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiply(QuaternionReadOnly<?> quaternion)
+      { // Test multiply(QuaternionReadOnly quaternion)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          expected.set(multiplied);
@@ -795,7 +795,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyTransposeThis(QuaternionReadOnly<?> quaternion)
+      { // Test multiplyTransposeThis(QuaternionReadOnly quaternion)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          expected.set(multiplied);
@@ -830,7 +830,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion)
+      { // Test multiplyConjugateQuaternion(QuaternionReadOnly quaternion)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          expected.set(multiplied);
@@ -865,7 +865,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyTransposeMatrixConjugateQuaternion(QuaternionReadOnly<?> quaternion)
+      { // Test multiplyTransposeMatrixConjugateQuaternion(QuaternionReadOnly quaternion)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          expected.set(multiplied);
@@ -908,7 +908,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiply(QuaternionReadOnly<?> quaternion)
+      { // Test preMultiply(QuaternionReadOnly quaternion)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          expected.set(multiplied);
@@ -943,7 +943,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyTransposeThis(QuaternionReadOnly<?> quaternion)
+      { // Test preMultiplyTransposeThis(QuaternionReadOnly quaternion)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          expected.set(multiplied);
@@ -978,7 +978,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion)
+      { // Test preMultiplyConjugateQuaternion(QuaternionReadOnly quaternion)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          expected.set(multiplied);
@@ -1013,7 +1013,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly<?> quaternion)
+      { // Test preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
          Quaternion quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          expected.set(multiplied);
@@ -1462,10 +1462,10 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(QuaternionBasics<?> quaternionToTransform)
-         QuaternionReadOnly<?> original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         QuaternionBasics<?> actual = new Quaternion(original);
-         QuaternionBasics<?> expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+      { // Test inverseTransform(QuaternionBasics quaternionToTransform)
+         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          rotationMatrix = createRandomMatrix(random);
 
          QuaternionTools.multiplyTransposeMatrix(rotationMatrix, original, expected);
@@ -1474,10 +1474,10 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
-         QuaternionReadOnly<?> original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
-         QuaternionBasics<?> actual = new Quaternion(original);
-         QuaternionBasics<?> expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+      { // Test inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          rotationMatrix = createRandomMatrix(random);
 
          QuaternionTools.multiplyTransposeMatrix(rotationMatrix, original, expected);
@@ -1486,10 +1486,10 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(Vector4DBasics<?> vectorToTransform)
-         Vector4DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomVector4D(random);
-         Vector4DBasics<?> actual = new Vector4D(original);
-         Vector4DBasics<?> expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+      { // Test inverseTransform(Vector4DBasics vectorToTransform)
+         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
          rotationMatrix = createRandomMatrix(random);
 
          Matrix3DTools.inverseTransform(rotationMatrix, original, expected);
@@ -1498,10 +1498,10 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
-         Vector4DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomVector4D(random);
-         Vector4DBasics<?> actual = new Vector4D(original);
-         Vector4DBasics<?> expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+      { // Test inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
          rotationMatrix = createRandomMatrix(random);
 
          Matrix3DTools.inverseTransform(rotationMatrix, original, expected);

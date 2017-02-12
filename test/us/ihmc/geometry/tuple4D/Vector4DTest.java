@@ -63,7 +63,7 @@ public class Vector4DTest extends Vector4DBasicsTest<Vector4D>
       }
 
       { // Test Vector4D(Tuple4DReadOnly other)
-         Tuple4DReadOnly<?> quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Tuple4DReadOnly quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Vector4D vector = new Vector4D(quaternion);
          GeometryBasicsTestTools.assertTuple4DEquals(quaternion, vector, EPS);
       }

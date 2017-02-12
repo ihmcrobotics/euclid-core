@@ -210,7 +210,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal.
     */
-   public static void assertTuple4DEquals(Tuple4DReadOnly<?> expected, Tuple4DReadOnly<?> actual, double epsilon)
+   public static void assertTuple4DEquals(Tuple4DReadOnly expected, Tuple4DReadOnly actual, double epsilon)
    {
       assertTuple4DEquals("", expected, actual, epsilon);
    }
@@ -224,7 +224,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal.
     */
-   public static void assertTuple4DEquals(String message, Tuple4DReadOnly<?> expected, Tuple4DReadOnly<?> actual, double epsilon)
+   public static void assertTuple4DEquals(String message, Tuple4DReadOnly expected, Tuple4DReadOnly actual, double epsilon)
    {
       boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
 
@@ -362,7 +362,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two quaternions are not equal.
     */
-   public static void assertQuaternionEquals(QuaternionReadOnly<?> expectedQuaternion, QuaternionReadOnly<?> actualQuaternion, double epsilon)
+   public static void assertQuaternionEquals(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
    {
       try
       {
@@ -390,7 +390,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two quaternions are not equal.
     */
-   public static void assertQuaternionEqualsSmart(QuaternionReadOnly<?> expectedQuaternion, QuaternionReadOnly<?> actualQuaternion, double epsilon)
+   public static void assertQuaternionEqualsSmart(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
    {
       try
       {
@@ -416,7 +416,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two quaternions do not represent the same orientation.
     */
-   public static void assertQuaternionEqualsUsingDifference(QuaternionReadOnly<?> expectedQuaternion, QuaternionReadOnly<?> actualQuaternion, double epsilon)
+   public static void assertQuaternionEqualsUsingDifference(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
    {
       try
       {
@@ -549,7 +549,7 @@ public abstract class GeometryBasicsTestTools
     * @param quaternionToAssert the query. Not modified.
     * @throws AssertionError if the quaternion does not only contain {@link Double#NaN}.
     */
-   public static void assertQuaternionContainsOnlyNaN(QuaternionReadOnly<?> quaternionToAssert)
+   public static void assertQuaternionContainsOnlyNaN(QuaternionReadOnly quaternionToAssert)
    {
       assertTrue(Double.isNaN(quaternionToAssert.getX()));
       assertTrue(Double.isNaN(quaternionToAssert.getY()));
@@ -563,7 +563,7 @@ public abstract class GeometryBasicsTestTools
     * @param quaternionToAssert the query. Not modified.
     * @throws AssertionError if the quaternion has not been set to zero.
     */
-   public static void assertQuaternionIsSetToZero(QuaternionReadOnly<?> quaternionToAssert)
+   public static void assertQuaternionIsSetToZero(QuaternionReadOnly quaternionToAssert)
    {
       assertTrue(quaternionToAssert.getX() == 0.0);
       assertTrue(quaternionToAssert.getY() == 0.0);
@@ -578,7 +578,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the quaternion is not a unit-quaternion.
     */
-   public static void assertQuaternionIsUnitary(QuaternionReadOnly<?> quaternionToAssert, double epsilon)
+   public static void assertQuaternionIsUnitary(QuaternionReadOnly quaternionToAssert, double epsilon)
    {
       if (!quaternionToAssert.isUnitary(epsilon))
          fail("The axis of the given Quaternion is not unitary: " + getTuple4DString(DEFAULT_FORMAT, quaternionToAssert));

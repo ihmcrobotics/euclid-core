@@ -158,7 +158,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion used to initialize this rotation matrix. Not modified.
     */
-   public RotationMatrix(QuaternionReadOnly<?> quaternion)
+   public RotationMatrix(QuaternionReadOnly quaternion)
    {
       set(quaternion);
    }
@@ -415,7 +415,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion used to set this matrix. Not modified.
     */
-   public void set(QuaternionReadOnly<?> quaternion)
+   public void set(QuaternionReadOnly quaternion)
    {
       RotationMatrixConversion.convertQuaternionToMatrix(quaternion, this);
    }
@@ -605,7 +605,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
-   public void multiply(QuaternionReadOnly<?> quaternion)
+   public void multiply(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiply(this, quaternion, this);
    }
@@ -632,7 +632,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
-   public void multiplyTransposeThis(QuaternionReadOnly<?> quaternion)
+   public void multiplyTransposeThis(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiplyTransposeMatrix(this, quaternion, this);
    }
@@ -659,7 +659,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
-   public void multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion)
+   public void multiplyConjugateQuaternion(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiplyConjugateQuaternion(this, quaternion, this);
    }
@@ -686,7 +686,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
-   public void multiplyTransposeThisConjugateQuaternion(QuaternionReadOnly<?> quaternion)
+   public void multiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(this, quaternion, this);
    }
@@ -761,7 +761,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
-   public void preMultiply(QuaternionReadOnly<?> quaternion)
+   public void preMultiply(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiply(quaternion, this, this);
    }
@@ -788,7 +788,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
-   public void preMultiplyTransposeThis(QuaternionReadOnly<?> quaternion)
+   public void preMultiplyTransposeThis(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiplyTransposeMatrix(quaternion, this, this);
    }
@@ -815,7 +815,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
-   public void preMultiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion)
+   public void preMultiplyConjugateQuaternion(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiplyConjugateQuaternion(quaternion, this, this);
    }
@@ -842,7 +842,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *
     * @param quaternion the quaternion to multiply this. Not modified.
     */
-   public void preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly<?> quaternion)
+   public void preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, this, this);
    }

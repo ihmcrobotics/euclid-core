@@ -176,7 +176,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param quaternion the quaternion used to set this transform's rotation part. Not modified.
     * @param translation the tuple used to set this transform's translation part. Not modified.
     */
-   public RigidBodyTransform(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly translation)
+   public RigidBodyTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       set(quaternion, translation);
    }
@@ -577,7 +577,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(QuaternionReadOnly<?> quaternion, Tuple3DReadOnly translation)
+   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
    {
       rotationMatrix.set(quaternion);
       translationVector.set(translation);
@@ -683,7 +683,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param quaternion the quaternion used to set the rotation part of this transform. Not
     *           modified.
     */
-   public void setRotation(QuaternionReadOnly<?> quaternion)
+   public void setRotation(QuaternionReadOnly quaternion)
    {
       rotationMatrix.set(quaternion);
    }
@@ -910,7 +910,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param quaternion the quaternion used to set the rotation part of this transform. Not
     *           modified.
     */
-   public void setRotationAndZeroTranslation(QuaternionReadOnly<?> quaternion)
+   public void setRotationAndZeroTranslation(QuaternionReadOnly quaternion)
    {
       setRotation(quaternion);
       translationVector.setToZero();
@@ -1244,14 +1244,14 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void transform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+   public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       rotationMatrix.transform(quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       rotationMatrix.transform(vectorOriginal, vectorTransformed);
       vectorTransformed.addX(vectorTransformed.getS() * translationVector.getX());
@@ -1306,14 +1306,14 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(QuaternionReadOnly<?> quaternionOriginal, QuaternionBasics<?> quaternionTransformed)
+   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       rotationMatrix.inverseTransform(quaternionOriginal, quaternionTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       vectorTransformed.set(vectorOriginal);
       vectorTransformed.subX(vectorTransformed.getS() * translationVector.getX());
@@ -1446,7 +1446,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param quaternionToPack the quaternion to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(QuaternionBasics<?> quaternionToPack, Tuple3DBasics translationToPack)
+   public void get(QuaternionBasics quaternionToPack, Tuple3DBasics translationToPack)
    {
       quaternionToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -1590,7 +1590,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param quaternionToPack the quaternion that is set to the rotation part of this transform.
     *           Modified.
     */
-   public void getRotation(QuaternionBasics<?> quaternionToPack)
+   public void getRotation(QuaternionBasics quaternionToPack)
    {
       quaternionToPack.set(rotationMatrix);
    }

@@ -3,6 +3,7 @@ package us.ihmc.geometry.tuple4D;
 import java.io.Serializable;
 
 import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
@@ -19,7 +20,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
  * @author Sylvain Bertrand
  *
  */
-public class Vector4D implements Serializable, Vector4DBasics<Vector4D>
+public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Vector4D>
 {
    private static final long serialVersionUID = 3048835798807478377L;
 
@@ -69,7 +70,7 @@ public class Vector4D implements Serializable, Vector4DBasics<Vector4D>
     *
     * @param other the tuple to copy the components from. Not modified.
     */
-   public Vector4D(Tuple4DReadOnly<?> other)
+   public Vector4D(Tuple4DReadOnly other)
    {
       set(other);
    }
@@ -100,6 +101,12 @@ public class Vector4D implements Serializable, Vector4DBasics<Vector4D>
    public Vector4D(Point3DReadOnly point3D)
    {
       set(point3D);
+   }
+
+   @Override
+   public void set(Vector4D other)
+   {
+      Vector4DBasics.super.set(other);
    }
 
    /** {@inheritDoc} */
@@ -176,6 +183,12 @@ public class Vector4D implements Serializable, Vector4DBasics<Vector4D>
       {
          return false;
       }
+   }
+
+   @Override
+   public boolean epsilonEquals(Vector4D other, double epsilon)
+   {
+      return Vector4DBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

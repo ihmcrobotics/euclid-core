@@ -456,7 +456,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
    {
       Random random = new Random(34543L);
       QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
-      QuaternionReadOnly<?> expectedQuaternion = transform.getQuaternion();
+      QuaternionReadOnly expectedQuaternion = transform.getQuaternion();
       Vector3DReadOnly expectedTranslation = transform.getTranslationVector();
 
       { // Test get(DenseMatrix64F matrixToPack)
@@ -528,7 +528,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
    {
       Random random = new Random(3453L);
       QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
-      QuaternionReadOnly<?> expectedQuaternion = transform.getQuaternion();
+      QuaternionReadOnly expectedQuaternion = transform.getQuaternion();
       Quaternion actualQuaternion = new Quaternion();
 
       { // Test getRotation(RotationMatrix rotationMatrixToPack)

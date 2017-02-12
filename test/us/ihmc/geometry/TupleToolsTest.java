@@ -132,8 +132,8 @@ public class TupleToolsTest
    public void testEpsilonEqualsTuple4D() throws Exception
    {
       Random random = new Random(621541L);
-      Vector4DBasics<?> tuple1 = new Vector4D();
-      Vector4DBasics<?> tuple2 = new Vector4D();
+      Vector4DBasics tuple1 = new Vector4D();
+      Vector4DBasics tuple2 = new Vector4D();
 
       double epsilon = random.nextDouble();
 

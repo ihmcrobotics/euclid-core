@@ -194,7 +194,7 @@ public abstract class RotationMatrixConversion
     * @param quaternion the quaternion to use for the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void convertQuaternionToMatrix(QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+   public static void convertQuaternionToMatrix(QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
       if (quaternion.containsNaN())
       {

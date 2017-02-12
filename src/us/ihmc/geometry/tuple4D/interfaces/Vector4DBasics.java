@@ -31,7 +31,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
  *
  * @param <T> The final type of the vector used.
  */
-public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DReadOnly<T>, Tuple4DBasics<T>
+public interface Vector4DBasics extends Vector4DReadOnly, Tuple4DBasics
 {
    /**
     * Sets the x-component of this vector.
@@ -188,7 +188,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * @param scalar the scale factor to use on this tuple.
     * @param tupleReadOnly the tuple to copy the values from. Not modified.
     */
-   default void setAndScale(double scalar, Tuple4DReadOnly<?> tupleReadOnly)
+   default void setAndScale(double scalar, Tuple4DReadOnly tupleReadOnly)
    {
       set(scalar * tupleReadOnly.getX(), scalar * tupleReadOnly.getY(), scalar * tupleReadOnly.getZ(), scalar * tupleReadOnly.getS());
    }
@@ -199,7 +199,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * @param max the maximum value for each component of this tuple.
     * @param tupleReadOnly the tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMax(double max, Tuple4DReadOnly<?> tupleReadOnly)
+   default void setAndClipToMax(double max, Tuple4DReadOnly tupleReadOnly)
    {
       set(Math.min(max, tupleReadOnly.getX()), Math.min(max, tupleReadOnly.getY()), Math.min(max, tupleReadOnly.getZ()), Math.min(max, tupleReadOnly.getS()));
    }
@@ -210,7 +210,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * @param min the minimum value for each component of this tuple.
     * @param tupleReadOnly the tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMin(double min, Tuple4DReadOnly<?> tupleReadOnly)
+   default void setAndClipToMin(double min, Tuple4DReadOnly tupleReadOnly)
    {
       set(Math.max(min, tupleReadOnly.getX()), Math.max(min, tupleReadOnly.getY()), Math.max(min, tupleReadOnly.getZ()), Math.max(min, tupleReadOnly.getS()));
    }
@@ -223,7 +223,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * @param max the maximum value for each component of this tuple.
     * @param tupleReadOnly the tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMinMax(double min, double max, Tuple4DReadOnly<?> tupleReadOnly)
+   default void setAndClipToMinMax(double min, double max, Tuple4DReadOnly tupleReadOnly)
    {
       set(tupleReadOnly);
       clipToMinMax(min, max);
@@ -293,7 +293,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     *
     * @param tupleReadOnly the tuple to add to this vector.
     */
-   default void add(Tuple4DReadOnly<?> tupleReadOnly)
+   default void add(Tuple4DReadOnly tupleReadOnly)
    {
       add(tupleReadOnly.getX(), tupleReadOnly.getY(), tupleReadOnly.getZ(), tupleReadOnly.getS());
    }
@@ -307,7 +307,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * @param tuple1 the first tuple to sum. Not modified.
     * @param tuple2 the second tuple to sum. Not modified.
     */
-   default void add(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2)
+   default void add(Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2)
    {
       set(tuple1.getX() + tuple2.getX(), tuple1.getY() + tuple2.getY(), tuple1.getZ() + tuple2.getZ(), tuple1.getS() + tuple2.getS());
    }
@@ -376,7 +376,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     *
     * @param other the tuple to add to this vector.
     */
-   default void sub(Tuple4DReadOnly<?> tupleReadOnly)
+   default void sub(Tuple4DReadOnly tupleReadOnly)
    {
       sub(tupleReadOnly.getX(), tupleReadOnly.getY(), tupleReadOnly.getZ(), tupleReadOnly.getS());
    }
@@ -390,7 +390,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * @param tuple1 the first tuple. Not modified.
     * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
     */
-   default void sub(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2)
+   default void sub(Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2)
    {
       set(tuple1.getX() - tuple2.getX(), tuple1.getY() - tuple2.getY(), tuple1.getZ() - tuple2.getZ(), tuple1.getS() - tuple2.getS());
    }
@@ -437,7 +437,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * @param scalar the scale factor to use.
     * @param tupleReadOnly the tuple to add to this. Not modified.
     */
-   default void scaleAdd(double scalar, Tuple4DReadOnly<?> tupleReadOnly)
+   default void scaleAdd(double scalar, Tuple4DReadOnly tupleReadOnly)
    {
       scale(scalar);
       add(tupleReadOnly);
@@ -453,7 +453,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     * @param tuple1 the first tuple of the sum. Not modified.
     * @param tuple2 the second tuple of the sum. Not modified.
     */
-   default void scaleAdd(double scalar, Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2)
+   default void scaleAdd(double scalar, Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2)
    {
       setAndScale(scalar, tuple1);
       add(tuple2);
@@ -471,7 +471,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     *           modifying this vector, while a value of 1 is equivalent to setting this vector to
     *           {@code tupleReadOnly}.
     */
-   default void interpolate(Tuple4DReadOnly<?> tupleReadOnly, double alpha)
+   default void interpolate(Tuple4DReadOnly tupleReadOnly, double alpha)
    {
       interpolate(this, tupleReadOnly, alpha);
    }
@@ -489,7 +489,7 @@ public interface Vector4DBasics<T extends Vector4DBasics<T>> extends Vector4DRea
     *           this vector to {@code tuple1}, while a value of 1 is equivalent to setting this
     *           vector to {@code tuple2}.
     */
-   default void interpolate(Tuple4DReadOnly<?> tuple1, Tuple4DReadOnly<?> tuple2, double alpha)
+   default void interpolate(Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2, double alpha)
    {
       double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
       double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);

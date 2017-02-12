@@ -767,7 +767,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       Matrix3DTools.transform(this, vectorOriginal, vectorTransformed);
    }
@@ -788,7 +788,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector4DReadOnly<?> vectorOriginal, Vector4DBasics<?> vectorTransformed)
+   public void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       Matrix3DTools.inverseTransform(this, vectorOriginal, vectorTransformed);
    }
