@@ -739,14 +739,14 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+   public void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
    }
 
    /** {@inheritDoc} */
    @Override
-   public void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+   public void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
    }
@@ -774,7 +774,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics<?> tupleTransformed)
+   public void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }

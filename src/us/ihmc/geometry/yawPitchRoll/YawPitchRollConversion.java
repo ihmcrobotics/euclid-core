@@ -347,7 +347,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DBasics<?> eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DBasics eulerAnglesToPack)
    {
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), eulerAnglesToPack);
    }
@@ -370,7 +370,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DBasics<?> eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DBasics eulerAnglesToPack)
    {
       rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());
@@ -922,7 +922,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, Tuple3DBasics<?> eulerAnglesToPack)
+   public static void convertAxisAngleToYawPitchRoll(AxisAngleReadOnly<?> axisAngle, Tuple3DBasics eulerAnglesToPack)
    {
       if (axisAngle.containsNaN())
       {
@@ -1008,7 +1008,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, Tuple3DBasics<?> eulerAnglesToPack)
+   public static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, Tuple3DBasics eulerAnglesToPack)
    {
       double sinTheta = Math.sin(angle);
       double cosTheta = Math.cos(angle);
@@ -1215,7 +1215,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, Vector3DBasics<?> eulerAnglesToPack)
+   public static void convertRotationVectorToYawPitchRoll(Vector3DReadOnly rotationVector, Vector3DBasics eulerAnglesToPack)
    {
       if (rotationVector.containsNaN())
       {

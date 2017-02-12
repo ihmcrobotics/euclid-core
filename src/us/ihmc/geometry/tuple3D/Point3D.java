@@ -3,6 +3,7 @@ package us.ihmc.geometry.tuple3D;
 import java.io.Serializable;
 
 import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -15,7 +16,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
  *
  * @author Sylvain Bertrand
  */
-public class Point3D implements Serializable, Point3DBasics<Point3D>
+public class Point3D implements Serializable, Point3DBasics, GeometryObject<Point3D>
 {
    private static final long serialVersionUID = -1234830724104344277L;
 
@@ -65,6 +66,12 @@ public class Point3D implements Serializable, Point3DBasics<Point3D>
    public Point3D(Tuple3DReadOnly other)
    {
       set(other);
+   }
+
+   @Override
+   public void set(Point3D other)
+   {
+      Point3DBasics.super.set(other);
    }
 
    /**
@@ -151,6 +158,12 @@ public class Point3D implements Serializable, Point3DBasics<Point3D>
       {
          return false;
       }
+   }
+
+   @Override
+   public boolean epsilonEquals(Point3D other, double epsilon)
+   {
+      return Point3DBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

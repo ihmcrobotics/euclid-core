@@ -1,5 +1,6 @@
 package us.ihmc.geometry.tuple3D.interfaces;
 
+import us.ihmc.geometry.interfaces.Transformable;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
@@ -29,10 +30,8 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the vector used.
  */
-public interface Vector3DBasics<T extends Vector3DBasics<T>> extends Tuple3DBasics<T>, Vector3DReadOnly
+public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transformable
 {
    /**
     * Normalizes this vector such that its magnitude is equal to 1 after calling this method and its

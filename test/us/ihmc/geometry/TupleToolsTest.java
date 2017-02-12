@@ -68,8 +68,8 @@ public class TupleToolsTest
    public void testEpsilonEqualsTuple3D() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple3DBasics<?> tuple1 = new Point3D();
-      Tuple3DBasics<?> tuple2 = new Point3D();
+      Tuple3DBasics tuple1 = new Point3D();
+      Tuple3DBasics tuple2 = new Point3D();
 
       double epsilon = random.nextDouble();
 

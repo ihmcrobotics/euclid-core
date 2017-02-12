@@ -1178,7 +1178,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param rotationVectorToPack the rotation vector in which the rotation part is stored.
     *           Modified.
     */
-   public void getRotation(Vector3DBasics<?> rotationVectorToPack)
+   public void getRotation(Vector3DBasics rotationVectorToPack)
    {
       rotationMatrix.get(rotationVectorToPack);
    }
@@ -1192,7 +1192,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
-   public void getRotationEuler(Tuple3DBasics<?> eulerAnglesToPack)
+   public void getRotationEuler(Tuple3DBasics eulerAnglesToPack)
    {
       rotationMatrix.getEuler(eulerAnglesToPack);
    }
@@ -1261,7 +1261,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param scaleToPack the tuple in which the scale factors are stored. Modified.
     */
-   public void getScale(Tuple3DBasics<?> scaleToPack)
+   public void getScale(Tuple3DBasics scaleToPack)
    {
       scaleToPack.set(scale);
    }

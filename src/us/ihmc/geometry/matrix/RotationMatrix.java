@@ -876,7 +876,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param rotationVectorToPack the rotation vector representing the same orientation as this.
     *           Modified.
     */
-   public void get(Vector3DBasics<?> rotationVectorToPack)
+   public void get(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertMatrixToRotationVector(this, rotationVectorToPack);
    }
@@ -890,7 +890,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
-   public void getEuler(Tuple3DBasics<?> eulerAnglesToPack)
+   public void getEuler(Tuple3DBasics eulerAnglesToPack)
    {
       YawPitchRollConversion.convertMatrixToYawPitchRoll(this, eulerAnglesToPack);
    }

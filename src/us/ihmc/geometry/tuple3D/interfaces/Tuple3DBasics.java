@@ -3,7 +3,7 @@ package us.ihmc.geometry.tuple3D.interfaces;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.TupleTools;
-import us.ihmc.geometry.interfaces.GeometryObject;
+import us.ihmc.geometry.interfaces.Clearable;
 
 /**
  * Write and read interface for a 3 dimensional tuple.
@@ -29,11 +29,9 @@ import us.ihmc.geometry.interfaces.GeometryObject;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the tuple used.
  */
 //TODO Think about renaming this interface to Tuple3D
-public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOnly, GeometryObject<T>
+public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
 {
    /**
     * Sets the x-component of this tuple.
@@ -171,17 +169,6 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
       setX(x);
       setY(y);
       setZ(z);
-   }
-
-   /**
-    * Sets this tuple to {@code other}.
-    *
-    * @param other the other tuple to copy the values from. Not modified.
-    */
-   @Override
-   default void set(T other)
-   {
-      set(other.getX(), other.getY(), other.getZ());
    }
 
    /**
@@ -591,11 +578,5 @@ public interface Tuple3DBasics<T extends Tuple3DBasics<T>> extends Tuple3DReadOn
       double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
       double z = TupleTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
       set(x, y, z);
-   }
-
-   @Override
-   public default boolean epsilonEquals(T other, double epsilon)
-   {
-      return Tuple3DReadOnly.super.epsilonEquals(other, epsilon);
    }
 }

@@ -14,7 +14,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 
-public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics<T>> extends Tuple3DReadOnlyTest<T>
+public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3DReadOnlyTest<T>
 {
    @Test
    public void testSetters() throws Exception

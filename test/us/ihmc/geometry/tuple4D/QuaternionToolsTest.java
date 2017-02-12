@@ -637,8 +637,8 @@ public class QuaternionToolsTest
    public void testAddTransformATuple() throws Exception
    {
       Random random = new Random(28346L);
-      Tuple3DBasics<?> tupleExpected = new Vector3D();
-      Tuple3DBasics<?> tupleActual = new Vector3D();
+      Tuple3DBasics tupleExpected = new Vector3D();
+      Tuple3DBasics tupleActual = new Vector3D();
 
       // Test that addTransform(tupleOriginal, tupleTransformed) == tupleTransformed + transform(tupleOriginal)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -647,7 +647,7 @@ public class QuaternionToolsTest
          Tuple3DReadOnly tupleOriginal = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleExpected = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          tupleActual.set(tupleExpected);
-         Tuple3DBasics<?> tupleTransformed = new Vector3D();
+         Tuple3DBasics tupleTransformed = new Vector3D();
          QuaternionTools.transform(quaternion, tupleOriginal, tupleTransformed);
          tupleExpected.add(tupleTransformed);
 

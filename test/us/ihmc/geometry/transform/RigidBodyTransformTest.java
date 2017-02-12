@@ -1273,9 +1273,9 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          assertTrue(Arrays.equals(expected, actual));
       }
 
-      { // Test getRotation(Vector3DBasics<?> rotationVectorToPack)
+      { // Test getRotation(Vector3DBasics rotationVectorToPack)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-         Vector3DBasics<?> rotationVector = new Vector3D();
+         Vector3DBasics rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
          rotationMatrix.set(rotationVector);
          for (int row = 0; row < 3; row++)
@@ -1355,7 +1355,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          assertEquals(expectedTranslation, actualTranslation);
       }
 
-      { // Test get(Vector3DBasics<?> rotationVectorToPack, Tuple3DBasics<Vector3D> translationToPack)
+      { // Test get(Vector3DBasics rotationVectorToPack, Tuple3DBasics<Vector3D> translationToPack)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          Vector3D expected = new Vector3D();
          Vector3D actual = new Vector3D();

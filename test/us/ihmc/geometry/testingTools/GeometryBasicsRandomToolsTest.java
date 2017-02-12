@@ -51,15 +51,15 @@ public class GeometryBasicsRandomToolsTest
    public void testRandomizeTuple()
    {
       Random random = new Random(6841032L);
-      Tuple3DBasics<?> tupleToRandomize = new Point3D();
+      Tuple3DBasics tupleToRandomize = new Point3D();
 
-      Tuple3DBasics<?> tupleToRandomizeCopy = new Point3D();
+      Tuple3DBasics tupleToRandomizeCopy = new Point3D();
       tupleToRandomizeCopy.setX(tupleToRandomize.getX());
       tupleToRandomizeCopy.setY(tupleToRandomize.getY());
       tupleToRandomizeCopy.setZ(tupleToRandomize.getZ());
 
       { // Test randomize(Random random, TupleBasics tupleToRandomize)
-         Tuple3DBasics<?> previousValue = new Point3D();
+         Tuple3DBasics previousValue = new Point3D();
          previousValue.setToNaN();
 
          for (int i = 0; i < 10000; i++)
@@ -80,7 +80,7 @@ public class GeometryBasicsRandomToolsTest
 
       for (int i = 0; i < 10000; i++)
       { // Test randomize(Random random, TupleBasics minMax, TupleBasics tupleToRandomize)
-         Tuple3DBasics<?> minMax = new Point3D();
+         Tuple3DBasics minMax = new Point3D();
 
          minMax.setX(random.nextDouble());
          minMax.setY(random.nextDouble());
@@ -97,8 +97,8 @@ public class GeometryBasicsRandomToolsTest
       }
 
       { // Test randomize(Random random, TupleBasics min, TupleBasics max, TupleBasics tupleToRandomize)
-         Tuple3DBasics<?> min = new Point3D();
-         Tuple3DBasics<?> max = new Point3D();
+         Tuple3DBasics min = new Point3D();
+         Tuple3DBasics max = new Point3D();
 
          for (int i = 0; i < 10000; i++)
          {

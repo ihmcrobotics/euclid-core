@@ -16,7 +16,7 @@ import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 
-public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tuple3DBasicsTest<T>
+public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple3DBasicsTest<T>
 {
    // Read-only part
    @Test
@@ -64,7 +64,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tu
       {
          T vector1 = createRandomTuple(random);
          vector1.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics<?> axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
+         Vector3DBasics axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
 
          T vector2 = createEmptyTuple();
@@ -87,7 +87,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tu
       {
          T vector1 = createRandomTuple(random);
          vector1.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics<?> axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
+         Vector3DBasics axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
          double expectedAngle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
 
          T vector2 = createEmptyTuple();
@@ -109,7 +109,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics<T>> extends Tu
       { // cross(Vector3DReadOnly other)
          T vector1 = createRandomTuple(random);
          vector1.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics<?> axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
+         Vector3DBasics axis = GeometryBasicsRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, Math.PI);
 
          T vector2 = createEmptyTuple();

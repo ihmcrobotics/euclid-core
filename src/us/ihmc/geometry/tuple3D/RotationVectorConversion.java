@@ -55,7 +55,7 @@ public abstract class RotationVectorConversion
     * @param axisAngle the axis-angle to use for the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertAxisAngleToRotationVector(AxisAngleReadOnly<?> axisAngle, Vector3DBasics<?> rotationVectorToPack)
+   public static void convertAxisAngleToRotationVector(AxisAngleReadOnly<?> axisAngle, Vector3DBasics rotationVectorToPack)
    {
       convertAxisAngleToRotationVectorImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), rotationVectorToPack);
    }
@@ -81,7 +81,7 @@ public abstract class RotationVectorConversion
     * @param angle the angle of the axis-angle to use for the conversion.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertAxisAngleToRotationVectorImpl(double ux, double uy, double uz, double angle, Vector3DBasics<?> rotationVectorToPack)
+   public static void convertAxisAngleToRotationVectorImpl(double ux, double uy, double uz, double angle, Vector3DBasics rotationVectorToPack)
    {
       if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
       {
@@ -122,7 +122,7 @@ public abstract class RotationVectorConversion
     * @param quaternion the quaternion to use for the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertQuaternionToRotationVector(QuaternionReadOnly<?> quaternion, Vector3DBasics<?> rotationVectorToPack)
+   public static void convertQuaternionToRotationVector(QuaternionReadOnly<?> quaternion, Vector3DBasics rotationVectorToPack)
    {
       if (quaternion.containsNaN())
       {
@@ -168,7 +168,7 @@ public abstract class RotationVectorConversion
     *           orientation part is used during the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Vector3DBasics<?> rotationVectorToPack)
+   public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Vector3DBasics rotationVectorToPack)
    {
       convertMatrixToRotationVector(rotationScaleMatrix.getRotationMatrix(), rotationVectorToPack);
    }
@@ -190,7 +190,7 @@ public abstract class RotationVectorConversion
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertMatrixToRotationVector(RotationMatrixReadOnly<?> rotationMatrix, Vector3DBasics<?> rotationVectorToPack)
+   public static void convertMatrixToRotationVector(RotationMatrixReadOnly<?> rotationMatrix, Vector3DBasics rotationVectorToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();
@@ -237,7 +237,7 @@ public abstract class RotationVectorConversion
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
    public static void convertMatrixToRotationVectorImpl(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21,
-                                                        double m22, Vector3DBasics<?> rotationVectorToPack)
+                                                        double m22, Vector3DBasics rotationVectorToPack)
    {
       if (GeometryBasicsTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
@@ -327,7 +327,7 @@ public abstract class RotationVectorConversion
     * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertYawPitchRollToRotationVector(double[] yawPitchRoll, Vector3DBasics<?> rotationVectorToPack)
+   public static void convertYawPitchRollToRotationVector(double[] yawPitchRoll, Vector3DBasics rotationVectorToPack)
    {
       convertYawPitchRollToRotationVector(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], rotationVectorToPack);
    }
@@ -358,7 +358,7 @@ public abstract class RotationVectorConversion
     * @param roll the roll angle to use in the conversion.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertYawPitchRollToRotationVector(double yaw, double pitch, double roll, Vector3DBasics<?> rotationVectorToPack)
+   public static void convertYawPitchRollToRotationVector(double yaw, double pitch, double roll, Vector3DBasics rotationVectorToPack)
    {
       if (GeometryBasicsTools.containsNaN(yaw, pitch, roll))
       {

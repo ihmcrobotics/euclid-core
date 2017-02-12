@@ -13,7 +13,7 @@ import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 
-public abstract class Point3DBasicsTest<T extends Point3DBasics<T>> extends Tuple3DBasicsTest<T>
+public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3DBasicsTest<T>
 {
    // Read-only part
    @Test

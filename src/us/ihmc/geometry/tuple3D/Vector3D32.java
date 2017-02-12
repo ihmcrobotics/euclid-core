@@ -3,6 +3,7 @@ package us.ihmc.geometry.tuple3D;
 import java.io.Serializable;
 
 import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.tuple2D.Vector2D32;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
@@ -18,7 +19,7 @@ import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
  *
  * @author Sylvain Bertrand
  */
-public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
+public class Vector3D32 implements Serializable, Vector3DBasics, GeometryObject<Vector3D32>
 {
    private static final long serialVersionUID = 1186918378545386628L;
 
@@ -68,6 +69,12 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
    public Vector3D32(Tuple3DReadOnly tuple)
    {
       set(tuple);
+   }
+
+   @Override
+   public void set(Vector3D32 other)
+   {
+      Vector3DBasics.super.set(other);
    }
 
    /**
@@ -217,6 +224,12 @@ public class Vector3D32 implements Serializable, Vector3DBasics<Vector3D32>
       {
          return false;
       }
+   }
+
+   @Override
+   public boolean epsilonEquals(Vector3D32 other, double epsilon)
+   {
+      return Vector3DBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

@@ -1,5 +1,6 @@
 package us.ihmc.geometry.tuple3D.interfaces;
 
+import us.ihmc.geometry.interfaces.Transformable;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
@@ -28,10 +29,8 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the point used.
  */
-public interface Point3DBasics<T extends Point3DBasics<T>> extends Tuple3DBasics<T>, Point3DReadOnly
+public interface Point3DBasics extends Tuple3DBasics, Point3DReadOnly, Transformable
 {
    /**
     * Transforms this point by the given {@code transform}.
