@@ -15,7 +15,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 
-public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics<T>> extends AxisAngleReadOnlyTest<T>
+public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends AxisAngleReadOnlyTest<T>
 {
    @Test
    public void testSetAngle()

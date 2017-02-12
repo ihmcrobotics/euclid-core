@@ -1162,7 +1162,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param axisAngleToPack the axis-angle in which the rotation part is stored. Modified.
     */
-   public void getRotation(AxisAngleBasics<?> axisAngleToPack)
+   public void getRotation(AxisAngleBasics axisAngleToPack)
    {
       axisAngleToPack.set(rotationMatrix);
    }

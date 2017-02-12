@@ -1342,7 +1342,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          assertEquals(expectedTranslation, actualTranslation);
       }
 
-      { // Test get(AxisAngleBasics<?> axisAngleToPack, Tuple3DBasics<Vector3D> translationToPack)
+      { // Test get(AxisAngleBasics axisAngleToPack, Tuple3DBasics<Vector3D> translationToPack)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          AxisAngle expected = new AxisAngle();
          AxisAngle actual = new AxisAngle();

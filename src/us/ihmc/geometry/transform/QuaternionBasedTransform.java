@@ -1010,7 +1010,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param axisAngleToPack the axis-angle that is set to the rotation part of this transform.
     *           Modified.
     */
-   public void getRotation(AxisAngleBasics<?> axisAngleToPack)
+   public void getRotation(AxisAngleBasics axisAngleToPack)
    {
       axisAngleToPack.set(quaternion);
    }

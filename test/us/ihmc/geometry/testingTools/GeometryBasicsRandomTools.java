@@ -885,7 +885,7 @@ public abstract class GeometryBasicsRandomTools
     * @param random the random generator to use.
     * @param axisAngleToRandomize the axis-angle to randomize. Modified.
     */
-   public static void randomizeAxisAngle(Random random, AxisAngleBasics<?> axisAngleToRandomize)
+   public static void randomizeAxisAngle(Random random, AxisAngleBasics axisAngleToRandomize)
    {
       randomizeAxisAngle(random, Math.PI, axisAngleToRandomize);
    }
@@ -906,7 +906,7 @@ public abstract class GeometryBasicsRandomTools
     * @param axisAngleToRandomize the axis-angle to randomize. Modified.
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     */
-   public static void randomizeAxisAngle(Random random, double minMaxAngle, AxisAngleBasics<?> axisAngleToRandomize)
+   public static void randomizeAxisAngle(Random random, double minMaxAngle, AxisAngleBasics axisAngleToRandomize)
    {
       // Generate uniformly random point on unit sphere (based on http://mathworld.wolfram.com/SpherePointPicking.html )
       double height = 2.0 * random.nextDouble() - 1.0;

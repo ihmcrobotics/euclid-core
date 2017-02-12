@@ -1458,7 +1458,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param axisAngleToPack the axis-angle to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(AxisAngleBasics<?> axisAngleToPack, Tuple3DBasics translationToPack)
+   public void get(AxisAngleBasics axisAngleToPack, Tuple3DBasics translationToPack)
    {
       axisAngleToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -1601,7 +1601,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param axisAngleToPack the axis-angle that is set to the rotation part of this transform.
     *           Modified.
     */
-   public void getRotation(AxisAngleBasics<?> axisAngleToPack)
+   public void getRotation(AxisAngleBasics axisAngleToPack)
    {
       axisAngleToPack.set(rotationMatrix);
    }

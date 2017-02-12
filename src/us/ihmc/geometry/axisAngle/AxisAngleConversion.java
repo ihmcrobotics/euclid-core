@@ -49,7 +49,7 @@ public class AxisAngleConversion
     *           orientation part is used during the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertMatrixToAxisAngle(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, AxisAngleBasics<?> axisAngleToPack)
+   public static void convertMatrixToAxisAngle(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, AxisAngleBasics axisAngleToPack)
    {
       convertMatrixToAxisAngle(rotationScaleMatrix.getRotationMatrix(), axisAngleToPack);
    }
@@ -71,7 +71,7 @@ public class AxisAngleConversion
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertMatrixToAxisAngle(RotationMatrixReadOnly<?> rotationMatrix, AxisAngleBasics<?> axisAngleToPack)
+   public static void convertMatrixToAxisAngle(RotationMatrixReadOnly<?> rotationMatrix, AxisAngleBasics axisAngleToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();
@@ -162,7 +162,7 @@ public class AxisAngleConversion
     * @param quaternion the unit quaternion to use for the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertQuaternionToAxisAngle(QuaternionReadOnly<?> quaternion, AxisAngleBasics<?> axisAngleToPack)
+   public static void convertQuaternionToAxisAngle(QuaternionReadOnly<?> quaternion, AxisAngleBasics axisAngleToPack)
    {
       if (quaternion.containsNaN())
       {
@@ -213,7 +213,7 @@ public class AxisAngleConversion
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertRotationVectorToAxisAngle(Vector3DReadOnly rotationVector, AxisAngleBasics<?> axisAngleToPack)
+   public static void convertRotationVectorToAxisAngle(Vector3DReadOnly rotationVector, AxisAngleBasics axisAngleToPack)
    {
       convertRotationVectorToAxisAngle(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), axisAngleToPack);
    }
@@ -242,7 +242,7 @@ public class AxisAngleConversion
     * @param rz the z-component of the rotation vector to use in the conversion.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertRotationVectorToAxisAngle(double rx, double ry, double rz, AxisAngleBasics<?> axisAngleToPack)
+   public static void convertRotationVectorToAxisAngle(double rx, double ry, double rz, AxisAngleBasics axisAngleToPack)
    {
       if (GeometryBasicsTools.containsNaN(rx, ry, rz))
       {
@@ -290,7 +290,7 @@ public class AxisAngleConversion
     * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertYawPitchRollToAxisAngle(double[] yawPitchRoll, AxisAngleBasics<?> axisAngleToPack)
+   public static void convertYawPitchRollToAxisAngle(double[] yawPitchRoll, AxisAngleBasics axisAngleToPack)
    {
       convertYawPitchRollToAxisAngle(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], axisAngleToPack);
    }
@@ -321,7 +321,7 @@ public class AxisAngleConversion
     * @param roll the roll angle to use in the conversion.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertYawPitchRollToAxisAngle(double yaw, double pitch, double roll, AxisAngleBasics<?> axisAngleToPack)
+   public static void convertYawPitchRollToAxisAngle(double yaw, double pitch, double roll, AxisAngleBasics axisAngleToPack)
    {
       if (GeometryBasicsTools.containsNaN(yaw, pitch, roll))
       {

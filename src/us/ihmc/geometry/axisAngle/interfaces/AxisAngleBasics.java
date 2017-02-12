@@ -2,7 +2,6 @@ package us.ihmc.geometry.axisAngle.interfaces;
 
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.interfaces.Clearable;
-import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
@@ -18,7 +17,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  *
  * @param T the final type of the axis-angle used.
  */
-public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngleReadOnly, Settable<T>, Clearable
+public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 {
    /**
     * Sets a new angle to this axis-angle.
@@ -113,17 +112,6 @@ public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngle
    default void set(Vector3DReadOnly axis, double angle)
    {
       set(axis.getX(), axis.getY(), axis.getZ(), angle);
-   }
-
-   /**
-    * Sets this axis-angle to the same value as the given axis-angle {@code other}.
-    *
-    * @param other the other axis-angle. Not modified.
-    */
-   @Override
-   default void set(T other)
-   {
-      set((AxisAngleReadOnly) other);
    }
 
    /**

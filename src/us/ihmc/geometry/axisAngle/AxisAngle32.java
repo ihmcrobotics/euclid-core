@@ -6,6 +6,7 @@ import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
+import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
@@ -20,7 +21,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  *
  * @author Sylvain
  */
-public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>, EpsilonComparable<AxisAngle32>
+public class AxisAngle32 implements Serializable, AxisAngleBasics, Settable<AxisAngle32>, EpsilonComparable<AxisAngle32>
 {
    private static final long serialVersionUID = 3750855120438442145L;
 
@@ -142,6 +143,12 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics<AxisAngle32>, 
    {
       setYawPitchRoll(yaw, pitch, roll);
    }
+
+   @Override
+   public void set(AxisAngle32 other)
+   {
+      AxisAngleBasics.super.set(other);
+   }   
 
    /**
     * Sets this axis-angle to represent a new rotation of axis ({@code x}, {@code y}, {@code z}) and
