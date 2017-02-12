@@ -64,7 +64,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics<T>> extends Ma
       Random random = new Random(2342L);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // set(Matrix3DReadOnly<?> other)
+      { // set(Matrix3DReadOnly other)
          RotationMatrix expectedMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          T actualMatrix = createEmptyMatrix();
          actualMatrix.set(expectedMatrix);

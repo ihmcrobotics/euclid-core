@@ -17,7 +17,7 @@ import us.ihmc.geometry.interfaces.Settable;
  *
  * @param <T> the final type of matrix used.
  */
-public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DReadOnly<T>, Settable<T>, Clearable
+public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DReadOnly, Settable<T>, Clearable
 {
    /**
     * Sets the 9 coefficients of this matrix to the given ones.
@@ -74,7 +74,7 @@ public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DRea
     *
     * @param other the other matrix to copy the values of. Not modified.
     */
-   default void set(Matrix3DReadOnly<?> other)
+   default void set(Matrix3DReadOnly other)
    {
       set(other.getM00(), other.getM01(), other.getM02(), other.getM10(), other.getM11(), other.getM12(), other.getM20(), other.getM21(), other.getM22());
    }

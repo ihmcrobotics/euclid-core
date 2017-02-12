@@ -619,7 +619,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(Matrix3D matrixToTransform)
-         Matrix3DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3DReadOnly original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D(original);
          Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          quaternion = createRandomTuple(random);
@@ -630,8 +630,8 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
-         Matrix3DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      { // Test inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+         Matrix3DReadOnly original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D(original);
          Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          quaternion = createRandomTuple(random);

@@ -126,7 +126,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param rotationMatrix the other 3D matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the resulting matrix is not a rotation matrix.
     */
-   public RotationMatrix(Matrix3DReadOnly<?> rotationMatrix)
+   public RotationMatrix(Matrix3DReadOnly rotationMatrix)
    {
       set(rotationMatrix);
    }
@@ -319,7 +319,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
     */
-   public final void setAndNormalize(Matrix3DReadOnly<?> matrix)
+   public final void setAndNormalize(Matrix3DReadOnly matrix)
    {
       m00 = matrix.getM00();
       m01 = matrix.getM01();
@@ -357,7 +357,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if {@code matrix} is not a rotation matrix.
     */
-   public void setAndInvert(Matrix3DReadOnly<?> matrix)
+   public void setAndInvert(Matrix3DReadOnly matrix)
    {
       setAndTranspose(matrix);
    }
@@ -383,7 +383,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if {@code matrix} is not a rotation matrix.
     */
-   public void setAndTranspose(Matrix3DReadOnly<?> matrix)
+   public void setAndTranspose(Matrix3DReadOnly matrix)
    {
       set(matrix);
       transpose();
@@ -1052,6 +1052,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    public boolean equals(RotationMatrix other)
    {
       return Matrix3DFeatures.equals(this, other);
+   }
+
+   @Override
+   public boolean epsilonEquals(RotationMatrix other, double epsilon)
+   {
+      return RotationMatrixReadOnly.super.epsilonEquals(other, epsilon);
    }
 
    /**

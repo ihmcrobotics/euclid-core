@@ -435,7 +435,7 @@ public abstract class Matrix3DFeatures
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two matrices are equal, {@code false} otherwise.
     */
-   public static boolean epsilonEquals(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2, double epsilon)
+   public static boolean epsilonEquals(Matrix3DReadOnly m1, Matrix3DReadOnly m2, double epsilon)
    {
       double diff;
 
@@ -490,7 +490,7 @@ public abstract class Matrix3DFeatures
     * @return {@code true} if the two matrices are <b>exactly</b> equal, {@code false} otherwise or
     *         if at least one of the two matrices is {@code null}.
     */
-   public static boolean equals(Matrix3DReadOnly<?> m1, Matrix3DReadOnly<?> m2)
+   public static boolean equals(Matrix3DReadOnly m1, Matrix3DReadOnly m2)
    {
       try
       {

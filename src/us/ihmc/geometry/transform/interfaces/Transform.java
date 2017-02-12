@@ -431,7 +431,7 @@ public interface Transform
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result in stored. Modified.
     */
-   void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed);
+   void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
 
    /**
     * Transforms the given {@code rotationMatrix} by this transform.
@@ -732,7 +732,7 @@ public interface Transform
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result in stored. Modified.
     */
-   void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed);
+   void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
 
    /**
     * Performs the inverse of the transform on the given rotation matrix {@code matrixToTransform}.

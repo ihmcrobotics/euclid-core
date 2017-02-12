@@ -108,12 +108,12 @@ public abstract class GeometryBasicsIOTools
       return getHomogeneousTransformString(format, affineTransform.getRotationScaleMatrix(), affineTransform.getTranslationVector());
    }
 
-   public static String getHomogeneousTransformString(Matrix3DReadOnly<?> matrix, Tuple3DReadOnly translation)
+   public static String getHomogeneousTransformString(Matrix3DReadOnly matrix, Tuple3DReadOnly translation)
    {
       return getHomogeneousTransformString(DEFAULT_FORMAT, matrix, translation);
    }
 
-   public static String getHomogeneousTransformString(String format, Matrix3DReadOnly<?> matrix, Tuple3DReadOnly translation)
+   public static String getHomogeneousTransformString(String format, Matrix3DReadOnly matrix, Tuple3DReadOnly translation)
    {
       String ret = "";
 
@@ -193,12 +193,12 @@ public abstract class GeometryBasicsIOTools
       return getStringOf("(", " )", ", ", format, axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle());
    }
 
-   public static String getMatrixString(Matrix3DReadOnly<?> matrix)
+   public static String getMatrixString(Matrix3DReadOnly matrix)
    {
       return getMatrixString(DEFAULT_FORMAT, matrix);
    }
 
-   public static String getMatrixString(String format, Matrix3DReadOnly<?> matrix)
+   public static String getMatrixString(String format, Matrix3DReadOnly matrix)
    {
       return getMatrixString(format, matrix.getM00(), matrix.getM01(), matrix.getM02(), matrix.getM10(), matrix.getM11(), matrix.getM12(), matrix.getM20(),
                              matrix.getM21(), matrix.getM22());

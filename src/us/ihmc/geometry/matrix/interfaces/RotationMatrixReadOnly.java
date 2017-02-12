@@ -34,7 +34,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  *
  * @param <T> the final type of matrix used.
  */
-public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> extends Matrix3DReadOnly<T>
+public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> extends Matrix3DReadOnly
 {
    /**
     * Orthonormalization of the rotation matrix using the
@@ -138,7 +138,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       normalize();
       Matrix3DTools.multiply(this, matrixOriginal, matrixTransformed);
@@ -261,7 +261,7 @@ public interface RotationMatrixReadOnly<T extends RotationMatrixReadOnly<T>> ext
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       normalize();
       Matrix3DTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);

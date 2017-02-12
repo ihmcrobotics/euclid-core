@@ -159,7 +159,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Matrix3D expectedMatrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         actualMatrix.set((Matrix3DReadOnly<?>) expectedMatrix);
+         actualMatrix.set((Matrix3DReadOnly) expectedMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
 

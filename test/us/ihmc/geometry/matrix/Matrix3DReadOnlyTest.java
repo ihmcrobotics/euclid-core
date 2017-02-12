@@ -19,7 +19,7 @@ import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Vector4D;
 
-public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly<T>>
+public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 {
    public static final double SMALL_EPS = 1.0e-12;
    public static final int NUMBER_OF_ITERATIONS = 100;
@@ -697,7 +697,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly<T>>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+      { // transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
          Matrix3D original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D();
          Matrix3D expected = new Matrix3D();
@@ -944,7 +944,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly<T>>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+      { // inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
          Matrix3D original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D();
          Matrix3D expected = new Matrix3D();

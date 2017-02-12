@@ -61,7 +61,7 @@ public class CyclingConversionTest
          int initialIndex = random.nextInt(rotationsToGoThrough.length);
          AllRotations initialRotationType = rotationsToGoThrough[initialIndex];
 
-         Matrix3DReadOnly<?> originalMatrix = null;
+         Matrix3DReadOnly originalMatrix = null;
          AxisAngleReadOnly originalAxisAngle = null;
          QuaternionReadOnly<?> originalQuaternion = null;
          Vector3DReadOnly originalRotationVector = null;
@@ -153,7 +153,7 @@ public class CyclingConversionTest
             switch (nextRotationType)
             {
             case MATRIX:
-               GeometryBasicsTestTools.assertMatrix3DEquals(originalMatrix, (Matrix3DReadOnly<?>) nextRotationType.rotationHolder, epsilon);
+               GeometryBasicsTestTools.assertMatrix3DEquals(originalMatrix, (Matrix3DReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case AXISANGLE:
                GeometryBasicsTestTools.assertAxisAngleEqualsSmart(originalAxisAngle, (AxisAngleReadOnly) nextRotationType.rotationHolder, epsilon);
@@ -205,13 +205,13 @@ public class CyclingConversionTest
          }
       }
 
-      Matrix3DReadOnly<?> convertToMatrix()
+      Matrix3DReadOnly convertToMatrix()
       {
          RotationMatrix matrix = new RotationMatrix();
          switch (this)
          {
          case MATRIX:
-            matrix.set((Matrix3DReadOnly<?>) rotationHolder);
+            matrix.set((Matrix3DReadOnly) rotationHolder);
             break;
          case AXISANGLE:
             RotationMatrixConversion.convertAxisAngleToMatrix((AxisAngleReadOnly) rotationHolder, matrix);

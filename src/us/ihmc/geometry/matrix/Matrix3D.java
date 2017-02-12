@@ -97,7 +97,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other 3D matrix to copy the values from. Not modified.
     */
-   public Matrix3D(Matrix3DReadOnly<?> other)
+   public Matrix3D(Matrix3DReadOnly other)
    {
       set(other);
    }
@@ -153,7 +153,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    @Override
    public void set(Matrix3D other)
    {
-      set((Matrix3DReadOnly<?>) other);
+      set((Matrix3DReadOnly) other);
    }
 
    /**
@@ -188,7 +188,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * this = other * other<sup>T<sup>
     * </p>
     */
-   public void setAndMultiplyOuter(Matrix3DReadOnly<?> other)
+   public void setAndMultiplyOuter(Matrix3DReadOnly other)
    {
       set(other);
       multiplyOuter();
@@ -203,7 +203,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @param other the other matrix. Not modified.
     * @throws SingularMatrixException if the matrix is not invertible.
     */
-   public void setAndInvert(Matrix3DReadOnly<?> other)
+   public void setAndInvert(Matrix3DReadOnly other)
    {
       set(other);
       invert();
@@ -214,7 +214,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix used to update this matrix. Not modified.
     */
-   public void setAndNormalize(Matrix3DReadOnly<?> other)
+   public void setAndNormalize(Matrix3DReadOnly other)
    {
       set(other);
       normalize();
@@ -228,7 +228,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix used to update this matrix. Not modified.
     */
-   public void setAndTranspose(Matrix3DReadOnly<?> other)
+   public void setAndTranspose(Matrix3DReadOnly other)
    {
       set(other);
       transpose();
@@ -242,7 +242,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to use for the addition. Not modified.
     */
-   public void add(Matrix3DReadOnly<?> other)
+   public void add(Matrix3DReadOnly other)
    {
       m00 += other.getM00();
       m01 += other.getM01();
@@ -266,7 +266,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @param matrix1 the first term of the addition. Not modified.
     * @param matrix2 the second term of the addition. Not modified.
     */
-   public void add(Matrix3DReadOnly<?> matrix1, Matrix3DReadOnly<?> matrix2)
+   public void add(Matrix3DReadOnly matrix1, Matrix3DReadOnly matrix2)
    {
       m00 = matrix1.getM00() + matrix2.getM00();
       m01 = matrix1.getM01() + matrix2.getM01();
@@ -289,7 +289,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to use for the subtraction. Not modified.
     */
-   public void sub(Matrix3DReadOnly<?> other)
+   public void sub(Matrix3DReadOnly other)
    {
       m00 -= other.getM00();
       m01 -= other.getM01();
@@ -313,7 +313,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @param matrix1 the first term of the addition. Not modified.
     * @param matrix2 the second term of the addition. Not modified.
     */
-   public void sub(Matrix3DReadOnly<?> matrix1, Matrix3DReadOnly<?> matrix2)
+   public void sub(Matrix3DReadOnly matrix1, Matrix3DReadOnly matrix2)
    {
       m00 = matrix1.getM00() - matrix2.getM00();
       m01 = matrix1.getM01() - matrix2.getM01();
@@ -513,7 +513,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiply(Matrix3DReadOnly<?> other)
+   public void multiply(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiply(this, other, this);
    }
@@ -526,7 +526,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiplyTransposeThis(Matrix3DReadOnly<?> other)
+   public void multiplyTransposeThis(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyTransposeLeft(this, other, this);
    }
@@ -539,7 +539,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiplyTransposeOther(Matrix3DReadOnly<?> other)
+   public void multiplyTransposeOther(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyTransposeRight(this, other, this);
    }
@@ -552,7 +552,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiplyTransposeBoth(Matrix3DReadOnly<?> other)
+   public void multiplyTransposeBoth(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyTransposeBoth(this, other, this);
    }
@@ -566,7 +566,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @param other the other matrix to multiply this by. Not modified.
     * @throws SingularMatrixException if {@code this} is not invertible.
     */
-   public void multiplyInvertThis(Matrix3DReadOnly<?> other)
+   public void multiplyInvertThis(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyInvertLeft(this, other, this);
    }
@@ -580,7 +580,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @param other the other matrix to multiply this by. Not modified.
     * @throws SingularMatrixException if {@code other} is not invertible.
     */
-   public void multiplyInvertOther(Matrix3DReadOnly<?> other)
+   public void multiplyInvertOther(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyInvertRight(this, other, this);
    }
@@ -629,7 +629,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiply(Matrix3DReadOnly<?> other)
+   public void preMultiply(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiply(other, this, this);
    }
@@ -642,7 +642,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyTransposeThis(Matrix3DReadOnly<?> other)
+   public void preMultiplyTransposeThis(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyTransposeRight(other, this, this);
    }
@@ -655,7 +655,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyTransposeOther(Matrix3DReadOnly<?> other)
+   public void preMultiplyTransposeOther(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyTransposeLeft(other, this, this);
    }
@@ -668,7 +668,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyTransposeBoth(Matrix3DReadOnly<?> other)
+   public void preMultiplyTransposeBoth(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyTransposeBoth(other, this, this);
    }
@@ -682,7 +682,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @param other the other matrix to multiply this by. Not modified.
     * @throws SingularMatrixException if {@code this} is not invertible.
     */
-   public void preMultiplyInvertThis(Matrix3DReadOnly<?> other)
+   public void preMultiplyInvertThis(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyInvertRight(other, this, this);
    }
@@ -696,7 +696,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     * @param other the other matrix to multiply this by. Not modified.
     * @throws SingularMatrixException if {@code other} is not invertible.
     */
-   public void preMultiplyInvertOther(Matrix3DReadOnly<?> other)
+   public void preMultiplyInvertOther(Matrix3DReadOnly other)
    {
       Matrix3DTools.multiplyInvertLeft(other, this, this);
    }
@@ -760,7 +760,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       Matrix3DTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -795,7 +795,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       Matrix3DTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }
@@ -1335,6 +1335,12 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
    public boolean equals(Matrix3D other)
    {
       return Matrix3DFeatures.equals(this, other);
+   }
+
+   @Override
+   public boolean epsilonEquals(Matrix3D other, double epsilon)
+   {
+      return Matrix3DBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

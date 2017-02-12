@@ -781,7 +781,7 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   public static void transform(QuaternionReadOnly<?> quaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public static void transform(QuaternionReadOnly<?> quaternion, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       transformImpl(quaternion, false, matrixOriginal, matrixTransformed);
    }
@@ -806,7 +806,7 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   public static void inverseTransform(QuaternionReadOnly<?> quaternion, Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public static void inverseTransform(QuaternionReadOnly<?> quaternion, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       transformImpl(quaternion, true, matrixOriginal, matrixTransformed);
    }
@@ -831,7 +831,7 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Matrix3DReadOnly<?> matrixOriginal,
+   private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal,
                                      Matrix3D matrixTransformed)
    {
       double norm = quaternion.norm();

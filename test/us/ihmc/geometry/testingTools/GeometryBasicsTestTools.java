@@ -250,7 +250,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two matrices are not equal.
     */
-   public static void assertMatrix3DEquals(Matrix3DReadOnly<?> expected, Matrix3DReadOnly<?> actual, double epsilon)
+   public static void assertMatrix3DEquals(Matrix3DReadOnly expected, Matrix3DReadOnly actual, double epsilon)
    {
       assertMatrix3DEquals("", expected, actual, epsilon);
    }
@@ -264,7 +264,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two matrices are not equal.
     */
-   public static <T extends Matrix3DReadOnly<T>> void assertMatrix3DEquals(String message, Matrix3DReadOnly<?> expected, Matrix3DReadOnly<?> actual,
+   public static void assertMatrix3DEquals(String message, Matrix3DReadOnly expected, Matrix3DReadOnly actual,
                                                                            double epsilon)
    {
       if (!Matrix3DFeatures.epsilonEquals(expected, actual, epsilon))
@@ -295,7 +295,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the matrix is not skew-symmetric.
     */
-   public static void assertSkewSymmetric(Matrix3DReadOnly<?> matrix, double epsilon)
+   public static void assertSkewSymmetric(Matrix3DReadOnly matrix, double epsilon)
    {
       if (!matrix.isMatrixSkewSymmetric(epsilon))
          fail("The matrix is not skew-symmetric:\n" + getMatrixString(DEFAULT_FORMAT, matrix));
@@ -316,7 +316,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the matrix is not a rotation matrix.
     */
-   public static void assertRotationMatrix(Matrix3DReadOnly<?> matrix, double epsilon)
+   public static void assertRotationMatrix(Matrix3DReadOnly matrix, double epsilon)
    {
       if (!matrix.isRotationMatrix(epsilon))
          fail("This is not a rotation matrix:\n" + getMatrixString(DEFAULT_FORMAT, matrix));
@@ -330,7 +330,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the matrix is not identity.
     */
-   public static void assertIdentity(Matrix3DReadOnly<?> matrix, double epsilon)
+   public static void assertIdentity(Matrix3DReadOnly matrix, double epsilon)
    {
       if (!matrix.isIdentity(epsilon))
          fail("The matrix is not identity:\n" + getMatrixString(DEFAULT_FORMAT, matrix));
@@ -342,7 +342,7 @@ public abstract class GeometryBasicsTestTools
     * @param matrix the query. Not modified.
     * @throws AssertionError if the matrix does not only contain {@link Double#NaN}.
     */
-   public static void assertMatrix3DContainsOnlyNaN(Matrix3DReadOnly<?> matrix)
+   public static void assertMatrix3DContainsOnlyNaN(Matrix3DReadOnly matrix)
    {
       for (int row = 0; row < 3; row++)
       {

@@ -293,7 +293,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   default void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -565,7 +565,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   default void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }

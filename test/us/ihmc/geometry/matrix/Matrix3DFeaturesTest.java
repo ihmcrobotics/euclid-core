@@ -200,7 +200,7 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(Matrix3DReadOnly<?> matrix, boolean isRotationMatrix)
+   private void testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(Matrix3DReadOnly matrix, boolean isRotationMatrix)
    {
       Matrix3D matrixCopy = new Matrix3D(matrix);
       DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
@@ -341,7 +341,7 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testCheckIfMatrix2DAndIsMatrix2DMethods(Matrix3DReadOnly<?> matrix, boolean isMatrix2D)
+   private void testCheckIfMatrix2DAndIsMatrix2DMethods(Matrix3DReadOnly matrix, boolean isMatrix2D)
    {
       Matrix3D matrixCopy = new Matrix3D(matrix);
 
@@ -672,7 +672,7 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testAllIsIdentityMethods(Matrix3DReadOnly<?> matrix, boolean isIdentity)
+   private void testAllIsIdentityMethods(Matrix3DReadOnly matrix, boolean isIdentity)
    {
       Matrix3D matrixCopy = new Matrix3D(matrix);
 
@@ -763,7 +763,7 @@ public class Matrix3DFeaturesTest
       }
    }
 
-   private void testAllIsMatrixSkewSymmetrixMethods(Matrix3DReadOnly<?> matrix, boolean isSkewSymmetric)
+   private void testAllIsMatrixSkewSymmetrixMethods(Matrix3DReadOnly matrix, boolean isSkewSymmetric)
    {
       Matrix3D matrixCopy = new Matrix3D(matrix);
 

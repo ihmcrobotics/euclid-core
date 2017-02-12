@@ -39,7 +39,7 @@ public class NotAMatrix2DException extends RuntimeException
     *
     * @param matrix the matrix to be displayed in the detail message. Not modified.
     */
-   public NotAMatrix2DException(Matrix3DReadOnly<?> matrix)
+   public NotAMatrix2DException(Matrix3DReadOnly matrix)
    {
       super("The matrix is not in XY plane: \n" + matrix);
    }

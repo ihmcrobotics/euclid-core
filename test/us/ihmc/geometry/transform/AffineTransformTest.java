@@ -456,7 +456,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          RotationMatrixReadOnly<?> rotationMatrix = rotationScaleMatrix.getRotationMatrix();
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
 
-         actual.set((Matrix3DReadOnly<?>) rotationMatrix, scale, translation);
+         actual.set((Matrix3DReadOnly) rotationMatrix, scale, translation);
 
          for (int row = 0; row < 3; row++)
          {
@@ -474,7 +474,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          double scaley = rotationScaleMatrix.getScaleY();
          double scalez = rotationScaleMatrix.getScaleZ();
 
-         actual.set((Matrix3DReadOnly<?>) rotationMatrix, scalex, scaley, scalez, translation);
+         actual.set((Matrix3DReadOnly) rotationMatrix, scalex, scaley, scalez, translation);
 
          for (int row = 0; row < 3; row++)
          {
@@ -490,7 +490,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          Tuple3DReadOnly scale = rotationScaleMatrix.getScale();
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
 
-         actual.set((Matrix3DReadOnly<?>) rotationMatrix, scale, translation);
+         actual.set((Matrix3DReadOnly) rotationMatrix, scale, translation);
 
          for (int row = 0; row < 3; row++)
          {
@@ -704,7 +704,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          transform.getRotationScale(expectedRotationScale);
          expectedRotationScale.setRotation(rotationMatrix);
-         transform.setRotation((Matrix3DReadOnly<?>) rotationMatrix);
+         transform.setRotation((Matrix3DReadOnly) rotationMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }

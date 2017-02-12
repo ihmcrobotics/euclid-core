@@ -788,7 +788,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       quaternion.transform(matrixOriginal, matrixTransformed);
    }
@@ -851,7 +851,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       quaternion.inverseTransform(matrixOriginal, matrixTransformed);
    }

@@ -447,7 +447,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       { // Test set(Matrix3DReadOnly rotationMatrix, TupleReadOnly translation)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
-         actual.set((Matrix3DReadOnly<?>) rotationMatrix, translation);
+         actual.set((Matrix3DReadOnly) rotationMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
             for (int column = 0; column < 3; column++)

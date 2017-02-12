@@ -522,7 +522,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
     *            matrix.
     */
-   public void set(Matrix3DReadOnly<?> rotationMatrix, Tuple3DReadOnly translation)
+   public void set(Matrix3DReadOnly rotationMatrix, Tuple3DReadOnly translation)
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
@@ -699,7 +699,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
     *            matrix.
     */
-   public void setRotation(Matrix3DReadOnly<?> rotationMatrix)
+   public void setRotation(Matrix3DReadOnly rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
    }
@@ -925,7 +925,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
     *            matrix.
     */
-   public void setRotationAndZeroTranslation(Matrix3DReadOnly<?> rotationMatrix)
+   public void setRotationAndZeroTranslation(Matrix3DReadOnly rotationMatrix)
    {
       setRotation(rotationMatrix);
       translationVector.setToZero();
@@ -1283,7 +1283,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       rotationMatrix.transform(matrixOriginal, matrixTransformed);
    }
@@ -1347,7 +1347,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
    }

@@ -35,7 +35,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  *
  * @param <T> the final type of matrix used.
  */
-public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOnly<T>> extends Matrix3DReadOnly<T>
+public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOnly<T>> extends Matrix3DReadOnly
 {
    /**
     * Returns the read-only reference to the rotation matrix used to compose this rotation-scale
@@ -180,7 +180,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       matrixTransformed.set(matrixOriginal);
       // Equivalent to: M = S * M
@@ -306,7 +306,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
+   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       getRotationMatrix().inverseTransform(matrixOriginal, matrixTransformed);
       // Equivalent to: M = S^-1 * M

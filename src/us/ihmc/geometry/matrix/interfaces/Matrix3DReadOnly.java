@@ -6,7 +6,6 @@ import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
-import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.Matrix3DTools;
@@ -24,7 +23,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  *
  * @param <T> the final type of matrix used.
  */
-public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends EpsilonComparable<T>
+public interface Matrix3DReadOnly
 {
    /**
     * Gets the 1st row 1st column coefficient of this matrix.
@@ -723,7 +722,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
-   void transform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed);
+   void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
 
    /**
     * Transforms the vector part of the given 4D vector.
@@ -874,7 +873,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
-   void inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed);
+   void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
 
    /**
     * Performs the inverse of the transform to the vector part the given 4D vector by this matrix.
@@ -913,8 +912,7 @@ public interface Matrix3DReadOnly<T extends Matrix3DReadOnly<T>> extends Epsilon
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two matrices are equal, {@code false} otherwise.
     */
-   @Override
-   default boolean epsilonEquals(T other, double epsilon)
+   default boolean epsilonEquals(Matrix3DReadOnly other, double epsilon)
    {
       double diff;
 

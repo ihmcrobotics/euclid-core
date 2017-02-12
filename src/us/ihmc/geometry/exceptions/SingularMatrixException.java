@@ -39,7 +39,7 @@ public class SingularMatrixException extends RuntimeException
     *
     * @param matrix the matrix to be displayed in the detail message. Not modified.
     */
-   public SingularMatrixException(Matrix3DReadOnly<?> matrix)
+   public SingularMatrixException(Matrix3DReadOnly matrix)
    {
       super("The matrix is singular:\n" + matrix);
    }

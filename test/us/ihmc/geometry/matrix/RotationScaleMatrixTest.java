@@ -97,7 +97,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
 
       { // Test RotationScaleMatrix(Matrix3DReadOnly rotationScaleMatrix)
          RotationScaleMatrix matrixExpected = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         RotationScaleMatrix matrixActual = new RotationScaleMatrix((Matrix3DReadOnly<?>) matrixExpected);
+         RotationScaleMatrix matrixActual = new RotationScaleMatrix((Matrix3DReadOnly) matrixExpected);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
@@ -622,7 +622,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
 
          matrixActual.setToNaN();
-         matrixActual.set((Matrix3DReadOnly<?>) matrixExpected);
+         matrixActual.set((Matrix3DReadOnly) matrixExpected);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
@@ -975,7 +975,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
 
          RotationScaleMatrix matrixExpected = new RotationScaleMatrix(denseMatrix);
          RotationScaleMatrix matrixActual = new RotationScaleMatrix();
-         matrixActual.set((Matrix3DReadOnly<?>) rotationMatrix, scale);
+         matrixActual.set((Matrix3DReadOnly) rotationMatrix, scale);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
@@ -995,7 +995,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
 
          RotationScaleMatrix matrixExpected = new RotationScaleMatrix(denseMatrix);
          RotationScaleMatrix matrixActual = new RotationScaleMatrix();
-         matrixActual.set((Matrix3DReadOnly<?>) rotationMatrix, scale.getX(), scale.getY(), scale.getZ());
+         matrixActual.set((Matrix3DReadOnly) rotationMatrix, scale.getX(), scale.getY(), scale.getZ());
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
@@ -1015,7 +1015,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
 
          RotationScaleMatrix matrixExpected = new RotationScaleMatrix(denseMatrix);
          RotationScaleMatrix matrixActual = new RotationScaleMatrix();
-         matrixActual.set((Matrix3DReadOnly<?>) rotationMatrix, scale);
+         matrixActual.set((Matrix3DReadOnly) rotationMatrix, scale);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
@@ -1142,7 +1142,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
          rotationScaleMatrix.setScale(scale);
-         rotationScaleMatrix.setRotation((Matrix3DReadOnly<?>) rotationMatrix);
+         rotationScaleMatrix.setRotation((Matrix3DReadOnly) rotationMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationScaleMatrix.getRotationMatrix(), EPS);
          GeometryBasicsTestTools.assertTuple3DEquals(scale, rotationScaleMatrix.getScale(), EPS);
       }
@@ -1757,7 +1757,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(Matrix3D matrixToTransform)
-         Matrix3DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3DReadOnly original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D(original);
          Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          rotationScaleMatrix = createRandomMatrix(random);
@@ -1768,8 +1768,8 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(Matrix3DReadOnly<?> matrixOriginal, Matrix3D matrixTransformed)
-         Matrix3DReadOnly<?> original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      { // Test inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+         Matrix3DReadOnly original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D(original);
          Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          rotationScaleMatrix = createRandomMatrix(random);

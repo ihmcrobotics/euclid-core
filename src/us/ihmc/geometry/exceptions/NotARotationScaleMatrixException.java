@@ -37,7 +37,7 @@ public class NotARotationScaleMatrixException extends RuntimeException
     *
     * @param matrix the matrix to be displayed in the detail message. Not modified.
     */
-   public NotARotationScaleMatrixException(Matrix3DReadOnly<?> matrix)
+   public NotARotationScaleMatrixException(Matrix3DReadOnly matrix)
    {
       super("The matrix is not a rotation-scale matrix: \n" + matrix);
    }
