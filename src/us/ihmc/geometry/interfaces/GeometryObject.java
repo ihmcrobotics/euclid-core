@@ -8,7 +8,7 @@ package us.ihmc.geometry.interfaces;
  *
  * @param <T> the final type of the implementation of this interface.
  */
-public interface GeometryObject<T extends GeometryObject<T>> extends Transformable, EpsilonComparable<T>, Settable<T>
+public interface GeometryObject<T extends GeometryObject<T>> extends Transformable, EpsilonComparable<T>, Settable<T>, Clearable
 {
 
 }

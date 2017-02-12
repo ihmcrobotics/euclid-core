@@ -1,6 +1,7 @@
 package us.ihmc.geometry.axisAngle.interfaces;
 
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
+import us.ihmc.geometry.interfaces.Clearable;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
@@ -17,7 +18,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  *
  * @param T the final type of the axis-angle used.
  */
-public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngleReadOnly<T>, Settable<T>
+public interface AxisAngleBasics<T extends AxisAngleBasics<T>> extends AxisAngleReadOnly<T>, Settable<T>, Clearable
 {
    /**
     * Sets a new angle to this axis-angle.

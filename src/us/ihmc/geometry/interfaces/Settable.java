@@ -18,27 +18,9 @@ package us.ihmc.geometry.interfaces;
 public interface Settable<T>
 {
    /**
-    * Tests if this object contains at least one value equal to {@link Double#NaN}.
-    *
-    * @return {@code true} if this object contains at least one value equal to {@link Double#NaN},
-    *         {@code false} otherwise.
-    */
-   boolean containsNaN();
-
-   /**
     * Copies the values from {@code other} into this object.
     *
     * @param other the other object to copy the values from. Not modified.
     */
    void set(T other);
-
-   /**
-    * Invalidate this object by setting its values to {@link Double#NaN}.
-    */
-   void setToNaN();
-
-   /**
-    * Reset this object values.
-    */
-   void setToZero();
 }

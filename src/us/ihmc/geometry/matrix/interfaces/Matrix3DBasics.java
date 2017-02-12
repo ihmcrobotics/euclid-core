@@ -2,6 +2,7 @@ package us.ihmc.geometry.matrix.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
+import us.ihmc.geometry.interfaces.Clearable;
 import us.ihmc.geometry.interfaces.Settable;
 
 /**
@@ -16,7 +17,7 @@ import us.ihmc.geometry.interfaces.Settable;
  *
  * @param <T> the final type of matrix used.
  */
-public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DReadOnly<T>, Settable<T>
+public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DReadOnly<T>, Settable<T>, Clearable
 {
    /**
     * Sets the 9 coefficients of this matrix to the given ones.

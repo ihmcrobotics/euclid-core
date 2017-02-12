@@ -5,6 +5,7 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.interfaces.Clearable;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.Matrix3D;
@@ -54,7 +55,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain
  *
  */
-public class QuaternionBasedTransform implements Transform, EpsilonComparable<QuaternionBasedTransform>, Settable<QuaternionBasedTransform>
+public class QuaternionBasedTransform implements Transform, EpsilonComparable<QuaternionBasedTransform>, Settable<QuaternionBasedTransform>, Clearable
 {
    /** The rotation part of this transform. */
    private final Quaternion quaternion = new Quaternion();

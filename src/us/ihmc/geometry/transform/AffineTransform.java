@@ -7,6 +7,7 @@ import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.exceptions.NotARotationScaleMatrixException;
+import us.ihmc.geometry.interfaces.Clearable;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.Matrix3D;
@@ -68,7 +69,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class AffineTransform implements Transform, EpsilonComparable<AffineTransform>, Settable<AffineTransform>
+public class AffineTransform implements Transform, EpsilonComparable<AffineTransform>, Settable<AffineTransform>, Clearable
 {
    /** The rotation plus scaling part of this transform. */
    private final RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
