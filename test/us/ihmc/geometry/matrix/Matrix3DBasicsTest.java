@@ -12,7 +12,7 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 
-public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics<T>> extends Matrix3DReadOnlyTest<T>
+public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matrix3DReadOnlyTest<T>
 {
    @Test
    public void testSetDoubles()

@@ -168,7 +168,7 @@ public abstract class RotationVectorConversion
     *           orientation part is used during the conversion. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Vector3DBasics rotationVectorToPack)
+   public static void convertMatrixToRotationVector(RotationScaleMatrixReadOnly rotationScaleMatrix, Vector3DBasics rotationVectorToPack)
    {
       convertMatrixToRotationVector(rotationScaleMatrix.getRotationMatrix(), rotationVectorToPack);
    }
@@ -190,7 +190,7 @@ public abstract class RotationVectorConversion
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param rotationVectorToPack the vector in which the result is stored. Modified.
     */
-   public static void convertMatrixToRotationVector(RotationMatrixReadOnly<?> rotationMatrix, Vector3DBasics rotationVectorToPack)
+   public static void convertMatrixToRotationVector(RotationMatrixReadOnly rotationMatrix, Vector3DBasics rotationVectorToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();

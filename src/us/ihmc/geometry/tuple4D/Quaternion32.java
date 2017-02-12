@@ -89,7 +89,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics<Quaternion32
     *
     * @param rotationMatrix the rotation matrix to initialize this quaternion. Not modified.
     */
-   public Quaternion32(RotationMatrixReadOnly<?> rotationMatrix)
+   public Quaternion32(RotationMatrixReadOnly rotationMatrix)
    {
       set(rotationMatrix);
    }

@@ -741,7 +741,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiply(RotationMatrixReadOnly<?> other)
+      { // Test multiply(RotationMatrixReadOnly other)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -776,7 +776,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyTransposeThis(RotationMatrixReadOnly<?> other)
+      { // Test multiplyTransposeThis(RotationMatrixReadOnly other)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -811,7 +811,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyTransposeOther(RotationMatrixReadOnly<?> other)
+      { // Test multiplyTransposeOther(RotationMatrixReadOnly other)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -846,7 +846,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyTransposeBoth(RotationMatrixReadOnly<?> other)
+      { // Test multiplyTransposeBoth(RotationMatrixReadOnly other)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -889,7 +889,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiply(RotationMatrixReadOnly<?> other)
+      { // Test preMultiply(RotationMatrixReadOnly other)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -924,7 +924,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyTransposeThis(RotationMatrixReadOnly<?> other)
+      { // Test preMultiplyTransposeThis(RotationMatrixReadOnly other)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -959,7 +959,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyTransposeOther(RotationMatrixReadOnly<?> other)
+      { // Test preMultiplyTransposeOther(RotationMatrixReadOnly other)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -994,7 +994,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyTransposeBoth(RotationMatrixReadOnly<?> other)
+      { // Test preMultiplyTransposeBoth(RotationMatrixReadOnly other)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
          multiplied = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
@@ -1535,7 +1535,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(RotationMatrix matrixToTransform)
-         RotationMatrixReadOnly<?> original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(original);
          RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrix = createRandomMatrix(random);
@@ -1546,8 +1546,8 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
-         RotationMatrixReadOnly<?> original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+      { // Test inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(original);
          RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationMatrix = createRandomMatrix(random);

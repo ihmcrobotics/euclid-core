@@ -10,6 +10,7 @@ import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
+import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
@@ -55,7 +56,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class RotationScaleMatrix implements Serializable, Matrix3DBasics<RotationScaleMatrix>, RotationScaleMatrixReadOnly<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>
+public class RotationScaleMatrix implements Serializable, Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>
 {
    private static final long serialVersionUID = 5012534518639484244L;
 
@@ -267,7 +268,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scales non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, double scale)
+   public RotationScaleMatrix(RotationMatrixReadOnly rotationMatrix, double scale)
    {
       set(rotationMatrix, scale);
    }
@@ -283,7 +284,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scaleZ the non-zero and positive scalar used to initialized the z-axis scale factor.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, double scaleX, double scaleY, double scaleZ)
+   public RotationScaleMatrix(RotationMatrixReadOnly rotationMatrix, double scaleX, double scaleY, double scaleZ)
    {
       set(rotationMatrix, scaleX, scaleY, scaleZ);
    }
@@ -297,7 +298,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly scales)
+   public RotationScaleMatrix(RotationMatrixReadOnly rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales);
    }
@@ -410,7 +411,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param other the other rotation-scale matrix to copy the values from. Not modified.
     */
-   public void set(RotationScaleMatrixReadOnly<?> other)
+   public void set(RotationScaleMatrixReadOnly other)
    {
       setRotation(other.getRotationMatrix());
       setScale(other.getScale());
@@ -421,7 +422,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param other the other rotation matrix to copy the values from. Not modified.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix)
+   public void set(RotationMatrixReadOnly rotationMatrix)
    {
       setRotation(rotationMatrix);
       resetScale();
@@ -651,7 +652,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix, double scale)
+   public void set(RotationMatrixReadOnly rotationMatrix, double scale)
    {
       set(rotationMatrix, scale, scale, scale);
    }
@@ -666,7 +667,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     * @param scaleZ the non-zero and positive scalar used to set the z-axis scale factor to.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix, double scaleX, double scaleY, double scaleZ)
+   public void set(RotationMatrixReadOnly rotationMatrix, double scaleX, double scaleY, double scaleZ)
    {
       setRotation(rotationMatrix);
       setScale(scaleX, scaleY, scaleZ);
@@ -681,7 +682,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *           to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly scales)
+   public void set(RotationMatrixReadOnly rotationMatrix, Tuple3DReadOnly scales)
    {
       set(rotationMatrix, scales.getX(), scales.getY(), scales.getZ());
    }
@@ -747,7 +748,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param rotationMatrix the matrix used to set the rotation part to. Not modified.
     */
-   public void setRotation(RotationMatrixReadOnly<?> rotationMatrix)
+   public void setRotation(RotationMatrixReadOnly rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
    }
@@ -1087,7 +1088,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiply(RotationMatrixReadOnly<?> rotationMatrix)
+   public void preMultiply(RotationMatrixReadOnly rotationMatrix)
    {
       this.rotationMatrix.preMultiply(rotationMatrix);
    }
@@ -1100,7 +1101,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyTransposeOther(RotationMatrixReadOnly<?> rotationMatrix)
+   public void preMultiplyTransposeOther(RotationMatrixReadOnly rotationMatrix)
    {
       this.rotationMatrix.preMultiplyTransposeOther(rotationMatrix);
    }
@@ -1269,7 +1270,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics<Rotatio
 
    /** {@inheritDoc} */
    @Override
-   public RotationMatrixReadOnly<?> getRotationMatrix()
+   public RotationMatrixReadOnly getRotationMatrix()
    {
       return rotationMatrix;
    }

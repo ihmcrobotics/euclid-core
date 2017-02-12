@@ -155,7 +155,7 @@ public abstract class QuaternionConversion
     *           orientation part is used during the conversion. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, QuaternionBasics<?> quaternionToPack)
+   public static void convertMatrixToQuaternion(RotationScaleMatrixReadOnly rotationScaleMatrix, QuaternionBasics<?> quaternionToPack)
    {
       convertMatrixToQuaternion(rotationScaleMatrix.getRotationMatrix(), quaternionToPack);
    }
@@ -177,7 +177,7 @@ public abstract class QuaternionConversion
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertMatrixToQuaternion(RotationMatrixReadOnly<?> rotationMatrix, QuaternionBasics<?> quaternionToPack)
+   public static void convertMatrixToQuaternion(RotationMatrixReadOnly rotationMatrix, QuaternionBasics<?> quaternionToPack)
    {
       if (rotationMatrix.containsNaN())
       {

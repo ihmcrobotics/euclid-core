@@ -217,7 +217,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param rotationMatrix the rotation matrix used to set this quaternion. Not modified.
     */
-   default void set(RotationMatrixReadOnly<?> rotationMatrix)
+   default void set(RotationMatrixReadOnly rotationMatrix)
    {
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, this);
    }
@@ -377,7 +377,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param matrix the rotation matrix to multiply this. Not modified.
     */
-   default void multiply(RotationMatrixReadOnly<?> matrix)
+   default void multiply(RotationMatrixReadOnly matrix)
    {
       QuaternionTools.multiply(this, matrix, this);
    }
@@ -430,7 +430,7 @@ public interface QuaternionBasics<T extends QuaternionBasics<T>> extends Quatern
     *
     * @param matrix the rotation matrix to multiply this. Not modified.
     */
-   default void preMultiply(RotationMatrixReadOnly<?> matrix)
+   default void preMultiply(RotationMatrixReadOnly matrix)
    {
       QuaternionTools.multiply(matrix, this, this);
    }

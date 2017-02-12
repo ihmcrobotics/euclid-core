@@ -28,7 +28,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, GeometryObject<Matrix3D>
+public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Matrix3D>
 {
    private static final long serialVersionUID = -1016899240187632674L;
 
@@ -598,7 +598,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiplyInvertOther(RotationMatrixReadOnly<?> other)
+   public void multiplyInvertOther(RotationMatrixReadOnly other)
    {
       Matrix3DTools.multiplyInvertRight(this, other, this);
    }
@@ -616,7 +616,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiplyInvertOther(RotationScaleMatrixReadOnly<?> other)
+   public void multiplyInvertOther(RotationScaleMatrixReadOnly other)
    {
       Matrix3DTools.multiplyInvertRight(this, other, this);
    }
@@ -714,7 +714,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyInvertOther(RotationMatrixReadOnly<?> other)
+   public void preMultiplyInvertOther(RotationMatrixReadOnly other)
    {
       Matrix3DTools.multiplyInvertLeft(other, this, this);
    }
@@ -732,7 +732,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics<Matrix3D>, Geometr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyInvertOther(RotationScaleMatrixReadOnly<?> other)
+   public void preMultiplyInvertOther(RotationScaleMatrixReadOnly other)
    {
       Matrix3DTools.multiplyInvertLeft(other, this, this);
    }

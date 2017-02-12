@@ -614,11 +614,11 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
 
          matrixActual.setToNaN();
-         matrixActual.set((RotationScaleMatrixReadOnly<?>) matrixExpected);
+         matrixActual.set((RotationScaleMatrixReadOnly) matrixExpected);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
 
          matrixActual.setToNaN();
-         matrixActual.set((RotationScaleMatrixReadOnly<?>) matrixExpected);
+         matrixActual.set((RotationScaleMatrixReadOnly) matrixExpected);
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
 
          matrixActual.setToNaN();
@@ -1781,7 +1781,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(RotationMatrix matrixToTransform)
-         RotationMatrixReadOnly<?> original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(original);
          RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationScaleMatrix = createRandomMatrix(random);
@@ -1792,8 +1792,8 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
-         RotationMatrixReadOnly<?> original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+      { // Test inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(original);
          RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          rotationScaleMatrix = createRandomMatrix(random);

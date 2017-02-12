@@ -116,7 +116,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param rotationScaleMatrix the rotation-scale matrix to copy. Not modified.
     * @param translation the translation to copy. Not modified.
     */
-   public AffineTransform(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DReadOnly translation)
+   public AffineTransform(RotationScaleMatrixReadOnly rotationScaleMatrix, Tuple3DReadOnly translation)
    {
       set(rotationScaleMatrix, translation);
    }
@@ -407,7 +407,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     *           Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DReadOnly translation)
+   public void set(RotationScaleMatrixReadOnly rotationScaleMatrix, Tuple3DReadOnly translation)
    {
       this.rotationScaleMatrix.set(rotationScaleMatrix);
       translationVector.set(translation);
@@ -475,7 +475,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix, double scale, Tuple3DReadOnly translation)
+   public void set(RotationMatrixReadOnly rotationMatrix, double scale, Tuple3DReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scale);
       translationVector.set(translation);
@@ -492,7 +492,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly translation)
+   public void set(RotationMatrixReadOnly rotationMatrix, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scaleX, scaleY, scaleZ);
       translationVector.set(translation);
@@ -507,7 +507,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DReadOnly scales, Tuple3DReadOnly translation)
+   public void set(RotationMatrixReadOnly rotationMatrix, Tuple3DReadOnly scales, Tuple3DReadOnly translation)
    {
       rotationScaleMatrix.set(rotationMatrix, scales);
       translationVector.set(translation);
@@ -968,7 +968,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       rotationScaleMatrix.transform(matrixOriginal, matrixTransformed);
    }
@@ -1031,7 +1031,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   public void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       rotationScaleMatrix.inverseTransform(matrixOriginal, matrixTransformed);
    }
@@ -1167,7 +1167,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param translationToPack tuple in which the translation vector of this affine transform is
     *           stored. Modified.
     */
-   public void get(Matrix3DBasics<?> rotationScaleMarixToPack, Tuple3DBasics translationToPack)
+   public void get(Matrix3DBasics rotationScaleMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationScaleMarixToPack.set(rotationScaleMatrix);
       translationToPack.set(translationVector);
@@ -1192,7 +1192,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     *
     * @return the rotation part of this transform.
     */
-   public RotationMatrixReadOnly<?> getRotationMatrix()
+   public RotationMatrixReadOnly getRotationMatrix()
    {
       return rotationScaleMatrix.getRotationMatrix();
    }
@@ -1203,7 +1203,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
-   public void getRotation(Matrix3DBasics<?> rotationMatrixToPack)
+   public void getRotation(Matrix3DBasics rotationMatrixToPack)
    {
       rotationMatrixToPack.set(rotationScaleMatrix.getRotationMatrix());
    }
@@ -1329,7 +1329,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     *
     * @return the rotation-scale part of this transform.
     */
-   public RotationScaleMatrixReadOnly<?> getRotationScaleMatrix()
+   public RotationScaleMatrixReadOnly getRotationScaleMatrix()
    {
       return rotationScaleMatrix;
    }
@@ -1340,7 +1340,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
-   public void getRotationScale(Matrix3DBasics<?> rotationMatrixToPack)
+   public void getRotationScale(Matrix3DBasics rotationMatrixToPack)
    {
       rotationMatrixToPack.set(rotationScaleMatrix);
    }

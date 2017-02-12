@@ -1212,7 +1212,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 
       { // Test getRotation(Matrix3DBasics rotationMatrixToPack)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-         transform.getRotation((Matrix3DBasics<?>) rotationMatrix);
+         transform.getRotation((Matrix3DBasics) rotationMatrix);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));

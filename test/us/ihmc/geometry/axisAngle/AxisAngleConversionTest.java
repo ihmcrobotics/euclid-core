@@ -444,7 +444,7 @@ public class AxisAngleConversionTest
       for (int i = 0; i < 1000; i++)
       {
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         RotationScaleMatrixReadOnly<?> rotationScaleMatrixCopy = new RotationScaleMatrix(rotationScaleMatrix);
+         RotationScaleMatrixReadOnly rotationScaleMatrixCopy = new RotationScaleMatrix(rotationScaleMatrix);
          m00 = rotationScaleMatrix.getRotationMatrix().getM00();
          m01 = rotationScaleMatrix.getRotationMatrix().getM01();
          m02 = rotationScaleMatrix.getRotationMatrix().getM02();

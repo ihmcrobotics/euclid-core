@@ -922,7 +922,7 @@ public abstract class QuaternionTools
     * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
     * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   public static void transform(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
+   public static void transform(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
    {
       multiplyImpl(quaternion, false, rotationMatrixOriginal, false, rotationMatrixTransformed);
    }
@@ -951,7 +951,7 @@ public abstract class QuaternionTools
     * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
     * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   public static void inverseTransform(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> rotationMatrixOriginal,
+   public static void inverseTransform(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly rotationMatrixOriginal,
                                        RotationMatrix rotationMatrixTransformed)
    {
       multiplyImpl(quaternion, true, rotationMatrixOriginal, false, rotationMatrixTransformed);
@@ -972,7 +972,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   public static void multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+   public static void multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(quaternion, false, matrix, false, quaternionToPack);
    }
@@ -992,7 +992,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   public static void multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+   public static void multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(quaternion, true, matrix, false, quaternionToPack);
    }
@@ -1012,7 +1012,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   public static void multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+   public static void multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(quaternion, false, matrix, true, quaternionToPack);
    }
@@ -1032,7 +1032,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix,
+   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix,
                                                                  QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(quaternion, true, matrix, true, quaternionToPack);
@@ -1059,7 +1059,7 @@ public abstract class QuaternionTools
     * @param transposeMatrix whether to transpose the rotation matrix or not.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   private static void multiplyImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix,
+   private static void multiplyImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly matrix, boolean transposeMatrix,
                                     QuaternionBasics<?> quaternionToPack)
    {
       double q1x = quaternion.getX();
@@ -1091,7 +1091,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
+   public static void multiply(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(matrix, false, quaternion, false, quaternionToPack);
    }
@@ -1111,7 +1111,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   public static void multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
+   public static void multiplyConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(matrix, false, quaternion, true, quaternionToPack);
    }
@@ -1131,7 +1131,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   public static void multiplyTransposeMatrix(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
+   public static void multiplyTransposeMatrix(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(matrix, true, quaternion, false, quaternionToPack);
    }
@@ -1151,7 +1151,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion,
+   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion,
                                                                  QuaternionBasics<?> quaternionToPack)
    {
       multiplyImpl(matrix, true, quaternion, true, quaternionToPack);
@@ -1177,7 +1177,7 @@ public abstract class QuaternionTools
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
-   private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion,
+   private static void multiplyImpl(RotationMatrixReadOnly matrix, boolean transposeMatrix, QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion,
                                     QuaternionBasics<?> quaternionToPack)
    {
       double q2x = quaternion.getX();
@@ -1209,7 +1209,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+   public static void multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, false, matrix, false, matrixToPack);
    }
@@ -1229,7 +1229,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+   public static void multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, true, matrix, false, matrixToPack);
    }
@@ -1249,7 +1249,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+   public static void multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, false, matrix, true, matrixToPack);
    }
@@ -1269,7 +1269,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix,
+   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix,
                                                                  RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, true, matrix, true, matrixToPack);
@@ -1296,7 +1296,7 @@ public abstract class QuaternionTools
     * @param transposeMatrix whether to transpose the rotation matrix or not.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   private static void multiplyImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly<?> matrix, boolean transposeMatrix,
+   private static void multiplyImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly matrix, boolean transposeMatrix,
                                     RotationMatrix matrixToPack)
    {
       double norm = quaternion.norm();
@@ -1389,7 +1389,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+   public static void multiply(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, false, quaternion, false, matrixToPack);
    }
@@ -1409,7 +1409,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+   public static void multiplyConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, false, quaternion, true, matrixToPack);
    }
@@ -1429,7 +1429,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeMatrix(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+   public static void multiplyTransposeMatrix(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, true, quaternion, false, matrixToPack);
    }
@@ -1449,7 +1449,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion,
+   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion,
                                                                  RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, true, quaternion, true, matrixToPack);
@@ -1476,7 +1476,7 @@ public abstract class QuaternionTools
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   private static void multiplyImpl(RotationMatrixReadOnly<?> matrix, boolean transposeMatrix, QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion,
+   private static void multiplyImpl(RotationMatrixReadOnly matrix, boolean transposeMatrix, QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion,
                                     RotationMatrix matrixToPack)
    {
       double norm = quaternion.norm();

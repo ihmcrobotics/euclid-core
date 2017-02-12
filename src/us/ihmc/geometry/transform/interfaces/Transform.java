@@ -460,7 +460,7 @@ public interface Transform
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed);
+   void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed);
 
    /**
     * Performs the inverse of the transform on the given point {@code pointToTransform}.
@@ -759,5 +759,5 @@ public interface Transform
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed);
+   void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed);
 }

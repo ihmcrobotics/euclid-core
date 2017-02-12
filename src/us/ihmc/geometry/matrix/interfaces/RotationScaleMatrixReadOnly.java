@@ -32,10 +32,8 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> the final type of matrix used.
  */
-public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOnly<T>> extends Matrix3DReadOnly
+public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
 {
    /**
     * Returns the read-only reference to the rotation matrix used to compose this rotation-scale
@@ -43,7 +41,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
     *
     * @return the read-only reference to the rotation matrix.
     */
-   public RotationMatrixReadOnly<?> getRotationMatrix();
+   public RotationMatrixReadOnly getRotationMatrix();
 
    /**
     * Returns the read-only reference to the scale factors used to compose this rotation-scale
@@ -173,7 +171,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   default void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       getRotationMatrix().transform(matrixOriginal, matrixTransformed);
    }
@@ -299,7 +297,7 @@ public interface RotationScaleMatrixReadOnly<T extends RotationScaleMatrixReadOn
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   default void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       getRotationMatrix().inverseTransform(matrixOriginal, matrixTransformed);
    }

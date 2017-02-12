@@ -49,7 +49,7 @@ public class AxisAngleConversion
     *           orientation part is used during the conversion. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertMatrixToAxisAngle(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, AxisAngleBasics axisAngleToPack)
+   public static void convertMatrixToAxisAngle(RotationScaleMatrixReadOnly rotationScaleMatrix, AxisAngleBasics axisAngleToPack)
    {
       convertMatrixToAxisAngle(rotationScaleMatrix.getRotationMatrix(), axisAngleToPack);
    }
@@ -71,7 +71,7 @@ public class AxisAngleConversion
     * @param rotationMatrix a 3-by-3 matrix representing an orientation. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
-   public static void convertMatrixToAxisAngle(RotationMatrixReadOnly<?> rotationMatrix, AxisAngleBasics axisAngleToPack)
+   public static void convertMatrixToAxisAngle(RotationMatrixReadOnly rotationMatrix, AxisAngleBasics axisAngleToPack)
    {
       double m00 = rotationMatrix.getM00();
       double m01 = rotationMatrix.getM01();

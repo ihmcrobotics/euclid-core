@@ -20,8 +20,6 @@ import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
  * Read-only interface for any type of 3-by-3 matrices.
  *
  * @author Sylvain
- *
- * @param <T> the final type of matrix used.
  */
 public interface Matrix3DReadOnly
 {

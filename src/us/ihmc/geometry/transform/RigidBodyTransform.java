@@ -1276,7 +1276,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       rotationMatrix.transform(matrixOriginal, matrixTransformed);
    }
@@ -1340,7 +1340,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   public void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
    }
@@ -1488,7 +1488,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationMarixToPack the matrix to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(Matrix3DBasics<?> rotationMarixToPack, Tuple3DBasics translationToPack)
+   public void get(Matrix3DBasics rotationMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -1524,7 +1524,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     *
     * @return the rotation part of this transform.
     */
-   public RotationMatrixReadOnly<?> getRotationMatrix()
+   public RotationMatrixReadOnly getRotationMatrix()
    {
       return rotationMatrix;
    }
@@ -1535,7 +1535,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
-   public void getRotation(Matrix3DBasics<?> rotationMatrixToPack)
+   public void getRotation(Matrix3DBasics rotationMatrixToPack)
    {
       rotationMatrixToPack.set(rotationMatrix);
    }

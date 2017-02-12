@@ -3,7 +3,6 @@ package us.ihmc.geometry.matrix.interfaces;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.interfaces.Clearable;
-import us.ihmc.geometry.interfaces.Settable;
 
 /**
  * Write and read interface for a 3-by-3 matrix object.
@@ -14,10 +13,8 @@ import us.ihmc.geometry.interfaces.Settable;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> the final type of matrix used.
  */
-public interface Matrix3DBasics<T extends Matrix3DBasics<T>> extends Matrix3DReadOnly, Settable<T>, Clearable
+public interface Matrix3DBasics extends Matrix3DReadOnly, Clearable
 {
    /**
     * Sets the 9 coefficients of this matrix to the given ones.

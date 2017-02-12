@@ -250,7 +250,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          }
       }
 
-      { // Test set(RotationMatrixReadOnly<?> rotationMatrix)
+      { // Test set(RotationMatrixReadOnly rotationMatrix)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             RotationMatrix matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);

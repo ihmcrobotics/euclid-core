@@ -1043,7 +1043,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+      { // multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix matrixCopy = new RotationMatrix(matrix);
@@ -1062,7 +1062,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1075,7 +1075,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix transposed = new RotationMatrix(matrix);
@@ -1088,7 +1088,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1114,7 +1114,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
+      { // multiply(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix matrixCopy = new RotationMatrix(matrix);
@@ -1133,7 +1133,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1146,7 +1146,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix transposed = new RotationMatrix(matrix);
@@ -1159,7 +1159,7 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, QuaternionBasics<?> quaternionToPack)
+      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, QuaternionBasics<?> quaternionToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1185,7 +1185,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { //multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+      { //multiply(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
@@ -1201,7 +1201,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+      { // multiplyConjugateQuaternion(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1214,7 +1214,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+      { // multiplyTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix transposed = new RotationMatrix(matrix);
@@ -1227,7 +1227,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly<?> matrix, RotationMatrix matrixToPack)
+      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly<?> quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1258,7 +1258,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiply(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+      { // multiply(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
@@ -1282,7 +1282,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+      { // multiplyConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1295,7 +1295,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrix(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+      { // multiplyTransposeMatrix(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          matrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix transposed = new RotationMatrix(matrix);
@@ -1308,7 +1308,7 @@ public class QuaternionToolsTest
 
       // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly<?> matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
+      { // multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly<?> quaternion, RotationMatrix matrixToPack)
          quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();

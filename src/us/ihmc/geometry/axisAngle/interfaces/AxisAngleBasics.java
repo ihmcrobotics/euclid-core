@@ -215,7 +215,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     *
     * @param rotationMatrix the rotation matrix to convert. Not modified.
     */
-   default void set(RotationMatrixReadOnly<?> rotationMatrix)
+   default void set(RotationMatrixReadOnly rotationMatrix)
    {
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, this);
    }

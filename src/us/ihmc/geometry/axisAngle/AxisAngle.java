@@ -113,7 +113,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparab
     *
     * @param rotationMatrix the rotation matrix used to create this axis-angle. Not modified.
     */
-   public AxisAngle(RotationMatrixReadOnly<?> rotationMatrix)
+   public AxisAngle(RotationMatrixReadOnly rotationMatrix)
    {
       set(rotationMatrix);
    }

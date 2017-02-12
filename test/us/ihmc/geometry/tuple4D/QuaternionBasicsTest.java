@@ -643,7 +643,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(RotationMatrix matrixToTransform)
-         RotationMatrixReadOnly<?> original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(original);
          RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          quaternion = createRandomTuple(random);
@@ -654,8 +654,8 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
-         RotationMatrixReadOnly<?> original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+      { // Test inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(original);
          RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          quaternion = createRandomTuple(random);
@@ -948,7 +948,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
       RotationMatrix rotationMatrix;
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(RotationMatrixReadOnly<?> rotationMatrix)
+      { // Test set(RotationMatrixReadOnly rotationMatrix)
          rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
 
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expectedQuaternion);

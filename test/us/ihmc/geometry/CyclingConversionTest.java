@@ -237,7 +237,7 @@ public class CyclingConversionTest
          switch (this)
          {
          case MATRIX:
-            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly<?>) rotationHolder, axisAngle);
+            AxisAngleConversion.convertMatrixToAxisAngle((RotationMatrixReadOnly) rotationHolder, axisAngle);
             break;
          case AXISANGLE:
             axisAngle.set((AxisAngleReadOnly) rotationHolder);
@@ -263,7 +263,7 @@ public class CyclingConversionTest
          switch (this)
          {
          case MATRIX:
-            QuaternionConversion.convertMatrixToQuaternion((RotationMatrixReadOnly<?>) rotationHolder, quaternion);
+            QuaternionConversion.convertMatrixToQuaternion((RotationMatrixReadOnly) rotationHolder, quaternion);
             break;
          case AXISANGLE:
             QuaternionConversion.convertAxisAngleToQuaternion((AxisAngleReadOnly) rotationHolder, quaternion);
@@ -289,7 +289,7 @@ public class CyclingConversionTest
          switch (this)
          {
          case MATRIX:
-            RotationVectorConversion.convertMatrixToRotationVector((RotationMatrixReadOnly<?>) rotationHolder, rotationVector);
+            RotationVectorConversion.convertMatrixToRotationVector((RotationMatrixReadOnly) rotationHolder, rotationVector);
             break;
          case AXISANGLE:
             RotationVectorConversion.convertAxisAngleToRotationVector((AxisAngleReadOnly) rotationHolder, rotationVector);
@@ -315,7 +315,7 @@ public class CyclingConversionTest
          switch (this)
          {
          case MATRIX:
-            YawPitchRollConversion.convertMatrixToYawPitchRoll((RotationMatrixReadOnly<?>) rotationHolder, yawPitchRoll);
+            YawPitchRollConversion.convertMatrixToYawPitchRoll((RotationMatrixReadOnly) rotationHolder, yawPitchRoll);
             break;
          case AXISANGLE:
             YawPitchRollConversion.convertAxisAngleToYawPitchRoll((AxisAngleReadOnly) rotationHolder, yawPitchRoll);

@@ -379,7 +379,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   default void transform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -594,7 +594,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   default void inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+   default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }

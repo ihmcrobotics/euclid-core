@@ -160,7 +160,7 @@ public abstract class YawPitchRollConversion
     * @param rotationMatrix the rotation matrix to use for the conversion. Not modified.
     * @return the yaw angle.
     */
-   public static double computeYaw(RotationMatrixReadOnly<?> rotationMatrix)
+   public static double computeYaw(RotationMatrixReadOnly rotationMatrix)
    {
       rotationMatrix.normalize();
 
@@ -183,7 +183,7 @@ public abstract class YawPitchRollConversion
     * @param rotationMatrix the rotation matrix to use for the conversion. Not modified.
     * @return the pitch angle.
     */
-   public static double computePitch(RotationMatrixReadOnly<?> rotationMatrix)
+   public static double computePitch(RotationMatrixReadOnly rotationMatrix)
    {
       rotationMatrix.normalize();
       return computePitchImpl(rotationMatrix.getM20());
@@ -202,7 +202,7 @@ public abstract class YawPitchRollConversion
     * @param rotationMatrix the rotation matrix to use for the conversion. Not modified.
     * @return the roll angle.
     */
-   public static double computeRoll(RotationMatrixReadOnly<?> rotationMatrix)
+   public static double computeRoll(RotationMatrixReadOnly rotationMatrix)
    {
       rotationMatrix.normalize();
 
@@ -226,7 +226,7 @@ public abstract class YawPitchRollConversion
     *           orientation part is used during the conversion. Not modified.
     * @return the yaw angle.
     */
-   public static double computeYaw(RotationScaleMatrixReadOnly<?> rotationScaleMatrix)
+   public static double computeYaw(RotationScaleMatrixReadOnly rotationScaleMatrix)
    {
       return computeYaw(rotationScaleMatrix.getRotationMatrix());
    }
@@ -245,7 +245,7 @@ public abstract class YawPitchRollConversion
     *           orientation part is used during the conversion. Not modified.
     * @return the pitch angle.
     */
-   public static double computePitch(RotationScaleMatrixReadOnly<?> rotationScaleMatrix)
+   public static double computePitch(RotationScaleMatrixReadOnly rotationScaleMatrix)
    {
       return computePitch(rotationScaleMatrix.getRotationMatrix());
    }
@@ -264,7 +264,7 @@ public abstract class YawPitchRollConversion
     *           orientation part is used during the conversion. Not modified.
     * @return the roll angle.
     */
-   public static double computeRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix)
+   public static double computeRoll(RotationScaleMatrixReadOnly rotationScaleMatrix)
    {
       return computeRoll(rotationScaleMatrix.getRotationMatrix());
    }
@@ -288,7 +288,7 @@ public abstract class YawPitchRollConversion
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored, in the
     *           order {@code yaw}, {@code pitch}, then {@code roll}. Modified.
     */
-   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, double[] yawPitchRollToPack)
+   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly rotationScaleMatrix, double[] yawPitchRollToPack)
    {
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), yawPitchRollToPack);
    }
@@ -311,7 +311,7 @@ public abstract class YawPitchRollConversion
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored, in the
     *           order {@code yaw}, {@code pitch}, then {@code roll}. Modified.
     */
-   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, double[] yawPitchRollToPack)
+   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly rotationMatrix, double[] yawPitchRollToPack)
    {
       rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());
@@ -347,7 +347,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly<?> rotationScaleMatrix, Tuple3DBasics eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationScaleMatrixReadOnly rotationScaleMatrix, Tuple3DBasics eulerAnglesToPack)
    {
       convertMatrixToYawPitchRoll(rotationScaleMatrix.getRotationMatrix(), eulerAnglesToPack);
    }
@@ -370,7 +370,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly<?> rotationMatrix, Tuple3DBasics eulerAnglesToPack)
+   public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly rotationMatrix, Tuple3DBasics eulerAnglesToPack)
    {
       rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());

@@ -173,7 +173,7 @@ public abstract class TransformTest<T extends Transform>
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
 
-      { // Test inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+      { // Test inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
          RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix();
          transform.inverseTransform(expected, actual);
@@ -197,7 +197,7 @@ public abstract class TransformTest<T extends Transform>
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
 
-      { // Test inverseTransform(RotationMatrixReadOnly<?> matrixOriginal, RotationMatrix matrixTransformed)
+      { // Test inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
          Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D();
          transform.inverseTransform(expected, actual);

@@ -215,7 +215,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyInvertLeft(RotationMatrixReadOnly<?> m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeft(RotationMatrixReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
    {
       multiplyTransposeLeft(m1, m2, matrixToPack);
    }
@@ -237,7 +237,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyInvertLeft(RotationScaleMatrixReadOnly<?> m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeft(RotationScaleMatrixReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
    {
       multiplyInvertLeft(m1.getRotationMatrix(), m2, matrixToPack);
       matrixToPack.scaleRows(1.0 / m1.getScaleX(), 1.0 / m1.getScaleY(), 1.0 / m1.getScaleZ());
@@ -326,7 +326,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationMatrixReadOnly<?> m2, Matrix3D matrixToPack)
+   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationMatrixReadOnly m2, Matrix3D matrixToPack)
    {
       multiplyTransposeRight(m1, m2, matrixToPack);
    }
@@ -348,7 +348,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationScaleMatrixReadOnly<?> m2, Matrix3D matrixToPack)
+   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationScaleMatrixReadOnly m2, Matrix3D matrixToPack)
    {
       matrixToPack.set(m1);
       matrixToPack.scaleColumns(1.0 / m2.getScaleX(), 1.0 / m2.getScaleY(), 1.0 / m2.getScaleZ());
@@ -361,7 +361,7 @@ public abstract class Matrix3DTools
     *
     * @param matrixToNormalize the matrix to normalize. Modified.
     */
-   public static void normalize(Matrix3DBasics<?> matrixToNormalize)
+   public static void normalize(Matrix3DBasics matrixToNormalize)
    {
       double m00 = matrixToNormalize.getM00();
       double m01 = matrixToNormalize.getM01();

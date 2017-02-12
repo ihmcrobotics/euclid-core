@@ -42,7 +42,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * @author Sylvain Bertrand
  *
  */
-public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatrix>, RotationMatrixReadOnly<RotationMatrix>, GeometryObject<RotationMatrix>
+public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMatrixReadOnly, GeometryObject<RotationMatrix>
 {
    private static final long serialVersionUID = 2802307840830134164L;
 
@@ -136,7 +136,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other 3D matrix to copy the values from. Not modified.
     */
-   public RotationMatrix(RotationMatrixReadOnly<?> other)
+   public RotationMatrix(RotationMatrixReadOnly other)
    {
       set(other);
    }
@@ -291,7 +291,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
    @Override
    public void set(RotationMatrix other)
    {
-      set((RotationMatrixReadOnly<?>) other);
+      set((RotationMatrixReadOnly) other);
    }
 
    /**
@@ -299,7 +299,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other rotation matrix to copy the values from. Not modified.
     */
-   public void set(RotationMatrixReadOnly<?> other)
+   public void set(RotationMatrixReadOnly other)
    {
       m00 = other.getM00();
       m01 = other.getM01();
@@ -340,7 +340,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     * @param other the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
     */
-   public void setAndNormalize(RotationMatrixReadOnly<?> other)
+   public void setAndNormalize(RotationMatrixReadOnly other)
    {
       set(other);
       normalize();
@@ -372,7 +372,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the matrix to copy the values from. Not modified.
     */
-   public void setAndInvert(RotationMatrixReadOnly<?> other)
+   public void setAndInvert(RotationMatrixReadOnly other)
    {
       setAndTranspose(other);
    }
@@ -394,7 +394,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the matrix to copy the values from. Not modified.
     */
-   public void setAndTranspose(RotationMatrixReadOnly<?> other)
+   public void setAndTranspose(RotationMatrixReadOnly other)
    {
       set(other);
       transpose();
@@ -591,7 +591,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiply(RotationMatrixReadOnly<?> other)
+   public void multiply(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiply(this, other, this);
    }
@@ -618,7 +618,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiplyTransposeThis(RotationMatrixReadOnly<?> other)
+   public void multiplyTransposeThis(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiplyTransposeLeft(this, other, this);
    }
@@ -645,7 +645,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiplyTransposeOther(RotationMatrixReadOnly<?> other)
+   public void multiplyTransposeOther(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiplyTransposeRight(this, other, this);
    }
@@ -672,7 +672,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void multiplyTransposeBoth(RotationMatrixReadOnly<?> other)
+   public void multiplyTransposeBoth(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiplyTransposeBoth(this, other, this);
    }
@@ -747,7 +747,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiply(RotationMatrixReadOnly<?> other)
+   public void preMultiply(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiply(other, this, this);
    }
@@ -774,7 +774,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyTransposeThis(RotationMatrixReadOnly<?> other)
+   public void preMultiplyTransposeThis(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiplyTransposeRight(other, this, this);
    }
@@ -801,7 +801,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyTransposeOther(RotationMatrixReadOnly<?> other)
+   public void preMultiplyTransposeOther(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiplyTransposeLeft(other, this, this);
    }
@@ -828,7 +828,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics<RotationMatr
     *
     * @param other the other matrix to multiply this by. Not modified.
     */
-   public void preMultiplyTransposeBoth(RotationMatrixReadOnly<?> other)
+   public void preMultiplyTransposeBoth(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiplyTransposeBoth(other, this, this);
    }

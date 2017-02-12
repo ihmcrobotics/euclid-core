@@ -15,7 +15,7 @@ public abstract class RotationMatrixTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiply(RotationMatrixReadOnly<?> m1, RotationMatrixReadOnly<?> m2, RotationMatrix matrixToPack)
+   public static void multiply(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM10() + m1.getM02() * m2.getM20();
       double m01 = m1.getM00() * m2.getM01() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM21();
@@ -40,7 +40,7 @@ public abstract class RotationMatrixTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeBoth(RotationMatrixReadOnly<?> m1, RotationMatrixReadOnly<?> m2, RotationMatrix matrixToPack)
+   public static void multiplyTransposeBoth(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM01() + m1.getM20() * m2.getM02();
       double m01 = m1.getM00() * m2.getM10() + m1.getM10() * m2.getM11() + m1.getM20() * m2.getM12();
@@ -65,7 +65,7 @@ public abstract class RotationMatrixTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeLeft(RotationMatrixReadOnly<?> m1, RotationMatrixReadOnly<?> m2, RotationMatrix matrixToPack)
+   public static void multiplyTransposeLeft(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM10() + m1.getM20() * m2.getM20();
       double m01 = m1.getM00() * m2.getM01() + m1.getM10() * m2.getM11() + m1.getM20() * m2.getM21();
@@ -90,7 +90,7 @@ public abstract class RotationMatrixTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeRight(RotationMatrixReadOnly<?> m1, RotationMatrixReadOnly<?> m2, RotationMatrix matrixToPack)
+   public static void multiplyTransposeRight(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM01() + m1.getM02() * m2.getM02();
       double m01 = m1.getM00() * m2.getM10() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM12();
@@ -121,7 +121,7 @@ public abstract class RotationMatrixTools
     * @param yaw the angle to rotate about the z-axis.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void appendYawRotation(RotationMatrixReadOnly<?> matrixOriginal, double yaw, RotationMatrix matrixToPack)
+   public static void appendYawRotation(RotationMatrixReadOnly matrixOriginal, double yaw, RotationMatrix matrixToPack)
    {
       double cYaw = Math.cos(yaw);
       double sYaw = Math.sin(yaw);
@@ -155,7 +155,7 @@ public abstract class RotationMatrixTools
     * @param pitch the angle to rotate about the y-axis.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void appendPitchRotation(RotationMatrixReadOnly<?> matrixOriginal, double pitch, RotationMatrix matrixToPack)
+   public static void appendPitchRotation(RotationMatrixReadOnly matrixOriginal, double pitch, RotationMatrix matrixToPack)
    {
       double cPitch = Math.cos(pitch);
       double sPitch = Math.sin(pitch);
@@ -189,7 +189,7 @@ public abstract class RotationMatrixTools
     * @param pitch the angle to rotate about the x-axis.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void appendRollRotation(RotationMatrixReadOnly<?> matrixOriginal, double roll, RotationMatrix matrixToPack)
+   public static void appendRollRotation(RotationMatrixReadOnly matrixOriginal, double roll, RotationMatrix matrixToPack)
    {
       double cRoll = Math.cos(roll);
       double sRoll = Math.sin(roll);
