@@ -676,9 +676,9 @@ public class QuaternionToolsTest
    {
       Random random = new Random(2356L);
       Quaternion quaternion = new Quaternion();
-      Tuple2DReadOnly<?> tupleOriginal = new Vector2D();
-      Tuple2DBasics<?> tupleExpected = new Vector2D();
-      Tuple2DBasics<?> tupleActual = new Vector2D();
+      Tuple2DReadOnly tupleOriginal = new Vector2D();
+      Tuple2DBasics tupleExpected = new Vector2D();
+      Tuple2DBasics tupleActual = new Vector2D();
 
       // Test the exception is thrown when checkIfTransformInXYPlane and the transform is not in XY plane
       quaternion.set(1.0, 0.0, 0.0, 0.0);
@@ -743,7 +743,7 @@ public class QuaternionToolsTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          tupleOriginal = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Tuple2DReadOnly<?> tupleOriginalCopy = new Vector2D(tupleOriginal);
+         Tuple2DReadOnly tupleOriginalCopy = new Vector2D(tupleOriginal);
          double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          quaternion.setToZero();
          double corrupt = random.nextDouble() + 0.5;
@@ -773,9 +773,9 @@ public class QuaternionToolsTest
    {
       Random random = new Random(2356L);
       Quaternion quaternion = new Quaternion();
-      Tuple2DReadOnly<?> tupleOriginal = new Vector2D();
-      Tuple2DBasics<?> tupleExpected = new Vector2D();
-      Tuple2DBasics<?> tupleActual = new Vector2D();
+      Tuple2DReadOnly tupleOriginal = new Vector2D();
+      Tuple2DBasics tupleExpected = new Vector2D();
+      Tuple2DBasics tupleActual = new Vector2D();
 
       // Test the exception is thrown when checkIfTransformInXYPlane and the transform is not in XY plane
       quaternion.set(1.0, 0.0, 0.0, 0.0);
@@ -851,8 +851,8 @@ public class QuaternionToolsTest
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, true);
          GeometryBasicsTestTools.assertTuple2DEquals(tupleExpected, tupleActual, EPSILON);
 
-         Tuple2DBasics<?> tupleTransformed = new Vector2D();
-         Tuple2DBasics<?> tupleTransformedCopy = new Vector2D();
+         Tuple2DBasics tupleTransformed = new Vector2D();
+         Tuple2DBasics tupleTransformedCopy = new Vector2D();
          tupleActual.setToZero();
          QuaternionTools.transform(quaternion, tupleOriginal, tupleTransformed, true);
          tupleTransformedCopy.set(tupleTransformed);

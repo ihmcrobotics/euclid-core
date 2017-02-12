@@ -212,7 +212,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
     */
-   default void transform(Tuple2DBasics<?> tupleToTransform)
+   default void transform(Tuple2DBasics tupleToTransform)
    {
       transform(tupleToTransform, tupleToTransform, true);
    }
@@ -229,7 +229,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
     */
-   default void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed, true);
    }
@@ -246,7 +246,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
     *            does not represent a transformation in the XY plane.
     */
-   default void transform(Tuple2DBasics<?> tupleToTransform, boolean checkIfTransformInXYPlane)
+   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
    {
       transform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
@@ -265,7 +265,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
     *            does not represent a transformation in the XY plane.
     */
-   default void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
@@ -424,7 +424,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
     */
-   default void inverseTransform(Tuple2DBasics<?> tupleToTransform)
+   default void inverseTransform(Tuple2DBasics tupleToTransform)
    {
       inverseTransform(tupleToTransform, true);
    }
@@ -441,7 +441,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
     */
-   default void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, true);
    }
@@ -458,7 +458,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
     *            does not represent a transformation in the XY plane.
     */
-   default void inverseTransform(Tuple2DBasics<?> tupleToTransform, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
    {
       inverseTransform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
@@ -477,7 +477,7 @@ public interface QuaternionReadOnly<T extends QuaternionReadOnly<T>> extends Tup
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
     *            does not represent a transformation in the XY plane.
     */
-   default void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }

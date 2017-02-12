@@ -501,7 +501,7 @@ public abstract class QuaternionTools
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
     *            does not represent a transformation in the XY plane.
     */
-   public static void transform(QuaternionReadOnly<?> quaternion, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
+   public static void transform(QuaternionReadOnly<?> quaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
                                 boolean checkIfTransformInXYPlane)
    {
       transformImpl(quaternion, false, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
@@ -530,7 +530,7 @@ public abstract class QuaternionTools
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
     *            does not represent a transformation in the XY plane.
     */
-   public static void inverseTransform(QuaternionReadOnly<?> quaternion, Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed,
+   public static void inverseTransform(QuaternionReadOnly<?> quaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
                                        boolean checkIfTransformInXYPlane)
    {
       transformImpl(quaternion, true, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
@@ -558,8 +558,8 @@ public abstract class QuaternionTools
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
     *            does not represent a transformation in the XY plane.
     */
-   private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Tuple2DReadOnly<?> tupleOriginal,
-                                     Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   private static void transformImpl(QuaternionReadOnly<?> quaternion, boolean conjugateQuaternion, Tuple2DReadOnly tupleOriginal,
+                                     Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
          quaternion.checkIfIsZOnly(EPS);

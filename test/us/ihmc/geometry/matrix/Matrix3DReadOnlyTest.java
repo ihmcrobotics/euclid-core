@@ -559,7 +559,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // transform(Tuple2DBasics<?> tupleToTransform)
+      { // transform(Tuple2DBasics tupleToTransform)
          Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
@@ -588,7 +588,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
+      { // transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
          Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
@@ -616,7 +616,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // transform(Tuple2DBasics<?> tupleToTransform, boolean checkIfTransformInXYPlane)
+      { // transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
          Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
@@ -650,7 +650,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+      { // transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
          Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
@@ -781,7 +781,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // inverseTransform(Tuple2DBasics<?> tupleToTransform)
+      { // inverseTransform(Tuple2DBasics tupleToTransform)
          Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
@@ -815,7 +815,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed)
+      { // inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
          Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
@@ -848,7 +848,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // inverseTransform(Tuple2DBasics<?> tupleToTransform, boolean checkIfTransformInXYPlane)
+      { // inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
          Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
@@ -887,7 +887,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+      { // inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
          Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();

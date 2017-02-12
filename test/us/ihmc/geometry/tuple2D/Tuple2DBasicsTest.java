@@ -14,7 +14,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 
-public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics<T>> extends Tuple2DReadOnlyTest<T>
+public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2DReadOnlyTest<T>
 {
    @Test
    public void testSetters() throws Exception
@@ -96,11 +96,11 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics<T>> extends Tupl
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test set(Tuple2DReadOnly<?> tupleReadOnly)
+      { // Test set(Tuple2DReadOnly tupleReadOnly)
          tuple2.setX(random.nextDouble());
          tuple2.setY(random.nextDouble());
 
-         tuple1.set((Tuple2DReadOnly<?>) tuple2);
+         tuple1.set((Tuple2DReadOnly) tuple2);
          GeometryBasicsTestTools.assertTuple2DEquals(tuple1, tuple2, getEpsilon());
       }
 

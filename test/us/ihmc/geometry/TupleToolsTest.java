@@ -23,8 +23,8 @@ public class TupleToolsTest
    public void testEpsilonEqualsTuple2D() throws Exception
    {
       Random random = new Random(621541L);
-      Tuple2DBasics<?> tuple1 = new Point2D();
-      Tuple2DBasics<?> tuple2 = new Point2D();
+      Tuple2DBasics tuple1 = new Point2D();
+      Tuple2DBasics tuple2 = new Point2D();
 
       double epsilon = random.nextDouble();
 

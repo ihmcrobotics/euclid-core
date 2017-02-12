@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 
-public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly<T>>
+public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
 

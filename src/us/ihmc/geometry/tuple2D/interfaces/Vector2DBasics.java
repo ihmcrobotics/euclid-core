@@ -31,10 +31,8 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the vector used.
  */
-public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasics<T>, Vector2DReadOnly<T>
+public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
 {
    /**
     * Normalizes this vector such that its magnitude is equal to 1 after calling this method and its
@@ -58,7 +56,7 @@ public interface Vector2DBasics<T extends Vector2DBasics<T>> extends Tuple2DBasi
     *
     * @param other the other vector to copy the values from. Not modified.
     */
-   default void setAndNormalize(Vector2DReadOnly<?> other)
+   default void setAndNormalize(Vector2DReadOnly other)
    {
       set(other);
       normalize();

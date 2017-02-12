@@ -3,6 +3,7 @@ package us.ihmc.geometry.tuple2D;
 import java.io.Serializable;
 
 import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 
@@ -18,7 +19,7 @@ import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
  *
  * @author Sylvain Bertrand
  */
-public class Vector2D32 implements Serializable, Vector2DBasics<Vector2D32>
+public class Vector2D32 implements Serializable, Vector2DBasics, GeometryObject<Vector2D32>
 {
    private static final long serialVersionUID = 6380132073713315352L;
 
@@ -62,9 +63,15 @@ public class Vector2D32 implements Serializable, Vector2DBasics<Vector2D32>
     *
     * @param other the tuple to copy the components from. Not modified.
     */
-   public Vector2D32(Tuple2DReadOnly<?> other)
+   public Vector2D32(Tuple2DReadOnly other)
    {
       set(other);
+   }
+
+   @Override
+   public void set(Vector2D32 other)
+   {
+      Vector2DBasics.super.set(other);
    }
 
    /**
@@ -171,6 +178,12 @@ public class Vector2D32 implements Serializable, Vector2DBasics<Vector2D32>
       {
          return false;
       }
+   }
+
+   @Override
+   public boolean epsilonEquals(Vector2D32 other, double epsilon)
+   {
+      return Vector2DBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

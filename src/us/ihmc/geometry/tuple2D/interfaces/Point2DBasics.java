@@ -29,10 +29,8 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the point used.
  */
-public interface Point2DBasics<T extends Point2DBasics<T>> extends Tuple2DBasics<T>, Point2DReadOnly<T>
+public interface Point2DBasics extends Tuple2DBasics, Point2DReadOnly
 {
    /**
     * Transforms this point by the given {@code transform}.

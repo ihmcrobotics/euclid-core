@@ -4,7 +4,8 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
-import us.ihmc.geometry.interfaces.GeometryObject;
+import us.ihmc.geometry.interfaces.Clearable;
+import us.ihmc.geometry.interfaces.Transformable;
 import us.ihmc.geometry.transform.interfaces.Transform;
 
 /**
@@ -31,11 +32,9 @@ import us.ihmc.geometry.transform.interfaces.Transform;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the tuple used.
  */
 // TODO Think about renaming this interface to Tuple2D
-public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOnly<T>, GeometryObject<T>
+public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
 {
    /**
     * Sets the x-component of this tuple.
@@ -164,22 +163,11 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
    }
 
    /**
-    * Sets this tuple to {@code other}.
-    *
-    * @param other the other tuple to copy the values from. Not modified.
-    */
-   @Override
-   default void set(T other)
-   {
-      set(other.getX(), other.getY());
-   }
-
-   /**
     * Sets this tuple to {@code tupleReadOnly}.
     *
     * @param tupleReadOnly the other tuple to copy the values from. Not modified.
     */
-   default void set(Tuple2DReadOnly<?> tupleReadOnly)
+   default void set(Tuple2DReadOnly tupleReadOnly)
    {
       set(tupleReadOnly.getX(), tupleReadOnly.getY());
    }
@@ -278,7 +266,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndAbsolute(Tuple2DReadOnly<?> other)
+   default void setAndAbsolute(Tuple2DReadOnly other)
    {
       set(Math.abs(other.getX()), Math.abs(other.getY()));
    }
@@ -288,7 +276,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndNegate(Tuple2DReadOnly<?> other)
+   default void setAndNegate(Tuple2DReadOnly other)
    {
       set(-other.getX(), -other.getY());
    }
@@ -299,7 +287,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * @param scalar the scale factor to use on this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndScale(double scalar, Tuple2DReadOnly<?> other)
+   default void setAndScale(double scalar, Tuple2DReadOnly other)
    {
       set(scalar * other.getX(), scalar * other.getY());
    }
@@ -310,7 +298,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * @param max the maximum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMax(double max, Tuple2DReadOnly<?> other)
+   default void setAndClipToMax(double max, Tuple2DReadOnly other)
    {
       set(Math.min(max, other.getX()), Math.min(max, other.getY()));
    }
@@ -321,7 +309,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * @param min the minimum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMin(double min, Tuple2DReadOnly<?> other)
+   default void setAndClipToMin(double min, Tuple2DReadOnly other)
    {
       set(Math.max(min, other.getX()), Math.max(min, other.getY()));
    }
@@ -333,7 +321,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * @param max the maximum value for each component of this tuple.
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void setAndClipToMinMax(double min, double max, Tuple2DReadOnly<?> other)
+   default void setAndClipToMinMax(double min, double max, Tuple2DReadOnly other)
    {
       set(other);
       clipToMinMax(min, max);
@@ -381,7 +369,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     *
     * @param other the other tuple to add to this tuple.
     */
-   default void add(Tuple2DReadOnly<?> other)
+   default void add(Tuple2DReadOnly other)
    {
       add(other.getX(), other.getY());
    }
@@ -395,7 +383,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * @param tuple1 the first tuple to sum. Not modified.
     * @param tuple2 the second tuple to sum. Not modified.
     */
-   default void add(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
+   default void add(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
    {
       set(tuple1.getX() + tuple2.getX(), tuple1.getY() + tuple2.getY());
    }
@@ -442,7 +430,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     *
     * @param other the other tuple to add to this tuple.
     */
-   default void sub(Tuple2DReadOnly<?> tupleReadOnly)
+   default void sub(Tuple2DReadOnly tupleReadOnly)
    {
       sub(tupleReadOnly.getX(), tupleReadOnly.getY());
    }
@@ -456,7 +444,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * @param tuple1 the first tuple. Not modified.
     * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
     */
-   default void sub(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
+   default void sub(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
    {
       set(tuple1.getX() - tuple2.getX(), tuple1.getY() - tuple2.getY());
    }
@@ -500,7 +488,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * @param scalar the scale factor to use.
     * @param other the tuple to add to this. Not modified.
     */
-   default void scaleAdd(double scalar, Tuple2DReadOnly<?> other)
+   default void scaleAdd(double scalar, Tuple2DReadOnly other)
    {
       scale(scalar);
       add(other);
@@ -516,7 +504,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     * @param tuple1 the first tuple of the sum. Not modified.
     * @param tuple2 the second tuple of the sum. Not modified.
     */
-   default void scaleAdd(double scalar, Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2)
+   default void scaleAdd(double scalar, Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
    {
       setAndScale(scalar, tuple1);
       add(tuple2);
@@ -534,7 +522,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     *           modifying this tuple, while a value of 1 is equivalent to setting this tuple to
     *           {@code other}.
     */
-   default void interpolate(Tuple2DReadOnly<?> other, double alpha)
+   default void interpolate(Tuple2DReadOnly other, double alpha)
    {
       interpolate(this, other, alpha);
    }
@@ -552,7 +540,7 @@ public interface Tuple2DBasics<T extends Tuple2DBasics<T>> extends Tuple2DReadOn
     *           this tuple to {@code tuple1}, while a value of 1 is equivalent to setting this tuple
     *           to {@code tuple2}.
     */
-   default void interpolate(Tuple2DReadOnly<?> tuple1, Tuple2DReadOnly<?> tuple2, double alpha)
+   default void interpolate(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2, double alpha)
    {
       double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
       double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);

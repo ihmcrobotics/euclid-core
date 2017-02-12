@@ -1629,9 +1629,9 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleToTransform)
-         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
-         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
          double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          rotationScaleMatrix.setToYawMatrix(theta);
 
@@ -1648,9 +1648,9 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
-         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
-         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
          double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          rotationScaleMatrix.setToYawMatrix(theta);
 

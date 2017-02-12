@@ -23,10 +23,8 @@ package us.ihmc.geometry.tuple2D.interfaces;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the point used.
  */
-public interface Point2DReadOnly<T extends Point2DReadOnly<T>> extends Tuple2DReadOnly<T>
+public interface Point2DReadOnly extends Tuple2DReadOnly
 {
    /**
     * Calculates and returns the distance between this point and {@code other}.
@@ -34,7 +32,7 @@ public interface Point2DReadOnly<T extends Point2DReadOnly<T>> extends Tuple2DRe
     * @param other the other point used to measure the distance.
     * @return the distance between the two points.
     */
-   default double distance(Point2DReadOnly<?> other)
+   default double distance(Point2DReadOnly other)
    {
       return Math.sqrt(distanceSquared(other));
    }
@@ -50,7 +48,7 @@ public interface Point2DReadOnly<T extends Point2DReadOnly<T>> extends Tuple2DRe
     * @param other the other point used to measure the square of the distance.
     * @return the square of the distance between the two points.
     */
-   default double distanceSquared(Point2DReadOnly<?> other)
+   default double distanceSquared(Point2DReadOnly other)
    {
       double dx = getX() - other.getX();
       double dy = getY() - other.getY();

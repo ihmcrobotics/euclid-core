@@ -13,7 +13,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 
-public abstract class Point2DBasicsTest<T extends Point2DBasics<T>> extends Tuple2DBasicsTest<T>
+public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2DBasicsTest<T>
 {
    // Read-only part
    @Test

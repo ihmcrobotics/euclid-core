@@ -153,12 +153,12 @@ public abstract class GeometryBasicsIOTools
       return ret;
    }
 
-   public static String getTuple2DString(Tuple2DReadOnly<?> tuple)
+   public static String getTuple2DString(Tuple2DReadOnly tuple)
    {
       return getTuple2DString(DEFAULT_FORMAT, tuple);
    }
 
-   public static String getTuple2DString(String format, Tuple2DReadOnly<?> tuple)
+   public static String getTuple2DString(String format, Tuple2DReadOnly tuple)
    {
       return getStringOf("(", " )", ", ", format, tuple.getX(), tuple.getY());
    }

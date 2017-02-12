@@ -14,7 +14,7 @@ import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
 
-public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tuple2DBasicsTest<T>
+public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple2DBasicsTest<T>
 {
    // Read-only part
    @Test
@@ -99,7 +99,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
       Random random = new Random(56461L);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // cross(Vector2DReadOnly<?> other)
+      { // cross(Vector2DReadOnly other)
          T vector1 = createRandomTuple(random);
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();
@@ -112,7 +112,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics<T>> extends Tu
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // cross(Vector2DReadOnly<?> v1, Vector2DReadOnly<?> v2)
+      { // cross(Vector2DReadOnly v1, Vector2DReadOnly v2)
          T vector1 = createRandomTuple(random);
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();

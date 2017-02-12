@@ -25,10 +25,8 @@ package us.ihmc.geometry.tuple2D.interfaces;
  * </p>
  *
  * @author Sylvain Bertrand
- *
- * @param <T> The final type of the vector used.
  */
-public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2DReadOnly<T>
+public interface Vector2DReadOnly extends Tuple2DReadOnly
 {
    /**
     * Calculates and returns the magnitude of this vector.
@@ -71,7 +69,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * @param other the other vector used for the dot product. Not modified.
     * @return the value of the dot product.
     */
-   default double dot(Vector2DReadOnly<?> other)
+   default double dot(Vector2DReadOnly other)
    {
       return getX() * other.getX() + getY() * other.getY();
    }
@@ -92,7 +90,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * @param other the other vector used to compute the angle. Not modified.
     * @return the value of the angle from this vector to {@code other}.
     */
-   default double angle(Vector2DReadOnly<?> other)
+   default double angle(Vector2DReadOnly other)
    {
       double firstVectorX = getX();
       double firstVectorY = getY();
@@ -128,7 +126,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * @param other the second vector of the cross product. Not modified.
     * @return the value of the cross product.
     */
-   default double cross(Vector2DReadOnly<?> other)
+   default double cross(Vector2DReadOnly other)
    {
       return cross(this, other);
    }
@@ -140,7 +138,7 @@ public interface Vector2DReadOnly<T extends Vector2DReadOnly<T>> extends Tuple2D
     * @param vector2 the second vector in the cross product. Not modified.
     * @return the value of the cross product.
     */
-   public static double cross(Vector2DReadOnly<?> vector1, Vector2DReadOnly<?> vector2)
+   public static double cross(Vector2DReadOnly vector1, Vector2DReadOnly vector2)
    {
       return vector1.getX() * vector2.getY() - vector1.getY() * vector2.getX();
    }

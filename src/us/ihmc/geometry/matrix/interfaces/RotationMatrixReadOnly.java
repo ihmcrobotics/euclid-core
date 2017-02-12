@@ -60,7 +60,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfRotationInXYPlane)
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane)
    {
       normalize();
       Matrix3DTools.transform(this, tupleOriginal, tupleTransformed, checkIfRotationInXYPlane);
@@ -156,7 +156,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       normalize();
 

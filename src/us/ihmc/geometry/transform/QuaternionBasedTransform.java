@@ -802,7 +802,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Point2DReadOnly<?> pointOriginal, Point2DBasics<?> pointTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
       quaternion.transform(pointOriginal, pointTransformed, checkIfTransformInXYPlane);
       pointTransformed.add(translationVector.getX(), translationVector.getY());
@@ -810,7 +810,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector2DReadOnly<?> vectorOriginal, Vector2DBasics<?> vectorTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
       quaternion.transform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
@@ -865,7 +865,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Point2DReadOnly<?> pointOriginal, Point2DBasics<?> pointTransformed, boolean checkIfTransformInXYPlane)
+   public void inverseTransform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
       pointTransformed.set(pointOriginal);
       pointTransformed.sub(translationVector.getX(), translationVector.getY());
@@ -874,7 +874,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector2DReadOnly<?> vectorOriginal, Vector2DBasics<?> vectorTransformed, boolean checkIfTransformInXYPlane)
+   public void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
       quaternion.inverseTransform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }

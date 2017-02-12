@@ -3,6 +3,7 @@ package us.ihmc.geometry.tuple2D;
 import java.io.Serializable;
 
 import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 
@@ -15,7 +16,7 @@ import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
  *
  * @author Sylvain Bertrand
  */
-public class Point2D implements Serializable, Point2DBasics<Point2D>
+public class Point2D implements Serializable, Point2DBasics, GeometryObject<Point2D>
 {
    private static final long serialVersionUID = -615943325053203074L;
 
@@ -59,9 +60,15 @@ public class Point2D implements Serializable, Point2DBasics<Point2D>
     *
     * @param other the tuple to copy the coordinates from. Not modified.
     */
-   public Point2D(Tuple2DReadOnly<?> other)
+   public Point2D(Tuple2DReadOnly other)
    {
       set(other);
+   }
+
+   @Override
+   public void set(Point2D other)
+   {
+      Point2DBasics.super.set(other);
    }
 
    /**
@@ -126,6 +133,12 @@ public class Point2D implements Serializable, Point2DBasics<Point2D>
       {
          return false;
       }
+   }
+
+   @Override
+   public boolean epsilonEquals(Point2D other, double epsilon)
+   {
+      return Point2DBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

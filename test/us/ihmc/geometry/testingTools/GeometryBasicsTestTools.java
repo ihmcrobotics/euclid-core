@@ -170,7 +170,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal.
     */
-   public static void assertTuple2DEquals(Tuple2DReadOnly<?> expected, Tuple2DReadOnly<?> actual, double epsilon)
+   public static void assertTuple2DEquals(Tuple2DReadOnly expected, Tuple2DReadOnly actual, double epsilon)
    {
       assertTuple2DEquals("", expected, actual, epsilon);
    }
@@ -184,7 +184,7 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal.
     */
-   public static void assertTuple2DEquals(String message, Tuple2DReadOnly<?> expected, Tuple2DReadOnly<?> actual, double epsilon)
+   public static void assertTuple2DEquals(String message, Tuple2DReadOnly expected, Tuple2DReadOnly actual, double epsilon)
    {
       boolean areEqual = TupleTools.epsilonEquals(expected, actual, epsilon);
 

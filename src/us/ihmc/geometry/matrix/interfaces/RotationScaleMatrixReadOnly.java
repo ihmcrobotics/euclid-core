@@ -96,7 +96,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       tupleTransformed.setX(getScaleX() * tupleOriginal.getX());
       tupleTransformed.setY(getScaleY() * tupleOriginal.getY());
@@ -201,7 +201,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       getRotationMatrix().inverseTransform(tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
 

@@ -270,9 +270,9 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleToTransform)
-         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
-         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
          double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          float qz = (float) Math.sin(0.5 * theta);
          float qs = (float) Math.cos(0.5 * theta);
@@ -291,9 +291,9 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
-         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
-         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
          double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          float qz = (float) Math.sin(0.5 * theta);
          float qs = (float) Math.cos(0.5 * theta);
@@ -471,9 +471,9 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleToTransform)
-         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
-         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
          double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          float qz = (float) Math.sin(0.5 * theta);
          float qs = (float) Math.cos(0.5 * theta);
@@ -492,9 +492,9 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics<T>> extend
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
-         Tuple2DReadOnly<?> tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Tuple2DBasics<?> actualTuple = new Vector2D(tuple);
-         Tuple2DBasics<?> expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
          double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
          float qz = (float) Math.sin(0.5 * theta);
          float qs = (float) Math.cos(0.5 * theta);

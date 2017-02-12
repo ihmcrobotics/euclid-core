@@ -753,7 +753,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       Matrix3DTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
@@ -781,7 +781,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Tuple2DReadOnly<?> tupleOriginal, Tuple2DBasics<?> tupleTransformed, boolean checkIfTransformInXYPlane)
+   public void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       Matrix3DTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }

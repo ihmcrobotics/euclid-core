@@ -209,7 +209,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void transform(Point2DBasics<?> pointToTransform)
+   default void transform(Point2DBasics pointToTransform)
    {
       transform(pointToTransform, true);
    }
@@ -235,7 +235,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void transform(Point2DReadOnly<?> pointOriginal, Point2DBasics<?> pointTransformed)
+   default void transform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed)
    {
       transform(pointOriginal, pointTransformed, true);
    }
@@ -261,7 +261,7 @@ public interface Transform
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     *            part of this transform is not a transformation in the XY plane.
     */
-   default void transform(Point2DBasics<?> pointToTransform, boolean checkIfTransformInXYPlane)
+   default void transform(Point2DBasics pointToTransform, boolean checkIfTransformInXYPlane)
    {
       transform(pointToTransform, pointToTransform, checkIfTransformInXYPlane);
    }
@@ -289,7 +289,7 @@ public interface Transform
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     *            part of this transform is not a transformation in the XY plane.
     */
-   void transform(Point2DReadOnly<?> pointOriginal, Point2DBasics<?> pointTransformed, boolean checkIfTransformInXYPlane);
+   void transform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane);
 
    /**
     * Transforms the given {@code vector2DToTransform} by this transform.
@@ -310,7 +310,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void transform(Vector2DBasics<?> vectorToTransform)
+   default void transform(Vector2DBasics vectorToTransform)
    {
       transform(vectorToTransform, true);
    }
@@ -336,7 +336,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void transform(Vector2DReadOnly<?> vectorOriginal, Vector2DBasics<?> vectorTransformed)
+   default void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed)
    {
       transform(vectorOriginal, vectorTransformed, true);
    }
@@ -362,7 +362,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void transform(Vector2DBasics<?> vectorToTransform, boolean checkIfTransformInXYPlane)
+   default void transform(Vector2DBasics vectorToTransform, boolean checkIfTransformInXYPlane)
    {
       transform(vectorToTransform, vectorToTransform, checkIfTransformInXYPlane);
    }
@@ -390,7 +390,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   void transform(Vector2DReadOnly<?> vectorOriginal, Vector2DBasics<?> vectorTransformed, boolean checkIfTransformInXYPlane);
+   void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane);
 
    /**
     * Transforms the given {@code matrixToTransform} by this transform.
@@ -581,7 +581,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void inverseTransform(Point2DBasics<?> pointToTransform)
+   default void inverseTransform(Point2DBasics pointToTransform)
    {
       inverseTransform(pointToTransform, true);
    }
@@ -599,7 +599,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void inverseTransform(Point2DReadOnly<?> pointOriginal, Point2DBasics<?> pointTransformed)
+   default void inverseTransform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed)
    {
       inverseTransform(pointOriginal, pointTransformed, true);
    }
@@ -617,7 +617,7 @@ public interface Transform
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     *            part of this transform is not a transformation in the XY plane.
     */
-   default void inverseTransform(Point2DBasics<?> pointToTransform, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Point2DBasics pointToTransform, boolean checkIfTransformInXYPlane)
    {
       inverseTransform(pointToTransform, pointToTransform, checkIfTransformInXYPlane);
    }
@@ -637,7 +637,7 @@ public interface Transform
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     *            part of this transform is not a transformation in the XY plane.
     */
-   void inverseTransform(Point2DReadOnly<?> pointOriginal, Point2DBasics<?> pointTransformed, boolean checkIfTransformInXYPlane);
+   void inverseTransform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane);
 
    /**
     * Performs the inverse of the transform on the given vector {@code vectorToTransform}.
@@ -650,7 +650,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void inverseTransform(Vector2DBasics<?> vectorToTransform)
+   default void inverseTransform(Vector2DBasics vectorToTransform)
    {
       inverseTransform(vectorToTransform, true);
    }
@@ -668,7 +668,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void inverseTransform(Vector2DReadOnly<?> vectorOriginal, Vector2DBasics<?> vectorTransformed)
+   default void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed)
    {
       inverseTransform(vectorOriginal, vectorTransformed, true);
    }
@@ -686,7 +686,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   default void inverseTransform(Vector2DBasics<?> vectorToTransform, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Vector2DBasics vectorToTransform, boolean checkIfTransformInXYPlane)
    {
       inverseTransform(vectorToTransform, vectorToTransform, checkIfTransformInXYPlane);
    }
@@ -706,7 +706,7 @@ public interface Transform
     * @throws NotAMatrix2DException if the rotation part of this transform is not a transformation
     *            in the XY plane.
     */
-   void inverseTransform(Vector2DReadOnly<?> vectorOriginal, Vector2DBasics<?> vectorTransformed, boolean checkIfTransformInXYPlane);
+   void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane);
 
    /**
     * Performs the inverse of the transform on the given matrix {@code matrixToTransform}.

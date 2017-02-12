@@ -982,7 +982,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Point2DReadOnly<?> pointOriginal, Point2DBasics<?> pointTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
       rotationScaleMatrix.transform(pointOriginal, pointTransformed, checkIfTransformInXYPlane);
       pointTransformed.add(translationVector.getX(), translationVector.getY());
@@ -990,7 +990,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Vector2DReadOnly<?> vectorOriginal, Vector2DBasics<?> vectorTransformed, boolean checkIfTransformInXYPlane)
+   public void transform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
       rotationScaleMatrix.transform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
@@ -1045,7 +1045,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Point2DReadOnly<?> pointOriginal, Point2DBasics<?> pointTransformed, boolean checkIfTransformInXYPlane)
+   public void inverseTransform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformInXYPlane)
    {
       pointTransformed.set(pointOriginal);
       pointTransformed.sub(translationVector.getX(), translationVector.getY());
@@ -1054,7 +1054,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Vector2DReadOnly<?> vectorOriginal, Vector2DBasics<?> vectorTransformed, boolean checkIfTransformInXYPlane)
+   public void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
       rotationScaleMatrix.inverseTransform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
