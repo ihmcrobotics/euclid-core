@@ -1,16 +1,12 @@
 package us.ihmc.geometry;
 
-import java.util.Random;
-
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
-import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
@@ -253,29 +249,5 @@ public abstract class GeometryBasicsIOTools
    public static String getStringFormat(int numberOfChar, int precision)
    {
       return "%" + numberOfChar + "." + precision + "f";
-   }
-
-   public static void main(String[] args)
-   {
-      Random random = new Random();
-      Matrix3DReadOnly<?> matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      Tuple2DReadOnly<?> tuple2D = GeometryBasicsRandomTools.generateRandomVector2D(random);
-      Tuple3DReadOnly<?> tuple3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
-      Tuple4DReadOnly<?> tuple4D = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      AxisAngleReadOnly<?> axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-
-      System.out.println(getHomogeneousTransformString(matrix, tuple3D));
-      System.out.println();
-      System.out.println(getQuaternionBasedTransformString(new Quaternion(), tuple3D));
-      System.out.println();
-      System.out.println(getTuple2DString(tuple2D));
-      System.out.println();
-      System.out.println(getTuple3DString(tuple3D));
-      System.out.println();
-      System.out.println(getTuple4DString(tuple4D));
-      System.out.println();
-      System.out.println(getAxisAngleString(axisAngle));
-      System.out.println();
-      System.out.println(getMatrixString(matrix));
    }
 }
