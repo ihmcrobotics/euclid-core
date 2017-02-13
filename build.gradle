@@ -35,5 +35,5 @@ dependencies {
     testCompile group: 'org.pitest', name: 'pitest', version: '1.1.9'
     testCompile group: 'org.pitest', name: 'pitest-command-line', version: '1.1.9'
 
-    compile group: 'org.ejml', name: 'dense64', version: '0.28'
+    compile group: 'org.ejml', name: 'dense64', version: '0.30'
 }
