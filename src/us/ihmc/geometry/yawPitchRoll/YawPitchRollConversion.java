@@ -1,7 +1,5 @@
 package us.ihmc.geometry.yawPitchRoll;
 
-import org.apache.commons.math3.util.FastMath;
-
 import us.ihmc.geometry.GeometryBasicsTools;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
@@ -402,7 +400,7 @@ public abstract class YawPitchRollConversion
     */
    static double computeYawFromQuaternionImpl(double qx, double qy, double qz, double qs)
    {
-      return FastMath.atan2(2.0 * (qx * qy + qz * qs), 1.0 - 2.0 * (qy * qy + qz * qz));
+      return Math.atan2(2.0 * (qx * qy + qz * qs), 1.0 - 2.0 * (qy * qy + qz * qz));
    }
 
    /**
@@ -422,7 +420,7 @@ public abstract class YawPitchRollConversion
    {
       double pitchArgument = 2.0 * (qs * qy - qx * qz);
 
-      double pitch = FastMath.asin(pitchArgument);
+      double pitch = Math.asin(pitchArgument);
       if (Math.abs(pitch) > MAX_PITCH_ANGLE)
          return Double.NaN;
       return pitch;
@@ -443,7 +441,7 @@ public abstract class YawPitchRollConversion
     */
    static double computeRollFromQuaternionImpl(double qx, double qy, double qz, double qs)
    {
-      return FastMath.atan2(2.0 * (qy * qz + qx * qs), 1.0 - 2.0 * (qx * qx + qy * qy));
+      return Math.atan2(2.0 * (qy * qz + qx * qs), 1.0 - 2.0 * (qx * qx + qy * qy));
    }
 
    /**
