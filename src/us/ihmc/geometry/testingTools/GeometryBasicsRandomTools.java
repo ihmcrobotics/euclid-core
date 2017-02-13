@@ -2,15 +2,12 @@ package us.ihmc.geometry.testingTools;
 
 import java.util.Random;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.AxisAngle32;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
-import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
@@ -31,7 +28,6 @@ import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Quaternion32;
 import us.ihmc.geometry.tuple4D.Vector4D;
 import us.ihmc.geometry.tuple4D.Vector4D32;
-import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 /**
@@ -1013,29 +1009,5 @@ public abstract class GeometryBasicsRandomTools
    {
       for (int i = 0; i < 2; i++)
          tupleToRandomize.set(i, generateRandomDouble(random, min.get(i), max.get(i)));
-   }
-
-   public static void main(String[] args)
-   {
-      Random random = new Random();
-      Matrix3DReadOnly matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-      Tuple2DReadOnly tuple2D = GeometryBasicsRandomTools.generateRandomVector2D(random);
-      Tuple3DReadOnly tuple3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
-      Tuple4DReadOnly tuple4D = GeometryBasicsRandomTools.generateRandomVector4D(random);
-      AxisAngleReadOnly axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
-
-      System.out.println(GeometryBasicsIOTools.getHomogeneousTransformString(matrix, tuple3D));
-      System.out.println();
-      System.out.println(GeometryBasicsIOTools.getQuaternionBasedTransformString(new Quaternion(), tuple3D));
-      System.out.println();
-      System.out.println(GeometryBasicsIOTools.getTuple2DString(tuple2D));
-      System.out.println();
-      System.out.println(GeometryBasicsIOTools.getTuple3DString(tuple3D));
-      System.out.println();
-      System.out.println(GeometryBasicsIOTools.getTuple4DString(tuple4D));
-      System.out.println();
-      System.out.println(GeometryBasicsIOTools.getAxisAngleString(axisAngle));
-      System.out.println();
-      System.out.println(GeometryBasicsIOTools.getMatrixString(matrix));
    }
 }
