@@ -1,5 +1,12 @@
 package us.ihmc.geometry.interfaces;
 
+/**
+ * Interface used for geometry objects which data can be cleared by either resetting it with
+ * {@link #setToZero()} or invalidating it with {@link #setToNaN()}.
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public interface Clearable
 {
 
