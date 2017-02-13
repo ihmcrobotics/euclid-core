@@ -27,14 +27,14 @@ This library includes the following:
 - Points in 2 and 3 dimensions: Point2D, Point3D, and their single-float precision defined counterparts: Point2D32, Point3D32.
 - Vectors in 2, 3, and 4 dimensions: Vector2D, Vector3D, Vector4D, and their single-float precision defined counterparts: Vector2D32, Vector3D32, Vector4D32.
 - The definition of several representations of 3D orientations:
- -- as a 3-by-3 rotation matrix: RotationMatrix.
- -- as a quaternion: Quaternion, Quaternion32.
- -- as an axis-angle: AxisAngle, AxisAngle32.
- -- it also provides tools to convert any rotation definition to a rotation vector, also called Euler vector, and to yaw-pitch-roll angles, also called Euler angles.
+	- as a 3-by-3 rotation matrix: RotationMatrix.
+	- as a quaternion: Quaternion, Quaternion32.
+	- as an axis-angle: AxisAngle, AxisAngle32.
+	- it also provides tools to convert any rotation definition to a rotation vector, also called Euler vector, and to yaw-pitch-roll angles, also called Euler angles.
 - A set of tools to easily convert from one orientation definition to another: AxisAngleConversion, QuaternionConversion, RotationMatrixConversion, RotationVectorConversion, and YawPitchRollConversion.
 - A general 3-by-3 matrix: Matrix3D.
 - A 3-by-3 matrix for rotating and scaling geometry objects: RotationScaleMatrix.
 - Geometric transforms:
- -- A 4-by-4 homogeneous matrix for rotating and translating geometry objects: RigidBodyTransform.
- -- The more concise equivalent of the RigidBodyTransform using a quaternion instead of a 3-by-3 rotation matrix: QuaternionBasedTransform.
- -- A 4-by-4 homogeneous matrix for scaling, rotation, and translating geometry objects: AffineTransform.
+	 - A 4-by-4 homogeneous matrix for rotating and translating geometry objects: RigidBodyTransform.
+	 - The more concise equivalent of the RigidBodyTransform using a quaternion instead of a 3-by-3 rotation matrix: QuaternionBasedTransform.
+	 - A 4-by-4 homogeneous matrix for scaling, rotation, and translating geometry objects: AffineTransform.
