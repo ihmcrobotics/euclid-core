@@ -1,19 +1,20 @@
 package us.ihmc.geometry.matrix;
 
-import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
-import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
-import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
-import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
-import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
-import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 
 public abstract class RotationMatrixTools
 {
+   /**
+    * Performs the multiplication: {@code m1} * {@code m2} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * </p>
+    *
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiply(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM10() + m1.getM02() * m2.getM20();
@@ -28,6 +29,17 @@ public abstract class RotationMatrixTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication: {@code m1}<sup>T</sup> * {@code m2}<sup>T</sup> and stores the
+    * result in {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * </p>
+    *
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiplyTransposeBoth(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM01() + m1.getM20() * m2.getM02();
@@ -42,6 +54,17 @@ public abstract class RotationMatrixTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication: {@code m1}<sup>T</sup> * {@code m2} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * </p>
+    *
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiplyTransposeLeft(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM10() + m1.getM20() * m2.getM20();
@@ -56,6 +79,17 @@ public abstract class RotationMatrixTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Performs the multiplication: {@code m1} * {@code m2}<sup>T</sup> and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * </p>
+    *
+    * @param m1 the first matrix. Not modified.
+    * @param m2 the second matrix. Not modified.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
    public static void multiplyTransposeRight(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2, RotationMatrix matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM01() + m1.getM02() * m2.getM02();
@@ -70,77 +104,105 @@ public abstract class RotationMatrixTools
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   /**
+    * Append a rotation about the z-axis to {@code matrixOriginal} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                 / cos(yaw) -sin(yaw) 0 \
+    * matrixToPack = matrixOriginal * | sin(yaw)  cos(yaw) 0 |
+    *                                 \    0         0     1 /
+    * </pre>
+    * 
+    * @param matrixOriginal the matrix on which the yaw rotation is appended. Not modified.
+    * @param yaw the angle to rotate about the z-axis.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
+   public static void appendYawRotation(RotationMatrixReadOnly matrixOriginal, double yaw, RotationMatrix matrixToPack)
    {
-      rotationMatrix.normalize();
-      Matrix3DTools.transform(rotationMatrix, tupleOriginal, tupleTransformed);
+      double cYaw = Math.cos(yaw);
+      double sYaw = Math.sin(yaw);
+
+      double m00 = cYaw * matrixOriginal.getM00() + sYaw * matrixOriginal.getM01();
+      double m01 = -sYaw * matrixOriginal.getM00() + cYaw * matrixOriginal.getM01();
+      double m02 = matrixOriginal.getM02();
+      double m10 = cYaw * matrixOriginal.getM10() + sYaw * matrixOriginal.getM11();
+      double m11 = -sYaw * matrixOriginal.getM10() + cYaw * matrixOriginal.getM11();
+      double m12 = matrixOriginal.getM12();
+      double m20 = cYaw * matrixOriginal.getM20() + sYaw * matrixOriginal.getM21();
+      double m21 = -sYaw * matrixOriginal.getM20() + cYaw * matrixOriginal.getM21();
+      double m22 = matrixOriginal.getM22();
+      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void addTransform(RotationMatrixReadOnly rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
+   /**
+    * Append a rotation about the y-axis to {@code matrixOriginal} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                 /  cos(pitch) 0 sin(pitch) \
+    * matrixToPack = matrixOriginal * |      0      1     0      |
+    *                                 \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    * 
+    * @param matrixOriginal the matrix on which the pitch rotation is appended. Not modified.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
+   public static void appendPitchRotation(RotationMatrixReadOnly matrixOriginal, double pitch, RotationMatrix matrixToPack)
    {
-      rotationMatrix.normalize();
-      Matrix3DTools.addTransform(rotationMatrix, tupleOriginal, tupleTransformed);
+      double cPitch = Math.cos(pitch);
+      double sPitch = Math.sin(pitch);
+
+      double m00 = cPitch * matrixOriginal.getM00() - sPitch * matrixOriginal.getM02();
+      double m01 = matrixOriginal.getM01();
+      double m02 = sPitch * matrixOriginal.getM00() + cPitch * matrixOriginal.getM02();
+      double m10 = cPitch * matrixOriginal.getM10() - sPitch * matrixOriginal.getM12();
+      double m11 = matrixOriginal.getM11();
+      double m12 = sPitch * matrixOriginal.getM10() + cPitch * matrixOriginal.getM12();
+      double m20 = cPitch * matrixOriginal.getM20() - sPitch * matrixOriginal.getM22();
+      double m21 = matrixOriginal.getM21();
+      double m22 = sPitch * matrixOriginal.getM20() + cPitch * matrixOriginal.getM22();
+      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   /**
+    * Append a rotation about the x-axis to {@code matrixOriginal} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * All the matrices can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                 / 1     0          0     \
+    * matrixToPack = matrixOriginal * | 0 cos(roll) -sin(roll) |
+    *                                 \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    * 
+    * @param matrixOriginal the matrix on which the roll rotation is appended. Not modified.
+    * @param pitch the angle to rotate about the x-axis.
+    * @param matrixToPack the matrix in which the result is stored. Modified.
+    */
+   public static void appendRollRotation(RotationMatrixReadOnly matrixOriginal, double roll, RotationMatrix matrixToPack)
    {
-      rotationMatrix.normalize();
-      Matrix3DTools.transform(rotationMatrix, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
-   }
+      double cRoll = Math.cos(roll);
+      double sRoll = Math.sin(roll);
 
-   public static void transform(RotationMatrixReadOnly rotationMatrix, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
-   {
-      rotationMatrix.normalize();
-      QuaternionTools.multiply(rotationMatrix, quaternionOriginal, quaternionTransformed);
-   }
-
-   public static void transform(RotationMatrixReadOnly rotationMatrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-   {
-      rotationMatrix.normalize();
-      Matrix3DTools.transform(rotationMatrix, vectorOriginal, vectorTransformed);
-   }
-
-   public static void transform(RotationMatrixReadOnly rotationMatrix, RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
-   {
-      rotationMatrix.normalize();
-      multiply(rotationMatrix, matrixOriginal, matrixTransformed);
-   }
-
-   public static void transform(RotationMatrixReadOnly rotationMatrix, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
-   {
-      rotationMatrix.normalize();
-      Matrix3DTools.multiply(rotationMatrix, matrixOriginal, matrixTransformed);
-      Matrix3DTools.multiplyTransposeRight(matrixTransformed, rotationMatrix, matrixTransformed);
-   }
-
-   public static void inverseTransform(RotationMatrixReadOnly rotationMatrix, TupleReadOnly tupleOriginal, TupleBasics tupleTransformed)
-   {
-      rotationMatrix.normalize();
-      double x = rotationMatrix.getM00() * tupleOriginal.getX() + rotationMatrix.getM10() * tupleOriginal.getY() + rotationMatrix.getM20() * tupleOriginal.getZ();
-      double y = rotationMatrix.getM01() * tupleOriginal.getX() + rotationMatrix.getM11() * tupleOriginal.getY() + rotationMatrix.getM21() * tupleOriginal.getZ();
-      double z = rotationMatrix.getM02() * tupleOriginal.getX() + rotationMatrix.getM12() * tupleOriginal.getY() + rotationMatrix.getM22() * tupleOriginal.getZ();
-      tupleTransformed.set(x, y, z);
-   }
-
-   public static void inverseTransform(RotationMatrixReadOnly rotationMatrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
-         boolean checkIfTransformInXYPlane)
-   {
-      rotationMatrix.normalize();
-
-      if (checkIfTransformInXYPlane)
-         Matrix3DFeatures.checkIfMatrix2D(rotationMatrix);
-
-      double x = rotationMatrix.getM00() * tupleOriginal.getX() + rotationMatrix.getM10() * tupleOriginal.getY();
-      double y = rotationMatrix.getM01() * tupleOriginal.getX() + rotationMatrix.getM11() * tupleOriginal.getY();
-      tupleTransformed.set(x, y);
-   }
-
-   public static void inverseTransform(RotationMatrixReadOnly rotationMatrix, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-   {
-      rotationMatrix.normalize();
-      double x = rotationMatrix.getM00() * vectorOriginal.getX() + rotationMatrix.getM10() * vectorOriginal.getY() + rotationMatrix.getM20() * vectorOriginal.getZ();
-      double y = rotationMatrix.getM01() * vectorOriginal.getX() + rotationMatrix.getM11() * vectorOriginal.getY() + rotationMatrix.getM21() * vectorOriginal.getZ();
-      double z = rotationMatrix.getM02() * vectorOriginal.getX() + rotationMatrix.getM12() * vectorOriginal.getY() + rotationMatrix.getM22() * vectorOriginal.getZ();
-      vectorTransformed.set(x, y, z, vectorOriginal.getS());
+      double m00 = matrixOriginal.getM00();
+      double m01 = cRoll * matrixOriginal.getM01() + sRoll * matrixOriginal.getM02();
+      double m02 = -sRoll * matrixOriginal.getM01() + cRoll * matrixOriginal.getM02();
+      double m10 = matrixOriginal.getM10();
+      double m11 = cRoll * matrixOriginal.getM11() + sRoll * matrixOriginal.getM12();
+      double m12 = -sRoll * matrixOriginal.getM11() + cRoll * matrixOriginal.getM12();
+      double m20 = matrixOriginal.getM20();
+      double m21 = cRoll * matrixOriginal.getM21() + sRoll * matrixOriginal.getM22();
+      double m22 = -sRoll * matrixOriginal.getM21() + cRoll * matrixOriginal.getM22();
+      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 }

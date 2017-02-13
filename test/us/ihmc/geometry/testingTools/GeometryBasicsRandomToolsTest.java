@@ -1,18 +1,18 @@
 package us.ihmc.geometry.testingTools;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
-import org.junit.Assert;
 import org.junit.Test;
 
+import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
-import us.ihmc.geometry.tuple.Point;
-import us.ihmc.geometry.tuple.Tuple;
-import us.ihmc.geometry.tuple.Vector;
-import us.ihmc.geometry.tuple.interfaces.TupleBasics;
-import us.ihmc.geometry.tuple.interfaces.TupleReadOnly;
+import us.ihmc.geometry.tuple3D.Point3D;
+import us.ihmc.geometry.tuple3D.Vector3D;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 
 public class GeometryBasicsRandomToolsTest
 {
@@ -25,25 +25,25 @@ public class GeometryBasicsRandomToolsTest
       {
          Random random = new Random(16451L);
 
-         Vector vector = new Vector();
-         Vector zeroVector = new Vector();
-         Vector min = new Vector(-1, -1, -1);
-         Vector max = new Vector(1, 1, 1);
+         Vector3D vector = new Vector3D();
+         Vector3D zeroVector = new Vector3D();
+         Vector3D min = new Vector3D(-1, -1, -1);
+         Vector3D max = new Vector3D(1, 1, 1);
 
-         GeometryBasicsRandomTools.generateRandomVector(random);
+         GeometryBasicsRandomTools.generateRandomVector3D(random);
 
-         Assert.assertTrue(min.getX() <= vector.getX());
-         Assert.assertTrue(vector.getX() <= max.getX());
-         Assert.assertTrue(min.getY() <= vector.getY());
-         Assert.assertTrue(vector.getY() <= max.getY());
-         Assert.assertTrue(min.getZ() <= vector.getZ());
-         Assert.assertTrue(vector.getZ() <= max.getZ());
+         assertTrue(min.getX() <= vector.getX());
+         assertTrue(vector.getX() <= max.getX());
+         assertTrue(min.getY() <= vector.getY());
+         assertTrue(vector.getY() <= max.getY());
+         assertTrue(min.getZ() <= vector.getZ());
+         assertTrue(vector.getZ() <= max.getZ());
 
-         Assert.assertTrue(zeroVector.getX() == 0);
-         Assert.assertTrue(zeroVector.getY() == 0);
-         Assert.assertTrue(zeroVector.getZ() == 0);
+         assertTrue(zeroVector.getX() == 0);
+         assertTrue(zeroVector.getY() == 0);
+         assertTrue(zeroVector.getZ() == 0);
 
-         Assert.assertNotSame(vector, null);
+         assertNotSame(vector, null);
       }
    }
 
@@ -51,54 +51,54 @@ public class GeometryBasicsRandomToolsTest
    public void testRandomizeTuple()
    {
       Random random = new Random(6841032L);
-      Tuple tupleToRandomize = new Point();
+      Tuple3DBasics tupleToRandomize = new Point3D();
 
-      Tuple tupleToRandomizeCopy = new Point();
+      Tuple3DBasics tupleToRandomizeCopy = new Point3D();
       tupleToRandomizeCopy.setX(tupleToRandomize.getX());
       tupleToRandomizeCopy.setY(tupleToRandomize.getY());
       tupleToRandomizeCopy.setZ(tupleToRandomize.getZ());
 
       { // Test randomize(Random random, TupleBasics tupleToRandomize)
-         Tuple previousValue = new Point();
+         Tuple3DBasics previousValue = new Point3D();
          previousValue.setToNaN();
 
          for (int i = 0; i < 10000; i++)
          {
-            GeometryBasicsRandomTools.randomizeTuple(random, (TupleBasics) tupleToRandomize);
+            GeometryBasicsRandomTools.randomizeTuple3D(random, tupleToRandomize);
 
-            Assert.assertTrue(-1.0 <= tupleToRandomize.getX());
-            Assert.assertTrue(tupleToRandomize.getX() <= 1.0);
-            Assert.assertTrue(-1.0 <= tupleToRandomize.getY());
-            Assert.assertTrue(tupleToRandomize.getY() <= 1.0);
-            Assert.assertTrue(-1.0 <= tupleToRandomize.getZ());
-            Assert.assertTrue(tupleToRandomize.getZ() <= 1.0);
+            assertTrue(-1.0 <= tupleToRandomize.getX());
+            assertTrue(tupleToRandomize.getX() <= 1.0);
+            assertTrue(-1.0 <= tupleToRandomize.getY());
+            assertTrue(tupleToRandomize.getY() <= 1.0);
+            assertTrue(-1.0 <= tupleToRandomize.getZ());
+            assertTrue(tupleToRandomize.getZ() <= 1.0);
 
-            Assert.assertFalse(tupleToRandomize.epsilonEquals(previousValue, 1.0e-10));
+            assertFalse(TupleTools.epsilonEquals(tupleToRandomize, previousValue, 1.0e-10));
             previousValue.set(tupleToRandomize);
          }
       }
 
       for (int i = 0; i < 10000; i++)
       { // Test randomize(Random random, TupleBasics minMax, TupleBasics tupleToRandomize)
-         Tuple minMax = new Point();
+         Tuple3DBasics minMax = new Point3D();
 
          minMax.setX(random.nextDouble());
          minMax.setY(random.nextDouble());
          minMax.setZ(random.nextDouble());
 
-         GeometryBasicsRandomTools.randomizeTuple(random, (TupleReadOnly) minMax, (TupleBasics) tupleToRandomize);
+         GeometryBasicsRandomTools.randomizeTuple3D(random, minMax, tupleToRandomize);
 
-         Assert.assertTrue(tupleToRandomizeCopy.getX() - minMax.getX() <= tupleToRandomize.getX());
-         Assert.assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + minMax.getX());
-         Assert.assertTrue(tupleToRandomizeCopy.getY() - minMax.getY() <= tupleToRandomize.getY());
-         Assert.assertTrue(tupleToRandomize.getY() <= tupleToRandomizeCopy.getY() + minMax.getY());
-         Assert.assertTrue(tupleToRandomizeCopy.getZ() - minMax.getZ() <= tupleToRandomize.getZ());
-         Assert.assertTrue(tupleToRandomize.getZ() <= tupleToRandomizeCopy.getZ() + minMax.getZ());
+         assertTrue(tupleToRandomizeCopy.getX() - minMax.getX() <= tupleToRandomize.getX());
+         assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + minMax.getX());
+         assertTrue(tupleToRandomizeCopy.getY() - minMax.getY() <= tupleToRandomize.getY());
+         assertTrue(tupleToRandomize.getY() <= tupleToRandomizeCopy.getY() + minMax.getY());
+         assertTrue(tupleToRandomizeCopy.getZ() - minMax.getZ() <= tupleToRandomize.getZ());
+         assertTrue(tupleToRandomize.getZ() <= tupleToRandomizeCopy.getZ() + minMax.getZ());
       }
 
       { // Test randomize(Random random, TupleBasics min, TupleBasics max, TupleBasics tupleToRandomize)
-         Tuple min = new Point();
-         Tuple max = new Point();
+         Tuple3DBasics min = new Point3D();
+         Tuple3DBasics max = new Point3D();
 
          for (int i = 0; i < 10000; i++)
          {
@@ -110,14 +110,14 @@ public class GeometryBasicsRandomToolsTest
             max.setY(min.getY() + random.nextDouble());
             max.setZ(min.getZ() + random.nextDouble());
 
-            GeometryBasicsRandomTools.randomizeTuple(random, (TupleReadOnly) min, (TupleReadOnly) max, (TupleBasics) tupleToRandomize);
+            GeometryBasicsRandomTools.randomizeTuple3D(random, min, max, tupleToRandomize);
 
-            Assert.assertTrue(tupleToRandomizeCopy.getX() - min.getX() <= tupleToRandomize.getX());
-            Assert.assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + max.getX());
-            Assert.assertTrue(tupleToRandomizeCopy.getY() - min.getY() <= tupleToRandomize.getY());
-            Assert.assertTrue(tupleToRandomize.getY() <= tupleToRandomizeCopy.getY() + max.getY());
-            Assert.assertTrue(tupleToRandomizeCopy.getZ() - min.getZ() <= tupleToRandomize.getZ());
-            Assert.assertTrue(tupleToRandomize.getZ() <= tupleToRandomizeCopy.getZ() + max.getZ());
+            assertTrue(tupleToRandomizeCopy.getX() - min.getX() <= tupleToRandomize.getX());
+            assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + max.getX());
+            assertTrue(tupleToRandomizeCopy.getY() - min.getY() <= tupleToRandomize.getY());
+            assertTrue(tupleToRandomize.getY() <= tupleToRandomizeCopy.getY() + max.getY());
+            assertTrue(tupleToRandomizeCopy.getZ() - min.getZ() <= tupleToRandomize.getZ());
+            assertTrue(tupleToRandomize.getZ() <= tupleToRandomizeCopy.getZ() + max.getZ());
          }
       }
    }

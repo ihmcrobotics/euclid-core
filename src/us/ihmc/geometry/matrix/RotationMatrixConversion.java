@@ -1,30 +1,47 @@
 package us.ihmc.geometry.matrix;
 
-import us.ihmc.geometry.axisAngle.AxisAngleTools;
+import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.geometry.tuple.interfaces.VectorReadOnly;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
-import us.ihmc.geometry.tuple4D.Tuple4DTools;
+import us.ihmc.geometry.tuple3D.RotationVectorConversion;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
+import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
+/**
+ * This class gathers all the methods necessary to converts any type of rotation into a rotation
+ * matrix.
+ * <p>
+ * To convert an orientation into other data structure types see:
+ * <ul>
+ * <li>for quaternion: {@link QuaternionConversion},
+ * <li>for axis-angle: {@link AxisAngleConversion},
+ * <li>for rotation vector: {@link RotationVectorConversion},
+ * <li>for yaw-pitch-roll: {@link YawPitchRollConversion}.
+ * </ul>
+ * </p>
+ *
+ * @author Sylvain Bertrand
+ *
+ */
 public abstract class RotationMatrixConversion
 {
    private static final double EPS = 1.0e-12;
 
-   public static void computePitchMatrix(double pitch, RotationMatrix matrixToPack)
-   {
-      double sinPitch = Math.sin(pitch);
-      double cosPitch = Math.cos(pitch);
-      matrixToPack.setUnsafe(cosPitch, 0.0, sinPitch, 0.0, 1.0, 0.0, -sinPitch, 0.0, cosPitch);
-   }
-
-   public static void computeRollMatrix(double roll, RotationMatrix matrixToPack)
-   {
-      double sinRoll = Math.sin(roll);
-      double cosRoll = Math.cos(roll);
-      matrixToPack.setUnsafe(1.0, 0.0, 0.0, 0.0, cosRoll, -sinRoll, 0.0, sinRoll, cosRoll);
-   }
-
+   /**
+    * Sets the given rotation matrix to represent a counter clockwise rotation around the z-axis of
+    * an angle {@code yaw}.
+    *
+    * <pre>
+    *        / cos(yaw) -sin(yaw) 0 \
+    * this = | sin(yaw)  cos(yaw) 0 |
+    *        \    0         0     1 /
+    * </pre>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void computeYawMatrix(double yaw, RotationMatrix matrixToPack)
    {
       double sinYaw = Math.sin(yaw);
@@ -32,14 +49,93 @@ public abstract class RotationMatrixConversion
       matrixToPack.setUnsafe(cosYaw, -sinYaw, 0.0, sinYaw, cosYaw, 0.0, 0.0, 0.0, 1.0);
    }
 
-   public static void convertAxisAngleToMatrix(AxisAngleReadOnly axisAngle, RotationMatrix matrixToPack)
+   /**
+    * Sets the given rotation matrix to represent a counter clockwise rotation around the y-axis of
+    * an angle {@code pitch}.
+    *
+    * <pre>
+    *        /  cos(pitch) 0 sin(pitch) \
+    * this = |      0      1     0      |
+    *        \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
+   public static void computePitchMatrix(double pitch, RotationMatrix matrixToPack)
    {
-      convertAxisAngleToMatrixImpl(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), matrixToPack);
+      double sinPitch = Math.sin(pitch);
+      double cosPitch = Math.cos(pitch);
+      matrixToPack.setUnsafe(cosPitch, 0.0, sinPitch, 0.0, 1.0, 0.0, -sinPitch, 0.0, cosPitch);
    }
 
-   public static void convertAxisAngleToMatrixImpl(double ux, double uy, double uz, double angle, RotationMatrix matrixToPack)
+   /**
+    * Sets the given rotation matrix to represent a counter clockwise rotation around the x-axis of
+    * an angle {@code roll}.
+    *
+    * <pre>
+    *        / 1     0          0     \
+    * this = | 0 cos(roll) -sin(roll) |
+    *        \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    *
+    * @param roll the angle to rotate about the x-axis.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
+   public static void computeRollMatrix(double roll, RotationMatrix matrixToPack)
    {
-      if (AxisAngleTools.containsNaN(ux, uy, uz, angle))
+      double sinRoll = Math.sin(roll);
+      double cosRoll = Math.cos(roll);
+      matrixToPack.setUnsafe(1.0, 0.0, 0.0, 0.0, cosRoll, -sinRoll, 0.0, sinRoll, cosRoll);
+   }
+
+   /**
+    * Converts the given axis-angle into a rotation matrix.
+    * <p>
+    * After calling this method, the axis-angle and the rotation matrix represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the axis-angle is {@link Double#NaN}, the rotation matrix is set to
+    * {@link Double#NaN}.
+    * <li>if the length of the axis is below {@link #EPS}, the rotation matrix is set to identity.
+    * </ul>
+    * </p>
+    *
+    * @param axisAngle the axis-angle to use for the conversion. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
+   public static void convertAxisAngleToMatrix(AxisAngleReadOnly axisAngle, RotationMatrix matrixToPack)
+   {
+      convertAxisAngleToMatrix(axisAngle.getX(), axisAngle.getY(), axisAngle.getZ(), axisAngle.getAngle(), matrixToPack);
+   }
+
+   /**
+    * Converts the given axis-angle into a rotation matrix.
+    * <p>
+    * After calling this method, the axis-angle and the rotation matrix represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the axis-angle is {@link Double#NaN}, the rotation matrix is set to
+    * {@link Double#NaN}.
+    * <li>if the length of the axis is below {@link #EPS}, the rotation matrix is set to identity.
+    * </ul>
+    * </p>
+    *
+    * @param ux the axis x-component of the axis-angle to use for the conversion.
+    * @param uy the axis y-component of the axis-angle to use for the conversion.
+    * @param uz the axis z-component of the axis-angle to use for the conversion.
+    * @param angle the angle of the axis-angle to use for the conversion.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
+   public static void convertAxisAngleToMatrix(double ux, double uy, double uz, double angle, RotationMatrix matrixToPack)
+   {
+      if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
       {
          matrixToPack.setToNaN();
          return;
@@ -79,20 +175,39 @@ public abstract class RotationMatrixConversion
       }
    }
 
+   /**
+    * Converts the given quaternion into a rotation matrix.
+    * <p>
+    * After calling this method, the quaternion and the rotation matrix represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the quaternion is {@link Double#NaN}, the rotation matrix is set to
+    * {@link Double#NaN}.
+    * <li>if the norm of the quaternion is below {@link #EPS}, the rotation matrix is set to
+    * identity.
+    * </ul>
+    * </p>
+    *
+    * @param quaternion the quaternion to use for the conversion. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void convertQuaternionToMatrix(QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
-      convertQuaternionToMatrixImpl(quaternion.getX(), quaternion.getY(), quaternion.getZ(), quaternion.getS(), matrixToPack);
-   }
-   
-   public static void convertQuaternionToMatrixImpl(double qx, double qy, double qz, double qs, RotationMatrix matrixToPack)
-   {
-      if (Tuple4DTools.containsNaN(qx, qy, qz, qs))
+      if (quaternion.containsNaN())
       {
          matrixToPack.setToNaN();
          return;
       }
 
-      double norm = QuaternionTools.norm(qx, qy, qz, qs);
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      double norm = quaternion.norm();
 
       if (norm < EPS)
       {
@@ -128,17 +243,78 @@ public abstract class RotationMatrixConversion
       matrixToPack.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
+   /**
+    * Converts the given yaw-pitch-roll angles into a rotation matrix.
+    * <p>
+    * After calling this method, the yaw-pitch-roll angles and the rotation matrix represent the
+    * same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation matrix is
+    * set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the
+    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
+    * representation is:
+    *
+    * <pre>
+    *  R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll)
+    * </pre>
+    *
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
+    * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
+    *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    * </p>
+    *
+    * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void convertYawPitchRollToMatrix(double[] yawPitchRoll, RotationMatrix matrixToPack)
    {
       convertYawPitchRollToMatrix(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], matrixToPack);
    }
 
    /**
-    * Sets the rotation matrix, based on the yaw, pitch and roll values.
-    * @param yaw yaw rotation (about a fixed z-axis)
-    * @param pitch pitch rotation (about a fixed y-axis)
-    * @param roll roll rotation (about a fixed x-axis)
-    * @param matrixToPack the rotation matrix to set, based on the yaw, pitch and roll values
+    * Converts the given yaw-pitch-roll angles into a rotation matrix.
+    * <p>
+    * After calling this method, the yaw-pitch-roll angles and the rotation matrix represent the
+    * same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation matrix is
+    * set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the
+    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
+    * representation is:
+    *
+    * <pre>
+    *  R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll)
+    * </pre>
+    *
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
+    * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
+    *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    * </p>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param roll the angle to rotate about the x-axis.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
    public static void convertYawPitchRollToMatrix(double yaw, double pitch, double roll, RotationMatrix matrixToPack)
    {
@@ -164,14 +340,60 @@ public abstract class RotationMatrixConversion
       matrixToPack.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
-   public static void convertRotationVectorToMatrix(VectorReadOnly rotationVector, RotationMatrix matrixToPack)
+   /**
+    * Converts the given rotation vector into a rotation matrix.
+    * <p>
+    * After calling this method, the rotation vector and the rotation matrix represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the rotation vector is {@link Double#NaN}, the rotation matrix is
+    * set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    *
+    * @param rotationVector the rotation vector to use in the conversion. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
+   public static void convertRotationVectorToMatrix(Vector3DReadOnly rotationVector, RotationMatrix matrixToPack)
    {
-      convertRotationVectorToMatrixImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), matrixToPack);
+      convertRotationVectorToMatrix(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), matrixToPack);
    }
 
-   public static void convertRotationVectorToMatrixImpl(double rx, double ry, double rz, RotationMatrix matrixToPack)
+   /**
+    * Converts the given rotation vector into a rotation matrix.
+    * <p>
+    * After calling this method, the rotation vector and the rotation matrix represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either component of the rotation vector is {@link Double#NaN}, the rotation matrix is
+    * set to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    *
+    * @param rx the x-component of the rotation vector to use in the conversion.
+    * @param ry the y-component of the rotation vector to use in the conversion.
+    * @param rz the z-component of the rotation vector to use in the conversion.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
+   public static void convertRotationVectorToMatrix(double rx, double ry, double rz, RotationMatrix matrixToPack)
    {
-      if (Double.isNaN(rx) || Double.isNaN(ry) || Double.isNaN(rz))
+      if (GeometryBasicsTools.containsNaN(rx, ry, rz))
       {
          matrixToPack.setToNaN();
          return;

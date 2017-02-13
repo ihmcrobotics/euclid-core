@@ -12,8 +12,8 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.Point;
-import us.ihmc.geometry.tuple.Vector;
+import us.ihmc.geometry.tuple3D.Point3D;
+import us.ihmc.geometry.tuple3D.Vector3D;
 
 public class QuaternionConversionTest
 {
@@ -42,7 +42,7 @@ public class QuaternionConversionTest
          double qz = uz * Math.sin(angle / 2.0);
          expectedQuaternion.setUnsafe(qx, qy, qz, qs);
 
-         QuaternionConversion.convertAxisAngleToQuaternionImpl(ux, uy, uz, angle, actualQuaternion);
+         QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, actualQuaternion);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
@@ -54,24 +54,24 @@ public class QuaternionConversionTest
       double ux = axisAngle.getX();
       double uy = axisAngle.getY();
       double uz = axisAngle.getZ();
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(ux, uy, uz, angle, expectedQuaternion);
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(scale * ux, scale * uy, scale * uz, angle, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, expectedQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(scale * ux, scale * uy, scale * uz, angle, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
       GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(0.0, 0.0, 0.0, 0.0, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, 0.0, 0.0, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(Double.NaN, 0.0, 0.0, 0.0, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(Double.NaN, 0.0, 0.0, 0.0, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(0.0, Double.NaN, 0.0, 0.0, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(0.0, Double.NaN, 0.0, 0.0, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(0.0, 0.0, Double.NaN, 0.0, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, Double.NaN, 0.0, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
-      QuaternionConversion.convertAxisAngleToQuaternionImpl(0.0, 0.0, 0.0, Double.NaN, actualQuaternion);
+      QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, 0.0, Double.NaN, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual quaternion
@@ -83,7 +83,7 @@ public class QuaternionConversionTest
          ux = axisAngle.getX();
          uy = axisAngle.getY();
          uz = axisAngle.getZ();
-         QuaternionConversion.convertAxisAngleToQuaternionImpl(ux, uy, uz, angle, expectedQuaternion);
+         QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, expectedQuaternion);
          QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, actualQuaternion);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
@@ -98,6 +98,7 @@ public class QuaternionConversionTest
       Random random = new Random(2135L);
       Quaternion expectedQuaternion = new Quaternion();
       Quaternion actualQuaternion = new Quaternion();
+      RotationMatrix rotationMatrix = new RotationMatrix();
       double minMaxAngleRange = Math.PI;
       double m00, m01, m02, m10, m11, m12, m20, m21, m22;
 
@@ -124,7 +125,8 @@ public class QuaternionConversionTest
          m12 = 2.0 * (qy * qz - qx * qs);
          m21 = 2.0 * (qy * qz + qx * qs);
 
-         QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+         rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
 
          GeometryBasicsTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
@@ -132,7 +134,7 @@ public class QuaternionConversionTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector randomVector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D randomVector = GeometryBasicsRandomTools.generateRandomVector3D(random);
          randomVector.normalize();
          expectedQuaternion.setUnsafe(randomVector.getX(), randomVector.getY(), randomVector.getZ(), 0.0); // rotation angle of Pi
          double qx = expectedQuaternion.getX();
@@ -155,7 +157,8 @@ public class QuaternionConversionTest
          m12 = 2.0 * (qy * qz - qx * qs);
          m21 = 2.0 * (qy * qz + qx * qs);
 
-         QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+         rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
          GeometryBasicsTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
@@ -166,155 +169,198 @@ public class QuaternionConversionTest
       m00 = m11 = m22 = 1.0;
       m01 = m02 = m12 = 0.0;
       m10 = m20 = m21 = 0.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       // Pi/2 around x
-      m00 = 1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = 0.0; m12 = -1.0;
-      m20 = 0.0; m21 = 1.0; m22 = 0.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = 1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = 0.0;
+      m12 = -1.0;
+      m20 = 0.0;
+      m21 = 1.0;
+      m22 = 0.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(sqrt2Over2, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
       assertEquals(0.0, actualQuaternion.getZ(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getS(), EPSILON);
 
       // Pi around x
-      m00 = 1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = -1.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = -1.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = 1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = -1.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = -1.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(1.0, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
       assertEquals(0.0, actualQuaternion.getZ(), EPSILON);
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi/2 around y
-      m00 = 0.0; m01 = 0.0; m02 = 1.0;
-      m10 = 0.0; m11 = 1.0; m12 = 0.0;
-      m20 = -1.0; m21 = 0.0; m22 = 0.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = 0.0;
+      m01 = 0.0;
+      m02 = 1.0;
+      m10 = 0.0;
+      m11 = 1.0;
+      m12 = 0.0;
+      m20 = -1.0;
+      m21 = 0.0;
+      m22 = 0.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getY(), EPSILON);
       assertEquals(0.0, actualQuaternion.getZ(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getS(), EPSILON);
 
       // Pi around z
-      m00 = -1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = 1.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = -1.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = -1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = 1.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = -1.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(1.0, actualQuaternion.getY(), EPSILON);
       assertEquals(0.0, actualQuaternion.getZ(), EPSILON);
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi/2 around z
-      m00 = 0.0; m01 = -1.0; m02 = 0.0;
-      m10 = 1.0; m11 = 0.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = 1.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = 0.0;
+      m01 = -1.0;
+      m02 = 0.0;
+      m10 = 1.0;
+      m11 = 0.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = 1.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getZ(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getS(), EPSILON);
 
       // Pi around z
-      m00 = -1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = -1.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = 1.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = -1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = -1.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = 1.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
       assertEquals(1.0, actualQuaternion.getZ(), EPSILON);
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi around xy (as axis-angle: (x = sqrt(2)/2, y = sqrt(2)/2, z = 0, angle = Pi)
-      m00 = 0.0; m01 = 1.0; m02 = 0.0;
-      m10 = 1.0; m11 = 0.0; m12 = 0.0;
-      m20 = 0.0; m21 = 0.0; m22 = -1.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = 0.0;
+      m01 = 1.0;
+      m02 = 0.0;
+      m10 = 1.0;
+      m11 = 0.0;
+      m12 = 0.0;
+      m20 = 0.0;
+      m21 = 0.0;
+      m22 = -1.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(sqrt2Over2, actualQuaternion.getX(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getY(), EPSILON);
       assertEquals(0.0, actualQuaternion.getZ(), EPSILON);
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi around xz (as axis-angle: (x = sqrt(2)/2, y = 0, z = sqrt(2)/2, angle = Pi)
-      m00 = 0.0; m01 = 0.0; m02 = 1.0;
-      m10 = 0.0; m11 = -1.0; m12 = 0.0;
-      m20 = 1.0; m21 = 0.0; m22 = 0.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = 0.0;
+      m01 = 0.0;
+      m02 = 1.0;
+      m10 = 0.0;
+      m11 = -1.0;
+      m12 = 0.0;
+      m20 = 1.0;
+      m21 = 0.0;
+      m22 = 0.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(sqrt2Over2, actualQuaternion.getX(), EPSILON);
       assertEquals(0.0, actualQuaternion.getY(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getZ(), EPSILON);
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
       // Pi around yz (as axis-angle: (x = 0, y = sqrt(2)/2, z = sqrt(2)/2, angle = Pi)
-      m00 = -1.0; m01 = 0.0; m02 = 0.0;
-      m10 = 0.0; m11 = 0.0; m12 = 1.0;
-      m20 = 0.0; m21 = 1.0; m22 = 0.0;
-      QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualQuaternion);
+      m00 = -1.0;
+      m01 = 0.0;
+      m02 = 0.0;
+      m10 = 0.0;
+      m11 = 0.0;
+      m12 = 1.0;
+      m20 = 0.0;
+      m21 = 1.0;
+      m22 = 0.0;
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       assertEquals(0.0, actualQuaternion.getX(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getY(), EPSILON);
       assertEquals(sqrt2Over2, actualQuaternion.getZ(), EPSILON);
       assertEquals(0.0, actualQuaternion.getS(), EPSILON);
 
-      QuaternionConversion.convertMatrixToQuaternionImpl(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualQuaternion);
+      rotationMatrix.setUnsafe(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-      QuaternionConversion.convertMatrixToQuaternionImpl(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualQuaternion);
+      rotationMatrix.setUnsafe(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-      QuaternionConversion.convertMatrixToQuaternionImpl(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualQuaternion);
+      rotationMatrix.setUnsafe(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-      QuaternionConversion.convertMatrixToQuaternionImpl(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, actualQuaternion);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-      QuaternionConversion.convertMatrixToQuaternionImpl(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, actualQuaternion);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-      QuaternionConversion.convertMatrixToQuaternionImpl(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, actualQuaternion);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-      QuaternionConversion.convertMatrixToQuaternionImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, actualQuaternion);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-      QuaternionConversion.convertMatrixToQuaternionImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, actualQuaternion);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-      QuaternionConversion.convertMatrixToQuaternionImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, actualQuaternion);
+      rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
+      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
-
-      // Test with an actual matrix
-      for (int i = 0; i < 1000; i++)
-      {
-         RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         RotationMatrix rotationMatrixCopy = new RotationMatrix(rotationMatrix);
-         m00 = rotationMatrix.getM00();
-         m01 = rotationMatrix.getM01();
-         m02 = rotationMatrix.getM02();
-         m10 = rotationMatrix.getM10();
-         m11 = rotationMatrix.getM11();
-         m12 = rotationMatrix.getM12();
-         m20 = rotationMatrix.getM20();
-         m21 = rotationMatrix.getM21();
-         m22 = rotationMatrix.getM22();
-         QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-         QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, expectedQuaternion);
-         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
-         // Assert the parameter does not get modified
-         assertTrue(rotationMatrix.equals(rotationMatrixCopy));
-      }
 
       // Test with a RotationScaleMatrix
       for (int i = 0; i < 1000; i++)
       {
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          RotationScaleMatrix rotationScaleMatrixCopy = new RotationScaleMatrix(rotationScaleMatrix);
-         m00 = rotationScaleMatrix.getRotationMatrix().getM00();
-         m01 = rotationScaleMatrix.getRotationMatrix().getM01();
-         m02 = rotationScaleMatrix.getRotationMatrix().getM02();
-         m10 = rotationScaleMatrix.getRotationMatrix().getM10();
-         m11 = rotationScaleMatrix.getRotationMatrix().getM11();
-         m12 = rotationScaleMatrix.getRotationMatrix().getM12();
-         m20 = rotationScaleMatrix.getRotationMatrix().getM20();
-         m21 = rotationScaleMatrix.getRotationMatrix().getM21();
-         m22 = rotationScaleMatrix.getRotationMatrix().getM22();
          QuaternionConversion.convertMatrixToQuaternion(rotationScaleMatrix, actualQuaternion);
-         QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, expectedQuaternion);
+         QuaternionConversion.convertMatrixToQuaternion(rotationScaleMatrix.getRotationMatrix(), expectedQuaternion);
          GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
          GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
          // Assert the parameter does not get modified
@@ -328,6 +374,7 @@ public class QuaternionConversionTest
       double m00, m01, m02, m10, m11, m12, m20, m21, m22;
       Quaternion expectedQuaternion = new Quaternion();
       Quaternion actualQuaternion = new Quaternion();
+      RotationMatrix rotationMatrix = new RotationMatrix();
 
       double deltaAngle = 0.1 * Math.PI;
 
@@ -354,7 +401,8 @@ public class QuaternionConversionTest
                m21 = cPitch * sRoll;
                m22 = cPitch * cRoll;
 
-               QuaternionConversion.convertMatrixToQuaternionImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, expectedQuaternion);
+               rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+               QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expectedQuaternion);
                QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, actualQuaternion);
                GeometryBasicsTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
                GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
@@ -409,12 +457,12 @@ public class QuaternionConversionTest
       GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual vector
-      Vector rotationVector = new Vector();
-      Vector rotationVectorCopy = new Vector();
+      Vector3D rotationVector = new Vector3D();
+      Vector3D rotationVectorCopy = new Vector3D();
 
       for (int i = 0; i < 1000; i++)
       {
-         GeometryBasicsRandomTools.randomizeTuple(random, new Point(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange), rotationVector);
+         GeometryBasicsRandomTools.randomizeTuple3D(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange), rotationVector);
          rotationVectorCopy.set(rotationVector);
 
          double rx = rotationVector.getX();

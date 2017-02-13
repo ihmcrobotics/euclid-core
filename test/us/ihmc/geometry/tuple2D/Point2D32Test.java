@@ -1,7 +1,7 @@
 package us.ihmc.geometry.tuple2D;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Random;
@@ -11,9 +11,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
-import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 
-public class Point2D32Test extends Tuple2D32Test
+public class Point2D32Test extends Point2DBasicsTest<Point2D32>
 {
    @Test
    public void testPoint2D32()
@@ -64,86 +63,31 @@ public class Point2D32Test extends Tuple2D32Test
       }
    }
 
-   @Test
-   public void testSet()
+   @Override
+   public void testSetters() throws Exception
    {
-      Random random = new Random(65465131L);
+      super.testSetters();
+
+      Random random = new Random(621541L);
+      Point2D32 tuple1 = createEmptyTuple();
+
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float newX = random.nextFloat();
-         float newY = random.nextFloat();
-
-         Point2D32 point = new Point2D32(newX, newY);
-
-         Point2D32 point2 = new Point2D32();
-         point2.set(point);
-
-         Assert.assertTrue(point.getX32() == point2.getX32());
-         Assert.assertTrue(point.getY32() == point2.getY32());
+      { // Test setX(float x)
+         float x = random.nextFloat();
+         tuple1.setX(x);
+         assertEquals(tuple1.getX32(), x, getEpsilon());
       }
-   }
 
-   @Test
-   public void testDistance()
-   {
-      Random random = new Random(654135L);
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float newX1 = random.nextFloat();
-         float newY1 = random.nextFloat();
-
-         float newX2 = random.nextFloat();
-         float newY2 = random.nextFloat();
-
-         Point2D32 point = new Point2D32(newX1, newY1);
-
-         Point2D32 point2 = new Point2D32(newX2, newY2);
-
-         float distance = (float) Math.sqrt(point.distanceSquared((Point2DBasics) point2));
-         float distance2 = point.distance(point2);
-
-         Assert.assertTrue(distance == distance2);
+      { // Test setY(float y)
+         float y = random.nextFloat();
+         tuple1.setY(y);
+         assertEquals(tuple1.getY32(), y, getEpsilon());
       }
+
    }
 
-   @Test
-   @Ignore
-   public void testDistanceL1()
-   {
-      fail("Not yet implemented");
-   }
-
-   @Test
-   @Ignore
-   public void testDistanceLinf()
-   {
-      fail("Not yet implemented");
-   }
-
-   @Test
-   public void testDistanceSquared()
-   {
-      Random random = new Random(654135L);
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         float newX1 = random.nextFloat();
-         float newY1 = random.nextFloat();
-
-         float newX2 = random.nextFloat();
-         float newY2 = random.nextFloat();
-
-         Point2D32 point = new Point2D32(newX1, newY1);
-         Point2D32 point2 = new Point2D32(newX2, newY2);
-
-         float distance = point.distanceSquared(point2);
-         float dx = point.getX32() - point2.getX32();
-         float dy = point.getY32() - point2.getY32();
-         float expectedDistance = dx * dx + dy * dy;
-
-         Assert.assertTrue(distance == expectedDistance);
-      }
-   }
-
+   @Override
    @Test
    @Ignore
    public void testApplyTransform()
@@ -152,39 +96,47 @@ public class Point2D32Test extends Tuple2D32Test
    }
 
    @Test
-   public void testEpsilonEquals() throws Exception
+   public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      float epsilon = random.nextFloat();
+      Point2D32 point = GeometryBasicsRandomTools.generateRandomPoint2D32(random);
 
-      Point2D32 p1 = GeometryBasicsRandomTools.generateRandomPoint2D32(random);
-      Point2D32 p2 = new Point2D32(p1);
+      int newHashCode, previousHashCode;
+      newHashCode = point.hashCode();
+      assertEquals(newHashCode, point.hashCode());
 
-      assertTrue(p1.epsilonEquals(p2, epsilon));
+      previousHashCode = point.hashCode();
 
-      for (int index = 0; index < 2; index++)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         p2.set(p1);
-         p2.set(index, p1.get(index) + 0.999f * epsilon);
-         assertTrue(p1.epsilonEquals(p2, epsilon));
-
-         p2.set(p1);
-         p2.set(index, p1.get(index) - 0.999f * epsilon);
-         assertTrue(p1.epsilonEquals(p2, epsilon));
-
-         p2.set(p1);
-         p2.set(index, p1.get(index) + 1.001f * epsilon);
-         assertFalse(p1.epsilonEquals(p2, epsilon));
-
-         p2.set(p1);
-         p2.set(index, p1.get(index) - 1.001f * epsilon);
-         assertFalse(p1.epsilonEquals(p2, epsilon));
+         point.set(i % 2, random.nextFloat());
+         newHashCode = point.hashCode();
+         assertNotEquals(newHashCode, previousHashCode);
+         previousHashCode = newHashCode;
       }
    }
 
    @Override
-   public Tuple2D32 createEmptyTuple()
+   public double getEpsilon()
+   {
+      return 1.0e-6;
+   }
+
+   @Override
+   public Point2D32 createEmptyTuple()
    {
       return new Point2D32();
+   }
+
+   @Override
+   public Point2D32 createTuple(double x, double y)
+   {
+      return new Point2D32((float) x, (float) y);
+   }
+
+   @Override
+   public Point2D32 createRandomTuple(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomPoint2D32(random);
    }
 }

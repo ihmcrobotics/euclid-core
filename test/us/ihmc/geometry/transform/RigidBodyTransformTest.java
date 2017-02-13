@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import org.ejml.data.DenseMatrix64F;
@@ -20,14 +21,15 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
-import us.ihmc.geometry.tuple.Point;
-import us.ihmc.geometry.tuple.Vector;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;
+import us.ihmc.geometry.tuple3D.Point3D;
+import us.ihmc.geometry.tuple3D.Vector3D;
+import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 
-public class RigidBodyTransformTest
+public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 {
    private static final double EPS = 1.0e-10;
    public static final int NUMBER_OF_ITERATIONS = 100;
@@ -116,8 +118,8 @@ public class RigidBodyTransformTest
 
          RotationMatrix rotationMatrix = new RotationMatrix();
          rotationMatrix.set(denseMatrix);
-         Vector vector = new Vector();
-         vector.set(denseMatrix, 0, 3);
+         Vector3D vector = new Vector3D();
+         vector.set(0, 3, denseMatrix);
 
          RigidBodyTransform actual = new RigidBodyTransform(rotationMatrix, vector);
          GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
@@ -145,8 +147,8 @@ public class RigidBodyTransformTest
 
          RotationMatrix rotationMatrix = new RotationMatrix();
          rotationMatrix.set(denseMatrix);
-         Vector vector = new Vector();
-         vector.set(denseMatrix, 0, 3);
+         Vector3D vector = new Vector3D();
+         vector.set(0, 3, denseMatrix);
 
          RigidBodyTransform actual = new RigidBodyTransform(new Quaternion(rotationMatrix), vector);
          GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
@@ -166,8 +168,8 @@ public class RigidBodyTransformTest
 
          RotationMatrix rotationMatrix = new RotationMatrix();
          rotationMatrix.set(denseMatrix);
-         Vector vector = new Vector();
-         vector.set(denseMatrix, 0, 3);
+         Vector3D vector = new Vector3D();
+         vector.set(0, 3, denseMatrix);
 
          RigidBodyTransform actual = new RigidBodyTransform(new AxisAngle(rotationMatrix), vector);
          GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
@@ -232,7 +234,7 @@ public class RigidBodyTransformTest
       RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
       RigidBodyTransform transform = new RigidBodyTransform(original);
 
-      transform.resetRotation();
+      transform.setRotationToZero();
 
       for (int row = 0; row < 4; row++)
       {
@@ -255,7 +257,7 @@ public class RigidBodyTransformTest
       RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
       RigidBodyTransform transform = new RigidBodyTransform(original);
 
-      transform.resetTranslation();
+      transform.setTranslationToZero();
 
       for (int row = 0; row < 4; row++)
       {
@@ -292,8 +294,8 @@ public class RigidBodyTransformTest
       transform.normalizeRotationPart();
 
       Matrix3D rotation = new Matrix3D();
-      Vector vector1 = new Vector();
-      Vector vector2 = new Vector();
+      Vector3D vector1 = new Vector3D();
+      Vector3D vector2 = new Vector3D();
 
       transform.getRotation(rotation);
 
@@ -444,7 +446,7 @@ public class RigidBodyTransformTest
 
       { // Test set(Matrix3DReadOnly rotationMatrix, TupleReadOnly translation)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actual.set((Matrix3DReadOnly) rotationMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
@@ -456,7 +458,7 @@ public class RigidBodyTransformTest
 
       { // Test set(RotationMatrix rotationMatrix, TupleReadOnly translation)
          RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-         Vector translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actual.set(rotationMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
@@ -468,7 +470,7 @@ public class RigidBodyTransformTest
 
       { // Test set(RotationScaleMatrix rotationMatrix, TupleReadOnly translation)
          RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
-         Vector translation = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3D(random);
          actual.set(rotationScaleMatrix, translation);
          for (int row = 0; row < 3; row++)
          {
@@ -561,6 +563,19 @@ public class RigidBodyTransformTest
             assertTrue(Double.isNaN(transform.getElement(row, column)));
          }
       }
+
+      transform.setToZero();
+      GeometryBasicsTestTools.assertIdentity(transform.getRotationMatrix(), EPS);
+      GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+
+      transform.setRotationToNaN();
+      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(transform.getRotationMatrix());
+      GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+
+      transform.setToZero();
+      transform.setTranslationToNaN();
+      GeometryBasicsTestTools.assertIdentity(transform.getRotationMatrix(), EPS);
+      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(transform.getTranslationVector());
    }
 
    @Test
@@ -600,7 +615,7 @@ public class RigidBodyTransformTest
    {
       Random random = new Random(2342L);
       RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
-      Vector translation = new Vector();
+      Vector3D translation = new Vector3D();
 
       { // Test setRotation(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
@@ -703,6 +718,72 @@ public class RigidBodyTransformTest
             assertTrue(translation.get(row) == transform.getElement(row, 3));
          }
       }
+
+      { // Test setRotation(Vector3DReadOnly rotationVector)
+         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         transform.getTranslation(translation);
+         transform.setRotation(rotationVector);
+         rotationMatrix.set(rotationVector);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+               assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
+            assertTrue(translation.get(row) == transform.getElement(row, 3));
+         }
+      }
+   }
+
+   @Test
+   public void testAppendYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      RigidBodyTransform expected = new RigidBodyTransform();
+      RigidBodyTransform actual = new RigidBodyTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendYawRotation(double yaw)
+         RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendYawRotation(yaw);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendYawRotation(yaw);
+
+         GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendPitchRotation(double pitch)
+         RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendPitchRotation(pitch);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendPitchRotation(pitch);
+
+         GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendRollRotation(double roll)
+         RigidBodyTransform original = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendRollRotation(roll);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendRollRotation(roll);
+
+         GeometryBasicsTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
    }
 
    @Test
@@ -716,9 +797,31 @@ public class RigidBodyTransformTest
       { // Test setRotationYawPitchRoll(double yaw, double pitch, double roll)
          expectedRotation.setYawPitchRoll(yawPitchRoll);
          actualTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-         Vector translation = new Vector();
+         Vector3D translation = new Vector3D();
          actualTransform.getTranslation(translation);
          actualTransform.setRotationYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               assertEquals(expectedRotation.getElement(row, column), actualTransform.getElement(row, column), EPS);
+            }
+         }
+
+         for (int row = 0; row < 3; row++)
+         {
+            int column = 3;
+            assertTrue(translation.get(row) == actualTransform.getElement(row, column));
+         }
+      }
+
+      { // Test setRotationYawPitchRoll(double[] yawPitchRoll)
+         expectedRotation.setYawPitchRoll(yawPitchRoll);
+         actualTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         Vector3D translation = new Vector3D();
+         actualTransform.getTranslation(translation);
+         actualTransform.setRotationYawPitchRoll(yawPitchRoll);
 
          for (int row = 0; row < 3; row++)
          {
@@ -755,10 +858,50 @@ public class RigidBodyTransformTest
          }
       }
 
+      { // Test setRotationYawPitchRollAndZeroTranslation(double[] yawPitchRoll)
+         expectedRotation.setYawPitchRoll(yawPitchRoll);
+         actualTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         actualTransform.setRotationYawPitchRollAndZeroTranslation(yawPitchRoll);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               assertEquals(expectedRotation.getElement(row, column), actualTransform.getElement(row, column), EPS);
+            }
+         }
+
+         for (int row = 0; row < 3; row++)
+         {
+            int column = 3;
+            assertTrue(0.0 == actualTransform.getElement(row, column));
+         }
+      }
+
+      { // Test setRotationEulerAndZeroTranslation(double rotX, double rotY, double rotZ)
+         expectedRotation.setYawPitchRoll(yawPitchRoll);
+         actualTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         actualTransform.setRotationEulerAndZeroTranslation(yawPitchRoll[2], yawPitchRoll[1], yawPitchRoll[0]);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               assertEquals(expectedRotation.getElement(row, column), actualTransform.getElement(row, column), EPS);
+            }
+         }
+
+         for (int row = 0; row < 3; row++)
+         {
+            int column = 3;
+            assertTrue(0.0 == actualTransform.getElement(row, column));
+         }
+      }
+
       { // Test setRotationYaw(double yaw)
          expectedRotation.setToYawMatrix(yawPitchRoll[0]);
          actualTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-         Vector translation = new Vector();
+         Vector3D translation = new Vector3D();
          actualTransform.getTranslation(translation);
          actualTransform.setRotationYaw(yawPitchRoll[0]);
          for (int row = 0; row < 3; row++)
@@ -779,7 +922,7 @@ public class RigidBodyTransformTest
       { // Test setRotationPitch(double pitch)
          expectedRotation.setToPitchMatrix(yawPitchRoll[1]);
          actualTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-         Vector translation = new Vector();
+         Vector3D translation = new Vector3D();
          actualTransform.getTranslation(translation);
          actualTransform.setRotationPitch(yawPitchRoll[1]);
          for (int row = 0; row < 3; row++)
@@ -800,7 +943,7 @@ public class RigidBodyTransformTest
       { // Test setRotationRoll(double roll)
          expectedRotation.setToRollMatrix(yawPitchRoll[2]);
          actualTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-         Vector translation = new Vector();
+         Vector3D translation = new Vector3D();
          actualTransform.getTranslation(translation);
          actualTransform.setRotationRoll(yawPitchRoll[2]);
          for (int row = 0; row < 3; row++)
@@ -933,6 +1076,20 @@ public class RigidBodyTransformTest
             assertTrue(transform.getElement(row, 3) == 0.0);
          }
       }
+
+      { // Test setRotation(Vector3DReadOnly rotationVector)
+         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         transform.setRotationAndZeroTranslation(rotationVector);
+         rotationMatrix.set(rotationVector);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+               assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
+         }
+         GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+      }
    }
 
    @Test
@@ -940,12 +1097,12 @@ public class RigidBodyTransformTest
    {
       Random random = new Random(42353L);
       RotationMatrix rotationMatrix = new RotationMatrix();
-      Vector translation = new Vector();
+      Vector3D translation = new Vector3D();
 
       { // Test setRotationEuler(VectorReadOnly eulerAngles)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          transform.getTranslation(translation);
-         Vector eulerAngles = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+         Vector3D eulerAngles = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          rotationMatrix.setEuler(eulerAngles);
          transform.setRotationEuler(eulerAngles);
          for (int row = 0; row < 3; row++)
@@ -959,7 +1116,7 @@ public class RigidBodyTransformTest
       { // Test setRotationEulerAndZeroTranslation(VectorReadOnly eulerAngles)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          transform.getTranslation(translation);
-         Vector eulerAngles = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+         Vector3D eulerAngles = GeometryBasicsRandomTools.generateRandomRotationVector(random);
          rotationMatrix.setEuler(eulerAngles);
          transform.setRotationEulerAndZeroTranslation(eulerAngles);
          for (int row = 0; row < 3; row++)
@@ -992,7 +1149,7 @@ public class RigidBodyTransformTest
    {
       Random random = new Random(243L);
       RotationMatrix rotationMatrix = new RotationMatrix();
-      Vector translation = new Vector();
+      Vector3D translation = new Vector3D();
 
       { // Test setTranslation(TupleReadOnly translation)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
@@ -1033,6 +1190,18 @@ public class RigidBodyTransformTest
             assertTrue(translation.get(row) == transform.getElement(row, 3));
          }
       }
+
+      { // Test setTranslation(double x, double y, double z)
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         transform.getRotation(rotationMatrix);
+         transform.setTranslationAndIdentityRotation(translation.getX(), translation.getY(), translation.getZ());
+         GeometryBasicsTestTools.assertIdentity(transform.getRotationMatrix(), EPS);
+         for (int row = 0; row < 3; row++)
+         {
+            assertTrue(translation.get(row) == transform.getElement(row, 3));
+         }
+      }
+
    }
 
    @Test
@@ -1094,6 +1263,25 @@ public class RigidBodyTransformTest
             for (int column = 0; column < 3; column++)
                assertEquals(rotationMatrix.getElement(row, column), transform.getElement(row, column), EPS);
       }
+
+      { // Test getRotation(double[] rotationMatrixArrayToPack)
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         double[] expected = new double[9];
+         double[] actual = new double[9];
+         transform.getRotation(actual);
+         transform.getRotationMatrix().get(expected);
+         assertTrue(Arrays.equals(expected, actual));
+      }
+
+      { // Test getRotation(Vector3DBasics rotationVectorToPack)
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         Vector3DBasics rotationVector = new Vector3D();
+         transform.getRotation(rotationVector);
+         rotationMatrix.set(rotationVector);
+         for (int row = 0; row < 3; row++)
+            for (int column = 0; column < 3; column++)
+               assertEquals(rotationMatrix.getElement(row, column), transform.getElement(row, column), EPS);
+      }
    }
 
    @Test
@@ -1101,7 +1289,7 @@ public class RigidBodyTransformTest
    {
       Random random = new Random(2345L);
       RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-      Vector translation = new Vector();
+      Vector3D translation = new Vector3D();
       transform.getTranslation(translation);
       for (int row = 0; row < 3; row++)
          assertTrue(translation.get(row) == transform.getElement(row, 3));
@@ -1126,7 +1314,7 @@ public class RigidBodyTransformTest
          int startRow = random.nextInt(10);
          int startColumn = random.nextInt(10);
          DenseMatrix64F denseMatrix = RandomMatrices.createRandom(4 + startRow, 4 + startColumn, random);
-         transform.get(denseMatrix, startRow, startColumn);
+         transform.get(startRow, startColumn, denseMatrix);
          for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                assertTrue(denseMatrix.get(row + startRow, column + startColumn) == transform.getElement(row, column));
@@ -1145,8 +1333,8 @@ public class RigidBodyTransformTest
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          Quaternion expectedQuaternion = new Quaternion();
          Quaternion actualQuaternion = new Quaternion();
-         Vector expectedTranslation = new Vector();
-         Vector actualTranslation = new Vector();
+         Vector3D expectedTranslation = new Vector3D();
+         Vector3D actualTranslation = new Vector3D();
          transform.getRotation(expectedQuaternion);
          transform.getTranslation(expectedTranslation);
          transform.get(actualQuaternion, actualTranslation);
@@ -1154,12 +1342,38 @@ public class RigidBodyTransformTest
          assertEquals(expectedTranslation, actualTranslation);
       }
 
+      { // Test get(AxisAngleBasics axisAngleToPack, Tuple3DBasics<Vector3D> translationToPack)
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         AxisAngle expected = new AxisAngle();
+         AxisAngle actual = new AxisAngle();
+         Vector3D expectedTranslation = new Vector3D();
+         Vector3D actualTranslation = new Vector3D();
+         transform.getRotation(expected);
+         transform.getTranslation(expectedTranslation);
+         transform.get(actual, actualTranslation);
+         assertEquals(expected, actual);
+         assertEquals(expectedTranslation, actualTranslation);
+      }
+
+      { // Test get(Vector3DBasics rotationVectorToPack, Tuple3DBasics<Vector3D> translationToPack)
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         Vector3D expected = new Vector3D();
+         Vector3D actual = new Vector3D();
+         Vector3D expectedTranslation = new Vector3D();
+         Vector3D actualTranslation = new Vector3D();
+         transform.getRotation(expected);
+         transform.getTranslation(expectedTranslation);
+         transform.get(actual, actualTranslation);
+         assertEquals(expected, actual);
+         assertEquals(expectedTranslation, actualTranslation);
+      }
+
       { // Test get(Matrix3DBasics rotationMarixToPack, TupleBasics translationToPack)
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          Matrix3D expectedMatrix = new Matrix3D();
          Matrix3D actualMatrix = new Matrix3D();
-         Vector expectedTranslation = new Vector();
-         Vector actualTranslation = new Vector();
+         Vector3D expectedTranslation = new Vector3D();
+         Vector3D actualTranslation = new Vector3D();
          transform.getRotation(expectedMatrix);
          transform.getTranslation(expectedTranslation);
          transform.get(actualMatrix, actualTranslation);
@@ -1171,8 +1385,8 @@ public class RigidBodyTransformTest
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          RotationMatrix expectedMatrix = new RotationMatrix();
          RotationMatrix actualMatrix = new RotationMatrix();
-         Vector expectedTranslation = new Vector();
-         Vector actualTranslation = new Vector();
+         Vector3D expectedTranslation = new Vector3D();
+         Vector3D actualTranslation = new Vector3D();
          transform.getRotation(expectedMatrix);
          transform.getTranslation(expectedTranslation);
          transform.get(actualMatrix, actualTranslation);
@@ -1184,8 +1398,8 @@ public class RigidBodyTransformTest
          RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
          RotationScaleMatrix expectedMatrix = new RotationScaleMatrix();
          RotationScaleMatrix actualMatrix = new RotationScaleMatrix();
-         Vector expectedTranslation = new Vector();
-         Vector actualTranslation = new Vector();
+         Vector3D expectedTranslation = new Vector3D();
+         Vector3D actualTranslation = new Vector3D();
          transform.getRotation(expectedMatrix);
          transform.getTranslation(expectedTranslation);
          transform.get(actualMatrix, actualTranslation);
@@ -1209,6 +1423,15 @@ public class RigidBodyTransformTest
          for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                assertEquals(denseMatrix.get(row, column), transform.getElement(row, column), EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotationPart = new RotationMatrix(transform.getRotationMatrix());
+         Vector3D expectedTranslationPart = new Vector3D(transform.getTranslationVector());
+         GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationPart, transform.getRotationMatrix(), EPS);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTranslationPart, transform.getTranslationVector(), EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -1327,7 +1550,7 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlPoint = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedPoint = new DenseMatrix64F(4, 1);
 
-         Point point = GeometryBasicsRandomTools.generateRandomPoint(random);
+         Point3D point = GeometryBasicsRandomTools.generateRandomPoint3D(random);
          point.get(ejmlPoint);
          ejmlPoint.set(3, 0, 1.0);
 
@@ -1342,8 +1565,8 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlPoint = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedPoint = new DenseMatrix64F(4, 1);
 
-         Point point = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point pointTransformed = new Point();
+         Point3D point = GeometryBasicsRandomTools.generateRandomPoint3D(random);
+         Point3D pointTransformed = new Point3D();
          point.get(ejmlPoint);
          ejmlPoint.set(3, 0, 1.0);
 
@@ -1358,7 +1581,7 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlVector = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedVector = new DenseMatrix64F(4, 1);
 
-         Vector vector = GeometryBasicsRandomTools.generateRandomVector(random);
+         Vector3D vector = GeometryBasicsRandomTools.generateRandomVector3D(random);
          vector.get(ejmlVector);
 
          transform.transform(vector);
@@ -1372,8 +1595,8 @@ public class RigidBodyTransformTest
          DenseMatrix64F ejmlVector = new DenseMatrix64F(4, 1);
          DenseMatrix64F ejmlTransformedVector = new DenseMatrix64F(4, 1);
 
-         Vector vector = GeometryBasicsRandomTools.generateRandomVector(random);
-         Vector vectorTransformed = new Vector();
+         Vector3D vector = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector3D vectorTransformed = new Vector3D();
          vector.get(ejmlVector);
 
          transform.transform(vector, vectorTransformed);
@@ -1413,16 +1636,30 @@ public class RigidBodyTransformTest
       Vector4D vectorExpected = new Vector4D();
       Vector4D vectorActual = new Vector4D();
 
-      Vector vector3D = new Vector(vectorOriginal.getX(), vectorOriginal.getY(), vectorOriginal.getZ());
+      Vector3D vector3D = new Vector3D(vectorOriginal.getX(), vectorOriginal.getY(), vectorOriginal.getZ());
       transform.transform(vector3D);
       vectorExpected.set(vector3D);
       vectorExpected.setS(vectorOriginal.getS());
+      vectorExpected.addX(vectorExpected.getS() * transform.getM03());
+      vectorExpected.addY(vectorExpected.getS() * transform.getM13());
+      vectorExpected.addZ(vectorExpected.getS() * transform.getM23());
 
       transform.transform(vectorOriginal, vectorActual);
       GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
-      
+
       vectorActual.set(vectorOriginal);
       transform.transform(vectorActual);
+      GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
+
+      // Try with dense-matrix
+      DenseMatrix64F transformDenseMatrix = new DenseMatrix64F(4, 4);
+      transform.get(transformDenseMatrix);
+      DenseMatrix64F vectorOriginalDenseMatrix = new DenseMatrix64F(4, 1);
+      vectorOriginal.get(vectorOriginalDenseMatrix);
+      DenseMatrix64F vectorTransformedDenseMatrix = new DenseMatrix64F(4, 1);
+      CommonOps.mult(transformDenseMatrix, vectorOriginalDenseMatrix, vectorTransformedDenseMatrix);
+      vectorExpected.set(vectorTransformedDenseMatrix);
+
       GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
    }
 
@@ -1432,14 +1669,14 @@ public class RigidBodyTransformTest
       Random random = new Random(4353L);
       RigidBodyTransform transfom2D = new RigidBodyTransform();
       transfom2D.setRotationYaw(2.0 * Math.PI * random.nextDouble() - Math.PI);
-      transfom2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector(random));
+      transfom2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random));
 
       { // Test transform(Point2DBasics pointToTransform)
          Point2D pointOriginal = GeometryBasicsRandomTools.generateRandomPoint2D(random);
          Point2D pointExpected = new Point2D();
          Point2D pointActual = new Point2D();
 
-         Point point = new Point(pointOriginal.getX(), pointOriginal.getY(), 0.0);
+         Point3D point = new Point3D(pointOriginal.getX(), pointOriginal.getY(), 0.0);
          transfom2D.transform(point);
          pointExpected.set(point.getX(), point.getY());
 
@@ -1453,7 +1690,7 @@ public class RigidBodyTransformTest
          Point2D pointExpected = new Point2D();
          Point2D pointActual = new Point2D();
 
-         Point point = new Point(pointOriginal.getX(), pointOriginal.getY(), 0.0);
+         Point3D point = new Point3D(pointOriginal.getX(), pointOriginal.getY(), 0.0);
          transfom2D.transform(point);
          pointExpected.set(point.getX(), point.getY());
 
@@ -1467,7 +1704,7 @@ public class RigidBodyTransformTest
          Point2D pointExpected = new Point2D();
          Point2D pointActual = new Point2D();
 
-         Point point = new Point(pointOriginal.getX(), pointOriginal.getY(), 0.0);
+         Point3D point = new Point3D(pointOriginal.getX(), pointOriginal.getY(), 0.0);
          transfom2D.transform(point);
          pointExpected.set(point.getX(), point.getY());
 
@@ -1480,7 +1717,7 @@ public class RigidBodyTransformTest
          Point2D pointExpected = new Point2D();
          Point2D pointActual = new Point2D();
 
-         Point point = new Point(pointOriginal.getX(), pointOriginal.getY(), 0.0);
+         Point3D point = new Point3D(pointOriginal.getX(), pointOriginal.getY(), 0.0);
          transfom2D.transform(point);
          pointExpected.set(point.getX(), point.getY());
 
@@ -1493,7 +1730,7 @@ public class RigidBodyTransformTest
          Vector2D vectorExpected = new Vector2D();
          Vector2D vectorActual = new Vector2D();
 
-         Vector vector = new Vector(vectorOriginal.getX(), vectorOriginal.getY(), 0.0);
+         Vector3D vector = new Vector3D(vectorOriginal.getX(), vectorOriginal.getY(), 0.0);
          transfom2D.transform(vector);
          vectorExpected.set(vector.getX(), vector.getY());
 
@@ -1507,7 +1744,7 @@ public class RigidBodyTransformTest
          Vector2D vectorExpected = new Vector2D();
          Vector2D vectorActual = new Vector2D();
 
-         Vector vector = new Vector(vectorOriginal.getX(), vectorOriginal.getY(), 0.0);
+         Vector3D vector = new Vector3D(vectorOriginal.getX(), vectorOriginal.getY(), 0.0);
          transfom2D.transform(vector);
          vectorExpected.set(vector.getX(), vector.getY());
 
@@ -1549,101 +1786,13 @@ public class RigidBodyTransformTest
       RotationMatrix matrixOriginal = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
       RotationMatrix matrixExpected = new RotationMatrix();
       RotationMatrix matrixActual = new RotationMatrix();
-      
+
       transform.getRotation(matrixExpected);
       matrixExpected.multiply(matrixOriginal);
 
       matrixActual.set(matrixOriginal);
       transform.transform(matrixActual);
       GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
-   }
-
-   @Test
-   public void testInverseTransformWithTuple() throws Exception
-   {
-      Random random = new Random(3454L);
-      RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
-
-      { // Test inverseTransform(PointBasics pointToTransform)
-         Point pointExpected = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point pointActual = new Point();
-         pointActual.set(pointExpected);
-         transform.transform(pointActual);
-         transform.inverseTransform(pointActual);
-         GeometryBasicsTestTools.assertTupleEquals(pointExpected, pointActual, EPS);
-      }
-
-      { // Test inverseTransform(PointReadOnly pointOriginal, PointBasics pointTransformed)
-         Point pointExpected = GeometryBasicsRandomTools.generateRandomPoint(random);
-         Point pointActual = new Point();
-
-         transform.inverseTransform(pointExpected, pointActual);
-         transform.transform(pointActual);
-         GeometryBasicsTestTools.assertTupleEquals(pointExpected, pointActual, EPS);
-      }
-
-      { // Test inverseTransform(VectorBasics vectorToTransform)
-         Vector vectorExpected = GeometryBasicsRandomTools.generateRandomVector(random);
-         Vector vectorActual = new Vector();
-         vectorActual.set(vectorExpected);
-         transform.transform(vectorActual);
-         transform.inverseTransform(vectorActual);
-         GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
-      }
-
-      { // Test inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
-         Vector vectorExpected = GeometryBasicsRandomTools.generateRandomVector(random);
-         Vector vectorActual = new Vector();
-
-         transform.inverseTransform(vectorExpected, vectorActual);
-         transform.transform(vectorActual);
-         GeometryBasicsTestTools.assertTupleEquals(vectorExpected, vectorActual, EPS);
-      }
-   }
-
-   @Test
-   public void testInverseTransformWithTuple2D() throws Exception
-   {
-      Random random = new Random(3454L);
-      RigidBodyTransform transfom2D = new RigidBodyTransform();
-      transfom2D.setRotationYaw(2.0 * Math.PI * random.nextDouble() - Math.PI);
-      transfom2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector(random));
-
-      { // Test inverseTransform(Point2DBasics pointToTransform)
-         Point2D pointExpected = GeometryBasicsRandomTools.generateRandomPoint2D(random);
-         Point2D pointActual = new Point2D();
-         pointActual.set(pointExpected);
-         transfom2D.transform(pointActual);
-         transfom2D.inverseTransform(pointActual);
-         GeometryBasicsTestTools.assertTuple2DEquals(pointExpected, pointActual, EPS);
-      }
-
-      { // Test inverseTransform(Point2DReadOnly pointOriginal, Point2DBasics pointTransformed)
-         Point2D pointExpected = GeometryBasicsRandomTools.generateRandomPoint2D(random);
-         Point2D pointActual = new Point2D();
-
-         transfom2D.inverseTransform(pointExpected, pointActual);
-         transfom2D.transform(pointActual);
-         GeometryBasicsTestTools.assertTuple2DEquals(pointExpected, pointActual, EPS);
-      }
-
-      { // Test inverseTransform(VectorBasics vectorToTransform)
-         Vector2D vectorExpected = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Vector2D vectorActual = new Vector2D();
-         vectorActual.set(vectorExpected);
-         transfom2D.transform(vectorActual);
-         transfom2D.inverseTransform(vectorActual);
-         GeometryBasicsTestTools.assertTuple2DEquals(vectorExpected, vectorActual, EPS);
-      }
-
-      { // Test inverseTransform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
-         Vector2D vectorExpected = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         Vector2D vectorActual = new Vector2D();
-
-         transfom2D.inverseTransform(vectorExpected, vectorActual);
-         transfom2D.transform(vectorActual);
-         GeometryBasicsTestTools.assertTuple2DEquals(vectorExpected, vectorActual, EPS);
-      }
    }
 
    @Test
@@ -1821,5 +1970,20 @@ public class RigidBodyTransformTest
             assertFalse(t1.epsilonEquals(t2, epsilon));
          }
       }
+   }
+
+   @Override
+   public RigidBodyTransform createRandomTransform(Random random)
+   {
+      return GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+   }
+
+   @Override
+   public RigidBodyTransform createRandomTransform2D(Random random)
+   {
+      RigidBodyTransform transfom2D = new RigidBodyTransform();
+      transfom2D.setRotationYaw(2.0 * Math.PI * random.nextDouble() - Math.PI);
+      transfom2D.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random));
+      return transfom2D;
    }
 }
