@@ -149,6 +149,11 @@ public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparab
       setYawPitchRoll(yaw, pitch, roll);
    }
 
+   /**
+    * Sets this axis-angle to the same value as the given axis-angle {@code other}.
+    *
+    * @param other the other axis-angle. Not modified.
+    */
    @Override
    public void set(AxisAngle other)
    {
@@ -213,7 +218,7 @@ public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparab
 
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(AxisAngle)}, it returns {@code false} otherwise.
+    * returns {@link #equals(AxisAngleReadOnly)}, it returns {@code false} otherwise.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -231,6 +236,15 @@ public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparab
       }
    }
 
+   /**
+    * Tests on a per component basis, if this axis-angle is equal to {@code other} to an
+    * {@code epsilon}. A failing test does not necessarily mean that the two axis-angles represent
+    * two different orientations.
+    *
+    * @param other the other axis-angle to compare against this. Not modified.
+    * @param epsilon tolerance to use when comparing each component.
+    * @return {@code true} if the two axis-angle are equal component-wise, {@code false} otherwise.
+    */
    @Override
    public boolean epsilonEquals(AxisAngle other, double epsilon)
    {

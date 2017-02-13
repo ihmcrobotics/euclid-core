@@ -163,13 +163,13 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
    }
 
    /**
-    * Sets this tuple to {@code tupleReadOnly}.
+    * Sets this tuple to {@code other}.
     *
-    * @param tupleReadOnly the other tuple to copy the values from. Not modified.
+    * @param other the other tuple to copy the values from. Not modified.
     */
-   default void set(Tuple2DReadOnly tupleReadOnly)
+   default void set(Tuple2DReadOnly other)
    {
-      set(tupleReadOnly.getX(), tupleReadOnly.getY());
+      set(other.getX(), other.getY());
    }
 
    /**

@@ -10,6 +10,7 @@ import us.ihmc.geometry.tuple2D.Vector2D32;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
 /**
  * Class used to represent unit-quaternions which are used to represent 3D orientations.
@@ -122,6 +123,11 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       set(rotationVector);
    }
 
+   /**
+    * Sets this quaternion to {@code other}.
+    *
+    * @param other the other quaternion to copy the values from. Not modified.
+    */
    @Override
    public void set(Quaternion32 other)
    {
@@ -196,7 +202,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
 
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Quaternion32)}, it returns {@code false} otherwise.
+    * returns {@link #equals(Tuple4DReadOnly)}, it returns {@code false} otherwise.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -206,7 +212,7 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
    {
       try
       {
-         return equals((Quaternion32) object);
+         return equals((Tuple4DReadOnly) object);
       }
       catch (ClassCastException e)
       {
@@ -214,6 +220,14 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
       }
    }
 
+   /**
+    * Tests on a per component basis if this quaternion is equal to the given {@code other} to an
+    * {@code epsilon}.
+    *
+    * @param other the other quaternion to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two tuples are equal, {@code false} otherwise.
+    */
    @Override
    public boolean epsilonEquals(Quaternion32 other, double epsilon)
    {

@@ -67,6 +67,11 @@ public class Vector2D implements Serializable, Vector2DBasics, GeometryObject<Ve
       set(other);
    }
 
+   /**
+    * Sets this vector to {@code other}.
+    *
+    * @param other the other vector to copy the values from. Not modified.
+    */
    @Override
    public void set(Vector2D other)
    {
@@ -119,7 +124,7 @@ public class Vector2D implements Serializable, Vector2DBasics, GeometryObject<Ve
 
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Vector2D)}, it returns {@code false} otherwise.
+    * returns {@link #equals(Tuple2DReadOnly)}, it returns {@code false} otherwise.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -129,7 +134,7 @@ public class Vector2D implements Serializable, Vector2DBasics, GeometryObject<Ve
    {
       try
       {
-         return equals((Vector2D) object);
+         return equals((Tuple2DReadOnly) object);
       }
       catch (ClassCastException e)
       {
@@ -137,6 +142,14 @@ public class Vector2D implements Serializable, Vector2DBasics, GeometryObject<Ve
       }
    }
 
+   /**
+    * Tests on a per component basis if this vector is equal to the given {@code other} to an
+    * {@code epsilon}.
+    *
+    * @param other the other vector to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two tuples are equal, {@code false} otherwise.
+    */
    @Override
    public boolean epsilonEquals(Vector2D other, double epsilon)
    {

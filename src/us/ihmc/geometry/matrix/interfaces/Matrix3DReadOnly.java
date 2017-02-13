@@ -903,6 +903,21 @@ public interface Matrix3DReadOnly
    void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
 
    /**
+    * Tests on a per component basis if this matrix is exactly equal to {@code other}.
+    * <p>
+    * The method returns {@code false} if the given matrix is {@code null}.
+    * </p>
+    *
+    * @param other the other matrix to compare against this. Not modified.
+    * @return {@code true} if the two matrices are exactly equal component-wise, {@code false}
+    *         otherwise.
+    */
+   default boolean equals(Matrix3DReadOnly other)
+   {
+      return Matrix3DFeatures.equals(this, other);
+   }
+
+   /**
     * Tests on a per coefficient basis if this matrix is equal to the given {@code other} to an
     * {@code epsilon}.
     *

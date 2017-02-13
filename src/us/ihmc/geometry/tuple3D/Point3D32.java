@@ -69,6 +69,11 @@ public class Point3D32 implements Serializable, Point3DBasics, GeometryObject<Po
       set(other);
    }
 
+   /**
+    * Sets this point to {@code other}.
+    *
+    * @param other the other point to copy the values from. Not modified.
+    */
    @Override
    public void set(Point3D32 other)
    {
@@ -206,7 +211,7 @@ public class Point3D32 implements Serializable, Point3DBasics, GeometryObject<Po
 
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Point3D32)}, it returns {@code false} otherwise.
+    * returns {@link #equals(Tuple3DReadOnly)}, it returns {@code false} otherwise.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -216,7 +221,7 @@ public class Point3D32 implements Serializable, Point3DBasics, GeometryObject<Po
    {
       try
       {
-         return equals((Point3D32) object);
+         return equals((Tuple3DReadOnly) object);
       }
       catch (ClassCastException e)
       {
@@ -224,6 +229,14 @@ public class Point3D32 implements Serializable, Point3DBasics, GeometryObject<Po
       }
    }
 
+   /**
+    * Tests on a per component basis if this point is equal to the given {@code other} to an
+    * {@code epsilon}.
+    *
+    * @param other the other point to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two tuples are equal, {@code false} otherwise.
+    */
    @Override
    public boolean epsilonEquals(Point3D32 other, double epsilon)
    {

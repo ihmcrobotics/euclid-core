@@ -1303,7 +1303,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
 
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Matrix3D)}, it returns {@code false} otherwise or if the {@code object}
+    * returns {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the {@code object}
     * is {@code null}.
     *
     * @param object the object to compare against this. Not modified.
@@ -1314,7 +1314,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    {
       try
       {
-         return equals((Matrix3D) object);
+         return equals((Matrix3DReadOnly) object);
       }
       catch (ClassCastException e)
       {
@@ -1323,20 +1323,13 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    }
 
    /**
-    * Tests on a per component basis if this matrix is exactly equal to {@code other}.
-    * <p>
-    * The method returns {@code false} if the given matrix is {@code null}.
-    * </p>
+    * Tests on a per coefficient basis if this matrix is equal to the given {@code other} to an
+    * {@code epsilon}.
     *
     * @param other the other matrix to compare against this. Not modified.
-    * @return {@code true} if the two matrices are exactly equal component-wise, {@code false}
-    *         otherwise.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two matrices are equal, {@code false} otherwise.
     */
-   public boolean equals(Matrix3D other)
-   {
-      return Matrix3DFeatures.equals(this, other);
-   }
-
    @Override
    public boolean epsilonEquals(Matrix3D other, double epsilon)
    {
