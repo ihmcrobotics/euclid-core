@@ -14,7 +14,7 @@ buildscript {
 apply plugin: "us.ihmc.gradle.ihmc-build"
 
 sourceCompatibility = 1.8
-version = '1.0'
+version = '0.0'
 
 repositories ihmc.ihmcDefaultArtifactProxies()
 
