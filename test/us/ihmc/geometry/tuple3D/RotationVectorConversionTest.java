@@ -56,19 +56,19 @@ public class RotationVectorConversionTest
       GeometryBasicsTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
 
       RotationVectorConversion.convertAxisAngleToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(actualRotationVector);
 
       RotationVectorConversion.convertAxisAngleToRotationVectorImpl(Double.NaN, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertAxisAngleToRotationVectorImpl(0.0, Double.NaN, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertAxisAngleToRotationVectorImpl(0.0, 0.0, Double.NaN, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertAxisAngleToRotationVectorImpl(0.0, 0.0, 0.0, Double.NaN, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       for (int i = 0; i < 100; i++)
       {
@@ -118,23 +118,23 @@ public class RotationVectorConversionTest
 
       quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
       RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(actualRotationVector);
 
       quaternion.setUnsafe(Double.NaN, 0.0, 0.0, 0.0);
       RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       quaternion.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
       RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       quaternion.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
       RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       quaternion.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
       RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
    }
 
    @Test
@@ -223,7 +223,7 @@ public class RotationVectorConversionTest
       m01 = m02 = m12 = 0.0;
       m10 = m20 = m21 = 0.0;
       RotationVectorConversion.convertMatrixToRotationVectorImpl(m00, m01, m02, m10, m11, m12, m20, m21, m22, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(actualRotationVector);
 
       // Pi/2 around x
       m00 = 1.0;
@@ -362,31 +362,31 @@ public class RotationVectorConversionTest
       assertEquals(Math.PI * sqrt2Over2, actualRotationVector.getZ(), EPSILON);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       RotationVectorConversion.convertMatrixToRotationVectorImpl(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, actualRotationVector);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualRotationVector);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualRotationVector);
 
       // Test with an actual matrix
       for (int i = 0; i < 1000; i++)

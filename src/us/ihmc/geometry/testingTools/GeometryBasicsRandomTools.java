@@ -586,6 +586,31 @@ public abstract class GeometryBasicsRandomTools
    }
 
    /**
+    * Generates a random point.
+    * <p>
+    * {@code point.x} &in; [-maxAbsoluteX; maxAbsoluteX]. <br>
+    * {@code point.y} &in; [-maxAbsoluteY; maxAbsoluteY]. <br>
+    * {@code point.z} &in; [-maxAbsoluteZ; maxAbsoluteZ]. <br>
+    * </p>
+    * 
+    * @param random the random generator to use.
+    * @param maxAbsoluteX the maximum absolute value for the x-coordinate.
+    * @param maxAbsoluteY the maximum absolute value for the y-coordinate.
+    * @param maxAbsoluteZ the maximum absolute value for the z-coordinate.
+    * @return the random point.
+    * @throws RuntimeException if {@code maxAbsoluteX < 0}, {@code maxAbsoluteY < 0},
+    *            {@code maxAbsoluteZ < 0}.
+    */
+   public static Point3D generateRandomPoint3D(Random random, double maxAbsoluteX, double maxAbsoluteY, double maxAbsoluteZ)
+   {
+      double x = generateRandomDouble(random, -maxAbsoluteX, maxAbsoluteX);
+      double y = generateRandomDouble(random, -maxAbsoluteY, maxAbsoluteY);
+      double z = generateRandomDouble(random, -maxAbsoluteZ, maxAbsoluteZ);
+
+      return new Point3D(x, y, z);
+   }
+
+   /**
     * Generates a random vector given its length {@code length}.
     *
     * @param random the random generator to use.

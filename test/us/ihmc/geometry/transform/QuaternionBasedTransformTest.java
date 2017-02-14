@@ -37,7 +37,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       { // Test empty constructor
          QuaternionBasedTransform transform = new QuaternionBasedTransform();
          GeometryBasicsTestTools.assertQuaternionIsSetToZero(transform.getQuaternion());
-         GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+         GeometryBasicsTestTools.assertTuple3DIsSetToZero(transform.getTranslationVector());
       }
 
       { // Test QuaternionBasedTransform(QuaternionBasedTransform other)
@@ -116,7 +116,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       transform.setToZero();
 
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(transform.getQuaternion());
-      GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(transform.getTranslationVector());
    }
 
    @Test
@@ -135,21 +135,21 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
       transform.setToNaN();
 
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(transform.getQuaternion());
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(transform.getTranslationVector());
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(transform.getQuaternion());
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(transform.getTranslationVector());
 
       transform.setToZero();
       GeometryBasicsTestTools.assertTuple4DEquals(new Quaternion(), transform.getQuaternion(), EPS);
       GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(), transform.getTranslationVector(), EPS);
 
       transform.setRotationToNaN();
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(transform.getQuaternion());
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(transform.getQuaternion());
       GeometryBasicsTestTools.assertTuple3DEquals(new Vector3D(), transform.getTranslationVector(), EPS);
 
       transform.setToZero();
       transform.setTranslationToNaN();
       GeometryBasicsTestTools.assertTuple4DEquals(new Quaternion(), transform.getQuaternion(), EPS);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(transform.getTranslationVector());
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(transform.getTranslationVector());
    }
 
    @Test
@@ -216,7 +216,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       transform.setTranslationToZero();
 
       GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, transform.getQuaternion(), EPS);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(transform.getTranslationVector());
    }
 
    @Test
@@ -333,7 +333,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       transform.setIdentity();
 
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(transform.getQuaternion());
-      GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(transform.getTranslationVector());
    }
 
    @Test

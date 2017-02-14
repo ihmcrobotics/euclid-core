@@ -63,16 +63,16 @@ public class QuaternionConversionTest
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       QuaternionConversion.convertAxisAngleToQuaternion(Double.NaN, 0.0, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertAxisAngleToQuaternion(0.0, Double.NaN, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, Double.NaN, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, 0.0, Double.NaN, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual quaternion
       for (int i = 0; i < 100; i++)
@@ -328,31 +328,31 @@ public class QuaternionConversionTest
 
       rotationMatrix.setUnsafe(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       // Test with a RotationScaleMatrix
       for (int i = 0; i < 1000; i++)
@@ -414,13 +414,13 @@ public class QuaternionConversionTest
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       QuaternionConversion.convertYawPitchRollToQuaternion(Double.NaN, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertYawPitchRollToQuaternion(0.0, Double.NaN, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertYawPitchRollToQuaternion(0.0, 0.0, Double.NaN, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
    }
 
    @Test
@@ -448,13 +448,13 @@ public class QuaternionConversionTest
       GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       QuaternionConversion.convertRotationVectorToQuaternionImpl(Double.NaN, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertRotationVectorToQuaternionImpl(0.0, Double.NaN, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertRotationVectorToQuaternionImpl(0.0, 0.0, Double.NaN, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionContainsOnlyNaN(actualQuaternion);
+      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual vector
       Vector3D rotationVector = new Vector3D();

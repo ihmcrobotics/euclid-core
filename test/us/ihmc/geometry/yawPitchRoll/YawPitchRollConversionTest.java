@@ -348,7 +348,7 @@ public class YawPitchRollConversionTest
       assertTrue(actualYawPitchRoll[2] == 0.0);
 
       YawPitchRollConversion.convertQuaternionToYawPitchRoll(quaternion, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(actualEulerAngles);
 
       // Test the checks on NaNs
       quaternion.setUnsafe(Double.NaN, 0.0, 0.0, 0.0);
@@ -368,7 +368,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertQuaternionToYawPitchRoll(quaternion, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       quaternion.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
 
@@ -387,7 +387,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertQuaternionToYawPitchRoll(quaternion, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       quaternion.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
 
@@ -406,7 +406,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertQuaternionToYawPitchRoll(quaternion, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       quaternion.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
 
@@ -425,7 +425,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertQuaternionToYawPitchRoll(quaternion, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       // Assert that we can NaNs around the yawPitchRoll singularity
       for (int i = 0; i < 1000; i++)
@@ -630,7 +630,7 @@ public class YawPitchRollConversionTest
       assertTrue(actualYawPitchRoll[2] == 0.0);
 
       YawPitchRollConversion.convertAxisAngleToYawPitchRoll(axisAngle, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(actualEulerAngles);
 
       // Test the checks on NaNs
       axisAngle.set(Double.NaN, 0.0, 0.0, 1.0);
@@ -650,7 +650,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertAxisAngleToYawPitchRoll(axisAngle, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       axisAngle.set(0.0, Double.NaN, 0.0, 1.0);
 
@@ -669,7 +669,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertAxisAngleToYawPitchRoll(axisAngle, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       axisAngle.set(0.0, 0.0, Double.NaN, 1.0);
 
@@ -688,7 +688,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertAxisAngleToYawPitchRoll(axisAngle, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       axisAngle.set(0.0, 0.0, 0.0, Double.NaN);
 
@@ -707,7 +707,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertAxisAngleToYawPitchRoll(axisAngle, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       // Assert that we can NaNs around the yawPitchRoll singularity
       for (int i = 0; i < 1000; i++)
@@ -838,7 +838,7 @@ public class YawPitchRollConversionTest
       assertTrue(actualYawPitchRoll[2] == 0.0);
 
       YawPitchRollConversion.convertRotationVectorToYawPitchRoll(rotationVector, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(actualEulerAngles);
 
       // Test the checks on NaNs
       rotationVector.set(Double.NaN, 0.0, 0.0);
@@ -858,7 +858,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertRotationVectorToYawPitchRoll(rotationVector, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       rotationVector.set(0.0, Double.NaN, 0.0);
 
@@ -877,7 +877,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertRotationVectorToYawPitchRoll(rotationVector, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       rotationVector.set(0.0, 0.0, Double.NaN);
 
@@ -896,7 +896,7 @@ public class YawPitchRollConversionTest
       assertTrue(Double.isNaN(actualYawPitchRoll[2]));
 
       YawPitchRollConversion.convertRotationVectorToYawPitchRoll(rotationVector, actualEulerAngles);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(actualEulerAngles);
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(actualEulerAngles);
 
       for (int i = 0; i < 1000; i++)
       {
