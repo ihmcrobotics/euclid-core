@@ -2,12 +2,10 @@ package us.ihmc.geometry.tuple2D;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
 
 import java.util.Random;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
@@ -85,14 +83,6 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
          assertEquals(tuple1.getY32(), y, getEpsilon());
       }
 
-   }
-
-   @Override
-   @Test
-   @Ignore
-   public void testApplyTransform()
-   {
-      fail("Not yet implemented");
    }
 
    @Test
