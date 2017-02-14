@@ -538,8 +538,10 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     */
    default void scaleAdd(double scalar, Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
-      setAndScale(scalar, tuple1);
-      add(tuple2);
+      double x = scalar * tuple1.getX() + tuple2.getX();
+      double y = scalar * tuple1.getY() + tuple2.getY();
+      double z = scalar * tuple1.getZ() + tuple2.getZ();
+      set(x, y, z);
    }
 
    /**

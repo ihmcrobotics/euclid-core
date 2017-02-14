@@ -96,7 +96,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          vector2.scale(GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 2.0));
 
          double actualAngle = vector1.angle(vector2);
-         assertEquals(Math.abs(expectedAngle), actualAngle, 10.0 * getEpsilon());
+         assertEquals(Math.abs(expectedAngle), actualAngle, 20.0 * getEpsilon());
       }
    }
 
