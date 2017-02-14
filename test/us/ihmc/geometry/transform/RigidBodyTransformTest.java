@@ -566,16 +566,16 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 
       transform.setToZero();
       GeometryBasicsTestTools.assertIdentity(transform.getRotationMatrix(), EPS);
-      GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(transform.getTranslationVector());
 
       transform.setRotationToNaN();
       GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(transform.getRotationMatrix());
-      GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+      GeometryBasicsTestTools.assertTuple3DIsSetToZero(transform.getTranslationVector());
 
       transform.setToZero();
       transform.setTranslationToNaN();
       GeometryBasicsTestTools.assertIdentity(transform.getRotationMatrix(), EPS);
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(transform.getTranslationVector());
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(transform.getTranslationVector());
    }
 
    @Test
@@ -1088,7 +1088,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
          }
-         GeometryBasicsTestTools.assertTupleIsSetToZero(transform.getTranslationVector());
+         GeometryBasicsTestTools.assertTuple3DIsSetToZero(transform.getTranslationVector());
       }
    }
 

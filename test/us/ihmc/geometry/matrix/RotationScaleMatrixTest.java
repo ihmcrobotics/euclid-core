@@ -554,7 +554,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       matrix.setToNaN();
       GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(matrix);
       GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(matrix.getRotationMatrix());
-      GeometryBasicsTestTools.assertTupleContainsOnlyNaN(matrix.getScale());
+      GeometryBasicsTestTools.assertTuple3DContainsOnlyNaN(matrix.getScale());
    }
 
    @Override

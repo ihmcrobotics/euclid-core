@@ -2,11 +2,9 @@ package us.ihmc.geometry.tuple4D;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
 
 import java.util.Random;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import us.ihmc.geometry.matrix.RotationMatrix;
@@ -84,14 +82,6 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
       }
-   }
-
-   @Override
-   @Test
-   @Ignore
-   public void testApplyTransform()
-   {
-      fail("Not yet implemented");
    }
 
    @Test
