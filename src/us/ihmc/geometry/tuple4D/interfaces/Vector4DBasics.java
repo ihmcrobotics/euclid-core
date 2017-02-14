@@ -455,8 +455,11 @@ public interface Vector4DBasics extends Vector4DReadOnly, Tuple4DBasics
     */
    default void scaleAdd(double scalar, Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2)
    {
-      setAndScale(scalar, tuple1);
-      add(tuple2);
+      double x = scalar * tuple1.getX() + tuple2.getX();
+      double y = scalar * tuple1.getY() + tuple2.getY();
+      double z = scalar * tuple1.getZ() + tuple2.getZ();
+      double s = scalar * tuple1.getS() + tuple2.getS();
+      set(x, y, z, s);
    }
 
    /**

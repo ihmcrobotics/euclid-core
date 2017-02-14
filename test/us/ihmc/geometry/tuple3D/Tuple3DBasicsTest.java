@@ -661,6 +661,19 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3D
          assertEquals(tuple1.getY(), tuple2.getY() * scale + tuple3.getY(), getEpsilon());
          assertEquals(tuple1.getZ(), tuple2.getZ() * scale + tuple3.getZ(), getEpsilon());
       }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test scaleAdd(double scalar, TupleBasics tuple1, TupleBasics tuple2) with tuple2 == this
+         double scale = random.nextDouble();
+         tuple1.set(random.nextDouble(), random.nextDouble(), random.nextDouble());
+         tuple2.set(random.nextDouble(), random.nextDouble(), random.nextDouble());
+         tuple3.set(tuple1);
+
+         tuple1.scaleAdd(scale, tuple2, tuple1);
+         assertEquals(tuple1.getX(), tuple2.getX() * scale + tuple3.getX(), getEpsilon());
+         assertEquals(tuple1.getY(), tuple2.getY() * scale + tuple3.getY(), getEpsilon());
+         assertEquals(tuple1.getZ(), tuple2.getZ() * scale + tuple3.getZ(), getEpsilon());
+      }
    }
 
    @Test

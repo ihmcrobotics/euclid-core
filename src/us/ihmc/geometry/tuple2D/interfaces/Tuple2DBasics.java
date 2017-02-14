@@ -506,8 +506,9 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     */
    default void scaleAdd(double scalar, Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
    {
-      setAndScale(scalar, tuple1);
-      add(tuple2);
+      double x = scalar * tuple1.getX() + tuple2.getX();
+      double y = scalar * tuple1.getY() + tuple2.getY();
+      set(x, y);
    }
 
    /**
