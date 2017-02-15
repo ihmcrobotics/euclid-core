@@ -11,7 +11,7 @@ import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 
@@ -43,8 +43,8 @@ public class QuaternionConversionTest
          expectedQuaternion.setUnsafe(qx, qy, qz, qs);
 
          QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, actualQuaternion);
-         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
-         GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
       // Test with an axis-angle that has a non unnitary axis.
@@ -56,23 +56,23 @@ public class QuaternionConversionTest
       double uz = axisAngle.getZ();
       QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, expectedQuaternion);
       QuaternionConversion.convertAxisAngleToQuaternion(scale * ux, scale * uy, scale * uz, angle, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
-      GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+      EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
+      EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
 
       QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
+      EuclidCoreTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       QuaternionConversion.convertAxisAngleToQuaternion(Double.NaN, 0.0, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertAxisAngleToQuaternion(0.0, Double.NaN, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, Double.NaN, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertAxisAngleToQuaternion(0.0, 0.0, 0.0, Double.NaN, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual quaternion
       for (int i = 0; i < 100; i++)
@@ -85,8 +85,8 @@ public class QuaternionConversionTest
          uz = axisAngle.getZ();
          QuaternionConversion.convertAxisAngleToQuaternion(ux, uy, uz, angle, expectedQuaternion);
          QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, actualQuaternion);
-         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
-         GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
          // Assert that the parameter does not get modified
          assertTrue(axisAngle.equals(axisAngleCopy));
       }
@@ -128,8 +128,8 @@ public class QuaternionConversionTest
          rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
 
-         GeometryBasicsTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
-         GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -159,8 +159,8 @@ public class QuaternionConversionTest
 
          rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-         GeometryBasicsTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
-         GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
       double sqrt2Over2 = Math.sqrt(2.0) / 2.0;
@@ -171,7 +171,7 @@ public class QuaternionConversionTest
       m10 = m20 = m21 = 0.0;
       rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
+      EuclidCoreTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       // Pi/2 around x
       m00 = 1.0;
@@ -328,31 +328,31 @@ public class QuaternionConversionTest
 
       rotationMatrix.setUnsafe(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
       QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       // Test with a RotationScaleMatrix
       for (int i = 0; i < 1000; i++)
@@ -361,8 +361,8 @@ public class QuaternionConversionTest
          RotationScaleMatrix rotationScaleMatrixCopy = new RotationScaleMatrix(rotationScaleMatrix);
          QuaternionConversion.convertMatrixToQuaternion(rotationScaleMatrix, actualQuaternion);
          QuaternionConversion.convertMatrixToQuaternion(rotationScaleMatrix.getRotationMatrix(), expectedQuaternion);
-         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
-         GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
          // Assert the parameter does not get modified
          assertTrue(rotationScaleMatrix.equals(rotationScaleMatrixCopy));
       }
@@ -404,23 +404,23 @@ public class QuaternionConversionTest
                rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
                QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expectedQuaternion);
                QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, actualQuaternion);
-               GeometryBasicsTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
-               GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+               EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+               EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
             }
          }
       }
 
       QuaternionConversion.convertYawPitchRollToQuaternion(0.0, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
+      EuclidCoreTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       QuaternionConversion.convertYawPitchRollToQuaternion(Double.NaN, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertYawPitchRollToQuaternion(0.0, Double.NaN, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertYawPitchRollToQuaternion(0.0, 0.0, Double.NaN, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
    }
 
    @Test
@@ -440,21 +440,21 @@ public class QuaternionConversionTest
          // The axisangle->quaternion conversion is safe here as it is tested separately in testAxisAngleToQuaternion().
          QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, expectedQuaternion);
          QuaternionConversion.convertRotationVectorToQuaternionImpl(rx, ry, rz, actualQuaternion);
-         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
-         GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
       QuaternionConversion.convertRotationVectorToQuaternionImpl(0.0, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionIsSetToZero(actualQuaternion);
+      EuclidCoreTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
       QuaternionConversion.convertRotationVectorToQuaternionImpl(Double.NaN, 0.0, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertRotationVectorToQuaternionImpl(0.0, Double.NaN, 0.0, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       QuaternionConversion.convertRotationVectorToQuaternionImpl(0.0, 0.0, Double.NaN, actualQuaternion);
-      GeometryBasicsTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
+      EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual vector
       Vector3D rotationVector = new Vector3D();
@@ -470,8 +470,8 @@ public class QuaternionConversionTest
          double rz = rotationVector.getZ();
          QuaternionConversion.convertRotationVectorToQuaternionImpl(rx, ry, rz, expectedQuaternion);
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, actualQuaternion);
-         GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
-         GeometryBasicsTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
          // Assert that the parameter does not get modified
          assertTrue(rotationVector.equals(rotationVectorCopy));
       }

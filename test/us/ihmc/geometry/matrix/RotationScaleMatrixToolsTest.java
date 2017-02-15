@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -34,7 +34,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.getRotationMatrix().transform(expectedVector, expectedVector);
 
       rotationScaleMatrix.transform(originalVector, actualVector);
-      GeometryBasicsTestTools.assertTuple3DEquals(expectedVector, actualVector, EPS);
+      EuclidCoreTestTools.assertTuple3DEquals(expectedVector, actualVector, EPS);
    }
 
    @Test
@@ -54,7 +54,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.getRotationMatrix().transform(expectedVector, expectedVector, true);
 
       rotationScaleMatrix.transform(originalVector, actualVector, true);
-      GeometryBasicsTestTools.assertTuple2DEquals(expectedVector, actualVector, EPS);
+      EuclidCoreTestTools.assertTuple2DEquals(expectedVector, actualVector, EPS);
 
       try
       {
@@ -80,7 +80,7 @@ public class RotationScaleMatrixToolsTest
 
       rotationScaleMatrix.getRotationMatrix().transform(originalQuaternion, expectedQuaternion);
       rotationScaleMatrix.transform(originalQuaternion, actualQuaternion);
-      GeometryBasicsTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPS);
+      EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPS);
    }
 
    @Test
@@ -98,7 +98,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.getRotationMatrix().transform(expectedVector, expectedVector);
 
       rotationScaleMatrix.transform(originalVector, actualVector);
-      GeometryBasicsTestTools.assertTuple4DEquals(expectedVector, actualVector, EPS);
+      EuclidCoreTestTools.assertTuple4DEquals(expectedVector, actualVector, EPS);
    }
 
    @Test
@@ -115,7 +115,7 @@ public class RotationScaleMatrixToolsTest
       expectedRotationMatrix.preMultiply(rotationScaleMatrix.getRotationMatrix());
 
       rotationScaleMatrix.transform(originalRotationMatrix, actualRotationMatrix);
-      GeometryBasicsTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, EPS);
+      EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, EPS);
    }
 
    @Test
@@ -134,7 +134,7 @@ public class RotationScaleMatrixToolsTest
       expectedMatrix.multiplyInvertOther(rotationScaleMatrix);
 
       rotationScaleMatrix.transform(originalMatrix, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
+      EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
    }
 
    @Test
@@ -150,7 +150,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.transform(originalVector, actualVector);
       assertFalse(expectedVector.epsilonEquals(actualVector, EPS));
       rotationScaleMatrix.inverseTransform(actualVector, actualVector);
-      GeometryBasicsTestTools.assertTuple3DEquals(expectedVector, actualVector, EPS);
+      EuclidCoreTestTools.assertTuple3DEquals(expectedVector, actualVector, EPS);
    }
 
    @Test
@@ -168,7 +168,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.transform(originalVector, actualVector, true);
       assertFalse(expectedVector.epsilonEquals(actualVector, EPS));
       rotationScaleMatrix.inverseTransform(actualVector, actualVector, true);
-      GeometryBasicsTestTools.assertTuple2DEquals(expectedVector, actualVector, EPS);
+      EuclidCoreTestTools.assertTuple2DEquals(expectedVector, actualVector, EPS);
 
       try
       {
@@ -195,6 +195,6 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.transform(originalVector, actualVector);
       assertFalse(expectedVector.epsilonEquals(actualVector, EPS));
       rotationScaleMatrix.inverseTransform(actualVector, actualVector);
-      GeometryBasicsTestTools.assertTuple4DEquals(expectedVector, actualVector, EPS);
+      EuclidCoreTestTools.assertTuple4DEquals(expectedVector, actualVector, EPS);
    }
 }

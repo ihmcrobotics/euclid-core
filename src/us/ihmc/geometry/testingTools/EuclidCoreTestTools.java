@@ -26,7 +26,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
-public abstract class GeometryBasicsTestTools
+public abstract class EuclidCoreTestTools
 {
    private static final String DEFAULT_FORMAT = getStringFormat(15, 12);
 

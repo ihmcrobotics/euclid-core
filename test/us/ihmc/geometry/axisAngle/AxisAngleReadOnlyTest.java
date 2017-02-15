@@ -17,7 +17,7 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
@@ -358,7 +358,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          axisAngle.getRotationVector(actualVector);
          RotationVectorConversion.convertAxisAngleToRotationVector(axisAngle, expectedVector);
 
-         GeometryBasicsTestTools.assertRotationVectorEquals(actualVector, expectedVector, getEpsilon());
+         EuclidCoreTestTools.assertRotationVectorEquals(actualVector, expectedVector, getEpsilon());
       }
    }
 
@@ -515,11 +515,11 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          QuaternionTools.transform(quaternion, tuple, expectedTuple);
          axisAngle.transform(actualTuple);
 
-         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
 
          axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
          axisAngle.transform(actualTuple);
-         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -535,12 +535,12 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          QuaternionTools.transform(quaternion, tuple, expectedTuple);
          axisAngle.transform(tuple, actualTuple);
 
-         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
 
          actualTuple = new Vector3D();
          axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
          axisAngle.transform(tuple, actualTuple);
-         GeometryBasicsTestTools.assertTuple3DEquals(tuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(tuple, actualTuple, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -556,17 +556,17 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.transform(quaternion, tuple, expectedTuple, false);
          axisAngle.transform(actualTuple);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
          actualTuple.set(tuple);
          axisAngle.transform(actualTuple, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
          actualTuple.set(tuple);
          axisAngle.transform(actualTuple, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
 
          axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
          axisAngle.transform(actualTuple);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -582,16 +582,16 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.transform(quaternion, tuple, expectedTuple, false);
          axisAngle.transform(tuple, actualTuple);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
          axisAngle.transform(tuple, actualTuple, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
          axisAngle.transform(tuple, actualTuple, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
 
          actualTuple = new Vector2D();
          axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
          axisAngle.transform(tuple, actualTuple);
-         GeometryBasicsTestTools.assertTuple2DEquals(tuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(tuple, actualTuple, getEpsilon());
       }
 
       // Test exceptions
@@ -668,19 +668,19 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          QuaternionTools.transform(quaternion, matrixOriginal, matrixExpected);
 
          axisAngle.transform(matrixOriginal, matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
 
          matrixActual.set(matrixOriginal);
          axisAngle.transform(matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
 
          axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
          axisAngle.transform(matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
 
          matrixActual = new Matrix3D();
          axisAngle.transform(matrixOriginal, matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixOriginal, matrixActual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixOriginal, matrixActual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -697,19 +697,19 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          qExpected.multiply(quaternion, qOriginal);
 
          axisAngle.transform(qOriginal, qActual);
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+         EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
 
          qActual.set(qOriginal);
          axisAngle.transform(qActual);
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+         EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
 
          axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
          axisAngle.transform(qActual);
-         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+         EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
 
          qActual = new Quaternion();
          axisAngle.transform(qOriginal, qActual);
-         GeometryBasicsTestTools.assertQuaternionEquals(qOriginal, qActual, getEpsilon());
+         EuclidCoreTestTools.assertQuaternionEquals(qOriginal, qActual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -726,19 +726,19 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          QuaternionTools.transform(quaternion, vectorOriginal, vectorExpected);
 
          axisAngle.transform(vectorOriginal, vectorActual);
-         GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
 
          vectorActual.set(vectorOriginal);
          axisAngle.transform(vectorActual);
-         GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
 
          axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
          axisAngle.transform(vectorActual);
-         GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
 
          vectorActual = new Vector4D();
          axisAngle.transform(vectorOriginal, vectorActual);
-         GeometryBasicsTestTools.assertTuple4DEquals(vectorOriginal, vectorActual, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(vectorOriginal, vectorActual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -755,19 +755,19 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          QuaternionTools.transform(quaternion, matrixOriginal, matrixExpected);
 
          axisAngle.transform(matrixOriginal, matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
 
          matrixActual.set(matrixOriginal);
          axisAngle.transform(matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
 
          axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
          axisAngle.transform(matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
 
          matrixActual = new RotationMatrix();
          axisAngle.transform(matrixOriginal, matrixActual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrixOriginal, matrixActual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixOriginal, matrixActual, getEpsilon());
       }
    }
 
@@ -791,7 +791,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple);
          axisAngle.inverseTransform(actualTuple);
 
-         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -807,7 +807,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple);
          axisAngle.inverseTransform(tuple, actualTuple);
 
-         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -823,13 +823,13 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple, false);
          axisAngle.inverseTransform(actualTuple);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
          actualTuple.set(tuple);
          axisAngle.inverseTransform(actualTuple, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
          actualTuple.set(tuple);
          axisAngle.inverseTransform(actualTuple, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -845,11 +845,11 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple, false);
          axisAngle.inverseTransform(tuple, actualTuple);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
          axisAngle.inverseTransform(tuple, actualTuple, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
          axisAngle.inverseTransform(tuple, actualTuple, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
       }
 
       // Test exceptions
@@ -924,7 +924,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
          axisAngle.inverseTransform(actual);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -939,7 +939,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
          axisAngle.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -954,7 +954,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
          axisAngle.inverseTransform(actual);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -969,7 +969,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
          axisAngle.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -984,7 +984,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
          axisAngle.inverseTransform(actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -999,7 +999,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
          axisAngle.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -1014,7 +1014,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
          axisAngle.inverseTransform(actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -1029,7 +1029,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.inverseTransform(quaternion, original, expected);
          axisAngle.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
       }
    }
 

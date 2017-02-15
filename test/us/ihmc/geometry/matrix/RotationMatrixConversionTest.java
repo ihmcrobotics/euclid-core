@@ -12,7 +12,7 @@ import org.junit.Test;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -49,7 +49,7 @@ public class RotationMatrixConversionTest
          assertEquals(yawMatrix.getM11(), Math.cos(yaw), EPSILON);
          assertEquals(yawMatrix.getM10(), Math.sin(yaw), EPSILON);
          assertEquals(yawMatrix.getM01(), -Math.sin(yaw), EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(yawMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(yawMatrix, EPSILON);
 
          for (double pitch = -Math.PI / 2.0; pitch <= Math.PI / 2.0; pitch += deltaAngle)
          {
@@ -64,7 +64,7 @@ public class RotationMatrixConversionTest
             assertEquals(pitchMatrix.getM22(), Math.cos(pitch), EPSILON);
             assertEquals(pitchMatrix.getM20(), -Math.sin(pitch), EPSILON);
             assertEquals(pitchMatrix.getM02(), Math.sin(pitch), EPSILON);
-            GeometryBasicsTestTools.assertRotationMatrix(pitchMatrix, EPSILON);
+            EuclidCoreTestTools.assertRotationMatrix(pitchMatrix, EPSILON);
 
             for (double roll = -Math.PI; roll <= Math.PI; roll += deltaAngle)
             {
@@ -79,33 +79,33 @@ public class RotationMatrixConversionTest
                assertEquals(rollMatrix.getM22(), Math.cos(roll), EPSILON);
                assertEquals(rollMatrix.getM12(), -Math.sin(roll), EPSILON);
                assertEquals(rollMatrix.getM21(), Math.sin(roll), EPSILON);
-               GeometryBasicsTestTools.assertRotationMatrix(rollMatrix, EPSILON);
+               EuclidCoreTestTools.assertRotationMatrix(rollMatrix, EPSILON);
 
                RotationMatrixTools.multiply(yawMatrix, pitchMatrix, expectedMatrix);
                RotationMatrixTools.multiply(expectedMatrix, rollMatrix, expectedMatrix);
-               GeometryBasicsTestTools.assertRotationMatrix(expectedMatrix, EPSILON);
+               EuclidCoreTestTools.assertRotationMatrix(expectedMatrix, EPSILON);
 
                RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitch, roll, actualMatrix);
-               GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
-               GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+               EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+               EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
             }
          }
       }
 
       RotationMatrixConversion.computeYawMatrix(0.0, actualMatrix);
-      GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
+      EuclidCoreTestTools.assertIdentity(actualMatrix, EPSILON);
 
       RotationMatrixConversion.computeYawMatrix(0.0, actualMatrix);
-      GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
+      EuclidCoreTestTools.assertIdentity(actualMatrix, EPSILON);
 
       RotationMatrixConversion.computePitchMatrix(0.0, actualMatrix);
-      GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
+      EuclidCoreTestTools.assertIdentity(actualMatrix, EPSILON);
 
       RotationMatrixConversion.computeRollMatrix(0.0, actualMatrix);
-      GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
+      EuclidCoreTestTools.assertIdentity(actualMatrix, EPSILON);
 
       RotationMatrixConversion.convertYawPitchRollToMatrix(0.0, 0.0, 0.0, actualMatrix);
-      GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
+      EuclidCoreTestTools.assertIdentity(actualMatrix, EPSILON);
    }
 
    @Test
@@ -126,26 +126,26 @@ public class RotationMatrixConversionTest
          double uz = expectedAxisAngle.getZ();
          double angle = expectedAxisAngle.getAngle();
          RotationMatrixConversion.convertAxisAngleToMatrix(ux, uy, uz, angle, actualMatrix);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
          // Here we assume that the axis angle conversion is already well tested
          AxisAngleConversion.convertMatrixToAxisAngle(actualMatrix, actualAxisAngle);
-         GeometryBasicsTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
       }
 
       RotationMatrixConversion.convertAxisAngleToMatrix(0.0, 0.0, 0.0, 1.0, actualMatrix);
-      GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
+      EuclidCoreTestTools.assertIdentity(actualMatrix, EPSILON);
 
       RotationMatrixConversion.convertAxisAngleToMatrix(Double.NaN, 0.0, 0.0, 0.0, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       RotationMatrixConversion.convertAxisAngleToMatrix(0.0, Double.NaN, 0.0, 0.0, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       RotationMatrixConversion.convertAxisAngleToMatrix(0.0, 0.0, Double.NaN, 0.0, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       RotationMatrixConversion.convertAxisAngleToMatrix(0.0, 0.0, 0.0, Double.NaN, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       // Test with an actual axis angle
       for (int i = 0; i < 1000; i++)
@@ -159,8 +159,8 @@ public class RotationMatrixConversionTest
          double angle = axisAngle.getAngle();
          RotationMatrixConversion.convertAxisAngleToMatrix(ux, uy, uz, angle, expectedMatrix);
          RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, actualMatrix);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
          // Assert that the parameter does not get modified
          assertTrue(axisAngle.equals(axisAngleCopy));
       }
@@ -169,18 +169,18 @@ public class RotationMatrixConversionTest
       {
          RotationMatrixConversion.computeRollMatrix(angle, expectedMatrix);
          RotationMatrixConversion.convertAxisAngleToMatrix(1.5 * random.nextDouble(), 0.0, 0.0, angle, actualMatrix);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
 
          RotationMatrixConversion.computePitchMatrix(angle, expectedMatrix);
          RotationMatrixConversion.convertAxisAngleToMatrix(0.0, 1.5 * random.nextDouble(), 0.0, angle, actualMatrix);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
 
          RotationMatrixConversion.computeYawMatrix(angle, expectedMatrix);
          RotationMatrixConversion.convertAxisAngleToMatrix(0.0, 0.0, 1.5 * random.nextDouble(), angle, actualMatrix);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
       }
    }
 
@@ -198,31 +198,31 @@ public class RotationMatrixConversionTest
       {
          expectedQuaternion = EuclidCoreRandomTools.generateRandomQuaternion(random, minMaxAngleRange);
          RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
          // Assuming the quaternion conversion is well tested
          QuaternionConversion.convertMatrixToQuaternion(actualMatrix, actualQuaternion);
-         GeometryBasicsTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
       }
 
       expectedQuaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
       RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-      GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
+      EuclidCoreTestTools.assertIdentity(actualMatrix, EPSILON);
 
       expectedQuaternion.setUnsafe(Double.NaN, 0.0, 0.0, 0.0);
       RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       expectedQuaternion.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
       RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       expectedQuaternion.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
       RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       expectedQuaternion.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
       RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       for (double angle = -2.0 * Math.PI; angle <= 2.0 * Math.PI; angle += 0.01 * Math.PI)
       {
@@ -230,20 +230,20 @@ public class RotationMatrixConversionTest
          RotationMatrixConversion.computeRollMatrix(angle, expectedMatrix);
          expectedQuaternion.setUnsafe(scale * sin(angle / 2.0), 0.0, 0.0, scale * cos(angle / 2.0));
          RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
 
          RotationMatrixConversion.computePitchMatrix(angle, expectedMatrix);
          expectedQuaternion.setUnsafe(0.0, scale * sin(angle / 2.0), 0.0, scale * cos(angle / 2.0));
          RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
 
          RotationMatrixConversion.computeYawMatrix(angle, expectedMatrix);
          expectedQuaternion.setUnsafe(0.0, 0.0, scale * sin(angle / 2.0), scale * cos(angle / 2.0));
          RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
       }
    }
 
@@ -263,38 +263,38 @@ public class RotationMatrixConversionTest
          double rz = axisAngle.getZ() * axisAngle.getAngle();
          RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, expectedMatrix);
          RotationMatrixConversion.convertRotationVectorToMatrix(rx, ry, rz, actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
       }
 
       RotationMatrixConversion.convertRotationVectorToMatrix(0.0, 0.0, 0.0, actualMatrix);
-      GeometryBasicsTestTools.assertIdentity(actualMatrix, EPSILON);
+      EuclidCoreTestTools.assertIdentity(actualMatrix, EPSILON);
 
       RotationMatrixConversion.convertRotationVectorToMatrix(Double.NaN, 0.0, 0.0, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       RotationMatrixConversion.convertRotationVectorToMatrix(0.0, Double.NaN, 0.0, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       RotationMatrixConversion.convertRotationVectorToMatrix(0.0, 0.0, Double.NaN, actualMatrix);
-      GeometryBasicsTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(actualMatrix);
 
       for (double angle = -Math.PI; angle <= Math.PI; angle += 0.01 * Math.PI)
       {
          RotationMatrixConversion.computeRollMatrix(angle, expectedMatrix);
          RotationMatrixConversion.convertRotationVectorToMatrix(angle, 0.0, 0.0, actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
 
          RotationMatrixConversion.computePitchMatrix(angle, expectedMatrix);
          RotationMatrixConversion.convertRotationVectorToMatrix(0.0, angle, 0.0, actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
 
          RotationMatrixConversion.computeYawMatrix(angle, expectedMatrix);
          RotationMatrixConversion.convertRotationVectorToMatrix(0.0, 0.0, angle, actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
       }
 
       // Test with an actual vector
@@ -307,8 +307,8 @@ public class RotationMatrixConversionTest
          double rz = rotationVector.getZ();
          RotationMatrixConversion.convertRotationVectorToMatrix(rx, ry, rz, expectedMatrix);
          RotationMatrixConversion.convertRotationVectorToMatrix(rotationVector, actualMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
-         GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPSILON);
+         EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
          assertTrue(rotationVector.equals(rotationVectorCopy));
       }
    }

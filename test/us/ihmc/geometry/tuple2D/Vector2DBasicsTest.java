@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;
@@ -145,7 +145,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          vector2.normalize();
          vector1.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.normalize();
-         GeometryBasicsTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -164,7 +164,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          T vector3 = createEmptyTuple();
          vector3.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.setAndNormalize(vector3);
-         GeometryBasicsTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
       }
    }
 
@@ -187,15 +187,15 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          rigidBodyTransform.transform(expected);
          actual.set(original);
          actual.applyTransform(rigidBodyTransform);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
          actual.set(original);
          actual.applyTransform(rigidBodyTransform, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
          actual.set(original);
          actual.applyTransform(rigidBodyTransform, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
          rigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
 

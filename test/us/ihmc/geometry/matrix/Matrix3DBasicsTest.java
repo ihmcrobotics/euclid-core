@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 
 public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matrix3DReadOnlyTest<T>
 {
@@ -32,7 +32,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
       T actualMatrix = createEmptyMatrix();
 
       actualMatrix.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
-      GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
+      EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
    }
 
    @Test
@@ -68,7 +68,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
          RotationMatrix expectedMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          T actualMatrix = createEmptyMatrix();
          actualMatrix.set(expectedMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -78,7 +78,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
          expectedMatrix.get(array);
          T actualMatrix = createEmptyMatrix();
          actualMatrix.set(array);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -89,7 +89,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
          expectedMatrix.get(startIndex, array);
          T actualMatrix = createEmptyMatrix();
          actualMatrix.set(startIndex, array);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -99,7 +99,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
          expectedMatrix.get(denseMatrix);
          T actualMatrix = createEmptyMatrix();
          actualMatrix.set(denseMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -111,7 +111,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
          expectedMatrix.get(startRow, startColumn, denseMatrix);
          T actualMatrix = createEmptyMatrix();
          actualMatrix.set(startRow, startColumn, denseMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
       }
    }
 }

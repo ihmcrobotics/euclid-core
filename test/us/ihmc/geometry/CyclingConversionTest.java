@@ -13,7 +13,7 @@ import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
@@ -153,19 +153,19 @@ public class CyclingConversionTest
             switch (nextRotationType)
             {
             case MATRIX:
-               GeometryBasicsTestTools.assertMatrix3DEquals(originalMatrix, (Matrix3DReadOnly) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertMatrix3DEquals(originalMatrix, (Matrix3DReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case AXISANGLE:
-               GeometryBasicsTestTools.assertAxisAngleEqualsSmart(originalAxisAngle, (AxisAngleReadOnly) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertAxisAngleEqualsSmart(originalAxisAngle, (AxisAngleReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case QUATERNION:
-               GeometryBasicsTestTools.assertQuaternionEqualsSmart(originalQuaternion, (QuaternionReadOnly) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertQuaternionEqualsSmart(originalQuaternion, (QuaternionReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case VECTOR:
-               GeometryBasicsTestTools.assertRotationVectorEquals(originalRotationVector, (Vector3DReadOnly) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertRotationVectorEquals(originalRotationVector, (Vector3DReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case YAW_PITCH_ROLL:
-               GeometryBasicsTestTools.assertYawPitchRollEquals(originalYawPitchRoll, (double[]) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertYawPitchRollEquals(originalYawPitchRoll, (double[]) nextRotationType.rotationHolder, epsilon);
             default:
                break;
             }

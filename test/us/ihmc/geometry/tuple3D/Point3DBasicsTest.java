@@ -7,7 +7,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
@@ -67,7 +67,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -81,7 +81,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -95,7 +95,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, 10.0 * getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, 10.0 * getEpsilon());
       }
    }
 }

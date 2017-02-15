@@ -10,7 +10,7 @@ import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.QuaternionTools;
@@ -93,7 +93,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
    public void testSetToZero()
    {
       T axisAngle = createAxisAngle(Double.NaN, Double.NaN, Double.NaN, Double.NaN);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
       axisAngle.setToZero();
       assertTrue(axisAngle.getX() == 1.0); // Set to default (x = 1.0, not 0.0)
       assertTrue(axisAngle.getY() == 0.0);
@@ -110,7 +110,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       assertTrue(axisAngle.getZ() == 0.0);
       assertTrue(axisAngle.getAngle() == 0.0);
       axisAngle.setToNaN();
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
       assertTrue(Double.isNaN(axisAngle.getX()));
       assertTrue(Double.isNaN(axisAngle.getY()));
       assertTrue(Double.isNaN(axisAngle.getZ()));
@@ -167,7 +167,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actualAxisAngle.normalizeAxis();
          randomAxis.normalize();
          T expectedAxisAngle = createAxisAngle(randomAxis.getX(), randomAxis.getY(), randomAxis.getZ(), randomAngle);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
       }
 
       T axisAngle = createAxisAngle(Double.NaN, 0.0, 0.0, 0.0);
@@ -216,11 +216,11 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          RotationMatrix identityExpected = new RotationMatrix();
          identityExpected.set(rotationMatrix);
          identityExpected.multiply(inverseRotationMatrix);
-         GeometryBasicsTestTools.assertIdentity(identityExpected, getEpsilon());
+         EuclidCoreTestTools.assertIdentity(identityExpected, getEpsilon());
 
          T zeroExpected = createEmptyAxisAngle();
          zeroExpected.multiply(axisAngle, inverseAxisAngle);
-         GeometryBasicsTestTools.assertAngleEquals(0.0, zeroExpected.getAngle(), getEpsilon());
+         EuclidCoreTestTools.assertAngleEquals(0.0, zeroExpected.getAngle(), getEpsilon());
       }
    }
 
@@ -265,7 +265,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          {
             expectedAxisAngle = createRandomAxisAngle(random);
             actualAxisAngle.set(expectedAxisAngle);
-            GeometryBasicsTestTools.assertAxisAngleEquals(actualAxisAngle, expectedAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(actualAxisAngle, expectedAxisAngle, getEpsilon());
          }
       }
 
@@ -274,7 +274,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          {
             expectedAxisAngle = createRandomAxisAngle(random);
             actualAxisAngle.set((AxisAngleReadOnly) expectedAxisAngle);
-            GeometryBasicsTestTools.assertAxisAngleEquals(actualAxisAngle, expectedAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(actualAxisAngle, expectedAxisAngle, getEpsilon());
          }
       }
 
@@ -284,7 +284,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             expectedAxisAngle = createRandomAxisAngle(random);
             double[] axisAngleArray = new double[] {expectedAxisAngle.getX(), expectedAxisAngle.getY(), expectedAxisAngle.getZ(), expectedAxisAngle.getAngle()};
             actualAxisAngle.set(axisAngleArray);
-            GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
       }
 
@@ -296,7 +296,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             double[] axisAngleArray = new double[4 + startIndex + random.nextInt(10)];
             expectedAxisAngle.get(startIndex, axisAngleArray);
             actualAxisAngle.set(startIndex, axisAngleArray);
-            GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
       }
 
@@ -335,7 +335,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
             actualAxisAngle.set(quaternion);
             AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, expectedAxisAngle);
-            GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
       }
 
@@ -345,7 +345,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
             actualAxisAngle.set(matrix);
             AxisAngleConversion.convertMatrixToAxisAngle(matrix, expectedAxisAngle);
-            GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
       }
 
@@ -355,7 +355,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             Vector3D rotationVector = EuclidCoreRandomTools.generateRandomRotationVector(random);
             actualAxisAngle.set(rotationVector);
             AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, expectedAxisAngle);
-            GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
       }
 
@@ -365,7 +365,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             double[] yawPitchRoll = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
             actualAxisAngle.setYawPitchRoll(yawPitchRoll);
             AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, expectedAxisAngle);
-            GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
       }
 
@@ -377,7 +377,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
             actualAxisAngle.setYawPitchRoll(yaw, pitch, roll);
             AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, expectedAxisAngle);
-            GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
       }
 
@@ -419,11 +419,11 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             aaActual.multiply(aaOther2);
 
             AxisAngleTools.multiply(aaOther1, aaOther2, aaExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             QuaternionTools.multiply(qOther1, qOther2, qExpected);
             aaExpected.set(qExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             // Corrupt axis of aaActual
             aaActual.set(aaOther1);
@@ -436,7 +436,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             aaActual.multiply(aaOther2);
             QuaternionTools.multiply(qOther1, qOther2, qExpected);
             aaExpected.set(qExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             // Corrupt axis of aaOther2
             aaActual.set(aaOther1);
@@ -449,16 +449,16 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
 
             aaActual.multiply(aaOther2);
             aaExpected.set(qExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             // Check that it doesn't anything for bad axis-angles
             aaActual.multiply(createAxisAngle(0.0, 0.0, 0.0, random.nextDouble()));
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             aaExpected.set(0.0, 0.0, 0.0, random.nextDouble());
             aaActual.set(aaExpected);
             aaActual.multiply(aaOther2);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
          }
       }
    }
@@ -485,11 +485,11 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             aaActual.multiplyInvertThis(aaOther2);
 
             AxisAngleTools.multiplyInvertLeft(aaOther1, aaOther2, aaExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             QuaternionTools.multiplyConjugateLeft(qOther1, qOther2, qExpected);
             aaExpected.set(qExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
          }
 
          { // Test multiplyInvertOther(AxisAngleReadOnly other)
@@ -498,10 +498,10 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             QuaternionTools.multiplyConjugateRight(qOther1, qOther2, qExpected);
 
             AxisAngleTools.multiplyInvertRight(aaOther1, aaOther2, aaExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             aaExpected.set(qExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
          }
       }
    }
@@ -528,11 +528,11 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             aaActual.preMultiply(aaOther2);
 
             AxisAngleTools.multiply(aaOther2, aaOther1, aaExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             QuaternionTools.multiply(qOther2, qOther1, qExpected);
             aaExpected.set(qExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
          }
       }
    }
@@ -559,11 +559,11 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             aaActual.preMultiplyInvertThis(aaOther2);
 
             AxisAngleTools.multiplyInvertRight(aaOther2, aaOther1, aaExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             QuaternionTools.multiplyConjugateRight(qOther2, qOther1, qExpected);
             aaExpected.set(qExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
          }
 
          { // Test multiplyInvertOther(AxisAngleReadOnly other)
@@ -572,10 +572,10 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             QuaternionTools.multiplyConjugateLeft(qOther2, qOther1, qExpected);
 
             AxisAngleTools.multiplyInvertLeft(aaOther2, aaOther1, aaExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
             aaExpected.set(qExpected);
-            GeometryBasicsTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
          }
       }
    }
@@ -603,12 +603,12 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actual.setZ(scale * actual.getZ());
          actual.appendYawRotation(yaw);
 
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
 
          expected.set(0.0, 0.0, 0.0, random.nextDouble());
          actual.set(expected);
          actual.appendYawRotation(yaw);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -625,12 +625,12 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actual.setZ(scale * actual.getZ());
          actual.appendPitchRotation(pitch);
 
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
 
          expected.set(0.0, 0.0, 0.0, random.nextDouble());
          actual.set(expected);
          actual.appendPitchRotation(pitch);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -647,12 +647,12 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actual.setZ(scale * actual.getZ());
          actual.appendRollRotation(roll);
 
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
 
          expected.set(0.0, 0.0, 0.0, random.nextDouble());
          actual.set(expected);
          actual.appendRollRotation(roll);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
       }
    }
 
@@ -679,12 +679,12 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actual.setZ(scale * actual.getZ());
          actual.prependYawRotation(yaw);
 
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
 
          expected.set(0.0, 0.0, 0.0, random.nextDouble());
          actual.set(expected);
          actual.prependYawRotation(yaw);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -701,12 +701,12 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actual.setZ(scale * actual.getZ());
          actual.prependPitchRotation(pitch);
 
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
 
          expected.set(0.0, 0.0, 0.0, random.nextDouble());
          actual.set(expected);
          actual.prependPitchRotation(pitch);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -723,12 +723,12 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actual.setZ(scale * actual.getZ());
          actual.prependRollRotation(roll);
 
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
 
          expected.set(0.0, 0.0, 0.0, random.nextDouble());
          actual.set(expected);
          actual.prependRollRotation(roll);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
       }
    }
 }

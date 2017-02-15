@@ -9,7 +9,7 @@ import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
@@ -51,7 +51,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          double scale = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          tuple1 = createTuple(scale * tuple2.getX(), scale * tuple2.getY(), scale * tuple2.getZ(), scale * tuple2.getS());
          tuple1.normalize();
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
 
          tuple1.setToNaN();
          tuple1.normalize();
@@ -76,7 +76,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          double scale = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          tuple3 = createTuple(scale * tuple2.getX(), scale * tuple2.getY(), scale * tuple2.getZ(), scale * tuple2.getS());
          tuple1.setAndNormalize(tuple3);
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
 
          tuple3.setToNaN();
          tuple1.setToZero();
@@ -184,14 +184,14 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
       { // Test set(T other)
          tuple2 = createRandomTuple(random);
          tuple1.set(tuple2);
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test set(Tuple3DReadOnly tupleReadOnly)
          tuple2 = createRandomTuple(random);
          tuple1.set((Tuple4DReadOnly) tuple2);
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -200,7 +200,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2 = createRandomTuple(random);
          tuple2.get(tupleArray);
          tuple1.set(tupleArray);
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -209,7 +209,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2 = createRandomTuple(random);
          tuple2.get(2, tupleArray);
          tuple1.set(2, tupleArray);
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -238,7 +238,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2 = createRandomTuple(random);
          tuple2.get(matrix);
          tuple1.set(matrix);
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -247,7 +247,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2 = createRandomTuple(random);
          tuple2.get(5, matrix);
          tuple1.set(5, matrix);
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -256,7 +256,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2 = createRandomTuple(random);
          tuple2.get(5, 2, matrix);
          tuple1.set(5, 2, matrix);
-         GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
    }
 }

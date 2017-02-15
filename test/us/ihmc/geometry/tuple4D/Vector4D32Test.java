@@ -9,7 +9,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
@@ -59,13 +59,13 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
       { // Test Vector4D32(QuaternionReadOnly quaternion)
          Quaternion32 quaternion = EuclidCoreRandomTools.generateRandomQuaternion32(random);
          Vector4D32 vector = new Vector4D32(quaternion);
-         GeometryBasicsTestTools.assertTuple4DEquals(quaternion, vector, EPS);
+         EuclidCoreTestTools.assertTuple4DEquals(quaternion, vector, EPS);
       }
 
       { // Test Vector4D32(Tuple4DReadOnly other)
          Tuple4DReadOnly quaternion = EuclidCoreRandomTools.generateRandomQuaternion32(random);
          Vector4D32 vector = new Vector4D32(quaternion);
-         GeometryBasicsTestTools.assertTuple4DEquals(quaternion, vector, EPS);
+         EuclidCoreTestTools.assertTuple4DEquals(quaternion, vector, EPS);
       }
 
       { // Test Vector4D(Vector3DReadOnly vector3D)

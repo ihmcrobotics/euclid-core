@@ -10,7 +10,7 @@ import org.junit.Test;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
@@ -148,7 +148,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          vector2.normalize();
          vector1.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.normalize();
-         GeometryBasicsTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
 
          vector1.setToNaN();
          vector1.normalize();
@@ -172,7 +172,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          T vector3 = createEmptyTuple();
          vector3.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.setAndNormalize(vector3);
-         GeometryBasicsTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
 
          vector3.setToNaN();
          vector1.setToZero();
@@ -198,7 +198,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -212,7 +212,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -226,7 +226,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, 10.0 * getEpsilon());
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, 10.0 * getEpsilon());
       }
    }
 }

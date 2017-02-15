@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 
@@ -38,8 +38,8 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
 
             AxisAngle axisAngle2 = new AxisAngle(axisAngle);
 
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, axisAngle2, EPS);
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
+            EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, axisAngle2, EPS);
+            EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
          }
       }
 
@@ -49,7 +49,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
             expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
             axisAngle = new AxisAngle(expected.getX(), expected.getY(), expected.getZ(), expected.getAngle());
 
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
+            EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
          }
       }
 
@@ -63,7 +63,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
 
             axisAngle = new AxisAngle(axisAngleArray);
 
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
+            EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
 
             for (int j = 0; j < axisAngleArray.length; j++)
                Assert.assertTrue(axisAngleArray[j] == axisAngleArrayCopy[j]);
@@ -86,7 +86,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
             Assert.assertTrue(axisAngle.getZ() == vectorAxis.getZ());
             Assert.assertTrue(axisAngle.getAngle() == angle);
 
-            GeometryBasicsTestTools.assertRotationVectorEquals(vectorAxis, vectorAxisCopy, EPS);
+            EuclidCoreTestTools.assertRotationVectorEquals(vectorAxis, vectorAxisCopy, EPS);
             Assert.assertTrue(angle == angleCopy);
          }
       }
@@ -101,8 +101,8 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
             AxisAngle expectedAxisAngle = new AxisAngle();
             AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, expectedAxisAngle);
 
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
-            GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
+            EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
+            EuclidCoreTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
          }
       }
 
@@ -120,11 +120,11 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
             AxisAngle expectedAxisAngle = new AxisAngle();
             AxisAngleConversion.convertMatrixToAxisAngle(matrix, expectedAxisAngle);
 
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
+            EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
 
             Assert.assertTrue(angle == angleCopy);
 
-            GeometryBasicsTestTools.assertMatrix3DEquals(matrix, matrixCopy, EPS);
+            EuclidCoreTestTools.assertMatrix3DEquals(matrix, matrixCopy, EPS);
          }
       }
 
@@ -138,8 +138,8 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
             AxisAngle expectedAxisAngle = new AxisAngle();
             AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, expectedAxisAngle);
 
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
-            GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
+            EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
+            EuclidCoreTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
          }
       }
 
@@ -152,7 +152,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
             AxisAngle expectedAxisAngle = new AxisAngle();
             AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, expectedAxisAngle);
 
-            GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
+            EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle, EPS);
          }
       }
    }

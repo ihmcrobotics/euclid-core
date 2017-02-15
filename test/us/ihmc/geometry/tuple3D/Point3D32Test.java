@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 
 public class Point3D32Test extends Point3DBasicsTest<Point3D32>
 {
@@ -59,7 +59,7 @@ public class Point3D32Test extends Point3DBasicsTest<Point3D32>
          Point3D32 point;
          Point3D32 point2 = EuclidCoreRandomTools.generateRandomPoint3D32(random);
          point = new Point3D32(point2);
-         GeometryBasicsTestTools.assertTuple3DEquals(point, point2, EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(point, point2, EPS);
       }
    }
 

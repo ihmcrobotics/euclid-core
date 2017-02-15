@@ -16,7 +16,7 @@ import org.junit.Test;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
@@ -58,8 +58,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Assert.assertTrue(matrix.getM21() == matrixArray[7]);
          Assert.assertTrue(matrix.getM22() == matrixArray[8]);
 
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrix, expectedMatrix, EPS);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrix, matrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrix, expectedMatrix, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrix, matrixCopy, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -68,7 +68,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          matrix = new Matrix3D(expectedMatrix.getM00(), expectedMatrix.getM01(), expectedMatrix.getM02(), expectedMatrix.getM10(), expectedMatrix.getM11(),
                                expectedMatrix.getM12(), expectedMatrix.getM20(), expectedMatrix.getM21(), expectedMatrix.getM22());
 
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrix, expectedMatrix, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrix, expectedMatrix, EPS);
       }
 
       for (int k = 0; k < NUMBER_OF_ITERATIONS; k++)
@@ -81,7 +81,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          matrix = new Matrix3D(matrixArray);
          Matrix3D matrix2 = new Matrix3D(matrix);
 
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrix, matrix2, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrix, matrix2, EPS);
 
          Assert.assertTrue(matrix.getM00() == matrixArray[0]);
          Assert.assertTrue(matrix.getM01() == matrixArray[1]);
@@ -153,14 +153,14 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
       {
          Matrix3D expectedMatrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          actualMatrix.set(expectedMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          Matrix3D expectedMatrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          actualMatrix.set((Matrix3DReadOnly) expectedMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -232,9 +232,9 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
          tildeMatrix.transform(vector2, expectedVector3);
 
-         GeometryBasicsTestTools.assertRotationVectorEquals(vector, vectorCopy, EPS);
-         GeometryBasicsTestTools.assertRotationVectorEquals(vector2, vector2Copy, EPS);
-         GeometryBasicsTestTools.assertRotationVectorEquals(vector3, expectedVector3, EPS);
+         EuclidCoreTestTools.assertRotationVectorEquals(vector, vectorCopy, EPS);
+         EuclidCoreTestTools.assertRotationVectorEquals(vector2, vector2Copy, EPS);
+         EuclidCoreTestTools.assertRotationVectorEquals(vector3, expectedVector3, EPS);
       }
    }
 
@@ -539,7 +539,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          matrix.multiplyOuter();
          Matrix3DTools.multiplyTransposeRight(expectedMatrix, expectedMatrix, expectedMatrix);
 
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrix, expectedMatrix, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrix, expectedMatrix, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -553,8 +553,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          expectedMatrix.set(matrix2);
          expectedMatrix.multiplyOuter();
 
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrix, expectedMatrix, EPS);
-         GeometryBasicsTestTools.assertMatrix3DEquals(matrix2, matrix2Copy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrix, expectedMatrix, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrix2, matrix2Copy, EPS);
       }
    }
 
@@ -583,12 +583,12 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.invert(matrix, expectedInvert);
          actualInvert.set(matrix);
          actualInvert.invert();
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedInvert, actualInvert, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedInvert, actualInvert, EPS);
 
          matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3DTools.invert(matrix, expectedInvert);
          actualInvert.setAndInvert(matrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedInvert, actualInvert, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedInvert, actualInvert, EPS);
       }
    }
 
@@ -607,7 +607,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.normalize(expectedMatrix);
          actualMatrix.set(matrix);
          actualMatrix.normalize();
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -617,7 +617,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          expectedMatrix.set(matrix);
          Matrix3DTools.normalize(expectedMatrix);
          actualMatrix.setAndNormalize(matrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
    }
 
@@ -668,7 +668,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiply(m1, m2, expected);
          actual.set(m1);
          actual.multiply(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -689,7 +689,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyTransposeLeft(m1, m2, expected);
          actual.set(m1);
          actual.multiplyTransposeThis(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -710,7 +710,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyInvertLeft(m1, m2, expected);
          actual.set(m1);
          actual.multiplyInvertThis(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -731,7 +731,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyTransposeRight(m1, m2, expected);
          actual.set(m1);
          actual.multiplyTransposeOther(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -752,19 +752,19 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyInvertRight(m1, m2, expected);
          actual.set(m1);
          actual.multiplyInvertOther(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
 
          RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          Matrix3DTools.multiplyInvertRight(m1, rotationMatrix, expected);
          actual.set(m1);
          actual.multiplyInvertOther(rotationMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
 
          RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          Matrix3DTools.multiplyInvertRight(m1, rotationScaleMatrix, expected);
          actual.set(m1);
          actual.multiplyInvertOther(rotationScaleMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -785,7 +785,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyTransposeBoth(m1, m2, expected);
          actual.set(m1);
          actual.multiplyTransposeBoth(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -806,7 +806,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiply(m2, m1, expected);
          actual.set(m1);
          actual.preMultiply(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -827,7 +827,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyTransposeRight(m2, m1, expected);
          actual.set(m1);
          actual.preMultiplyTransposeThis(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -848,7 +848,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyInvertRight(m2, m1, expected);
          actual.set(m1);
          actual.preMultiplyInvertThis(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -869,7 +869,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyTransposeLeft(m2, m1, expected);
          actual.set(m1);
          actual.preMultiplyTransposeOther(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -890,19 +890,19 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyInvertLeft(m2, m1, expected);
          actual.set(m1);
          actual.preMultiplyInvertOther(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
 
          RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          Matrix3DTools.multiplyInvertLeft(rotationMatrix, m1, expected);
          actual.set(m1);
          actual.preMultiplyInvertOther(rotationMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
 
          RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          Matrix3DTools.multiplyInvertLeft(rotationScaleMatrix, m1, expected);
          actual.set(m1);
          actual.preMultiplyInvertOther(rotationScaleMatrix);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -923,7 +923,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          Matrix3DTools.multiplyTransposeBoth(m2, m1, expected);
          actual.set(m1);
          actual.preMultiplyTransposeBoth(m2);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
 
@@ -1273,7 +1273,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -1287,7 +1287,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -1301,7 +1301,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          transform.transform(expected);
          actual.set(original);
          actual.applyTransform(transform);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
       }
    }
 

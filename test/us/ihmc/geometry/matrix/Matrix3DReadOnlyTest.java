@@ -14,7 +14,7 @@ import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Vector4D;
@@ -514,7 +514,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.transform(matrix, original, expected);
          actual.set(original);
          matrix.transform(actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -527,7 +527,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.transform(matrix, original, expected);
          matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -542,7 +542,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.addTransform(matrix, original, expected);
          actual.set(original);
          matrix.addTransform(actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -555,7 +555,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.addTransform(matrix, original, expected);
          matrix.addTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -573,7 +573,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.transform(matrix, original, expected, true);
          actual.set(original);
          matrix.transform(actual);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          matrix = createRandomMatrix(random);
          try
@@ -601,7 +601,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.transform(matrix, original, expected, true);
          matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          matrix = createRandomMatrix(random);
          try
@@ -630,7 +630,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.transform(matrix, original, expected, true);
          actual.set(original);
          matrix.transform(actual, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          matrix = createRandomMatrix(random);
          try
@@ -646,7 +646,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.transform(matrix, original, expected, false);
          actual.set(original);
          matrix.transform(actual, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -663,7 +663,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.transform(matrix, original, expected, true);
          matrix.transform(original, actual, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          matrix = createRandomMatrix(random);
          try
@@ -679,7 +679,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.transform(matrix, original, expected, false);
          actual.set(original);
          matrix.transform(original, actual, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -693,7 +693,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.transform(matrix, original, expected);
          actual.set(original);
          matrix.transform(actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -706,7 +706,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.transform(matrix, original, expected);
          matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, 10.0 * SMALL_EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, 10.0 * SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -720,7 +720,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.transform(matrix, original, expected);
          actual.set(original);
          matrix.transform(actual);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -733,7 +733,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.transform(matrix, original, expected);
          matrix.transform(original, actual);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
       }
    }
 
@@ -754,12 +754,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.inverseTransform(matrix, original, expected);
          actual.set(original);
          matrix.inverseTransform(actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -772,12 +772,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.inverseTransform(matrix, original, expected);
          matrix.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, 10.0 * SMALL_EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, 10.0 * SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -795,12 +795,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.inverseTransform(matrix, original, expected, true);
          actual.set(original);
          matrix.inverseTransform(actual);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          matrix = createRandomMatrix(random);
          try
@@ -828,12 +828,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.inverseTransform(matrix, original, expected, true);
          matrix.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          matrix = createRandomMatrix(random);
          try
@@ -862,12 +862,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.inverseTransform(matrix, original, expected, true);
          actual.set(original);
          matrix.inverseTransform(actual, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          matrix = createRandomMatrix(random);
          try
@@ -883,7 +883,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.inverseTransform(matrix, original, expected, false);
          actual.set(original);
          matrix.inverseTransform(actual, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -900,12 +900,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.inverseTransform(matrix, original, expected, true);
          matrix.inverseTransform(original, actual, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
 
          matrix = createRandomMatrix(random);
          try
@@ -921,7 +921,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.inverseTransform(matrix, original, expected, false);
          actual.set(original);
          matrix.inverseTransform(original, actual, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -935,12 +935,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.inverseTransform(matrix, original, expected);
          actual.set(original);
          matrix.inverseTransform(actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, epsilonMatrix);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, epsilonMatrix);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, epsilonMatrix);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, epsilonMatrix);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -953,12 +953,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.inverseTransform(matrix, original, expected);
          matrix.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, epsilonMatrix);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, epsilonMatrix);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, epsilonMatrix);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, epsilonMatrix);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -972,12 +972,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          Matrix3DTools.inverseTransform(matrix, original, expected);
          actual.set(original);
          matrix.inverseTransform(actual);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -990,12 +990,12 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
          Matrix3DTools.inverseTransform(matrix, original, expected);
          matrix.inverseTransform(original, actual);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
 
          Matrix3D matrixInverse = new Matrix3D();
          matrixInverse.setAndInvert(matrix);
          matrixInverse.transform(original, expected);
-         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, SMALL_EPS);
       }
    }
 

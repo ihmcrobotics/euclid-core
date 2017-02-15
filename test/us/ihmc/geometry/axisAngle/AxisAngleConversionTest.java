@@ -13,7 +13,7 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
 
@@ -57,7 +57,7 @@ public class AxisAngleConversionTest
          assertEquals(uy, axisAngle.getY(), EPSILON);
          assertEquals(uz, axisAngle.getZ(), EPSILON);
          assertEquals(angle, axisAngle.getAngle(), EPSILON);
-         GeometryBasicsTestTools.assertAxisUnitary(axisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisUnitary(axisAngle, EPSILON);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -72,8 +72,8 @@ public class AxisAngleConversionTest
          quaternion.setUnsafe(qx, qy, qz, qs);
          AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
 
-         GeometryBasicsTestTools.assertAxisAngleEqualsSmart(originalAxisAngle, axisAngle, EPSILON);
-         GeometryBasicsTestTools.assertAxisUnitary(axisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisAngleEqualsSmart(originalAxisAngle, axisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisUnitary(axisAngle, EPSILON);
       }
 
       // Test with a quaternion that is not unitary
@@ -104,27 +104,27 @@ public class AxisAngleConversionTest
       assertEquals(uy, axisAngle.getY(), EPSILON);
       assertEquals(uz, axisAngle.getZ(), EPSILON);
       assertEquals(angle, axisAngle.getAngle(), EPSILON);
-      GeometryBasicsTestTools.assertAxisUnitary(axisAngle, EPSILON);
+      EuclidCoreTestTools.assertAxisUnitary(axisAngle, EPSILON);
 
       quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
       AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
-      GeometryBasicsTestTools.assertAxisAngleIsSetToZero(axisAngle);
+      EuclidCoreTestTools.assertAxisAngleIsSetToZero(axisAngle);
 
       quaternion.setUnsafe(0.0, 0.0, 0.0, Double.NaN);
       AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
       quaternion.setUnsafe(0.0, 0.0, Double.NaN, 0.0);
       AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
       quaternion.setUnsafe(0.0, Double.NaN, 0.0, 0.0);
       AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
 
       quaternion.setUnsafe(Double.NaN, 0.0, 0.0, 0.0);
       AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, axisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(axisAngle);
    }
 
    @Test
@@ -143,21 +143,21 @@ public class AxisAngleConversionTest
          double rz = expectedAxisAngle.getZ() * expectedAxisAngle.getAngle();
          AxisAngleConversion.convertRotationVectorToAxisAngle(rx, ry, rz, actualAxisAngle);
 
-         GeometryBasicsTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
-         GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
       }
 
       AxisAngleConversion.convertRotationVectorToAxisAngle(0.0, 0.0, 0.0, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleIsSetToZero(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleIsSetToZero(actualAxisAngle);
 
       AxisAngleConversion.convertRotationVectorToAxisAngle(Double.NaN, 0.0, 0.0, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
 
       AxisAngleConversion.convertRotationVectorToAxisAngle(0.0, Double.NaN, 0.0, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
 
       AxisAngleConversion.convertRotationVectorToAxisAngle(0.0, 0.0, Double.NaN, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
 
       // Test with an actual vector
       for (int i = 0; i < 1000; i++)
@@ -167,8 +167,8 @@ public class AxisAngleConversionTest
          AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), expectedAxisAngle);
          AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, actualAxisAngle);
 
-         GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, EPSILON);
-         GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
          // Assert that the parameter does not get modified
          assertTrue(rotationVector.equals(rotationVectorCopy));
       }
@@ -210,8 +210,8 @@ public class AxisAngleConversionTest
          rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
 
-         GeometryBasicsTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
-         GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -245,8 +245,8 @@ public class AxisAngleConversionTest
          rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
 
-         GeometryBasicsTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
-         GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
       }
 
       // Test edge cases
@@ -256,7 +256,7 @@ public class AxisAngleConversionTest
       m10 = m20 = m21 = 0.0;
       rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleIsSetToZero(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleIsSetToZero(actualAxisAngle);
 
       // Pi/2 around x
       m00 = 1.0;
@@ -414,31 +414,31 @@ public class AxisAngleConversionTest
 
       rotationMatrix.setUnsafe(Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
       rotationMatrix.setUnsafe(0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
       rotationMatrix.setUnsafe(0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0, 0.0);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0, 0.0);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN, 0.0);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
       AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, actualAxisAngle);
-      GeometryBasicsTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
+      EuclidCoreTestTools.assertAxisAngleContainsOnlyNaN(actualAxisAngle);
 
       // Test with a RotationScaleMatrix
       for (int i = 0; i < 1000; i++)
@@ -456,8 +456,8 @@ public class AxisAngleConversionTest
          m22 = rotationScaleMatrix.getRotationMatrix().getM22();
          AxisAngleConversion.convertMatrixToAxisAngle(rotationScaleMatrix, actualAxisAngle);
          AxisAngleConversion.convertMatrixToAxisAngle(rotationScaleMatrix.getRotationMatrix(), expectedAxisAngle);
-         GeometryBasicsTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, EPSILON);
-         GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
          // Assert the parameter does not get modified
          assertEquals(rotationScaleMatrix, rotationScaleMatrixCopy);
       }
@@ -499,9 +499,9 @@ public class AxisAngleConversionTest
                rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
                AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, expectedAxisAngle);
                AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, actualAxisAngle);
-               GeometryBasicsTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
+               EuclidCoreTestTools.assertAxisUnitary(actualAxisAngle, EPSILON);
 
-               GeometryBasicsTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
+               EuclidCoreTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
             }
          }
       }

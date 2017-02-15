@@ -10,7 +10,7 @@ import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
 import us.ihmc.geometry.TupleTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 
@@ -92,7 +92,7 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
          tuple2.setY(random.nextDouble());
 
          tuple1.set(tuple2);
-         GeometryBasicsTestTools.assertTuple2DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(tuple1, tuple2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -101,7 +101,7 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
          tuple2.setY(random.nextDouble());
 
          tuple1.set((Tuple2DReadOnly) tuple2);
-         GeometryBasicsTestTools.assertTuple2DEquals(tuple1, tuple2, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(tuple1, tuple2, getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)

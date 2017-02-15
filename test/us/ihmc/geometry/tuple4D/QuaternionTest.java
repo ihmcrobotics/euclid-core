@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 
 public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
@@ -27,7 +27,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 
       { // Test Quaternion()
          expected.setToZero();
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
+         EuclidCoreTestTools.assertQuaternionEquals(quaternion, expected, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -35,8 +35,8 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          quaternion = quaternionCopy = EuclidCoreRandomTools.generateRandomQuaternion(random);
          Quaternion quaternion2 = new Quaternion(quaternion);
 
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternion2, EPS);
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
+         EuclidCoreTestTools.assertQuaternionEquals(quaternion, quaternion2, EPS);
+         EuclidCoreTestTools.assertQuaternionEquals(quaternion, quaternionCopy, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -45,7 +45,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          expected.normalizeAndLimitToPiMinusPi();
          quaternion = new Quaternion(expected.getX(), expected.getY(), expected.getZ(), expected.getS());
 
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
+         EuclidCoreTestTools.assertQuaternionEquals(quaternion, expected, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -57,7 +57,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 
          quaternion = new Quaternion(quaternionArray);
 
-         GeometryBasicsTestTools.assertQuaternionEquals(expected, quaternion, EPS);
+         EuclidCoreTestTools.assertQuaternionEquals(expected, quaternion, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -68,8 +68,8 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          quaternion = new Quaternion(rotationMatrix);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expected);
 
-         GeometryBasicsTestTools.assertQuaternionEquals(expected, quaternion, EPS);
-         GeometryBasicsTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertQuaternionEquals(expected, quaternion, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -80,8 +80,8 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          quaternion = new Quaternion(rotationVector);
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expected);
 
-         GeometryBasicsTestTools.assertQuaternionEquals(quaternion, expected, EPS);
-         GeometryBasicsTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
+         EuclidCoreTestTools.assertQuaternionEquals(quaternion, expected, EPS);
+         EuclidCoreTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
       }
    }
 

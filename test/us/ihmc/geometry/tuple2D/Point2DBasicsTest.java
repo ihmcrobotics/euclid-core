@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 
@@ -70,15 +70,15 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          rigidBodyTransform.transform(expected);
          actual.set(original);
          actual.applyTransform(rigidBodyTransform);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
          actual.set(original);
          actual.applyTransform(rigidBodyTransform, false);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
          actual.set(original);
          actual.applyTransform(rigidBodyTransform, true);
-         GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
          rigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
 
