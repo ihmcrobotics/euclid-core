@@ -4,15 +4,17 @@ plugins {
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 
 sourceCompatibility = 1.8
-version = '0.1'
+version = '0.2'
 
 project.ext.fullVersion = version
-project.ext.vcsUrl = "https://github.com/ihmcrobotics/ihmc-geometry-basics"
+project.ext.vcsUrl = "https://github.com/ihmcrobotics/euclid-core"
 project.ext.licenseURL = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-project.ext.licenseName = "Apache License, Version 2.0"
+project.ext.licenseName = "The Apache Software License, Version 2.0"
 project.ext.bintrayLicenseName = "Apache-2.0"
+project.ext.publicationName = "euclid-core"
 
 jar {
     manifest {
@@ -38,7 +40,7 @@ publishing {
    publications {
       mavenJava(MavenPublication) {
          groupId "us.ihmc"
-         artifactId project.name
+         artifactId project.ext.publicationName
          version "$version"
          from components.java
 		 
@@ -46,12 +48,12 @@ publishing {
              asNode().children().last() + {
                  resolveStrategy = Closure.DELEGATE_FIRST
                  name project.name
-                 description 'IHMC Geometry Basics is library providing the common tools useful for geometric applications.'
-                 url 'https://github.com/ihmcrobotics/ihmc-geometry-basics'
+                 description 'Euclid Core is library providing the common tools useful for geometric applications and vectorial math.'
+                 url project.ext.vcsUrl
                  licenses {
                      license {
-                         name 'The Apache Software License, Version 2.0'
-                         url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                         name project.ext.licenseName
+                         url project.ext.licenseURL
                          distribution 'repo'
                      }
                  }
@@ -77,10 +79,37 @@ publishing {
    }
 }
 
-def labels = ['ihmc', 'geometry', 'java']
-ihmc.configureForIHMCOpenSourceBintrayPublish(false, "mavenJava", "maven-release", labels)
+bintray {
+   user = bintray_user
+   key = bintray_key
 
-repositories ihmc.ihmcDefaultArtifactProxies()
+   dryRun = false
+   publish = false
+
+   publications = ["mavenJava"]
+
+   pkg {
+      repo = "maven-release"
+      name = project.ext.publicationName
+      userOrg = 'ihmcrobotics'
+      desc = "IHMC Open Robotics Software Project ${project.name}"
+
+      websiteUrl = project.ext.vcsUrl
+      issueTrackerUrl = "${project.ext.vcsUrl}/issues"
+      vcsUrl = "${project.ext.vcsUrl}.git"
+
+      licenses = [project.ext.bintrayLicenseName]
+      labels = ['ihmc', 'java', 'geometry', 'vector', 'math']
+      publicDownloadNumbers = true
+
+      version {
+         name = project.ext.fullVersion
+         desc = "IHMC Open Robotics Software Project ${project.name} v${project.ext.fullVersion}"
+         released = new Date()
+         vcsTag = "v${project.version}"
+      }
+   }
+}
 
 repositories {
    mavenLocal()
