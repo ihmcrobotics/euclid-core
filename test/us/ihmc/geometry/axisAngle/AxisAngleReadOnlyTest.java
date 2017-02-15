@@ -1,11 +1,10 @@
 package us.ihmc.geometry.axisAngle;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.EuclidCoreTools;
@@ -14,6 +13,7 @@ import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
+import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 {
@@ -331,6 +331,45 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          RotationVectorConversion.convertAxisAngleToRotationVector(axisAngle, expectedVector);
 
          GeometryBasicsTestTools.assertRotationVectorEquals(actualVector, expectedVector, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testGetYawPitchRoll() throws Exception
+   {
+      Random random = new Random(2342L);
+      T axisAngle;
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         axisAngle = createRandomAxisAngle(random);
+
+         { // Test getYawPitchRoll(double[] yawPitchRollToPack)
+            double[] yawPitchRoll = new double[4];
+            axisAngle.getYawPitchRoll(yawPitchRoll);
+            double[] expectedYawPitchRoll = new double[4];
+            YawPitchRollConversion.convertAxisAngleToYawPitchRoll(axisAngle, expectedYawPitchRoll);
+
+            for (int j = 0; j < yawPitchRoll.length; j++)
+               Assert.assertEquals(yawPitchRoll[j], expectedYawPitchRoll[j], getEpsilon());
+         }
+
+         { // Test getYaw()
+            double yaw = axisAngle.getYaw();
+            double expectedYaw = YawPitchRollConversion.computeYaw(axisAngle);
+            Assert.assertEquals(yaw, expectedYaw, getEpsilon());
+         }
+
+         { // Test getPitch()
+            double pitch = axisAngle.getPitch();
+            double expectedPitch = YawPitchRollConversion.computePitch(axisAngle);
+            Assert.assertEquals(pitch, expectedPitch, getEpsilon());
+         }
+
+         { // Test getRoll()
+            double roll = axisAngle.getRoll();
+            double expectedRoll = YawPitchRollConversion.computeRoll(axisAngle);
+            Assert.assertEquals(roll, expectedRoll, getEpsilon());
+         }
       }
    }
 

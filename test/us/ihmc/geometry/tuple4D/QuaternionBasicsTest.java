@@ -201,10 +201,10 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    public void testGetYawPitchRoll()
    {
       Random random = new Random(654651351L);
-      Quaternion quaternion;
+      T quaternion;
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         quaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         quaternion = createRandomTuple(random);
 
          { // Test getYawPitchRoll(double[] yawPitchRollToPack)
             double[] yawPitchRoll = new double[4];

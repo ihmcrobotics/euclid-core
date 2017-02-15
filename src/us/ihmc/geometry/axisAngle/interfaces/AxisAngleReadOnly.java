@@ -4,6 +4,7 @@ import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
+import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 /**
  * Read-only interface for an axis-angle object.
@@ -162,6 +163,63 @@ public interface AxisAngleReadOnly
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertAxisAngleToRotationVector(this, rotationVectorToPack);
+   }
+
+   /**
+    * Computes and packs the orientation described by this axis-angle as the yaw-pitch-roll angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    */
+   default void getYawPitchRoll(double[] yawPitchRollToPack)
+   {
+      YawPitchRollConversion.convertAxisAngleToYawPitchRoll(this, yawPitchRollToPack);
+   }
+
+   /**
+    * Computes and returns the yaw angle from the yaw-pitch-roll representation of this axis-angle.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the yaw angle around the z-axis.
+    */
+   default double getYaw()
+   {
+      return YawPitchRollConversion.computeYaw(this);
+   }
+
+   /**
+    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this
+    * axis-angle.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the pitch angle around the y-axis.
+    */
+   default double getPitch()
+   {
+      return YawPitchRollConversion.computePitch(this);
+   }
+
+   /**
+    * Computes and returns the roll angle from the yaw-pitch-roll representation of this axis-angle.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the roll angle around the x-axis.
+    */
+   default double getRoll()
+   {
+      return YawPitchRollConversion.computeRoll(this);
    }
 
    /**
