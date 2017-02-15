@@ -79,9 +79,12 @@ publishing {
    }
 }
 
+def bintrayUsernameString = project.hasProperty("bintray_user") ? bintray_user : "unknown"
+def bintrayPasswordString = project.hasProperty("bintray_key") ? bintray_key : "unknown"
+
 bintray {
-   user = bintray_user
-   key = bintray_key
+   user = bintrayUsernameString
+   key = bintrayPasswordString
 
    dryRun = false
    publish = false
