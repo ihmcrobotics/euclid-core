@@ -8,7 +8,7 @@ import java.util.Random;
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
@@ -48,7 +48,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
 
          T tuple2 = createRandomTuple(random);
          tuple2.normalize();
-         double scale = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          tuple1 = createTuple(scale * tuple2.getX(), scale * tuple2.getY(), scale * tuple2.getZ(), scale * tuple2.getS());
          tuple1.normalize();
          GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
@@ -73,7 +73,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2 = createRandomTuple(random);
          tuple2.normalize();
          T tuple3 = createEmptyTuple();
-         double scale = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          tuple3 = createTuple(scale * tuple2.getX(), scale * tuple2.getY(), scale * tuple2.getZ(), scale * tuple2.getS());
          tuple1.setAndNormalize(tuple3);
          GeometryBasicsTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());

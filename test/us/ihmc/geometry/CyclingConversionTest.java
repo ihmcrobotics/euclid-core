@@ -12,7 +12,7 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
@@ -70,23 +70,23 @@ public class CyclingConversionTest
          switch (initialRotationType)
          {
          case MATRIX:
-            originalMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+            originalMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
             initialRotationType.rotationHolder = new RotationMatrix(originalMatrix);
             break;
          case AXISANGLE:
-            originalAxisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+            originalAxisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random);
             initialRotationType.rotationHolder = new AxisAngle(originalAxisAngle);
             break;
          case QUATERNION:
-            originalQuaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+            originalQuaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
             initialRotationType.rotationHolder = new Quaternion(originalQuaternion);
             break;
          case VECTOR:
-            originalRotationVector = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+            originalRotationVector = EuclidCoreRandomTools.generateRandomRotationVector(random);
             initialRotationType.rotationHolder = new Vector3D(originalRotationVector);
             break;
          case YAW_PITCH_ROLL:
-            originalYawPitchRoll = GeometryBasicsRandomTools.generateRandomYawPitchRoll(random);
+            originalYawPitchRoll = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
             initialRotationType.rotationHolder = new double[3];
             System.arraycopy(originalYawPitchRoll, 0, initialRotationType.rotationHolder, 0, 3);
             break;

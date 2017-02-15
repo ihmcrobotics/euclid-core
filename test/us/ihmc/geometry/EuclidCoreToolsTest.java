@@ -9,7 +9,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 
 public class EuclidCoreToolsTest
 {
@@ -40,7 +40,7 @@ public class EuclidCoreToolsTest
 
       for (int i = 0; i < 1000; i++)
       {
-         double squaredValue = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0 - EPS_NORM_FAST_SQRT, 1.0 + EPS_NORM_FAST_SQRT);
+         double squaredValue = EuclidCoreRandomTools.generateRandomDouble(random, 1.0 - EPS_NORM_FAST_SQRT, 1.0 + EPS_NORM_FAST_SQRT);
          squaredValue = Math.max(squaredValue, 1.0 + EPS_NORM_FAST_SQRT);
 
          double actualValue = EuclidCoreTools.fastSquareRoot(squaredValue);

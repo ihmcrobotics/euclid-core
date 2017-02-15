@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 
 public class Point2D32Test extends Point2DBasicsTest<Point2D32>
 {
@@ -52,7 +52,7 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point2D32(TupleBasics tuple)
-         Point2D32 point2 = GeometryBasicsRandomTools.generateRandomPoint2D32(random);
+         Point2D32 point2 = EuclidCoreRandomTools.generateRandomPoint2D32(random);
 
          point = new Point2D32(point2);
 
@@ -89,7 +89,7 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      Point2D32 point = GeometryBasicsRandomTools.generateRandomPoint2D32(random);
+      Point2D32 point = EuclidCoreRandomTools.generateRandomPoint2D32(random);
 
       int newHashCode, previousHashCode;
       newHashCode = point.hashCode();
@@ -127,6 +127,6 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
    @Override
    public Point2D32 createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomPoint2D32(random);
+      return EuclidCoreRandomTools.generateRandomPoint2D32(random);
    }
 }

@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 
 public class Vector3DTest extends Vector3DBasicsTest<Vector3D>
 {
@@ -92,7 +92,7 @@ public class Vector3DTest extends Vector3DBasicsTest<Vector3D>
    @Override
    public Vector3D createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomRotationVector(random);
+      return EuclidCoreRandomTools.generateRandomRotationVector(random);
    }
 
    @Override

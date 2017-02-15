@@ -6,7 +6,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
@@ -23,8 +23,8 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
-         double expectedDistance = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
+         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY(), p1.getZ() + translation.getZ());
@@ -40,8 +40,8 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D translation = GeometryBasicsRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
-         double expectedDistanceSquared = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY(), p1.getZ() + translation.getZ());
@@ -58,7 +58,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -72,7 +72,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -86,7 +86,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();

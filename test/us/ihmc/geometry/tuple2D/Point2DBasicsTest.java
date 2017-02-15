@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
@@ -23,8 +23,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector2D translation = GeometryBasicsRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
-         double expectedDistance = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
+         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY());
@@ -40,8 +40,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector2D translation = GeometryBasicsRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
-         double expectedDistanceSquared = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY());
@@ -63,8 +63,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          T expected = createEmptyTuple();
 
          RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
-         rigidBodyTransform.setRotationYaw(GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI));
-         rigidBodyTransform.setTranslation(GeometryBasicsRandomTools.generateRandomVector3D(random, 0.0, 10.0));
+         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.generateRandomDouble(random, Math.PI));
+         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0));
 
          expected.set(original);
          rigidBodyTransform.transform(expected);
@@ -80,7 +80,7 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          actual.applyTransform(rigidBodyTransform, true);
          GeometryBasicsTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
-         rigidBodyTransform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         rigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
 
          try
          {

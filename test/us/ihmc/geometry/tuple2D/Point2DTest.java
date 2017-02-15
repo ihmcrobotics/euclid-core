@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 
 public class Point2DTest extends Point2DBasicsTest<Point2D>
 {
@@ -95,6 +95,6 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
    @Override
    public Point2D createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomPoint2D(random);
+      return EuclidCoreRandomTools.generateRandomPoint2D(random);
    }
 }

@@ -9,7 +9,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.TupleTools;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
@@ -69,7 +69,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T tuple = createEmptyTuple();
-         Point3D point3D = GeometryBasicsRandomTools.generateRandomPoint3D(random);
+         Point3D point3D = EuclidCoreRandomTools.generateRandomPoint3D(random);
          tuple.set(point3D);
          for (int index = 0; index < 3; index++)
             assertEquals(tuple.get(index), point3D.get(index), getEpsilon());
@@ -79,7 +79,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T tuple = createEmptyTuple();
-         Vector3D vector3D = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector3D vector3D = EuclidCoreRandomTools.generateRandomVector3D(random);
          tuple.set(vector3D);
          for (int index = 0; index < 3; index++)
             assertEquals(tuple.get(index), vector3D.get(index), getEpsilon());
@@ -705,7 +705,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -719,7 +719,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -733,7 +733,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();

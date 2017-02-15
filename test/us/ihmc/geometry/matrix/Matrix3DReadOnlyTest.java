@@ -13,7 +13,7 @@ import org.junit.Test;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple3D.Vector3D;
@@ -133,7 +133,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
    public void testGetDenseMatrix() throws Exception
    {
       Random random = new Random(4356L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      Matrix3D matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
       DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
       matrix.get(denseMatrix);
@@ -259,7 +259,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
    public void testGetRow() throws Exception
    {
       Random random = new Random(6465L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      Matrix3D matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
       double[] rowArray = new double[3];
       matrix.getRow(0, rowArray);
@@ -409,7 +409,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       Random random = new Random(3242L);
       // Let's just do a trivial test here. A more thorough test is done in Matrix3DFeaturesTest
 
-      double d = GeometryBasicsRandomTools.generateRandomDouble(random, 5.0);
+      double d = EuclidCoreRandomTools.generateRandomDouble(random, 5.0);
       T matrix = createMatrix(0.0, 0.0, d, 0.0, 0.0, d, d, d, d);
       try
       {
@@ -465,7 +465,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       // Let's just do a trivial test here. A more thorough test is done in Matrix3DFeaturesTest
 
       T matrix;
-      double d = GeometryBasicsRandomTools.generateRandomDouble(random, 5.0);
+      double d = EuclidCoreRandomTools.generateRandomDouble(random, 5.0);
       matrix = createMatrix(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
       assertTrue(matrix.isMatrix2D());
       assertTrue(matrix.isMatrix2D(SMALL_EPS));
@@ -485,7 +485,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       // Let's just do a trivial test here. A more thorough test is done in Matrix3DFeaturesTest
 
       T matrix;
-      double d = GeometryBasicsRandomTools.generateRandomDouble(random, 5.0);
+      double d = EuclidCoreRandomTools.generateRandomDouble(random, 5.0);
       matrix = createMatrix(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
       assertFalse(matrix.isMatrixSkewSymmetric());
       assertFalse(matrix.isMatrixSkewSymmetric(SMALL_EPS));
@@ -505,7 +505,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Tuple3DBasics tupleToTransform)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector3D original = EuclidCoreRandomTools.generateRandomVector3D(random);
          Vector3D actual = new Vector3D();
          Vector3D expected = new Vector3D();
 
@@ -519,7 +519,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector3D original = EuclidCoreRandomTools.generateRandomVector3D(random);
          Vector3D actual = new Vector3D();
          Vector3D expected = new Vector3D();
 
@@ -532,7 +532,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // addTransform(Tuple3DBasics tupleToTransform)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector3D original = EuclidCoreRandomTools.generateRandomVector3D(random);
          Vector3D actual = new Vector3D();
          Vector3D expected = new Vector3D();
 
@@ -547,8 +547,8 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
-         Vector3D actual = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector3D original = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D actual = EuclidCoreRandomTools.generateRandomVector3D(random);
          Vector3D expected = new Vector3D(actual);
 
          T matrix = createRandomMatrix(random);
@@ -560,11 +560,11 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Tuple2DBasics tupleToTransform)
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
 
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          double cYaw = Math.cos(yaw);
          double sYaw = Math.sin(yaw);
 
@@ -589,11 +589,11 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
 
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          double cYaw = Math.cos(yaw);
          double sYaw = Math.sin(yaw);
 
@@ -617,11 +617,11 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
 
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          double cYaw = Math.cos(yaw);
          double sYaw = Math.sin(yaw);
 
@@ -651,11 +651,11 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
 
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          double cYaw = Math.cos(yaw);
          double sYaw = Math.sin(yaw);
 
@@ -684,7 +684,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Matrix3D matrixToTransform)
-         Matrix3D original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D();
          Matrix3D expected = new Matrix3D();
 
@@ -698,7 +698,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
-         Matrix3D original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D();
          Matrix3D expected = new Matrix3D();
 
@@ -711,7 +711,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Vector4DBasics vectorToTransform)
-         Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4D original = EuclidCoreRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          Vector4D expected = new Vector4D();
 
@@ -725,7 +725,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-         Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4D original = EuclidCoreRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          Vector4D expected = new Vector4D();
 
@@ -745,7 +745,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Tuple3DBasics tupleToTransform)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector3D original = EuclidCoreRandomTools.generateRandomVector3D(random);
          Vector3D actual = new Vector3D();
          Vector3D expected = new Vector3D();
 
@@ -764,7 +764,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
-         Vector3D original = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Vector3D original = EuclidCoreRandomTools.generateRandomVector3D(random);
          Vector3D actual = new Vector3D();
          Vector3D expected = new Vector3D();
 
@@ -782,11 +782,11 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Tuple2DBasics tupleToTransform)
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
 
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          double cYaw = Math.cos(yaw);
          double sYaw = Math.sin(yaw);
 
@@ -816,11 +816,11 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
 
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          double cYaw = Math.cos(yaw);
          double sYaw = Math.sin(yaw);
 
@@ -849,11 +849,11 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
 
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          double cYaw = Math.cos(yaw);
          double sYaw = Math.sin(yaw);
 
@@ -888,11 +888,11 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
-         Vector2D original = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
          Vector2D actual = new Vector2D();
          Vector2D expected = new Vector2D();
 
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          double cYaw = Math.cos(yaw);
          double sYaw = Math.sin(yaw);
 
@@ -926,7 +926,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Matrix3D matrixToTransform)
-         Matrix3D original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D();
          Matrix3D expected = new Matrix3D();
 
@@ -945,7 +945,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
-         Matrix3D original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D();
          Matrix3D expected = new Matrix3D();
 
@@ -963,7 +963,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Vector4DBasics vectorToTransform)
-         Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4D original = EuclidCoreRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          Vector4D expected = new Vector4D();
 
@@ -982,7 +982,7 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-         Vector4D original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4D original = EuclidCoreRandomTools.generateRandomVector4D(random);
          Vector4D actual = new Vector4D();
          Vector4D expected = new Vector4D();
 

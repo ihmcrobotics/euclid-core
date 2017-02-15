@@ -13,7 +13,7 @@ import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
@@ -129,8 +129,8 @@ public class YawPitchRollConversionTest
       for (int i = 0; i < 1000; i++)
       {
          double pitchOverMax = YawPitchRollConversion.MAX_PITCH_ANGLE + EPSILON;
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
-         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
          RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitchOverMax, roll, matrix);
 
          actualYaw = YawPitchRollConversion.computeYaw(matrix);
@@ -168,8 +168,8 @@ public class YawPitchRollConversionTest
       for (int i = 0; i < 1000; i++)
       {
          double pitchUnderMin = YawPitchRollConversion.MIN_PITCH_ANGLE - EPSILON;
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
-         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
          RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitchUnderMin, roll, matrix);
 
          actualYaw = YawPitchRollConversion.computeYaw(matrix);
@@ -304,7 +304,7 @@ public class YawPitchRollConversionTest
             for (double pitch = MIN_PITCH_ANGLE; pitch <= MAX_PITCH_ANGLE; pitch += deltaAngle)
             {
                QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, quaternion);
-               double randomScale = GeometryBasicsRandomTools.generateRandomDouble(random, 0.1, 10.0);
+               double randomScale = EuclidCoreRandomTools.generateRandomDouble(random, 0.1, 10.0);
                quaternion.setUnsafe(quaternion.getX() * randomScale, quaternion.getY() * randomScale, quaternion.getZ() * randomScale,
                                     quaternion.getS() * randomScale);
 
@@ -431,8 +431,8 @@ public class YawPitchRollConversionTest
       for (int i = 0; i < 1000; i++)
       {
          double pitchOverMax = YawPitchRollConversion.MAX_PITCH_ANGLE + EPSILON;
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
-         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
          QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitchOverMax, roll, quaternion);
 
          actualYaw = YawPitchRollConversion.computeYaw(quaternion);
@@ -460,8 +460,8 @@ public class YawPitchRollConversionTest
       for (int i = 0; i < 1000; i++)
       {
          double pitchUnderMin = YawPitchRollConversion.MIN_PITCH_ANGLE - EPSILON;
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
-         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
          QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitchUnderMin, roll, quaternion);
 
          actualYaw = YawPitchRollConversion.computeYaw(quaternion);
@@ -586,7 +586,7 @@ public class YawPitchRollConversionTest
             for (double pitch = MIN_PITCH_ANGLE; pitch <= MAX_PITCH_ANGLE; pitch += deltaAngle)
             {
                AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, axisAngle);
-               double randomScale = GeometryBasicsRandomTools.generateRandomDouble(random, 0.1, 10.0);
+               double randomScale = EuclidCoreRandomTools.generateRandomDouble(random, 0.1, 10.0);
                axisAngle.setX(axisAngle.getX() * randomScale);
                axisAngle.setY(axisAngle.getY() * randomScale);
                axisAngle.setZ(axisAngle.getZ() * randomScale);
@@ -713,8 +713,8 @@ public class YawPitchRollConversionTest
       for (int i = 0; i < 1000; i++)
       {
          double pitchOverMax = YawPitchRollConversion.MAX_PITCH_ANGLE + EPSILON;
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
-         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
          AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitchOverMax, roll, axisAngle);
 
          actualYaw = YawPitchRollConversion.computeYaw(axisAngle);
@@ -742,8 +742,8 @@ public class YawPitchRollConversionTest
       for (int i = 0; i < 1000; i++)
       {
          double pitchUnderMin = YawPitchRollConversion.MIN_PITCH_ANGLE - EPSILON;
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
-         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
          AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitchUnderMin, roll, axisAngle);
 
          actualYaw = YawPitchRollConversion.computeYaw(axisAngle);
@@ -901,8 +901,8 @@ public class YawPitchRollConversionTest
       for (int i = 0; i < 1000; i++)
       {
          double pitchOverMax = YawPitchRollConversion.MAX_PITCH_ANGLE + EPSILON;
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
-         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
          RotationVectorConversion.convertYawPitchRollToRotationVector(yaw, pitchOverMax, roll, rotationVector);
 
          actualYaw = YawPitchRollConversion.computeYaw(rotationVector);
@@ -930,8 +930,8 @@ public class YawPitchRollConversionTest
       for (int i = 0; i < 1000; i++)
       {
          double pitchUnderMin = YawPitchRollConversion.MIN_PITCH_ANGLE - EPSILON;
-         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
-         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, -Math.PI, Math.PI);
          RotationVectorConversion.convertYawPitchRollToRotationVector(yaw, pitchUnderMin, roll, rotationVector);
 
          actualYaw = YawPitchRollConversion.computeYaw(rotationVector);

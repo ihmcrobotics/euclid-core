@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
@@ -64,7 +64,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Matrix3D(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
-         Matrix3D expectedMatrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D expectedMatrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          matrix = new Matrix3D(expectedMatrix.getM00(), expectedMatrix.getM01(), expectedMatrix.getM02(), expectedMatrix.getM10(), expectedMatrix.getM11(),
                                expectedMatrix.getM12(), expectedMatrix.getM20(), expectedMatrix.getM21(), expectedMatrix.getM22());
 
@@ -99,7 +99,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
    public void testSetToZero()
    {
       Random random = new Random(564L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      Matrix3D matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
       for (int row = 0; row < 3; row++)
       {
@@ -151,14 +151,14 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Matrix3D expectedMatrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D expectedMatrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          actualMatrix.set(expectedMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Matrix3D expectedMatrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D expectedMatrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          actualMatrix.set((Matrix3DReadOnly) expectedMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
       }
@@ -222,8 +222,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int k = 0; k < NUMBER_OF_ITERATIONS; k++)
       {
-         vector = vectorCopy = GeometryBasicsRandomTools.generateRandomVector3D(random);
-         vector2 = vector2Copy = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         vector = vectorCopy = EuclidCoreRandomTools.generateRandomVector3D(random);
+         vector2 = vector2Copy = EuclidCoreRandomTools.generateRandomVector3D(random);
          vector3.cross(vector, vector2);
 
          tildeMatrix.set(vector.getX(), vector.getY(), vector.getZ(), vector2.getX(), vector2.getY(), vector2.getZ(), vector3.getX(), vector3.getY(),
@@ -251,8 +251,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
       {
          c.setToNaN();
 
-         a = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         b = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         a = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         b = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          c.set(a);
          c.add(b);
@@ -269,8 +269,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          }
 
          c.setToNaN();
-         a = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         b = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         a = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         b = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          c.add(a, b);
 
@@ -300,8 +300,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
       {
          c.setToNaN();
 
-         a = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         b = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         a = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         b = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          c.set(a);
          c.sub(b);
@@ -318,8 +318,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          }
 
          c.setToNaN();
-         a = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         b = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         a = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         b = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          c.sub(a, b);
 
@@ -348,7 +348,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          scalar = random.nextDouble();
 
          scaledMatrix.set(matrixOriginal);
@@ -367,7 +367,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          scalar = random.nextDouble();
          int scaledRow = random.nextInt(3);
 
@@ -390,7 +390,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          scalar = random.nextDouble();
          int scaledColumn = random.nextInt(3);
 
@@ -413,8 +413,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         scales = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         scales = EuclidCoreRandomTools.generateRandomRotationVector(random, 2.0);
 
          scaledMatrix.set(matrixOriginal);
          scaledMatrix.scaleColumns(scales.getX(), scales.getY(), scales.getZ());
@@ -432,8 +432,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         scales = GeometryBasicsRandomTools.generateRandomRotationVector(random, 2.0);
+         matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         scales = EuclidCoreRandomTools.generateRandomRotationVector(random, 2.0);
 
          scaledMatrix.set(matrixOriginal);
          scaledMatrix.scaleRows(scales.getX(), scales.getY(), scales.getZ());
@@ -449,55 +449,55 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          }
       }
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM00(scalar);
       assertEquals(scalar * matrixOriginal.getM00(), scaledMatrix.getM00(), EPS);
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM01(scalar);
       assertEquals(scalar * matrixOriginal.getM01(), scaledMatrix.getM01(), EPS);
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM02(scalar);
       assertEquals(scalar * matrixOriginal.getM02(), scaledMatrix.getM02(), EPS);
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM10(scalar);
       assertEquals(scalar * matrixOriginal.getM10(), scaledMatrix.getM10(), EPS);
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM11(scalar);
       assertEquals(scalar * matrixOriginal.getM11(), scaledMatrix.getM11(), EPS);
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM12(scalar);
       assertEquals(scalar * matrixOriginal.getM12(), scaledMatrix.getM12(), EPS);
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM20(scalar);
       assertEquals(scalar * matrixOriginal.getM20(), scaledMatrix.getM20(), EPS);
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM21(scalar);
       assertEquals(scalar * matrixOriginal.getM21(), scaledMatrix.getM21(), EPS);
 
-      matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       scaledMatrix.set(matrixOriginal);
       scalar = random.nextDouble();
       scaledMatrix.scaleM22(scalar);
@@ -533,7 +533,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test multiplyOuter()
-         matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          expectedMatrix.set(matrix);
 
          matrix.multiplyOuter();
@@ -544,9 +544,9 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test multiplyOuter(Matrix3DBasics other)
-         matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          expectedMatrix.set(matrix);
-         matrix2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         matrix2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          matrix2Copy.set(matrix2);
 
          matrix.setAndMultiplyOuter(matrix2);
@@ -579,13 +579,13 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3DTools.invert(matrix, expectedInvert);
          actualInvert.set(matrix);
          actualInvert.invert();
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedInvert, actualInvert, EPS);
 
-         matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3DTools.invert(matrix, expectedInvert);
          actualInvert.setAndInvert(matrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expectedInvert, actualInvert, EPS);
@@ -601,7 +601,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random, 2.0);
+         Matrix3D matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random, 2.0);
 
          expectedMatrix.set(matrix);
          Matrix3DTools.normalize(expectedMatrix);
@@ -612,7 +612,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random, 2.0);
+         Matrix3D matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random, 2.0);
 
          expectedMatrix.set(matrix);
          Matrix3DTools.normalize(expectedMatrix);
@@ -625,7 +625,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
    public void testTranspose() throws Exception
    {
       Random random = new Random(65451L);
-      Matrix3D matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      Matrix3D matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       Matrix3D matrixTranspose = new Matrix3D();
 
       matrixTranspose.set(matrix);
@@ -639,7 +639,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          }
       }
 
-      matrix = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       matrixTranspose.setAndTranspose(matrix);
 
       for (int row = 0; row < 3; row++)
@@ -662,8 +662,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiply(m1, m2, expected);
          actual.set(m1);
@@ -683,8 +683,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyTransposeLeft(m1, m2, expected);
          actual.set(m1);
@@ -704,8 +704,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyInvertLeft(m1, m2, expected);
          actual.set(m1);
@@ -725,8 +725,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyTransposeRight(m1, m2, expected);
          actual.set(m1);
@@ -746,21 +746,21 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyInvertRight(m1, m2, expected);
          actual.set(m1);
          actual.multiplyInvertOther(m2);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
 
-         RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          Matrix3DTools.multiplyInvertRight(m1, rotationMatrix, expected);
          actual.set(m1);
          actual.multiplyInvertOther(rotationMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
 
-         RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          Matrix3DTools.multiplyInvertRight(m1, rotationScaleMatrix, expected);
          actual.set(m1);
          actual.multiplyInvertOther(rotationScaleMatrix);
@@ -779,8 +779,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyTransposeBoth(m1, m2, expected);
          actual.set(m1);
@@ -800,8 +800,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiply(m2, m1, expected);
          actual.set(m1);
@@ -821,8 +821,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyTransposeRight(m2, m1, expected);
          actual.set(m1);
@@ -842,8 +842,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyInvertRight(m2, m1, expected);
          actual.set(m1);
@@ -863,8 +863,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyTransposeLeft(m2, m1, expected);
          actual.set(m1);
@@ -884,21 +884,21 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyInvertLeft(m2, m1, expected);
          actual.set(m1);
          actual.preMultiplyInvertOther(m2);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
 
-         RotationMatrix rotationMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          Matrix3DTools.multiplyInvertLeft(rotationMatrix, m1, expected);
          actual.set(m1);
          actual.preMultiplyInvertOther(rotationMatrix);
          GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, EPS);
 
-         RotationScaleMatrix rotationScaleMatrix = GeometryBasicsRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
          Matrix3DTools.multiplyInvertLeft(rotationScaleMatrix, m1, expected);
          actual.set(m1);
          actual.preMultiplyInvertOther(rotationScaleMatrix);
@@ -917,8 +917,8 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
-         m2 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
 
          Matrix3DTools.multiplyTransposeBoth(m2, m1, expected);
          actual.set(m1);
@@ -1205,7 +1205,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
    public void testEquals() throws Exception
    {
       Random random = new Random(2354L);
-      Matrix3D m1 = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      Matrix3D m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
       Matrix3D m2 = new Matrix3D();
 
       assertFalse(m1.equals(m2));
@@ -1264,7 +1264,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RigidBodyTransform transform = GeometryBasicsRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
          Matrix3D original = createRandomMatrix(random);
          Matrix3D expected = createEmptyMatrix();
          Matrix3D actual = createEmptyMatrix();
@@ -1278,7 +1278,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         QuaternionBasedTransform transform = GeometryBasicsRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
          Matrix3D original = createRandomMatrix(random);
          Matrix3D expected = createEmptyMatrix();
          Matrix3D actual = createEmptyMatrix();
@@ -1292,7 +1292,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AffineTransform transform = GeometryBasicsRandomTools.generateRandomAffineTransform(random);
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
          Matrix3D original = createRandomMatrix(random);
          Matrix3D expected = createEmptyMatrix();
          Matrix3D actual = createEmptyMatrix();
@@ -1320,6 +1320,6 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
    @Override
    public Matrix3D createRandomMatrix(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+      return EuclidCoreRandomTools.generateRandomMatrix3D(random);
    }
 }

@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 
@@ -32,7 +32,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(QuaternionBasics other)
-         quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         quaternion = quaternionCopy = EuclidCoreRandomTools.generateRandomQuaternion(random);
          Quaternion quaternion2 = new Quaternion(quaternion);
 
          GeometryBasicsTestTools.assertQuaternionEquals(quaternion, quaternion2, EPS);
@@ -41,7 +41,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(double x, double y, double z, double s)
-         expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
          expected.normalizeAndLimitToPiMinusPi();
          quaternion = new Quaternion(expected.getX(), expected.getY(), expected.getZ(), expected.getS());
 
@@ -50,7 +50,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(double[] quaternionArray)
-         expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
 
          double[] quaternionArray;
          quaternionArray = new double[] {expected.getX(), expected.getY(), expected.getZ(), expected.getS()};
@@ -63,7 +63,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(RotationMatrix rotationMatrix)
          RotationMatrix rotationMatrix, rotationMatrixCopy;
-         rotationMatrix = rotationMatrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrix = rotationMatrixCopy = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
 
          quaternion = new Quaternion(rotationMatrix);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expected);
@@ -75,7 +75,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(VectorBasics rotationVector)
          Vector3D rotationVector, rotationVectorCopy;
-         rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+         rotationVector = rotationVectorCopy = EuclidCoreRandomTools.generateRandomRotationVector(random);
 
          quaternion = new Quaternion(rotationVector);
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expected);
@@ -89,7 +89,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      Quaternion q = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+      Quaternion q = EuclidCoreRandomTools.generateRandomQuaternion(random);
 
       int newHashCode, previousHashCode;
       newHashCode = q.hashCode();
@@ -134,7 +134,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
    @Override
    public Quaternion createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomQuaternion(random);
+      return EuclidCoreRandomTools.generateRandomQuaternion(random);
    }
 
    @Override

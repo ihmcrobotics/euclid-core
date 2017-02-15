@@ -10,7 +10,7 @@ import java.util.Random;
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
 public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
@@ -250,7 +250,7 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
       {
          T tuple1 = createRandomTuple(random);
          double length1 = tuple1.norm();
-         double scalar = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scalar = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          T tuple2 = createTuple(scalar * tuple1.getX(), scalar * tuple1.getY(), scalar * tuple1.getZ(), scalar * tuple1.getS());
          double expectedLength2 = scalar * length1;
          double actualLength2 = tuple2.norm();
@@ -267,7 +267,7 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
       {
          T tuple1 = createRandomTuple(random);
          double length1 = tuple1.norm();
-         double scalar = GeometryBasicsRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scalar = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
          T tuple2 = createTuple(scalar * tuple1.getX(), scalar * tuple1.getY(), scalar * tuple1.getZ(), scalar * tuple1.getS());
          double expectedLength2 = scalar * length1;
          double actualLength2 = tuple2.normSquared();

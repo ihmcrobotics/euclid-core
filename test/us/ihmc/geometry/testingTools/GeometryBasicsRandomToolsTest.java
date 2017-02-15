@@ -30,7 +30,7 @@ public class GeometryBasicsRandomToolsTest
          Vector3D min = new Vector3D(-1, -1, -1);
          Vector3D max = new Vector3D(1, 1, 1);
 
-         GeometryBasicsRandomTools.generateRandomVector3D(random);
+         EuclidCoreRandomTools.generateRandomVector3D(random);
 
          assertTrue(min.getX() <= vector.getX());
          assertTrue(vector.getX() <= max.getX());
@@ -64,7 +64,7 @@ public class GeometryBasicsRandomToolsTest
 
          for (int i = 0; i < 10000; i++)
          {
-            GeometryBasicsRandomTools.randomizeTuple3D(random, tupleToRandomize);
+            EuclidCoreRandomTools.randomizeTuple3D(random, tupleToRandomize);
 
             assertTrue(-1.0 <= tupleToRandomize.getX());
             assertTrue(tupleToRandomize.getX() <= 1.0);
@@ -86,7 +86,7 @@ public class GeometryBasicsRandomToolsTest
          minMax.setY(random.nextDouble());
          minMax.setZ(random.nextDouble());
 
-         GeometryBasicsRandomTools.randomizeTuple3D(random, minMax, tupleToRandomize);
+         EuclidCoreRandomTools.randomizeTuple3D(random, minMax, tupleToRandomize);
 
          assertTrue(tupleToRandomizeCopy.getX() - minMax.getX() <= tupleToRandomize.getX());
          assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + minMax.getX());
@@ -110,7 +110,7 @@ public class GeometryBasicsRandomToolsTest
             max.setY(min.getY() + random.nextDouble());
             max.setZ(min.getZ() + random.nextDouble());
 
-            GeometryBasicsRandomTools.randomizeTuple3D(random, min, max, tupleToRandomize);
+            EuclidCoreRandomTools.randomizeTuple3D(random, min, max, tupleToRandomize);
 
             assertTrue(tupleToRandomizeCopy.getX() - min.getX() <= tupleToRandomize.getX());
             assertTrue(tupleToRandomize.getX() <= tupleToRandomizeCopy.getX() + max.getX());
@@ -136,7 +136,7 @@ public class GeometryBasicsRandomToolsTest
 
       for (int i = 0; i < 100000; i++)
       {
-         GeometryBasicsRandomTools.randomizeAxisAngle(random, minMax, axisAngle);
+         EuclidCoreRandomTools.randomizeAxisAngle(random, minMax, axisAngle);
          assertTrue(Math.abs(axisAngle.getAngle()) < minMax);
          double uNorm = Math.sqrt(axisAngle.getX() * axisAngle.getX() + axisAngle.getY() * axisAngle.getY() + axisAngle.getZ() * axisAngle.getZ());
          assertTrue(Math.abs(uNorm - 1.0) < EPSILON);
@@ -162,7 +162,7 @@ public class GeometryBasicsRandomToolsTest
 
       for (int i = 0; i < 100000; i++)
       {
-         GeometryBasicsRandomTools.randomizeAxisAngle(random, axisAngle);
+         EuclidCoreRandomTools.randomizeAxisAngle(random, axisAngle);
          assertTrue(Math.abs(axisAngle.getAngle()) < Math.PI);
          double uNorm = Math.sqrt(axisAngle.getX() * axisAngle.getX() + axisAngle.getY() * axisAngle.getY() + axisAngle.getZ() * axisAngle.getZ());
          assertTrue(Math.abs(uNorm - 1.0) < EPSILON);

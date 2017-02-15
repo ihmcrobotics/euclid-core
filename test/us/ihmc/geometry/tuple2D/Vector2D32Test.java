@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 
 public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
 {
@@ -46,7 +46,7 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector2D32(TupleBasics tuple)
-         Vector2D32 vector2 = GeometryBasicsRandomTools.generateRandomVector2D32(random);
+         Vector2D32 vector2 = EuclidCoreRandomTools.generateRandomVector2D32(random);
          vector = new Vector2D32(vector2);
 
          Assert.assertTrue(vector.getX32() == vector2.getX32());
@@ -81,7 +81,7 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      Point2D32 point = GeometryBasicsRandomTools.generateRandomPoint2D32(random);
+      Point2D32 point = EuclidCoreRandomTools.generateRandomPoint2D32(random);
 
       int newHashCode, previousHashCode;
       newHashCode = point.hashCode();
@@ -119,6 +119,6 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
    @Override
    public Vector2D32 createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomVector2D32(random);
+      return EuclidCoreRandomTools.generateRandomVector2D32(random);
    }
 }

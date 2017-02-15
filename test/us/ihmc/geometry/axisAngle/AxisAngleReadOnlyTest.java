@@ -16,7 +16,7 @@ import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
@@ -201,13 +201,13 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < 20; i++)
       {
-         double smallScale = GeometryBasicsRandomTools.generateRandomDouble(random, 0.90, 0.95);
-         double bigScale = GeometryBasicsRandomTools.generateRandomDouble(random, 1.05, 1.10);
+         double smallScale = EuclidCoreRandomTools.generateRandomDouble(random, 0.90, 0.95);
+         double bigScale = EuclidCoreRandomTools.generateRandomDouble(random, 1.05, 1.10);
 
-         double ux = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         double uy = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         double uz = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
-         double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 10.0);
+         double ux = EuclidCoreRandomTools.generateRandomDouble(random, 1.0);
+         double uy = EuclidCoreRandomTools.generateRandomDouble(random, 1.0);
+         double uz = EuclidCoreRandomTools.generateRandomDouble(random, 1.0);
+         double angle = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
          double norm = EuclidCoreTools.norm(ux, uy, uz);
 
          ux /= norm;
@@ -504,9 +504,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleToTransform)
-         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
-         Tuple3DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector3D(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -524,9 +524,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
-         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
-         Tuple3DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector3D(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -545,10 +545,10 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleToTransform)
-         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector2D(random);
          Tuple2DBasics actualTuple = new Vector2D(tuple);
-         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         Tuple2DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector2D(random);
+         double theta = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          axisAngle = createAxisAngle(0.0, 0.0, 1.0, theta);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -571,10 +571,10 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
-         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector2D(random);
          Tuple2DBasics actualTuple = new Vector2D(tuple);
-         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         Tuple2DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector2D(random);
+         double theta = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          axisAngle = createAxisAngle(0.0, 0.0, 1.0, theta);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -660,7 +660,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
 
-         Matrix3D matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D matrixOriginal = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3D matrixExpected = new Matrix3D();
          Matrix3D matrixActual = new Matrix3D();
          quaternion.set(axisAngle);
@@ -689,7 +689,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
 
-         Quaternion qOriginal = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion qOriginal = EuclidCoreRandomTools.generateRandomQuaternion(random);
          Quaternion qExpected = new Quaternion();
          Quaternion qActual = new Quaternion();
          quaternion.set(axisAngle);
@@ -718,7 +718,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
 
-         Vector4D vectorOriginal = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4D vectorOriginal = EuclidCoreRandomTools.generateRandomVector4D(random);
          Vector4D vectorExpected = new Vector4D();
          Vector4D vectorActual = new Vector4D();
          quaternion.set(axisAngle);
@@ -747,7 +747,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
 
-         RotationMatrix matrixOriginal = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix matrixOriginal = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix matrixExpected = new RotationMatrix();
          RotationMatrix matrixActual = new RotationMatrix();
          quaternion.set(axisAngle);
@@ -780,9 +780,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleToTransform)
-         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
-         Tuple3DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector3D(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -796,9 +796,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
-         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
-         Tuple3DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector3D(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -812,10 +812,10 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleToTransform)
-         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector2D(random);
          Tuple2DBasics actualTuple = new Vector2D(tuple);
-         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         Tuple2DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector2D(random);
+         double theta = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          axisAngle = createAxisAngle(0.0, 0.0, 1.0, theta);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -834,10 +834,10 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
-         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector2D(random);
          Tuple2DBasics actualTuple = new Vector2D(tuple);
-         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
-         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         Tuple2DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector2D(random);
+         double theta = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          axisAngle = createAxisAngle(0.0, 0.0, 1.0, theta);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -914,9 +914,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(QuaternionBasics quaternionToTransform)
-         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionReadOnly original = EuclidCoreRandomTools.generateRandomQuaternion(random);
          QuaternionBasics actual = new Quaternion(original);
-         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -929,9 +929,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
-         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionReadOnly original = EuclidCoreRandomTools.generateRandomQuaternion(random);
          QuaternionBasics actual = new Quaternion(original);
-         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -944,9 +944,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(Vector4DBasics vectorToTransform)
-         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DReadOnly original = EuclidCoreRandomTools.generateRandomVector4D(random);
          Vector4DBasics actual = new Vector4D(original);
-         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics expected = EuclidCoreRandomTools.generateRandomVector4D(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -959,9 +959,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DReadOnly original = EuclidCoreRandomTools.generateRandomVector4D(random);
          Vector4DBasics actual = new Vector4D(original);
-         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics expected = EuclidCoreRandomTools.generateRandomVector4D(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -974,9 +974,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(Matrix3D matrixToTransform)
-         Matrix3DReadOnly original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3DReadOnly original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D(original);
-         Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D expected = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -989,9 +989,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
-         Matrix3DReadOnly original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3DReadOnly original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          Matrix3D actual = new Matrix3D(original);
-         Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D expected = EuclidCoreRandomTools.generateRandomMatrix3D(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -1004,9 +1004,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(RotationMatrix matrixToTransform)
-         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrixReadOnly original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(original);
-         RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expected = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
@@ -1019,9 +1019,9 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
-         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrixReadOnly original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(original);
-         RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expected = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          axisAngle = createRandomAxisAngle(random);
          double scale = 0.5 + random.nextDouble();
          axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());

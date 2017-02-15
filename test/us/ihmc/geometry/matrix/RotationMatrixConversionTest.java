@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector3D;
@@ -38,7 +38,7 @@ public class RotationMatrixConversionTest
 
       for (double yaw = -Math.PI; yaw <= Math.PI; yaw += deltaAngle)
       {
-         yawMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         yawMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          RotationMatrixConversion.computeYawMatrix(yaw, yawMatrix);
          assertTrue(yawMatrix.getM22() == 1.0);
          assertTrue(yawMatrix.getM12() == 0.0);
@@ -53,7 +53,7 @@ public class RotationMatrixConversionTest
 
          for (double pitch = -Math.PI / 2.0; pitch <= Math.PI / 2.0; pitch += deltaAngle)
          {
-            pitchMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+            pitchMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
             RotationMatrixConversion.computePitchMatrix(pitch, pitchMatrix);
             assertTrue(pitchMatrix.getM11() == 1.0);
             assertTrue(pitchMatrix.getM01() == 0.0);
@@ -68,7 +68,7 @@ public class RotationMatrixConversionTest
 
             for (double roll = -Math.PI; roll <= Math.PI; roll += deltaAngle)
             {
-               rollMatrix = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+               rollMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
                RotationMatrixConversion.computeRollMatrix(roll, rollMatrix);
                assertTrue(rollMatrix.getM00() == 1.0);
                assertTrue(rollMatrix.getM10() == 0.0);
@@ -120,7 +120,7 @@ public class RotationMatrixConversionTest
 
       for (int i = 0; i < RotationMatrixConversionTest.NUMBER_OF_ITERATIONS; i++)
       {
-         GeometryBasicsRandomTools.randomizeAxisAngle(random, minMaxAngleRange, expectedAxisAngle);
+         EuclidCoreRandomTools.randomizeAxisAngle(random, minMaxAngleRange, expectedAxisAngle);
          double ux = expectedAxisAngle.getX();
          double uy = expectedAxisAngle.getY();
          double uz = expectedAxisAngle.getZ();
@@ -150,7 +150,7 @@ public class RotationMatrixConversionTest
       // Test with an actual axis angle
       for (int i = 0; i < 1000; i++)
       {
-         AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
          AxisAngle axisAngleCopy = new AxisAngle(axisAngle);
 
          double ux = axisAngle.getX();
@@ -196,7 +196,7 @@ public class RotationMatrixConversionTest
 
       for (int i = 0; i < RotationMatrixConversionTest.NUMBER_OF_ITERATIONS; i++)
       {
-         expectedQuaternion = GeometryBasicsRandomTools.generateRandomQuaternion(random, minMaxAngleRange);
+         expectedQuaternion = EuclidCoreRandomTools.generateRandomQuaternion(random, minMaxAngleRange);
          RotationMatrixConversion.convertQuaternionToMatrix(expectedQuaternion, actualMatrix);
          GeometryBasicsTestTools.assertRotationMatrix(actualMatrix, EPSILON);
          // Assuming the quaternion conversion is well tested
@@ -257,7 +257,7 @@ public class RotationMatrixConversionTest
 
       for (int i = 0; i < RotationMatrixConversionTest.NUMBER_OF_ITERATIONS; i++)
       {
-         AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
          double rx = axisAngle.getX() * axisAngle.getAngle();
          double ry = axisAngle.getY() * axisAngle.getAngle();
          double rz = axisAngle.getZ() * axisAngle.getAngle();
@@ -300,7 +300,7 @@ public class RotationMatrixConversionTest
       // Test with an actual vector
       for (int i = 0; i < 1000; i++)
       {
-         Vector3D rotationVector = GeometryBasicsRandomTools.generateRandomVector3D(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange));
+         Vector3D rotationVector = EuclidCoreRandomTools.generateRandomVector3D(random, new Point3D(minMaxAngleRange, minMaxAngleRange, minMaxAngleRange));
          Vector3D rotationVectorCopy = new Vector3D(rotationVector);
          double rx = rotationVector.getX();
          double ry = rotationVector.getY();

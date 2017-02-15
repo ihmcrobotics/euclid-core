@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 
 public class Point3D32Test extends Point3DBasicsTest<Point3D32>
@@ -57,7 +57,7 @@ public class Point3D32Test extends Point3DBasicsTest<Point3D32>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point32(TupleBasics tuple)
          Point3D32 point;
-         Point3D32 point2 = GeometryBasicsRandomTools.generateRandomPoint3D32(random);
+         Point3D32 point2 = EuclidCoreRandomTools.generateRandomPoint3D32(random);
          point = new Point3D32(point2);
          GeometryBasicsTestTools.assertTuple3DEquals(point, point2, EPS);
       }
@@ -123,7 +123,7 @@ public class Point3D32Test extends Point3DBasicsTest<Point3D32>
    @Override
    public Point3D32 createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomPoint3D32(random);
+      return EuclidCoreRandomTools.generateRandomPoint3D32(random);
    }
 
    @Override

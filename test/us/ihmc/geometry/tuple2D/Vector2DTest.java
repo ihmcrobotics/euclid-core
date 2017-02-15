@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 
 public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
 {
@@ -52,7 +52,7 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector2D(TupleBasics tuple)
-         Vector2D vector2 = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Vector2D vector2 = EuclidCoreRandomTools.generateRandomVector2D(random);
          vector = new Vector2D(vector2);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
@@ -102,6 +102,6 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
    @Override
    public Vector2D createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomVector2D(random);
+      return EuclidCoreRandomTools.generateRandomVector2D(random);
    }
 }

@@ -39,7 +39,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
  * @author Sylvain Bertrand
  *
  */
-public abstract class GeometryBasicsRandomTools
+public abstract class EuclidCoreRandomTools
 {
    /**
     * Generates random yaw-pitch-roll angles and returns it in an array.

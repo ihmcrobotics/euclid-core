@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 
 public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
 {
@@ -58,7 +58,7 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector32(TupleBasics tuple)
-         Vector3D32 vector2 = GeometryBasicsRandomTools.generateRandomVector3D32(random);
+         Vector3D32 vector2 = EuclidCoreRandomTools.generateRandomVector3D32(random);
 
          vector = new Vector3D32(vector2);
 
@@ -134,7 +134,7 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
    @Override
    public Vector3D32 createRandomTuple(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomVector3D32(random);
+      return EuclidCoreRandomTools.generateRandomVector3D32(random);
    }
 
    @Override

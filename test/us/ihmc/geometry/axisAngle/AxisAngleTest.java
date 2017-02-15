@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
+import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
@@ -34,7 +34,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
       { // Test AxisAngle(AxisAngleBasics other)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            axisAngle = expected = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+            axisAngle = expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
 
             AxisAngle axisAngle2 = new AxisAngle(axisAngle);
 
@@ -46,7 +46,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
       { // Test AxisAngle(double x, double y, double z, double angle)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            expected = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+            expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
             axisAngle = new AxisAngle(expected.getX(), expected.getY(), expected.getZ(), expected.getAngle());
 
             GeometryBasicsTestTools.assertAxisAngleEquals(axisAngle, expected, EPS);
@@ -56,7 +56,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
       { // Test AxisAngle(double[] axisAngleArray)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            expected = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+            expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
             double[] axisAngleArray;
             double[] axisAngleArrayCopy;
             axisAngleArray = axisAngleArrayCopy = new double[] {expected.getX(), expected.getY(), expected.getZ(), expected.getAngle()};
@@ -74,7 +74,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             Vector3D vectorAxis, vectorAxisCopy;
-            vectorAxis = vectorAxisCopy = GeometryBasicsRandomTools.generateRandomVector3D(random);
+            vectorAxis = vectorAxisCopy = EuclidCoreRandomTools.generateRandomVector3D(random);
 
             double angle, angleCopy;
             angle = angleCopy = random.nextDouble();
@@ -95,7 +95,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             Quaternion quaternion, quaternionCopy;
-            quaternion = quaternionCopy = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+            quaternion = quaternionCopy = EuclidCoreRandomTools.generateRandomQuaternion(random);
 
             axisAngle = new AxisAngle(quaternion);
             AxisAngle expectedAxisAngle = new AxisAngle();
@@ -110,7 +110,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             RotationMatrix matrix, matrixCopy;
-            matrix = matrixCopy = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+            matrix = matrixCopy = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
 
             double angle;
             double angleCopy;
@@ -132,7 +132,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             Vector3D rotationVector, rotationVectorCopy;
-            rotationVector = rotationVectorCopy = GeometryBasicsRandomTools.generateRandomRotationVector(random);
+            rotationVector = rotationVectorCopy = EuclidCoreRandomTools.generateRandomRotationVector(random);
 
             axisAngle = new AxisAngle(rotationVector);
             AxisAngle expectedAxisAngle = new AxisAngle();
@@ -146,7 +146,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
       { // Test AxisAngle(double yaw, double pitch, double roll)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            double[] yawPitchRoll = GeometryBasicsRandomTools.generateRandomYawPitchRoll(random);
+            double[] yawPitchRoll = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
 
             axisAngle = new AxisAngle(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
             AxisAngle expectedAxisAngle = new AxisAngle();
@@ -161,7 +161,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      AxisAngle axisAngle = GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+      AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random);
 
       int newHashCode, previousHashCode;
       newHashCode = axisAngle.hashCode();
@@ -193,7 +193,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
    @Override
    public AxisAngle createRandomAxisAngle(Random random)
    {
-      return GeometryBasicsRandomTools.generateRandomAxisAngle(random);
+      return EuclidCoreRandomTools.generateRandomAxisAngle(random);
    }
 
    @Override
