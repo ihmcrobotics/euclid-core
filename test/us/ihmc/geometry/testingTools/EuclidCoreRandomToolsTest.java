@@ -14,7 +14,7 @@ import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 
-public class GeometryBasicsRandomToolsTest
+public class EuclidCoreRandomToolsTest
 {
    private static final double EPSILON = 1.0e-12;
 

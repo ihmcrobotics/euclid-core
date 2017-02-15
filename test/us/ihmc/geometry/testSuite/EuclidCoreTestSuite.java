@@ -57,11 +57,11 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
       AxisAngleConversionTest.class, RotationVectorConversionTest.class, QuaternionConversionTest.class, RotationMatrixConversionTest.class,
       YawPitchRollConversionTest.class, CyclingConversionTest.class})
 
-public class GeometryTestSuite
+public class EuclidCoreTestSuite
 {
    public static void main(String[] args) throws URISyntaxException, IOException
    {
-      String targetTests = "us.ihmc.geometry.testSuite.GeometryTestSuite";
+      String targetTests = "us.ihmc.geometry.testSuite.EuclidCore";
       String targetClasses = "us.ihmc.geometry.*";
       doPITMutationTestAndOpenResult(targetTests, targetClasses);
    }
