@@ -37,14 +37,14 @@ public abstract class GeometryBasicsTestTools
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
     *
-    * @param expectedAngle the expected angle.
-    * @param actualAngle the actual angle.
+    * @param expected the expected angle.
+    * @param actual the actual angle.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two angles are not equal.
     */
-   public static void assertAngleEquals(double expectedAngle, double actualAngle, double epsilon)
+   public static void assertAngleEquals(double expected, double actual, double epsilon)
    {
-      assertAngleEquals(null, expectedAngle, actualAngle, epsilon);
+      assertAngleEquals(null, expected, actual, epsilon);
    }
 
    /**
@@ -55,18 +55,18 @@ public abstract class GeometryBasicsTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedAngle the expected angle.
-    * @param actualAngle the actual angle.
+    * @param expected the expected angle.
+    * @param actual the actual angle.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two angles are not equal.
     */
-   public static void assertAngleEquals(String messagePrefix, double expectedAngle, double actualAngle, double epsilon)
+   public static void assertAngleEquals(String messagePrefix, double expected, double actual, double epsilon)
    {
-      double differenceAngle = Math.abs(expectedAngle - actualAngle);
+      double differenceAngle = Math.abs(expected - actual);
       differenceAngle = (differenceAngle + Math.PI) % (2.0 * Math.PI) - Math.PI;
 
       if (Math.abs(differenceAngle) > epsilon)
-         throwNotEqualAssertionError(messagePrefix, Double.toString(expectedAngle), Double.toString(actualAngle));
+         throwNotEqualAssertionError(messagePrefix, Double.toString(expected), Double.toString(actual));
    }
 
    /**
@@ -76,15 +76,20 @@ public abstract class GeometryBasicsTestTools
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
-    * @param expectedYawPitchRoll the expected set of yaw-pitch-roll angles. Not modified.
-    * @param actualYawPitchRoll the actual set of yaw-pitch-roll angles. Not modified.
+    * @param expected the expected set of yaw-pitch-roll angles. Not modified.
+    * @param actual the actual set of yaw-pitch-roll angles. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal.
+    * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal. If only one of
+    *            the arguments is equal to {@code null}. If at least one of the arguments has a
+    *            length different than 3.
     */
-   public static void assertYawPitchRollEquals(double[] expectedYawPitchRoll, double[] actualYawPitchRoll, double epsilon)
+   public static void assertYawPitchRollEquals(double[] expected, double[] actual, double epsilon)
    {
-      assertYawPitchRollEquals(null, expectedYawPitchRoll, actualYawPitchRoll, epsilon);
+      assertYawPitchRollEquals(null, expected, actual, epsilon);
    }
 
    /**
@@ -93,25 +98,42 @@ public abstract class GeometryBasicsTestTools
     * <p>
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedYawPitchRoll the expected set of yaw-pitch-roll angles. Not modified.
-    * @param actualYawPitchRoll the actual set of yaw-pitch-roll angles. Not modified.
+    * @param expected the expected set of yaw-pitch-roll angles. Not modified.
+    * @param actual the actual set of yaw-pitch-roll angles. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal.
+    * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal. If only one of
+    *            the arguments is equal to {@code null}. If at least one of the arguments has a
+    *            length different than 3.
     */
-   public static void assertYawPitchRollEquals(String messagePrefix, double[] expectedYawPitchRoll, double[] actualYawPitchRoll, double epsilon)
+   public static void assertYawPitchRollEquals(String messagePrefix, double[] expected, double[] actual, double epsilon)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, Arrays.toString(expected), Arrays.toString(actual));
+
+      if (expected.length != 3)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected size for the expected argument: " + expected.length));
+
+      if (actual.length != 3)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected size for the actual argument: " + actual.length));
+
       try
       {
-         assertAngleEquals(expectedYawPitchRoll[0], actualYawPitchRoll[0], epsilon);
-         assertAngleEquals(expectedYawPitchRoll[1], actualYawPitchRoll[1], epsilon);
-         assertAngleEquals(expectedYawPitchRoll[2], actualYawPitchRoll[2], epsilon);
+         assertAngleEquals(expected[0], actual[0], epsilon);
+         assertAngleEquals(expected[1], actual[1], epsilon);
+         assertAngleEquals(expected[2], actual[2], epsilon);
       }
       catch (AssertionError e)
       {
-         throwNotEqualAssertionError(messagePrefix, Arrays.toString(expectedYawPitchRoll), Arrays.toString(actualYawPitchRoll));
+         throwNotEqualAssertionError(messagePrefix, Arrays.toString(expected), Arrays.toString(actual));
       }
    }
 
@@ -122,15 +144,19 @@ public abstract class GeometryBasicsTestTools
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
-    * @param expectedRotationVector the expected rotation vector. Not modified.
-    * @param actualRotationVector the actual rotation vector. Not modified.
+    * @param expected the expected rotation vector. Not modified.
+    * @param actual the actual rotation vector. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two rotation vectors are not equal.
+    * @throws AssertionError if the two rotation vectors are not equal. If only one of the arguments
+    *            is equal to {@code null}.
     */
-   public static void assertRotationVectorEquals(Vector3DReadOnly expectedRotationVector, Vector3DReadOnly actualRotationVector, double epsilon)
+   public static void assertRotationVectorEquals(Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon)
    {
-      assertRotationVectorEquals(null, expectedRotationVector, actualRotationVector, epsilon);
+      assertRotationVectorEquals(null, expected, actual, epsilon);
    }
 
    /**
@@ -140,17 +166,20 @@ public abstract class GeometryBasicsTestTools
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedRotationVector the expected rotation vector. Not modified.
-    * @param actualRotationVector the actual rotation vector. Not modified.
+    * @param expected the expected rotation vector. Not modified.
+    * @param actual the actual rotation vector. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two rotation vectors are not equal.
+    * @throws AssertionError if the two rotation vectors are not equal. If only one of the arguments
+    *            is equal to {@code null}.
     */
-   public static void assertRotationVectorEquals(String messagePrefix, Vector3DReadOnly expectedRotationVector, Vector3DReadOnly actualRotationVector,
-                                                 double epsilon)
+   public static void assertRotationVectorEquals(String messagePrefix, Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon)
    {
-      assertRotationVectorEquals(messagePrefix, expectedRotationVector, actualRotationVector, epsilon, DEFAULT_FORMAT);
+      assertRotationVectorEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
    }
 
    /**
@@ -160,39 +189,52 @@ public abstract class GeometryBasicsTestTools
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedRotationVector the expected rotation vector. Not modified.
-    * @param actualRotationVector the actual rotation vector. Not modified.
+    * @param expected the expected rotation vector. Not modified.
+    * @param actual the actual rotation vector. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two rotation vectors are not equal.
+    * @throws AssertionError if the two rotation vectors are not equal. If only one of the arguments
+    *            is equal to {@code null}.
     */
-   public static void assertRotationVectorEquals(String messagePrefix, Vector3DReadOnly expectedRotationVector, Vector3DReadOnly actualRotationVector,
-                                                 double epsilon, String format)
+   public static void assertRotationVectorEquals(String messagePrefix, Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon, String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       try
       {
-         assertAxisAngleEqualsSmart(new AxisAngle(expectedRotationVector), new AxisAngle(actualRotationVector), epsilon);
+         assertAxisAngleEqualsSmart(new AxisAngle(expected), new AxisAngle(actual), epsilon);
          // More reliable by going through the axis-angle.
-         //         assertAngleEquals(expectedRotationVector.getX(), actualRotationVector.getX(), epsilon);
-         //         assertAngleEquals(expectedRotationVector.getY(), actualRotationVector.getY(), epsilon);
-         //         assertAngleEquals(expectedRotationVector.getZ(), actualRotationVector.getZ(), epsilon);
+         //         assertAngleEquals(expected.getX(), actual.getX(), epsilon);
+         //         assertAngleEquals(expected.getY(), actual.getY(), epsilon);
+         //         assertAngleEquals(expected.getZ(), actual.getZ(), epsilon);
       }
       catch (AssertionError e)
       {
-         throwNotEqualAssertionError(messagePrefix, expectedRotationVector, actualRotationVector, format);
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
       }
    }
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple2DEquals(Tuple2DReadOnly expected, Tuple2DReadOnly actual, double epsilon)
    {
@@ -201,12 +243,16 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the automated message.
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple2DEquals(String messagePrefix, Tuple2DReadOnly expected, Tuple2DReadOnly actual, double epsilon)
    {
@@ -215,6 +261,9 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the automated message.
     * @param expected the expected tuple.
@@ -222,10 +271,17 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple2DEquals(String messagePrefix, Tuple2DReadOnly expected, Tuple2DReadOnly actual, double epsilon, String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       if (!TupleTools.epsilonEquals(expected, actual, epsilon))
       {
          Vector2D difference = new Vector2D(actual);
@@ -236,11 +292,15 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple3DEquals(Tuple3DReadOnly expected, Tuple3DReadOnly actual, double epsilon)
    {
@@ -249,12 +309,16 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple3DEquals(String messagePrefix, Tuple3DReadOnly expected, Tuple3DReadOnly actual, double epsilon)
    {
@@ -263,6 +327,9 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected tuple.
@@ -270,10 +337,17 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple3DEquals(String messagePrefix, Tuple3DReadOnly expected, Tuple3DReadOnly actual, double epsilon, String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       if (!TupleTools.epsilonEquals(expected, actual, epsilon))
       {
          Vector3D difference = new Vector3D(actual);
@@ -284,11 +358,15 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple4DEquals(Tuple4DReadOnly expected, Tuple4DReadOnly actual, double epsilon)
    {
@@ -297,12 +375,16 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected tuple.
     * @param actual the actual tuple.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple4DEquals(String messagePrefix, Tuple4DReadOnly expected, Tuple4DReadOnly actual, double epsilon)
    {
@@ -311,6 +393,9 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected tuple.
@@ -318,10 +403,17 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two tuples are not equal.
+    * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
+    *            to {@code null}.
     */
    public static void assertTuple4DEquals(String messagePrefix, Tuple4DReadOnly expected, Tuple4DReadOnly actual, double epsilon, String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       if (!TupleTools.epsilonEquals(expected, actual, epsilon))
       {
          Vector4D difference = new Vector4D(actual);
@@ -332,11 +424,15 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two matrices are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param expected the expected matrix.
     * @param actual the actual matrix.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two matrices are not equal.
+    * @throws AssertionError if the two matrices are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
    public static void assertMatrix3DEquals(Matrix3DReadOnly expected, Matrix3DReadOnly actual, double epsilon)
    {
@@ -345,12 +441,16 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two matrices are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected matrix.
     * @param actual the actual matrix.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two matrices are not equal.
+    * @throws AssertionError if the two matrices are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
    public static void assertMatrix3DEquals(String messagePrefix, Matrix3DReadOnly expected, Matrix3DReadOnly actual, double epsilon)
    {
@@ -359,6 +459,9 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two matrices are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected matrix.
@@ -366,10 +469,17 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two matrices are not equal.
+    * @throws AssertionError if the two matrices are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
    public static void assertMatrix3DEquals(String messagePrefix, Matrix3DReadOnly expected, Matrix3DReadOnly actual, double epsilon, String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       if (!Matrix3DFeatures.epsilonEquals(expected, actual, epsilon))
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, format);
@@ -394,13 +504,14 @@ public abstract class GeometryBasicsTestTools
     * </ul>
     * </p>
     *
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the matrix is not skew-symmetric.
+    * @throws AssertionError if the matrix is not skew-symmetric. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertSkewSymmetric(Matrix3DReadOnly matrix, double epsilon)
+   public static void assertSkewSymmetric(Matrix3DReadOnly matrixToAssert, double epsilon)
    {
-      assertSkewSymmetric(null, matrix, epsilon);
+      assertSkewSymmetric(null, matrixToAssert, epsilon);
    }
 
    /**
@@ -422,13 +533,14 @@ public abstract class GeometryBasicsTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the matrix is not skew-symmetric.
+    * @throws AssertionError if the matrix is not skew-symmetric. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertSkewSymmetric(String messagePrefix, Matrix3DReadOnly matrix, double epsilon)
+   public static void assertSkewSymmetric(String messagePrefix, Matrix3DReadOnly matrixToAssert, double epsilon)
    {
-      assertSkewSymmetric(messagePrefix, matrix, epsilon, DEFAULT_FORMAT);
+      assertSkewSymmetric(messagePrefix, matrixToAssert, epsilon, DEFAULT_FORMAT);
    }
 
    /**
@@ -450,17 +562,21 @@ public abstract class GeometryBasicsTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the matrix is not skew-symmetric.
+    * @throws AssertionError if the matrix is not skew-symmetric. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertSkewSymmetric(String messagePrefix, Matrix3DReadOnly matrix, double epsilon, String format)
+   public static void assertSkewSymmetric(String messagePrefix, Matrix3DReadOnly matrixToAssert, double epsilon, String format)
    {
-      if (!matrix.isMatrixSkewSymmetric(epsilon))
+      if (matrixToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given matrix is null."));
+
+      if (!matrixToAssert.isMatrixSkewSymmetric(epsilon))
       {
-         String errorMessage = "The matrix is not skew-symmetric:\n" + getMatrixString(DEFAULT_FORMAT, matrix);
+         String errorMessage = "The matrix is not skew-symmetric:\n" + getMatrixString(DEFAULT_FORMAT, matrixToAssert);
          throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
       }
    }
@@ -476,13 +592,14 @@ public abstract class GeometryBasicsTestTools
     * </ul>
     * </p>
     *
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the matrix is not a rotation matrix.
+    * @throws AssertionError if the matrix is not a rotation matrix. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertRotationMatrix(Matrix3DReadOnly matrix, double epsilon)
+   public static void assertRotationMatrix(Matrix3DReadOnly matrixToAssert, double epsilon)
    {
-      assertRotationMatrix(null, matrix, epsilon);
+      assertRotationMatrix(null, matrixToAssert, epsilon);
    }
 
    /**
@@ -497,13 +614,14 @@ public abstract class GeometryBasicsTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the matrix is not a rotation matrix.
+    * @throws AssertionError if the matrix is not a rotation matrix. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertRotationMatrix(String messagePrefix, Matrix3DReadOnly matrix, double epsilon)
+   public static void assertRotationMatrix(String messagePrefix, Matrix3DReadOnly matrixToAssert, double epsilon)
    {
-      assertRotationMatrix(messagePrefix, matrix, epsilon, DEFAULT_FORMAT);
+      assertRotationMatrix(messagePrefix, matrixToAssert, epsilon, DEFAULT_FORMAT);
    }
 
    /**
@@ -518,17 +636,21 @@ public abstract class GeometryBasicsTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the matrix is not a rotation matrix.
+    * @throws AssertionError if the matrix is not a rotation matrix. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertRotationMatrix(String messagePrefix, Matrix3DReadOnly matrix, double epsilon, String format)
+   public static void assertRotationMatrix(String messagePrefix, Matrix3DReadOnly matrixToAssert, double epsilon, String format)
    {
-      if (!matrix.isRotationMatrix(epsilon))
+      if (matrixToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given matrix is null."));
+
+      if (!matrixToAssert.isRotationMatrix(epsilon))
       {
-         String errorMessage = "This is not a rotation matrix:\n" + getMatrixString(format, matrix);
+         String errorMessage = "This is not a rotation matrix:\n" + getMatrixString(format, matrixToAssert);
          throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
       }
    }
@@ -537,13 +659,14 @@ public abstract class GeometryBasicsTestTools
     * Asserts on a per coefficient basis that this matrix is equal to identity to an
     * {@code epsilon}.
     *
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the matrix is not identity.
+    * @throws AssertionError if the matrix is not identity. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertIdentity(Matrix3DReadOnly matrix, double epsilon)
+   public static void assertIdentity(Matrix3DReadOnly matrixToAssert, double epsilon)
    {
-      assertIdentity(null, matrix, epsilon);
+      assertIdentity(null, matrixToAssert, epsilon);
    }
 
    /**
@@ -551,13 +674,14 @@ public abstract class GeometryBasicsTestTools
     * {@code epsilon}.
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the matrix is not identity.
+    * @throws AssertionError if the matrix is not identity. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertIdentity(String messagePrefix, Matrix3DReadOnly matrix, double epsilon)
+   public static void assertIdentity(String messagePrefix, Matrix3DReadOnly matrixToAssert, double epsilon)
    {
-      assertIdentity(messagePrefix, matrix, epsilon, DEFAULT_FORMAT);
+      assertIdentity(messagePrefix, matrixToAssert, epsilon, DEFAULT_FORMAT);
    }
 
    /**
@@ -565,17 +689,21 @@ public abstract class GeometryBasicsTestTools
     * {@code epsilon}.
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param matrix the query. Not modified.
+    * @param matrixToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the matrix is not identity.
+    * @throws AssertionError if the matrix is not identity. If the argument is equal to
+    *            {@code null}.
     */
-   public static void assertIdentity(String messagePrefix, Matrix3DReadOnly matrix, double epsilon, String format)
+   public static void assertIdentity(String messagePrefix, Matrix3DReadOnly matrixToAssert, double epsilon, String format)
    {
-      if (!matrix.isIdentity(epsilon))
+      if (matrixToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given matrix is null."));
+
+      if (!matrixToAssert.isIdentity(epsilon))
       {
-         String errorMessage = "The matrix is not identity:\n" + getMatrixString(DEFAULT_FORMAT, matrix);
+         String errorMessage = "The matrix is not identity:\n" + getMatrixString(DEFAULT_FORMAT, matrixToAssert);
          throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
       }
    }
@@ -583,30 +711,35 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts that the given matrix contains on {@link Double#NaN}.
     *
-    * @param matrix the query. Not modified.
-    * @throws AssertionError if the matrix does not only contain {@link Double#NaN}.
+    * @param matrixToAssert the query. Not modified.
+    * @throws AssertionError if the matrix does not only contain {@link Double#NaN}. If the argument
+    *            is equal to {@code null}.
     */
-   public static void assertMatrix3DContainsOnlyNaN(Matrix3DReadOnly matrix)
+   public static void assertMatrix3DContainsOnlyNaN(Matrix3DReadOnly matrixToAssert)
    {
-      assertMatrix3DContainsOnlyNaN(null, matrix);
+      assertMatrix3DContainsOnlyNaN(null, matrixToAssert);
    }
 
    /**
     * Asserts that the given matrix contains on {@link Double#NaN}.
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param matrix the query. Not modified.
-    * @throws AssertionError if the matrix does not only contain {@link Double#NaN}.
+    * @param matrixToAssert the query. Not modified.
+    * @throws AssertionError if the matrix does not only contain {@link Double#NaN}. If the argument
+    *            is equal to {@code null}.
     */
-   public static void assertMatrix3DContainsOnlyNaN(String messagePrefix, Matrix3DReadOnly matrix)
+   public static void assertMatrix3DContainsOnlyNaN(String messagePrefix, Matrix3DReadOnly matrixToAssert)
    {
+      if (matrixToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given matrix is null."));
+
       for (int row = 0; row < 3; row++)
       {
          for (int column = 0; column < 3; column++)
          {
-            if (!Double.isNaN(matrix.getElement(row, column)))
+            if (!Double.isNaN(matrixToAssert.getElement(row, column)))
             {
-               String errorMessage = "The matrix does not contain only NaN:\n" + getMatrixString(DEFAULT_FORMAT, matrix);
+               String errorMessage = "The matrix does not contain only NaN:\n" + getMatrixString(DEFAULT_FORMAT, matrixToAssert);
                throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
             }
          }
@@ -615,46 +748,57 @@ public abstract class GeometryBasicsTestTools
 
    /**
     * Asserts on a per component basis that the two quaternions are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternions are not equal.
+    * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertQuaternionEquals(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
+   public static void assertQuaternionEquals(QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
-      assertTuple4DEquals(expectedQuaternion, actualQuaternion, epsilon);
+      assertTuple4DEquals(expected, actual, epsilon);
    }
 
    /**
     * Asserts on a per component basis that the two quaternions are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternions are not equal.
+    * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertQuaternionEquals(String messagePrefix, QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
+   public static void assertQuaternionEquals(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
-      assertTuple4DEquals(messagePrefix, expectedQuaternion, actualQuaternion, epsilon);
+      assertTuple4DEquals(messagePrefix, expected, actual, epsilon);
    }
 
    /**
     * Asserts on a per component basis that the two quaternions are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two quaternions are not equal.
+    * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertQuaternionEquals(String messagePrefix, QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon,
-                                             String format)
+   public static void assertQuaternionEquals(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon, String format)
    {
-      assertTuple4DEquals(messagePrefix, expectedQuaternion, actualQuaternion, epsilon, format);
+      assertTuple4DEquals(messagePrefix, expected, actual, epsilon, format);
    }
 
    /**
@@ -663,15 +807,19 @@ public abstract class GeometryBasicsTestTools
     * This method changes the sign of one of the two quaternions when comparing if their dot product
     * is negative.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternions are not equal.
+    * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertQuaternionEqualsSmart(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
+   public static void assertQuaternionEqualsSmart(QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
-      assertQuaternionEqualsSmart(null, expectedQuaternion, actualQuaternion, epsilon);
+      assertQuaternionEqualsSmart(null, expected, actual, epsilon);
    }
 
    /**
@@ -679,18 +827,21 @@ public abstract class GeometryBasicsTestTools
     * <p>
     * This method changes the sign of one of the two quaternions when comparing if their dot product
     * is negative.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternions are not equal.
+    * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertQuaternionEqualsSmart(String messagePrefix, QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion,
-                                                  double epsilon)
+   public static void assertQuaternionEqualsSmart(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
-      assertQuaternionEqualsSmart(messagePrefix, expectedQuaternion, actualQuaternion, epsilon, DEFAULT_FORMAT);
+      assertQuaternionEqualsSmart(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
    }
 
    /**
@@ -699,124 +850,167 @@ public abstract class GeometryBasicsTestTools
     * This method changes the sign of one of the two quaternions when comparing if their dot product
     * is negative.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two quaternions are not equal.
+    * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertQuaternionEqualsSmart(String messagePrefix, QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion,
-                                                  double epsilon, String format)
+   public static void assertQuaternionEqualsSmart(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon, String format)
    {
-      if (expectedQuaternion.dot(actualQuaternion) < 0.0)
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         assertQuaternionEquals(messagePrefix, expected, actual, epsilon, format);
+
+      if (expected.dot(actual) < 0.0)
       {
          Quaternion quaternion = new Quaternion();
-         quaternion.setAndNegate(actualQuaternion);
-         actualQuaternion = quaternion;
+         quaternion.setAndNegate(actual);
+         actual = quaternion;
       }
-      assertQuaternionEquals(messagePrefix, expectedQuaternion, actualQuaternion, epsilon, format);
+      assertQuaternionEquals(messagePrefix, expected, actual, epsilon, format);
    }
 
    /**
     * Asserts that the two given quaternions represents the same orientation to an {@code epsilon}
     * by calculating the magnitude of their difference.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternions do not represent the same orientation.
+    * @throws AssertionError if the two quaternions do not represent the same orientation. If only
+    *            one of the arguments is equal to {@code null}.
     */
-   public static void assertQuaternionEqualsUsingDifference(QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion, double epsilon)
+   public static void assertQuaternionEqualsUsingDifference(QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
-      assertQuaternionEqualsUsingDifference(null, expectedQuaternion, actualQuaternion, epsilon);
+      assertQuaternionEqualsUsingDifference(null, expected, actual, epsilon);
    }
 
    /**
     * Asserts that the two given quaternions represents the same orientation to an {@code epsilon}
     * by calculating the magnitude of their difference.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternions do not represent the same orientation.
+    * @throws AssertionError if the two quaternions do not represent the same orientation. If only
+    *            one of the arguments is equal to {@code null}.
     */
-   public static void assertQuaternionEqualsUsingDifference(String messagePrefix, QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion,
-                                                            double epsilon)
+   public static void assertQuaternionEqualsUsingDifference(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
-      assertQuaternionEqualsUsingDifference(messagePrefix, expectedQuaternion, actualQuaternion, epsilon, DEFAULT_FORMAT);
+      assertQuaternionEqualsUsingDifference(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
    }
 
    /**
     * Asserts that the two given quaternions represents the same orientation to an {@code epsilon}
     * by calculating the magnitude of their difference.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedQuaternion the expected quaternion. Not modified.
-    * @param actualQuaternion the actual quaternion. Not modified.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two quaternions do not represent the same orientation.
+    * @throws AssertionError if the two quaternions do not represent the same orientation. If only
+    *            one of the arguments is equal to {@code null}.
     */
-   public static void assertQuaternionEqualsUsingDifference(String messagePrefix, QuaternionReadOnly expectedQuaternion, QuaternionReadOnly actualQuaternion,
-                                                            double epsilon, String format)
+   public static void assertQuaternionEqualsUsingDifference(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon,
+                                                            String format)
    {
-      Quaternion qDifference = new Quaternion(expectedQuaternion);
-      qDifference.multiplyConjugateOther(actualQuaternion);
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      Quaternion qDifference = new Quaternion(expected);
+      qDifference.multiplyConjugateOther(actual);
       double angleDifference = qDifference.getAngle();
       if (Math.abs(angleDifference) > epsilon)
       {
-         throwNotEqualAssertionError(messagePrefix, expectedQuaternion, actualQuaternion, angleDifference, format);
+         throwNotEqualAssertionError(messagePrefix, expected, actual, angleDifference, format);
       }
    }
 
    /**
     * Asserts on a per component basis if the two axis-angles are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
-    * @param expectedAxisAngle the expected axis-angle. Not modified.
-    * @param actualAxisAngle the actual axis-angle. Not modified.
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two axis-angles are not equal.
+    * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertAxisAngleEquals(AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon)
+   public static void assertAxisAngleEquals(AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon)
    {
-      assertAxisAngleEquals(null, expectedAxisAngle, actualAxisAngle, epsilon);
+      assertAxisAngleEquals(null, expected, actual, epsilon);
    }
 
    /**
     * Asserts on a per component basis if the two axis-angles are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedAxisAngle the expected axis-angle. Not modified.
-    * @param actualAxisAngle the actual axis-angle. Not modified.
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two axis-angles are not equal.
+    * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertAxisAngleEquals(String messagePrefix, AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon)
+   public static void assertAxisAngleEquals(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon)
    {
-      assertAxisAngleEquals(messagePrefix, expectedAxisAngle, actualAxisAngle, epsilon, DEFAULT_FORMAT);
+      assertAxisAngleEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
    }
 
    /**
     * Asserts on a per component basis if the two axis-angles are equal to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedAxisAngle the expected axis-angle. Not modified.
-    * @param actualAxisAngle the actual axis-angle. Not modified.
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two axis-angles are not equal.
+    * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertAxisAngleEquals(String messagePrefix, AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon,
-                                            String format)
+   public static void assertAxisAngleEquals(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon, String format)
    {
-      if (!expectedAxisAngle.epsilonEquals(actualAxisAngle, epsilon))
-         throwNotEqualAssertionError(messagePrefix, expectedAxisAngle, actualAxisAngle, format);
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.epsilonEquals(actual, epsilon))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
    }
 
    /**
@@ -825,15 +1019,19 @@ public abstract class GeometryBasicsTestTools
     * This method changes the sign of one of the two axis-angles when comparing if the dot product
     * of their axis is negative.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
-    * @param expectedAxisAngle the expected axis-angle. Not modified.
-    * @param actualAxisAngle the actual axis-angle. Not modified.
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two axis-angles are not equal.
+    * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertAxisAngleEqualsSmart(AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon)
+   public static void assertAxisAngleEqualsSmart(AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon)
    {
-      assertAxisAngleEqualsSmart(null, expectedAxisAngle, actualAxisAngle, epsilon);
+      assertAxisAngleEqualsSmart(null, expected, actual, epsilon);
    }
 
    /**
@@ -841,17 +1039,21 @@ public abstract class GeometryBasicsTestTools
     * <p>
     * This method changes the sign of one of the two axis-angles when comparing if the dot product
     * of their axis is negative.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedAxisAngle the expected axis-angle. Not modified.
-    * @param actualAxisAngle the actual axis-angle. Not modified.
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two axis-angles are not equal.
+    * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertAxisAngleEqualsSmart(String messagePrefix, AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon)
+   public static void assertAxisAngleEqualsSmart(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon)
    {
-      assertAxisAngleEqualsSmart(messagePrefix, expectedAxisAngle, actualAxisAngle, epsilon, DEFAULT_FORMAT);
+      assertAxisAngleEqualsSmart(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
    }
 
    /**
@@ -860,47 +1062,56 @@ public abstract class GeometryBasicsTestTools
     * This method changes the sign of one of the two axis-angles when comparing if the dot product
     * of their axis is negative.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expectedAxisAngle the expected axis-angle. Not modified.
-    * @param actualAxisAngle the actual axis-angle. Not modified.
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two axis-angles are not equal.
+    * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
+    *            equal to {@code null}.
     */
-   public static void assertAxisAngleEqualsSmart(String messagePrefix, AxisAngleReadOnly expectedAxisAngle, AxisAngleReadOnly actualAxisAngle, double epsilon,
-                                                 String format)
+   public static void assertAxisAngleEqualsSmart(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon, String format)
    {
-      double expectedX = expectedAxisAngle.getX();
-      double expectedY = expectedAxisAngle.getY();
-      double expectedZ = expectedAxisAngle.getZ();
-      double actualX = actualAxisAngle.getX();
-      double actualY = actualAxisAngle.getY();
-      double actualZ = actualAxisAngle.getZ();
-      double actualAngle = actualAxisAngle.getAngle();
+      if (expected == null && actual == null)
+         return;
 
-      AxisAngleReadOnly actualAxisAngleOriginal = actualAxisAngle;
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      double expectedX = expected.getX();
+      double expectedY = expected.getY();
+      double expectedZ = expected.getZ();
+      double actualX = actual.getX();
+      double actualY = actual.getY();
+      double actualZ = actual.getZ();
+      double actualAngle = actual.getAngle();
+
+      AxisAngleReadOnly actualAxisAngleOriginal = actual;
 
       if (expectedX * actualX + expectedY * actualY + expectedZ * actualZ < 0.0)
       {
-         actualAxisAngle = new AxisAngle(-actualX, -actualY, -actualZ, -actualAngle);
+         actual = new AxisAngle(-actualX, -actualY, -actualZ, -actualAngle);
       }
 
       for (int index = 0; index < 3; index++)
       {
-         double diff = expectedAxisAngle.get(index) - actualAxisAngle.get(index);
+         double diff = expected.get(index) - actual.get(index);
          if (Math.abs(diff) > epsilon)
-            throwNotEqualAssertionError(messagePrefix, expectedAxisAngle, actualAxisAngleOriginal, format);
+            throwNotEqualAssertionError(messagePrefix, expected, actualAxisAngleOriginal, format);
       }
 
       try
       {
-         assertAngleEquals(expectedAxisAngle.getAngle(), actualAxisAngle.getAngle(), epsilon);
+         assertAngleEquals(expected.getAngle(), actual.getAngle(), epsilon);
       }
       catch (AssertionError e)
       {
-         throwNotEqualAssertionError(messagePrefix, expectedAxisAngle, actualAxisAngleOriginal, format);
+         throwNotEqualAssertionError(messagePrefix, expected, actualAxisAngleOriginal, format);
       }
    }
 
@@ -908,7 +1119,8 @@ public abstract class GeometryBasicsTestTools
     * Asserts that the given axis-angle contains only {@link Double#NaN}.
     *
     * @param axisAngleToAssert the query. Not modified.
-    * @throws AssertionError if the axis-angle does not only contain {@link Double#NaN}.
+    * @throws AssertionError if the axis-angle does not only contain {@link Double#NaN}. If the
+    *            argument is equal to {@code null}.
     */
    public static void assertAxisAngleContainsOnlyNaN(AxisAngleReadOnly axisAngleToAssert)
    {
@@ -920,10 +1132,14 @@ public abstract class GeometryBasicsTestTools
     *
     * @param messagePrefix prefix to add to the error message.
     * @param axisAngleToAssert the query. Not modified.
-    * @throws AssertionError if the axis-angle does not only contain {@link Double#NaN}.
+    * @throws AssertionError if the axis-angle does not only contain {@link Double#NaN}. If the
+    *            argument is equal to {@code null}.
     */
    public static void assertAxisAngleContainsOnlyNaN(String messagePrefix, AxisAngleReadOnly axisAngleToAssert)
    {
+      if (axisAngleToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given axis-angle is null."));
+
       for (int index = 0; index < 4; index++)
       {
          if (!Double.isNaN(axisAngleToAssert.get(index)))
@@ -938,7 +1154,8 @@ public abstract class GeometryBasicsTestTools
     * Assert that {@link AxisAngleBasics#setToZero()} has just been called on the given axis-angle.
     *
     * @param axisAngleToAssert the query. Not modified.
-    * @throws AssertionError if the axis-angle has not been set to zero.
+    * @throws AssertionError if the axis-angle has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertAxisAngleIsSetToZero(AxisAngleReadOnly axisAngleToAssert)
    {
@@ -950,10 +1167,14 @@ public abstract class GeometryBasicsTestTools
     *
     * @param messagePrefix prefix to add to the error message.
     * @param axisAngleToAssert the query. Not modified.
-    * @throws AssertionError if the axis-angle has not been set to zero.
+    * @throws AssertionError if the axis-angle has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertAxisAngleIsSetToZero(String messagePrefix, AxisAngleReadOnly axisAngleToAssert)
    {
+      if (axisAngleToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given axis-angle is null."));
+
       AxisAngle expected = new AxisAngle(1.0, 0.0, 0.0, 0.0);
       if (!expected.equals(axisAngleToAssert))
       {
@@ -967,7 +1188,7 @@ public abstract class GeometryBasicsTestTools
     *
     * @param axisAngleToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the axis is not unitary.
+    * @throws AssertionError if the axis is not unitary. If the argument is equal to {@code null}.
     */
    public static void assertAxisUnitary(AxisAngleReadOnly axisAngleToAssert, double epsilon)
    {
@@ -980,7 +1201,7 @@ public abstract class GeometryBasicsTestTools
     * @param messagePrefix prefix to add to the error message.
     * @param axisAngleToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the axis is not unitary.
+    * @throws AssertionError if the axis is not unitary. If the argument is equal to {@code null}.
     */
    public static void assertAxisUnitary(String messagePrefix, AxisAngleReadOnly axisAngleToAssert, double epsilon)
    {
@@ -995,10 +1216,13 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the axis is not unitary.
+    * @throws AssertionError if the axis is not unitary. If the argument is equal to {@code null}.
     */
    public static void assertAxisUnitary(String messagePrefix, AxisAngleReadOnly axisAngleToAssert, double epsilon, String format)
    {
+      if (axisAngleToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given axis-angle is null."));
+
       if (!axisAngleToAssert.isAxisUnitary(epsilon))
       {
          String errorMessage = "The axis of the given axis-angle is not unitary: " + getAxisAngleString(format, axisAngleToAssert);
@@ -1010,7 +1234,8 @@ public abstract class GeometryBasicsTestTools
     * Assert that {@link QuaternionBasics#setToZero()} has just been called on the given quaternion.
     *
     * @param quaternionToAssert the query. Not modified.
-    * @throws AssertionError if the quaternion has not been set to zero.
+    * @throws AssertionError if the quaternion has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertQuaternionIsSetToZero(QuaternionReadOnly quaternionToAssert)
    {
@@ -1022,7 +1247,8 @@ public abstract class GeometryBasicsTestTools
     *
     * @param messagePrefix prefix to add to the error message.
     * @param quaternionToAssert the query. Not modified.
-    * @throws AssertionError if the quaternion has not been set to zero.
+    * @throws AssertionError if the quaternion has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertQuaternionIsSetToZero(String messagePrefix, QuaternionReadOnly quaternionToAssert)
    {
@@ -1036,10 +1262,14 @@ public abstract class GeometryBasicsTestTools
     * @param quaternionToAssert the query. Not modified.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the quaternion has not been set to zero.
+    * @throws AssertionError if the quaternion has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertQuaternionIsSetToZero(String messagePrefix, QuaternionReadOnly quaternionToAssert, String format)
    {
+      if (quaternionToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given quaternion is null."));
+
       Quaternion expected = new Quaternion(0.0, 0.0, 0.0, 1.0);
 
       if (!expected.equals(quaternionToAssert))
@@ -1054,7 +1284,8 @@ public abstract class GeometryBasicsTestTools
     *
     * @param quaternionToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the quaternion is not a unit-quaternion.
+    * @throws AssertionError if the quaternion is not a unit-quaternion. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertQuaternionIsUnitary(QuaternionReadOnly quaternionToAssert, double epsilon)
    {
@@ -1067,7 +1298,8 @@ public abstract class GeometryBasicsTestTools
     * @param messagePrefix prefix to add to the error message.
     * @param quaternionToAssert the query. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the quaternion is not a unit-quaternion.
+    * @throws AssertionError if the quaternion is not a unit-quaternion. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertQuaternionIsUnitary(String messagePrefix, QuaternionReadOnly quaternionToAssert, double epsilon)
    {
@@ -1082,10 +1314,14 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the quaternion is not a unit-quaternion.
+    * @throws AssertionError if the quaternion is not a unit-quaternion. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertQuaternionIsUnitary(String messagePrefix, QuaternionReadOnly quaternionToAssert, double epsilon, String format)
    {
+      if (quaternionToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given quaternion is null."));
+
       if (!quaternionToAssert.isUnitary(epsilon))
       {
          String errorMessage = "The quaternion is not unitary: " + getTuple4DString(format, quaternionToAssert);
@@ -1097,7 +1333,8 @@ public abstract class GeometryBasicsTestTools
     * Asserts that the given tuple contains only {@link Double#NaN}.
     *
     * @param tupleToAssert the query. Not modified.
-    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}.
+    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}. If the argument
+    *            is equal to {@code null}.
     */
    public static void assertTuple2DContainsOnlyNaN(Tuple2DReadOnly tupleToAssert)
    {
@@ -1109,10 +1346,14 @@ public abstract class GeometryBasicsTestTools
     *
     * @param messagePrefix prefix to add to the error message.
     * @param tupleToAssert the query. Not modified.
-    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}.
+    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}. If the argument
+    *            is equal to {@code null}.
     */
    public static void assertTuple2DContainsOnlyNaN(String messagePrefix, Tuple2DReadOnly tupleToAssert)
    {
+      if (tupleToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given tuple is null."));
+
       for (int index = 0; index < 2; index++)
       {
          if (!Double.isNaN(tupleToAssert.get(index)))
@@ -1127,7 +1368,8 @@ public abstract class GeometryBasicsTestTools
     * Assert that {@link Tuple2DBasics#setToZero()} has just been called on the given tuple.
     *
     * @param tupleToAssert the query. Not modified.
-    * @throws AssertionError if the tuple has not been set to zero.
+    * @throws AssertionError if the tuple has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertTuple2DIsSetToZero(Tuple2DReadOnly tupleToAssert)
    {
@@ -1139,7 +1381,8 @@ public abstract class GeometryBasicsTestTools
     *
     * @param messagePrefix prefix to add to the error message.
     * @param tupleToAssert the query. Not modified.
-    * @throws AssertionError if the tuple has not been set to zero.
+    * @throws AssertionError if the tuple has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertTuple2DIsSetToZero(String messagePrefix, Tuple2DReadOnly tupleToAssert)
    {
@@ -1153,10 +1396,14 @@ public abstract class GeometryBasicsTestTools
     * @param tupleToAssert the query. Not modified.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the tuple has not been set to zero.
+    * @throws AssertionError if the tuple has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertTuple2DIsSetToZero(String messagePrefix, Tuple2DReadOnly tupleToAssert, String format)
    {
+      if (tupleToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given tuple is null."));
+
       for (int index = 0; index < 2; index++)
       {
          if (tupleToAssert.get(index) != 0.0)
@@ -1171,7 +1418,8 @@ public abstract class GeometryBasicsTestTools
     * Asserts that the given tuple contains only {@link Double#NaN}.
     *
     * @param tupleToAssert the query. Not modified.
-    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}.
+    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}. If the argument
+    *            is equal to {@code null}.
     */
    public static void assertTuple3DContainsOnlyNaN(Tuple3DReadOnly tupleToAssert)
    {
@@ -1183,10 +1431,14 @@ public abstract class GeometryBasicsTestTools
     *
     * @param messagePrefix prefix to add to the error message.
     * @param tupleToAssert the query. Not modified.
-    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}.
+    * @throws AssertionError if the tuple does not only contain {@link Double#NaN}. If the argument
+    *            is equal to {@code null}.
     */
    public static void assertTuple3DContainsOnlyNaN(String messagePrefix, Tuple3DReadOnly tupleToAssert)
    {
+      if (tupleToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given tuple is null."));
+
       for (int index = 0; index < 3; index++)
       {
          if (!Double.isNaN(tupleToAssert.get(index)))
@@ -1201,7 +1453,8 @@ public abstract class GeometryBasicsTestTools
     * Assert that {@link Tuple3DBasics#setToZero()} has just been called on the given tuple.
     *
     * @param tupleToAssert the query. Not modified.
-    * @throws AssertionError if the tuple has not been set to zero.
+    * @throws AssertionError if the tuple has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertTuple3DIsSetToZero(Tuple3DReadOnly tupleToAssert)
    {
@@ -1213,7 +1466,8 @@ public abstract class GeometryBasicsTestTools
     *
     * @param messagePrefix prefix to add to the error message.
     * @param tupleToAssert the query. Not modified.
-    * @throws AssertionError if the tuple has not been set to zero.
+    * @throws AssertionError if the tuple has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertTuple3DIsSetToZero(String messagePrefix, Tuple3DReadOnly tupleToAssert)
    {
@@ -1227,10 +1481,14 @@ public abstract class GeometryBasicsTestTools
     * @param tupleToAssert the query. Not modified.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the tuple has not been set to zero.
+    * @throws AssertionError if the tuple has not been set to zero. If the argument is equal to
+    *            {@code null}.
     */
    public static void assertTuple3DIsSetToZero(String messagePrefix, Tuple3DReadOnly tupleToAssert, String format)
    {
+      if (tupleToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given tuple is null."));
+
       for (int index = 0; index < 3; index++)
       {
          if (tupleToAssert.get(index) != 0.0)
@@ -1244,28 +1502,33 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts that the given tuple contains only {@link Double#NaN}.
     *
-    * @param quaternionToAssert the query. Not modified.
-    * @throws AssertionError if the quaternion does not only contain {@link Double#NaN}.
+    * @param tupleToAssert the query. Not modified.
+    * @throws AssertionError if the quaternion does not only contain {@link Double#NaN}. If the
+    *            argument is equal to {@code null}.
     */
-   public static void assertTuple4DContainsOnlyNaN(Tuple4DReadOnly quaternionToAssert)
+   public static void assertTuple4DContainsOnlyNaN(Tuple4DReadOnly tupleToAssert)
    {
-      assertTuple4DContainsOnlyNaN(null, quaternionToAssert);
+      assertTuple4DContainsOnlyNaN(null, tupleToAssert);
    }
 
    /**
     * Asserts that the given quaternion contains only {@link Double#NaN}.
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param quaternionToAssert the query. Not modified.
-    * @throws AssertionError if the quaternion does not only contain {@link Double#NaN}.
+    * @param tupleToAssert the query. Not modified.
+    * @throws AssertionError if the quaternion does not only contain {@link Double#NaN}. If the
+    *            argument is equal to {@code null}.
     */
-   public static void assertTuple4DContainsOnlyNaN(String messagePrefix, Tuple4DReadOnly quaternionToAssert)
+   public static void assertTuple4DContainsOnlyNaN(String messagePrefix, Tuple4DReadOnly tupleToAssert)
    {
+      if (tupleToAssert == null)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "The given tuple is null."));
+
       for (int index = 0; index < 4; index++)
       {
-         if (!Double.isNaN(quaternionToAssert.get(index)))
+         if (!Double.isNaN(tupleToAssert.get(index)))
          {
-            String errorMessage = "The tuple does not contain only NaN:\n" + getTuple4DString(DEFAULT_FORMAT, quaternionToAssert);
+            String errorMessage = "The tuple does not contain only NaN:\n" + getTuple4DString(DEFAULT_FORMAT, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
          }
       }
@@ -1274,11 +1537,15 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two given rigid-body transform are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param expected the expected rigid-body transform. Not modified.
     * @param actual the actual rigid-body transform. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two rigid-body transforms are not equal.
+    * @throws AssertionError if the two rigid-body transforms are not equal. If only one of the
+    *            arguments is equal to {@code null}.
     */
    public static void assertRigidBodyTransformEquals(RigidBodyTransform expected, RigidBodyTransform actual, double epsilon)
    {
@@ -1288,12 +1555,16 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two given rigid-body transform are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected rigid-body transform. Not modified.
     * @param actual the actual rigid-body transform. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two rigid-body transforms are not equal.
+    * @throws AssertionError if the two rigid-body transforms are not equal. If only one of the
+    *            arguments is equal to {@code null}.
     */
    public static void assertRigidBodyTransformEquals(String messagePrefix, RigidBodyTransform expected, RigidBodyTransform actual, double epsilon)
    {
@@ -1303,6 +1574,9 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two given rigid-body transform are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected rigid-body transform. Not modified.
@@ -1310,11 +1584,18 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two rigid-body transforms are not equal.
+    * @throws AssertionError if the two rigid-body transforms are not equal. If only one of the
+    *            arguments is equal to {@code null}.
     */
    public static void assertRigidBodyTransformEquals(String messagePrefix, RigidBodyTransform expected, RigidBodyTransform actual, double epsilon,
                                                      String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       if (!expected.epsilonEquals(actual, epsilon))
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, format);
@@ -1324,11 +1605,15 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two quaternion-based transforms are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternion-based transforms are not equal.
+    * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
+    *            the arguments is equal to {@code null}.
     */
    public static void assertQuaternionBasedTransformEquals(QuaternionBasedTransform expected, QuaternionBasedTransform actual, double epsilon)
    {
@@ -1338,12 +1623,16 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two quaternion-based transforms are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternion-based transforms are not equal.
+    * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
+    *            the arguments is equal to {@code null}.
     */
    public static void assertQuaternionBasedTransformEquals(String messagePrefix, QuaternionBasedTransform expected, QuaternionBasedTransform actual,
                                                            double epsilon)
@@ -1354,6 +1643,9 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two quaternion-based transforms are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion-based transform. Not modified.
@@ -1361,11 +1653,18 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two quaternion-based transforms are not equal.
+    * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
+    *            the arguments is equal to {@code null}.
     */
    public static void assertQuaternionBasedTransformEquals(String messagePrefix, QuaternionBasedTransform expected, QuaternionBasedTransform actual,
                                                            double epsilon, String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       if (!expected.epsilonEquals(actual, epsilon))
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, format);
@@ -1379,11 +1678,15 @@ public abstract class GeometryBasicsTestTools
     * This method compares the quaternions using
     * {@link #assertQuaternionEqualsSmart(QuaternionReadOnly, QuaternionReadOnly, double)}.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternion-based transforms are not equal.
+    * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
+    *            the arguments is equal to {@code null}.
     */
    public static void assertQuaternionBasedTransformEqualsSmart(QuaternionBasedTransform expected, QuaternionBasedTransform actual, double epsilon)
    {
@@ -1397,12 +1700,16 @@ public abstract class GeometryBasicsTestTools
     * This method compares the quaternions using
     * {@link #assertQuaternionEqualsSmart(QuaternionReadOnly, QuaternionReadOnly, double)}.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two quaternion-based transforms are not equal.
+    * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
+    *            the arguments is equal to {@code null}.
     */
    public static void assertQuaternionBasedTransformEqualsSmart(String messagePrefix, QuaternionBasedTransform expected, QuaternionBasedTransform actual,
                                                                 double epsilon)
@@ -1417,6 +1724,9 @@ public abstract class GeometryBasicsTestTools
     * This method compares the quaternions using
     * {@link #assertQuaternionEqualsSmart(QuaternionReadOnly, QuaternionReadOnly, double)}.
     * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion-based transform. Not modified.
@@ -1424,11 +1734,18 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two quaternion-based transforms are not equal.
+    * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
+    *            the arguments is equal to {@code null}.
     */
    public static void assertQuaternionBasedTransformEqualsSmart(String messagePrefix, QuaternionBasedTransform expected, QuaternionBasedTransform actual,
                                                                 double epsilon, String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       try
       {
          assertTuple3DEquals(expected.getTranslationVector(), actual.getTranslationVector(), epsilon);
@@ -1443,11 +1760,15 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two given affine transforms are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param expected the expected affine transform. Not modified.
     * @param actual the actual affine transform. Not modified.
     * @param epsilon the tolerance to use.
-    * @throws AssertionError if the two affine transforms are not equal.
+    * @throws AssertionError if the two affine transforms are not equal. If only one of the
+    *            arguments is equal to {@code null}.
     */
    public static void assertAffineTransformEquals(AffineTransform expected, AffineTransform actual, double epsilon)
    {
@@ -1457,6 +1778,9 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two given affine transforms are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected affine transform. Not modified.
@@ -1464,7 +1788,8 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two affine transforms are not equal.
+    * @throws AssertionError if the two affine transforms are not equal. If only one of the
+    *            arguments is equal to {@code null}.
     */
    public static void assertAffineTransformEquals(String messagePrefix, AffineTransform expected, AffineTransform actual, double epsilon)
    {
@@ -1474,6 +1799,9 @@ public abstract class GeometryBasicsTestTools
    /**
     * Asserts on a per component basis that the two given affine transforms are equal to an
     * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected affine transform. Not modified.
@@ -1481,14 +1809,28 @@ public abstract class GeometryBasicsTestTools
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
-    * @throws AssertionError if the two affine transforms are not equal.
+    * @throws AssertionError if the two affine transforms are not equal. If only one of the
+    *            arguments is equal to {@code null}.
     */
    public static void assertAffineTransformEquals(String messagePrefix, AffineTransform expected, AffineTransform actual, double epsilon, String format)
    {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
       if (!expected.epsilonEquals(actual, epsilon))
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, format);
       }
+   }
+
+   private static void throwNotEqualAssertionError(String messagePrefix, Tuple2DReadOnly expected, Tuple2DReadOnly actual, String format)
+   {
+      String expectedAsString = getTuple2DString(format, expected);
+      String actualAsString = getTuple2DString(format, actual);
+      throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString);
    }
 
    private static void throwNotEqualAssertionError(String messagePrefix, Tuple2DReadOnly expected, Tuple2DReadOnly actual, double difference, String format)
@@ -1510,6 +1852,13 @@ public abstract class GeometryBasicsTestTools
       String expectedAsString = getTuple3DString(format, expected);
       String actualAsString = getTuple3DString(format, actual);
       throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString, Double.toString(difference));
+   }
+
+   private static void throwNotEqualAssertionError(String messagePrefix, Tuple4DReadOnly expected, Tuple4DReadOnly actual, String format)
+   {
+      String expectedAsString = getTuple4DString(format, expected);
+      String actualAsString = getTuple4DString(format, actual);
+      throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString);
    }
 
    private static void throwNotEqualAssertionError(String messagePrefix, Tuple4DReadOnly expected, Tuple4DReadOnly actual, double difference, String format)
