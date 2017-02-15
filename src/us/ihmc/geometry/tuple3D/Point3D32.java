@@ -2,7 +2,7 @@ package us.ihmc.geometry.tuple3D;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -251,7 +251,7 @@ public class Point3D32 implements Serializable, Point3DBasics, GeometryObject<Po
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getTuple3DString(this);
+      return EuclidCoreIOTools.getTuple3DString(this);
    }
 
    /**

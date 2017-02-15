@@ -11,7 +11,7 @@ import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.junit.Test;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
@@ -354,7 +354,7 @@ public class Matrix3DFeaturesTest
       double m20 = matrix.getM20();
       double m21 = matrix.getM21();
       double m22 = matrix.getM22();
-      String matrixAsString = GeometryBasicsIOTools.getMatrixString(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      String matrixAsString = EuclidCoreIOTools.getMatrixString(m00, m01, m02, m10, m11, m12, m20, m21, m22);
 
       assertTrue(Matrix3DFeatures.isMatrix2D(m00, m01, m02, m10, m11, m12, m20, m21, m22, Matrix3DFeatures.EPS_CHECK_2D) == isMatrix2D);
 

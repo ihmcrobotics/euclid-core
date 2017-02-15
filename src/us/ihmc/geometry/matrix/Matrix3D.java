@@ -2,7 +2,7 @@ package us.ihmc.geometry.matrix;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
@@ -1347,7 +1347,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getMatrixString(this);
+      return EuclidCoreIOTools.getMatrixString(this);
    }
 
    /**

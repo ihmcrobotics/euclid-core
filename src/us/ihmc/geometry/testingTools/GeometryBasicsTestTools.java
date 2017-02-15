@@ -1,6 +1,6 @@
 package us.ihmc.geometry.testingTools;
 
-import static us.ihmc.geometry.GeometryBasicsIOTools.*;
+import static us.ihmc.geometry.EuclidCoreIOTools.*;
 
 import java.util.Arrays;
 

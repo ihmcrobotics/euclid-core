@@ -2,7 +2,7 @@ package us.ihmc.geometry.tuple4D;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
@@ -223,7 +223,7 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getTuple4DString(this);
+      return EuclidCoreIOTools.getTuple4DString(this);
    }
 
    /**

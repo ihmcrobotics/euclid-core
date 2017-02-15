@@ -2,7 +2,7 @@ package us.ihmc.geometry.tuple2D;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
@@ -164,7 +164,7 @@ public class Vector2D implements Serializable, Vector2DBasics, GeometryObject<Ve
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getTuple2DString(this);
+      return EuclidCoreIOTools.getTuple2DString(this);
    }
 
    /**

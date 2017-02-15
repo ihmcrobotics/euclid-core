@@ -2,7 +2,7 @@ package us.ihmc.geometry.axisAngle;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
@@ -299,7 +299,7 @@ public class AxisAngle32 implements Serializable, AxisAngleBasics, Settable<Axis
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getAxisAngleString(this);
+      return EuclidCoreIOTools.getAxisAngleString(this);
    }
 
    /**

@@ -2,7 +2,7 @@ package us.ihmc.geometry.transform;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
@@ -1924,7 +1924,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getRigidBodyTransformString(this);
+      return EuclidCoreIOTools.getRigidBodyTransformString(this);
    }
 
    @Override

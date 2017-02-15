@@ -2,7 +2,7 @@ package us.ihmc.geometry.tuple4D;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
@@ -212,7 +212,7 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getTuple4DString(this);
+      return EuclidCoreIOTools.getTuple4DString(this);
    }
 
    /**

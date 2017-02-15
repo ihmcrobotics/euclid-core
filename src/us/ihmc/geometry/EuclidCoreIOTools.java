@@ -11,7 +11,7 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
 
 /**
- * {@code GeometryBasicsIOTools} is intended to gather the input & output tools for printing,
+ * {@code EuclidCoreIOTools} is intended to gather the input & output tools for printing,
  * saving, and loading geometry objects.
  * <p>
  * At this time, only a few print tools are offered, additional features will come in future
@@ -21,7 +21,7 @@ import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public abstract class GeometryBasicsIOTools
+public abstract class EuclidCoreIOTools
 {
    /** Default format used to print decimal numbers. */
    private static final String DEFAULT_FORMAT = getStringFormat(6, 3);

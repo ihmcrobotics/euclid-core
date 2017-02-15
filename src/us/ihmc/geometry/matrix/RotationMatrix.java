@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.GeometryBasicsIOTools;
+import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.interfaces.GeometryObject;
@@ -1112,7 +1112,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
    @Override
    public String toString()
    {
-      return GeometryBasicsIOTools.getMatrixString(this);
+      return EuclidCoreIOTools.getMatrixString(this);
    }
 
    /**
