@@ -1619,7 +1619,7 @@ public abstract class QuaternionTools
     * </pre>
     * 
     * @param yaw the angle to rotate about the z-axis.
-    * @param quaternionOriginal the quaternion on which the yaw rotation is appended. Not modified.
+    * @param quaternionOriginal the quaternion on which the yaw rotation is prepended. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
    public static void prependYawRotation(double yaw, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionToPack)
@@ -1689,7 +1689,7 @@ public abstract class QuaternionTools
     * </pre>
     * 
     * @param pitch the angle to rotate about the y-axis.
-    * @param quaternionOriginal the quaternion on which the pitch rotation is appended. Not
+    * @param quaternionOriginal the quaternion on which the pitch rotation is prepended. Not
     *           modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
@@ -1761,7 +1761,7 @@ public abstract class QuaternionTools
     * </pre>
     * 
     * @param roll the angle to rotate about the x-axis.
-    * @param quaternionOriginal the quaternion on which the roll rotation is appended. Not modified.
+    * @param quaternionOriginal the quaternion on which the roll rotation is prepended. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
    public static void prependRollRotation(double roll, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionToPack)

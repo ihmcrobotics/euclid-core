@@ -1,5 +1,7 @@
 package us.ihmc.geometry.axisAngle;
 
+import us.ihmc.geometry.EuclidCoreTools;
+import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
@@ -292,7 +294,7 @@ public abstract class AxisAngleTools
          matrixTransformed.set(matrixOriginal);
          return;
       }
-      
+
       double cos = Math.cos(0.5 * axisAngle.getAngle());
       double sin = Math.sin(0.5 * axisAngle.getAngle()) / axisNorm;
 
@@ -572,5 +574,456 @@ public abstract class AxisAngleTools
       double q1s = cos;
 
       QuaternionTools.multiplyImpl(q1x, q1y, q1z, q1s, negateAngle, matrix, transposeMatrix, matrixToPack);
+   }
+
+   /**
+    * Performs the multiplication of {@code aa1} and {@code aa2} and stores the result in
+    * {@code axisAngleToPack}.
+    * <p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    *
+    * @param aa1 the first axis-angle in the multiplication. Not modified.
+    * @param aa2 the second axis-angle in the multiplication. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    */
+   public static void multiply(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
+   {
+      multiplyImpl(aa1, false, aa2, false, axisAngleToPack);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of {@code aa1} and {@code aa2} and stores the
+    * result in {@code axisAngleToPack}.
+    * <p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    *
+    * @param aa1 the first axis-angle in the multiplication. Not modified.
+    * @param aa2 the second axis-angle in the multiplication. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    */
+   public static void multiplyInvertLeft(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
+   {
+      multiplyImpl(aa1, true, aa2, false, axisAngleToPack);
+   }
+
+   /**
+    * Performs the multiplication of {@code aa1} and the inverse of {@code aa2} and stores the
+    * result in {@code axisAngleToPack}.
+    * <p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    *
+    * @param aa1 the first axis-angle in the multiplication. Not modified.
+    * @param aa2 the second axis-angle in the multiplication. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    */
+   public static void multiplyInvertRight(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
+   {
+      multiplyImpl(aa1, false, aa2, true, axisAngleToPack);
+   }
+
+   /**
+    * Performs the multiplication of {@code aa1} and {@code aa2} and stores the result in
+    * {@code axisAngleToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * Provides the option to invert either axis-angle when multiplying them.
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * <p>
+    * <a href="https://i.imgur.com/Mdc2AV3.jpg"> Useful link</a>
+    * </p>
+    *
+    * @param aa1 the first axis-angle in the multiplication. Not modified.
+    * @param inverseAA1 whether to inverse {@code aa1} or not.
+    * @param aa2 the second axis-angle in the multiplication. Not modified.
+    * @param inverseAA2 whether to inverse {@code aa2} or not.
+    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    */
+   private static void multiplyImpl(AxisAngleReadOnly aa1, boolean inverseAA1, AxisAngleReadOnly aa2, boolean inverseAA2, AxisAngleBasics axisAngleToPack)
+   {
+      double axisNorm1 = aa1.axisNorm();
+
+      if (axisNorm1 < EPS)
+         return;
+      axisNorm1 = 1.0 / axisNorm1;
+
+      double alpha = inverseAA1 ? -aa1.getAngle() : aa1.getAngle();
+      double u1x = aa1.getX() * axisNorm1;
+      double u1y = aa1.getY() * axisNorm1;
+      double u1z = aa1.getZ() * axisNorm1;
+
+      double axisNorm2 = aa2.axisNorm();
+
+      if (axisNorm2 < EPS)
+         return;
+      axisNorm2 = 1.0 / axisNorm2;
+
+      double beta = inverseAA2 ? -aa2.getAngle() : aa2.getAngle();
+      double u2x = aa2.getX() * axisNorm2;
+      double u2y = aa2.getY() * axisNorm2;
+      double u2z = aa2.getZ() * axisNorm2;
+
+      double cosHalfAlpha = Math.cos(0.5 * alpha);
+      double sinHalfAlpha = Math.sin(0.5 * alpha);
+      double cosHalfBeta = Math.cos(0.5 * beta);
+      double sinHalfBeta = Math.sin(0.5 * beta);
+
+      double dot = u1x * u2x + u1y * u2y + u1z * u2z;
+      double crossX = u1y * u2z - u1z * u2y;
+      double crossY = u1z * u2x - u1x * u2z;
+      double crossZ = u1x * u2y - u1y * u2x;
+
+      double sinCos = sinHalfAlpha * cosHalfBeta;
+      double cosSin = cosHalfAlpha * sinHalfBeta;
+      double cosCos = cosHalfAlpha * cosHalfBeta;
+      double sinSin = sinHalfAlpha * sinHalfBeta;
+
+      double cosHalfGamma = cosCos - sinSin * dot;
+
+      double sinHalfGammaUx = sinCos * u1x + cosSin * u2x + sinSin * crossX;
+      double sinHalfGammaUy = sinCos * u1y + cosSin * u2y + sinSin * crossY;
+      double sinHalfGammaUz = sinCos * u1z + cosSin * u2z + sinSin * crossZ;
+
+      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+
+      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+      double sinHalfGammaInv = 1.0 / sinHalfGamma;
+      double ux = sinHalfGammaUx * sinHalfGammaInv;
+      double uy = sinHalfGammaUy * sinHalfGammaInv;
+      double uz = sinHalfGammaUz * sinHalfGammaInv;
+      axisAngleToPack.set(ux, uy, uz, gamma);
+   }
+
+   /**
+    * Prepend a rotation about the z-axis to {@code axisAngleOriginal} and stores the result in
+    * {@code axisAngleToPack}.
+    * <p>
+    * All the quaternions can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                   / ux    =  0  \
+    * axisAngleToPack = | uy    =  0  | * axisAngleOriginal
+    *                   | uz    =  1  |
+    *                   \ angle = yaw /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param axisAngleOriginal the axis-angle on which the yaw rotation is prepended. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void prependYawRotation(double yaw, AxisAngleReadOnly axisAngleOriginal, AxisAngleBasics axisAngleToPack)
+   {
+      double axisNorm = axisAngleOriginal.axisNorm();
+
+      if (axisNorm < EPS)
+         return;
+      axisNorm = 1.0 / axisNorm;
+
+      double beta = axisAngleOriginal.getAngle();
+      double ux = axisAngleOriginal.getX() * axisNorm;
+      double uy = axisAngleOriginal.getY() * axisNorm;
+      double uz = axisAngleOriginal.getZ() * axisNorm;
+
+      double cosHalfAlpha = Math.cos(0.5 * yaw);
+      double sinHalfAlpha = Math.sin(0.5 * yaw);
+      double cosHalfBeta = Math.cos(0.5 * beta);
+      double sinHalfBeta = Math.sin(0.5 * beta);
+
+      double sinCos = sinHalfAlpha * cosHalfBeta;
+      double cosSin = cosHalfAlpha * sinHalfBeta;
+      double cosCos = cosHalfAlpha * cosHalfBeta;
+      double sinSin = sinHalfAlpha * sinHalfBeta;
+
+      double cosHalfGamma = cosCos - sinSin * uz;
+
+      double sinHalfGammaUx = cosSin * ux - sinSin * uy;
+      double sinHalfGammaUy = cosSin * uy + sinSin * ux;
+      double sinHalfGammaUz = sinCos + cosSin * uz;
+
+      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+
+      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+      double sinHalfGammaInv = 1.0 / sinHalfGamma;
+      axisAngleToPack.set(sinHalfGammaUx * sinHalfGammaInv, sinHalfGammaUy * sinHalfGammaInv, sinHalfGammaUz * sinHalfGammaInv, gamma);
+   }
+
+   /**
+    * Append a rotation about the z-axis to {@code axisAngleOriginal} and stores the result in
+    * {@code axisAngleToPack}.
+    * <p>
+    * All the axis-angles can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                       / ux    =  0  \
+    * axisAngleToPack = axisAngleOriginal * | uy    =  0  |
+    *                                       | uz    =  1  |
+    *                                       \ angle = yaw /
+    * </pre>
+    * 
+    * @param axisAngleOriginal the axis-angle on which the yaw rotation is appended. Not modified.
+    * @param yaw the angle to rotate about the z-axis.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void appendYawRotation(AxisAngleReadOnly axisAngleOriginal, double yaw, AxisAngleBasics axisAngleToPack)
+   {
+      double axisNorm = axisAngleOriginal.axisNorm();
+
+      if (axisNorm < EPS)
+         return;
+      axisNorm = 1.0 / axisNorm;
+
+      double alpha = axisAngleOriginal.getAngle();
+      double ux = axisAngleOriginal.getX() * axisNorm;
+      double uy = axisAngleOriginal.getY() * axisNorm;
+      double uz = axisAngleOriginal.getZ() * axisNorm;
+
+      double cosHalfAlpha = Math.cos(0.5 * alpha);
+      double sinHalfAlpha = Math.sin(0.5 * alpha);
+      double cosHalfBeta = Math.cos(0.5 * yaw);
+      double sinHalfBeta = Math.sin(0.5 * yaw);
+
+      double sinCos = sinHalfAlpha * cosHalfBeta;
+      double cosSin = cosHalfAlpha * sinHalfBeta;
+      double cosCos = cosHalfAlpha * cosHalfBeta;
+      double sinSin = sinHalfAlpha * sinHalfBeta;
+
+      double cosHalfGamma = cosCos - sinSin * uz;
+
+      double sinHalfGammaUx = sinCos * ux + sinSin * uy;
+      double sinHalfGammaUy = sinCos * uy - sinSin * ux;
+      double sinHalfGammaUz = sinCos * uz + cosSin;
+
+      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+
+      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+      double sinHalfGammaInv = 1.0 / sinHalfGamma;
+      axisAngleToPack.set(sinHalfGammaUx * sinHalfGammaInv, sinHalfGammaUy * sinHalfGammaInv, sinHalfGammaUz * sinHalfGammaInv, gamma);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to {@code axisAngleOriginal} and stores the result in
+    * {@code axisAngleToPack}.
+    * <p>
+    * All the axis-angles can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                   / ux    =  0    \
+    * axisAngleToPack = | uy    =  1    | * axisAngleOriginal
+    *                   | uz    =  0    |
+    *                   \ angle = pitch /
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    * @param axisAngleOriginal the axis-angle on which the yaw rotation is prepended. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void prependPitchRotation(double pitch, AxisAngleReadOnly axisAngleOriginal, AxisAngleBasics axisAngleToPack)
+   {
+      double axisNorm = axisAngleOriginal.axisNorm();
+
+      if (axisNorm < EPS)
+         return;
+      axisNorm = 1.0 / axisNorm;
+
+      double beta = axisAngleOriginal.getAngle();
+      double ux = axisAngleOriginal.getX() * axisNorm;
+      double uy = axisAngleOriginal.getY() * axisNorm;
+      double uz = axisAngleOriginal.getZ() * axisNorm;
+
+      double cosHalfAlpha = Math.cos(0.5 * pitch);
+      double sinHalfAlpha = Math.sin(0.5 * pitch);
+      double cosHalfBeta = Math.cos(0.5 * beta);
+      double sinHalfBeta = Math.sin(0.5 * beta);
+
+      double sinCos = sinHalfAlpha * cosHalfBeta;
+      double cosSin = cosHalfAlpha * sinHalfBeta;
+      double cosCos = cosHalfAlpha * cosHalfBeta;
+      double sinSin = sinHalfAlpha * sinHalfBeta;
+
+      double cosHalfGamma = cosCos - sinSin * uy;
+
+      double sinHalfGammaUx = cosSin * ux + sinSin * uz;
+      double sinHalfGammaUy = sinCos + cosSin * uy;
+      double sinHalfGammaUz = cosSin * uz - sinSin * ux;
+
+      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+
+      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+      double sinHalfGammaInv = 1.0 / sinHalfGamma;
+      axisAngleToPack.set(sinHalfGammaUx * sinHalfGammaInv, sinHalfGammaUy * sinHalfGammaInv, sinHalfGammaUz * sinHalfGammaInv, gamma);
+   }
+
+   /**
+    * Append a rotation about the y-axis to {@code axisAngleOriginal} and stores the result in
+    * {@code axisAngleToPack}.
+    * <p>
+    * All the axis-angles can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                       / ux    =  0    \
+    * axisAngleToPack = axisAngleOriginal * | uy    =  1    |
+    *                                       | uz    =  0    |
+    *                                       \ angle = pitch /
+    * </pre>
+    * 
+    * @param axisAngleOriginal the axis-angle on which the yaw rotation is appended. Not modified.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void appendPitchRotation(AxisAngleReadOnly axisAngleOriginal, double pitch, AxisAngleBasics axisAngleToPack)
+   {
+      double axisNorm = axisAngleOriginal.axisNorm();
+
+      if (axisNorm < EPS)
+         return;
+      axisNorm = 1.0 / axisNorm;
+
+      double alpha = axisAngleOriginal.getAngle();
+      double ux = axisAngleOriginal.getX() * axisNorm;
+      double uy = axisAngleOriginal.getY() * axisNorm;
+      double uz = axisAngleOriginal.getZ() * axisNorm;
+
+      double cosHalfAlpha = Math.cos(0.5 * alpha);
+      double sinHalfAlpha = Math.sin(0.5 * alpha);
+      double cosHalfBeta = Math.cos(0.5 * pitch);
+      double sinHalfBeta = Math.sin(0.5 * pitch);
+
+      double sinCos = sinHalfAlpha * cosHalfBeta;
+      double cosSin = cosHalfAlpha * sinHalfBeta;
+      double cosCos = cosHalfAlpha * cosHalfBeta;
+      double sinSin = sinHalfAlpha * sinHalfBeta;
+
+      double cosHalfGamma = cosCos - sinSin * uy;
+
+      double sinHalfGammaUx = sinCos * ux - sinSin * uz;
+      double sinHalfGammaUy = sinCos * uy + cosSin;
+      double sinHalfGammaUz = sinCos * uz + sinSin * ux;
+
+      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+
+      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+      double sinHalfGammaInv = 1.0 / sinHalfGamma;
+      axisAngleToPack.set(sinHalfGammaUx * sinHalfGammaInv, sinHalfGammaUy * sinHalfGammaInv, sinHalfGammaUz * sinHalfGammaInv, gamma);
+   }
+
+   /**
+    * Prepend a rotation about the x-axis to {@code axisAngleOriginal} and stores the result in
+    * {@code axisAngleToPack}.
+    * <p>
+    * All the axis-angles can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                   / ux    =  1   \
+    * axisAngleToPack = | uy    =  0   | * axisAngleOriginal
+    *                   | uz    =  0   |
+    *                   \ angle = roll /
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    * @param axisAngleOriginal the axis-angle on which the yaw rotation is prepended. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void prependRollRotation(double roll, AxisAngleReadOnly axisAngleOriginal, AxisAngleBasics axisAngleToPack)
+   {
+      double axisNorm2 = axisAngleOriginal.axisNorm();
+
+      if (axisNorm2 < EPS)
+         return;
+      axisNorm2 = 1.0 / axisNorm2;
+
+      double beta = axisAngleOriginal.getAngle();
+      double ux = axisAngleOriginal.getX() * axisNorm2;
+      double uy = axisAngleOriginal.getY() * axisNorm2;
+      double uz = axisAngleOriginal.getZ() * axisNorm2;
+
+      double cosHalfAlpha = Math.cos(0.5 * roll);
+      double sinHalfAlpha = Math.sin(0.5 * roll);
+      double cosHalfBeta = Math.cos(0.5 * beta);
+      double sinHalfBeta = Math.sin(0.5 * beta);
+
+      double sinCos = sinHalfAlpha * cosHalfBeta;
+      double cosSin = cosHalfAlpha * sinHalfBeta;
+      double cosCos = cosHalfAlpha * cosHalfBeta;
+      double sinSin = sinHalfAlpha * sinHalfBeta;
+
+      double cosHalfGamma = cosCos - sinSin * ux;
+
+      double sinHalfGammaUx = sinCos + cosSin * ux;
+      double sinHalfGammaUy = cosSin * uy - sinSin * uz;
+      double sinHalfGammaUz = cosSin * uz + sinSin * uy;
+
+      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+
+      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+      double sinHalfGammaInv = 1.0 / sinHalfGamma;
+      axisAngleToPack.set(sinHalfGammaUx * sinHalfGammaInv, sinHalfGammaUy * sinHalfGammaInv, sinHalfGammaUz * sinHalfGammaInv, gamma);
+   }
+
+   /**
+    * Append a rotation about the x-axis to {@code axisAngleOriginal} and stores the result in
+    * {@code axisAngleToPack}.
+    * <p>
+    * All the axis-angles can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                       / ux    =  1   \
+    * axisAngleToPack = axisAngleOriginal * | uy    =  0   |
+    *                                       | uz    =  0   |
+    *                                       \ angle = roll /
+    * </pre>
+    * 
+    * @param axisAngleOriginal the axis-angle on which the yaw rotation is appended. Not modified.
+    * @param roll the angle to rotate about the x-axis.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void appendRollRotation(AxisAngleReadOnly axisAngleOriginal, double roll, AxisAngleBasics axisAngleToPack)
+   {
+      double axisNorm1 = axisAngleOriginal.axisNorm();
+
+      if (axisNorm1 < EPS)
+         return;
+      axisNorm1 = 1.0 / axisNorm1;
+
+      double alpha = axisAngleOriginal.getAngle();
+      double ux = axisAngleOriginal.getX() * axisNorm1;
+      double uy = axisAngleOriginal.getY() * axisNorm1;
+      double uz = axisAngleOriginal.getZ() * axisNorm1;
+
+      double cosHalfAlpha = Math.cos(0.5 * alpha);
+      double sinHalfAlpha = Math.sin(0.5 * alpha);
+      double cosHalfBeta = Math.cos(0.5 * roll);
+      double sinHalfBeta = Math.sin(0.5 * roll);
+
+      double sinCos = sinHalfAlpha * cosHalfBeta;
+      double cosSin = cosHalfAlpha * sinHalfBeta;
+      double cosCos = cosHalfAlpha * cosHalfBeta;
+      double sinSin = sinHalfAlpha * sinHalfBeta;
+
+      double cosHalfGamma = cosCos - sinSin * ux;
+
+      double sinHalfGammaUx = sinCos * ux + cosSin;
+      double sinHalfGammaUy = sinCos * uy + sinSin * uz;
+      double sinHalfGammaUz = sinCos * uz + -sinSin * uy;
+
+      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+
+      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+      double sinHalfGammaInv = 1.0 / sinHalfGamma;
+      axisAngleToPack.set(sinHalfGammaUx * sinHalfGammaInv, sinHalfGammaUy * sinHalfGammaInv, sinHalfGammaUz * sinHalfGammaInv, gamma);
    }
 }

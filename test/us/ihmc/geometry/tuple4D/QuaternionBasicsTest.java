@@ -1151,7 +1151,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T qActual = createRandomTuple(random);
          T qExpected = createEmptyTuple();
 
-         { // Test multiplyConjugateThis(QuaternionBasics other)
+         { // Test multiplyConjugateThis(QuaternionReadOnly other)
             qActual.set(qOther1);
             qExpected.set(qOther1);
             qActual.multiplyConjugateThis(qOther2);
@@ -1160,7 +1160,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             GeometryBasicsTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
          }
 
-         { // Test multiplyConjugateOther(QuaternionBasics other)
+         { // Test multiplyConjugateOther(QuaternionReadOnly other)
             qActual.set(qOther1);
             qExpected.set(qOther1);
             qActual.multiplyConjugateOther(qOther2);

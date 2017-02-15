@@ -1,6 +1,7 @@
 package us.ihmc.geometry.axisAngle.interfaces;
 
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
+import us.ihmc.geometry.axisAngle.AxisAngleTools;
 import us.ihmc.geometry.interfaces.Clearable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
@@ -79,11 +80,58 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
    }
 
    /**
+    * Sets each component of this axis-angle to its absolute value.
+    */
+   default void absolute()
+   {
+      set(Math.abs(getX()), Math.abs(getY()), Math.abs(getZ()), Math.abs(getAngle()));
+   }
+
+   /**
     * Negates each component of this axis-angle.
     */
    default void negate()
    {
       set(-getX(), -getY(), -getZ(), -getAngle());
+   }
+
+   /**
+    * Sets this axis-angle to its inverse.
+    */
+   default void inverse()
+   {
+      setAngle(-getAngle());
+   }
+
+   /**
+    * Normalizes the axis of this axis-angle such that its norm is equal to 1 after calling this method and its
+    * direction remains unchanged.
+    * <p>
+    * Edge cases:
+    * <ul>
+    * <li>if this axis-angle contains {@link Double#NaN}, this method is ineffective.
+    * </ul>
+    * </p>
+    */
+   default void normalizeAxis()
+   {
+      if (containsNaN())
+         return;
+
+      double invNorm = axisNorm();
+
+      if (invNorm == 0.0)
+      {
+         setToZero();
+         return;
+      }
+
+      invNorm = 1.0 / invNorm;
+      double ux = getX() * invNorm;
+      double uy = getY() * invNorm;
+      double uz = getZ() * invNorm;
+      double angle = getAngle();
+      set(ux, uy, uz, angle);
    }
 
    /**
@@ -293,5 +341,199 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
       default:
          throw new IndexOutOfBoundsException(Integer.toString(index));
       }
+   }
+
+   /**
+    * Multiplies this axis-angle by {@code other}.
+    * <p>
+    * this = this * other
+    * </p>
+    *
+    * @param other the other axis-angle to multiply this. Not modified.
+    */
+   default void multiply(AxisAngleReadOnly other)
+   {
+      AxisAngleTools.multiply(this, other, this);
+   }
+
+   /**
+    * Sets this axis-angle to the multiplication of {@code aa1} and {@code aa2}.
+    * <p>
+    * this = aa1 * aa2
+    * </p>
+    *
+    * @param aa1 the first axis-angle in the multiplication. Not modified.
+    * @param aa2 the second axis-angle in the multiplication. Not modified.
+    */
+   default void multiply(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2)
+   {
+      AxisAngleTools.multiply(aa1, aa2, this);
+   }
+
+   /**
+    * Multiplies this axis-angle by the inverse of {@code other}.
+    * <p>
+    * this = this * other<sup>-1</sup>
+    * </p>
+    *
+    * @param other the other axis-angle to multiply this. Not modified.
+    */
+   default void multiplyInvertOther(AxisAngleReadOnly other)
+   {
+      AxisAngleTools.multiplyInvertRight(this, other, this);
+   }
+
+   /**
+    * Sets this axis-angle to the multiplication of the inverse of {@code this} and {@code other}.
+    * <p>
+    * this = this<sup>-1</sup> * other
+    * </p>
+    *
+    * @param other the other axis-angle to multiply this. Not modified.
+    */
+   default void multiplyInvertThis(AxisAngleReadOnly other)
+   {
+      AxisAngleTools.multiplyInvertLeft(this, other, this);
+   }
+
+   /**
+    * Append a rotation about the z-axis to this axis-angle.
+    * 
+    * <pre>
+    *               / ux    =  0  \
+    * this = this * | uy    =  0  |
+    *               | uz    =  1  |
+    *               \ angle = yaw /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   default void appendYawRotation(double yaw)
+   {
+      AxisAngleTools.appendYawRotation(this, yaw, this);
+   }
+
+   /**
+    * Append a rotation about the y-axis to this axis-angle.
+    * 
+    * <pre>
+    *               / ux    =  0    \
+    * this = this * | uy    =  1    |
+    *               | uz    =  0    |
+    *               \ angle = pitch /
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   default void appendPitchRotation(double pitch)
+   {
+      AxisAngleTools.appendPitchRotation(this, pitch, this);
+   }
+
+   /**
+    * Append a rotation about the x-axis to this axis-angle.
+    * 
+    * <pre>
+    *               / ux    =  1   \
+    * this = this * | uy    =  0   |
+    *               | uz    =  0   |
+    *               \ angle = roll /
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    */
+   default void appendRollRotation(double roll)
+   {
+      AxisAngleTools.appendRollRotation(this, roll, this);
+   }
+
+   /**
+    * Pre-multiplies this axis-angle by {@code other}.
+    * <p>
+    * this = other * other
+    * </p>
+    *
+    * @param other the other axis-angle to multiply this. Not modified.
+    */
+   default void preMultiply(AxisAngleReadOnly other)
+   {
+      AxisAngleTools.multiply(other, this, this);
+   }
+
+   /**
+    * Sets this axis-angle to the multiplication of the inverse of {@code other} and {@code this}.
+    * <p>
+    * this = other<sup>-1</sup> * this
+    * </p>
+    *
+    * @param other the other axis-angle to multiply this. Not modified.
+    */
+   default void preMultiplyInvertOther(AxisAngleReadOnly other)
+   {
+      AxisAngleTools.multiplyInvertLeft(other, this, this);
+   }
+
+   /**
+    * Sets this axis-angle to the multiplication of {@code other} and the inverse of {@code this}.
+    * <p>
+    * this = other * this<sup>-1</sup>
+    * </p>
+    *
+    * @param other the other axis-angle to multiply this. Not modified.
+    */
+   default void preMultiplyInvertThis(AxisAngleReadOnly other)
+   {
+      AxisAngleTools.multiplyInvertRight(other, this, this);
+   }
+
+   /**
+    * Prepend a rotation about the z-axis to this axis-angle.
+    * 
+    * <pre>
+    *        / ux    =  0  \
+    * this = | uy    =  0  | * this
+    *        | uz    =  1  |
+    *        \ angle = yaw /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   default void prependYawRotation(double yaw)
+   {
+      AxisAngleTools.prependYawRotation(yaw, this, this);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to this axis-angle.
+    * 
+    * <pre>
+    *        / ux    =  0    \
+    * this = | uy    =  1    | * this
+    *        | uz    =  0    |
+    *        \ angle = pitch /
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   default void prependPitchRotation(double pitch)
+   {
+      AxisAngleTools.prependPitchRotation(pitch, this, this);
+   }
+
+   /**
+    * Prepend a rotation about the x-axis to this axis-angle.
+    * 
+    * <pre>
+    *        / ux    =  1   \
+    * this = | uy    =  0   | * this
+    *        | uz    =  0   |
+    *        \ angle = roll /
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    */
+   default void prependRollRotation(double roll)
+   {
+      AxisAngleTools.prependRollRotation(roll, this, this);
    }
 }
