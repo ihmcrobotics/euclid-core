@@ -732,7 +732,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     *               \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     *
-    * @param yaw the angle to rotate about the x-axis.
+    * @param roll the angle to rotate about the x-axis.
     */
    public void appendRollRotation(double roll)
    {
@@ -845,6 +845,54 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
    public void preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
    {
       QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, this, this);
+   }
+
+   /**
+    * Prepend a rotation about the z-axis to this rotation matrix.
+    * 
+    * <pre>
+    *        / cos(yaw) -sin(yaw) 0 \    
+    * this = | sin(yaw)  cos(yaw) 0 | * this
+    *        \    0         0     1 /    
+    * </pre>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void prependYawRotation(double yaw)
+   {
+      RotationMatrixTools.prependYawRotation(yaw, this, this);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to this rotation matrix.
+    * 
+    * <pre>
+    *        /  cos(pitch) 0 sin(pitch) \    
+    * this = |      0      1     0      | * this
+    *        \ -sin(pitch) 0 cos(pitch) /    
+    * </pre>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void prependPitchRotation(double pitch)
+   {
+      RotationMatrixTools.prependPitchRotation(pitch, this, this);
+   }
+
+   /**
+    * Append a rotation about the x-axis to this rotation matrix.
+    * 
+    * <pre>
+    *        /  cos(pitch) 0 sin(pitch) \    
+    * this = |      0      1     0      | * this
+    *        \ -sin(pitch) 0 cos(pitch) /    
+    * </pre>
+    *
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public void prependRollRotation(double roll)
+   {
+      RotationMatrixTools.prependRollRotation(roll, this, this);
    }
 
    /**
