@@ -1,6 +1,6 @@
 package us.ihmc.geometry.matrix;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
@@ -135,7 +135,7 @@ public abstract class RotationMatrixConversion
     */
    public static void convertAxisAngleToMatrix(double ux, double uy, double uz, double angle, RotationMatrix matrixToPack)
    {
-      if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
+      if (EuclidCoreTools.containsNaN(ux, uy, uz, angle))
       {
          matrixToPack.setToNaN();
          return;
@@ -393,7 +393,7 @@ public abstract class RotationMatrixConversion
     */
    public static void convertRotationVectorToMatrix(double rx, double ry, double rz, RotationMatrix matrixToPack)
    {
-      if (GeometryBasicsTools.containsNaN(rx, ry, rz))
+      if (EuclidCoreTools.containsNaN(rx, ry, rz))
       {
          matrixToPack.setToNaN();
          return;

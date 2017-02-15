@@ -1,6 +1,6 @@
 package us.ihmc.geometry.axisAngle;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.RotationMatrixConversion;
@@ -244,7 +244,7 @@ public class AxisAngleConversion
     */
    public static void convertRotationVectorToAxisAngle(double rx, double ry, double rz, AxisAngleBasics axisAngleToPack)
    {
-      if (GeometryBasicsTools.containsNaN(rx, ry, rz))
+      if (EuclidCoreTools.containsNaN(rx, ry, rz))
       {
          axisAngleToPack.setToNaN();
          return;
@@ -323,7 +323,7 @@ public class AxisAngleConversion
     */
    public static void convertYawPitchRollToAxisAngle(double yaw, double pitch, double roll, AxisAngleBasics axisAngleToPack)
    {
-      if (GeometryBasicsTools.containsNaN(yaw, pitch, roll))
+      if (EuclidCoreTools.containsNaN(yaw, pitch, roll))
       {
          axisAngleToPack.setToNaN();
          return;
@@ -346,7 +346,7 @@ public class AxisAngleConversion
       double qy = sYaw * cPitch * sRoll + cYaw * sPitch * cRoll;
       double qz = sYaw * cPitch * cRoll - cYaw * sPitch * sRoll;
 
-      double uNorm = GeometryBasicsTools.fastSquareRoot(qx * qx + qy * qy + qz * qz);
+      double uNorm = EuclidCoreTools.fastSquareRoot(qx * qx + qy * qy + qz * qz);
 
       if (uNorm > EPS)
       {

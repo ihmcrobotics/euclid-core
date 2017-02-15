@@ -1,6 +1,6 @@
 package us.ihmc.geometry.matrix;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
@@ -393,9 +393,9 @@ public abstract class Matrix3DTools
       m22 -= tmp * m20 + tmp1 * m21;
 
       // Compute orthogonalized vector magnitudes and normalize
-      double invMagX = 1.0 / GeometryBasicsTools.norm(m00, m10, m20);
-      double invMagY = 1.0 / GeometryBasicsTools.norm(m01, m11, m21);
-      double invMagZ = 1.0 / GeometryBasicsTools.norm(m02, m12, m22);
+      double invMagX = 1.0 / EuclidCoreTools.norm(m00, m10, m20);
+      double invMagY = 1.0 / EuclidCoreTools.norm(m01, m11, m21);
+      double invMagZ = 1.0 / EuclidCoreTools.norm(m02, m12, m22);
 
       m00 *= invMagX;
       m01 *= invMagY;

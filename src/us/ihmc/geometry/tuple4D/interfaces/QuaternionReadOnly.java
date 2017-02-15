@@ -1,6 +1,6 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
@@ -88,7 +88,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    @Override
    default double norm()
    {
-      return GeometryBasicsTools.fastSquareRoot(normSquared());
+      return EuclidCoreTools.fastSquareRoot(normSquared());
    }
 
    /**

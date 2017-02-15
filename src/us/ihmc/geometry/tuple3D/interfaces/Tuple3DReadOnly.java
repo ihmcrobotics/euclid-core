@@ -2,7 +2,7 @@ package us.ihmc.geometry.tuple3D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.TupleTools;
 
 /**
@@ -90,7 +90,7 @@ public interface Tuple3DReadOnly
     */
    default boolean containsNaN()
    {
-      return GeometryBasicsTools.containsNaN(getX(), getY(), getZ());
+      return EuclidCoreTools.containsNaN(getX(), getY(), getZ());
    }
 
    /**

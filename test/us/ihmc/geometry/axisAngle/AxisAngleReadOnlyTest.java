@@ -7,7 +7,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
@@ -188,7 +188,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double uy = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
          double uz = GeometryBasicsRandomTools.generateRandomDouble(random, 1.0);
          double angle = GeometryBasicsRandomTools.generateRandomDouble(random, 10.0);
-         double norm = GeometryBasicsTools.norm(ux, uy, uz);
+         double norm = EuclidCoreTools.norm(ux, uy, uz);
 
          ux /= norm;
          uy /= norm;

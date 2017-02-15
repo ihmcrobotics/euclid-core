@@ -1,6 +1,6 @@
 package us.ihmc.geometry.tuple4D;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.RotationMatrixConversion;
@@ -115,13 +115,13 @@ public abstract class QuaternionConversion
     */
    public static final void convertAxisAngleToQuaternion(double ux, double uy, double uz, double angle, QuaternionBasics quaternionToPack)
    {
-      if (GeometryBasicsTools.containsNaN(ux, uy, uz, angle))
+      if (EuclidCoreTools.containsNaN(ux, uy, uz, angle))
       {
          quaternionToPack.setToNaN();
          return;
       }
 
-      double uNorm = GeometryBasicsTools.norm(ux, uy, uz);
+      double uNorm = EuclidCoreTools.norm(ux, uy, uz);
       if (uNorm < EPS)
       {
          quaternionToPack.setToZero();
@@ -306,7 +306,7 @@ public abstract class QuaternionConversion
     */
    public static void convertRotationVectorToQuaternionImpl(double rx, double ry, double rz, QuaternionBasics quaternionToPack)
    {
-      if (GeometryBasicsTools.containsNaN(rx, ry, rz))
+      if (EuclidCoreTools.containsNaN(rx, ry, rz))
       {
          quaternionToPack.setToNaN();
          return;

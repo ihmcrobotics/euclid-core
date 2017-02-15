@@ -1,6 +1,6 @@
 package us.ihmc.geometry.axisAngle.interfaces;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 
@@ -93,7 +93,7 @@ public interface AxisAngleReadOnly
     */
    default boolean containsNaN()
    {
-      return GeometryBasicsTools.containsNaN(getX(), getY(), getZ(), getAngle());
+      return EuclidCoreTools.containsNaN(getX(), getY(), getZ(), getAngle());
    }
 
    /**
@@ -106,7 +106,7 @@ public interface AxisAngleReadOnly
     */
    default double axisNorm()
    {
-      return GeometryBasicsTools.norm(getX(), getY(), getZ());
+      return EuclidCoreTools.norm(getX(), getY(), getZ());
    }
 
    /**

@@ -2,7 +2,7 @@ package us.ihmc.geometry.tuple4D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.GeometryBasicsTools;
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.TupleTools;
 
 /**
@@ -112,7 +112,7 @@ public interface Tuple4DReadOnly
     */
    default boolean containsNaN()
    {
-      return GeometryBasicsTools.containsNaN(getX(), getY(), getZ(), getS());
+      return EuclidCoreTools.containsNaN(getX(), getY(), getZ(), getS());
    }
 
    /**

@@ -1,6 +1,6 @@
 package us.ihmc.geometry;
 
-public class GeometryBasicsTools
+public class EuclidCoreTools
 {
    public static final double EPS_NORM_FAST_SQRT = 2.107342e-08;
 
