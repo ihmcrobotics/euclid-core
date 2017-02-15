@@ -1,4 +1,4 @@
-# IHMC Geometry Basics
+# Euclid Core
 
 ## Minutiae
 
@@ -18,8 +18,8 @@ This library is compatible with Java 8+.
 This library sources depends on the matrix library EJML [here](http://ejml.org/), while the tests also on JUnit and PIT mutation testing library [here](http://pitest.org/).
 
 ## Briefly
-IHMC Geometry Basics is a library that defines the common tools useful for general geometric applications.
-The library is born from the need of having a base geometry library that is well tested, flexible, and meant for real-time environment where
+Euclid Core is a library that defines the common tools useful for general geometric applications and vector math.
+The library is born from the need of having a base library for geometric applications that is well tested, flexible, and meant for real-time environment where
 garbage generation is not allowed.
 
 ## Content
