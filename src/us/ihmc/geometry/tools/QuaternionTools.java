@@ -131,8 +131,8 @@ public abstract class QuaternionTools
     * @param conjugateQ2 whether to conjugate {@code q2} or not.
     * @param quaternionToPack the quaternion in which the result is stores. Modified.
     */
-   public static void multiplyImpl(double q1x, double q1y, double q1z, double q1s, boolean conjugateQ1, double q2x, double q2y, double q2z, double q2s,
-                                   boolean conjugateQ2, QuaternionBasics quaternionToPack)
+   static void multiplyImpl(double q1x, double q1y, double q1z, double q1s, boolean conjugateQ1, double q2x, double q2y, double q2z, double q2s,
+                            boolean conjugateQ2, QuaternionBasics quaternionToPack)
    {
       if (conjugateQ1)
       {
@@ -860,8 +860,8 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   public static void transformImpl(double qx, double qy, double qz, double qs, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal,
-                                    Matrix3D matrixTransformed)
+   static void transformImpl(double qx, double qy, double qz, double qs, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal,
+                             Matrix3D matrixTransformed)
    {
       double norm = EuclidCoreTools.norm(qx, qy, qz, qs);
 
@@ -1353,8 +1353,8 @@ public abstract class QuaternionTools
     * @param transposeMatrix whether to transpose the rotation matrix or not.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyImpl(double qx, double qy, double qz, double qs, boolean conjugateQuaternion, RotationMatrixReadOnly matrix,
-                                   boolean transposeMatrix, RotationMatrix matrixToPack)
+   static void multiplyImpl(double qx, double qy, double qz, double qs, boolean conjugateQuaternion, RotationMatrixReadOnly matrix, boolean transposeMatrix,
+                            RotationMatrix matrixToPack)
    {
       double norm = EuclidCoreTools.norm(qx, qy, qz, qs);
 
@@ -1761,7 +1761,8 @@ public abstract class QuaternionTools
     * </pre>
     * 
     * @param roll the angle to rotate about the x-axis.
-    * @param quaternionOriginal the quaternion on which the roll rotation is prepended. Not modified.
+    * @param quaternionOriginal the quaternion on which the roll rotation is prepended. Not
+    *           modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
    public static void prependRollRotation(double roll, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionToPack)

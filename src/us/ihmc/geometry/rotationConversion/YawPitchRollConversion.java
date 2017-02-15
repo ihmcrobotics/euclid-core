@@ -685,7 +685,7 @@ public abstract class YawPitchRollConversion
     * @param angle the angle of the axis-angle to use in the conversion.
     * @return the yaw angle.
     */
-   public static double computeYawFromAxisAngleImpl(double ux, double uy, double uz, double angle)
+   static double computeYawFromAxisAngleImpl(double ux, double uy, double uz, double angle)
    {
       double sinTheta = Math.sin(angle);
       double cosTheta = Math.cos(angle);
@@ -708,7 +708,7 @@ public abstract class YawPitchRollConversion
     * @param angle the angle of the axis-angle to use in the conversion.
     * @return the pitch angle.
     */
-   public static double computePitchFromAxisAngleImpl(double ux, double uy, double uz, double angle)
+   static double computePitchFromAxisAngleImpl(double ux, double uy, double uz, double angle)
    {
       double m20 = (1.0 - Math.cos(angle)) * ux * uz - Math.sin(angle) * uy;
       return computePitchImpl(m20);
@@ -726,7 +726,7 @@ public abstract class YawPitchRollConversion
     * @param angle the angle of the axis-angle to use in the conversion.
     * @return the roll angle.
     */
-   public static double computeRollFromAxisAngleImpl(double ux, double uy, double uz, double angle)
+   static double computeRollFromAxisAngleImpl(double ux, double uy, double uz, double angle)
    {
       double sinTheta = Math.sin(angle);
       double cosTheta = Math.cos(angle);
@@ -959,7 +959,7 @@ public abstract class YawPitchRollConversion
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored, in the
     *           order {@code yaw}, {@code pitch}, then {@code roll}. Modified.
     */
-   public static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, double[] yawPitchRollToPack)
+   static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, double[] yawPitchRollToPack)
    {
       double sinTheta = Math.sin(angle);
       double cosTheta = Math.cos(angle);
@@ -1002,7 +1002,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, Tuple3DBasics eulerAnglesToPack)
+   static void convertAxisAngleToYawPitchRollImpl(double ux, double uy, double uz, double angle, Tuple3DBasics eulerAnglesToPack)
    {
       double sinTheta = Math.sin(angle);
       double cosTheta = Math.cos(angle);

@@ -273,7 +273,7 @@ public abstract class QuaternionConversion
     */
    public static void convertRotationVectorToQuaternion(Vector3DReadOnly rotationVector, QuaternionBasics quaternionToPack)
    {
-      convertRotationVectorToQuaternionImpl(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), quaternionToPack);
+      convertRotationVectorToQuaternion(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ(), quaternionToPack);
    }
 
    /**
@@ -300,7 +300,7 @@ public abstract class QuaternionConversion
     * @param rz the z-component of the rotation vector to use in the conversion.
     * @param quaternionToPack the quaternion in which the result is stored.
     */
-   public static void convertRotationVectorToQuaternionImpl(double rx, double ry, double rz, QuaternionBasics quaternionToPack)
+   public static void convertRotationVectorToQuaternion(double rx, double ry, double rz, QuaternionBasics quaternionToPack)
    {
       if (EuclidCoreTools.containsNaN(rx, ry, rz))
       {

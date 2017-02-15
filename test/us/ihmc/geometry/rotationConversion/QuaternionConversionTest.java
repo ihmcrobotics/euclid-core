@@ -441,21 +441,21 @@ public class QuaternionConversionTest
          double rz = axisAngle.getZ() * axisAngle.getAngle();
          // The axisangle->quaternion conversion is safe here as it is tested separately in testAxisAngleToQuaternion().
          QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, expectedQuaternion);
-         QuaternionConversion.convertRotationVectorToQuaternionImpl(rx, ry, rz, actualQuaternion);
+         QuaternionConversion.convertRotationVectorToQuaternion(rx, ry, rz, actualQuaternion);
          EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
          EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
-      QuaternionConversion.convertRotationVectorToQuaternionImpl(0.0, 0.0, 0.0, actualQuaternion);
+      QuaternionConversion.convertRotationVectorToQuaternion(0.0, 0.0, 0.0, actualQuaternion);
       EuclidCoreTestTools.assertQuaternionIsSetToZero(actualQuaternion);
 
-      QuaternionConversion.convertRotationVectorToQuaternionImpl(Double.NaN, 0.0, 0.0, actualQuaternion);
+      QuaternionConversion.convertRotationVectorToQuaternion(Double.NaN, 0.0, 0.0, actualQuaternion);
       EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
-      QuaternionConversion.convertRotationVectorToQuaternionImpl(0.0, Double.NaN, 0.0, actualQuaternion);
+      QuaternionConversion.convertRotationVectorToQuaternion(0.0, Double.NaN, 0.0, actualQuaternion);
       EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
-      QuaternionConversion.convertRotationVectorToQuaternionImpl(0.0, 0.0, Double.NaN, actualQuaternion);
+      QuaternionConversion.convertRotationVectorToQuaternion(0.0, 0.0, Double.NaN, actualQuaternion);
       EuclidCoreTestTools.assertTuple4DContainsOnlyNaN(actualQuaternion);
 
       // Test with an actual vector
@@ -470,7 +470,7 @@ public class QuaternionConversionTest
          double rx = rotationVector.getX();
          double ry = rotationVector.getY();
          double rz = rotationVector.getZ();
-         QuaternionConversion.convertRotationVectorToQuaternionImpl(rx, ry, rz, expectedQuaternion);
+         QuaternionConversion.convertRotationVectorToQuaternion(rx, ry, rz, expectedQuaternion);
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, actualQuaternion);
          EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
          EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
