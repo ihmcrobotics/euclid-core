@@ -100,8 +100,7 @@ public abstract class QuaternionTools
     * @param conjugateQ2 whether to conjugate {@code q2} or not.
     * @param quaternionToPack the quaternion in which the result is stores. Modified.
     */
-   private static void multiplyImpl(QuaternionReadOnly q1, boolean conjugateQ1, QuaternionReadOnly q2, boolean conjugateQ2,
-                                    QuaternionBasics quaternionToPack)
+   private static void multiplyImpl(QuaternionReadOnly q1, boolean conjugateQ1, QuaternionReadOnly q2, boolean conjugateQ2, QuaternionBasics quaternionToPack)
    {
       multiplyImpl(q1.getX(), q1.getY(), q1.getZ(), q1.getS(), conjugateQ1, q2.getX(), q2.getY(), q2.getZ(), q2.getS(), conjugateQ2, quaternionToPack);
    }
@@ -351,8 +350,7 @@ public abstract class QuaternionTools
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     */
-   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal,
-                                     Tuple3DBasics tupleTransformed)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
@@ -436,8 +434,7 @@ public abstract class QuaternionTools
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     */
-   private static void addTransform(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal,
-                                    Tuple3DBasics tupleTransformed)
+   private static void addTransform(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
@@ -501,8 +498,7 @@ public abstract class QuaternionTools
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
     *            does not represent a transformation in the XY plane.
     */
-   public static void transform(QuaternionReadOnly quaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
-                                boolean checkIfTransformInXYPlane)
+   public static void transform(QuaternionReadOnly quaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       transformImpl(quaternion, false, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
    }
@@ -558,8 +554,8 @@ public abstract class QuaternionTools
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
     *            does not represent a transformation in the XY plane.
     */
-   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple2DReadOnly tupleOriginal,
-                                     Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
+                                     boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
          quaternion.checkIfIsZOnly(EPS);
@@ -831,8 +827,7 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal,
-                                     Matrix3D matrixTransformed)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       double norm = quaternion.norm();
 
@@ -951,8 +946,7 @@ public abstract class QuaternionTools
     * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
     * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   public static void inverseTransform(QuaternionReadOnly quaternion, RotationMatrixReadOnly rotationMatrixOriginal,
-                                       RotationMatrix rotationMatrixTransformed)
+   public static void inverseTransform(QuaternionReadOnly quaternion, RotationMatrixReadOnly rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
    {
       multiplyImpl(quaternion, true, rotationMatrixOriginal, false, rotationMatrixTransformed);
    }
@@ -1269,8 +1263,7 @@ public abstract class QuaternionTools
     * @param matrix the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix,
-                                                                 RotationMatrix matrixToPack)
+   public static void multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
    {
       multiplyImpl(quaternion, true, matrix, true, matrixToPack);
    }
@@ -1449,8 +1442,7 @@ public abstract class QuaternionTools
     * @param quaternion the second term in the multiplication. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion,
-                                                                 RotationMatrix matrixToPack)
+   public static void multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
       multiplyImpl(matrix, true, quaternion, true, matrixToPack);
    }
@@ -1551,5 +1543,217 @@ public abstract class QuaternionTools
          m22 = matrix.getM20() * qM02 + matrix.getM21() * qM12 + matrix.getM22() * qM22;
       }
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+   }
+
+   /**
+    * Prepend a rotation about the z-axis to {@code quaternionOriginal} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * All the quaternions can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                    / qx =     0      \
+    * quaternionToPack = | qy =     0      | * quaternionOriginal
+    *                    | qz = sin(yaw/2) |
+    *                    \ qs = cos(yaw/2) /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param quaternionOriginal the quaternion on which the yaw rotation is appended. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
+   public static void prependYawRotation(double yaw, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionToPack)
+   {
+      double qx = quaternionOriginal.getX();
+      double qy = quaternionOriginal.getY();
+      double qz = quaternionOriginal.getZ();
+      double qs = quaternionOriginal.getS();
+
+      double cYaw = Math.cos(0.5 * yaw);
+      double sYaw = Math.sin(0.5 * yaw);
+
+      double x = cYaw * qx - sYaw * qy;
+      double y = cYaw * qy + sYaw * qx;
+      double z = cYaw * qz + sYaw * qs;
+      double s = cYaw * qs - sYaw * qz;
+      quaternionToPack.setUnsafe(x, y, z, s);
+   }
+
+   /**
+    * Append a rotation about the z-axis to {@code quaternionOriginal} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * All the quaternions can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                         / qx =     0      \
+    * quaternionToPack = quaternionOriginal * | qy =     0      |
+    *                                         | qz = sin(yaw/2) |
+    *                                         \ qs = cos(yaw/2) /
+    * </pre>
+    * 
+    * @param quaternionOriginal the quaternion on which the yaw rotation is appended. Not modified.
+    * @param yaw the angle to rotate about the z-axis.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
+   public static void appendYawRotation(QuaternionReadOnly quaternionOriginal, double yaw, QuaternionBasics quaternionToPack)
+   {
+      double qx = quaternionOriginal.getX();
+      double qy = quaternionOriginal.getY();
+      double qz = quaternionOriginal.getZ();
+      double qs = quaternionOriginal.getS();
+
+      double cYaw = Math.cos(0.5 * yaw);
+      double sYaw = Math.sin(0.5 * yaw);
+
+      double x = qx * cYaw + qy * sYaw;
+      double y = -qx * sYaw + qy * cYaw;
+      double z = qs * sYaw + qz * cYaw;
+      double s = qs * cYaw - qz * sYaw;
+      quaternionToPack.setUnsafe(x, y, z, s);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to {@code quaternionOriginal} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * All the quaternions can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                    / qx =      0       \
+    * quaternionToPack = | qy = sin(pitch/2) | * quaternionOriginal
+    *                    | qz =      0       |
+    *                    \ qs = cos(pitch/2) /
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    * @param quaternionOriginal the quaternion on which the pitch rotation is appended. Not
+    *           modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
+   public static void prependPitchRotation(double pitch, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionToPack)
+   {
+      double qx = quaternionOriginal.getX();
+      double qy = quaternionOriginal.getY();
+      double qz = quaternionOriginal.getZ();
+      double qs = quaternionOriginal.getS();
+
+      double cPitch = Math.cos(0.5 * pitch);
+      double sPitch = Math.sin(0.5 * pitch);
+
+      double x = cPitch * qx + sPitch * qz;
+      double y = cPitch * qy + sPitch * qs;
+      double z = cPitch * qz - sPitch * qx;
+      double s = cPitch * qs - sPitch * qy;
+      quaternionToPack.setUnsafe(x, y, z, s);
+   }
+
+   /**
+    * Append a rotation about the y-axis to {@code quaternionOriginal} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * All the quaternions can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                         / qx =      0       \
+    * quaternionToPack = quaternionOriginal * | qy = sin(pitch/2) |
+    *                                         | qz =      0       |
+    *                                         \ qs = cos(pitch/2) /
+    * </pre>
+    * 
+    * @param quaternionOriginal the quaternion on which the pitch rotation is appended. Not
+    *           modified.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
+   public static void appendPitchRotation(QuaternionReadOnly quaternionOriginal, double pitch, QuaternionBasics quaternionToPack)
+   {
+      double qx = quaternionOriginal.getX();
+      double qy = quaternionOriginal.getY();
+      double qz = quaternionOriginal.getZ();
+      double qs = quaternionOriginal.getS();
+
+      double cPitch = Math.cos(0.5 * pitch);
+      double sPitch = Math.sin(0.5 * pitch);
+
+      double x = qx * cPitch - qz * sPitch;
+      double y = qs * sPitch + qy * cPitch;
+      double z = qx * sPitch + qz * cPitch;
+      double s = qs * cPitch - qy * sPitch;
+      quaternionToPack.setUnsafe(x, y, z, s);
+   }
+
+   /**
+    * Append a rotation about the x-axis to {@code quaternionOriginal} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * All the quaternions can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                    / qx = sin(roll/2) \
+    * quaternionToPack = | qy =      0      | * quaternionOriginal
+    *                    | qz =      0      |
+    *                    \ qs = cos(roll/2) /
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    * @param quaternionOriginal the quaternion on which the roll rotation is appended. Not modified.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
+   public static void prependRollRotation(double roll, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionToPack)
+   {
+      double qx = quaternionOriginal.getX();
+      double qy = quaternionOriginal.getY();
+      double qz = quaternionOriginal.getZ();
+      double qs = quaternionOriginal.getS();
+
+      double cRoll = Math.cos(0.5 * roll);
+      double sRoll = Math.sin(0.5 * roll);
+
+      double x = cRoll * qx + sRoll * qs;
+      double y = cRoll * qy - sRoll * qz;
+      double z = cRoll * qz + sRoll * qy;
+      double s = cRoll * qs - sRoll * qx;
+      quaternionToPack.setUnsafe(x, y, z, s);
+   }
+
+   /**
+    * Append a rotation about the x-axis to {@code quaternionOriginal} and stores the result in
+    * {@code quaternionToPack}.
+    * <p>
+    * All the quaternions can be the same object.
+    * </p>
+    * 
+    * <pre>
+    *                                         / qx = sin(roll/2) \
+    * quaternionToPack = quaternionOriginal * | qy =      0      |
+    *                                         | qz =      0      |
+    *                                         \ qs = cos(roll/2) /
+    * </pre>
+    * 
+    * @param quaternionOriginal the quaternion on which the roll rotation is appended. Not modified.
+    * @param roll the angle to rotate about the x-axis.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
+   public static void appendRollRotation(QuaternionReadOnly quaternionOriginal, double roll, QuaternionBasics quaternionToPack)
+   {
+      double qx = quaternionOriginal.getX();
+      double qy = quaternionOriginal.getY();
+      double qz = quaternionOriginal.getZ();
+      double qs = quaternionOriginal.getS();
+
+      double cRoll = Math.cos(0.5 * roll);
+      double sRoll = Math.sin(0.5 * roll);
+
+      double x = qs * sRoll + qx * cRoll;
+      double y = qy * cRoll + qz * sRoll;
+      double z = -qy * sRoll + qz * cRoll;
+      double s = qs * cRoll - qx * sRoll;
+      quaternionToPack.setUnsafe(x, y, z, s);
    }
 }

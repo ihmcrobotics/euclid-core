@@ -1168,6 +1168,114 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    }
 
    @Test
+   public void testAppendYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      T expected = createEmptyTuple();
+      T actual = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendYawRotation(double yaw)
+         T original = createRandomTuple(random);
+         T yawRotation = createEmptyTuple();
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         yawRotation.setToYawQuaternion(yaw);
+         QuaternionTools.multiply(original, yawRotation, expected);
+
+         actual.set(original);
+         actual.appendYawRotation(yaw);
+
+         GeometryBasicsTestTools.assertQuaternionEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendPitchRotation(double pitch)
+         T original = createRandomTuple(random);
+         T pitchRotation = createEmptyTuple();
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         pitchRotation.setToPitchQuaternion(pitch);
+         QuaternionTools.multiply(original, pitchRotation, expected);
+
+         actual.set(original);
+         actual.appendPitchRotation(pitch);
+
+         GeometryBasicsTestTools.assertQuaternionEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendRollRotation(double roll)
+         T original = createRandomTuple(random);
+         T rollRotation = createEmptyTuple();
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         rollRotation.setToRollQuaternion(roll);
+         QuaternionTools.multiply(original, rollRotation, expected);
+
+         actual.set(original);
+         actual.appendRollRotation(roll);
+
+         GeometryBasicsTestTools.assertQuaternionEquals(expected, actual, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testPrependYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      T expected = createEmptyTuple();
+      T actual = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependYawRotation(double yaw)
+         T original = createRandomTuple(random);
+         T yawRotation = createEmptyTuple();
+         double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         yawRotation.setToYawQuaternion(yaw);
+         QuaternionTools.multiply(yawRotation, original, expected);
+
+         actual.set(original);
+         actual.prependYawRotation(yaw);
+
+         GeometryBasicsTestTools.assertQuaternionEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependPitchRotation(double pitch)
+         T original = createRandomTuple(random);
+         T pitchRotation = createEmptyTuple();
+         double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         pitchRotation.setToPitchQuaternion(pitch);
+         QuaternionTools.multiply(pitchRotation, original, expected);
+
+         actual.set(original);
+         actual.prependPitchRotation(pitch);
+
+         GeometryBasicsTestTools.assertQuaternionEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependRollRotation(double roll)
+         T original = createRandomTuple(random);
+         T rollRotation = createEmptyTuple();
+         double roll = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+
+         rollRotation.setToRollQuaternion(roll);
+         QuaternionTools.multiply(rollRotation, original, expected);
+
+         actual.set(original);
+         actual.prependRollRotation(roll);
+
+         GeometryBasicsTestTools.assertQuaternionEquals(expected, actual, getEpsilon());
+      }
+   }
+
+   @Test
    public void testPreMultiply()
    {
       Random random = new Random(65445L);

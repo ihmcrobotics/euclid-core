@@ -436,7 +436,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       RotationMatrix actual = new RotationMatrix();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // appendYawRotation(double yaw)
+      { // prependYawRotation(double yaw)
          RotationMatrix original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix yawRotation = new RotationMatrix();
          double yaw = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
@@ -451,7 +451,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // appendPitchRotation(double pitch)
+      { // prependPitchRotation(double pitch)
          RotationMatrix original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix pitchRotation = new RotationMatrix();
          double pitch = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
@@ -466,7 +466,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // appendRollRotation(double roll)
+      { // prependRollRotation(double roll)
          RotationMatrix original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix rollRotation = new RotationMatrix();
          double roll = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);

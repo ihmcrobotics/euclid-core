@@ -401,6 +401,57 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    }
 
    /**
+    * Append a rotation about the z-axis to this quaternion.
+    * 
+    * <pre>
+    *               / qx =     0      \
+    * this = this * | qy =     0      |
+    *               | qz = sin(yaw/2) |
+    *               \ qs = cos(yaw/2) /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   default void appendYawRotation(double yaw)
+   {
+      QuaternionTools.appendYawRotation(this, yaw, this);
+   }
+
+   /**
+    * Append a rotation about the y-axis to this quaternion.
+    * 
+    * <pre>
+    *               / qx =      0       \
+    * this = this * | qy = sin(pitch/2) |
+    *               | qz =      0       |
+    *               \ qs = cos(pitch/2) /
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   default void appendPitchRotation(double pitch)
+   {
+      QuaternionTools.appendPitchRotation(this, pitch, this);
+   }
+
+   /**
+    * Append a rotation about the x-axis to this quaternion.
+    * 
+    * <pre>
+    *               / qx = sin(roll/2) \
+    * this = this * | qy =      0      |
+    *               | qz =      0      |
+    *               \ qs = cos(roll/2) /
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    */
+   default void appendRollRotation(double roll)
+   {
+      QuaternionTools.appendRollRotation(this, roll, this);
+   }
+
+   /**
     * Pre-multiplies this quaternion by {@code other}.
     * <p>
     * this = other * other
@@ -451,6 +502,57 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    default void preMultiplyConjugateThis(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateRight(other, this, this);
+   }
+
+   /**
+    * Prepend a rotation about the z-axis to this quaternion.
+    * 
+    * <pre>
+    *        / qx =     0      \
+    * this = | qy =     0      | * this
+    *        | qz = sin(yaw/2) |
+    *        \ qs = cos(yaw/2) /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   default void prependYawRotation(double yaw)
+   {
+      QuaternionTools.prependYawRotation(yaw, this, this);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to this quaternion.
+    * 
+    * <pre>
+    *        / qx =      0       \
+    * this = | qy = sin(pitch/2) | * this
+    *        | qz =      0       |
+    *        \ qs = cos(pitch/2) /
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   default void prependPitchRotation(double pitch)
+   {
+      QuaternionTools.prependPitchRotation(pitch, this, this);
+   }
+
+   /**
+    * Prepend a rotation about the x-axis to this quaternion.
+    * 
+    * <pre>
+    *        / qx = sin(roll/2) \
+    * this = | qy =      0      | * this
+    *        | qz =      0      |
+    *        \ qs = cos(roll/2) /
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    */
+   default void prependRollRotation(double roll)
+   {
+      QuaternionTools.prependRollRotation(roll, this, this);
    }
 
    /**
