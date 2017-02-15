@@ -1,5 +1,6 @@
 package us.ihmc.geometry.tuple4D;
 
+import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
@@ -130,8 +131,8 @@ public abstract class QuaternionTools
     * @param conjugateQ2 whether to conjugate {@code q2} or not.
     * @param quaternionToPack the quaternion in which the result is stores. Modified.
     */
-   private static void multiplyImpl(double q1x, double q1y, double q1z, double q1s, boolean conjugateQ1, double q2x, double q2y, double q2z, double q2s,
-                                    boolean conjugateQ2, QuaternionBasics quaternionToPack)
+   public static void multiplyImpl(double q1x, double q1y, double q1z, double q1s, boolean conjugateQ1, double q2x, double q2y, double q2z, double q2s,
+                                   boolean conjugateQ2, QuaternionBasics quaternionToPack)
    {
       if (conjugateQ1)
       {
@@ -829,18 +830,46 @@ public abstract class QuaternionTools
     */
    private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
-      double norm = quaternion.norm();
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+      transformImpl(qx, qy, qz, qs, conjugateQuaternion, matrixOriginal, matrixTransformed);
+   }
+
+   /**
+    * Transforms the matrix {@code matrixOriginal} using {@code quaternion} and stores the result in
+    * {@code matrixTransformed}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * <p>
+    * Both matrices can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * matrixTransformed = R(quaternion) * matrixOriginal * R(quaternion)<sup>-1</sup> <br>
+    * where R(quaternion) is the function to convert a quaternion into a 3-by-3 rotation matrix.
+    * </p>
+    *
+    * @param qx the x-component of the quaternion used to transform the matrix.
+    * @param qy the y-component of the quaternion used to transform the matrix.
+    * @param qz the z-component of the quaternion used to transform the matrix.
+    * @param qs the s-component of the quaternion used to transform the matrix.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param matrixOriginal the matrix to transform. Not modified.
+    * @param matrixTransformed the matrix in which the result is stored. Modified.
+    */
+   public static void transformImpl(double qx, double qy, double qz, double qs, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal,
+                                    Matrix3D matrixTransformed)
+   {
+      double norm = EuclidCoreTools.norm(qx, qy, qz, qs);
 
       if (norm < EPS)
       {
          matrixTransformed.set(matrixOriginal);
          return;
       }
-
-      double qx = quaternion.getX();
-      double qy = quaternion.getY();
-      double qz = quaternion.getZ();
-      double qs = quaternion.getS();
 
       if (conjugateQuaternion)
       {
@@ -913,7 +942,7 @@ public abstract class QuaternionTools
     * {@code quaternion} and {@code rotationMatrixOriginal}.
     * </p>
     *
-    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param quaternion the quaternion used to transform the rotation matrix. Not modified.
     * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
     * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
     */
@@ -942,7 +971,7 @@ public abstract class QuaternionTools
     * {@code quaternion} and {@code rotationMatrixOriginal}.
     * </p>
     *
-    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param quaternion the quaternion used to transform the rotation matrix. Not modified.
     * @param rotationMatrixOriginal the rotation matrix to transform. Not modified.
     * @param rotationMatrixTransformed the rotation matrix in which the result is stored. Modified.
     */
@@ -1292,18 +1321,48 @@ public abstract class QuaternionTools
    private static void multiplyImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, RotationMatrixReadOnly matrix, boolean transposeMatrix,
                                     RotationMatrix matrixToPack)
    {
-      double norm = quaternion.norm();
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+
+      multiplyImpl(qx, qy, qz, qs, conjugateQuaternion, matrix, transposeMatrix, matrixToPack);
+   }
+
+   /**
+    * Performs the multiplication of {@code quaternion} and {@code matrix} and stores the result in
+    * {@code matrixToPack}.
+    * <p>
+    * <b> This method is for internal use only. </b>
+    * </p>
+    * <p>
+    * <p>
+    * Both matrices can be the same object to perform an in-place multiplication.
+    * </p>
+    * <p>
+    * matrixToPack = R(quaternion) * matrix <br>
+    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
+    * </p>
+    *
+    * @param qx the x-component of the quaternion, the first term in the multiplication.
+    * @param qy the y-component of the quaternion, the first term in the multiplication.
+    * @param qz the z-component of the quaternion, the first term in the multiplication.
+    * @param qs the s-component of the quaternion, the first term in the multiplication.
+    * @param conjugateQuaternion whether to conjugate the quaternion or not.
+    * @param matrix the second term in the multiplication. Not modified.
+    * @param transposeMatrix whether to transpose the rotation matrix or not.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
+   public static void multiplyImpl(double qx, double qy, double qz, double qs, boolean conjugateQuaternion, RotationMatrixReadOnly matrix,
+                                   boolean transposeMatrix, RotationMatrix matrixToPack)
+   {
+      double norm = EuclidCoreTools.norm(qx, qy, qz, qs);
 
       if (norm < EPS)
       {
          matrixToPack.set(matrix);
          return;
       }
-
-      double qx = quaternion.getX();
-      double qy = quaternion.getY();
-      double qz = quaternion.getZ();
-      double qs = quaternion.getS();
 
       if (conjugateQuaternion)
       {

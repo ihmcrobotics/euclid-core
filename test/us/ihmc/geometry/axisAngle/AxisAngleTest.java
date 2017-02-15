@@ -199,7 +199,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
    @Override
    public double getEpsilon()
    {
-      return EPS;
+      return 1.0e-14;
    }
 
    @Override

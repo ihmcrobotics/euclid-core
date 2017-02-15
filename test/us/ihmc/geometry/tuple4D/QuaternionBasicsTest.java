@@ -368,6 +368,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          fail("Should have thrown a NotAMatrix2DException.");
       }
 
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {// Test transform quaternion
          quaternion = createRandomTuple(random);
 
@@ -385,6 +386,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
       }
 
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {// Test transform Vector4D
          quaternion = createRandomTuple(random);
 
@@ -402,6 +404,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
       }
 
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform Matrix3D
          quaternion = createRandomTuple(random);
 
@@ -419,6 +422,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
       }
 
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform RotationMatrix
          quaternion = createRandomTuple(random);
 

@@ -1,6 +1,8 @@
 package us.ihmc.geometry.axisAngle;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
@@ -9,10 +11,27 @@ import org.junit.Test;
 
 import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.exceptions.NotAMatrix2DException;
+import us.ihmc.geometry.matrix.Matrix3D;
+import us.ihmc.geometry.matrix.RotationMatrix;
+import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
+import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 import us.ihmc.geometry.testingTools.GeometryBasicsTestTools;
+import us.ihmc.geometry.tuple2D.Vector2D;
+import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
+import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.geometry.tuple4D.Quaternion;
+import us.ihmc.geometry.tuple4D.QuaternionTools;
+import us.ihmc.geometry.tuple4D.Vector4D;
+import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
+import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
+import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
@@ -230,6 +249,10 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double uz = random.nextDouble();
          double angle = random.nextDouble();
          T axisAngle = createEmptyAxisAngle();
+         assertTrue(axisAngle.isZOnly(getEpsilon()));
+
+         axisAngle = createAxisAngle(ux, uy, uz, 0.0);
+         assertTrue(axisAngle.isZOnly(getEpsilon()));
 
          axisAngle = createAxisAngle(ux, uy, uz, angle);
          assertFalse(axisAngle.isZOnly(getEpsilon()));
@@ -257,13 +280,17 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         double qx = random.nextDouble();
-         double qy = random.nextDouble();
-         double qz = random.nextDouble();
-         double qs = random.nextDouble();
+         double ux = random.nextDouble();
+         double uy = random.nextDouble();
+         double uz = random.nextDouble();
+         double angle = random.nextDouble();
          T axisAngle = createEmptyAxisAngle();
+         axisAngle.checkIfIsZOnly(getEpsilon());
 
-         axisAngle = createAxisAngle(qx, qy, qz, qs);
+         axisAngle = createAxisAngle(ux, uy, uz, 0.0);
+         axisAngle.checkIfIsZOnly(getEpsilon());
+
+         axisAngle = createAxisAngle(ux, uy, uz, angle);
 
          try
          {
@@ -279,7 +306,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
             fail("Should have thrown a RuntimeException");
          }
 
-         axisAngle = createAxisAngle(0.0, qy, qz, qs);
+         axisAngle = createAxisAngle(0.0, uy, uz, angle);
          try
          {
             axisAngle.checkIfIsZOnly(getEpsilon());
@@ -294,7 +321,8 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
             fail("Should have thrown a RuntimeException");
          }
 
-         axisAngle = createAxisAngle(qx, 0.0, qz, qs);
+         axisAngle = createAxisAngle(ux, 0.0, uz, angle);
+
          try
          {
             axisAngle.checkIfIsZOnly(getEpsilon());
@@ -309,7 +337,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
             fail("Should have thrown a RuntimeException");
          }
 
-         axisAngle = createAxisAngle(0.0, 0.0, qz, qs);
+         axisAngle = createAxisAngle(0.0, 0.0, uz, angle);
          axisAngle.checkIfIsZOnly(getEpsilon());
       }
    }
@@ -464,6 +492,544 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          assertTrue(axisAngle.getY32() == axisAngle.get32(1));
          assertTrue(axisAngle.getZ32() == axisAngle.get32(2));
          assertTrue(axisAngle.getAngle32() == axisAngle.get32(3));
+      }
+   }
+
+   @Test
+   public void testTransform()
+   {
+      Random random = new Random(6787L);
+      T axisAngle = createEmptyAxisAngle();
+      Quaternion quaternion = new Quaternion();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleToTransform)
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics actualTuple = new Vector3D(tuple);
+         Tuple3DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.transform(quaternion, tuple, expectedTuple);
+         axisAngle.transform(actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(actualTuple);
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics actualTuple = new Vector3D(tuple);
+         Tuple3DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.transform(quaternion, tuple, expectedTuple);
+         axisAngle.transform(tuple, actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+
+         actualTuple = new Vector3D();
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(tuple, actualTuple);
+         GeometryBasicsTestTools.assertTuple3DEquals(tuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleToTransform)
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         axisAngle = createAxisAngle(0.0, 0.0, 1.0, theta);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.transform(quaternion, tuple, expectedTuple, false);
+         axisAngle.transform(actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         actualTuple.set(tuple);
+         axisAngle.transform(actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         actualTuple.set(tuple);
+         axisAngle.transform(actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         axisAngle = createAxisAngle(0.0, 0.0, 1.0, theta);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.transform(quaternion, tuple, expectedTuple, false);
+         axisAngle.transform(tuple, actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         axisAngle.transform(tuple, actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         axisAngle.transform(tuple, actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+
+         actualTuple = new Vector2D();
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(tuple, actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(tuple, actualTuple, getEpsilon());
+      }
+
+      // Test exceptions
+      try
+      {
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.transform(new Vector2D());
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+
+      try
+      {
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.transform(new Vector2D(), new Vector2D());
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      try
+      {
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.transform(new Vector2D(), true);
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+
+      try
+      {
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.transform(new Vector2D(), new Vector2D(), true);
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform Matrix3D
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+
+         Matrix3D matrixOriginal = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D matrixExpected = new Matrix3D();
+         Matrix3D matrixActual = new Matrix3D();
+         quaternion.set(axisAngle);
+
+         QuaternionTools.transform(quaternion, matrixOriginal, matrixExpected);
+
+         axisAngle.transform(matrixOriginal, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+
+         matrixActual.set(matrixOriginal);
+         axisAngle.transform(matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+
+         matrixActual = new Matrix3D();
+         axisAngle.transform(matrixOriginal, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixOriginal, matrixActual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {// Test transform quaternion
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+
+         Quaternion qOriginal = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         Quaternion qExpected = new Quaternion();
+         Quaternion qActual = new Quaternion();
+         quaternion.set(axisAngle);
+
+         qExpected.multiply(quaternion, qOriginal);
+
+         axisAngle.transform(qOriginal, qActual);
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+         qActual.set(qOriginal);
+         axisAngle.transform(qActual);
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(qActual);
+         GeometryBasicsTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
+
+         qActual = new Quaternion();
+         axisAngle.transform(qOriginal, qActual);
+         GeometryBasicsTestTools.assertQuaternionEquals(qOriginal, qActual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {// Test transform Vector4D
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+
+         Vector4D vectorOriginal = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4D vectorExpected = new Vector4D();
+         Vector4D vectorActual = new Vector4D();
+         quaternion.set(axisAngle);
+
+         QuaternionTools.transform(quaternion, vectorOriginal, vectorExpected);
+
+         axisAngle.transform(vectorOriginal, vectorActual);
+         GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
+
+         vectorActual.set(vectorOriginal);
+         axisAngle.transform(vectorActual);
+         GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
+
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(vectorActual);
+         GeometryBasicsTestTools.assertTuple4DEquals(vectorExpected, vectorActual, getEpsilon());
+
+         vectorActual = new Vector4D();
+         axisAngle.transform(vectorOriginal, vectorActual);
+         GeometryBasicsTestTools.assertTuple4DEquals(vectorOriginal, vectorActual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform RotationMatrix
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+
+         RotationMatrix matrixOriginal = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix matrixExpected = new RotationMatrix();
+         RotationMatrix matrixActual = new RotationMatrix();
+         quaternion.set(axisAngle);
+
+         QuaternionTools.transform(quaternion, matrixOriginal, matrixExpected);
+
+         axisAngle.transform(matrixOriginal, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+
+         matrixActual.set(matrixOriginal);
+         axisAngle.transform(matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, getEpsilon());
+
+         matrixActual = new RotationMatrix();
+         axisAngle.transform(matrixOriginal, matrixActual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(matrixOriginal, matrixActual, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testInverseTransform()
+   {
+      Random random = new Random(6787L);
+      T axisAngle = createEmptyAxisAngle();
+      Quaternion quaternion = new Quaternion();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleToTransform)
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics actualTuple = new Vector3D(tuple);
+         Tuple3DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple);
+         axisAngle.inverseTransform(actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+         Tuple3DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics actualTuple = new Vector3D(tuple);
+         Tuple3DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector3D(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple);
+         axisAngle.inverseTransform(tuple, actualTuple);
+
+         GeometryBasicsTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleToTransform)
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         axisAngle = createAxisAngle(0.0, 0.0, 1.0, theta);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple, false);
+         axisAngle.inverseTransform(actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         actualTuple.set(tuple);
+         axisAngle.inverseTransform(actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         actualTuple.set(tuple);
+         axisAngle.inverseTransform(actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
+         Tuple2DReadOnly tuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = GeometryBasicsRandomTools.generateRandomVector2D(random);
+         double theta = GeometryBasicsRandomTools.generateRandomDouble(random, Math.PI);
+         axisAngle = createAxisAngle(0.0, 0.0, 1.0, theta);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, tuple, expectedTuple, false);
+         axisAngle.inverseTransform(tuple, actualTuple);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         axisAngle.inverseTransform(tuple, actualTuple, true);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+         axisAngle.inverseTransform(tuple, actualTuple, false);
+         GeometryBasicsTestTools.assertTuple2DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      // Test exceptions
+      try
+      {
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.inverseTransform(new Vector2D());
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+
+      try
+      {
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.inverseTransform(new Vector2D(), new Vector2D());
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      try
+      {
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.inverseTransform(new Vector2D(), true);
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+
+      try
+      {
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.inverseTransform(new Vector2D(), new Vector2D(), true);
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(QuaternionBasics quaternionToTransform)
+         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, original, expected);
+         axisAngle.inverseTransform(actual);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+         QuaternionReadOnly original = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = GeometryBasicsRandomTools.generateRandomQuaternion(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, original, expected);
+         axisAngle.inverseTransform(original, actual);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Vector4DBasics vectorToTransform)
+         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, original, expected);
+         axisAngle.inverseTransform(actual);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+         Vector4DReadOnly original = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = GeometryBasicsRandomTools.generateRandomVector4D(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, original, expected);
+         axisAngle.inverseTransform(original, actual);
+         GeometryBasicsTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Matrix3D matrixToTransform)
+         Matrix3DReadOnly original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = new Matrix3D(original);
+         Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, original, expected);
+         axisAngle.inverseTransform(actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+         Matrix3DReadOnly original = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = new Matrix3D(original);
+         Matrix3D expected = GeometryBasicsRandomTools.generateRandomMatrix3D(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, original, expected);
+         axisAngle.inverseTransform(original, actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(RotationMatrix matrixToTransform)
+         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix actual = new RotationMatrix(original);
+         RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, original, expected);
+         axisAngle.inverseTransform(actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+         RotationMatrixReadOnly original = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix actual = new RotationMatrix(original);
+         RotationMatrix expected = GeometryBasicsRandomTools.generateRandomRotationMatrix(random);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.inverseTransform(quaternion, original, expected);
+         axisAngle.inverseTransform(original, actual);
+         GeometryBasicsTestTools.assertMatrix3DEquals(expected, actual, getEpsilon());
       }
    }
 

@@ -177,7 +177,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    /**
     * Transforms the given tuple by this quaternion.
     * <p>
-    * tupleToTransform = this * tupleToTransform
+    * tupleToTransform = quaternion * tupleToTransform * quaternion<sup>-1</sup>
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
@@ -191,7 +191,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Transforms the given tuple {@code tupleOriginal} by this quaternion and stores the result in
     * {@code tupleTransformed}.
     * <p>
-    * tupleTransformed = this * tupleOriginal
+    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -205,7 +205,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    /**
     * Transforms the given tuple by this quaternion.
     * <p>
-    * tupleToTransform = this * tupleToTransform
+    * tupleToTransform = quaternion * tupleToTransform * quaternion<sup>-1</sup>
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
@@ -221,7 +221,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Transforms the given tuple {@code tupleOriginal} by this quaternion and stores the result in
     * {@code tupleTransformed}.
     * <p>
-    * tupleTransformed = this * tupleOriginal
+    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -237,7 +237,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    /**
     * Transforms the given tuple by this quaternion.
     * <p>
-    * tupleToTransform = this * tupleToTransform
+    * tupleToTransform = quaternion * tupleToTransform * quaternion<sup>-1</sup>
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
@@ -255,7 +255,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Transforms the given tuple {@code tupleOriginal} by this quaternion and stores the result in
     * {@code tupleTransformed}.
     * <p>
-    * tupleTransformed = this * tupleOriginal
+    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -330,7 +330,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Transforms the vector part of the given 4D vector.
     * <p>
     * vectorToTransform.s = vectorToTransform.s <br>
-    * vectorToTransform.xyz = this * vectorToTransform.xyz
+    * vectorToTransform.xyz = this * vectorToTransform.xyz * this<sup>-1</sup>
     * </p>
     *
     * @param vectorToTransform the vector to transform. Modified.
@@ -345,7 +345,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * into {@code vectorTransformed}.
     * <p>
     * vectorTransformed.s = vectorOriginal.s <br>
-    * vectorTransformed.xyz = this * vectorOriginal.xyz
+    * vectorTransformed.xyz = this * vectorOriginal.xyz * this<sup>-1</sup>
     * </p>
     *
     * @param vectorOriginal the vector to transform. Not modified.
@@ -388,7 +388,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this
     * quaternion and stores the result in {@code tupleTransformed}.
     * <p>
-    * tupleTransformed = this<sup>-1</sup> * tupleOriginal
+    * tupleTransformed = this<sup>-1</sup> * tupleOriginal * this
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -402,7 +402,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    /**
     * Performs the inverse of the transform to the given tuple by this quaternion.
     * <p>
-    * tupleToTransform = this<sup>-1</sup> * tupleToTransform
+    * tupleToTransform = this<sup>-1</sup> * tupleToTransform * this
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
@@ -417,7 +417,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    /**
     * Performs the inverse of the transform to the given tuple by this quaternion.
     * <p>
-    * tupleToTransform = this<sup>-1</sup> * tupleToTransform
+    * tupleToTransform = this<sup>-1</sup> * tupleToTransform * this
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
@@ -433,7 +433,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this
     * quaternion and stores the result in {@code tupleTransformed}.
     * <p>
-    * tupleTransformed = this<sup>-1</sup> * tupleOriginal
+    * tupleTransformed = this<sup>-1</sup> * tupleOriginal * this
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -449,7 +449,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    /**
     * Performs the inverse of the transform to the given tuple by this quaternion.
     * <p>
-    * tupleToTransform = this<sup>-1</sup> * tupleToTransform
+    * tupleToTransform = this<sup>-1</sup> * tupleToTransform * this
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
@@ -467,7 +467,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this
     * quaternion and stores the result in {@code tupleTransformed}.
     * <p>
-    * tupleTransformed = this<sup>-1</sup> * tupleOriginal
+    * tupleTransformed = this<sup>-1</sup> * tupleOriginal * this
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
@@ -515,7 +515,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * quaternion.
     * <p>
     * vectorToTransform.s = vectorToTransform.s <br>
-    * vectorToTransform.xyz = this<sup>-1</sup> * vectorToTransform.xyz
+    * vectorToTransform.xyz = this<sup>-1</sup> * vectorToTransform.xyz * this
     * </p>
     *
     * @param vectorToTransform the vector to transform. Modified.
@@ -530,7 +530,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * {@code vectorOriginal} by this quaternion and stores the result in {@code vectorTransformed}.
     * <p>
     * vectorTransformed.s = vectorOriginal.s <br>
-    * vectorTransformed.xyz = this<sup>-1</sup> * vectorOriginal.xyz
+    * vectorTransformed.xyz = this<sup>-1</sup> * vectorOriginal.xyz * this
     * </p>
     *
     * @param vectorOriginal the vector to transform. Not modified.
@@ -545,7 +545,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal} by this
     * quaternion.
     * <p>
-    * matrixToTransform = this<sup>-1</sup> * matrixToTransform * this<sup>-1</sup>
+    * matrixToTransform = this<sup>-1</sup> * matrixToTransform * this
     * </p>
     *
     * @param matrixToTransform the matrix to transform. Not modified.
@@ -559,7 +559,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal} by this
     * quaternion and stores the result in {@code matrixTransformed}.
     * <p>
-    * s matrixTransformed = this<sup>-1</sup> * matrixOriginal * this<sup>-1</sup>
+    * s matrixTransformed = this<sup>-1</sup> * matrixOriginal * this
     * </p>
     *
     * @param matrixOriginal the matrix to transform. Not modified.
