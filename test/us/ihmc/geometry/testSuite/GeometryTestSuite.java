@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
 import org.pitest.mutationtest.commandline.MutationCoverageReport;
 
 import us.ihmc.geometry.CyclingConversionTest;
-import us.ihmc.geometry.GeometryBasicsToolsTest;
+import us.ihmc.geometry.EuclidCoreToolsTest;
 import us.ihmc.geometry.TupleToolsTest;
 import us.ihmc.geometry.axisAngle.AxisAngle32Test;
 import us.ihmc.geometry.axisAngle.AxisAngleConversionTest;
@@ -50,7 +50,7 @@ import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
       QuaternionBasedTransformTest.class, AffineTransformTest.class,
 
       // Tools tests
-      GeometryBasicsToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class, RotationScaleMatrixToolsTest.class,
+      EuclidCoreToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class, RotationScaleMatrixToolsTest.class,
       TupleToolsTest.class,
 
       // Conversion tests

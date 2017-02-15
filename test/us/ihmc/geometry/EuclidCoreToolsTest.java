@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import us.ihmc.geometry.testingTools.GeometryBasicsRandomTools;
 
-public class GeometryBasicsToolsTest
+public class EuclidCoreToolsTest
 {
    @Test
    public void testFastSquareRoot() throws Exception
