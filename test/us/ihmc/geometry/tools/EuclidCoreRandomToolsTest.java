@@ -1,4 +1,4 @@
-package us.ihmc.geometry.testingTools;
+package us.ihmc.geometry.tools;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
@@ -8,8 +8,9 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.TupleTools;
 import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;

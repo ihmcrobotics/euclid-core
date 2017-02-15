@@ -1,6 +1,5 @@
-package us.ihmc.geometry.axisAngle;
+package us.ihmc.geometry.tools;
 
-import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
@@ -12,7 +11,6 @@ import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;

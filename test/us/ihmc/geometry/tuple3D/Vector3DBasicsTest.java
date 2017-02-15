@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;

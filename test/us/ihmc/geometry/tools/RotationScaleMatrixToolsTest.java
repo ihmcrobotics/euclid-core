@@ -1,4 +1,4 @@
-package us.ihmc.geometry.matrix;
+package us.ihmc.geometry.tools;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
@@ -8,8 +8,11 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.matrix.Matrix3D;
+import us.ihmc.geometry.matrix.RotationMatrix;
+import us.ihmc.geometry.matrix.RotationScaleMatrix;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;

@@ -2,10 +2,10 @@ package us.ihmc.geometry.tuple2D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.interfaces.Clearable;
 import us.ihmc.geometry.interfaces.Transformable;
+import us.ihmc.geometry.tools.TupleTools;
 import us.ihmc.geometry.transform.interfaces.Transform;
 
 /**

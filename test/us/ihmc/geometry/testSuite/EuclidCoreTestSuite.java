@@ -10,19 +10,20 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.pitest.mutationtest.commandline.MutationCoverageReport;
 
-import us.ihmc.geometry.CyclingConversionTest;
-import us.ihmc.geometry.EuclidCoreToolsTest;
-import us.ihmc.geometry.TupleToolsTest;
 import us.ihmc.geometry.axisAngle.AxisAngle32Test;
 import us.ihmc.geometry.axisAngle.AxisAngleConversionTest;
 import us.ihmc.geometry.axisAngle.AxisAngleTest;
-import us.ihmc.geometry.matrix.Matrix3DFeaturesTest;
 import us.ihmc.geometry.matrix.Matrix3DTest;
-import us.ihmc.geometry.matrix.Matrix3DToolsTest;
 import us.ihmc.geometry.matrix.RotationMatrixConversionTest;
 import us.ihmc.geometry.matrix.RotationMatrixTest;
 import us.ihmc.geometry.matrix.RotationScaleMatrixTest;
-import us.ihmc.geometry.matrix.RotationScaleMatrixToolsTest;
+import us.ihmc.geometry.tools.CyclingConversionTest;
+import us.ihmc.geometry.tools.EuclidCoreToolsTest;
+import us.ihmc.geometry.tools.Matrix3DFeaturesTest;
+import us.ihmc.geometry.tools.Matrix3DToolsTest;
+import us.ihmc.geometry.tools.QuaternionToolsTest;
+import us.ihmc.geometry.tools.RotationScaleMatrixToolsTest;
+import us.ihmc.geometry.tools.TupleToolsTest;
 import us.ihmc.geometry.transform.AffineTransformTest;
 import us.ihmc.geometry.transform.QuaternionBasedTransformTest;
 import us.ihmc.geometry.transform.RigidBodyTransformTest;
@@ -38,7 +39,6 @@ import us.ihmc.geometry.tuple3D.Vector3DTest;
 import us.ihmc.geometry.tuple4D.Quaternion32Test;
 import us.ihmc.geometry.tuple4D.QuaternionConversionTest;
 import us.ihmc.geometry.tuple4D.QuaternionTest;
-import us.ihmc.geometry.tuple4D.QuaternionToolsTest;
 import us.ihmc.geometry.tuple4D.Vector4D32Test;
 import us.ihmc.geometry.tuple4D.Vector4DTest;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
@@ -61,7 +61,7 @@ public class EuclidCoreTestSuite
 {
    public static void main(String[] args) throws URISyntaxException, IOException
    {
-      String targetTests = "us.ihmc.geometry.testSuite.EuclidCore";
+      String targetTests = "us.ihmc.geometry.testSuite.EuclidCoreTestSuite";
       String targetClasses = "us.ihmc.geometry.*";
       doPITMutationTestAndOpenResult(targetTests, targetClasses);
    }

@@ -1,4 +1,4 @@
-package us.ihmc.geometry;
+package us.ihmc.geometry.tools;
 
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;

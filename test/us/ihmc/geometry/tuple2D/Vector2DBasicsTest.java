@@ -8,8 +8,8 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Vector2DReadOnly;

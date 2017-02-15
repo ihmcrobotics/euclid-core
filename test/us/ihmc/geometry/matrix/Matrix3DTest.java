@@ -15,8 +15,9 @@ import org.junit.Test;
 
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.Matrix3DTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;

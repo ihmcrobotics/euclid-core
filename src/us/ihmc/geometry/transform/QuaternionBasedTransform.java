@@ -2,7 +2,6 @@ package us.ihmc.geometry.transform;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.interfaces.Clearable;
@@ -13,6 +12,8 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.geometry.tools.EuclidCoreIOTools;
+import us.ihmc.geometry.tools.QuaternionTools;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;
@@ -26,7 +27,6 @@ import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;

@@ -1,14 +1,12 @@
-package us.ihmc.geometry.testingTools;
+package us.ihmc.geometry.tools;
 
-import static us.ihmc.geometry.EuclidCoreIOTools.*;
+import static us.ihmc.geometry.tools.EuclidCoreIOTools.*;
 
 import java.util.Arrays;
 
-import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.geometry.matrix.Matrix3DFeatures;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;

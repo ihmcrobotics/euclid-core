@@ -8,8 +8,8 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;

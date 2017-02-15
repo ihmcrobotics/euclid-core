@@ -1,11 +1,11 @@
 package us.ihmc.geometry.yawPitchRoll;
 
-import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.geometry.tools.EuclidCoreTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;

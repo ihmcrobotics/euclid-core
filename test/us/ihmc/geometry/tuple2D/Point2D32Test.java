@@ -8,7 +8,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 
 public class Point2D32Test extends Point2DBasicsTest<Point2D32>
 {

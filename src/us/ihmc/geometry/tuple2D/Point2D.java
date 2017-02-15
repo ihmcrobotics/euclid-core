@@ -2,8 +2,8 @@ package us.ihmc.geometry.tuple2D;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.interfaces.GeometryObject;
+import us.ihmc.geometry.tools.EuclidCoreIOTools;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 

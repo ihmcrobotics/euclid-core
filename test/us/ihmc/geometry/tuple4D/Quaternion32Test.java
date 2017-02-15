@@ -8,8 +8,8 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 
 public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
@@ -15,6 +14,9 @@ import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.geometry.tools.EuclidCoreIOTools;
+import us.ihmc.geometry.tools.Matrix3DFeatures;
+import us.ihmc.geometry.tools.Matrix3DTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;

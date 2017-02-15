@@ -9,8 +9,8 @@ import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
 
 public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matrix3DReadOnlyTest<T>
 {

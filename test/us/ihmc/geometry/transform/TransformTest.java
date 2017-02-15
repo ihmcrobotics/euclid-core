@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.Vector2D;

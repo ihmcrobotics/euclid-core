@@ -1,4 +1,4 @@
-package us.ihmc.geometry;
+package us.ihmc.geometry.tools;
 
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;

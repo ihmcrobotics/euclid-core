@@ -1,4 +1,4 @@
-package us.ihmc.geometry.matrix;
+package us.ihmc.geometry.tools;
 
 import org.ejml.data.DenseMatrix64F;
 

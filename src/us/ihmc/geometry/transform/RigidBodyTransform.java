@@ -2,7 +2,6 @@ package us.ihmc.geometry.transform;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
@@ -10,12 +9,13 @@ import us.ihmc.geometry.interfaces.Clearable;
 import us.ihmc.geometry.interfaces.EpsilonComparable;
 import us.ihmc.geometry.interfaces.Settable;
 import us.ihmc.geometry.matrix.Matrix3D;
-import us.ihmc.geometry.matrix.Matrix3DTools;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.geometry.tools.EuclidCoreIOTools;
+import us.ihmc.geometry.tools.Matrix3DTools;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Point2DReadOnly;

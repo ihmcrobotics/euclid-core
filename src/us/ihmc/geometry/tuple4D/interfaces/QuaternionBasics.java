@@ -2,13 +2,13 @@ package us.ihmc.geometry.tuple4D.interfaces;
 
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.geometry.tools.QuaternionTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
 
 /**
  * Write and read interface for unit-quaternion used to represent 3D orientations.

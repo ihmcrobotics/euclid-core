@@ -2,13 +2,13 @@ package us.ihmc.geometry.matrix.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.matrix.Matrix3D;
-import us.ihmc.geometry.matrix.Matrix3DFeatures;
-import us.ihmc.geometry.matrix.Matrix3DTools;
+import us.ihmc.geometry.tools.EuclidCoreTools;
+import us.ihmc.geometry.tools.Matrix3DFeatures;
+import us.ihmc.geometry.tools.Matrix3DTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;

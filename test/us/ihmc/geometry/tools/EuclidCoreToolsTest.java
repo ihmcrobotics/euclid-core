@@ -1,15 +1,16 @@
-package us.ihmc.geometry;
+package us.ihmc.geometry.tools;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static us.ihmc.geometry.EuclidCoreTools.EPS_NORM_FAST_SQRT;
+import static us.ihmc.geometry.tools.EuclidCoreTools.EPS_NORM_FAST_SQRT;
 
 import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTools;
 
 public class EuclidCoreToolsTest
 {

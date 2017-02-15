@@ -2,8 +2,8 @@ package us.ihmc.geometry.tuple2D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.EuclidCoreTools;
-import us.ihmc.geometry.TupleTools;
+import us.ihmc.geometry.tools.EuclidCoreTools;
+import us.ihmc.geometry.tools.TupleTools;
 
 /**
  * Read-only interface for a 2 dimensional tuple.

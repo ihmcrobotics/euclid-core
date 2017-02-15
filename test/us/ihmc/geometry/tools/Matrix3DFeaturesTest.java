@@ -1,4 +1,4 @@
-package us.ihmc.geometry.matrix;
+package us.ihmc.geometry.tools;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,11 +11,14 @@ import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.junit.Test;
 
-import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.NotARotationMatrixException;
+import us.ihmc.geometry.matrix.Matrix3D;
+import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreIOTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.Matrix3DFeatures;
 
 public class Matrix3DFeaturesTest
 {

@@ -2,8 +2,8 @@ package us.ihmc.geometry.tuple3D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.geometry.TupleTools;
 import us.ihmc.geometry.interfaces.Clearable;
+import us.ihmc.geometry.tools.TupleTools;
 
 /**
  * Write and read interface for a 3 dimensional tuple.

@@ -2,8 +2,8 @@ package us.ihmc.geometry.tuple4D;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.interfaces.GeometryObject;
+import us.ihmc.geometry.tools.EuclidCoreIOTools;
 import us.ihmc.geometry.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Tuple4DReadOnly;

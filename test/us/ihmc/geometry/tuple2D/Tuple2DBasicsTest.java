@@ -9,8 +9,8 @@ import java.util.Random;
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
-import us.ihmc.geometry.TupleTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.TupleTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 

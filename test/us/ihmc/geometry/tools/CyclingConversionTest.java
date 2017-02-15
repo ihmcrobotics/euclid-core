@@ -1,4 +1,4 @@
-package us.ihmc.geometry;
+package us.ihmc.geometry.tools;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -12,8 +12,9 @@ import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;

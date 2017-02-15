@@ -1,4 +1,4 @@
-package us.ihmc.geometry;
+package us.ihmc.geometry.tools;
 
 public class EuclidCoreTools
 {

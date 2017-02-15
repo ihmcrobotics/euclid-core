@@ -2,13 +2,14 @@ package us.ihmc.geometry.matrix;
 
 import java.io.Serializable;
 
-import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
 import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.geometry.tools.EuclidCoreIOTools;
+import us.ihmc.geometry.tools.Matrix3DTools;
 import us.ihmc.geometry.transform.interfaces.Transform;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;

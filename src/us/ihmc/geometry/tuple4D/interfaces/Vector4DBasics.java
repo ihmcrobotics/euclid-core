@@ -1,6 +1,6 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
-import us.ihmc.geometry.TupleTools;
+import us.ihmc.geometry.tools.TupleTools;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;

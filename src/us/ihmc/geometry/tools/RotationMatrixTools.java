@@ -1,5 +1,6 @@
-package us.ihmc.geometry.matrix;
+package us.ihmc.geometry.tools;
 
+import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 
 public abstract class RotationMatrixTools

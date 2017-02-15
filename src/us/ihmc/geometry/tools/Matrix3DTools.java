@@ -1,8 +1,8 @@
-package us.ihmc.geometry.matrix;
+package us.ihmc.geometry.tools;
 
-import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.exceptions.SingularMatrixException;
+import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;

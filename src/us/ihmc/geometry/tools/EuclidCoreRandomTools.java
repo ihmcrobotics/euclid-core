@@ -1,4 +1,4 @@
-package us.ihmc.geometry.testingTools;
+package us.ihmc.geometry.tools;
 
 import java.util.Random;
 

@@ -9,11 +9,12 @@ import org.junit.Test;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.AxisAngleTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.QuaternionTools;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
 
 public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends AxisAngleReadOnlyTest<T>
 {

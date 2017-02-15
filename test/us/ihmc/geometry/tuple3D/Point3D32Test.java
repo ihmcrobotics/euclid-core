@@ -8,8 +8,8 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import us.ihmc.geometry.testingTools.EuclidCoreRandomTools;
-import us.ihmc.geometry.testingTools.EuclidCoreTestTools;
+import us.ihmc.geometry.tools.EuclidCoreRandomTools;
+import us.ihmc.geometry.tools.EuclidCoreTestTools;
 
 public class Point3D32Test extends Point3DBasicsTest<Point3D32>
 {

@@ -1,8 +1,8 @@
 package us.ihmc.geometry.matrix;
 
-import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.geometry.tools.EuclidCoreTools;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.QuaternionConversion;

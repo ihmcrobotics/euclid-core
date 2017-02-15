@@ -1,18 +1,18 @@
 package us.ihmc.geometry.tuple4D.interfaces;
 
-import us.ihmc.geometry.EuclidCoreTools;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.geometry.tools.EuclidCoreTools;
+import us.ihmc.geometry.tools.QuaternionTools;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
-import us.ihmc.geometry.tuple4D.QuaternionTools;
 import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 /**

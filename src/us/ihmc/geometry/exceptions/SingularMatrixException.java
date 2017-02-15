@@ -1,7 +1,7 @@
 package us.ihmc.geometry.exceptions;
 
-import us.ihmc.geometry.EuclidCoreIOTools;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
+import us.ihmc.geometry.tools.EuclidCoreIOTools;
 
 /**
  * {@code RuntimeException} dedicated to operations where a matrix needs to be inverted. Typically,

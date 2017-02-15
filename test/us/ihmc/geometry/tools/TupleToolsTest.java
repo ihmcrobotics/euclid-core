@@ -1,4 +1,4 @@
-package us.ihmc.geometry;
+package us.ihmc.geometry.tools;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import us.ihmc.geometry.tools.TupleTools;
 import us.ihmc.geometry.tuple2D.Point2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple3D.Point3D;
