@@ -2,6 +2,7 @@ package us.ihmc.geometry.axisAngle;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
@@ -214,6 +215,102 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          assertFalse(axisAngle.isAxisUnitary(getEpsilon()));
          axisAngle.set(ux, uy, uz, angle * bigScale);
          assertTrue(axisAngle.isAxisUnitary(getEpsilon()));
+      }
+   }
+
+   @Test
+   public void testIsZOnly() throws Exception
+   {
+      Random random = new Random(23905872L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double ux = random.nextDouble();
+         double uy = random.nextDouble();
+         double uz = random.nextDouble();
+         double angle = random.nextDouble();
+         T axisAngle = createEmptyAxisAngle();
+
+         axisAngle = createAxisAngle(ux, uy, uz, angle);
+         assertFalse(axisAngle.isZOnly(getEpsilon()));
+
+         axisAngle = createAxisAngle(0.0, uy, uz, angle);
+         assertFalse(axisAngle.isZOnly(getEpsilon()));
+
+         axisAngle = createAxisAngle(ux, 0.0, uz, angle);
+         assertFalse(axisAngle.isZOnly(getEpsilon()));
+
+         axisAngle = createAxisAngle(0.0, 0.0, uz, angle);
+         assertTrue(axisAngle.isZOnly(getEpsilon()));
+
+         axisAngle = createAxisAngle(2.0 * getEpsilon(), 0.0, uz, angle);
+         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         axisAngle = createAxisAngle(0.0, 2.0 * getEpsilon(), uz, angle);
+         assertFalse(axisAngle.isZOnly(getEpsilon()));
+      }
+   }
+
+   @Test
+   public void testCheckIfIsZOnly() throws Exception
+   {
+      Random random = new Random(23905872L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double qx = random.nextDouble();
+         double qy = random.nextDouble();
+         double qz = random.nextDouble();
+         double qs = random.nextDouble();
+         T axisAngle = createEmptyAxisAngle();
+
+         axisAngle = createAxisAngle(qx, qy, qz, qs);
+
+         try
+         {
+            axisAngle.checkIfIsZOnly(getEpsilon());
+            fail("Should have thrown a RuntimeException");
+         }
+         catch (RuntimeException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a RuntimeException");
+         }
+
+         axisAngle = createAxisAngle(0.0, qy, qz, qs);
+         try
+         {
+            axisAngle.checkIfIsZOnly(getEpsilon());
+            fail("Should have thrown a RuntimeException");
+         }
+         catch (RuntimeException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a RuntimeException");
+         }
+
+         axisAngle = createAxisAngle(qx, 0.0, qz, qs);
+         try
+         {
+            axisAngle.checkIfIsZOnly(getEpsilon());
+            fail("Should have thrown a RuntimeException");
+         }
+         catch (RuntimeException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a RuntimeException");
+         }
+
+         axisAngle = createAxisAngle(0.0, 0.0, qz, qs);
+         axisAngle.checkIfIsZOnly(getEpsilon());
       }
    }
 

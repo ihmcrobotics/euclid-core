@@ -77,7 +77,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          double qy = random.nextDouble();
          double qz = random.nextDouble();
          double qs = random.nextDouble();
-         Quaternion quaternion = new Quaternion();
+         T quaternion = createEmptyTuple();
 
          quaternion.set(qx, qy, qz, qs);
          assertFalse(quaternion.isZOnly(getEpsilon()));

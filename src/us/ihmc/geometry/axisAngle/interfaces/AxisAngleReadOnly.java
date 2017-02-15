@@ -1,6 +1,7 @@
 package us.ihmc.geometry.axisAngle.interfaces;
 
 import us.ihmc.geometry.EuclidCoreTools;
+import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 
@@ -118,6 +119,37 @@ public interface AxisAngleReadOnly
    default boolean isAxisUnitary(double epsilon)
    {
       return Math.abs(1.0 - axisNorm()) < epsilon;
+   }
+
+   /**
+    * Tests if this axis-angle represents a rotation around the z-axis.
+    * <p>
+    * This is commonly used to test if the axis-angle can be used to transform 2D geometry object.
+    * </p>
+    *
+    * @param epsilon the tolerance to use.
+    * @return {@code true} if this axis-angle represents a rotation around the z-axis, {@code false}
+    *         otherwise.
+    */
+   default boolean isZOnly(double epsilon)
+   {
+      return Math.abs(getX()) < epsilon && Math.abs(getY()) < epsilon;
+   }
+
+   /**
+    * Asserts that this axis-angle represents a rotation around the z-axis.
+    * <p>
+    * This is commonly used to test if the axis-angle can be used to transform 2D geometry object.
+    * </p>
+    *
+    * @param epsilon the tolerance to use.
+    * @throws NotAMatrix2DException if this axis-angle does not represent a rotation around the
+    *            z-axis.
+    */
+   default void checkIfIsZOnly(double epsilon)
+   {
+      if (!isZOnly(epsilon))
+         throw new NotAMatrix2DException("The axis-angle is not in XY plane: " + toString());
    }
 
    /**
