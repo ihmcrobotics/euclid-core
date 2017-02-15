@@ -10,10 +10,11 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
-import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.exceptions.NotAMatrix2DException;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
+import us.ihmc.geometry.rotationConversion.AxisAngleConversion;
+import us.ihmc.geometry.rotationConversion.QuaternionConversion;
 import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.tools.Matrix3DTools;
@@ -27,7 +28,6 @@ import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.geometry.tuple4D.Quaternion;
-import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.Vector4D;
 
 public class QuaternionToolsTest

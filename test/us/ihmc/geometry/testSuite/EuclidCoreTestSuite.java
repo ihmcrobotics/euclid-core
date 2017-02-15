@@ -11,13 +11,16 @@ import org.junit.runners.Suite;
 import org.pitest.mutationtest.commandline.MutationCoverageReport;
 
 import us.ihmc.geometry.axisAngle.AxisAngle32Test;
-import us.ihmc.geometry.axisAngle.AxisAngleConversionTest;
 import us.ihmc.geometry.axisAngle.AxisAngleTest;
 import us.ihmc.geometry.matrix.Matrix3DTest;
-import us.ihmc.geometry.matrix.RotationMatrixConversionTest;
 import us.ihmc.geometry.matrix.RotationMatrixTest;
 import us.ihmc.geometry.matrix.RotationScaleMatrixTest;
-import us.ihmc.geometry.tools.CyclingConversionTest;
+import us.ihmc.geometry.rotationConversion.AxisAngleConversionTest;
+import us.ihmc.geometry.rotationConversion.CyclingConversionTest;
+import us.ihmc.geometry.rotationConversion.QuaternionConversionTest;
+import us.ihmc.geometry.rotationConversion.RotationMatrixConversionTest;
+import us.ihmc.geometry.rotationConversion.RotationVectorConversionTest;
+import us.ihmc.geometry.rotationConversion.YawPitchRollConversionTest;
 import us.ihmc.geometry.tools.EuclidCoreToolsTest;
 import us.ihmc.geometry.tools.Matrix3DFeaturesTest;
 import us.ihmc.geometry.tools.Matrix3DToolsTest;
@@ -33,15 +36,12 @@ import us.ihmc.geometry.tuple2D.Vector2D32Test;
 import us.ihmc.geometry.tuple2D.Vector2DTest;
 import us.ihmc.geometry.tuple3D.Point3D32Test;
 import us.ihmc.geometry.tuple3D.Point3DTest;
-import us.ihmc.geometry.tuple3D.RotationVectorConversionTest;
 import us.ihmc.geometry.tuple3D.Vector3D32Test;
 import us.ihmc.geometry.tuple3D.Vector3DTest;
 import us.ihmc.geometry.tuple4D.Quaternion32Test;
-import us.ihmc.geometry.tuple4D.QuaternionConversionTest;
 import us.ihmc.geometry.tuple4D.QuaternionTest;
 import us.ihmc.geometry.tuple4D.Vector4D32Test;
 import us.ihmc.geometry.tuple4D.Vector4DTest;
-import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversionTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({Point3DTest.class, Point3D32Test.class, Point2DTest.class, Point2D32Test.class, Vector3DTest.class, Vector3D32Test.class,

@@ -10,17 +10,18 @@ import us.ihmc.geometry.interfaces.GeometryObject;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.geometry.rotationConversion.RotationMatrixConversion;
+import us.ihmc.geometry.rotationConversion.RotationVectorConversion;
+import us.ihmc.geometry.rotationConversion.YawPitchRollConversion;
 import us.ihmc.geometry.tools.EuclidCoreIOTools;
 import us.ihmc.geometry.tools.Matrix3DTools;
 import us.ihmc.geometry.tools.QuaternionTools;
 import us.ihmc.geometry.tools.RotationMatrixTools;
 import us.ihmc.geometry.transform.interfaces.Transform;
-import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
-import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 /**
  * A {@code RotationMatrix} is a 3-by-3 matrix used to represent 3d orientations.

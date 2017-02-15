@@ -1,16 +1,12 @@
-package us.ihmc.geometry.axisAngle;
+package us.ihmc.geometry.rotationConversion;
 
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.geometry.tools.EuclidCoreTools;
 import us.ihmc.geometry.tools.Matrix3DFeatures;
-import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.geometry.tuple4D.QuaternionConversion;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
-import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 /**
  * This class gathers all the methods necessary to converts any type of rotation into an axis-angle.

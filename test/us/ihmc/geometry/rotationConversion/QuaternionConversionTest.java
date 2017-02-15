@@ -1,4 +1,4 @@
-package us.ihmc.geometry.tuple4D;
+package us.ihmc.geometry.rotationConversion;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -10,10 +10,12 @@ import org.junit.Test;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
+import us.ihmc.geometry.rotationConversion.QuaternionConversion;
 import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Point3D;
 import us.ihmc.geometry.tuple3D.Vector3D;
+import us.ihmc.geometry.tuple4D.Quaternion;
 
 public class QuaternionConversionTest
 {

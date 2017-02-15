@@ -1,8 +1,8 @@
 package us.ihmc.geometry.axisAngle.interfaces;
 
-import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.interfaces.Clearable;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.geometry.rotationConversion.AxisAngleConversion;
 import us.ihmc.geometry.tools.AxisAngleTools;
 import us.ihmc.geometry.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;

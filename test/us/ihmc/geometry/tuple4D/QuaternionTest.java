@@ -8,6 +8,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.matrix.RotationMatrix;
+import us.ihmc.geometry.rotationConversion.QuaternionConversion;
 import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;

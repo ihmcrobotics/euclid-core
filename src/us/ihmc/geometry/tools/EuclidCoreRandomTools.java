@@ -8,6 +8,7 @@ import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
+import us.ihmc.geometry.rotationConversion.YawPitchRollConversion;
 import us.ihmc.geometry.transform.AffineTransform;
 import us.ihmc.geometry.transform.QuaternionBasedTransform;
 import us.ihmc.geometry.transform.RigidBodyTransform;
@@ -28,7 +29,6 @@ import us.ihmc.geometry.tuple4D.Quaternion;
 import us.ihmc.geometry.tuple4D.Quaternion32;
 import us.ihmc.geometry.tuple4D.Vector4D;
 import us.ihmc.geometry.tuple4D.Vector4D32;
-import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 /**
  * This class provides random generators to generate random geometry objects.

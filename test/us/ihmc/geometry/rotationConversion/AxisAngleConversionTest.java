@@ -1,4 +1,4 @@
-package us.ihmc.geometry.axisAngle;
+package us.ihmc.geometry.rotationConversion;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -9,9 +9,11 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
 import us.ihmc.geometry.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.geometry.rotationConversion.AxisAngleConversion;
 import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.tuple3D.Vector3D;

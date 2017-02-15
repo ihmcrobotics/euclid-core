@@ -17,6 +17,9 @@ import us.ihmc.geometry.matrix.Matrix3D;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.geometry.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.geometry.rotationConversion.QuaternionConversion;
+import us.ihmc.geometry.rotationConversion.RotationVectorConversion;
+import us.ihmc.geometry.rotationConversion.YawPitchRollConversion;
 import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tools.EuclidCoreTestTools;
 import us.ihmc.geometry.tools.QuaternionTools;
@@ -26,7 +29,6 @@ import us.ihmc.geometry.transform.RigidBodyTransform;
 import us.ihmc.geometry.tuple2D.Vector2D;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.geometry.tuple2D.interfaces.Tuple2DReadOnly;
-import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.geometry.tuple3D.interfaces.Tuple3DReadOnly;
@@ -34,7 +36,6 @@ import us.ihmc.geometry.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.geometry.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.geometry.tuple4D.interfaces.Vector4DReadOnly;
-import us.ihmc.geometry.yawPitchRoll.YawPitchRollConversion;
 
 public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends Tuple4DBasicsTest<T>
 {

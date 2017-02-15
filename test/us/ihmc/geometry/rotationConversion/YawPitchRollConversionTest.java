@@ -1,4 +1,4 @@
-package us.ihmc.geometry.yawPitchRoll;
+package us.ihmc.geometry.rotationConversion;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,16 +9,17 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.geometry.axisAngle.AxisAngle;
-import us.ihmc.geometry.axisAngle.AxisAngleConversion;
 import us.ihmc.geometry.matrix.RotationMatrix;
-import us.ihmc.geometry.matrix.RotationMatrixConversion;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
+import us.ihmc.geometry.rotationConversion.AxisAngleConversion;
+import us.ihmc.geometry.rotationConversion.QuaternionConversion;
+import us.ihmc.geometry.rotationConversion.RotationMatrixConversion;
+import us.ihmc.geometry.rotationConversion.RotationVectorConversion;
+import us.ihmc.geometry.rotationConversion.YawPitchRollConversion;
 import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tools.EuclidCoreTestTools;
-import us.ihmc.geometry.tuple3D.RotationVectorConversion;
 import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
-import us.ihmc.geometry.tuple4D.QuaternionConversion;
 
 public class YawPitchRollConversionTest
 {

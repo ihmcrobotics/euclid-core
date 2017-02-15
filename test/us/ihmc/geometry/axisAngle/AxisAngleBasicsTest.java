@@ -9,6 +9,7 @@ import org.junit.Test;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.geometry.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.geometry.matrix.RotationMatrix;
+import us.ihmc.geometry.rotationConversion.AxisAngleConversion;
 import us.ihmc.geometry.tools.AxisAngleTools;
 import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tools.EuclidCoreTestTools;

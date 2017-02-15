@@ -1,4 +1,4 @@
-package us.ihmc.geometry.tuple3D;
+package us.ihmc.geometry.rotationConversion;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -12,10 +12,12 @@ import org.junit.Test;
 import us.ihmc.geometry.axisAngle.AxisAngle;
 import us.ihmc.geometry.matrix.RotationMatrix;
 import us.ihmc.geometry.matrix.RotationScaleMatrix;
+import us.ihmc.geometry.rotationConversion.QuaternionConversion;
+import us.ihmc.geometry.rotationConversion.RotationVectorConversion;
 import us.ihmc.geometry.tools.EuclidCoreRandomTools;
 import us.ihmc.geometry.tools.EuclidCoreTestTools;
+import us.ihmc.geometry.tuple3D.Vector3D;
 import us.ihmc.geometry.tuple4D.Quaternion;
-import us.ihmc.geometry.tuple4D.QuaternionConversion;
 
 public class RotationVectorConversionTest
 {
