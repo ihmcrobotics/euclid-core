@@ -2,6 +2,12 @@ plugins {
   id "us.ihmc.gradle.ihmc-build" version "0.0.19"
 }
 
+repositories {
+    maven {
+       url "http://dl.bintray.com/ihmcrobotics/maven-release"
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
