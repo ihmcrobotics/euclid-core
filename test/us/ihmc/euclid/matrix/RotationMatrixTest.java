@@ -1,0 +1,1713 @@
+package us.ihmc.euclid.matrix;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Random;
+
+import org.ejml.data.DenseMatrix64F;
+import org.junit.Assert;
+import org.junit.Test;
+
+import us.ihmc.euclid.axisAngle.AxisAngle;
+import us.ihmc.euclid.exceptions.NotARotationMatrixException;
+import us.ihmc.euclid.matrix.Matrix3D;
+import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
+import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
+import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
+import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tools.EuclidCoreTestTools;
+import us.ihmc.euclid.tools.Matrix3DTools;
+import us.ihmc.euclid.tools.QuaternionTools;
+import us.ihmc.euclid.tools.RotationMatrixTools;
+import us.ihmc.euclid.transform.AffineTransform;
+import us.ihmc.euclid.transform.QuaternionBasedTransform;
+import us.ihmc.euclid.transform.RigidBodyTransform;
+import us.ihmc.euclid.tuple2D.Vector2D;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.euclid.tuple3D.Vector3D;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.euclid.tuple4D.Quaternion;
+import us.ihmc.euclid.tuple4D.Vector4D;
+import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
+import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
+import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+
+public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
+{
+   public static final int NUMBER_OF_ITERATIONS = 100;
+   public static final double EPS = 1.0e-10;
+
+   @Test
+   public void testRotationMatrix()
+   {
+      Random random = new Random(46876L);
+      RotationMatrix actualRotationMatrix = new RotationMatrix();
+      RotationMatrix expectedRotationMatrix = new RotationMatrix();
+
+      { // Test RotationMatrix()
+         assertTrue(new RotationMatrix().isIdentity());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test RotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+         expectedRotationMatrix = createRandomMatrix(random);
+         double m00 = expectedRotationMatrix.getM00();
+         double m01 = expectedRotationMatrix.getM01();
+         double m02 = expectedRotationMatrix.getM02();
+         double m10 = expectedRotationMatrix.getM10();
+         double m11 = expectedRotationMatrix.getM11();
+         double m12 = expectedRotationMatrix.getM12();
+         double m20 = expectedRotationMatrix.getM20();
+         double m21 = expectedRotationMatrix.getM21();
+         double m22 = expectedRotationMatrix.getM22();
+         actualRotationMatrix = new RotationMatrix(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test RotationMatrix(double[] rotationMatrixArray)
+         expectedRotationMatrix = createRandomMatrix(random);
+         double[] rotationMatrixArray = new double[50];
+         expectedRotationMatrix.get(rotationMatrixArray);
+         actualRotationMatrix = new RotationMatrix(rotationMatrixArray);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test RotationMatrix(DenseMatrix64F rotationMatrix)
+         expectedRotationMatrix = createRandomMatrix(random);
+         DenseMatrix64F rotationMatrixDenseMatrix = new DenseMatrix64F(3, 3);
+         expectedRotationMatrix.get(rotationMatrixDenseMatrix);
+         actualRotationMatrix = new RotationMatrix(rotationMatrixDenseMatrix);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test RotationMatrix(Matrix3DReadOnly rotationMatrix)
+         expectedRotationMatrix = createRandomMatrix(random);
+         Matrix3D matrix3D = new Matrix3D(expectedRotationMatrix);
+         actualRotationMatrix = new RotationMatrix(matrix3D);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test RotationMatrix(Matrix3DReadOnly rotationMatrix)
+         expectedRotationMatrix = createRandomMatrix(random);
+         actualRotationMatrix = new RotationMatrix(expectedRotationMatrix);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationMatrix, actualRotationMatrix, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test RotationMatrix(AxisAngleBasics axisAngle)
+         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+
+         actualRotationMatrix = new RotationMatrix(axisAngle);
+         RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, expectedRotationMatrix);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(actualRotationMatrix, expectedRotationMatrix, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test RotationMatrix(QuaternionBasics quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+
+         actualRotationMatrix = new RotationMatrix(quaternion);
+         RotationMatrixConversion.convertQuaternionToMatrix(quaternion, expectedRotationMatrix);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(actualRotationMatrix, expectedRotationMatrix, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test RotationMatrix(VectorBasics rotationVector)
+         Vector3D rotationVector = EuclidCoreRandomTools.generateRandomVector3D(random);
+
+         actualRotationMatrix = new RotationMatrix(rotationVector);
+         RotationMatrixConversion.convertRotationVectorToMatrix(rotationVector, expectedRotationMatrix);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(actualRotationMatrix, expectedRotationMatrix, EPS);
+      }
+   }
+
+   @Override
+   public void testSetDoubles()
+   {
+      super.testSetDoubles();
+
+      try
+      {
+         RotationMatrix rotationMatrix = new RotationMatrix();
+         rotationMatrix.set(45.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+         fail("should have thrown a NotARotationMatrixException");
+      }
+      catch (NotARotationMatrixException e)
+      {
+         // good
+      }
+      catch (Exception e)
+      {
+         fail("should have thrown a NotARotationMatrixException");
+      }
+   }
+
+   @Test
+   public void testSetToZero()
+   {
+      RotationMatrix rotationMatrix = new RotationMatrix();
+      RotationMatrix identityMatrix = new RotationMatrix();
+      identityMatrix.setToNaN();
+      rotationMatrix.setToNaN();
+
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(identityMatrix);
+      EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(rotationMatrix);
+
+      identityMatrix.setIdentity();
+      rotationMatrix.setToZero();
+
+      EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, identityMatrix, EPS);
+   }
+
+   @Test
+   public void testCheckIfMatrixProper() throws Exception
+   {
+      Random random = new Random(46876L);
+      Matrix3D matrix, matrixCopy = new Matrix3D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         matrixCopy.set(matrix);
+
+         RotationMatrix rotationMatrix = new RotationMatrix();
+
+         try
+         {
+            rotationMatrix = new RotationMatrix(matrix);
+            rotationMatrix.checkIfRotationMatrix();
+            Assert.assertTrue(matrix.isRotationMatrix());
+         }
+         catch (RuntimeException e)
+         {
+            if (matrix.isRotationMatrix())
+               throw e;
+            // else it is good
+         }
+
+         EuclidCoreTestTools.assertMatrix3DEquals(matrix, matrixCopy, EPS);
+      }
+   }
+
+   @Test
+   public void testSet() throws Exception
+   {
+      { // Test set(RotationMatrix other)
+         Random random = new Random(648967L);
+         Matrix3D expectedMatrix;
+         RotationMatrix rotationMatrix = new RotationMatrix(), expectedRotationMatrix;
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         {
+            expectedMatrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+            expectedRotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+            rotationMatrix.setToNaN();
+
+            rotationMatrix.set(expectedRotationMatrix);
+            EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, expectedRotationMatrix, EPS);
+
+            try
+            {
+               rotationMatrix.set(expectedMatrix);
+               EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, rotationMatrix, EPS);
+            }
+            catch (RuntimeException e)
+            {
+               if (expectedMatrix.isRotationMatrix())
+                  throw e;
+               // else it is good
+            }
+         }
+      }
+
+      { // Test set(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+         Random random = new Random(648967L);
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         {
+            double[] matrixArray = new double[9];
+            double[] matrixArrayCopy = new double[9];
+
+            for (int j = 0; j < matrixArray.length; j++)
+               matrixArray[j] = matrixArrayCopy[j] = random.nextDouble() + 1;
+
+            RotationMatrix rotationMatrix = new RotationMatrix();
+            rotationMatrix.setToNaN();
+
+            try
+            {
+               rotationMatrix.set(matrixArray[0], matrixArray[1], matrixArray[2], matrixArray[3], matrixArray[4], matrixArray[5], matrixArray[6],
+                                  matrixArray[7], matrixArray[8]);
+
+               Assert.assertTrue(rotationMatrix.getM00() == matrixArray[0]);
+               Assert.assertTrue(rotationMatrix.getM01() == matrixArray[1]);
+               Assert.assertTrue(rotationMatrix.getM02() == matrixArray[2]);
+               Assert.assertTrue(rotationMatrix.getM10() == matrixArray[3]);
+               Assert.assertTrue(rotationMatrix.getM11() == matrixArray[4]);
+               Assert.assertTrue(rotationMatrix.getM12() == matrixArray[5]);
+               Assert.assertTrue(rotationMatrix.getM20() == matrixArray[6]);
+               Assert.assertTrue(rotationMatrix.getM21() == matrixArray[7]);
+               Assert.assertTrue(rotationMatrix.getM22() == matrixArray[8]);
+            }
+            catch (RuntimeException e)
+            {
+               if (rotationMatrix.isRotationMatrix())
+                  throw e;
+               // else it is good
+            }
+
+            for (int k = 0; k < matrixArray.length; k++)
+               Assert.assertTrue(matrixArray[k] == matrixArrayCopy[k]);
+         }
+      }
+
+      { // Test set(double[] rotationMatrixArray)
+         Random random = new Random(46876L);
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         {
+            double[] matrixArray = new double[9];
+            double[] matrixArrayCopy = new double[9];
+
+            for (int j = 0; j < matrixArray.length; j++)
+               matrixArray[j] = matrixArrayCopy[j] = random.nextDouble() + 1;
+
+            RotationMatrix rotationMatrix = new RotationMatrix();
+            rotationMatrix.setToNaN();
+
+            try
+            {
+               rotationMatrix.set(matrixArray);
+
+               Assert.assertTrue(rotationMatrix.getM00() == matrixArray[0]);
+               Assert.assertTrue(rotationMatrix.getM01() == matrixArray[1]);
+               Assert.assertTrue(rotationMatrix.getM02() == matrixArray[2]);
+               Assert.assertTrue(rotationMatrix.getM10() == matrixArray[3]);
+               Assert.assertTrue(rotationMatrix.getM11() == matrixArray[4]);
+               Assert.assertTrue(rotationMatrix.getM12() == matrixArray[5]);
+               Assert.assertTrue(rotationMatrix.getM20() == matrixArray[6]);
+               Assert.assertTrue(rotationMatrix.getM21() == matrixArray[7]);
+               Assert.assertTrue(rotationMatrix.getM22() == matrixArray[8]);
+            }
+            catch (RuntimeException e)
+            {
+               if (rotationMatrix.isRotationMatrix())
+                  throw e;
+               // else it is good
+            }
+
+            for (int k = 0; k < matrixArray.length; k++)
+               Assert.assertTrue(matrixArray[k] == matrixArrayCopy[k]);
+         }
+      }
+
+      { // Test set(DenseMatrix64F matrix)
+         Random random = new Random(46876L);
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         {
+            RotationMatrix actualMatrix = new RotationMatrix();
+            RotationMatrix randomRotation = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+            DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
+            for (int row = 0; row < 3; row++)
+            {
+               for (int column = 0; column < 3; column++)
+               {
+                  denseMatrix.set(row, column, randomRotation.getElement(row, column));
+               }
+            }
+
+            actualMatrix.set(denseMatrix);
+
+            for (int row = 0; row < 3; row++)
+            {
+               for (int column = 0; column < 3; column++)
+               {
+                  assertTrue(denseMatrix.get(row, column) == actualMatrix.getElement(row, column));
+               }
+            }
+         }
+      }
+
+      { // Test set(DenseMatrix64F matrix, int startRow, int startColumn)
+         Random random = new Random(46876L);
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         {
+            RotationMatrix actualMatrix = new RotationMatrix();
+            RotationMatrix randomRotation = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+            int startRow = random.nextInt(10);
+            int startColumn = random.nextInt(10);
+            DenseMatrix64F denseMatrix = new DenseMatrix64F(3 + startRow, 3 + startColumn);
+
+            for (int row = 0; row < 3; row++)
+            {
+               for (int column = 0; column < 3; column++)
+               {
+                  denseMatrix.set(row + startRow, column + startColumn, randomRotation.getElement(row, column));
+               }
+            }
+
+            actualMatrix.set(startRow, startColumn, denseMatrix);
+
+            for (int row = 0; row < 3; row++)
+            {
+               for (int column = 0; column < 3; column++)
+               {
+                  assertTrue(denseMatrix.get(row + startRow, column + startColumn) == actualMatrix.getElement(row, column));
+               }
+            }
+         }
+      }
+   }
+
+   @Test
+   public void testAppendYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      RotationMatrix expected = new RotationMatrix();
+      RotationMatrix actual = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendYawRotation(double yaw)
+         RotationMatrix original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix yawRotation = new RotationMatrix();
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+
+         yawRotation.setToYawMatrix(yaw);
+         RotationMatrixTools.multiply(original, yawRotation, expected);
+
+         actual.set(original);
+         actual.appendYawRotation(yaw);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendPitchRotation(double pitch)
+         RotationMatrix original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix pitchRotation = new RotationMatrix();
+         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+
+         pitchRotation.setToPitchMatrix(pitch);
+         RotationMatrixTools.multiply(original, pitchRotation, expected);
+
+         actual.set(original);
+         actual.appendPitchRotation(pitch);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendRollRotation(double roll)
+         RotationMatrix original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rollRotation = new RotationMatrix();
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+
+         rollRotation.setToRollMatrix(roll);
+         RotationMatrixTools.multiply(original, rollRotation, expected);
+
+         actual.set(original);
+         actual.appendRollRotation(roll);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPrependYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      RotationMatrix expected = new RotationMatrix();
+      RotationMatrix actual = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependYawRotation(double yaw)
+         RotationMatrix original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix yawRotation = new RotationMatrix();
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+
+         yawRotation.setToYawMatrix(yaw);
+         RotationMatrixTools.multiply(yawRotation, original, expected);
+
+         actual.set(original);
+         actual.prependYawRotation(yaw);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependPitchRotation(double pitch)
+         RotationMatrix original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix pitchRotation = new RotationMatrix();
+         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+
+         pitchRotation.setToPitchMatrix(pitch);
+         RotationMatrixTools.multiply(pitchRotation, original, expected);
+
+         actual.set(original);
+         actual.prependPitchRotation(pitch);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependRollRotation(double roll)
+         RotationMatrix original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rollRotation = new RotationMatrix();
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+
+         rollRotation.setToRollMatrix(roll);
+         RotationMatrixTools.multiply(rollRotation, original, expected);
+
+         actual.set(original);
+         actual.prependRollRotation(roll);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testSetToYawPitchRollMatrix()
+   {
+      Random random = new Random(35454L);
+      RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+
+         { // Test setToPitchMatrix()
+            double pitch, pitchCopy;
+            pitch = pitchCopy = random.nextDouble();
+
+            rotationMatrix.setToNaN();
+            rotationMatrixCopy.setToNaN();
+
+            rotationMatrix.setToPitchMatrix(pitch);
+            RotationMatrixConversion.computePitchMatrix(pitch, rotationMatrixCopy);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+
+            Assert.assertTrue(pitch == pitchCopy);
+         }
+
+         { // Test setToRollMatrix()
+            double roll, rollCopy;
+            roll = rollCopy = random.nextDouble();
+
+            rotationMatrix.setToNaN();
+            rotationMatrixCopy.setToNaN();
+
+            rotationMatrix.setToRollMatrix(roll);
+            RotationMatrixConversion.computeRollMatrix(roll, rotationMatrixCopy);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+
+            Assert.assertTrue(roll == rollCopy);
+         }
+
+         { // Test setToYawMatrix()
+            double yaw, yawCopy;
+            yaw = yawCopy = random.nextDouble();
+
+            rotationMatrix.setToNaN();
+            rotationMatrixCopy.setToNaN();
+
+            rotationMatrix.setToYawMatrix(yaw);
+            RotationMatrixConversion.computeYawMatrix(yaw, rotationMatrixCopy);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+
+            Assert.assertTrue(yaw == yawCopy);
+         }
+      }
+   }
+
+   @Test
+   public void testSetYawPitchRoll()
+   {
+      Random random = new Random(6465L);
+      RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setYawPitchRoll (double[] yawPitchRoll)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+
+         double[] yawPitchRoll, yawPitchRollCopy;
+         yawPitchRoll = yawPitchRollCopy = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+
+         rotationMatrix.setYawPitchRoll(yawPitchRoll);
+         RotationMatrixConversion.convertYawPitchRollToMatrix(yawPitchRoll, rotationMatrixCopy);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         Assert.assertTrue(yawPitchRoll == yawPitchRollCopy);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setYawPitchRoll(double yaw, double pitch, double roll)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+
+         double[] yawPitchRoll, yawPitchRollCopy;
+         yawPitchRoll = yawPitchRollCopy = new double[] {random.nextDouble(), random.nextDouble(), random.nextDouble()};
+
+         rotationMatrix.setYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
+         RotationMatrixConversion.convertYawPitchRollToMatrix(yawPitchRoll, rotationMatrixCopy);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         Assert.assertTrue(yawPitchRoll == yawPitchRollCopy);
+      }
+   }
+
+   @Test
+   public void testSetEuler()
+   {
+      Random random = new Random(65466L);
+      RotationMatrix rotationMatrix, rotationMatrixCopy;
+      RotationMatrix yawPitchRoll = new RotationMatrix();
+      RotationMatrix expected = new RotationMatrix();
+      Vector3D eulerAngles, eulerAnglesCopy;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setEuler(VectorBasics eulerAngles)
+         rotationMatrix = rotationMatrixCopy = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         eulerAngles = eulerAnglesCopy = EuclidCoreRandomTools.generateRandomVector3D(random);
+         yawPitchRoll.setEuler(eulerAngles);
+         RotationMatrixConversion.convertYawPitchRollToMatrix(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertRotationVectorEquals(eulerAngles, eulerAnglesCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(yawPitchRoll, expected, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setEuler(double rotX, double rotY, double rotZ)
+         rotationMatrix = rotationMatrixCopy = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         eulerAngles = eulerAnglesCopy = EuclidCoreRandomTools.generateRandomVector3D(random);
+         yawPitchRoll.setEuler(eulerAngles.getX(), eulerAngles.getY(), eulerAngles.getZ());
+         RotationMatrixConversion.convertYawPitchRollToMatrix(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertRotationVectorEquals(eulerAngles, eulerAnglesCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(yawPitchRoll, expected, EPS);
+      }
+   }
+
+   @Test
+   public void testGet()
+   {
+      Random random = new Random(6841L);
+      RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test get(VectorBasics rotationVectorToPack)
+         rotationMatrix = rotationMatrixCopy = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         Vector3D vector = new Vector3D();
+         Vector3D expectedVector = new Vector3D();
+
+         rotationMatrix.get(vector);
+         RotationVectorConversion.convertMatrixToRotationVector(rotationMatrix, expectedVector);
+
+         EuclidCoreTestTools.assertRotationVectorEquals(vector, expectedVector, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+      }
+   }
+
+   @Test
+   public void testGetEuler()
+   {
+      Random random = new Random(65466L);
+      RotationMatrix yawPitchRoll = new RotationMatrix(), expected;
+      Vector3D eulerAngles = new Vector3D();
+      Vector3D eulerAnglesCopy = new Vector3D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         try
+         {
+            expected = yawPitchRoll = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+            yawPitchRoll.getEuler(eulerAngles);
+            YawPitchRollConversion.convertMatrixToYawPitchRoll(expected, eulerAnglesCopy);
+
+            EuclidCoreTestTools.assertRotationVectorEquals(eulerAngles, eulerAnglesCopy, EPS);
+            EuclidCoreTestTools.assertMatrix3DEquals(yawPitchRoll, expected, EPS);
+         }
+         catch (AssertionError e)
+         {
+            double pitch = YawPitchRollConversion.computePitch(yawPitchRoll);
+            if (!Double.isNaN(pitch))
+               throw e;
+         }
+   }
+
+   @Test
+   public void testGetToYawPitchRollMatrix()
+   {
+      Random random = new Random(35454L);
+      RotationMatrix rotationMatrix, expectedMatrix;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         rotationMatrix = expectedMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         { // Test getToPitchMatrix()
+            double pitch = rotationMatrix.getPitch();
+            double expectedPitch = YawPitchRollConversion.computePitch(expectedMatrix);
+
+            Assert.assertEquals(pitch, expectedPitch, EPS);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, expectedMatrix, EPS);
+         }
+
+         { // Test getToRollMatrix()
+
+            double roll = rotationMatrix.getRoll();
+            double expectedRoll = YawPitchRollConversion.computeRoll(expectedMatrix);
+
+            Assert.assertEquals(roll, expectedRoll, EPS);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, expectedMatrix, EPS);
+         }
+
+         { // Test getToYawMatrix()
+            double yaw = rotationMatrix.getYaw();
+            double expectedYaw = YawPitchRollConversion.computeYaw(expectedMatrix);
+
+            Assert.assertEquals(yaw, expectedYaw, EPS);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, expectedMatrix, EPS);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, expectedMatrix, EPS);
+         }
+      }
+   }
+
+   @Test
+   public void testGetYawPitchRoll()
+   {
+      Random random = new Random(35454L);
+      RotationMatrix rotationMatrix = new RotationMatrix(), expectedMatrix = new RotationMatrix();
+      double[] yawPitchRoll, yawPitchRollCopy = new double[3];
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expectedMatrix.set(rotationMatrix);
+         yawPitchRoll = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         yawPitchRollCopy = yawPitchRoll;
+
+         rotationMatrix.getYawPitchRoll(yawPitchRoll);
+         RotationMatrixConversion.convertYawPitchRollToMatrix(yawPitchRoll, expectedMatrix);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, expectedMatrix, EPS);
+         Assert.assertTrue(yawPitchRoll == yawPitchRollCopy);
+      }
+   }
+
+   @Test
+   public void testApplyTransform()
+   {
+      Random random = new Random(23523L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix original = createRandomMatrix(random);
+         RotationMatrix expected = new RotationMatrix();
+         RotationMatrix actual = new RotationMatrix();
+
+         expected.set(original);
+         expected.preMultiply(transform.getRotationMatrix());
+         actual.set(original);
+         actual.applyTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         RotationMatrix original = createRandomMatrix(random);
+         RotationMatrix expected = new RotationMatrix();
+         RotationMatrix actual = new RotationMatrix();
+
+         expected.set(original);
+         expected.preMultiply(transform.getQuaternion());
+         actual.set(original);
+         actual.applyTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         RotationMatrix original = createRandomMatrix(random);
+         RotationMatrix expected = new RotationMatrix();
+         RotationMatrix actual = new RotationMatrix();
+
+         expected.set(original);
+         expected.preMultiply(transform.getRotationMatrix());
+         actual.set(original);
+         actual.applyTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+   }
+
+   @Test
+   public void testInvert()
+   {
+      Random random = new Random(65474L);
+      RotationMatrix rotationMatrix, expectedMatrix = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expectedMatrix.set(rotationMatrix);
+
+         rotationMatrix.invert();
+         expectedMatrix.transpose();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, expectedMatrix, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiply()
+   {
+      Random random = new Random(645864L);
+      RotationMatrix multiplied, expected = new RotationMatrix();
+      RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test multiply(RotationMatrixReadOnly other)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.multiply(rotationMatrix);
+
+         expected.checkIfRotationMatrix();
+         RotationMatrixTools.multiply(expected, rotationMatrixCopy, expected);
+         expected.normalize();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test multiply(QuaternionReadOnly quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.multiply(quaternion);
+
+         expected.checkIfRotationMatrix();
+         QuaternionTools.multiply(expected, quaternion, expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test multiplyTransposeThis(RotationMatrixReadOnly other)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.multiplyTransposeThis(rotationMatrix);
+
+         expected.checkIfRotationMatrix();
+         RotationMatrixTools.multiplyTransposeLeft(expected, rotationMatrixCopy, expected);
+         expected.normalize();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test multiplyTransposeThis(QuaternionReadOnly quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.multiplyTransposeThis(quaternion);
+
+         expected.checkIfRotationMatrix();
+         QuaternionTools.multiplyTransposeMatrix(expected, quaternion, expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test multiplyTransposeOther(RotationMatrixReadOnly other)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.multiplyTransposeOther(rotationMatrix);
+
+         expected.checkIfRotationMatrix();
+         RotationMatrixTools.multiplyTransposeRight(expected, rotationMatrixCopy, expected);
+         expected.normalize();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test multiplyConjugateQuaternion(QuaternionReadOnly quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.multiplyConjugateQuaternion(quaternion);
+
+         expected.checkIfRotationMatrix();
+         QuaternionTools.multiplyConjugateQuaternion(expected, quaternion, expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test multiplyTransposeBoth(RotationMatrixReadOnly other)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.multiplyTransposeBoth(rotationMatrix);
+
+         expected.checkIfRotationMatrix();
+         RotationMatrixTools.multiplyTransposeBoth(expected, rotationMatrixCopy, expected);
+         expected.normalize();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test multiplyTransposeMatrixConjugateQuaternion(QuaternionReadOnly quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.multiplyTransposeThisConjugateQuaternion(quaternion);
+
+         expected.checkIfRotationMatrix();
+         QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(expected, quaternion, expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+   }
+
+   @Test
+   public void testPreMultiply()
+   {
+      Random random = new Random(645864L);
+      RotationMatrix multiplied, expected = new RotationMatrix();
+      RotationMatrix rotationMatrix, rotationMatrixCopy = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test preMultiply(RotationMatrixReadOnly other)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.preMultiply(rotationMatrix);
+
+         expected.checkIfRotationMatrix();
+         RotationMatrixTools.multiply(rotationMatrixCopy, expected, expected);
+         expected.normalize();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test preMultiply(QuaternionReadOnly quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.preMultiply(quaternion);
+
+         expected.checkIfRotationMatrix();
+         QuaternionTools.multiply(quaternion, expected, expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test preMultiplyTransposeThis(RotationMatrixReadOnly other)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.preMultiplyTransposeThis(rotationMatrix);
+
+         expected.checkIfRotationMatrix();
+         RotationMatrixTools.multiplyTransposeRight(rotationMatrixCopy, expected, expected);
+         expected.normalize();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test preMultiplyTransposeThis(QuaternionReadOnly quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.preMultiplyTransposeThis(quaternion);
+
+         expected.checkIfRotationMatrix();
+         QuaternionTools.multiplyTransposeMatrix(quaternion, expected, expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test preMultiplyTransposeOther(RotationMatrixReadOnly other)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.preMultiplyTransposeOther(rotationMatrix);
+
+         expected.checkIfRotationMatrix();
+         RotationMatrixTools.multiplyTransposeLeft(rotationMatrixCopy, expected, expected);
+         expected.normalize();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test preMultiplyConjugateQuaternion(QuaternionReadOnly quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.preMultiplyConjugateQuaternion(quaternion);
+
+         expected.checkIfRotationMatrix();
+         QuaternionTools.multiplyConjugateQuaternion(quaternion, expected, expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test preMultiplyTransposeBoth(RotationMatrixReadOnly other)
+         rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrixCopy.set(rotationMatrix);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.preMultiplyTransposeBoth(rotationMatrix);
+
+         expected.checkIfRotationMatrix();
+         RotationMatrixTools.multiplyTransposeBoth(rotationMatrixCopy, expected, expected);
+         expected.normalize();
+
+         EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         multiplied = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         expected.set(multiplied);
+
+         multiplied.preMultiplyTransposeThisConjugateQuaternion(quaternion);
+
+         expected.checkIfRotationMatrix();
+         QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, expected, expected);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
+
+         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+   }
+
+   @Test
+   public void testNormalize() throws Exception
+   {
+      Random random = new Random(39456L);
+      RotationMatrix matrixExpected = new RotationMatrix();
+      RotationMatrix matrixActual = new RotationMatrix();
+
+      { // Check that identity does not get modified
+         matrixActual.setIdentity();
+         matrixExpected.setIdentity();
+
+         matrixActual.normalize();
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+      }
+
+      // Test that normalizing a proper rotation matrix does not change it.
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         matrixExpected.set(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrixActual.set(matrixExpected);
+
+         matrixActual.normalize();
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+      }
+
+      Vector3D vector1 = new Vector3D();
+      Vector3D vector2 = new Vector3D();
+
+      // Test that it actually makes a random matrix ortho-normal
+      double corruptionFactor = 0.1;
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix randomRotation = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         double m00 = randomRotation.getM00() + corruptionFactor * random.nextDouble();
+         double m01 = randomRotation.getM01() + corruptionFactor * random.nextDouble();
+         double m02 = randomRotation.getM02() + corruptionFactor * random.nextDouble();
+         double m10 = randomRotation.getM10() + corruptionFactor * random.nextDouble();
+         double m11 = randomRotation.getM11() + corruptionFactor * random.nextDouble();
+         double m12 = randomRotation.getM12() + corruptionFactor * random.nextDouble();
+         double m20 = randomRotation.getM20() + corruptionFactor * random.nextDouble();
+         double m21 = randomRotation.getM21() + corruptionFactor * random.nextDouble();
+         double m22 = randomRotation.getM22() + corruptionFactor * random.nextDouble();
+         matrixActual.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         matrixActual.normalize();
+
+         // Test that each row & column vectors are unit-length
+         for (int j = 0; j < 3; j++)
+         {
+            matrixActual.getRow(j, vector1);
+            assertEquals(1.0, vector1.length(), EPS);
+
+            matrixActual.getColumn(j, vector1);
+            assertEquals(1.0, vector1.length(), EPS);
+         }
+
+         // Test that each pair of rows and each pair of columns are orthogonal
+         for (int j = 0; j < 3; j++)
+         {
+            matrixActual.getRow(j, vector1);
+            matrixActual.getRow((j + 1) % 3, vector2);
+            assertEquals(0.0, vector1.dot(vector2), EPS);
+
+            matrixActual.getColumn(j, vector1);
+            matrixActual.getColumn((j + 1) % 3, vector2);
+            assertEquals(0.0, vector1.dot(vector2), EPS);
+         }
+      }
+   }
+
+   @Test
+   public void testSetAndNormalize() throws Exception
+   {
+      Random random = new Random(39456L);
+      RotationMatrix matrixExpected = new RotationMatrix();
+      RotationMatrix matrixActual = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         matrixExpected = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         double m00 = matrixExpected.getM00();
+         double m01 = matrixExpected.getM01();
+         double m02 = matrixExpected.getM02();
+         double m10 = matrixExpected.getM10();
+         double m11 = matrixExpected.getM11();
+         double m12 = matrixExpected.getM12();
+         double m20 = matrixExpected.getM20();
+         double m21 = matrixExpected.getM21();
+         double m22 = matrixExpected.getM22();
+         matrixActual.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+
+         matrixActual.setToNaN();
+         matrixActual.setAndNormalize(matrixExpected);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+
+         matrixActual.setToNaN();
+         matrixActual.setAndNormalize((Matrix3DReadOnly) matrixExpected);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+      }
+
+      double corruptionFactor = 0.1;
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix corrupted = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         double m00 = corrupted.getM00() + corruptionFactor * random.nextDouble();
+         double m01 = corrupted.getM01() + corruptionFactor * random.nextDouble();
+         double m02 = corrupted.getM02() + corruptionFactor * random.nextDouble();
+         double m10 = corrupted.getM10() + corruptionFactor * random.nextDouble();
+         double m11 = corrupted.getM11() + corruptionFactor * random.nextDouble();
+         double m12 = corrupted.getM12() + corruptionFactor * random.nextDouble();
+         double m20 = corrupted.getM20() + corruptionFactor * random.nextDouble();
+         double m21 = corrupted.getM21() + corruptionFactor * random.nextDouble();
+         double m22 = corrupted.getM22() + corruptionFactor * random.nextDouble();
+         corrupted.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+
+         matrixExpected.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         matrixExpected.normalize();
+         matrixActual.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+
+         matrixActual.setToNaN();
+         matrixActual.setAndNormalize(corrupted);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+
+         matrixActual.setToNaN();
+         matrixActual.setAndNormalize((Matrix3DReadOnly) corrupted);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+      }
+   }
+
+   @Test
+   public void testSetAndInvert() throws Exception
+   {
+      Random random = new Random(545L);
+      RotationMatrix matrixActual = new RotationMatrix();
+      RotationMatrix matrixExpected = new RotationMatrix();
+
+      RotationMatrix randomMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+      matrixExpected.set(randomMatrix);
+      matrixExpected.invert();
+
+      matrixActual.setAndInvert(randomMatrix);
+      EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+
+      matrixActual.setToNaN();
+      matrixActual.setAndInvert((Matrix3DReadOnly) randomMatrix);
+      EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+   }
+
+   @Test
+   public void testSetAndTranspose() throws Exception
+   {
+      Random random = new Random(545L);
+      RotationMatrix matrixActual = new RotationMatrix();
+      RotationMatrix matrixExpected = new RotationMatrix();
+
+      RotationMatrix randomMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+      matrixExpected.set(randomMatrix);
+      matrixExpected.transpose();
+
+      matrixActual.setAndTranspose(randomMatrix);
+      EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+
+      matrixActual.setToNaN();
+      matrixActual.setAndTranspose((Matrix3DReadOnly) randomMatrix);
+      EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+   }
+
+   @Test
+   public void testTransformTuple() throws Exception
+   {
+      Random random = new Random(435L);
+      Vector3D actual = new Vector3D();
+      Vector3D expected = new Vector3D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         Vector3D original = EuclidCoreRandomTools.generateRandomVector3D(random);
+
+         Matrix3DTools.transform(matrix, original, expected);
+         actual.set(original);
+         matrix.transform(actual);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, EPS);
+
+         actual.setToNaN();
+         matrix.transform(original, actual);
+         EuclidCoreTestTools.assertTuple3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testTransformTuple2D() throws Exception
+   {
+      Random random = new Random(435L);
+      Vector2D actual = new Vector2D();
+      Vector2D expected = new Vector2D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix matrix = new RotationMatrix();
+         matrix.setToYawMatrix(2.0 * Math.PI * random.nextDouble());
+         Vector2D original = EuclidCoreRandomTools.generateRandomVector2D(random);
+
+         Matrix3DTools.transform(matrix, original, expected, true);
+         actual.set(original);
+         matrix.transform(actual);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPS);
+
+         actual.setToNaN();
+         matrix.transform(original, actual);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPS);
+
+         actual.setToNaN();
+         Matrix3DTools.transform(matrix, original, expected, true);
+         actual.set(original);
+         matrix.transform(actual, true);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPS);
+
+         actual.setToNaN();
+         matrix.transform(original, actual, true);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testTransformMatrix() throws Exception
+   {
+      Random random = new Random(435L);
+      Matrix3D actual = new Matrix3D();
+      Matrix3D expected = new Matrix3D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         Matrix3D original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+
+         Matrix3DTools.transform(matrix, original, expected);
+         actual.set(original);
+         matrix.transform(actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+
+         actual.setToNaN();
+         matrix.transform(original, actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testTransformQuaternion() throws Exception
+   {
+      Random random = new Random(435L);
+      Quaternion actual = new Quaternion();
+      Quaternion expected = new Quaternion();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         Quaternion original = EuclidCoreRandomTools.generateRandomQuaternion(random);
+
+         matrix.transform(original, expected);
+         actual.set(original);
+         matrix.transform(actual);
+         EuclidCoreTestTools.assertQuaternionEquals(expected, actual, EPS);
+
+         actual.setToNaN();
+         matrix.transform(original, actual);
+         EuclidCoreTestTools.assertQuaternionEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testTransformVector4D() throws Exception
+   {
+      Random random = new Random(435L);
+      Vector4D actual = new Vector4D();
+      Vector4D expected = new Vector4D();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         Vector4D original = EuclidCoreRandomTools.generateRandomVector4D(random);
+
+         matrix.transform(original, expected);
+         actual.set(original);
+         matrix.transform(actual);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, EPS);
+
+         actual.setToNaN();
+         matrix.transform(original, actual);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testTransformRotationMatrix() throws Exception
+   {
+      Random random = new Random(435L);
+      RotationMatrix actual = new RotationMatrix();
+      RotationMatrix expected = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         matrix.transform(original, expected);
+         actual.set(original);
+         matrix.transform(actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+
+         actual.setToNaN();
+         matrix.transform(original, actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Override
+   @Test
+   public void testInverseTransform() throws Exception
+   {
+      super.testInverseTransform();
+
+      Random random = new Random(6787L);
+      RotationMatrix rotationMatrix = createEmptyMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleToTransform)
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics actualTuple = new Vector3D(tuple);
+         Tuple3DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector3D(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationMatrix, tuple, expectedTuple);
+         rotationMatrix.inverseTransform(actualTuple);
+
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics actualTuple = new Vector3D(tuple);
+         Tuple3DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector3D(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationMatrix, tuple, expectedTuple);
+         rotationMatrix.inverseTransform(tuple, actualTuple);
+
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleToTransform)
+         Tuple2DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector2D(random);
+         double theta = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         rotationMatrix.setToYawMatrix(theta);
+
+         Matrix3DTools.inverseTransform(rotationMatrix, tuple, expectedTuple, false);
+         rotationMatrix.inverseTransform(actualTuple);
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+         actualTuple.set(tuple);
+         rotationMatrix.inverseTransform(actualTuple, true);
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+         actualTuple.set(tuple);
+         rotationMatrix.inverseTransform(actualTuple, false);
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
+         Tuple2DReadOnly tuple = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Tuple2DBasics actualTuple = new Vector2D(tuple);
+         Tuple2DBasics expectedTuple = EuclidCoreRandomTools.generateRandomVector2D(random);
+         double theta = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         rotationMatrix.setToYawMatrix(theta);
+
+         Matrix3DTools.inverseTransform(rotationMatrix, tuple, expectedTuple, false);
+         rotationMatrix.inverseTransform(tuple, actualTuple);
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+         rotationMatrix.inverseTransform(tuple, actualTuple, true);
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+         rotationMatrix.inverseTransform(tuple, actualTuple, false);
+         EuclidCoreTestTools.assertTuple2DEquals(expectedTuple, actualTuple, EPS);
+      }
+
+      // Test exceptions
+      try
+      {
+         rotationMatrix = createRandomMatrix(random);
+         rotationMatrix.inverseTransform(new Vector2D());
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      try
+      {
+         rotationMatrix = createRandomMatrix(random);
+         rotationMatrix.inverseTransform(new Vector2D(), new Vector2D());
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+      try
+      {
+         rotationMatrix = createRandomMatrix(random);
+         rotationMatrix.inverseTransform(new Vector2D(), true);
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      try
+      {
+         rotationMatrix = createRandomMatrix(random);
+         rotationMatrix.inverseTransform(new Vector2D(), new Vector2D(), true);
+         fail("Should have thrown an exception");
+      }
+      catch (RuntimeException e)
+      {
+         // good
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(QuaternionBasics quaternionToTransform)
+         QuaternionReadOnly original = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         QuaternionTools.multiplyTransposeMatrix(rotationMatrix, original, expected);
+         rotationMatrix.inverseTransform(actual);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+         QuaternionReadOnly original = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         QuaternionBasics actual = new Quaternion(original);
+         QuaternionBasics expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         QuaternionTools.multiplyTransposeMatrix(rotationMatrix, original, expected);
+         rotationMatrix.inverseTransform(original, actual);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Vector4DBasics vectorToTransform)
+         Vector4DReadOnly original = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = EuclidCoreRandomTools.generateRandomVector4D(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationMatrix, original, expected);
+         rotationMatrix.inverseTransform(actual);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+         Vector4DReadOnly original = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4DBasics actual = new Vector4D(original);
+         Vector4DBasics expected = EuclidCoreRandomTools.generateRandomVector4D(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationMatrix, original, expected);
+         rotationMatrix.inverseTransform(original, actual);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Matrix3D matrixToTransform)
+         Matrix3DReadOnly original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = new Matrix3D(original);
+         Matrix3D expected = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationMatrix, original, expected);
+         rotationMatrix.inverseTransform(actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+         Matrix3DReadOnly original = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = new Matrix3D(original);
+         Matrix3D expected = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         Matrix3DTools.inverseTransform(rotationMatrix, original, expected);
+         rotationMatrix.inverseTransform(original, actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(RotationMatrix matrixToTransform)
+         RotationMatrixReadOnly original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix actual = new RotationMatrix(original);
+         RotationMatrix expected = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         RotationMatrixTools.multiplyTransposeLeft(rotationMatrix, original, expected);
+         rotationMatrix.inverseTransform(actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+         RotationMatrixReadOnly original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix actual = new RotationMatrix(original);
+         RotationMatrix expected = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrix = createRandomMatrix(random);
+
+         RotationMatrixTools.multiplyTransposeLeft(rotationMatrix, original, expected);
+         rotationMatrix.inverseTransform(original, actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testEquals() throws Exception
+   {
+      Random random = new Random(2354L);
+      RotationMatrix m1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+      RotationMatrix m2 = new RotationMatrix();
+
+      assertFalse(m1.equals(m2));
+      assertFalse(m1.equals(null));
+      assertFalse(m1.equals(new double[4]));
+      m2.set(m1);
+      assertTrue(m1.equals(m2));
+      assertTrue(m1.equals((Object) m2));
+
+      double smallestEpsilon = 1.0e-16;
+      double[] coeffs = new double[9];
+
+      for (int row = 0; row < 3; row++)
+      {
+         for (int column = 0; column < 3; column++)
+         {
+            m2.set(m1);
+            assertTrue(m1.equals(m2));
+            m1.get(coeffs);
+            coeffs[3 * row + column] += smallestEpsilon;
+            m2.set(coeffs);
+            assertFalse(m1.equals(m2));
+
+            m2.set(m1);
+            assertTrue(m1.equals(m2));
+            m1.get(coeffs);
+            coeffs[3 * row + column] -= smallestEpsilon;
+            m2.set(coeffs);
+            assertFalse(m1.equals(m2));
+         }
+      }
+   }
+
+   @Test
+   public void testHashCode() throws Exception
+   {
+      Random random = new Random(621541L);
+      Matrix3D matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+      RotationMatrix rotationMatrix = new RotationMatrix();
+
+      int newHashCode, previousHashCode;
+      newHashCode = matrix.hashCode();
+      assertEquals(newHashCode, matrix.hashCode());
+
+      previousHashCode = matrix.hashCode();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         int row = random.nextInt(3);
+         int column = random.nextInt(3);
+         matrix.setElement(row, column, random.nextDouble());
+
+         double m00 = matrix.getM00();
+         double m01 = matrix.getM01();
+         double m02 = matrix.getM02();
+         double m10 = matrix.getM10();
+         double m11 = matrix.getM11();
+         double m12 = matrix.getM12();
+         double m20 = matrix.getM20();
+         double m21 = matrix.getM21();
+         double m22 = matrix.getM22();
+         rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+
+         newHashCode = rotationMatrix.hashCode();
+         assertNotEquals(newHashCode, previousHashCode);
+         previousHashCode = newHashCode;
+      }
+   }
+
+   @Override
+   public RotationMatrix createEmptyMatrix()
+   {
+      return new RotationMatrix();
+   }
+
+   @Override
+   public RotationMatrix createMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      RotationMatrix rotationMatrix = new RotationMatrix();
+      rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      return rotationMatrix;
+   }
+
+   @Override
+   public RotationMatrix createRandomMatrix(Random random)
+   {
+      return EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+   }
+}
