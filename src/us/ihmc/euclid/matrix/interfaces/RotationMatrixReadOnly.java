@@ -3,6 +3,8 @@ package us.ihmc.euclid.matrix.interfaces;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
+import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
@@ -10,6 +12,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
@@ -41,6 +44,96 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     * @throws NotARotationMatrixException if the orthonormalization failed.
     */
    void normalize();
+
+   /**
+    * Computes and packs the orientation described by this rotation matrix as a rotation vector.
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    *
+    * @param rotationVectorToPack the rotation vector representing the same orientation as this.
+    *           Modified.
+    */
+   default void get(Vector3DBasics rotationVectorToPack)
+   {
+      RotationVectorConversion.convertMatrixToRotationVector(this, rotationVectorToPack);
+   }
+
+   /**
+    * Computes and packs the orientation described by this rotation matrix as the Euler angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
+    */
+   default void getEuler(Tuple3DBasics eulerAnglesToPack)
+   {
+      YawPitchRollConversion.convertMatrixToYawPitchRoll(this, eulerAnglesToPack);
+   }
+
+   /**
+    * Computes and packs the orientation described by this rotation matrix as the yaw-pitch-roll
+    * angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    */
+   default void getYawPitchRoll(double[] yawPitchRollToPack)
+   {
+      YawPitchRollConversion.convertMatrixToYawPitchRoll(this, yawPitchRollToPack);
+   }
+
+   /**
+    * Computes and returns the yaw angle from the yaw-pitch-roll representation of this rotation
+    * matrix.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the yaw angle around the z-axis.
+    */
+   default double getYaw()
+   {
+      return YawPitchRollConversion.computeYaw(this);
+   }
+
+   /**
+    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this rotation
+    * matrix.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the pitch angle around the y-axis.
+    */
+   default double getPitch()
+   {
+      return YawPitchRollConversion.computePitch(this);
+   }
+
+   /**
+    * Computes and returns the roll angle from the yaw-pitch-roll representation of this rotation
+    * matrix.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the roll angle around the x-axis.
+    */
+   default double getRoll()
+   {
+      return YawPitchRollConversion.computeRoll(this);
+   }
 
    /** {@inheritDoc} */
    @Override

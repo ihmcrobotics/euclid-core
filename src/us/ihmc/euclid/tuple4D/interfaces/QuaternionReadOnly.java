@@ -40,6 +40,8 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
  */
 public interface QuaternionReadOnly extends Tuple4DReadOnly
 {
+   public static final double EPS_UNITARY = 1.0e-7;
+
    /**
     * Tests if this quaternion has a norm equal to 1+/-{@code epsilon}.
     *
@@ -64,6 +66,29 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    default boolean isZOnly(double epsilon)
    {
       return Math.abs(getX()) < epsilon && Math.abs(getY()) < epsilon;
+   }
+
+   /**
+    * Asserts that this quaternion has a norm equal to 1+/-{@value #EPS_UNITARY}.
+    * 
+    * @param epsilon the tolerance to use.
+    * @throws RuntimeException if this quaternion is not a proper unit-quaternion.
+    */
+   default void checkIfUnitary()
+   {
+      checkIfUnitary(EPS_UNITARY);
+   }
+
+   /**
+    * Asserts that this quaternion has a norm equal to 1+/-{@code epsilon}.
+    * 
+    * @param epsilon the tolerance to use.
+    * @throws RuntimeException if this quaternion is not a proper unit-quaternion.
+    */
+   default void checkIfUnitary(double epsilon)
+   {
+      if (!isUnitary(epsilon))
+         throw new RuntimeException("This quaternion is not a unit-quaternion.");
    }
 
    /**

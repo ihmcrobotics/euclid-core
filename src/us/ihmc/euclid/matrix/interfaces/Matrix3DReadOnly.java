@@ -498,7 +498,7 @@ public interface Matrix3DReadOnly
     * </ul>
     * </p>
     *
-    * @return {@code true} if the given matrix describes a 2D transformation in the XY plane,
+    * @return {@code true} if this matrix describes a 2D transformation in the XY plane,
     *         {@code false} otherwise.
     */
    default boolean isMatrix2D()
@@ -519,7 +519,7 @@ public interface Matrix3DReadOnly
     * </p>
     *
     * @param epsilon the tolerance to use.
-    * @return {@code true} if the given matrix describes a 2D transformation in the XY plane,
+    * @return {@code true} if this matrix describes a 2D transformation in the XY plane,
     *         {@code false} otherwise.
     */
    default boolean isMatrix2D(double epsilon)

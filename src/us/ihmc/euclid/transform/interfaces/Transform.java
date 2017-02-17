@@ -463,6 +463,82 @@ public interface Transform
    void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed);
 
    /**
+    * Transforms the given {@code rigidBodyTransformToTransform} by this transform.
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param rigidBodyTransformToTransform the rigid-body transform to transform. Modified.
+    */
+   default void transform(RigidBodyTransform rigidBodyTransformToTransform)
+   {
+      transform(rigidBodyTransformToTransform, rigidBodyTransformToTransform);
+   }
+
+   /**
+    * Transforms the given {@code original} by this transform and stores the result in
+    * {@code transformed}.
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param original the rigid-body transform to transform. Not modified.
+    * @param transformed the rigid-body transform in which the result is stored. Modified.
+    */
+   void transform(RigidBodyTransform original, RigidBodyTransform transformed);
+
+   /**
+    * Transforms the given {@code quaternionBasedTransformToTransform} by this transform.
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param quaternionBasedTransformToTransform the quaternion based transform to transform.
+    *           Modified.
+    */
+   default void transform(QuaternionBasedTransform quaternionBasedTransformToTransform)
+   {
+      transform(quaternionBasedTransformToTransform, quaternionBasedTransformToTransform);
+   }
+
+   /**
+    * Transforms the given {@code original} by this transform and stores the result in
+    * {@code transformed}.
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param original the quaternion based transform to transform. Not modified.
+    * @param transformed the quaternion based transform in which the result is stored. Modified.
+    */
+   void transform(QuaternionBasedTransform original, QuaternionBasedTransform transformed);
+
+   /**
+    * Transforms the given {@code affineTransformToTransform} by this transform.
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param affineTransformToTransform the affine transform to transform. Modified.
+    */
+   default void transform(AffineTransform affineTransformToTransform)
+   {
+      transform(affineTransformToTransform, affineTransformToTransform);
+   }
+
+   /**
+    * Transforms the given {@code original} by this transform and stores the result in
+    * {@code transformed}.
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param original the affine transform to transform. Not modified.
+    * @param transformed the affine transform in which the result is stored. Modified.
+    */
+   void transform(AffineTransform original, AffineTransform transformed);
+
+   /**
     * Performs the inverse of the transform on the given point {@code pointToTransform}.
     * <p>
     * This is equivalent to calling {@link #transform(Point3DBasics)} with the inverse of this
@@ -760,4 +836,106 @@ public interface Transform
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
    void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed);
+
+   /**
+    * Performs the inverse of the transform on the given {@code rigidBodyTransformToTransform}.
+    * <p>
+    * This is equivalent to calling {@link #transform(RigidBodyTransform)} with the inverse of this
+    * transform.
+    * </p>
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param rigidBodyTransformToTransform the rigid-body transform to transform. Modified.
+    */
+   default void inverseTransform(RigidBodyTransform rigidBodyTransformToTransform)
+   {
+      inverseTransform(rigidBodyTransformToTransform, rigidBodyTransformToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform on the given {@code original} and stores the result in
+    * {@code transformed}.
+    * <p>
+    * This is equivalent to calling {@link #transform(RigidBodyTransform, RigidBodyTransform)} with
+    * the inverse of this transform.
+    * </p>
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param original the rigid-body transform to transform. Not modified.
+    * @param transformed the rigid-body transform in which the result is stored. Modified.
+    */
+   void inverseTransform(RigidBodyTransform original, RigidBodyTransform transformed);
+
+   /**
+    * Performs the inverse of the transform on the given
+    * {@code quaternionBasedTransformToTransform}.
+    * <p>
+    * This is equivalent to calling {@link #transform(QuaternionBasedTransform)} with the inverse of
+    * this transform.
+    * </p>
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param quaternionBasedTransformToTransform the quaternion based transform to transform.
+    *           Modified.
+    */
+   default void inverseTransform(QuaternionBasedTransform quaternionBasedTransformToTransform)
+   {
+      inverseTransform(quaternionBasedTransformToTransform, quaternionBasedTransformToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform on the given {@code original} stores the result in
+    * {@code transformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(QuaternionBasedTransform, QuaternionBasedTransform)} with the inverse of
+    * this transform.
+    * </p>
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param original the quaternion based transform to transform. Not modified.
+    * @param transformed the quaternion based transform in which the result is stored. Modified.
+    */
+   void inverseTransform(QuaternionBasedTransform original, QuaternionBasedTransform transformed);
+
+   /**
+    * Performs the inverse of the transform on the given {@code affineTransformToTransform}.
+    * <p>
+    * This is equivalent to calling {@link #transform(AffineTransform)} with the inverse of this
+    * transform.
+    * </p>
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param affineTransformToTransform the affine transform to transform. Modified.
+    */
+   default void inverseTransform(AffineTransform affineTransformToTransform)
+   {
+      inverseTransform(affineTransformToTransform, affineTransformToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform on the given {@code original} and stores the result in
+    * {@code transformed}.
+    * <p>
+    * This is equivalent to calling {@link #transform(AffineTransform, AffineTransform)} with the
+    * inverse of this transform.
+    * </p>
+    * <p>
+    * The given transform is only rotated and translated, no scaling is applied.
+    * </p>
+    * 
+    * @param original the affine transform to transform. Not modified.
+    * @param transformed the affine transform in which the result is stored. Modified.
+    */
+   void inverseTransform(AffineTransform original, AffineTransform transformed);
 }

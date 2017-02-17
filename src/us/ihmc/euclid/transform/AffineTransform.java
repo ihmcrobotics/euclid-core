@@ -848,6 +848,92 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
+    * Sets the rotation part of this transform to represent the same orientation as the given
+    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll} and sets the translation
+    * part to zero.
+    *
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
+    * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
+    *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    *
+    * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
+    */
+   public void setRotationYawPitchRollAndZeroTranslation(double[] yawPitchRoll)
+   {
+      setRotationYawPitchRoll(yawPitchRoll);
+      translationVector.setToZero();
+   }
+
+   /**
+    * Sets the rotation part of this transform to represent the same orientation as the given
+    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll} and sets the translation
+    * part to zero.
+    *
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
+    * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
+    *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public void setRotationYawPitchRollAndZeroTranslation(double yaw, double pitch, double roll)
+   {
+      setRotationYawPitchRoll(yaw, pitch, roll);
+      translationVector.setToZero();
+   }
+
+   /**
+    * Sets the rotation part of this transform to represent the same orientation as the given Euler
+    * angles {@code eulerAngles} and sets the translation part to zero.
+    *
+    * <pre>
+    *     / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
+    * R = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
+    *     \         0                   0          1 /   \ -sin(eulerAngles.y) 0 cos(eulerAngles.y) /   \ 0 sin(eulerAngles.x)  cos(eulerAngles.x) /
+    * </pre>
+    * <p>
+    * This is equivalent to
+    * {@code this.setRotationYawPitchRollAndZeroTranslation(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
+    * </p>
+    *
+    * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
+    */
+   public void setRotationEulerAndZeroTranslation(Vector3DReadOnly eulerAngles)
+   {
+      setRotationEuler(eulerAngles);
+      translationVector.setToZero();
+   }
+
+   /**
+    * Sets the rotation part of this transform to represent the same orientation as the given Euler
+    * angles {@code rotX}, {@code rotY}, and {@code rotZ} and sets the translation part to zero.
+    *
+    * <pre>
+    *     / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
+    * R = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
+    *     \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
+    * </pre>
+    * <p>
+    * This is equivalent to
+    * {@code this.setRotationYawPitchRollAndZeroTranslation(rotZ, rotY, rotX)}.
+    * </p>
+    *
+    * @param rotX the angle to rotate about the x-axis.
+    * @param rotY the angle to rotate about the y-axis.
+    * @param rotZ the angle to rotate about the z-axis.
+    */
+   public void setRotationEulerAndZeroTranslation(double rotX, double rotY, double rotZ)
+   {
+      setRotationEuler(rotX, rotY, rotZ);
+      translationVector.setToZero();
+   }
+
+   /**
     * Sets each component of the scale part of this transform to {@code scale}.
     * <p>
     * This method does not affect the rotation part nor the translation part of this transform.
@@ -917,6 +1003,57 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    public void setTranslation(Tuple3DReadOnly translation)
    {
       translationVector.set(translation);
+   }
+
+   /**
+    * Sets the translation part of this transform and sets the rotation part to identity.
+    *
+    * @param x the x-component of the translation part.
+    * @param y the y-component of the translation part.
+    * @param z the z-component of the translation part.
+    */
+   public void setTranslationAndIdentityRotation(double x, double y, double z)
+   {
+      setTranslation(x, y, z);
+      rotationScaleMatrix.setIdentity();
+   }
+
+   /**
+    * Sets the translation part of this transform and sets the rotation part to identity.
+    *
+    * @param translation tuple used to set the translation part of this transform. Not modified.
+    */
+   public void setTranslationAndIdentityRotation(Tuple3DReadOnly translation)
+   {
+      setTranslation(translation);
+      rotationScaleMatrix.setIdentity();
+   }
+
+   /**
+    * Adds the given tuple to the translation part of this transform.
+    * <p>
+    * This method does not affect the rotation part nor the scale part of this transform.
+    * </p>
+    *
+    * @param translation tuple used to add to the translation part of this transform. Not modified.
+    */
+   public void addTranslation(Tuple3DReadOnly translation)
+   {
+      translationVector.add(translation);
+   }
+
+   /**
+    * Performs the multiplication of this with the given {@code other}.
+    * <p>
+    * Note: the rotation part of other is only multiplied with the rotation part of this transform.
+    * </p>
+    * 
+    * @param other the other transform to multiply with this. Not modified.
+    */
+   public void multiply(RigidBodyTransform other)
+   {
+      Matrix3DTools.addTransform(rotationScaleMatrix, other.getTranslationVector(), translationVector);
+      rotationScaleMatrix.multiply(other.getRotationMatrix());
    }
 
    /**
@@ -995,6 +1132,33 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
       rotationScaleMatrix.transform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
 
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void transform(RigidBodyTransform original, RigidBodyTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void transform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void transform(AffineTransform original, AffineTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
    /** {@inheritDoc} */
    @Override
    public void inverseTransform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)
@@ -1057,6 +1221,33 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    public void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
       rotationScaleMatrix.inverseTransform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(RigidBodyTransform original, RigidBodyTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(AffineTransform original, AffineTransform transformed)
+   {
+      throw new UnsupportedOperationException();
    }
 
    /**

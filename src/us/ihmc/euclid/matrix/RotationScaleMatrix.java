@@ -1083,12 +1083,26 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
    }
 
    /**
+    * Multiplies the given {@code rotationMatrix} to the rotation part of this rotation-scale matrix.
+    * <p>
+    * R = R * rotationMatrix <br>
+    * with R being the rotation part of this matrix.
+    * </p>
+    * 
+    * @param rotationMatrix
+    */
+   public void multiply(RotationMatrixReadOnly rotationMatrix)
+   {
+      this.rotationMatrix.multiply(rotationMatrix);
+   }
+
+   /**
     * Performs a matrix multiplication on this.
     * <p>
     * this = other * this
     * </p>
     *
-    * @param other the other matrix to multiply this by. Not modified.
+    * @param rotationMatrix the rotation matrix to multiply with by. Not modified.
     */
    public void preMultiply(RotationMatrixReadOnly rotationMatrix)
    {
@@ -1101,7 +1115,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
     * this = other<sup>T</sup> * this
     * </p>
     *
-    * @param other the other matrix to multiply this by. Not modified.
+    * @param rotationMatrix the rotation matrix to multiply with by. Not modified.
     */
    public void preMultiplyTransposeOther(RotationMatrixReadOnly rotationMatrix)
    {
