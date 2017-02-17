@@ -943,7 +943,11 @@ public abstract class EuclidCoreTestTools
       Quaternion qDifference = new Quaternion(expected);
       qDifference.multiplyConjugateOther(actual);
       double angleDifference = qDifference.getAngle();
-      if (Math.abs(angleDifference) > epsilon)
+      try
+      {
+         assertAngleEquals(0.0, angleDifference, epsilon);
+      }
+      catch (AssertionError e)
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, angleDifference, format);
       }
