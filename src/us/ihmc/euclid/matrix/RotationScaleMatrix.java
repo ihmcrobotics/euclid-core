@@ -941,7 +941,7 @@ public class RotationScaleMatrix implements Serializable, Matrix3DBasics, Rotati
 
    private void checkIfScalesProper(double scaleX, double scaleY, double scaleZ)
    {
-      if (scaleX <= 0.0 || scaleY <= 0.0 || scaleZ <= 0.0)
+      if (scaleX < 0.0 || scaleY < 0.0 || scaleZ < 0.0)
          throw new NotARotationScaleMatrixException("Mirroring or zero scale is not handled, scale values: " + scaleX + ", " + scaleY + ", " + scaleZ + ".");
    }
 

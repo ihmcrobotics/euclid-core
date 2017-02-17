@@ -1198,9 +1198,10 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          matrix.setScale(scale.getX(), scale.getY(), scale.getZ());
          EuclidCoreTestTools.assertTuple3DEquals(scale, matrix.getScale(), EPS);
 
+         matrix.setScale(0.0, 1.0, 1.0);
          try
          {
-            matrix.setScale(0.0, 1.0, 1.0);
+            matrix.setScale(-1.0e-17, 1.0, 1.0);
             fail("Should have thrown an exception");
          }
          catch (RuntimeException e)
@@ -1208,9 +1209,10 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
             // Good
          }
 
+         matrix.setScale(1.0, 0.0, 1.0);
          try
          {
-            matrix.setScale(1.0, 0.0, 1.0);
+            matrix.setScale(1.0, -1.0e-17, 1.0);
             fail("Should have thrown an exception");
          }
          catch (RuntimeException e)
@@ -1218,9 +1220,10 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
             // Good
          }
 
+         matrix.setScale(1.0, 1.0, 0.0);
          try
          {
-            matrix.setScale(1.0, 1.0, 0.0);
+            matrix.setScale(1.0, 1.0, -1.0e-17);
             fail("Should have thrown an exception");
          }
          catch (RuntimeException e)
