@@ -2,6 +2,8 @@ package us.ihmc.euclid.tuple4D;
 
 import java.io.Serializable;
 
+import org.ejml.data.DenseMatrix64F;
+
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
@@ -66,11 +68,25 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
     * The quaternion is immediately normalized.
     * </p>
     *
-    * @param pointArray the array containing this quaternion's components. Not modified.
+    * @param quaternionArray the array containing this quaternion's components. Not modified.
     */
    public Quaternion(double[] quaternionArray)
    {
       set(quaternionArray);
+   }
+
+   /**
+    * Creates a new quaternion and initializes its component {@code x}, {@code y}, {@code z},
+    * {@code s} in order from the given matrix.
+    * <p>
+    * The quaternion is immediately normalized.
+    * </p>
+    *
+    * @param matrix the dense-matrix containing this quaternion's components. Not modified.
+    */
+   public Quaternion(DenseMatrix64F matrix)
+   {
+      set(matrix);
    }
 
    /**
@@ -79,6 +95,16 @@ public class Quaternion implements Serializable, QuaternionBasics, GeometryObjec
     * @param other the quaternion to copy the components from. Not modified.
     */
    public Quaternion(QuaternionReadOnly other)
+   {
+      set(other);
+   }
+
+   /**
+    * Creates a new quaternion and initializes it to {@code other}.
+    *
+    * @param other the tuple to copy the components from. Not modified.
+    */
+   public Quaternion(Tuple4DReadOnly other)
    {
       set(other);
    }

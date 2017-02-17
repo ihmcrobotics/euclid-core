@@ -173,6 +173,17 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
    }
 
    /**
+    * Sets this axis-angle to {@code other} and then calls {@link #negate()}.
+    *
+    * @param other the other axis-angle to copy the values from. Not modified.
+    */
+   default void setAndNegate(AxisAngleReadOnly other)
+   {
+      set(other);
+      negate();
+   }
+
+   /**
     * Copies the values in the given array into this axis-angle as follows:
     * <ul>
     * <li>{@code this.setX(axisAngleArray[0]);}

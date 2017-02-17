@@ -55,4 +55,29 @@ public interface Point3DReadOnly extends Tuple3DReadOnly
       double dz = getZ() - other.getZ();
       return dx * dx + dy * dy + dz * dz;
    }
+
+   /**
+    * Calculates and returns the distance between this point and the origin (0, 0, 0).
+    *
+    * @return the distance between this point and the origin.
+    */
+   default double distanceFromOrigin()
+   {
+      return Math.sqrt(distanceFromOriginSquared());
+   }
+
+   /**
+    * Calculates and returns the square of the distance between this point and the origin (0, 0, 0).
+    * <p>
+    * This method is usually preferred over {@link #distanceFromOrigin()} when calculation speed
+    * matters and knowledge of the actual distance does not, i.e. when comparing distances of
+    * several points with respect to the origin.
+    * </p>
+    *
+    * @return the square of the distance between this point and the origin.
+    */
+   default double distanceFromOriginSquared()
+   {
+      return getX() * getX() + getY() * getY() + getZ() * getZ();
+   }
 }

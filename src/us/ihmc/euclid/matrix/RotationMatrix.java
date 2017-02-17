@@ -11,15 +11,12 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
-import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
-import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
@@ -263,6 +260,68 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
    public void set(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
       setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      checkIfRotationMatrix();
+   }
+
+   /**
+    * Sets this rotation matrix from the given tuples each holding on the values of each row.
+    * 
+    * <pre>
+    *        /  firstRow.getX()  firstRow.getY()  firstRow.getZ() \
+    * this = | secondRow.getX() secondRow.getY() secondRow.getZ() |
+    *        \  thirdRow.getX()  thirdRow.getY()  thirdRow.getZ() /
+    * </pre>
+    * 
+    * @param firstRow the tuple holding onto the values of the first row. Not modified.
+    * @param secondRow the tuple holding onto the values of the second row. Not modified.
+    * @param thirdRow the tuple holding onto the values of the third row. Not modified.
+    * @throws NotARotationMatrixException if the resulting matrix is not a rotation matrix.
+    */
+   public void setRows(Tuple3DReadOnly firstRow, Tuple3DReadOnly secondRow, Tuple3DReadOnly thirdRow)
+   {
+      this.m00 = firstRow.getX();
+      this.m01 = firstRow.getY();
+      this.m02 = firstRow.getZ();
+
+      this.m10 = secondRow.getX();
+      this.m11 = secondRow.getY();
+      this.m12 = secondRow.getZ();
+
+      this.m20 = thirdRow.getX();
+      this.m21 = thirdRow.getY();
+      this.m22 = thirdRow.getZ();
+
+      checkIfRotationMatrix();
+   }
+
+   /**
+    * Sets this rotation matrix from the given tuples each holding on the values of each column.
+    * 
+    * <pre>
+    *        / firstColumn.getX() secondColumn.getX() thirdColumn.getX() \
+    * this = | firstColumn.getY() secondColumn.getY() thirdColumn.getY() |
+    *        \ firstColumn.getZ() secondColumn.getZ() thirdColumn.getZ() /
+    * </pre>
+    * 
+    * @param firstColumn the tuple holding onto the values of the first column. Not modified.
+    * @param secondColumn the tuple holding onto the values of the second column. Not modified.
+    * @param thirdColumn the tuple holding onto the values of the third column. Not modified.
+    * @throws NotARotationMatrixException if the resulting matrix is not a rotation matrix.
+    */
+   public void setColumns(Tuple3DReadOnly firstColumn, Tuple3DReadOnly secondColumn, Tuple3DReadOnly thirdColumn)
+   {
+      this.m00 = firstColumn.getX();
+      this.m10 = firstColumn.getY();
+      this.m20 = firstColumn.getZ();
+
+      this.m01 = secondColumn.getX();
+      this.m11 = secondColumn.getY();
+      this.m21 = secondColumn.getZ();
+
+      this.m02 = thirdColumn.getX();
+      this.m12 = thirdColumn.getY();
+      this.m22 = thirdColumn.getZ();
+
       checkIfRotationMatrix();
    }
 
@@ -856,7 +915,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \    
     * this = | sin(yaw)  cos(yaw) 0 | * this
-    *        \    0         0     1 /    
+    *        \    0         0     1 /
     * </pre>
     *
     * @param yaw the angle to rotate about the z-axis.
@@ -872,7 +931,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \    
     * this = |      0      1     0      | * this
-    *        \ -sin(pitch) 0 cos(pitch) /    
+    *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     *
     * @param pitch the angle to rotate about the y-axis.
@@ -888,7 +947,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \    
     * this = |      0      1     0      | * this
-    *        \ -sin(pitch) 0 cos(pitch) /    
+    *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     *
     * @param roll the angle to rotate about the x-axis.
@@ -914,96 +973,6 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
    {
       transform.transform(this);
       normalize();
-   }
-
-   /**
-    * Computes and packs the orientation described by this rotation matrix as a rotation vector.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
-    * </p>
-    *
-    * @param rotationVectorToPack the rotation vector representing the same orientation as this.
-    *           Modified.
-    */
-   public void get(Vector3DBasics rotationVectorToPack)
-   {
-      RotationVectorConversion.convertMatrixToRotationVector(this, rotationVectorToPack);
-   }
-
-   /**
-    * Computes and packs the orientation described by this rotation matrix as the Euler angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
-    */
-   public void getEuler(Tuple3DBasics eulerAnglesToPack)
-   {
-      YawPitchRollConversion.convertMatrixToYawPitchRoll(this, eulerAnglesToPack);
-   }
-
-   /**
-    * Computes and packs the orientation described by this rotation matrix as the yaw-pitch-roll
-    * angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
-    */
-   public void getYawPitchRoll(double[] yawPitchRollToPack)
-   {
-      YawPitchRollConversion.convertMatrixToYawPitchRoll(this, yawPitchRollToPack);
-   }
-
-   /**
-    * Computes and returns the yaw angle from the yaw-pitch-roll representation of this rotation
-    * matrix.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the yaw angle around the z-axis.
-    */
-   public double getYaw()
-   {
-      return YawPitchRollConversion.computeYaw(this);
-   }
-
-   /**
-    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this rotation
-    * matrix.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the pitch angle around the y-axis.
-    */
-   public double getPitch()
-   {
-      return YawPitchRollConversion.computePitch(this);
-   }
-
-   /**
-    * Computes and returns the roll angle from the yaw-pitch-roll representation of this rotation
-    * matrix.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the roll angle around the x-axis.
-    */
-   public double getRoll()
-   {
-      return YawPitchRollConversion.computeRoll(this);
    }
 
    /** {@inheritDoc} */

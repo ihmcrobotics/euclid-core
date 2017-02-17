@@ -815,6 +815,33 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       quaternion.transform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
 
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void transform(RigidBodyTransform original, RigidBodyTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void transform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void transform(AffineTransform original, AffineTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
    /** {@inheritDoc} */
    @Override
    public void inverseTransform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)
@@ -877,6 +904,33 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void inverseTransform(Vector2DReadOnly vectorOriginal, Vector2DBasics vectorTransformed, boolean checkIfTransformInXYPlane)
    {
       quaternion.inverseTransform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(RigidBodyTransform original, RigidBodyTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(AffineTransform original, AffineTransform transformed)
+   {
+      throw new UnsupportedOperationException();
    }
 
    /**

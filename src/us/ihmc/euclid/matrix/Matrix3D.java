@@ -236,6 +236,63 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    }
 
    /**
+    * Sets this matrix to represent to represent a counter clockwise rotation around the z-axis of
+    * an angle {@code yaw}.
+    *
+    * <pre>
+    *        / cos(yaw) -sin(yaw) 0 \
+    * this = | sin(yaw)  cos(yaw) 0 |
+    *        \    0         0     1 /
+    * </pre>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void setToYawMatrix(double yaw)
+   {
+      double sinYaw = Math.sin(yaw);
+      double cosYaw = Math.cos(yaw);
+      set(cosYaw, -sinYaw, 0.0, sinYaw, cosYaw, 0.0, 0.0, 0.0, 1.0);
+   }
+
+   /**
+    * Sets this matrix to represent a counter clockwise rotation around the y-axis of
+    * an angle {@code pitch}.
+    *
+    * <pre>
+    *        /  cos(pitch) 0 sin(pitch) \
+    * this = |      0      1     0      |
+    *        \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void setToPitchMatrix(double pitch)
+   {
+      double sinPitch = Math.sin(pitch);
+      double cosPitch = Math.cos(pitch);
+      set(cosPitch, 0.0, sinPitch, 0.0, 1.0, 0.0, -sinPitch, 0.0, cosPitch);
+   }
+
+   /**
+    * Sets this matrix to represent a counter clockwise rotation around the x-axis of
+    * an angle {@code roll}.
+    *
+    * <pre>
+    *        / 1     0          0     \
+    * this = | 0 cos(roll) -sin(roll) |
+    *        \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    *
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public void setToRollMatrix(double roll)
+   {
+      double sinRoll = Math.sin(roll);
+      double cosRoll = Math.cos(roll);
+      set(1.0, 0.0, 0.0, 0.0, cosRoll, -sinRoll, 0.0, sinRoll, cosRoll);
+   }
+
+   /**
     * Performs a per-component addition onto the coefficients of this matrix.
     * <p>
     * this = this + other

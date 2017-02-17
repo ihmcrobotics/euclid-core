@@ -4,6 +4,7 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
@@ -15,6 +16,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.Matrix3DFeatures;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
@@ -302,6 +304,46 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    /**
+    * Tests if the rotation part of this transform describes a transformation in the XY plane.
+    *
+    * <p>
+    * The rotation part is considered to be a 2D transformation in the XY plane if:
+    * <ul>
+    * <li>the last diagonal coefficient m22 is equal to 1.0 +/-
+    * {@link Matrix3DFeatures#EPS_CHECK_2D},
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
+    * +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
+    * </ul>
+    * </p>
+    *
+    * @return {@code true} if the rotation part describes a 2D transformation in the XY plane,
+    *         {@code false} otherwise.
+    */
+   public boolean isRotation2D()
+   {
+      return rotationMatrix.isMatrix2D();
+   }
+
+   /**
+    * Asserts that the rotation part of this transform describes a transformation in the XY plane.
+    * <p>
+    * The rotation part is considered to be a 2D transformation in the XY plane if:
+    * <ul>
+    * <li>the last diagonal coefficient m22 is equal to 1.0 +/-
+    * {@link Matrix3DFeatures#EPS_CHECK_2D},
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
+    * +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
+    * </ul>
+    * </p>
+    *
+    * @throws NotAMatrix2DException if the rotation part represents a 3D transformation.
+    */
+   public void checkIfRotation2D()
+   {
+      rotationMatrix.checkIfMatrix2D();
+   }
+
+   /**
     * Normalize the rotation part of this transform.
     */
    public void normalizeRotationPart()
@@ -514,6 +556,138 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    /**
+    * Sets the raw components of this rigid-body transform from the given {@code transformArray}.
+    * <p>
+    * The rotation-scale part R is set as follows:
+    *
+    * <pre>
+    *     / transformArray[0] transformArray[4] transformArray[ 8] \
+    * R = | transformArray[1] transformArray[5] transformArray[ 9] |
+    *     \ transformArray[2] transformArray[6] transformArray[10] /
+    * </pre>
+    *
+    * The translation part T is set as follows:
+    *
+    * <pre>
+    *     / transformArray[12] \
+    * T = | transformArray[13] |
+    *     \ transformArray[14] /
+    * </pre>
+    * </p>
+    *
+    * @param transformArray the 1D column-major array to get this transform's components from. Not
+    *           modified.
+    * @throws NotARotationMatrixException if the resulting matrix for the rotation part of this
+    *            transform is not a rotation matrix.
+    */
+   public void setAsTranspose(double[] transformArray)
+   {
+      double m00 = transformArray[0];
+      double m01 = transformArray[4];
+      double m02 = transformArray[8];
+      double m03 = transformArray[12];
+      double m10 = transformArray[1];
+      double m11 = transformArray[5];
+      double m12 = transformArray[9];
+      double m13 = transformArray[13];
+      double m20 = transformArray[2];
+      double m21 = transformArray[6];
+      double m22 = transformArray[10];
+      double m23 = transformArray[14];
+
+      rotationMatrix.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      translationVector.set(m03, m13, m23);
+   }
+
+   /**
+    * Sets the raw components of this rigid-body transform from the given {@code transformArray}.
+    * <p>
+    * The rotation-scale part R is set as follows:
+    *
+    * <pre>
+    *     / transformArray[0] transformArray[1] transformArray[ 2] \
+    * R = | transformArray[4] transformArray[5] transformArray[ 6] |
+    *     \ transformArray[8] transformArray[9] transformArray[10] /
+    * </pre>
+    *
+    * The translation part T is set as follows:
+    *
+    * <pre>
+    *     / transformArray[ 3] \
+    * T = | transformArray[ 7] |
+    *     \ transformArray[11] /
+    * </pre>
+    * </p>
+    *
+    * @param transformArray the 1D row-major array to get this transform's components from. Not
+    *           modified.
+    * @throws NotARotationMatrixException if the resulting matrix for the rotation part of this
+    *            transform is not a rotation matrix.
+    */
+   public void set(float[] transformArray)
+   {
+      double m00 = transformArray[0];
+      double m01 = transformArray[1];
+      double m02 = transformArray[2];
+      double m03 = transformArray[3];
+      double m10 = transformArray[4];
+      double m11 = transformArray[5];
+      double m12 = transformArray[6];
+      double m13 = transformArray[7];
+      double m20 = transformArray[8];
+      double m21 = transformArray[9];
+      double m22 = transformArray[10];
+      double m23 = transformArray[11];
+
+      rotationMatrix.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      translationVector.set(m03, m13, m23);
+   }
+
+   /**
+    * Sets the raw components of this rigid-body transform from the given {@code transformArray}.
+    * <p>
+    * The rotation-scale part R is set as follows:
+    *
+    * <pre>
+    *     / transformArray[0] transformArray[4] transformArray[ 8] \
+    * R = | transformArray[1] transformArray[5] transformArray[ 9] |
+    *     \ transformArray[2] transformArray[6] transformArray[10] /
+    * </pre>
+    *
+    * The translation part T is set as follows:
+    *
+    * <pre>
+    *     / transformArray[12] \
+    * T = | transformArray[13] |
+    *     \ transformArray[14] /
+    * </pre>
+    * </p>
+    *
+    * @param transformArray the 1D column-major array to get this transform's components from. Not
+    *           modified.
+    * @throws NotARotationMatrixException if the resulting matrix for the rotation part of this
+    *            transform is not a rotation matrix.
+    */
+   public void setAsTranspose(float[] transformArray)
+   {
+      double m00 = transformArray[0];
+      double m01 = transformArray[4];
+      double m02 = transformArray[8];
+      double m03 = transformArray[12];
+      double m10 = transformArray[1];
+      double m11 = transformArray[5];
+      double m12 = transformArray[9];
+      double m13 = transformArray[13];
+      double m20 = transformArray[2];
+      double m21 = transformArray[6];
+      double m22 = transformArray[10];
+      double m23 = transformArray[14];
+
+      rotationMatrix.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      translationVector.set(m03, m13, m23);
+   }
+
+   /**
     * Sets the rotation and translation parts of this transform separately.
     *
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
@@ -700,6 +874,22 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     *            matrix.
     */
    public void setRotation(Matrix3DReadOnly rotationMatrix)
+   {
+      this.rotationMatrix.set(rotationMatrix);
+   }
+
+   /**
+    * Sets the rotation part of this transform to the given matrix.
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
+    *           modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
+    *            matrix.
+    */
+   public void setRotation(RotationMatrixReadOnly rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
    }
@@ -1052,9 +1242,9 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * angles {@code rotX}, {@code rotY}, and {@code rotZ} and sets the translation part to zero.
     *
     * <pre>
-    *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
-    * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
-    *        \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
+    *     / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
+    * R = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
+    *     \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
     * </pre>
     * <p>
     * This is equivalent to
@@ -1069,6 +1259,45 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    {
       setRotationEuler(rotX, rotY, rotZ);
       translationVector.setToZero();
+   }
+
+   /**
+    * Sets the x-component of the translation part of this transform.
+    * <p>
+    * This method does not affect the rotation part nor the scale part of this transform.
+    * </p>
+    *
+    * @param x the x-component of the translation part.
+    */
+   public void setTranslationX(double x)
+   {
+      translationVector.setX(x);
+   }
+
+   /**
+    * Sets the y-component of the translation part of this transform.
+    * <p>
+    * This method does not affect the rotation part nor the scale part of this transform.
+    * </p>
+    *
+    * @param y the y-component of the translation part.
+    */
+   public void setTranslationY(double y)
+   {
+      translationVector.setY(y);
+   }
+
+   /**
+    * Sets the z-component of the translation part of this transform.
+    * <p>
+    * This method does not affect the rotation part nor the scale part of this transform.
+    * </p>
+    *
+    * @param z the z-component of the translation part.
+    */
+   public void setTranslationZ(double z)
+   {
+      translationVector.setZ(z);
    }
 
    /**
@@ -1290,6 +1519,30 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /** {@inheritDoc} */
    @Override
+   public void transform(RigidBodyTransform original, RigidBodyTransform transformed)
+   {
+      transformed.set(original);
+      transformed.preMultiply(this);
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   public void transform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
+   {
+      transformed.set(original);
+      transformed.preMultiply(this);
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   public void transform(AffineTransform original, AffineTransform transformed)
+   {
+      transformed.set(original);
+      transformed.preMultiply(this);
+   }
+
+   /** {@inheritDoc} */
+   @Override
    public void inverseTransform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)
    {
       pointTransformed.set(pointOriginal);
@@ -1350,6 +1603,33 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(RigidBodyTransform original, RigidBodyTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    */
+   @Override
+   public void inverseTransform(AffineTransform original, AffineTransform transformed)
+   {
+      throw new UnsupportedOperationException();
    }
 
    /**
@@ -1438,6 +1718,41 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       transformArrayToPack[13] = getM31();
       transformArrayToPack[14] = getM32();
       transformArrayToPack[15] = getM33();
+   }
+
+   /**
+    * Packs this transform as a 4-by-4 matrix into a 1D row-major array.
+    *
+    * <pre>
+    *     / R(0, 0) R(0, 1) R(0, 2) Tx \
+    * H = | R(1, 0) R(1, 1) R(1, 2) Ty |
+    *     | R(2, 0) R(2, 1) R(2, 2) Tz |
+    *     \    0       0       0     1 /
+    * </pre>
+    *
+    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this
+    * transform.
+    *
+    * @param transformArrayToPack the array in which this transform is stored. Modified.
+    */
+   public void get(float[] transformArrayToPack)
+   {
+      transformArrayToPack[0] = (float) getM00();
+      transformArrayToPack[1] = (float) getM01();
+      transformArrayToPack[2] = (float) getM02();
+      transformArrayToPack[3] = (float) getM03();
+      transformArrayToPack[4] = (float) getM10();
+      transformArrayToPack[5] = (float) getM11();
+      transformArrayToPack[6] = (float) getM12();
+      transformArrayToPack[7] = (float) getM13();
+      transformArrayToPack[8] = (float) getM20();
+      transformArrayToPack[9] = (float) getM21();
+      transformArrayToPack[10] = (float) getM22();
+      transformArrayToPack[11] = (float) getM23();
+      transformArrayToPack[12] = (float) getM30();
+      transformArrayToPack[13] = (float) getM31();
+      transformArrayToPack[14] = (float) getM32();
+      transformArrayToPack[15] = (float) getM33();
    }
 
    /**
@@ -1620,6 +1935,36 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    public void getRotation(Vector3DBasics rotationVectorToPack)
    {
       rotationMatrix.get(rotationVectorToPack);
+   }
+
+   /**
+    * Computes and packs the orientation described by the rotation part of this transform as the
+    * yaw-pitch-roll angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    */
+   public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
+   {
+      rotationMatrix.getYawPitchRoll(yawPitchRollToPack);
+   }
+
+   /**
+    * Computes and packs the orientation described by the rotation part of this transform as the
+    * Euler angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
+    */
+   public void getRotationEuler(Vector3DBasics eulerAngles)
+   {
+      rotationMatrix.getEuler(eulerAngles);
    }
 
    /**
