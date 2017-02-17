@@ -446,6 +446,20 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
+    * Generates a random rigid-body transform with the rotation part being a transform in the XY plane.
+    *
+    * @param random the random generator to use.
+    * @return the random rigid-body transform.
+    */
+   public static RigidBodyTransform generateRandomRigidBodyTransform2D(Random random)
+   {
+      RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
+      rigidBodyTransform.setTranslation(generateRandomPoint3D(random));
+      rigidBodyTransform.setRotationYaw(generateRandomDouble(random, Math.PI));
+      return rigidBodyTransform;
+   }
+
+   /**
     * Generates a random quaternion-based transform.
     * <p>
     * <ul>
