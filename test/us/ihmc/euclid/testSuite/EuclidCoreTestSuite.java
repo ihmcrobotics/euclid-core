@@ -21,6 +21,7 @@ import us.ihmc.euclid.rotationConversion.QuaternionConversionTest;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversionTest;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversionTest;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversionTest;
+import us.ihmc.euclid.tools.EuclidCoreTestToolsTest;
 import us.ihmc.euclid.tools.EuclidCoreToolsTest;
 import us.ihmc.euclid.tools.Matrix3DFeaturesTest;
 import us.ihmc.euclid.tools.Matrix3DToolsTest;
@@ -50,8 +51,8 @@ import us.ihmc.euclid.tuple4D.Vector4DTest;
       QuaternionBasedTransformTest.class, AffineTransformTest.class,
 
       // Tools tests
-      EuclidCoreToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class, RotationScaleMatrixToolsTest.class,
-      TupleToolsTest.class,
+      EuclidCoreToolsTest.class, EuclidCoreTestToolsTest.class, QuaternionToolsTest.class, Matrix3DToolsTest.class, Matrix3DFeaturesTest.class,
+      RotationScaleMatrixToolsTest.class, TupleToolsTest.class,
 
       // Conversion tests
       AxisAngleConversionTest.class, RotationVectorConversionTest.class, QuaternionConversionTest.class, RotationMatrixConversionTest.class,
