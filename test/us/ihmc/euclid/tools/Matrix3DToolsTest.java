@@ -1012,7 +1012,7 @@ public class Matrix3DToolsTest
          vectorOriginal = EuclidCoreRandomTools.generateRandomVector4D(random);
          matrix.get(denseMatrix);
          for (int index = 0; index < 3; index++)
-            denseVectorOriginal.set(index, vectorOriginal.get(index));
+            denseVectorOriginal.set(index, vectorOriginal.getElement(index));
 
          CommonOps.mult(denseMatrix, denseVectorOriginal, denseVectorTransformed);
          for (int index = 0; index < 3; index++)

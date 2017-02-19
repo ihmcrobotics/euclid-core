@@ -56,7 +56,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple1.setToNaN();
          tuple1.normalize();
          for (int index = 0; index < 4; index++)
-            assertTrue(Double.isNaN(tuple1.get(index)));
+            assertTrue(Double.isNaN(tuple1.getElement(index)));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -82,7 +82,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple1.setToZero();
          tuple1.setAndNormalize(tuple3);
          for (int index = 0; index < 4; index++)
-            assertTrue(Double.isNaN(tuple1.get(index)));
+            assertTrue(Double.isNaN(tuple1.getElement(index)));
       }
    }
 

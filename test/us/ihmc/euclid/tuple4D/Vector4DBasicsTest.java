@@ -72,7 +72,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
          Point3D point3D = EuclidCoreRandomTools.generateRandomPoint3D(random);
          tuple.set(point3D);
          for (int index = 0; index < 3; index++)
-            assertEquals(tuple.get(index), point3D.get(index), getEpsilon());
+            assertEquals(tuple.getElement(index), point3D.get(index), getEpsilon());
          assertTrue(tuple.getS() == 1.0);
       }
 
@@ -82,7 +82,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
          Vector3D vector3D = EuclidCoreRandomTools.generateRandomVector3D(random);
          tuple.set(vector3D);
          for (int index = 0; index < 3; index++)
-            assertEquals(tuple.get(index), vector3D.get(index), getEpsilon());
+            assertEquals(tuple.getElement(index), vector3D.get(index), getEpsilon());
          assertTrue(tuple.getS() == 0.0);
       }
    }

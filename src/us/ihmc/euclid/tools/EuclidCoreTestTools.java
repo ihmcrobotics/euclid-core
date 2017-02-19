@@ -1528,7 +1528,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 4; index++)
       {
-         if (!Double.isNaN(tupleToAssert.get(index)))
+         if (!Double.isNaN(tupleToAssert.getElement(index)))
          {
             String errorMessage = "The tuple does not contain only NaN:\n" + getTuple4DString(DEFAULT_FORMAT, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
