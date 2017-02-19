@@ -154,7 +154,7 @@ public interface Tuple4DReadOnly
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 3].
     */
-   default double get32(int index)
+   default double getElement32(int index)
    {
       switch (index)
       {

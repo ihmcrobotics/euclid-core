@@ -111,14 +111,14 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
          float s = random.nextFloat();
          tuple = createTuple(x, y, z, s);
 
-         assertTrue(tuple.get32(0) == x);
-         assertTrue(tuple.get32(1) == y);
-         assertTrue(tuple.get32(2) == z);
-         assertTrue(tuple.get32(3) == s);
+         assertTrue(tuple.getElement32(0) == x);
+         assertTrue(tuple.getElement32(1) == y);
+         assertTrue(tuple.getElement32(2) == z);
+         assertTrue(tuple.getElement32(3) == s);
 
          try
          {
-            tuple.get32(-1);
+            tuple.getElement32(-1);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -132,7 +132,7 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
 
          try
          {
-            tuple.get32(4);
+            tuple.getElement32(4);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
