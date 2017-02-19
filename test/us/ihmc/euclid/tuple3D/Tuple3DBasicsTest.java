@@ -48,7 +48,7 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3D
       { // Test set(int index, double value)
          try
          {
-            tuple1.set(-1, random.nextDouble());
+            tuple1.setElement(-1, random.nextDouble());
             fail("Should have thrown a IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -62,7 +62,7 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3D
 
          try
          {
-            tuple1.set(3, random.nextDouble());
+            tuple1.setElement(3, random.nextDouble());
             fail("Should have thrown a IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -77,9 +77,9 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3D
          double x = random.nextDouble();
          double y = random.nextDouble();
          double z = random.nextDouble();
-         tuple1.set(0, x);
-         tuple1.set(1, y);
-         tuple1.set(2, z);
+         tuple1.setElement(0, x);
+         tuple1.setElement(1, y);
+         tuple1.setElement(2, z);
 
          assertEquals(tuple1.getX(), x, getEpsilon());
          assertEquals(tuple1.getY(), y, getEpsilon());

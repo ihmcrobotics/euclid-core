@@ -1549,28 +1549,28 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          t2.set(t1);
          assertTrue(t1.epsilonEquals(t2, epsilon));
          t1.getTranslation(translation);
-         translation.set(row, translation.get(row) + 0.999 * epsilon);
+         translation.setElement(row, translation.get(row) + 0.999 * epsilon);
          t2.setTranslation(translation);
          assertTrue(t1.epsilonEquals(t2, epsilon));
 
          t2.set(t1);
          assertTrue(t1.epsilonEquals(t2, epsilon));
          t1.getTranslation(translation);
-         translation.set(row, translation.get(row) + 1.001 * epsilon);
+         translation.setElement(row, translation.get(row) + 1.001 * epsilon);
          t2.setTranslation(translation);
          assertFalse(t1.epsilonEquals(t2, epsilon));
 
          t2.set(t1);
          assertTrue(t1.epsilonEquals(t2, epsilon));
          t1.getTranslation(translation);
-         translation.set(row, translation.get(row) - 0.999 * epsilon);
+         translation.setElement(row, translation.get(row) - 0.999 * epsilon);
          t2.setTranslation(translation);
          assertTrue(t1.epsilonEquals(t2, epsilon));
 
          t2.set(t1);
          assertTrue(t1.epsilonEquals(t2, epsilon));
          t1.getTranslation(translation);
-         translation.set(row, translation.get(row) - 1.001 * epsilon);
+         translation.setElement(row, translation.get(row) - 1.001 * epsilon);
          t2.setTranslation(translation);
          assertFalse(t1.epsilonEquals(t2, epsilon));
       }
