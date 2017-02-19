@@ -484,10 +484,10 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T axisAngle = createRandomAxisAngle(random);
-         assertTrue(axisAngle.getX() == axisAngle.get(0));
-         assertTrue(axisAngle.getY() == axisAngle.get(1));
-         assertTrue(axisAngle.getZ() == axisAngle.get(2));
-         assertTrue(axisAngle.getAngle() == axisAngle.get(3));
+         assertTrue(axisAngle.getX() == axisAngle.getElement(0));
+         assertTrue(axisAngle.getY() == axisAngle.getElement(1));
+         assertTrue(axisAngle.getZ() == axisAngle.getElement(2));
+         assertTrue(axisAngle.getAngle() == axisAngle.getElement(3));
 
          assertTrue(axisAngle.getX32() == axisAngle.get32(0));
          assertTrue(axisAngle.getY32() == axisAngle.get32(1));

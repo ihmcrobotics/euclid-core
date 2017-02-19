@@ -1102,7 +1102,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 3; index++)
       {
-         double diff = expected.get(index) - actual.get(index);
+         double diff = expected.getElement(index) - actual.getElement(index);
          if (Math.abs(diff) > epsilon)
             throwNotEqualAssertionError(messagePrefix, expected, actualAxisAngleOriginal, format);
       }
@@ -1144,7 +1144,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 4; index++)
       {
-         if (!Double.isNaN(axisAngleToAssert.get(index)))
+         if (!Double.isNaN(axisAngleToAssert.getElement(index)))
          {
             String errorMessage = "The axis-angle does not contain only NaN:\n" + getAxisAngleString(DEFAULT_FORMAT, axisAngleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
