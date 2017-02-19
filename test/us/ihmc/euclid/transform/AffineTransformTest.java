@@ -1,9 +1,6 @@
 package us.ihmc.euclid.transform;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -876,7 +873,267 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
    }
 
    @Test
+   public void testMultiply() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         AffineTransform multipliedWith = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiply(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiply(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyWithRigidBodyTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform multipliedWith = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiply(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiply(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyWithQuaternionBasedTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         QuaternionBasedTransform multipliedWith = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiply(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiply(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyInvertThis() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         AffineTransform multipliedWith = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiplyInvertThis(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiplyInvertThis(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyInvertOther() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         AffineTransform multipliedWith = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiplyInvertOther(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiplyInvertOther(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyInvertThisWithRigidBodyTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform multipliedWith = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiplyInvertThis(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiplyInvertThis(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyInvertOtherWithRigidBodyTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform multipliedWith = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiplyInvertOther(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiplyInvertOther(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyInvertThisWithQuaternionBasedTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         QuaternionBasedTransform multipliedWith = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiplyInvertThis(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiplyInvertThis(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyInvertOtherWithQuaternionBasedTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         QuaternionBasedTransform multipliedWith = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.multiplyInvertOther(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.multiplyInvertOther(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testPreMultiply() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         AffineTransform multipliedWith = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.preMultiply(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.preMultiply(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyWithRigidBodyTransform() throws Exception
    {
       Random random = new Random(465416L);
 
@@ -898,6 +1155,188 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                assertEquals(m3.get(row, column), t3.getElement(row, column), EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyWithQuaternionBasedTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         QuaternionBasedTransform multipliedWith = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.preMultiply(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.preMultiply(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyInvertThis() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         AffineTransform multipliedWith = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.preMultiplyInvertThis(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.preMultiplyInvertThis(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyInvertOther() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         AffineTransform multipliedWith = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.preMultiplyInvertOther(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.preMultiplyInvertOther(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyInvertThisWithRigidBodyTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform multipliedWith = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.preMultiplyInvertThis(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.preMultiplyInvertThis(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyInvertOtherWithRigidBodyTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform multipliedWith = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.preMultiplyInvertOther(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.preMultiplyInvertOther(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyInvertThisWithQuaternionBasedTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         QuaternionBasedTransform multipliedWith = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.preMultiplyInvertThis(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.preMultiplyInvertThis(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyInvertOtherWithQuaternionBasedTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      // Test against RigidBodyTransform.multiply()
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         RigidBodyTransform expectedRigidBody = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         QuaternionBasedTransform multipliedWith = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+         original.getRigidBodyTransform(expectedRigidBody);
+         expectedRigidBody.preMultiplyInvertOther(multipliedWith);
+         expected.set(expectedRigidBody);
+         expected.setScale(original.getScale());
+
+         actual.set(original);
+         actual.preMultiplyInvertOther(multipliedWith);
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
       }
    }
 
@@ -1157,6 +1596,113 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       matrixActual.set(matrixOriginal);
       transform.transform(matrixActual);
       EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+   }
+
+   @Test
+   public void testTransformWithOtherRigidBodyTransform() throws Exception
+   {
+      Random random = new Random(23423L);
+
+      AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+      RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+      RigidBodyTransform expected = new RigidBodyTransform();
+      RigidBodyTransform actual = new RigidBodyTransform();
+
+      transform.getRigidBodyTransform(expected);
+      expected.multiply(original);
+
+      transform.transform(original, actual);
+
+      EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+
+      actual.set(original);
+      transform.transform(original, actual);
+      EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      
+      RigidBodyTransform inverse = new RigidBodyTransform();
+      transform.getRigidBodyTransform(inverse);
+      inverse.invert();
+
+      inverse.transform(original, expected);
+      transform.inverseTransform(original, actual);
+      EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      actual.set(original);
+      transform.inverseTransform(original, actual);
+      EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+   }
+
+   @Test
+   public void testTransformWithQuaternionBasedTransform() throws Exception
+   {
+      Random random = new Random(23423L);
+
+      AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+      RigidBodyTransform originalRigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+      RigidBodyTransform expectedRigidBodyTransform = new RigidBodyTransform();
+
+      QuaternionBasedTransform original = new QuaternionBasedTransform(originalRigidBodyTransform);
+      QuaternionBasedTransform expected = new QuaternionBasedTransform();
+      QuaternionBasedTransform actual = new QuaternionBasedTransform();
+
+      transform.transform(originalRigidBodyTransform, expectedRigidBodyTransform);
+      expected.set(expectedRigidBodyTransform);
+      transform.transform(original, actual);
+
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+
+      actual.set(original);
+      transform.transform(original, actual);
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+
+      RigidBodyTransform inverse = new RigidBodyTransform();
+      transform.getRigidBodyTransform(inverse);
+      inverse.invert();
+
+      inverse.transform(original, expected);
+      transform.inverseTransform(original, actual);
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+      actual.set(original);
+      transform.inverseTransform(original, actual);
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+   }
+
+   @Test
+   public void testTransformWithAffineTransform() throws Exception
+   {
+      Random random = new Random(23423L);
+
+      AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+      RigidBodyTransform originalRigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+      RigidBodyTransform expectedRigidBodyTransform = new RigidBodyTransform();
+
+      Vector3D scale = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0);
+
+      AffineTransform original = new AffineTransform(originalRigidBodyTransform);
+      original.setScale(scale);
+      AffineTransform expected = new AffineTransform();
+      AffineTransform actual = new AffineTransform();
+
+      transform.transform(originalRigidBodyTransform, expectedRigidBodyTransform);
+      expected.set(expectedRigidBodyTransform);
+      expected.setScale(scale);
+      transform.transform(original, actual);
+
+      EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+
+      actual.set(original);
+      transform.transform(original, actual);
+      EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+
+      RigidBodyTransform inverse = new RigidBodyTransform();
+      transform.getRigidBodyTransform(inverse);
+      inverse.invert();
+
+      inverse.transform(original, expected);
+      transform.inverseTransform(original, actual);
+      EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      actual.set(original);
+      transform.inverseTransform(original, actual);
+      EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
    }
 
    @Test

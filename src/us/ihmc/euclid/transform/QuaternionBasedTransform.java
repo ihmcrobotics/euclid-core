@@ -791,7 +791,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * this = this * other
     * </p>
     *
-    * @param other the other transform to multiply with this. Not modified.
+    * @param other the other transform to multiply this with. Not modified.
     */
    public void multiply(QuaternionBasedTransform other)
    {
@@ -802,10 +802,12 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Performs the multiplication of this transform with {@code rigidBodyTransform}.
     * <p>
-    * this = this * rigidBodyTransform
+    * this = this * Q(rigidBodyTransform) <br>
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
+    * a quaternion-based transform.
     * </p>
     *
-    * @param rigidBodyTransform the other transform to multiply with this. Not modified.
+    * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
     */
    public void multiply(RigidBodyTransform rigidBodyTransform)
    {
@@ -814,12 +816,138 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Performs the multiplication of this transform with {@code other}.
+    * Performs the multiplication of this transform with {@code affineTransform}.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
+    * a translation.
+    * </p>
+    * <p>
+    * this = this * Q(affineTransform) <br>
+    * where Q(affineTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void multiply(AffineTransform affineTransform)
+   {
+      QuaternionTools.addTransform(quaternion, affineTransform.getTranslationVector(), translationVector);
+      quaternion.multiply(affineTransform.getRotationMatrix());
+   }
+
+   /**
+    * Performs the multiplication of the inverse of this transform with {@code other}.
+    * <p>
+    * this = this<sup>-1</sup> * other
+    * </p>
+    *
+    * @param other the other transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertThis(QuaternionBasedTransform other)
+   {
+      translationVector.sub(other.getTranslationVector(), translationVector);
+      quaternion.inverseTransform(translationVector, translationVector);
+      quaternion.inverseTransform(other.getQuaternion(), quaternion);
+   }
+
+   /**
+    * Performs the multiplication of this transform with the inverse of {@code other}.
+    * <p>
+    * this = this * other<sup>-1</sup>
+    * </p>
+    *
+    * @param other the other transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertOther(QuaternionBasedTransform other)
+   {
+      quaternion.multiplyConjugateOther(other.getQuaternion());
+      QuaternionTools.subTransform(quaternion, other.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of this transform with {@code rigidBodyTransform}.
+    * <p>
+    * this = this<sup>-1</sup> * Q(rigidBodyTransform) <br>
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
+    * a quaternion-based transform.
+    * </p>
+    *
+    * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertThis(RigidBodyTransform rigidBodyTransform)
+   {
+      translationVector.sub(rigidBodyTransform.getTranslationVector(), translationVector);
+      quaternion.inverseTransform(translationVector, translationVector);
+      QuaternionTools.multiplyConjugateQuaternion(quaternion, rigidBodyTransform.getRotationMatrix(), quaternion);
+   }
+
+   /**
+    * Performs the multiplication of this transform with the inverse of {@code rigidBodyTransform}.
+    * <p>
+    * this = this * Q(rigidBodyTransform)<sup>-1</sup> <br>
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
+    * a quaternion-based transform.
+    * </p>
+    *
+    * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertOther(RigidBodyTransform rigidBodyTransform)
+   {
+      QuaternionTools.multiplyTransposeMatrix(quaternion, rigidBodyTransform.getRotationMatrix(), quaternion);
+      QuaternionTools.subTransform(quaternion, rigidBodyTransform.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of this transform with {@code affineTransform}.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
+    * a translation.
+    * </p>
+    * <p>
+    * this = this<sup>-1</sup> * Q(affineTransform) <br>
+    * where Q(affineTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertThis(AffineTransform affineTransform)
+   {
+      translationVector.sub(affineTransform.getTranslationVector(), translationVector);
+      quaternion.inverseTransform(translationVector, translationVector);
+      QuaternionTools.multiplyConjugateQuaternion(quaternion, affineTransform.getRotationMatrix(), quaternion);
+   }
+
+   /**
+    * Performs the multiplication of this transform with the inverse of {@code affineTransform}.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
+    * a translation.
+    * </p>
+    * <p>
+    * this = this * Q(affineTransform)<sup>-1</sup> <br>
+    * where Q(affineTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertOther(AffineTransform affineTransform)
+   {
+      QuaternionTools.multiplyTransposeMatrix(quaternion, affineTransform.getRotationMatrix(), quaternion);
+      QuaternionTools.subTransform(quaternion, affineTransform.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of {@code other} with this transform.
     * <p>
     * this = other * this
     * </p>
     *
-    * @param other the other transform to multiply with this. Not modified.
+    * @param other the other transform to multiply this with. Not modified.
     */
    public void preMultiply(QuaternionBasedTransform other)
    {
@@ -829,18 +957,151 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Performs the multiplication of this transform with {@code rigidBodyTransform}.
+    * Performs the multiplication of {@code rigidBodyTransform} with this transform.
     * <p>
-    * this = rigidBodyTransform * this
+    * this = Q(rigidBodyTransform) * this <br>
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
+    * a quaternion-based transform.
     * </p>
     *
-    * @param rigidBodyTransform the other transform to multiply with this. Not modified.
+    * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
     */
    public void preMultiply(RigidBodyTransform rigidBodyTransform)
    {
       rigidBodyTransform.transform(translationVector);
       translationVector.add(rigidBodyTransform.getTranslationVector());
       quaternion.preMultiply(rigidBodyTransform.getRotationMatrix());
+   }
+
+   /**
+    * Performs the multiplication of {@code affineTransform} with this transform.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
+    * a translation.
+    * </p>
+    * <p>
+    * this = Q(affineTransform) * this <br>
+    * where Q(affineTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
+    * </p>
+    *
+    * @param affineTransform the rigid-body transform to multiply this with. Not modified.
+    */
+   public void preMultiply(AffineTransform affineTransform)
+   {
+      affineTransform.getRotationMatrix().transform(translationVector);
+      translationVector.add(affineTransform.getTranslationVector());
+      quaternion.preMultiply(affineTransform.getRotationMatrix());
+   }
+
+   /**
+    * Performs the multiplication of {@code other} with the inverse of this transform.
+    * <p>
+    * this = other * this<sup>-1</sup>
+    * </p>
+    *
+    * @param other the other transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertThis(QuaternionBasedTransform other)
+   {
+      quaternion.preMultiplyConjugateThis(other.getQuaternion());
+      quaternion.transform(translationVector);
+      translationVector.sub(other.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of {@code other} with this transform.
+    * <p>
+    * this = other<sup>-1</sup> * this
+    * </p>
+    *
+    * @param other the other transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertOther(QuaternionBasedTransform other)
+   {
+      translationVector.sub(other.getTranslationVector());
+      other.getQuaternion().inverseTransform(translationVector);
+      quaternion.preMultiplyConjugateOther(other.getQuaternion());
+   }
+
+   /**
+    * Performs the multiplication of {@code rigidBodyTransform} with the inverse of this transform.
+    * <p>
+    * this = Q(rigidBodyTransform) * this<sup>-1</sup> <br>
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
+    * a quaternion-based transform.
+    * </p>
+    *
+    * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertThis(RigidBodyTransform rigidBodyTransform)
+   {
+      quaternion.preMultiplyConjugateThis(rigidBodyTransform.getRotationMatrix());
+      quaternion.transform(translationVector);
+      translationVector.sub(rigidBodyTransform.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of {@code rigidBodyTransform} with this transform.
+    * <p>
+    * this = Q(rigidBodyTransform)<sup>-1</sup> * this <br>
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
+    * a quaternion-based transform.
+    * </p>
+    *
+    * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertOther(RigidBodyTransform rigidBodyTransform)
+   {
+      translationVector.sub(rigidBodyTransform.getTranslationVector());
+      rigidBodyTransform.getRotationMatrix().inverseTransform(translationVector);
+      quaternion.preMultiplyTransposeMatrix(rigidBodyTransform.getRotationMatrix());
+   }
+
+   /**
+    * Performs the multiplication of {@code affineTransform} with the inverse of this transform.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
+    * a translation.
+    * </p>
+    * <p>
+    * this = Q(affineTransform) * this<sup>-1</sup> <br>
+    * where Q(affineTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertThis(AffineTransform affineTransform)
+   {
+      quaternion.preMultiplyConjugateThis(affineTransform.getRotationMatrix());
+      quaternion.transform(translationVector);
+      translationVector.sub(affineTransform.getTranslationVector(), translationVector);
+   
+   }
+
+   /**
+    * Performs the multiplication of the inverse of {@code affineTransform} with this transform.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
+    * a translation.
+    * </p>
+    * <p>
+    * this = Q(affineTransform)<sup>-1</sup> * this <br>
+    * where Q(affineTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertOther(AffineTransform affineTransform)
+   {
+      translationVector.sub(affineTransform.getTranslationVector());
+      affineTransform.getRotationMatrix().inverseTransform(translationVector);
+      quaternion.preMultiplyTransposeMatrix(affineTransform.getRotationMatrix());
    }
 
    /** {@inheritDoc} */
@@ -904,34 +1165,28 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       quaternion.transform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
-    * over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void transform(RigidBodyTransform original, RigidBodyTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiply(this);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
-    * over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void transform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiply(this);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
-    * over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void transform(AffineTransform original, AffineTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiply(this);
    }
 
    /** {@inheritDoc} */
@@ -998,34 +1253,28 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       quaternion.inverseTransform(vectorOriginal, vectorTransformed, checkIfTransformInXYPlane);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
-    * over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void inverseTransform(RigidBodyTransform original, RigidBodyTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiplyInvertOther(this);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
-    * over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void inverseTransform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiplyInvertOther(this);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
-    * over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void inverseTransform(AffineTransform original, AffineTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiplyInvertOther(this);
    }
 
    /**
