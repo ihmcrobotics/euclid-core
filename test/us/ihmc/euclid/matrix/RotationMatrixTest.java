@@ -14,8 +14,6 @@ import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
-import us.ihmc.euclid.matrix.Matrix3D;
-import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
@@ -1387,20 +1385,44 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
    {
       Random random = new Random(435L);
       RotationMatrix actual = new RotationMatrix();
-      RotationMatrix expected = new RotationMatrix();
+      Matrix3D expected = new Matrix3D();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          RotationMatrix original = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
 
-         matrix.transform(original, expected);
+         Matrix3DTools.multiply(matrix, original, expected);
+         matrix.transform(original, actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
          actual.set(original);
          matrix.transform(actual);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
 
-         actual.setToNaN();
+   @Test
+   public void testTransformRotationScaleMatrix() throws Exception
+   {
+      Random random = new Random(435L);
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix originalRotation = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expectedRotation = new RotationMatrix();
+         Vector3D scales = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0);
+         RotationScaleMatrix original = new RotationScaleMatrix(originalRotation, scales);
+
+         matrix.transform(originalRotation, expectedRotation);
+         expected.set(expectedRotation, scales);
+
          matrix.transform(original, actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         actual.set(original);
+         matrix.transform(actual);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
