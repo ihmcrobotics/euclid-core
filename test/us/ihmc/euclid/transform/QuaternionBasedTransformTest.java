@@ -612,6 +612,15 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       actual.invert();
 
       EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+
+      rigidBodyTransform.set(original);
+      rigidBodyTransform.invertRotation();
+      expected.set(rigidBodyTransform);
+
+      actual.set(original);
+      actual.invertRotation();
+
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
    }
 
    @Test

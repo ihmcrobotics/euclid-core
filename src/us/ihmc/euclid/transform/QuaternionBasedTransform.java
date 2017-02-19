@@ -736,6 +736,14 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
+    * Inverts only the rotation part of this transform, the translation remains unchanged.
+    */
+   public void invertRotation()
+   {
+      quaternion.conjugate();
+   }
+
+   /**
     * Performs the multiplication of this transform with {@code other}.
     * <p>
     * this = this * other
