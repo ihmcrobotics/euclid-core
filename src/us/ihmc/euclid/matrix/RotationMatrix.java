@@ -265,13 +265,13 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
 
    /**
     * Sets this rotation matrix from the given tuples each holding on the values of each row.
-    * 
+    *
     * <pre>
     *        /  firstRow.getX()  firstRow.getY()  firstRow.getZ() \
     * this = | secondRow.getX() secondRow.getY() secondRow.getZ() |
     *        \  thirdRow.getX()  thirdRow.getY()  thirdRow.getZ() /
     * </pre>
-    * 
+    *
     * @param firstRow the tuple holding onto the values of the first row. Not modified.
     * @param secondRow the tuple holding onto the values of the second row. Not modified.
     * @param thirdRow the tuple holding onto the values of the third row. Not modified.
@@ -279,30 +279,30 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     */
    public void setRows(Tuple3DReadOnly firstRow, Tuple3DReadOnly secondRow, Tuple3DReadOnly thirdRow)
    {
-      this.m00 = firstRow.getX();
-      this.m01 = firstRow.getY();
-      this.m02 = firstRow.getZ();
+      m00 = firstRow.getX();
+      m01 = firstRow.getY();
+      m02 = firstRow.getZ();
 
-      this.m10 = secondRow.getX();
-      this.m11 = secondRow.getY();
-      this.m12 = secondRow.getZ();
+      m10 = secondRow.getX();
+      m11 = secondRow.getY();
+      m12 = secondRow.getZ();
 
-      this.m20 = thirdRow.getX();
-      this.m21 = thirdRow.getY();
-      this.m22 = thirdRow.getZ();
+      m20 = thirdRow.getX();
+      m21 = thirdRow.getY();
+      m22 = thirdRow.getZ();
 
       checkIfRotationMatrix();
    }
 
    /**
     * Sets this rotation matrix from the given tuples each holding on the values of each column.
-    * 
+    *
     * <pre>
     *        / firstColumn.getX() secondColumn.getX() thirdColumn.getX() \
     * this = | firstColumn.getY() secondColumn.getY() thirdColumn.getY() |
     *        \ firstColumn.getZ() secondColumn.getZ() thirdColumn.getZ() /
     * </pre>
-    * 
+    *
     * @param firstColumn the tuple holding onto the values of the first column. Not modified.
     * @param secondColumn the tuple holding onto the values of the second column. Not modified.
     * @param thirdColumn the tuple holding onto the values of the third column. Not modified.
@@ -310,17 +310,17 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
     */
    public void setColumns(Tuple3DReadOnly firstColumn, Tuple3DReadOnly secondColumn, Tuple3DReadOnly thirdColumn)
    {
-      this.m00 = firstColumn.getX();
-      this.m10 = firstColumn.getY();
-      this.m20 = firstColumn.getZ();
+      m00 = firstColumn.getX();
+      m10 = firstColumn.getY();
+      m20 = firstColumn.getZ();
 
-      this.m01 = secondColumn.getX();
-      this.m11 = secondColumn.getY();
-      this.m21 = secondColumn.getZ();
+      m01 = secondColumn.getX();
+      m11 = secondColumn.getY();
+      m21 = secondColumn.getZ();
 
-      this.m02 = thirdColumn.getX();
-      this.m12 = thirdColumn.getY();
-      this.m22 = thirdColumn.getZ();
+      m02 = thirdColumn.getX();
+      m12 = thirdColumn.getY();
+      m22 = thirdColumn.getZ();
 
       checkIfRotationMatrix();
    }
@@ -755,7 +755,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
 
    /**
     * Append a rotation about the z-axis to this rotation matrix.
-    * 
+    *
     * <pre>
     *               / cos(yaw) -sin(yaw) 0 \
     * this = this * | sin(yaw)  cos(yaw) 0 |
@@ -771,7 +771,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
 
    /**
     * Append a rotation about the y-axis to this rotation matrix.
-    * 
+    *
     * <pre>
     *               /  cos(pitch) 0 sin(pitch) \
     * this = this * |      0      1     0      |
@@ -787,7 +787,7 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
 
    /**
     * Append a rotation about the x-axis to this rotation matrix.
-    * 
+    *
     * <pre>
     *               /  cos(pitch) 0 sin(pitch) \
     * this = this * |      0      1     0      |
@@ -911,9 +911,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
 
    /**
     * Prepend a rotation about the z-axis to this rotation matrix.
-    * 
+    *
     * <pre>
-    *        / cos(yaw) -sin(yaw) 0 \    
+    *        / cos(yaw) -sin(yaw) 0 \
     * this = | sin(yaw)  cos(yaw) 0 | * this
     *        \    0         0     1 /
     * </pre>
@@ -927,9 +927,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
 
    /**
     * Prepend a rotation about the y-axis to this rotation matrix.
-    * 
+    *
     * <pre>
-    *        /  cos(pitch) 0 sin(pitch) \    
+    *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      | * this
     *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
@@ -943,9 +943,9 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
 
    /**
     * Append a rotation about the x-axis to this rotation matrix.
-    * 
+    *
     * <pre>
-    *        /  cos(pitch) 0 sin(pitch) \    
+    *        /  cos(pitch) 0 sin(pitch) \
     * this = |      0      1     0      | * this
     *        \ -sin(pitch) 0 cos(pitch) /
     * </pre>
