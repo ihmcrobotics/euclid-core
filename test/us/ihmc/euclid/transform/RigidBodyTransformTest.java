@@ -1153,6 +1153,20 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       RotationMatrix rotationMatrix = new RotationMatrix();
       Vector3D translation = new Vector3D();
 
+      { // Test individual setTranslation(X/Y/Z)(double)
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         transform.getRotation(rotationMatrix);
+         transform.setTranslationX(translation.getX());
+         transform.setTranslationY(translation.getY());
+         transform.setTranslationZ(translation.getZ());
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+               assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
+            assertTrue(translation.get(row) == transform.getElement(row, 3));
+         }
+      }
+
       { // Test setTranslation(TupleReadOnly translation)
          RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
          transform.getRotation(rotationMatrix);

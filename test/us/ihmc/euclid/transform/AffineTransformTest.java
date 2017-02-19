@@ -842,6 +842,21 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       Vector3D expectedTranslation = new Vector3D();
       transform.getRotationScale(expectedRotationScale);
 
+      { // Test individual setTranslation(X/Y/Z)(double)
+         double x = 2.0 * random.nextDouble() - 1.0;
+         double y = 2.0 * random.nextDouble() - 1.0;
+         double z = 2.0 * random.nextDouble() - 1.0;
+         expectedTranslation.set(x, y, z);
+         transform.setTranslationX(expectedTranslation.getX());
+         transform.setTranslationY(expectedTranslation.getY());
+         transform.setTranslationZ(expectedTranslation.getZ());
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
+         for (int row = 0; row < 3; row++)
+         {
+            assertTrue(expectedTranslation.get(row) == transform.getElement(row, 3));
+         }
+      }
+
       { // Test setTranslation(double x, double y, double z)
          double x = 2.0 * random.nextDouble() - 1.0;
          double y = 2.0 * random.nextDouble() - 1.0;

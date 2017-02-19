@@ -435,6 +435,21 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       Quaternion expectedQuaternion = new Quaternion();
       actualTransform.getRotation(expectedQuaternion);
 
+      { // Test individual setTranslation(X/Y/Z)(double)
+         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         double x = translation.getX();
+         double y = translation.getY();
+         double z = translation.getZ();
+         actualTransform.setTranslationX(x);
+         actualTransform.setTranslationY(y);
+         actualTransform.setTranslationZ(z);
+         for (int row = 0; row < 3; row++)
+         {
+            EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualTransform.getQuaternion(), EPS);
+            EuclidCoreTestTools.assertTuple3DEquals(translation, actualTransform.getTranslationVector(), EPS);
+         }
+      }
+
       { // Test setTranslation(double x, double y, double z)
          Vector3D translation = EuclidCoreRandomTools.generateRandomVector3D(random);
          double x = translation.getX();

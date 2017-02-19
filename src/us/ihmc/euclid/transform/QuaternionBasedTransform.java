@@ -659,6 +659,45 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
+    * Sets the x-component of the translation part of this transform.
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param x the x-component of the translation part.
+    */
+   public void setTranslationX(double x)
+   {
+      translationVector.setX(x);
+   }
+
+   /**
+    * Sets the y-component of the translation part of this transform.
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param y the y-component of the translation part.
+    */
+   public void setTranslationY(double y)
+   {
+      translationVector.setY(y);
+   }
+
+   /**
+    * Sets the z-component of the translation part of this transform.
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param z the z-component of the translation part.
+    */
+   public void setTranslationZ(double z)
+   {
+      translationVector.setZ(z);
+   }
+
+   /**
     * Sets the translation part of this transform.
     * <p>
     * This method does not affect the rotation part of this transform.

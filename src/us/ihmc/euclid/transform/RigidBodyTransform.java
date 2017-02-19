@@ -1264,7 +1264,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the x-component of the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param x the x-component of the translation part.
@@ -1277,7 +1277,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the y-component of the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param y the y-component of the translation part.
@@ -1290,7 +1290,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the z-component of the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param z the z-component of the translation part.
@@ -1303,7 +1303,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param x the x-component of the translation part.
@@ -1318,7 +1318,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param translation tuple used to set the translation part of this transform. Not modified.
