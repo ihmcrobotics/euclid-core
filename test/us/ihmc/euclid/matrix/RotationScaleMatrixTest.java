@@ -1336,6 +1336,138 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
    }
 
    @Test
+   public void testMultiply() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      RotationMatrix m2 = new RotationMatrix();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         m2 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).multiply(m2);
+         actual.set(m1);
+         actual.multiply(m2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyWithQuaternion() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      Quaternion q2 = new Quaternion();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q2 = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).multiply(q2);
+         actual.set(m1);
+         actual.multiply(q2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyTransposeThis() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      RotationMatrix m2 = new RotationMatrix();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         m2 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).multiplyTransposeThis(m2);
+         actual.set(m1);
+         actual.multiplyTransposeThis(m2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyTransposeOther() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      RotationMatrix m2 = new RotationMatrix();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         m2 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).multiplyTransposeOther(m2);
+         actual.set(m1);
+         actual.multiplyTransposeOther(m2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyTransposeThisWithQuaternion() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      Quaternion q2 = new Quaternion();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q2 = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).multiplyTransposeThis(q2);
+         actual.set(m1);
+         actual.multiplyTransposeThis(q2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testMultiplyConjugateQuaternion() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      Quaternion q2 = new Quaternion();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q2 = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).multiplyConjugateQuaternion(q2);
+         actual.set(m1);
+         actual.multiplyConjugateQuaternion(q2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testPreMultiply() throws Exception
    {
       Random random = new Random(65561L);
@@ -1358,6 +1490,50 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
    }
 
    @Test
+   public void testPreMultiplyWithQuaternion() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      Quaternion q2 = new Quaternion();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q2 = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).preMultiply(q2);
+         actual.set(m1);
+         actual.preMultiply(q2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyTransposeThis() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      RotationMatrix m2 = new RotationMatrix();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         m2 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).preMultiplyTransposeThis(m2);
+         actual.set(m1);
+         actual.preMultiplyTransposeThis(m2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testPreMultiplyTransposeOther() throws Exception
    {
       Random random = new Random(65561L);
@@ -1375,6 +1551,50 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          ((RotationMatrix) expected.getRotationMatrix()).preMultiplyTransposeOther(m2);
          actual.set(m1);
          actual.preMultiplyTransposeOther(m2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyTransposeThisWithQuaternion() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      Quaternion q2 = new Quaternion();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q2 = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).preMultiplyTransposeThis(q2);
+         actual.set(m1);
+         actual.preMultiplyTransposeThis(q2);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPreMultiplyConjugateQuaternion() throws Exception
+   {
+      Random random = new Random(65561L);
+      RotationScaleMatrix m1 = new RotationScaleMatrix();
+      Quaternion q2 = new Quaternion();
+      RotationScaleMatrix expected = new RotationScaleMatrix();
+      RotationScaleMatrix actual = new RotationScaleMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         q2 = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         m1 = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+
+         expected.set(m1);
+         ((RotationMatrix) expected.getRotationMatrix()).preMultiplyConjugateQuaternion(q2);
+         actual.set(m1);
+         actual.preMultiplyConjugateQuaternion(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
    }
