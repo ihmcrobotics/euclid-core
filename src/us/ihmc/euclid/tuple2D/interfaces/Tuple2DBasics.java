@@ -135,7 +135,7 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     * @param value the new value of the selected component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 1].
     */
-   default void set(int index, double value)
+   default void setElement(int index, double value)
    {
       switch (index)
       {
