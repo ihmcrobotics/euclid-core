@@ -124,7 +124,7 @@ public abstract class EuclidCoreIOTools
          ret += "| " + String.format(format, translation.get(i)) + "\n";
       }
 
-      ret += getStringOf(null, " ", " ", 0.0, 0.0, 0.0);
+      ret += getStringOf(null, " ", " ", format, 0.0, 0.0, 0.0);
       ret += "| " + String.format(format, 1.0);
 
       return ret;
