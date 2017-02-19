@@ -666,12 +666,74 @@ public class QuaternionToolsTest
          EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
       }
 
+      // Test transforming in-place
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         tupleActual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleExpected.set(tupleActual);
+
+         QuaternionTools.addTransform(quaternion, tupleActual, tupleExpected);
+         QuaternionTools.addTransform(quaternion, tupleActual, tupleActual);
+         EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
+      }
+
       // Test that a quaternion with zeros does not do anything
       tupleExpected = EuclidCoreRandomTools.generateRandomRotationVector(random);
       tupleActual.set(tupleExpected);
       Quaternion quaternion = new Quaternion();
       quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
       QuaternionTools.addTransform(quaternion, tupleExpected, tupleActual);
+      EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
+   }
+
+   @Test
+   public void testSubTransformATuple() throws Exception
+   {
+      Random random = new Random(28346L);
+      Tuple3DBasics tupleExpected = new Vector3D();
+      Tuple3DBasics tupleActual = new Vector3D();
+
+      // Test that addTransform(tupleOriginal, tupleTransformed) == tupleTransformed + transform(tupleOriginal)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Tuple3DReadOnly tupleOriginal = EuclidCoreRandomTools.generateRandomRotationVector(random);
+         tupleExpected = EuclidCoreRandomTools.generateRandomRotationVector(random);
+         tupleActual.set(tupleExpected);
+         Tuple3DBasics tupleTransformed = new Vector3D();
+         QuaternionTools.transform(quaternion, tupleOriginal, tupleTransformed);
+         tupleExpected.sub(tupleTransformed);
+
+         double corrupt = random.nextDouble() + 0.5;
+         double qx = corrupt * quaternion.getX();
+         double qy = corrupt * quaternion.getY();
+         double qz = corrupt * quaternion.getZ();
+         double qs = corrupt * quaternion.getS();
+         quaternion.setUnsafe(qx, qy, qz, qs);
+
+         QuaternionTools.subTransform(quaternion, tupleOriginal, tupleActual);
+         EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
+      }
+
+      // Test transforming in-place
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         tupleActual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleExpected.set(tupleActual);
+
+         QuaternionTools.subTransform(quaternion, tupleActual, tupleExpected);
+         QuaternionTools.subTransform(quaternion, tupleActual, tupleActual);
+         EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
+      }
+
+      // Test that a quaternion with zeros does not do anything
+      tupleExpected = EuclidCoreRandomTools.generateRandomRotationVector(random);
+      tupleActual.set(tupleExpected);
+      Quaternion quaternion = new Quaternion();
+      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
+      QuaternionTools.subTransform(quaternion, tupleExpected, tupleActual);
       EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPSILON);
    }
 
