@@ -1580,6 +1580,36 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
+    * Gets the x-component of the translation part of this transform.
+    * 
+    * @return the x-component of the translation part.
+    */
+   public double getTranslationX()
+   {
+      return translationVector.getX();
+   }
+
+   /**
+    * Gets the y-component of the translation part of this transform.
+    * 
+    * @return the y-component of the translation part.
+    */
+   public double getTranslationY()
+   {
+      return translationVector.getY();
+   }
+
+   /**
+    * Gets the z-component of the translation part of this transform.
+    * 
+    * @return the z-component of the translation part.
+    */
+   public double getTranslationZ()
+   {
+      return translationVector.getZ();
+   }
+
+   /**
     * Retrieves and returns a coefficient of this transform given its row and column indices.
     *
     * @param row the row of the coefficient to return.

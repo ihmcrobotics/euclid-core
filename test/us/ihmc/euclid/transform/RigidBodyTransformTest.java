@@ -1295,6 +1295,11 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       transform.getTranslation(translation);
       for (int row = 0; row < 3; row++)
          assertTrue(translation.get(row) == transform.getElement(row, 3));
+
+      EuclidCoreTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
+
+      translation.set(transform.getTranslationX(), transform.getTranslationY(), transform.getTranslationZ());
+      EuclidCoreTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
    }
 
    @Test

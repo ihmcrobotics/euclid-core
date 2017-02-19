@@ -1317,6 +1317,22 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
    }
 
    @Test
+   public void testGetTranslation() throws Exception
+   {
+      Random random = new Random(2345L);
+      AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+      Vector3D translation = new Vector3D();
+      transform.getTranslation(translation);
+      for (int row = 0; row < 3; row++)
+         assertTrue(translation.get(row) == transform.getElement(row, 3));
+
+      EuclidCoreTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
+
+      translation.set(transform.getTranslationX(), transform.getTranslationY(), transform.getTranslationZ());
+      EuclidCoreTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
+   }
+
+   @Test
    public void testGetScale() throws Exception
    {
       Random random = new Random(324L);

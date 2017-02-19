@@ -1107,6 +1107,36 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
+    * Gets the x-component of the translation part of this transform.
+    * 
+    * @return the x-component of the translation part.
+    */
+   public double getTranslationX()
+   {
+      return translationVector.getX();
+   }
+
+   /**
+    * Gets the y-component of the translation part of this transform.
+    * 
+    * @return the y-component of the translation part.
+    */
+   public double getTranslationY()
+   {
+      return translationVector.getY();
+   }
+
+   /**
+    * Gets the z-component of the translation part of this transform.
+    * 
+    * @return the z-component of the translation part.
+    */
+   public double getTranslationZ()
+   {
+      return translationVector.getZ();
+   }
+
+   /**
     * Tests separately and on a per component basis if the rotation part and the translation part of
     * this transform and {@code other} are equal to an {@code epsilon}.
     *

@@ -574,6 +574,10 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
       EuclidCoreTestTools.assertTuple3DEquals(expected, actual, EPS);
       EuclidCoreTestTools.assertTuple3DEquals(transform.getTranslationVector(), actual, EPS);
+
+      Vector3D translation = new Vector3D();
+      translation.set(transform.getTranslationX(), transform.getTranslationY(), transform.getTranslationZ());
+      EuclidCoreTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
    }
 
    @Test
