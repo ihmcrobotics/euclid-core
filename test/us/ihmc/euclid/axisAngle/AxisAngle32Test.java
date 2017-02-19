@@ -173,7 +173,7 @@ public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         axisAngle.set(random.nextInt(4), random.nextFloat());
+         axisAngle.setElement(random.nextInt(4), random.nextFloat());
          newHashCode = axisAngle.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;

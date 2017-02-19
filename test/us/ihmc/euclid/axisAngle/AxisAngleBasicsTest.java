@@ -391,7 +391,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
             for (int index = 0; index < 4; index++)
             {
                double expectedValue = random.nextDouble();
-               actualAxisAngle.set(index, expectedValue);
+               actualAxisAngle.setElement(index, expectedValue);
                double actualValue = actualAxisAngle.get(index);
                assertEquals(expectedValue, actualValue, getEpsilon());
             }
