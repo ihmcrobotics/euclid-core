@@ -476,7 +476,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param rotationMatrix the rotation matrix used to set the quaternion of this transform. Not
     *           modified.
     */
-   public void setRotation(RotationMatrix rotationMatrix)
+   public void setRotation(RotationMatrixReadOnly rotationMatrix)
    {
       quaternion.set(rotationMatrix);
    }
