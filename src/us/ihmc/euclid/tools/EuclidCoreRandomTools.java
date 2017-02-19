@@ -1029,7 +1029,7 @@ public abstract class EuclidCoreRandomTools
    public static void randomizeTuple2D(Random random, Tuple2DReadOnly minMax, Tuple2DBasics tupleToRandomize)
    {
       for (int i = 0; i < 2; i++)
-         tupleToRandomize.setElement(i, generateRandomDouble(random, minMax.get(i)));
+         tupleToRandomize.setElement(i, generateRandomDouble(random, minMax.getElement(i)));
    }
 
    /**
@@ -1047,6 +1047,6 @@ public abstract class EuclidCoreRandomTools
    public static void randomizeTuple2D(Random random, Tuple2DReadOnly min, Tuple2DReadOnly max, Tuple2DBasics tupleToRandomize)
    {
       for (int i = 0; i < 2; i++)
-         tupleToRandomize.setElement(i, generateRandomDouble(random, min.get(i), max.get(i)));
+         tupleToRandomize.setElement(i, generateRandomDouble(random, min.getElement(i), max.getElement(i)));
    }
 }
