@@ -979,7 +979,7 @@ public abstract class EuclidCoreRandomTools
    public static void randomizeTuple3D(Random random, Tuple3DReadOnly minMax, Tuple3DBasics tupleToRandomize)
    {
       for (int i = 0; i < 3; i++)
-         tupleToRandomize.setElement(i, generateRandomDouble(random, minMax.get(i)));
+         tupleToRandomize.setElement(i, generateRandomDouble(random, minMax.getElement(i)));
    }
 
    /**
@@ -997,7 +997,7 @@ public abstract class EuclidCoreRandomTools
    public static void randomizeTuple3D(Random random, Tuple3DReadOnly min, Tuple3DReadOnly max, Tuple3DBasics tupleToRandomize)
    {
       for (int i = 0; i < 3; i++)
-         tupleToRandomize.setElement(i, generateRandomDouble(random, min.get(i), max.get(i)));
+         tupleToRandomize.setElement(i, generateRandomDouble(random, min.getElement(i), max.getElement(i)));
    }
 
    /**

@@ -454,7 +454,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -466,7 +466,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -478,7 +478,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getRotationMatrix().getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
    }
@@ -638,7 +638,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -661,7 +661,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -675,7 +675,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -690,7 +690,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -704,7 +704,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertEquals(rotationMatrix.getElement(row, column), transform.getElement(row, column), EPS);
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -717,7 +717,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -732,7 +732,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
    }
@@ -814,7 +814,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          for (int row = 0; row < 3; row++)
          {
             int column = 3;
-            assertTrue(translation.get(row) == actualTransform.getElement(row, column));
+            assertTrue(translation.getElement(row) == actualTransform.getElement(row, column));
          }
       }
 
@@ -836,7 +836,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          for (int row = 0; row < 3; row++)
          {
             int column = 3;
-            assertTrue(translation.get(row) == actualTransform.getElement(row, column));
+            assertTrue(translation.getElement(row) == actualTransform.getElement(row, column));
          }
       }
 
@@ -917,7 +917,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          for (int row = 0; row < 3; row++)
          {
             int column = 3;
-            assertTrue(translation.get(row) == actualTransform.getElement(row, column));
+            assertTrue(translation.getElement(row) == actualTransform.getElement(row, column));
          }
       }
 
@@ -938,7 +938,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          for (int row = 0; row < 3; row++)
          {
             int column = 3;
-            assertTrue(translation.get(row) == actualTransform.getElement(row, column));
+            assertTrue(translation.getElement(row) == actualTransform.getElement(row, column));
          }
       }
 
@@ -959,7 +959,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          for (int row = 0; row < 3; row++)
          {
             int column = 3;
-            assertTrue(translation.get(row) == actualTransform.getElement(row, column));
+            assertTrue(translation.getElement(row) == actualTransform.getElement(row, column));
          }
       }
 
@@ -1111,7 +1111,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -1141,7 +1141,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
    }
@@ -1163,7 +1163,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -1175,7 +1175,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -1187,7 +1187,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -1203,7 +1203,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
                else
                   assertTrue(transform.getElement(row, column) == 0.0);
             }
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -1214,7 +1214,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          EuclidCoreTestTools.assertIdentity(transform.getRotationMatrix(), EPS);
          for (int row = 0; row < 3; row++)
          {
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -1308,7 +1308,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       Vector3D translation = new Vector3D();
       transform.getTranslation(translation);
       for (int row = 0; row < 3; row++)
-         assertTrue(translation.get(row) == transform.getElement(row, 3));
+         assertTrue(translation.getElement(row) == transform.getElement(row, 3));
 
       EuclidCoreTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
 
@@ -1579,7 +1579,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          CommonOps.mult(matrix, ejmlPoint, ejmlTransformedPoint);
 
          for (int i = 0; i < 3; i++)
-            assertEquals(ejmlTransformedPoint.get(i, 0), point.get(i), EPS);
+            assertEquals(ejmlTransformedPoint.get(i, 0), point.getElement(i), EPS);
       }
 
       { // Test transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
@@ -1595,7 +1595,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          CommonOps.mult(matrix, ejmlPoint, ejmlTransformedPoint);
 
          for (int i = 0; i < 3; i++)
-            assertEquals(ejmlTransformedPoint.get(i, 0), pointTransformed.get(i), EPS);
+            assertEquals(ejmlTransformedPoint.get(i, 0), pointTransformed.getElement(i), EPS);
       }
 
       { // Test transform(VectorBasics vectorToTransform)
@@ -1609,7 +1609,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          CommonOps.mult(matrix, ejmlVector, ejmlTransformedVector);
 
          for (int i = 0; i < 3; i++)
-            assertEquals(ejmlTransformedVector.get(i, 0), vector.get(i), EPS);
+            assertEquals(ejmlTransformedVector.get(i, 0), vector.getElement(i), EPS);
       }
 
       { // Test transform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
@@ -1624,7 +1624,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          CommonOps.mult(matrix, ejmlVector, ejmlTransformedVector);
 
          for (int i = 0; i < 3; i++)
-            assertEquals(ejmlTransformedVector.get(i, 0), vectorTransformed.get(i), EPS);
+            assertEquals(ejmlTransformedVector.get(i, 0), vectorTransformed.getElement(i), EPS);
       }
    }
 

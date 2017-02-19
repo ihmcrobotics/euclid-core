@@ -74,7 +74,7 @@ public class Vector4DTest extends Vector4DBasicsTest<Vector4D>
          Vector3DReadOnly vector3D = EuclidCoreRandomTools.generateRandomVector3D(random);
          Vector4D vector = new Vector4D(vector3D);
          for (int i = 0; i < 3; i++)
-            assertTrue(vector.getElement(i) == vector3D.get(i));
+            assertTrue(vector.getElement(i) == vector3D.getElement(i));
          assertTrue(vector.getS() == 0.0);
       }
 
@@ -82,7 +82,7 @@ public class Vector4DTest extends Vector4DBasicsTest<Vector4D>
          Point3DReadOnly point3D = EuclidCoreRandomTools.generateRandomPoint3D(random);
          Vector4D vector = new Vector4D(point3D);
          for (int i = 0; i < 3; i++)
-            assertTrue(vector.getElement(i) == point3D.get(i));
+            assertTrue(vector.getElement(i) == point3D.getElement(i));
          assertTrue(vector.getS() == 1.0);
       }
    }

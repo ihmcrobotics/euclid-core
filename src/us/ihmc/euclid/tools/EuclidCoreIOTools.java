@@ -121,7 +121,7 @@ public abstract class EuclidCoreIOTools
       for (int i = 0; i < 3; i++)
       {
          ret += getStringOf(null, " ", " ", matrix.getElement(i, 0), matrix.getElement(i, 1), matrix.getElement(i, 2));
-         ret += "| " + String.format(format, translation.get(i)) + "\n";
+         ret += "| " + String.format(format, translation.getElement(i)) + "\n";
       }
 
       ret += getStringOf(null, " ", " ", format, 0.0, 0.0, 0.0);

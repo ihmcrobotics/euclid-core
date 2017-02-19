@@ -61,13 +61,13 @@ public abstract class Tuple3DReadOnlyTest<T extends Tuple3DReadOnly>
          double z = random.nextDouble();
          tuple = createTuple(x, y, z);
 
-         assertEquals(tuple.get(0), x, getEpsilon());
-         assertEquals(tuple.get(1), y, getEpsilon());
-         assertEquals(tuple.get(2), z, getEpsilon());
+         assertEquals(tuple.getElement(0), x, getEpsilon());
+         assertEquals(tuple.getElement(1), y, getEpsilon());
+         assertEquals(tuple.getElement(2), z, getEpsilon());
 
          try
          {
-            tuple.get(-1);
+            tuple.getElement(-1);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -81,7 +81,7 @@ public abstract class Tuple3DReadOnlyTest<T extends Tuple3DReadOnly>
 
          try
          {
-            tuple.get(3);
+            tuple.getElement(3);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)

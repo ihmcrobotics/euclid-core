@@ -93,7 +93,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == transform.getElement(row, column));
-            assertTrue(translation.get(row) == transform.getElement(row, 3));
+            assertTrue(translation.getElement(row) == transform.getElement(row, 3));
          }
       }
    }
@@ -264,7 +264,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
             if (column == 3)
                assertTrue(transform.getElement(row, column) == original.getElement(row, column));
             else if (row == column)
-               assertTrue(transform.getElement(row, column) == transform.getRotationScaleMatrix().getScale().get(column));
+               assertTrue(transform.getElement(row, column) == transform.getRotationScaleMatrix().getScale().getElement(column));
             else
                assertTrue(transform.getElement(row, column) == 0.0);
          }
@@ -436,7 +436,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -448,7 +448,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -464,7 +464,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -482,7 +482,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -498,7 +498,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -514,7 +514,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -532,7 +532,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -548,7 +548,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -564,7 +564,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -582,7 +582,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -598,7 +598,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertTrue(rotationScaleMatrix.getElement(row, column) == actual.getElement(row, column));
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -614,7 +614,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertEquals(rotationScaleMatrix.getElement(row, column), actual.getElement(row, column), EPS);
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -632,7 +632,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertEquals(rotationScaleMatrix.getElement(row, column), actual.getElement(row, column), EPS);
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
 
@@ -648,7 +648,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          {
             for (int column = 0; column < 3; column++)
                assertEquals(rotationScaleMatrix.getElement(row, column), actual.getElement(row, column), EPS);
-            assertTrue(translation.get(row) == actual.getElement(row, 3));
+            assertTrue(translation.getElement(row) == actual.getElement(row, 3));
          }
       }
    }
@@ -853,7 +853,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
          for (int row = 0; row < 3; row++)
          {
-            assertTrue(expectedTranslation.get(row) == transform.getElement(row, 3));
+            assertTrue(expectedTranslation.getElement(row) == transform.getElement(row, 3));
          }
       }
 
@@ -921,7 +921,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          CommonOps.mult(matrix, ejmlPoint, ejmlTransformedPoint);
 
          for (int i = 0; i < 3; i++)
-            assertEquals(ejmlTransformedPoint.get(i, 0), point.get(i), EPS);
+            assertEquals(ejmlTransformedPoint.get(i, 0), point.getElement(i), EPS);
       }
 
       { // Test transform(PointReadOnly pointOriginal, PointBasics pointTransformed)
@@ -937,7 +937,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          CommonOps.mult(matrix, ejmlPoint, ejmlTransformedPoint);
 
          for (int i = 0; i < 3; i++)
-            assertEquals(ejmlTransformedPoint.get(i, 0), pointTransformed.get(i), EPS);
+            assertEquals(ejmlTransformedPoint.get(i, 0), pointTransformed.getElement(i), EPS);
       }
 
       { // Test transform(VectorBasics vectorToTransform)
@@ -951,7 +951,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          CommonOps.mult(matrix, ejmlVector, ejmlTransformedVector);
 
          for (int i = 0; i < 3; i++)
-            assertEquals(ejmlTransformedVector.get(i, 0), vector.get(i), EPS);
+            assertEquals(ejmlTransformedVector.get(i, 0), vector.getElement(i), EPS);
       }
 
       { // Test transform(VectorReadOnly vectorOriginal, VectorBasics vectorTransformed)
@@ -966,7 +966,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          CommonOps.mult(matrix, ejmlVector, ejmlTransformedVector);
 
          for (int i = 0; i < 3; i++)
-            assertEquals(ejmlTransformedVector.get(i, 0), vectorTransformed.get(i), EPS);
+            assertEquals(ejmlTransformedVector.get(i, 0), vectorTransformed.getElement(i), EPS);
       }
    }
 
@@ -1339,7 +1339,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       Vector3D translation = new Vector3D();
       transform.getTranslation(translation);
       for (int row = 0; row < 3; row++)
-         assertTrue(translation.get(row) == transform.getElement(row, 3));
+         assertTrue(translation.getElement(row) == transform.getElement(row, 3));
 
       EuclidCoreTestTools.assertTuple3DEquals(translation, transform.getTranslationVector(), EPS);
 
@@ -1393,13 +1393,13 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       assertTrue(rotationScaleMatrix.getM21() == transform.getElement(2, 1));
       assertTrue(rotationScaleMatrix.getM22() == transform.getElement(2, 2));
 
-      assertTrue(translation.get(0) == transform.getM03());
-      assertTrue(translation.get(1) == transform.getM13());
-      assertTrue(translation.get(2) == transform.getM23());
+      assertTrue(translation.getElement(0) == transform.getM03());
+      assertTrue(translation.getElement(1) == transform.getM13());
+      assertTrue(translation.getElement(2) == transform.getM23());
 
-      assertTrue(translation.get(0) == transform.getElement(0, 3));
-      assertTrue(translation.get(1) == transform.getElement(1, 3));
-      assertTrue(translation.get(2) == transform.getElement(2, 3));
+      assertTrue(translation.getElement(0) == transform.getElement(0, 3));
+      assertTrue(translation.getElement(1) == transform.getElement(1, 3));
+      assertTrue(translation.getElement(2) == transform.getElement(2, 3));
 
       assertTrue(transform.getM30() == 0.0);
       assertTrue(transform.getM31() == 0.0);
@@ -1549,28 +1549,28 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          t2.set(t1);
          assertTrue(t1.epsilonEquals(t2, epsilon));
          t1.getTranslation(translation);
-         translation.setElement(row, translation.get(row) + 0.999 * epsilon);
+         translation.setElement(row, translation.getElement(row) + 0.999 * epsilon);
          t2.setTranslation(translation);
          assertTrue(t1.epsilonEquals(t2, epsilon));
 
          t2.set(t1);
          assertTrue(t1.epsilonEquals(t2, epsilon));
          t1.getTranslation(translation);
-         translation.setElement(row, translation.get(row) + 1.001 * epsilon);
+         translation.setElement(row, translation.getElement(row) + 1.001 * epsilon);
          t2.setTranslation(translation);
          assertFalse(t1.epsilonEquals(t2, epsilon));
 
          t2.set(t1);
          assertTrue(t1.epsilonEquals(t2, epsilon));
          t1.getTranslation(translation);
-         translation.setElement(row, translation.get(row) - 0.999 * epsilon);
+         translation.setElement(row, translation.getElement(row) - 0.999 * epsilon);
          t2.setTranslation(translation);
          assertTrue(t1.epsilonEquals(t2, epsilon));
 
          t2.set(t1);
          assertTrue(t1.epsilonEquals(t2, epsilon));
          t1.getTranslation(translation);
-         translation.setElement(row, translation.get(row) - 1.001 * epsilon);
+         translation.setElement(row, translation.getElement(row) - 1.001 * epsilon);
          t2.setTranslation(translation);
          assertFalse(t1.epsilonEquals(t2, epsilon));
       }

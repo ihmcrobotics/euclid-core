@@ -2037,7 +2037,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
          }
          else if (column < 4)
          {
-            return translationVector.get(row);
+            return translationVector.getElement(row);
          }
          else
          {

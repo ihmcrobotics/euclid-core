@@ -1443,7 +1443,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 3; index++)
       {
-         if (!Double.isNaN(tupleToAssert.get(index)))
+         if (!Double.isNaN(tupleToAssert.getElement(index)))
          {
             String errorMessage = "The tuple does not contain only NaN:\n" + getTuple3DString(DEFAULT_FORMAT, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
@@ -1493,7 +1493,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 3; index++)
       {
-         if (tupleToAssert.get(index) != 0.0)
+         if (tupleToAssert.getElement(index) != 0.0)
          {
             String errorMessage = "The tuple has not been set to zero:\n " + getTuple3DString(format, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));

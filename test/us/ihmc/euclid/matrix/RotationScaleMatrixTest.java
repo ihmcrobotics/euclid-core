@@ -61,7 +61,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          rotationMatrix.get(rotationDenseMatrix);
          DenseMatrix64F scaleDenseMatrix = new DenseMatrix64F(3, 3);
          for (int index = 0; index < 3; index++)
-            scaleDenseMatrix.set(index, index, scale.get(index));
+            scaleDenseMatrix.set(index, index, scale.getElement(index));
          DenseMatrix64F rotationScaleDenseMatrix = new DenseMatrix64F(3, 3);
          CommonOps.mult(rotationDenseMatrix, scaleDenseMatrix, rotationScaleDenseMatrix);
          Matrix3D expectedRotationScaleMatrix = new Matrix3D();
@@ -170,7 +170,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -190,7 +190,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -231,7 +231,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               expectedDenseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               expectedDenseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -252,7 +252,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               expectedDenseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               expectedDenseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -291,7 +291,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -311,7 +311,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -348,7 +348,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -367,7 +367,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -807,7 +807,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -828,7 +828,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -871,7 +871,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               expectedDenseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               expectedDenseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -893,7 +893,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               expectedDenseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               expectedDenseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -934,7 +934,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -955,7 +955,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -994,7 +994,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -1014,7 +1014,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -1053,7 +1053,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 
@@ -1073,7 +1073,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          {
             for (int column = 0; column < 3; column++)
             {
-               denseMatrix.set(row, column, scale.get(column) * rotationMatrix.getElement(row, column));
+               denseMatrix.set(row, column, scale.getElement(column) * rotationMatrix.getElement(row, column));
             }
          }
 

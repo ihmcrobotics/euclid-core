@@ -1667,7 +1667,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
          }
          else if (column < 4)
          {
-            return translationVector.get(row);
+            return translationVector.getElement(row);
          }
          else
          {
