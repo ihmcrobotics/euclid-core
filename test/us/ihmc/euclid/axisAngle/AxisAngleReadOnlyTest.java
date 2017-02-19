@@ -489,10 +489,10 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          assertTrue(axisAngle.getZ() == axisAngle.getElement(2));
          assertTrue(axisAngle.getAngle() == axisAngle.getElement(3));
 
-         assertTrue(axisAngle.getX32() == axisAngle.get32(0));
-         assertTrue(axisAngle.getY32() == axisAngle.get32(1));
-         assertTrue(axisAngle.getZ32() == axisAngle.get32(2));
-         assertTrue(axisAngle.getAngle32() == axisAngle.get32(3));
+         assertTrue(axisAngle.getX32() == axisAngle.getElement32(0));
+         assertTrue(axisAngle.getY32() == axisAngle.getElement32(1));
+         assertTrue(axisAngle.getZ32() == axisAngle.getElement32(2));
+         assertTrue(axisAngle.getAngle32() == axisAngle.getElement32(3));
       }
    }
 
