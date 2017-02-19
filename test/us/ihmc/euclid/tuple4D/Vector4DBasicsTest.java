@@ -125,7 +125,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
       { // Test set(int index, double value)
          try
          {
-            vector.set(-1, random.nextDouble());
+            vector.setElement(-1, random.nextDouble());
             fail("Should have thrown a IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -139,7 +139,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
 
          try
          {
-            vector.set(4, random.nextDouble());
+            vector.setElement(4, random.nextDouble());
             fail("Should have thrown a IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -155,10 +155,10 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
          double y = random.nextDouble();
          double z = random.nextDouble();
          double s = random.nextDouble();
-         vector.set(0, x);
-         vector.set(1, y);
-         vector.set(2, z);
-         vector.set(3, s);
+         vector.setElement(0, x);
+         vector.setElement(1, y);
+         vector.setElement(2, z);
+         vector.setElement(3, s);
 
          assertEquals(vector.getX(), x, getEpsilon());
          assertEquals(vector.getY(), y, getEpsilon());

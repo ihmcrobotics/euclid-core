@@ -101,7 +101,7 @@ public class Vector4DTest extends Vector4DBasicsTest<Vector4D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         vector.set(i % 4, random.nextDouble());
+         vector.setElement(i % 4, random.nextDouble());
          newHashCode = vector.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;

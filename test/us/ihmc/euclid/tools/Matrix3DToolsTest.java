@@ -1016,7 +1016,7 @@ public class Matrix3DToolsTest
 
          CommonOps.mult(denseMatrix, denseVectorOriginal, denseVectorTransformed);
          for (int index = 0; index < 3; index++)
-            vectorExpected.set(index, denseVectorTransformed.get(index));
+            vectorExpected.setElement(index, denseVectorTransformed.get(index));
          vectorExpected.setS(vectorOriginal.getS());
 
          Matrix3DTools.transform(matrix, vectorOriginal, vectorActual);

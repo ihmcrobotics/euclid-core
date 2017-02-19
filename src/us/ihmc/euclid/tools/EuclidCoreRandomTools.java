@@ -821,7 +821,7 @@ public abstract class EuclidCoreRandomTools
    {
       Vector4D vector = new Vector4D();
       for (int i = 0; i < 4; i++)
-         vector.set(i, generateRandomDouble(random));
+         vector.setElement(i, generateRandomDouble(random));
       return vector;
    }
 
@@ -902,7 +902,7 @@ public abstract class EuclidCoreRandomTools
    {
       Vector4D32 vector = new Vector4D32();
       for (int i = 0; i < 4; i++)
-         vector.set(i, generateRandomDouble(random));
+         vector.setElement(i, generateRandomDouble(random));
       return vector;
    }
 
