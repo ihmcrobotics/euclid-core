@@ -1,8 +1,6 @@
 package us.ihmc.euclid.transform;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -621,6 +619,45 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       actual.invertRotation();
 
       EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+   }
+
+   @Test
+   public void testInterpolate() throws Exception
+   {
+      Random random = new Random(23542342L);
+
+      QuaternionBasedTransform actual = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+      QuaternionBasedTransform expected = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+      QuaternionBasedTransform q0 = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+      QuaternionBasedTransform qf = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+      actual.interpolate(q0, qf, 0.0);
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(q0, actual, EPS);
+      actual.interpolate(qf, 0.0);
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(q0, actual, EPS);
+      actual.interpolate(qf, 1.0);
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(qf, actual, EPS);
+      
+      actual.interpolate(q0, qf, 1.0);
+      EuclidCoreTestTools.assertQuaternionBasedTransformEquals(qf, actual, EPS);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double alpha = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         Vector3D interpolatedVector = new Vector3D();
+         Quaternion interpolatedRotation = new Quaternion();
+         
+         interpolatedVector.interpolate(q0.getTranslationVector(), qf.getTranslationVector(), alpha);
+         interpolatedRotation.interpolate(q0.getQuaternion(), qf.getQuaternion(), alpha);
+         
+         expected.set(interpolatedRotation, interpolatedVector);
+         actual.interpolate(q0, qf, alpha);
+         EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+         
+         actual.set(q0);
+         actual.interpolate(qf, alpha);
+         EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+      }
    }
 
    @Test

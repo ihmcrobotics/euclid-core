@@ -744,6 +744,48 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
+    * Performs a linear interpolation from this transform to {@code other} given the percentage
+    * {@code alpha}.
+    * <p>
+    * The interpolation is done on the rotation part and translation part separately.
+    * </p>
+    * <p>
+    * this = (1.0 - alpha) * this + alpha * other
+    * </p>
+    *
+    * @param other the other transform used for the interpolation. Not modified.
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
+    *           modifying this transform, while a value of 1 is equivalent to setting this transform
+    *           to {@code other}.
+    */
+   public void interpolate(QuaternionBasedTransform other, double alpha)
+   {
+      interpolate(this, other, alpha);
+   }
+
+   /**
+    * Performs a linear interpolation from {@code firstTransform} to {@code secondTransform} given
+    * the percentage {@code alpha}.
+    * <p>
+    * The interpolation is done on the rotation part and translation part separately.
+    * </p>
+    * <p>
+    * this = (1.0 - alpha) * firstTransform + alpha * secondTransform
+    * </p>
+    *
+    * @param firstTransform the first transform used in the interpolation. Not modified.
+    * @param secondTransform the second transform used in the interpolation. Not modified.
+    * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
+    *           this transform to {@code tuple1}, while a value of 1 is equivalent to setting this
+    *           transform to {@code tuple2}.
+    */
+   public void interpolate(QuaternionBasedTransform firstTransform, QuaternionBasedTransform secondTransform, double alpha)
+   {
+      quaternion.interpolate(firstTransform.getQuaternion(), secondTransform.getQuaternion(), alpha);
+      translationVector.interpolate(firstTransform.getTranslationVector(), secondTransform.getTranslationVector(), alpha);
+   }
+
+   /**
     * Performs the multiplication of this transform with {@code other}.
     * <p>
     * this = this * other
@@ -863,7 +905,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
+    * over the next couple days.
     */
    @Override
    public void transform(RigidBodyTransform original, RigidBodyTransform transformed)
@@ -872,7 +915,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
+    * over the next couple days.
     */
    @Override
    public void transform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
@@ -881,7 +925,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
+    * over the next couple days.
     */
    @Override
    public void transform(AffineTransform original, AffineTransform transformed)
@@ -954,7 +999,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
+    * over the next couple days.
     */
    @Override
    public void inverseTransform(RigidBodyTransform original, RigidBodyTransform transformed)
@@ -963,7 +1009,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
+    * over the next couple days.
     */
    @Override
    public void inverseTransform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
@@ -972,7 +1019,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
+    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release
+    * over the next couple days.
     */
    @Override
    public void inverseTransform(AffineTransform original, AffineTransform transformed)
