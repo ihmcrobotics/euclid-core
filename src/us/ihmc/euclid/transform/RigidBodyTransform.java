@@ -1756,6 +1756,63 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.preMultiplyTransposeOther(affineTransform.getRotationMatrix());
    }
 
+   /**
+    * Prepend a rotation about the z-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \ 
+    * R = | sin(yaw)  cos(yaw) 0 | * R
+    *     \    0         0     1 / 
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void prependYawRotation(double yaw)
+   {
+      rotationMatrix.prependYawRotation(yaw);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *     /  cos(pitch) 0 sin(pitch) \ 
+    * R = |      0      1     0      | * R
+    *     \ -sin(pitch) 0 cos(pitch) / 
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void prependPitchRotation(double pitch)
+   {
+      rotationMatrix.prependPitchRotation(pitch);
+   }
+
+   /**
+    * Prepend a rotation about the x-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *     /  cos(pitch) 0 sin(pitch) \ 
+    * R = |      0      1     0      | * R
+    *     \ -sin(pitch) 0 cos(pitch) / 
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the x-axis.
+    */
+   public void prependRollRotation(double roll)
+   {
+      rotationMatrix.prependRollRotation(roll);
+   }
+
    /** {@inheritDoc} */
    @Override
    public void transform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)

@@ -786,6 +786,57 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    }
 
    @Test
+   public void testPrependYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      RigidBodyTransform expected = new RigidBodyTransform();
+      RigidBodyTransform actual = new RigidBodyTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependYawRotation(double yaw)
+         RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependYawRotation(yaw);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependYawRotation(yaw);
+
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependPitchRotation(double pitch)
+         RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependPitchRotation(pitch);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependPitchRotation(pitch);
+
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependRollRotation(double roll)
+         RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependRollRotation(roll);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependRollRotation(roll);
+
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testSetRotationYawPitchRoll() throws Exception
    {
       Random random = new Random(234L);
@@ -1291,6 +1342,26 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          Vector3DBasics rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
          rotationMatrix.set(rotationVector);
+         for (int row = 0; row < 3; row++)
+            for (int column = 0; column < 3; column++)
+               assertEquals(rotationMatrix.getElement(row, column), transform.getElement(row, column), EPS);
+      }
+
+      { // Test getRotationYawPitchRoll(double[] yawPitchRollToPack)
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         double[] yawPitchRoll = new double[3];
+         transform.getRotationYawPitchRoll(yawPitchRoll);
+         rotationMatrix.setYawPitchRoll(yawPitchRoll);
+         for (int row = 0; row < 3; row++)
+            for (int column = 0; column < 3; column++)
+               assertEquals(rotationMatrix.getElement(row, column), transform.getElement(row, column), EPS);
+      }
+
+      { // Test getRotationEuler(Vector3DBasics eulerAngles)
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         Vector3DBasics eulerAngles = new Vector3D();
+         transform.getRotationEuler(eulerAngles);
+         rotationMatrix.setEuler(eulerAngles);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertEquals(rotationMatrix.getElement(row, column), transform.getElement(row, column), EPS);

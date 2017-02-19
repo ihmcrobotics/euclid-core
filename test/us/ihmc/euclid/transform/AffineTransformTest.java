@@ -1,6 +1,9 @@
 package us.ihmc.euclid.transform;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
@@ -19,8 +22,6 @@ import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
-import us.ihmc.euclid.transform.AffineTransform;
-import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple2D.Point2D;
 import us.ihmc.euclid.tuple2D.Vector2D;
 import us.ihmc.euclid.tuple3D.Point3D;
@@ -869,6 +870,108 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          transform.setTranslation(expectedTranslation);
          EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
          EuclidCoreTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
+      }
+   }
+
+   @Test
+   public void testAppendYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      AffineTransform expected = new AffineTransform();
+      AffineTransform actual = new AffineTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendYawRotation(double yaw)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendYawRotation(yaw);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendYawRotation(yaw);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendPitchRotation(double pitch)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendPitchRotation(pitch);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendPitchRotation(pitch);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendRollRotation(double roll)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendRollRotation(roll);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendRollRotation(roll);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPrependYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      AffineTransform expected = new AffineTransform();
+      AffineTransform actual = new AffineTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependYawRotation(double yaw)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependYawRotation(yaw);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependYawRotation(yaw);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependPitchRotation(double pitch)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependPitchRotation(pitch);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependPitchRotation(pitch);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependRollRotation(double roll)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependRollRotation(roll);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependRollRotation(roll);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
       }
    }
 
@@ -1830,6 +1933,26 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          Vector3D rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
          rotationMatrix.set(rotationVector);
+         for (int row = 0; row < 3; row++)
+            for (int column = 0; column < 3; column++)
+               assertEquals(rotationMatrix.getElement(row, column), transform.getRotationMatrix().getElement(row, column), EPS);
+      }
+
+      { // Test getRotationEuler(Tuple3DBasics eulerAnglesToPack)
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         Vector3D eulerAngles = new Vector3D();
+         transform.getRotationEuler(eulerAngles);
+         rotationMatrix.setEuler(eulerAngles);
+         for (int row = 0; row < 3; row++)
+            for (int column = 0; column < 3; column++)
+               assertEquals(rotationMatrix.getElement(row, column), transform.getRotationMatrix().getElement(row, column), EPS);
+      }
+
+      { // Test getRotationYawPitchRoll(double[] yawPitchRollToPack)
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         double[] yawPitchRoll = new double[3];
+         transform.getRotationYawPitchRoll(yawPitchRoll);
+         rotationMatrix.setYawPitchRoll(yawPitchRoll);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertEquals(rotationMatrix.getElement(row, column), transform.getRotationMatrix().getElement(row, column), EPS);

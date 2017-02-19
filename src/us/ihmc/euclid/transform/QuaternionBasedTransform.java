@@ -942,6 +942,57 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
+    * Append a rotation about the z-axis to the rotation part 'q' of this transform.
+    * 
+    * <pre>
+    *         / qx =     0      \
+    * q = q * | qy =     0      |
+    *         | qz = sin(yaw/2) |
+    *         \ qs = cos(yaw/2) /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void appendYawRotation(double yaw)
+   {
+      quaternion.appendYawRotation(yaw);
+   }
+
+   /**
+    * Append a rotation about the y-axis to the rotation part 'q' of this transform.
+    * 
+    * <pre>
+    *         / qx =      0       \
+    * q = q * | qy = sin(pitch/2) |
+    *         | qz =      0       |
+    *         \ qs = cos(pitch/2) /
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void appendPitchRotation(double pitch)
+   {
+      quaternion.appendPitchRotation(pitch);
+   }
+
+   /**
+    * Append a rotation about the x-axis to the rotation part 'q' of this transform.
+    * 
+    * <pre>
+    *         / qx = sin(roll/2) \
+    * q = q * | qy =      0      |
+    *         | qz =      0      |
+    *         \ qs = cos(roll/2) /
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public void appendRollRotation(double roll)
+   {
+      quaternion.appendRollRotation(roll);
+   }
+
+   /**
     * Performs the multiplication of {@code other} with this transform.
     * <p>
     * this = other * this
@@ -1102,6 +1153,57 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       translationVector.sub(affineTransform.getTranslationVector());
       affineTransform.getRotationMatrix().inverseTransform(translationVector);
       quaternion.preMultiplyTransposeMatrix(affineTransform.getRotationMatrix());
+   }
+
+   /**
+    * Prepend a rotation about the z-axis to the rotation part 'q' of this transform.
+    * 
+    * <pre>
+    *     / qx =     0      \ 
+    * q = | qy =     0      | * q
+    *     | qz = sin(yaw/2) | 
+    *     \ qs = cos(yaw/2) / 
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void prependYawRotation(double yaw)
+   {
+      quaternion.prependYawRotation(yaw);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to the rotation part 'q' of this transform.
+    * 
+    * <pre>
+    *     / qx =      0       \ 
+    * q = | qy = sin(pitch/2) | * q
+    *     | qz =      0       | 
+    *     \ qs = cos(pitch/2) / 
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void prependPitchRotation(double pitch)
+   {
+      quaternion.prependPitchRotation(pitch);
+   }
+
+   /**
+    * Prepend a rotation about the x-axis to the rotation part 'q' of this transform.
+    * 
+    * <pre>
+    *     / qx = sin(roll/2) \ 
+    * q = | qy =      0      | * q
+    *     | qz =      0      | 
+    *     \ qs = cos(roll/2) / 
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public void prependRollRotation(double roll)
+   {
+      quaternion.prependRollRotation(roll);
    }
 
    /** {@inheritDoc} */
@@ -1427,6 +1529,36 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    public void getRotation(Vector3DBasics rotationVectorToPack)
    {
       quaternion.get(rotationVectorToPack);
+   }
+
+   /**
+    * Computes and packs the orientation described by the rotation part of this transform as the
+    * yaw-pitch-roll angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    */
+   public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
+   {
+      quaternion.getYawPitchRoll(yawPitchRollToPack);
+   }
+
+   /**
+    * Computes and packs the orientation described by the rotation part of this transform as the
+    * Euler angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
+    */
+   public void getRotationEuler(Vector3DBasics eulerAngles)
+   {
+      quaternion.getEuler(eulerAngles);
    }
 
    /**

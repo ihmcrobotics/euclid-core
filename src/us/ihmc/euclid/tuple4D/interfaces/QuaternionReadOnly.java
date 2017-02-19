@@ -157,6 +157,20 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    }
 
    /**
+    * Computes and packs the orientation described by this quaternion as the Euler angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
+    */
+   default void getEuler(Vector3DBasics eulerAnglesToPack)
+   {
+      YawPitchRollConversion.convertQuaternionToYawPitchRoll(this, eulerAnglesToPack);
+   }
+
+   /**
     * Computes and returns the yaw angle from the yaw-pitch-roll representation of this quaternion.
     * <p>
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is

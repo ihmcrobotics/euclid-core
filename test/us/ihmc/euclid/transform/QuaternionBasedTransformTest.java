@@ -1,6 +1,8 @@
 package us.ihmc.euclid.transform;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
@@ -13,8 +15,6 @@ import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
-import us.ihmc.euclid.transform.QuaternionBasedTransform;
-import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple2D.Point2D;
 import us.ihmc.euclid.tuple2D.Vector2D;
 import us.ihmc.euclid.tuple3D.Point3D;
@@ -566,10 +566,24 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
       }
 
-      { // Test getRotation(AxisAngleBasics axisAngleToPack)
+      { // Test getRotation(Vector3DBasics rotationVectorToPack)
          Vector3D rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
          actualQuaternion.set(rotationVector);
+         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
+      }
+
+      { // Test getRotationYawPitchRoll(double[] yawPitchRollToPack)
+         double[] yawPitchRoll = new double[3];
+         transform.getRotationYawPitchRoll(yawPitchRoll);
+         actualQuaternion.setYawPitchRoll(yawPitchRoll);
+         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
+      }
+
+      { // Test getRotation(Vector3DBasics rotationVectorToPack)
+         Vector3D eulerAngles = new Vector3D();
+         transform.getRotationEuler(eulerAngles);
+         actualQuaternion.setEuler(eulerAngles);
          EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
       }
    }
@@ -657,6 +671,108 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(q0);
          actual.interpolate(qf, alpha);
          EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testAppendYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      QuaternionBasedTransform expected = new QuaternionBasedTransform();
+      QuaternionBasedTransform actual = new QuaternionBasedTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendYawRotation(double yaw)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendYawRotation(yaw);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendYawRotation(yaw);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendPitchRotation(double pitch)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendPitchRotation(pitch);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendPitchRotation(pitch);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendRollRotation(double roll)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.appendRollRotation(roll);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.appendRollRotation(roll);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPrependYawPitchRoll() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      QuaternionBasedTransform expected = new QuaternionBasedTransform();
+      QuaternionBasedTransform actual = new QuaternionBasedTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependYawRotation(double yaw)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependYawRotation(yaw);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependYawRotation(yaw);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependPitchRotation(double pitch)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependPitchRotation(pitch);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependPitchRotation(pitch);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependRollRotation(double roll)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         expectedRotation.prependRollRotation(roll);
+         expected.set(expectedRotation, original.getTranslationVector());
+
+         actual.set(original);
+         actual.prependRollRotation(roll);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
       }
    }
 

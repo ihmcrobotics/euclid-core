@@ -32,6 +32,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple4D.Quaternion;
 import us.ihmc.euclid.tuple4D.Vector4D;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
@@ -218,6 +219,14 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
             for (int j = 0; j < yawPitchRoll.length; j++)
                Assert.assertEquals(yawPitchRoll[j], expectedYawPitchRoll[j], getEpsilon());
+         }
+
+         { // Test getEuler(Vector3DBasics eulerAnglesToPack)
+            Vector3DBasics eulerAngles = new Vector3D();
+            quaternion.getEuler(eulerAngles);
+            Vector3DBasics expectedEulerAngles = new Vector3D();
+            YawPitchRollConversion.convertQuaternionToYawPitchRoll(quaternion, expectedEulerAngles);
+            EuclidCoreTestTools.assertTuple3DEquals(expectedEulerAngles, eulerAngles, getEpsilon());
          }
 
          { // Test getYaw()

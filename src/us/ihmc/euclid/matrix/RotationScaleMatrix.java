@@ -1176,6 +1176,63 @@ public class RotationScaleMatrix
    }
 
    /**
+    * Append a rotation about the z-axis to the rotation part of this rotation-scale matrix.
+    * 
+    * <pre>
+    *         / cos(yaw) -sin(yaw) 0 \
+    * R = R * | sin(yaw)  cos(yaw) 0 |
+    *         \    0         0     1 /
+    * </pre>
+    * <p>
+    * This method does not affect the scale part of this rotation-scale matrix.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void appendYawRotation(double yaw)
+   {
+      rotationMatrix.appendYawRotation(yaw);
+   }
+
+   /**
+    * Append a rotation about the y-axis to the rotation part of this rotation-scale matrix.
+    * 
+    * <pre>
+    *         /  cos(pitch) 0 sin(pitch) \
+    * R = R * |      0      1     0      |
+    *         \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    * <p>
+    * This method does not affect the scale part of this rotation-scale matrix.
+    * </p>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void appendPitchRotation(double pitch)
+   {
+      rotationMatrix.appendPitchRotation(pitch);
+   }
+
+   /**
+    * Append a rotation about the x-axis to the rotation part of this rotation-scale matrix.
+    * 
+    * <pre>
+    *         /  cos(pitch) 0 sin(pitch) \
+    * R = R * |      0      1     0      |
+    *         \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    * <p>
+    * This method does not affect the scale part of this rotation-scale matrix.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the x-axis.
+    */
+   public void appendRollRotation(double roll)
+   {
+      rotationMatrix.appendRollRotation(roll);
+   }
+
+   /**
     * Performs a matrix multiplication on this.
     * <p>
     * this = other * this
@@ -1261,6 +1318,63 @@ public class RotationScaleMatrix
    public void preMultiplyConjugateQuaternion(QuaternionReadOnly quaternion)
    {
       rotationMatrix.preMultiplyConjugateQuaternion(quaternion);
+   }
+
+   /**
+    * Prepend a rotation about the z-axis to the rotation part of this rotation-scale matrix.
+    * 
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \ 
+    * R = | sin(yaw)  cos(yaw) 0 | * R
+    *     \    0         0     1 / 
+    * </pre>
+    * <p>
+    * This method does not affect the scale part of this rotation-scale matrix.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void prependYawRotation(double yaw)
+   {
+      rotationMatrix.prependYawRotation(yaw);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to the rotation part of this rotation-scale matrix.
+    * 
+    * <pre>
+    *     /  cos(pitch) 0 sin(pitch) \ 
+    * R = |      0      1     0      | * R
+    *     \ -sin(pitch) 0 cos(pitch) / 
+    * </pre>
+    * <p>
+    * This method does not affect the scale part of this rotation-scale matrix.
+    * </p>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void prependPitchRotation(double pitch)
+   {
+      rotationMatrix.prependPitchRotation(pitch);
+   }
+
+   /**
+    * Prepend a rotation about the x-axis to the rotation part of this rotation-scale matrix.
+    * 
+    * <pre>
+    *     /  cos(pitch) 0 sin(pitch) \ 
+    * R = |      0      1     0      | * R
+    *     \ -sin(pitch) 0 cos(pitch) / 
+    * </pre>
+    * <p>
+    * This method does not affect the scale part of this rotation-scale matrix.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the x-axis.
+    */
+   public void prependRollRotation(double roll)
+   {
+      rotationMatrix.prependRollRotation(roll);
    }
 
    /**
