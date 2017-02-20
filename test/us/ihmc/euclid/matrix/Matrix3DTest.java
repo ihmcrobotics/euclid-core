@@ -1,10 +1,6 @@
 package us.ihmc.euclid.matrix;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -701,6 +697,35 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          {
             assertEquals(matrix.getElement(row, column), matrixTranspose.getElement(column, row), EPS);
          }
+      }
+   }
+
+   @Test
+   public void testNegate() throws Exception
+   {
+      Random random = new Random(234234L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         Matrix3D m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D m2 = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+
+         m2.set(m1);
+         m2.negate();
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               assertEquals(-m1.getElement(row, column), m2.getElement(row, column), EPS);
+            }
+         }
+
+         m2.setToNaN();
+         EuclidCoreTestTools.assertMatrix3DContainsOnlyNaN(m2);
+         m2.setAndNegate(m1);
+         m1.negate();
+         EuclidCoreTestTools.assertMatrix3DEquals(m1, m2, EPS);
       }
    }
 

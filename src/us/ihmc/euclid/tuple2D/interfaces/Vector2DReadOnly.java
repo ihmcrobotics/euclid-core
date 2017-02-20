@@ -79,38 +79,19 @@ public interface Vector2DReadOnly extends Tuple2DReadOnly
     * <p>
     * The computed angle is in the range [-<i>pi</i>; <i>pi</i>].
     * </p>
-    * <p>
-    * Edge cases:
-    * <ul>
-    * <li>if the length of either vector is below {@code 1.0E-7}, this method fails and returns an
-    * angle of {@code 0.0} radian.
-    * </ul>
-    * </p>
     *
     * @param other the other vector used to compute the angle. Not modified.
     * @return the value of the angle from this vector to {@code other}.
     */
    default double angle(Vector2DReadOnly other)
    {
-      double firstVectorX = getX();
-      double firstVectorY = getY();
       double firstVectorLength = length();
+      double firstVectorX = getX() / firstVectorLength;
+      double firstVectorY = getY() / firstVectorLength;
 
-      if (firstVectorLength < 1e-7)
-         return 0.0;
-
-      firstVectorX /= firstVectorLength;
-      firstVectorY /= firstVectorLength;
-
-      double secondVectorX = other.getX();
-      double secondVectorY = other.getY();
       double secondVectorLength = other.length();
-
-      if (secondVectorLength < 1e-7)
-         return 0.0;
-
-      secondVectorX /= secondVectorLength;
-      secondVectorY /= secondVectorLength;
+      double secondVectorX = other.getX() / secondVectorLength;
+      double secondVectorY = other.getY() / secondVectorLength;
 
       // The sign of the angle comes from the cross product
       double crossProduct = firstVectorX * secondVectorY - firstVectorY * secondVectorX;
