@@ -236,6 +236,17 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    }
 
    /**
+    * Sets this matrix to {@code other} and then calls {@link #negate()}.
+    * 
+    * @param other the other matrix used to update this matrix. Not modified.
+    */
+   public void setAndNegate(Matrix3DReadOnly other)
+   {
+      set(other);
+      negate();
+   }
+
+   /**
     * Sets this matrix to represent to represent a counter clockwise rotation around the z-axis of
     * an angle {@code yaw}.
     *
@@ -561,6 +572,24 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    public void normalize()
    {
       Matrix3DTools.normalize(this);
+   }
+
+   /**
+    * Negates each component of this matrix.
+    */
+   public void negate()
+   {
+      m00 = -m00;
+      m01 = -m01;
+      m02 = -m02;
+
+      m10 = -m10;
+      m11 = -m11;
+      m12 = -m12;
+
+      m20 = -m20;
+      m21 = -m21;
+      m22 = -m22;
    }
 
    /**

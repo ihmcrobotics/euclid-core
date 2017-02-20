@@ -79,31 +79,19 @@ public interface Vector3DReadOnly extends Tuple3DReadOnly
     * <p>
     * The computed angle is in the range [0; <i>pi</i>].
     * </p>
-    * <p>
-    * Edge cases:
-    * <ul>
-    * <li>if the length of either vector is below {@code 1.0E-7}, this method fails and returns an
-    * angle of {@code 0.0} radian.
-    * </ul>
-    * </p>
     *
     * @param other the other vector used to compute the angle. Not modified.
     * @return the value of the angle from this vector to {@code other}.
     */
    default double angle(Vector3DReadOnly other)
    {
-      double thisLength = length();
+      double normalizedDot = dot(other) / (length() * other.length());
 
-      if (thisLength < 1.0e-7)
-         return 0.0;
+      if (normalizedDot < -1.0)
+         normalizedDot = -1.0;
+      else if (normalizedDot > 1.0)
+         normalizedDot = 1.0;
 
-      double otherLength = other.length();
-
-      if (otherLength < 1.0e-7)
-         return 0.0;
-
-      double normalizedDot = dot(other) / (thisLength * otherLength);
-
-      return Math.acos(Math.min(1.0, Math.max(-1.0, normalizedDot)));
+      return Math.acos(normalizedDot);
    }
 }
