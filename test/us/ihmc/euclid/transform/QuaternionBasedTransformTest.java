@@ -19,6 +19,7 @@ import us.ihmc.euclid.tuple2D.Point2D;
 import us.ihmc.euclid.tuple2D.Vector2D;
 import us.ihmc.euclid.tuple3D.Point3D;
 import us.ihmc.euclid.tuple3D.Vector3D;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.Quaternion;
 import us.ihmc.euclid.tuple4D.Vector4D;
@@ -675,10 +676,51 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
    }
 
    @Test
+   public void testAppendTranslation() throws Exception
+   {
+      Random random = new Random(35454L);
+
+      QuaternionBasedTransform expected = new QuaternionBasedTransform();
+      QuaternionBasedTransform actual = new QuaternionBasedTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendTranslation(double x, double y, double z)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform translationTransform = new QuaternionBasedTransform();
+         double x = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double z = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double y = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         translationTransform.setTranslation(x, y, z);
+         expected.set(original);
+         expected.multiply(translationTransform);
+
+         actual.set(original);
+         actual.appendTranslation(x, y, z);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendTranslation(Tuple3DReadOnly translation)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform translationTransform = new QuaternionBasedTransform();
+         Tuple3DReadOnly translation = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0, 10.0, 10.0);
+         translationTransform.setTranslation(translation);
+         expected.set(original);
+         expected.multiply(translationTransform);
+
+         actual.set(original);
+         actual.appendTranslation(translation);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       QuaternionBasedTransform expected = new QuaternionBasedTransform();
       QuaternionBasedTransform actual = new QuaternionBasedTransform();
 
@@ -726,10 +768,51 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
    }
 
    @Test
+   public void testPrependTranslation() throws Exception
+   {
+      Random random = new Random(35454L);
+
+      QuaternionBasedTransform expected = new QuaternionBasedTransform();
+      QuaternionBasedTransform actual = new QuaternionBasedTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependTranslation(double x, double y, double z)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform translationTransform = new QuaternionBasedTransform();
+         double x = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double z = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double y = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         translationTransform.setTranslation(x, y, z);
+         expected.set(original);
+         expected.preMultiply(translationTransform);
+
+         actual.set(original);
+         actual.prependTranslation(x, y, z);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependTranslation(Tuple3DReadOnly translation)
+         QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform translationTransform = new QuaternionBasedTransform();
+         Tuple3DReadOnly translation = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0, 10.0, 10.0);
+         translationTransform.setTranslation(translation);
+         expected.set(original);
+         expected.preMultiply(translationTransform);
+
+         actual.set(original);
+         actual.prependTranslation(translation);
+
+         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testPrependYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       QuaternionBasedTransform expected = new QuaternionBasedTransform();
       QuaternionBasedTransform actual = new QuaternionBasedTransform();
 
@@ -1520,7 +1603,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       actual.set(original);
       transform.transform(actual);
       EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
-      
+
       RigidBodyTransform inverse = new RigidBodyTransform(transform);
       inverse.invert();
 

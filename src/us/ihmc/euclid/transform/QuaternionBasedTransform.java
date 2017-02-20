@@ -942,6 +942,54 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
+    * Append a translation transform to this transform.
+    * 
+    * <pre>
+    *               / 1 0 0 translation.x \
+    * this = this * | 0 1 0 translation.y |
+    *               | 0 0 1 translation.z |
+    *               \ 0 0 0      1        /
+    * </pre>
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param translation the translation to append to this transform. Not modified.
+    */
+   public void appendTranslation(Tuple3DReadOnly translation)
+   {
+      QuaternionTools.addTransform(quaternion, translation, translationVector);
+   }
+
+   /**
+    * Append a translation transform to this transform.
+    * 
+    * <pre>
+    *               / 1 0 0 x \
+    * this = this * | 0 1 0 y |
+    *               | 0 0 1 z |
+    *               \ 0 0 0 1 /
+    * </pre>
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param x the translation along the x-axis to apply.
+    * @param y the translation along the y-axis to apply.
+    * @param z the translation along the z-axis to apply.
+    */
+   public void appendTranslation(double x, double y, double z)
+   {
+      double thisX = translationVector.getX();
+      double thisY = translationVector.getY();
+      double thisZ = translationVector.getZ();
+
+      translationVector.set(x, y, z);
+      quaternion.transform(translationVector);
+      translationVector.add(thisX, thisY, thisZ);
+   }
+
+   /**
     * Append a rotation about the z-axis to the rotation part 'q' of this transform.
     * 
     * <pre>
@@ -1153,6 +1201,48 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       translationVector.sub(affineTransform.getTranslationVector());
       affineTransform.getRotationMatrix().inverseTransform(translationVector);
       quaternion.preMultiplyTransposeMatrix(affineTransform.getRotationMatrix());
+   }
+
+   /**
+    * Prepend a translation transform to this transform.
+    * 
+    * <pre>
+    *        / 1 0 0 translation.x \ 
+    * this = | 0 1 0 translation.y | * this
+    *        | 0 0 1 translation.z | 
+    *        \ 0 0 0      1        / 
+    * </pre>
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param translation the translation to prepend to this transform. Not modified.
+    */
+   public void prependTranslation(Tuple3DReadOnly translation)
+   {
+      translationVector.add(translation);
+   }
+
+   /**
+    * Prepend a translation transform to this transform.
+    * 
+    * <pre>
+    *        / 1 0 0 x \ 
+    * this = | 0 1 0 y | * this
+    *        | 0 0 1 z | 
+    *        \ 0 0 0 1 / 
+    * </pre>
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param x the translation along the x-axis to apply.
+    * @param y the translation along the y-axis to apply.
+    * @param z the translation along the z-axis to apply.
+    */
+   public void prependTranslation(double x, double y, double z)
+   {
+      translationVector.add(x, y, z);
    }
 
    /**

@@ -26,6 +26,7 @@ import us.ihmc.euclid.tuple2D.Point2D;
 import us.ihmc.euclid.tuple2D.Vector2D;
 import us.ihmc.euclid.tuple3D.Point3D;
 import us.ihmc.euclid.tuple3D.Vector3D;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple4D.Quaternion;
 import us.ihmc.euclid.tuple4D.Vector4D;
@@ -828,6 +829,47 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    }
 
    @Test
+   public void testAppendTranslation() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      RigidBodyTransform expected = new RigidBodyTransform();
+      RigidBodyTransform actual = new RigidBodyTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendTranslation(double x, double y, double z)
+         RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform translationTransform = new RigidBodyTransform();
+         double x = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double z = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double y = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         translationTransform.setTranslation(x, y, z);
+         expected.set(original);
+         expected.multiply(translationTransform);
+
+         actual.set(original);
+         actual.appendTranslation(x, y, z);
+
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendTranslation(Tuple3DReadOnly translation)
+         RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform translationTransform = new RigidBodyTransform();
+         Tuple3DReadOnly translation = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0, 10.0, 10.0);
+         translationTransform.setTranslation(translation);
+         expected.set(original);
+         expected.multiply(translationTransform);
+
+         actual.set(original);
+         actual.appendTranslation(translation);
+
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
@@ -873,6 +915,47 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 
          actual.set(original);
          actual.appendRollRotation(roll);
+
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPrependTranslation() throws Exception
+   {
+      Random random = new Random(35454L);
+      
+      RigidBodyTransform expected = new RigidBodyTransform();
+      RigidBodyTransform actual = new RigidBodyTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependTranslation(double x, double y, double z)
+         RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform translationTransform = new RigidBodyTransform();
+         double x = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double z = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double y = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         translationTransform.setTranslation(x, y, z);
+         expected.set(original);
+         expected.preMultiply(translationTransform);
+
+         actual.set(original);
+         actual.prependTranslation(x, y, z);
+
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependTranslation(Tuple3DReadOnly translation)
+         RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform translationTransform = new RigidBodyTransform();
+         Tuple3DReadOnly translation = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0, 10.0, 10.0);
+         translationTransform.setTranslation(translation);
+         expected.set(original);
+         expected.preMultiply(translationTransform);
+
+         actual.set(original);
+         actual.prependTranslation(translation);
 
          EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
       }

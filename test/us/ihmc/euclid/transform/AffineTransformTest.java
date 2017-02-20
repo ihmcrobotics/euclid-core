@@ -883,6 +883,47 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
    }
 
    @Test
+   public void testAppendTranslation() throws Exception
+   {
+      Random random = new Random(35454L);
+
+      AffineTransform expected = new AffineTransform();
+      AffineTransform actual = new AffineTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendTranslation(double x, double y, double z)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform translationTransform = new AffineTransform();
+         double x = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double z = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double y = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         translationTransform.setTranslation(x, y, z);
+         expected.set(original);
+         expected.multiply(translationTransform);
+
+         actual.set(original);
+         actual.appendTranslation(x, y, z);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // appendTranslation(Tuple3DReadOnly translation)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform translationTransform = new AffineTransform();
+         Tuple3DReadOnly translation = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0, 10.0, 10.0);
+         translationTransform.setTranslation(translation);
+         expected.set(original);
+         expected.multiply(translationTransform);
+
+         actual.set(original);
+         actual.appendTranslation(translation);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
@@ -928,6 +969,47 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
 
          actual.set(original);
          actual.appendRollRotation(roll);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testPrependTranslation() throws Exception
+   {
+      Random random = new Random(35454L);
+
+      AffineTransform expected = new AffineTransform();
+      AffineTransform actual = new AffineTransform();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependTranslation(double x, double y, double z)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform translationTransform = new AffineTransform();
+         double x = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double z = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         double y = EuclidCoreRandomTools.generateRandomDouble(random, -10.0, 10.0);
+         translationTransform.setTranslation(x, y, z);
+         expected.set(original);
+         expected.preMultiply(translationTransform);
+
+         actual.set(original);
+         actual.prependTranslation(x, y, z);
+
+         EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // prependTranslation(Tuple3DReadOnly translation)
+         AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform translationTransform = new AffineTransform();
+         Tuple3DReadOnly translation = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0, 10.0, 10.0);
+         translationTransform.setTranslation(translation);
+         expected.set(original);
+         expected.preMultiply(translationTransform);
+
+         actual.set(original);
+         actual.prependTranslation(translation);
 
          EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
       }
