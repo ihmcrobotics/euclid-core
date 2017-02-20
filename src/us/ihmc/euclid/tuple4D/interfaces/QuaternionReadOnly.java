@@ -7,6 +7,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
+import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
@@ -636,5 +637,16 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
+   }
+
+   /**
+    * Provides a {@code String} representation of this quaternion converted to yaw-pitch-roll angles
+    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
+    *
+    * @return
+    */
+   default String toStringAsYawPitchRoll()
+   {
+      return EuclidCoreIOTools.getStringOf("yaw-pitch-roll: (", ")", ", ", getYaw(), getPitch(), getRoll());
    }
 }

@@ -235,17 +235,6 @@ public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObj
    }
 
    /**
-    * Provides a {@code String} representation of this quaternion converted to yaw-pitch-roll angles
-    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
-    *
-    * @return
-    */
-   public String toStringAsYawPitchRoll()
-   {
-      return "yaw-pitch-roll: (" + getYaw() + ", " + getPitch() + ", " + getRoll() + ")";
-   }
-
-   /**
     * Provides a {@code String} representation of this quaternion as follows: (x, y, z, s).
     *
     * @return the {@code String} representing this quaternion.
