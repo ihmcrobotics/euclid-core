@@ -18,6 +18,7 @@ import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
+import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
@@ -239,6 +240,54 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          EuclidCoreTestTools.assertRotationVectorEquals(vector, vectorCopy, EPS);
          EuclidCoreTestTools.assertRotationVectorEquals(vector2, vector2Copy, EPS);
          EuclidCoreTestTools.assertRotationVectorEquals(vector3, expectedVector3, EPS);
+      }
+   }
+
+   @Test
+   public void testSetToYawPitchRollMatrix()
+   {
+      Random random = new Random(35454L);
+      Matrix3D matrix = new Matrix3D();
+      RotationMatrix rotationMatrix = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+
+         { // Test setToPitchMatrix()
+            double pitch = random.nextDouble();
+
+            matrix.setToNaN();
+            rotationMatrix.setToNaN();
+
+            matrix.setToPitchMatrix(pitch);
+            RotationMatrixConversion.computePitchMatrix(pitch, rotationMatrix);
+            EuclidCoreTestTools.assertMatrix3DEquals(matrix, rotationMatrix, EPS);
+         }
+
+         { // Test setToRollMatrix()
+            double roll = random.nextDouble();
+
+            matrix.setToNaN();
+            rotationMatrix.setToNaN();
+
+            matrix.setToRollMatrix(roll);
+            RotationMatrixConversion.computeRollMatrix(roll, rotationMatrix);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(matrix, rotationMatrix, EPS);
+         }
+
+         { // Test setToYawMatrix()
+            double yaw = random.nextDouble();
+
+            matrix.setToNaN();
+            rotationMatrix.setToNaN();
+
+            matrix.setToYawMatrix(yaw);
+            RotationMatrixConversion.computeYawMatrix(yaw, rotationMatrix);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(matrix, rotationMatrix, EPS);
+         }
       }
    }
 
