@@ -1739,6 +1739,26 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          rotationMatrix.inverseTransform(original, actual);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
       }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // inverseTransform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
+         RotationScaleMatrix actual = new RotationScaleMatrix();
+         RotationScaleMatrix expected = new RotationScaleMatrix();
+         RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix originalRotation = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expectedRotation = new RotationMatrix();
+         Vector3D scales = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0);
+         RotationScaleMatrix original = new RotationScaleMatrix(originalRotation, scales);
+
+         matrix.inverseTransform(originalRotation, expectedRotation);
+         expected.set(expectedRotation, scales);
+
+         matrix.inverseTransform(original, actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+         actual.set(original);
+         matrix.inverseTransform(actual);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
    }
 
    @Test
