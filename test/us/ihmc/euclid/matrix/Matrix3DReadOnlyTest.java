@@ -416,13 +416,13 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       T matrix = createMatrix(0.0, 0.0, d, 0.0, 0.0, d, d, d, d);
       try
       {
-         matrix.checkIfRotationMatrix();
-         fail("Should have thrown a NotARotationMatrixException.");
+         matrix.checkIfMatrix2D();
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (NotARotationMatrixException e)
+      catch (NotAMatrix2DException e)
       {
          // good
-         assertTrue(e.getMessage().equals("The matrix is not a rotation matrix: \n" + matrix));
+         assertTrue(e.getMessage().equals("The matrix is not in XY plane: \n" + matrix));
       }
 
       matrix = createMatrix(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);

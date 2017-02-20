@@ -1,6 +1,9 @@
 package us.ihmc.euclid.transform;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -11,6 +14,7 @@ import org.ejml.ops.RandomMatrices;
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
+import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
@@ -18,8 +22,6 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
-import us.ihmc.euclid.transform.QuaternionBasedTransform;
-import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple2D.Point2D;
 import us.ihmc.euclid.tuple2D.Vector2D;
 import us.ihmc.euclid.tuple3D.Point3D;
@@ -443,6 +445,48 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
       }
 
+      { // Test set(float[] transformArray)
+         actual.setIdentity();
+         float[] transformArray = new float[16];
+         for (int row = 0; row < 4; row++)
+         {
+            for (int column = 0; column < 4; column++)
+            {
+               transformArray[4 * row + column] = (float) expected.getElement(row, column);
+            }
+         }
+         actual.set(transformArray);
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, 1.0e-7);
+      }
+
+      { // Test setAsTranspose(double[] transformArray)
+         actual.setIdentity();
+         double[] transformArray = new double[16];
+         for (int row = 0; row < 4; row++)
+         {
+            for (int column = 0; column < 4; column++)
+            {
+               transformArray[4 * row + column] = expected.getElement(column, row);
+            }
+         }
+         actual.setAsTranspose(transformArray);
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+
+      { // Test setAsTranspose(float[] transformArray)
+         actual.setIdentity();
+         float[] transformArray = new float[16];
+         for (int row = 0; row < 4; row++)
+         {
+            for (int column = 0; column < 4; column++)
+            {
+               transformArray[4 * row + column] = (float) expected.getElement(column, row);
+            }
+         }
+         actual.setAsTranspose(transformArray);
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, 1.0e-7);
+      }
+
       { // Test set(Matrix3DReadOnly rotationMatrix, TupleReadOnly translation)
          RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          Vector3D translation = EuclidCoreRandomTools.generateRandomVector3D(random);
@@ -607,6 +651,55 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       assertTrue(transform.containsNaN());
       transform.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.NaN);
       assertTrue(transform.containsNaN());
+   }
+
+   @Test
+   public void testIsMatrix2D() throws Exception
+   {
+      Random random = new Random(3242L);
+      // Let's just do a trivial test here. A more thorough test is done in Matrix3DFeaturesTest
+
+      RigidBodyTransform transform = new RigidBodyTransform();
+      double d = EuclidCoreRandomTools.generateRandomDouble(random, 5.0);
+      transform.setRotationUnsafe(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
+      transform.setTranslation(5.0, 3.0, -2.0);
+      assertTrue(transform.isRotation2D());
+
+      transform.setRotationUnsafe(0.0, 0.0, d, 0.0, 0.0, d, d, d, d);
+      transform.setTranslation(5.0, 3.0, -2.0);
+      assertFalse(transform.isRotation2D());
+      transform.setRotationUnsafe(d, d, 0.0, d, d, 0.0, 0.0, 0.0, 1.0);
+      transform.setTranslation(5.0, 3.0, -2.0);
+      assertTrue(transform.isRotation2D());
+   }
+
+   @Test
+   public void testCheckIfMatrix2D() throws Exception
+   {
+      Random random = new Random(3242L);
+      // Let's just do a trivial test here. A more thorough test is done in Matrix3DFeaturesTest
+
+      RigidBodyTransform transform = new RigidBodyTransform();
+      double d = EuclidCoreRandomTools.generateRandomDouble(random, 5.0);
+      transform.setRotationUnsafe(0.0, 0.0, d, 0.0, 0.0, d, d, d, d);
+      transform.setTranslation(5.0, 3.0, -2.0);
+      try
+      {
+         transform.checkIfRotation2D();
+         fail("Should have thrown a NotAMatrix2DException.");
+      }
+      catch (NotAMatrix2DException e)
+      {
+         // good
+         assertTrue(e.getMessage().equals("The matrix is not in XY plane: \n" + transform.getRotationMatrix()));
+      }
+
+      transform.setRotationUnsafe(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
+      transform.setTranslation(5.0, 3.0, -2.0);
+      transform.checkIfRotation2D();
+      transform.setRotationUnsafe(d, d, 0.0, d, d, 0.0, 0.0, 0.0, 1.0);
+      transform.setTranslation(5.0, 3.0, -2.0);
+      transform.checkIfRotation2D();
    }
 
    @Test
@@ -1416,6 +1509,15 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                assertTrue(transformArray[4 * row + column] == transform.getElement(row, column));
+      }
+
+      { // Test get(float[] transformArrayToPack)
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         float[] transformArray = new float[16];
+         transform.get(transformArray);
+         for (int row = 0; row < 4; row++)
+            for (int column = 0; column < 4; column++)
+               assertEquals(transformArray[4 * row + column], transform.getElement(row, column), 1.0e-7);
       }
 
       { // Test get(QuaternionBasics quaternionToPack, TupleBasics translationToPack)

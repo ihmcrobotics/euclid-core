@@ -871,6 +871,15 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
          EuclidCoreTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
       }
+
+      { // Test setTranslation(TupleReadOnly translation)
+         expectedTranslation = EuclidCoreRandomTools.generateRandomRotationVector(random);
+         Vector3D transformTranslationPart = new Vector3D(transform.getTranslationVector());
+         transform.addTranslation(expectedTranslation);
+         expectedTranslation.add(transformTranslationPart);
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedRotationScale, actualRotationScale, EPS);
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTranslation, actualTranslation, EPS);
+      }
    }
 
    @Test
