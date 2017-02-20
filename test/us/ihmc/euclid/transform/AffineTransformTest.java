@@ -1728,7 +1728,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
 
       actual.set(original);
-      transform.transform(original, actual);
+      transform.transform(actual);
       EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
       
       RigidBodyTransform inverse = new RigidBodyTransform();
@@ -1739,7 +1739,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       transform.inverseTransform(original, actual);
       EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
       actual.set(original);
-      transform.inverseTransform(original, actual);
+      transform.inverseTransform(actual);
       EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
    }
 
@@ -1763,7 +1763,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
 
       actual.set(original);
-      transform.transform(original, actual);
+      transform.transform(actual);
       EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
 
       RigidBodyTransform inverse = new RigidBodyTransform();
@@ -1774,7 +1774,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       transform.inverseTransform(original, actual);
       EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
       actual.set(original);
-      transform.inverseTransform(original, actual);
+      transform.inverseTransform(actual);
       EuclidCoreTestTools.assertQuaternionBasedTransformEquals(expected, actual, EPS);
    }
 
@@ -1802,7 +1802,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
 
       actual.set(original);
-      transform.transform(original, actual);
+      transform.transform(actual);
       EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
 
       RigidBodyTransform inverse = new RigidBodyTransform();
@@ -1813,7 +1813,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       transform.inverseTransform(original, actual);
       EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
       actual.set(original);
-      transform.inverseTransform(original, actual);
+      transform.inverseTransform(actual);
       EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
    }
 
