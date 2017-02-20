@@ -599,15 +599,11 @@ public abstract class QuaternionTools
          return;
       }
 
-      double qx = quaternion.getX();
-      double qy = quaternion.getY();
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
       if (conjugateQuaternion)
       {
-         qx = -qx;
-         qy = -qy;
          qz = -qz;
       }
 
