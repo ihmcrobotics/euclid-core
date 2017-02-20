@@ -959,30 +959,6 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
-    * Sets the translation part of this transform and sets the rotation part to identity.
-    *
-    * @param x the x-component of the translation part.
-    * @param y the y-component of the translation part.
-    * @param z the z-component of the translation part.
-    */
-   public void setTranslationAndIdentityRotation(double x, double y, double z)
-   {
-      setTranslation(x, y, z);
-      rotationScaleMatrix.setIdentity();
-   }
-
-   /**
-    * Sets the translation part of this transform and sets the rotation part to identity.
-    *
-    * @param translation tuple used to set the translation part of this transform. Not modified.
-    */
-   public void setTranslationAndIdentityRotation(Tuple3DReadOnly translation)
-   {
-      setTranslation(translation);
-      rotationScaleMatrix.setIdentity();
-   }
-
-   /**
     * Adds the given tuple to the translation part of this transform.
     * <p>
     * This method does not affect the rotation part nor the scale part of this transform.
