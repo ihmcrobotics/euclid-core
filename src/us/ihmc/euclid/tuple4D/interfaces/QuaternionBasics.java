@@ -367,7 +367,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * where Q(matrix) is the equivalent quaternion for the given rotation matrix.
     * </p>
     *
-    * @param matrix the rotation matrix to multiply this. Not modified.
+    * @param matrix the rotation matrix to multiply this with. Not modified.
     */
    default void multiply(RotationMatrixReadOnly matrix)
    {
@@ -380,7 +380,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * this = this * other*
     * </p>
     *
-    * @param other the other quaternion to multiply this. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
    default void multiplyConjugateOther(QuaternionReadOnly other)
    {
@@ -393,11 +393,41 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * this = this* * other
     * </p>
     *
-    * @param other the other quaternion to multiply this. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
    default void multiplyConjugateThis(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateLeft(this, other, this);
+   }
+
+   /**
+    * Sets this quaternion to the multiplication of {@code this} and the transpose of
+    * {@code rotationMatrix}.
+    * <p>
+    * this = this * Q(rotationMatrix<sup>T</sup>)<br>
+    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
+    * </p>
+    *
+    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
+    */
+   default void multiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
+   {
+      QuaternionTools.multiplyTransposeMatrix(this, rotationMatrix, this);
+   }
+
+   /**
+    * Sets this quaternion to the multiplication of the conjugate of {@code this} and
+    * {@code rotationMatrix}.
+    * <p>
+    * this = this* * Q(rotationMatrix)<br>
+    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
+    * </p>
+    *
+    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
+    */
+   default void multiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
+   {
+      QuaternionTools.multiplyConjugateQuaternion(this, rotationMatrix, this);
    }
 
    /**
@@ -457,7 +487,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * this = other * other
     * </p>
     *
-    * @param other the other quaternion to multiply this. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
    default void preMultiply(QuaternionReadOnly other)
    {
@@ -471,7 +501,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * where Q(matrix) is the equivalent quaternion for the given rotation matrix.
     * </p>
     *
-    * @param matrix the rotation matrix to multiply this. Not modified.
+    * @param matrix the rotation matrix to multiply this with. Not modified.
     */
    default void preMultiply(RotationMatrixReadOnly matrix)
    {
@@ -484,7 +514,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * this = other* * this
     * </p>
     *
-    * @param other the other quaternion to multiply this. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
    default void preMultiplyConjugateOther(QuaternionReadOnly other)
    {
@@ -497,11 +527,41 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * this = other * this*
     * </p>
     *
-    * @param other the other quaternion to multiply this. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
    default void preMultiplyConjugateThis(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateRight(other, this, this);
+   }
+
+   /**
+    * Sets this quaternion to the multiplication of the transpose of {@code rotationMatrix} and
+    * {@code this}.
+    * <p>
+    * this = Q(rotationMatrix<sup>T</sup>) * this<br>
+    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
+    * </p>
+    *
+    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
+    */
+   default void preMultiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
+   {
+      QuaternionTools.multiplyTransposeMatrix(rotationMatrix, this, this);
+   }
+
+   /**
+    * Sets this quaternion to the multiplication of {@code rotationMatrix} and the conjugate of
+    * {@code this}.
+    * <p>
+    * this = Q(rotationMatrix) * this*<br>
+    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
+    * </p>
+    *
+    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
+    */
+   default void preMultiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
+   {
+      QuaternionTools.multiplyConjugateQuaternion(rotationMatrix, this, this);
    }
 
    /**

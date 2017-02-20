@@ -3,8 +3,10 @@ package us.ihmc.euclid.matrix.interfaces;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
+import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
@@ -227,6 +229,37 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
       RotationMatrixTools.multiply(this, matrixOriginal, matrixTransformed);
    }
 
+   /**
+    * Transforms the given rotation matrix by this rotation matrix.
+    * <p>
+    * matrixToTransform.rotationMatrix = this * matrixToTransform.rotationMatrix
+    * </p>
+    *
+    * @param matrixToTransform the rotation matrix to transform. Modified.
+    */
+   default void transform(RotationScaleMatrix matrixToTransform)
+   {
+      transform(matrixToTransform, matrixToTransform);
+   }
+
+   /**
+    * Transforms the rotation part of the given rotation-scale matrix {@code matrixOriginal} by this
+    * rotation matrix and stores the result in {@code matrixTransformed}.
+    * <p>
+    * matrixTransformed.scales = matrixOriginal.scales <br>
+    * matrixTransformed.rotationMatrix = this * matrixOriginal.rotationMatrix
+    * </p>
+    *
+    * @param matrixOriginal the rotation-scale matrix to transform. Not modified.
+    * @param matrixTransformed the rotation-scale matrix in which the result is stored. Modified.
+    */
+   default void transform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
+   {
+      normalize();
+      matrixTransformed.set(matrixOriginal);
+      matrixTransformed.preMultiply(this);
+   }
+
    /** {@inheritDoc} */
    @Override
    default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
@@ -350,6 +383,49 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
       RotationMatrixTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform to the rotation part of the given rotation-scale matrix
+    * {@code matrixToTransform} by this rotation matrix.
+    * <p>
+    * matrixToTransform.rotationMatrix = this<sup>-1</sup> * matrixToTransform.rotationMatrix
+    * </p>
+    * <p>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the matrix.
+    * </p>
+    *
+    * @param matrixToTransform the rotation-scale matrix to transform. Modified.
+    */
+   default void inverseTransform(RotationScaleMatrix matrixToTransform)
+   {
+      inverseTransform(matrixToTransform, matrixToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform to the rotation part of the given rotation-scale matrix
+    * {@code matrixOriginal} by this rotation matrix and stores the result in
+    * {@code matrixTransformed}.
+    * <p>
+    * matrixTransformed.scales = matrixOriginal.scales<br>
+    * matrixTransformed.rotationMatrix = this<sup>-1</sup> * matrixOriginal.rotationMatrix
+    * </p>
+    * <p>
+    * This operation uses the property: <br>
+    * R<sup>-1</sup> = R<sup>T</sup> </br>
+    * of a rotation matrix preventing to actually compute the inverse of the matrix.
+    * </p>
+    *
+    * @param matrixOriginal the rotation-scale matrix to transform. Not modified.
+    * @param matrixTransformed the rotation-scale matrix in which the result is stored. Modified.
+    */
+   default void inverseTransform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
+   {
+      normalize();
+      matrixTransformed.set(matrixOriginal);
+      matrixTransformed.preMultiplyTransposeOther(this);
+   }
+
    /** {@inheritDoc} */
    @Override
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
@@ -357,5 +433,16 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
       normalize();
       Matrix3DTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
       Matrix3DTools.multiply(matrixTransformed, this, matrixTransformed);
+   }
+
+   /**
+    * Provides a {@code String} representation of this rotation matrix converted to yaw-pitch-roll angles
+    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
+    *
+    * @return
+    */
+   default String toStringAsYawPitchRoll()
+   {
+      return EuclidCoreIOTools.getStringOf("yaw-pitch-roll: (", ")", ", ", getYaw(), getPitch(), getRoll());
    }
 }

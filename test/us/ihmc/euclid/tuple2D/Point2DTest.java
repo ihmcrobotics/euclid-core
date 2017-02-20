@@ -68,7 +68,7 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         tuple1.set(i % 2, random.nextDouble());
+         tuple1.setElement(i % 2, random.nextDouble());
          newHashCode = tuple1.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;

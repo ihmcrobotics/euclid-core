@@ -8,6 +8,7 @@ import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
+import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
@@ -298,7 +299,7 @@ public interface AxisAngleReadOnly
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 3].
     */
-   default double get(int index)
+   default double getElement(int index)
    {
       switch (index)
       {
@@ -326,7 +327,7 @@ public interface AxisAngleReadOnly
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 3].
     */
-   default float get32(int index)
+   default float getElement32(int index)
    {
       switch (index)
       {
@@ -825,5 +826,16 @@ public interface AxisAngleReadOnly
          return false;
 
       return true;
+   }
+
+   /**
+    * Provides a {@code String} representation of this axis-angle converted to yaw-pitch-roll angles
+    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
+    *
+    * @return
+    */
+   default String toStringAsYawPitchRoll()
+   {
+      return EuclidCoreIOTools.getStringOf("yaw-pitch-roll: (", ")", ", ", getYaw(), getPitch(), getRoll());
    }
 }

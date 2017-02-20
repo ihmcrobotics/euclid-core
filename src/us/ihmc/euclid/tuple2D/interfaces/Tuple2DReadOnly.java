@@ -87,7 +87,7 @@ public interface Tuple2DReadOnly
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 1].
     */
-   default double get(int index)
+   default double getElement(int index)
    {
       switch (index)
       {
@@ -108,7 +108,7 @@ public interface Tuple2DReadOnly
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 1].
     */
-   default float get32(int index)
+   default float getElement32(int index)
    {
       switch (index)
       {

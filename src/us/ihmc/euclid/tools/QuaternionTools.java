@@ -414,7 +414,26 @@ public abstract class QuaternionTools
     */
    public static void addTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
-      addTransform(quaternion, false, tupleOriginal, tupleTransformed);
+      addTransform(false, quaternion, false, tupleOriginal, tupleTransformed);
+   }
+
+   /**
+    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and subtracts the result
+    * to {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    * <p>
+    * tupleTransformed = tupleTransformed - quaternion * tupleOriginal * quaternion<sup>-1</sup>
+    * </p>
+    *
+    * @param quaternion the quaternion used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
+   public static void subTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      addTransform(true, quaternion, false, tupleOriginal, tupleTransformed);
    }
 
    /**
@@ -427,15 +446,17 @@ public abstract class QuaternionTools
     * Both tuples can be the same object for performing in place transformation.
     * </p>
     * <p>
-    * tupleTransformed = tupleTransformed + quaternion * tupleOriginal * quaternion<sup>-1</sup>
+    * tupleTransformed = tupleTransformed +/- quaternion * tupleOriginal * quaternion<sup>-1</sup>
     * </p>
     *
+    * @param subtract whether to perform a subtraction instead or not.
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     */
-   private static void addTransform(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   private static void addTransform(boolean subtract, QuaternionReadOnly quaternion, boolean conjugateQuaternion, Tuple3DReadOnly tupleOriginal,
+                                    Tuple3DBasics tupleTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
@@ -476,9 +497,18 @@ public abstract class QuaternionTools
       double crossCrossY = qz * crossX - qx * crossZ;
       double crossCrossZ = qx * crossY - qy * crossX;
 
-      tupleTransformed.setX(tupleTransformed.getX() + x + qs * crossX + crossCrossX);
-      tupleTransformed.setY(tupleTransformed.getY() + y + qs * crossY + crossCrossY);
-      tupleTransformed.setZ(tupleTransformed.getZ() + z + qs * crossZ + crossCrossZ);
+      x = x + qs * crossX + crossCrossX;
+      y = y + qs * crossY + crossCrossY;
+      z = z + qs * crossZ + crossCrossZ;
+
+      if (subtract)
+      {
+         tupleTransformed.sub(x, y, z);
+      }
+      else
+      {
+         tupleTransformed.add(x, y, z);
+      }
    }
 
    /**
@@ -569,15 +599,11 @@ public abstract class QuaternionTools
          return;
       }
 
-      double qx = quaternion.getX();
-      double qy = quaternion.getY();
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
       if (conjugateQuaternion)
       {
-         qx = -qx;
-         qy = -qy;
          qz = -qz;
       }
 

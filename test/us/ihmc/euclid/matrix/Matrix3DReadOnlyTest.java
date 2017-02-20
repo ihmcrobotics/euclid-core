@@ -215,19 +215,19 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       Vector3D columnVector = new Vector3D();
       matrix.getColumn(0, columnVector);
-      assertTrue(matrix.getM00() == columnVector.get(0));
-      assertTrue(matrix.getM10() == columnVector.get(1));
-      assertTrue(matrix.getM20() == columnVector.get(2));
+      assertTrue(matrix.getM00() == columnVector.getElement(0));
+      assertTrue(matrix.getM10() == columnVector.getElement(1));
+      assertTrue(matrix.getM20() == columnVector.getElement(2));
 
       matrix.getColumn(1, columnVector);
-      assertTrue(matrix.getM01() == columnVector.get(0));
-      assertTrue(matrix.getM11() == columnVector.get(1));
-      assertTrue(matrix.getM21() == columnVector.get(2));
+      assertTrue(matrix.getM01() == columnVector.getElement(0));
+      assertTrue(matrix.getM11() == columnVector.getElement(1));
+      assertTrue(matrix.getM21() == columnVector.getElement(2));
 
       matrix.getColumn(2, columnVector);
-      assertTrue(matrix.getM02() == columnVector.get(0));
-      assertTrue(matrix.getM12() == columnVector.get(1));
-      assertTrue(matrix.getM22() == columnVector.get(2));
+      assertTrue(matrix.getM02() == columnVector.getElement(0));
+      assertTrue(matrix.getM12() == columnVector.getElement(1));
+      assertTrue(matrix.getM22() == columnVector.getElement(2));
 
       try
       {
@@ -310,19 +310,19 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
 
       Vector3D rowVector = new Vector3D();
       matrix.getRow(0, rowVector);
-      assertTrue(matrix.getM00() == rowVector.get(0));
-      assertTrue(matrix.getM01() == rowVector.get(1));
-      assertTrue(matrix.getM02() == rowVector.get(2));
+      assertTrue(matrix.getM00() == rowVector.getElement(0));
+      assertTrue(matrix.getM01() == rowVector.getElement(1));
+      assertTrue(matrix.getM02() == rowVector.getElement(2));
 
       matrix.getRow(1, rowVector);
-      assertTrue(matrix.getM10() == rowVector.get(0));
-      assertTrue(matrix.getM11() == rowVector.get(1));
-      assertTrue(matrix.getM12() == rowVector.get(2));
+      assertTrue(matrix.getM10() == rowVector.getElement(0));
+      assertTrue(matrix.getM11() == rowVector.getElement(1));
+      assertTrue(matrix.getM12() == rowVector.getElement(2));
 
       matrix.getRow(2, rowVector);
-      assertTrue(matrix.getM20() == rowVector.get(0));
-      assertTrue(matrix.getM21() == rowVector.get(1));
-      assertTrue(matrix.getM22() == rowVector.get(2));
+      assertTrue(matrix.getM20() == rowVector.getElement(0));
+      assertTrue(matrix.getM21() == rowVector.getElement(1));
+      assertTrue(matrix.getM22() == rowVector.getElement(2));
 
       try
       {
@@ -416,13 +416,13 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       T matrix = createMatrix(0.0, 0.0, d, 0.0, 0.0, d, d, d, d);
       try
       {
-         matrix.checkIfRotationMatrix();
-         fail("Should have thrown a NotARotationMatrixException.");
+         matrix.checkIfMatrix2D();
+         fail("Should have thrown a NotAMatrix2DException.");
       }
-      catch (NotARotationMatrixException e)
+      catch (NotAMatrix2DException e)
       {
          // good
-         assertTrue(e.getMessage().equals("The matrix is not a rotation matrix: \n" + matrix));
+         assertTrue(e.getMessage().equals("The matrix is not in XY plane: \n" + matrix));
       }
 
       matrix = createMatrix(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);

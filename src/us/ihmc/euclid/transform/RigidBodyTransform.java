@@ -18,6 +18,7 @@ import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.Matrix3DFeatures;
 import us.ihmc.euclid.tools.Matrix3DTools;
+import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
@@ -1264,7 +1265,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the x-component of the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param x the x-component of the translation part.
@@ -1277,7 +1278,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the y-component of the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param y the y-component of the translation part.
@@ -1290,7 +1291,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the z-component of the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param z the z-component of the translation part.
@@ -1303,7 +1304,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param x the x-component of the translation part.
@@ -1318,7 +1319,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Sets the translation part of this transform.
     * <p>
-    * This method does not affect the rotation part nor the scale part of this transform.
+    * This method does not affect the rotation part of this transform.
     * </p>
     *
     * @param translation tuple used to set the translation part of this transform. Not modified.
@@ -1376,12 +1377,207 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * this = this * other
     * </p>
     *
-    * @param other the other transform to multiply with this. Not modified.
+    * @param other the other transform to multiply this with. Not modified.
     */
    public void multiply(RigidBodyTransform other)
    {
       Matrix3DTools.addTransform(rotationMatrix, other.translationVector, translationVector);
       rotationMatrix.multiply(other.rotationMatrix);
+   }
+
+   /**
+    * Performs the multiplication of this transform with {@code quaternionBasedTransform}.
+    * <p>
+    * this = this * H(quaternionBasedTransform) <br>
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
+    * transformation matrix.
+    * </p>
+    *
+    * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
+    *           modified.
+    */
+   public void multiply(QuaternionBasedTransform quaternionBasedTransform)
+   {
+      Matrix3DTools.addTransform(rotationMatrix, quaternionBasedTransform.getTranslationVector(), translationVector);
+      rotationMatrix.multiply(quaternionBasedTransform.getQuaternion());
+   }
+
+   /**
+    * Performs the multiplication of this transform with {@code affineTransform}.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
+    * translation.
+    * </p>
+    * <p>
+    * this = this * S(affineTransform) <br>
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of
+    * the affine transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void multiply(AffineTransform affineTransform)
+   {
+      Matrix3DTools.addTransform(rotationMatrix, affineTransform.getTranslationVector(), translationVector);
+      rotationMatrix.multiply(affineTransform.getRotationMatrix());
+   }
+
+   /**
+    * Performs the multiplication of the inverse of this transform with {@code other}.
+    * <p>
+    * this = this<sup>-1</sup> * other
+    * </p>
+    *
+    * @param other the other transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertThis(RigidBodyTransform other)
+   {
+      translationVector.sub(other.getTranslationVector(), translationVector);
+      rotationMatrix.inverseTransform(translationVector, translationVector);
+      rotationMatrix.inverseTransform(other.rotationMatrix, rotationMatrix);
+   }
+
+   /**
+    * Performs the multiplication of this transform with the inverse of {@code other}.
+    * <p>
+    * this = this * other<sup>-1</sup>
+    * </p>
+    *
+    * @param other the other transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertOther(RigidBodyTransform other)
+   {
+      rotationMatrix.multiplyTransposeOther(other.getRotationMatrix());
+      Matrix3DTools.subTransform(rotationMatrix, other.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of this transform with
+    * {@code quaternionBasedTransform}.
+    * <p>
+    * this = this<sup>-1</sup> * H(quaternionBasedTransform) <br>
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
+    * transformation matrix.
+    * </p>
+    *
+    * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
+    *           modified.
+    */
+   public void multiplyInvertThis(QuaternionBasedTransform quaternionBasedTransform)
+   {
+      translationVector.sub(quaternionBasedTransform.getTranslationVector(), translationVector);
+      rotationMatrix.inverseTransform(translationVector, translationVector);
+      QuaternionTools.multiplyTransposeMatrix(rotationMatrix, quaternionBasedTransform.getQuaternion(), rotationMatrix);
+   }
+
+   /**
+    * Performs the multiplication of this transform with the inverse of
+    * {@code quaternionBasedTransform}.
+    * <p>
+    * this = this * H(quaternionBasedTransform)<sup>-1</sup> <br>
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
+    * transformation matrix.
+    * </p>
+    *
+    * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
+    *           modified.
+    */
+   public void multiplyInvertOther(QuaternionBasedTransform quaternionBasedTransform)
+   {
+      rotationMatrix.multiplyConjugateQuaternion(quaternionBasedTransform.getQuaternion());
+      Matrix3DTools.subTransform(rotationMatrix, quaternionBasedTransform.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of this transform with {@code affineTransform}.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
+    * translation.
+    * </p>
+    * <p>
+    * this = this<sup>-1</sup> * S(affineTransform) <br>
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of
+    * the affine transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertThis(AffineTransform affineTransform)
+   {
+      translationVector.sub(affineTransform.getTranslationVector(), translationVector);
+      rotationMatrix.inverseTransform(translationVector, translationVector);
+      rotationMatrix.inverseTransform(affineTransform.getRotationMatrix(), rotationMatrix);
+   }
+
+   /**
+    * Performs the multiplication of this transform with the inverse of {@code affineTransform}.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
+    * translation.
+    * </p>
+    * <p>
+    * this = this * S(affineTransform)<sup>-1</sup> <br>
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of
+    * the affine transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void multiplyInvertOther(AffineTransform affineTransform)
+   {
+      rotationMatrix.multiplyTransposeOther(affineTransform.getRotationMatrix());
+      Matrix3DTools.subTransform(rotationMatrix, affineTransform.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Append a translation transform to this transform.
+    * 
+    * <pre>
+    *               / 1 0 0 translation.x \
+    * this = this * | 0 1 0 translation.y |
+    *               | 0 0 1 translation.z |
+    *               \ 0 0 0      1        /
+    * </pre>
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param translation the translation to append to this transform. Not modified.
+    */
+   public void appendTranslation(Tuple3DReadOnly translation)
+   {
+      rotationMatrix.addTransform(translation, translationVector);
+   }
+
+   /**
+    * Append a translation transform to this transform.
+    * 
+    * <pre>
+    *               / 1 0 0 x \
+    * this = this * | 0 1 0 y |
+    *               | 0 0 1 z |
+    *               \ 0 0 0 1 /
+    * </pre>
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param x the translation along the x-axis to apply.
+    * @param y the translation along the y-axis to apply.
+    * @param z the translation along the z-axis to apply.
+    */
+   public void appendTranslation(double x, double y, double z)
+   {
+      double thisX = translationVector.getX();
+      double thisY = translationVector.getY();
+      double thisZ = translationVector.getZ();
+
+      translationVector.set(x, y, z);
+      rotationMatrix.transform(translationVector);
+      translationVector.add(thisX, thisY, thisZ);
    }
 
    /**
@@ -1442,18 +1638,269 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    /**
-    * Performs the multiplication of this transform with {@code rigidBodyTransform}.
+    * Performs the multiplication of {@code other} with this transform.
     * <p>
-    * this = rigidBodyTransform * this
+    * this = other * this
     * </p>
     *
-    * @param rigidBodyTransform the other transform to multiply with this. Not modified.
+    * @param other the other transform to multiply this with. Not modified.
     */
    public void preMultiply(RigidBodyTransform other)
    {
       other.rotationMatrix.transform(translationVector);
       translationVector.add(other.translationVector);
       rotationMatrix.preMultiply(other.rotationMatrix);
+   }
+
+   /**
+    * Performs the multiplication of {@code quaternionBasedTransform} with this transform.
+    * <p>
+    * this = H(quaternionBasedTransform) * this <br>
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
+    * transformation matrix.
+    * </p>
+    *
+    * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
+    *           modified.
+    */
+   public void preMultiply(QuaternionBasedTransform quaternionBasedTransform)
+   {
+      quaternionBasedTransform.getQuaternion().transform(translationVector);
+      translationVector.add(quaternionBasedTransform.getTranslationVector());
+      rotationMatrix.preMultiply(quaternionBasedTransform.getQuaternion());
+   }
+
+   /**
+    * Performs the multiplication of {@code affineTransform} with this transform.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
+    * translation.
+    * </p>
+    * <p>
+    * this = S(affineTransform) * this <br>
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of
+    * the affine transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void preMultiply(AffineTransform affineTransform)
+   {
+      affineTransform.getRotationMatrix().transform(translationVector);
+      translationVector.add(affineTransform.getTranslationVector());
+      rotationMatrix.preMultiply(affineTransform.getRotationMatrix());
+   }
+
+   /**
+    * Performs the multiplication of {@code other} with the inverse of this transform.
+    * <p>
+    * this = other * this<sup>-1</sup>
+    * </p>
+    *
+    * @param other the other transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertThis(RigidBodyTransform other)
+   {
+      rotationMatrix.preMultiplyTransposeThis(other.getRotationMatrix());
+      rotationMatrix.transform(translationVector);
+      translationVector.sub(other.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of {@code other} with this transform.
+    * <p>
+    * this = other<sup>-1</sup> * this
+    * </p>
+    *
+    * @param other the other transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertOther(RigidBodyTransform other)
+   {
+      translationVector.sub(other.getTranslationVector());
+      other.getRotationMatrix().inverseTransform(translationVector);
+      rotationMatrix.preMultiplyTransposeOther(other.getRotationMatrix());
+   }
+
+   /**
+    * Performs the multiplication of {@code quaternionBasedTransform} with the inverse of this
+    * transform.
+    * <p>
+    * this = H(quaternionBasedTransform) * this<sup>-1</sup> <br>
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
+    * transformation matrix.
+    * </p>
+    *
+    * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
+    *           modified.
+    */
+   public void preMultiplyInvertThis(QuaternionBasedTransform quaternionBasedTransform)
+   {
+      rotationMatrix.preMultiplyTransposeThis(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.transform(translationVector);
+      translationVector.sub(quaternionBasedTransform.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of {@code quaternionBasedTransform} with this
+    * transform.
+    * <p>
+    * this = H(quaternionBasedTransform)<sup>-1</sup> * this <br>
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
+    * transformation matrix.
+    * </p>
+    *
+    * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
+    *           modified.
+    */
+   public void preMultiplyInvertOther(QuaternionBasedTransform quaternionBasedTransform)
+   {
+      translationVector.sub(quaternionBasedTransform.getTranslationVector());
+      quaternionBasedTransform.getQuaternion().inverseTransform(translationVector);
+      rotationMatrix.preMultiplyConjugateQuaternion(quaternionBasedTransform.getQuaternion());
+   }
+
+   /**
+    * Performs the multiplication of {@code affineTransform} with the inverse of this transform.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
+    * translation.
+    * </p>
+    * <p>
+    * this = S(affineTransform) * this<sup>-1</sup> <br>
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of
+    * the affine transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertThis(AffineTransform affineTransform)
+   {
+      rotationMatrix.preMultiplyTransposeThis(affineTransform.getRotationMatrix());
+      rotationMatrix.transform(translationVector);
+      translationVector.sub(affineTransform.getTranslationVector(), translationVector);
+   }
+
+   /**
+    * Performs the multiplication of the inverse of {@code affineTransform} with this transform.
+    * <p>
+    * Note: the scale part of the given affine transform is not used when performing the
+    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
+    * translation.
+    * </p>
+    * <p>
+    * this = S(affineTransform)<sup>-1</sup> * this <br>
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of
+    * the affine transform.
+    * </p>
+    *
+    * @param affineTransform the affine transform to multiply this with. Not modified.
+    */
+   public void preMultiplyInvertOther(AffineTransform affineTransform)
+   {
+      translationVector.sub(affineTransform.getTranslationVector());
+      affineTransform.getRotationMatrix().inverseTransform(translationVector);
+      rotationMatrix.preMultiplyTransposeOther(affineTransform.getRotationMatrix());
+   }
+
+   /**
+    * Prepend a translation transform to this transform.
+    * 
+    * <pre>
+    *        / 1 0 0 translation.x \ 
+    * this = | 0 1 0 translation.y | * this
+    *        | 0 0 1 translation.z | 
+    *        \ 0 0 0      1        / 
+    * </pre>
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param translation the translation to prepend to this transform. Not modified.
+    */
+   public void prependTranslation(Tuple3DReadOnly translation)
+   {
+      translationVector.add(translation);
+   }
+
+   /**
+    * Prepend a translation transform to this transform.
+    * 
+    * <pre>
+    *        / 1 0 0 x \ 
+    * this = | 0 1 0 y | * this
+    *        | 0 0 1 z | 
+    *        \ 0 0 0 1 / 
+    * </pre>
+    * <p>
+    * This method does not affect the rotation part of this transform.
+    * </p>
+    *
+    * @param x the translation along the x-axis to apply.
+    * @param y the translation along the y-axis to apply.
+    * @param z the translation along the z-axis to apply.
+    */
+   public void prependTranslation(double x, double y, double z)
+   {
+      translationVector.add(x, y, z);
+   }
+
+   /**
+    * Prepend a rotation about the z-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \ 
+    * R = | sin(yaw)  cos(yaw) 0 | * R
+    *     \    0         0     1 /
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the z-axis.
+    */
+   public void prependYawRotation(double yaw)
+   {
+      rotationMatrix.prependYawRotation(yaw);
+   }
+
+   /**
+    * Prepend a rotation about the y-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *     /  cos(pitch) 0 sin(pitch) \ 
+    * R = |      0      1     0      | * R
+    *     \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param pitch the angle to rotate about the y-axis.
+    */
+   public void prependPitchRotation(double pitch)
+   {
+      rotationMatrix.prependPitchRotation(pitch);
+   }
+
+   /**
+    * Prepend a rotation about the x-axis to the rotation part of this transform.
+    * 
+    * <pre>
+    *     /  cos(pitch) 0 sin(pitch) \ 
+    * R = |      0      1     0      | * R
+    *     \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    * <p>
+    * This method does not affect the translation part of this transform.
+    * </p>
+    *
+    * @param yaw the angle to rotate about the x-axis.
+    */
+   public void prependRollRotation(double roll)
+   {
+      rotationMatrix.prependRollRotation(roll);
    }
 
    /** {@inheritDoc} */
@@ -1605,31 +2052,28 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
       rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void inverseTransform(RigidBodyTransform original, RigidBodyTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiplyInvertOther(this);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void inverseTransform(QuaternionBasedTransform original, QuaternionBasedTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiplyInvertOther(this);
    }
 
-   /**
-    * Temporarily throws an {@link UnsupportedOperationException}, will be fixed in the next release over the next couple days.
-    */
+   /** {@inheritDoc} */
    @Override
    public void inverseTransform(AffineTransform original, AffineTransform transformed)
    {
-      throw new UnsupportedOperationException();
+      transformed.set(original);
+      transformed.preMultiplyInvertOther(this);
    }
 
    /**
@@ -1989,6 +2433,36 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    /**
+    * Gets the x-component of the translation part of this transform.
+    * 
+    * @return the x-component of the translation part.
+    */
+   public double getTranslationX()
+   {
+      return translationVector.getX();
+   }
+
+   /**
+    * Gets the y-component of the translation part of this transform.
+    * 
+    * @return the y-component of the translation part.
+    */
+   public double getTranslationY()
+   {
+      return translationVector.getY();
+   }
+
+   /**
+    * Gets the z-component of the translation part of this transform.
+    * 
+    * @return the z-component of the translation part.
+    */
+   public double getTranslationZ()
+   {
+      return translationVector.getZ();
+   }
+
+   /**
     * Retrieves and returns a coefficient of this transform given its row and column indices.
     *
     * @param row the row of the coefficient to return.
@@ -2007,7 +2481,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
          }
          else if (column < 4)
          {
-            return translationVector.get(row);
+            return translationVector.getElement(row);
          }
          else
          {

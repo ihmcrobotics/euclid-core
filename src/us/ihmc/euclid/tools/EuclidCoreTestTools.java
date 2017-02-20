@@ -943,7 +943,11 @@ public abstract class EuclidCoreTestTools
       Quaternion qDifference = new Quaternion(expected);
       qDifference.multiplyConjugateOther(actual);
       double angleDifference = qDifference.getAngle();
-      if (Math.abs(angleDifference) > epsilon)
+      try
+      {
+         assertAngleEquals(0.0, angleDifference, epsilon);
+      }
+      catch (AssertionError e)
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, angleDifference, format);
       }
@@ -1098,7 +1102,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 3; index++)
       {
-         double diff = expected.get(index) - actual.get(index);
+         double diff = expected.getElement(index) - actual.getElement(index);
          if (Math.abs(diff) > epsilon)
             throwNotEqualAssertionError(messagePrefix, expected, actualAxisAngleOriginal, format);
       }
@@ -1140,7 +1144,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 4; index++)
       {
-         if (!Double.isNaN(axisAngleToAssert.get(index)))
+         if (!Double.isNaN(axisAngleToAssert.getElement(index)))
          {
             String errorMessage = "The axis-angle does not contain only NaN:\n" + getAxisAngleString(DEFAULT_FORMAT, axisAngleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
@@ -1354,7 +1358,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 2; index++)
       {
-         if (!Double.isNaN(tupleToAssert.get(index)))
+         if (!Double.isNaN(tupleToAssert.getElement(index)))
          {
             String errorMessage = "The tuple does not contain only NaN:\n" + getTuple2DString(DEFAULT_FORMAT, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
@@ -1404,7 +1408,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 2; index++)
       {
-         if (tupleToAssert.get(index) != 0.0)
+         if (tupleToAssert.getElement(index) != 0.0)
          {
             String errorMessage = "The tuple has not been set to zero:\n " + getTuple2DString(format, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
@@ -1439,7 +1443,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 3; index++)
       {
-         if (!Double.isNaN(tupleToAssert.get(index)))
+         if (!Double.isNaN(tupleToAssert.getElement(index)))
          {
             String errorMessage = "The tuple does not contain only NaN:\n" + getTuple3DString(DEFAULT_FORMAT, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
@@ -1489,7 +1493,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 3; index++)
       {
-         if (tupleToAssert.get(index) != 0.0)
+         if (tupleToAssert.getElement(index) != 0.0)
          {
             String errorMessage = "The tuple has not been set to zero:\n " + getTuple3DString(format, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));
@@ -1524,7 +1528,7 @@ public abstract class EuclidCoreTestTools
 
       for (int index = 0; index < 4; index++)
       {
-         if (!Double.isNaN(tupleToAssert.get(index)))
+         if (!Double.isNaN(tupleToAssert.getElement(index)))
          {
             String errorMessage = "The tuple does not contain only NaN:\n" + getTuple4DString(DEFAULT_FORMAT, tupleToAssert);
             throw new AssertionError(addPrefixToMessage(messagePrefix, errorMessage));

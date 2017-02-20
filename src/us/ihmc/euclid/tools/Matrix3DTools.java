@@ -455,6 +455,29 @@ public abstract class Matrix3DTools
    }
 
    /**
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and subtract the result
+    * to {@code tupleTransformed}:
+    * <p>
+    * {@code tupleTransformed} = {@code tupleTransformed} - {@code matrix} * {@code tupleOriginal}.
+    * </p>
+    * <p>
+    * Both tuples can be the same instance to perform in-place transformation.
+    * </p>
+    *
+    * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
+    * @param tupleOriginal the original tuple to use for the transformation. Not modified.
+    * @param tupleTransformed the tuple to which the result of the transformation is added to.
+    *           Modified.
+    */
+   public static void subTransform(Matrix3DReadOnly matrix, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      double x = matrix.getM00() * tupleOriginal.getX() + matrix.getM01() * tupleOriginal.getY() + matrix.getM02() * tupleOriginal.getZ();
+      double y = matrix.getM10() * tupleOriginal.getX() + matrix.getM11() * tupleOriginal.getY() + matrix.getM12() * tupleOriginal.getZ();
+      double z = matrix.getM20() * tupleOriginal.getX() + matrix.getM21() * tupleOriginal.getY() + matrix.getM22() * tupleOriginal.getZ();
+      tupleTransformed.sub(x, y, z);
+   }
+
+   /**
     * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the
     * result in {@code tupleTransformed}:
     * <p>

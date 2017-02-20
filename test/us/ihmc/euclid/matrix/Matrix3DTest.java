@@ -18,6 +18,7 @@ import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
+import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
@@ -243,6 +244,54 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
    }
 
    @Test
+   public void testSetToYawPitchRollMatrix()
+   {
+      Random random = new Random(35454L);
+      Matrix3D matrix = new Matrix3D();
+      RotationMatrix rotationMatrix = new RotationMatrix();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+
+         { // Test setToPitchMatrix()
+            double pitch = random.nextDouble();
+
+            matrix.setToNaN();
+            rotationMatrix.setToNaN();
+
+            matrix.setToPitchMatrix(pitch);
+            RotationMatrixConversion.computePitchMatrix(pitch, rotationMatrix);
+            EuclidCoreTestTools.assertMatrix3DEquals(matrix, rotationMatrix, EPS);
+         }
+
+         { // Test setToRollMatrix()
+            double roll = random.nextDouble();
+
+            matrix.setToNaN();
+            rotationMatrix.setToNaN();
+
+            matrix.setToRollMatrix(roll);
+            RotationMatrixConversion.computeRollMatrix(roll, rotationMatrix);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(matrix, rotationMatrix, EPS);
+         }
+
+         { // Test setToYawMatrix()
+            double yaw = random.nextDouble();
+
+            matrix.setToNaN();
+            rotationMatrix.setToNaN();
+
+            matrix.setToYawMatrix(yaw);
+            RotationMatrixConversion.computeYawMatrix(yaw, rotationMatrix);
+
+            EuclidCoreTestTools.assertMatrix3DEquals(matrix, rotationMatrix, EPS);
+         }
+      }
+   }
+
+   @Test
    public void testAdd()
    {
       Random random = new Random(6345L);
@@ -429,7 +478,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
             {
                double mij = matrixOriginal.getElement(row, column);
                double sij = scaledMatrix.getElement(row, column);
-               assertEquals(scales.get(column) * mij, sij, EPS);
+               assertEquals(scales.getElement(column) * mij, sij, EPS);
             }
          }
       }
@@ -448,7 +497,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
             {
                double mij = matrixOriginal.getElement(row, column);
                double sij = scaledMatrix.getElement(row, column);
-               assertEquals(scales.get(row) * mij, sij, EPS);
+               assertEquals(scales.getElement(row) * mij, sij, EPS);
             }
          }
       }
@@ -993,19 +1042,19 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       Vector3D rowVector = new Vector3D(random.nextDouble(), random.nextDouble(), random.nextDouble());
       matrix.setRow(0, rowVector);
-      assertTrue(matrix.getM00() == rowVector.get(0));
-      assertTrue(matrix.getM01() == rowVector.get(1));
-      assertTrue(matrix.getM02() == rowVector.get(2));
+      assertTrue(matrix.getM00() == rowVector.getElement(0));
+      assertTrue(matrix.getM01() == rowVector.getElement(1));
+      assertTrue(matrix.getM02() == rowVector.getElement(2));
 
       matrix.setRow(1, rowVector);
-      assertTrue(matrix.getM10() == rowVector.get(0));
-      assertTrue(matrix.getM11() == rowVector.get(1));
-      assertTrue(matrix.getM12() == rowVector.get(2));
+      assertTrue(matrix.getM10() == rowVector.getElement(0));
+      assertTrue(matrix.getM11() == rowVector.getElement(1));
+      assertTrue(matrix.getM12() == rowVector.getElement(2));
 
       matrix.setRow(2, rowVector);
-      assertTrue(matrix.getM20() == rowVector.get(0));
-      assertTrue(matrix.getM21() == rowVector.get(1));
-      assertTrue(matrix.getM22() == rowVector.get(2));
+      assertTrue(matrix.getM20() == rowVector.getElement(0));
+      assertTrue(matrix.getM21() == rowVector.getElement(1));
+      assertTrue(matrix.getM22() == rowVector.getElement(2));
 
       try
       {
@@ -1080,19 +1129,19 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
       Vector3D columnVector = new Vector3D(random.nextDouble(), random.nextDouble(), random.nextDouble());
       matrix.setColumn(0, columnVector);
-      assertTrue(matrix.getM00() == columnVector.get(0));
-      assertTrue(matrix.getM10() == columnVector.get(1));
-      assertTrue(matrix.getM20() == columnVector.get(2));
+      assertTrue(matrix.getM00() == columnVector.getElement(0));
+      assertTrue(matrix.getM10() == columnVector.getElement(1));
+      assertTrue(matrix.getM20() == columnVector.getElement(2));
 
       matrix.setColumn(1, columnVector);
-      assertTrue(matrix.getM01() == columnVector.get(0));
-      assertTrue(matrix.getM11() == columnVector.get(1));
-      assertTrue(matrix.getM21() == columnVector.get(2));
+      assertTrue(matrix.getM01() == columnVector.getElement(0));
+      assertTrue(matrix.getM11() == columnVector.getElement(1));
+      assertTrue(matrix.getM21() == columnVector.getElement(2));
 
       matrix.setColumn(2, columnVector);
-      assertTrue(matrix.getM02() == columnVector.get(0));
-      assertTrue(matrix.getM12() == columnVector.get(1));
-      assertTrue(matrix.getM22() == columnVector.get(2));
+      assertTrue(matrix.getM02() == columnVector.getElement(0));
+      assertTrue(matrix.getM12() == columnVector.getElement(1));
+      assertTrue(matrix.getM22() == columnVector.getElement(2));
 
       try
       {

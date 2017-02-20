@@ -56,7 +56,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple1.setToNaN();
          tuple1.normalize();
          for (int index = 0; index < 4; index++)
-            assertTrue(Double.isNaN(tuple1.get(index)));
+            assertTrue(Double.isNaN(tuple1.getElement(index)));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -82,7 +82,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple1.setToZero();
          tuple1.setAndNormalize(tuple3);
          for (int index = 0; index < 4; index++)
-            assertTrue(Double.isNaN(tuple1.get(index)));
+            assertTrue(Double.isNaN(tuple1.getElement(index)));
       }
    }
 
@@ -219,7 +219,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2.get(tupleArray);
          tuple1.set(tupleArray);
          for (int index = 0; index < 4; index++)
-            assertEquals(tuple2.get32(index), tuple1.get32(index), Math.max(getEpsilon(), 1.0e-6));
+            assertEquals(tuple2.getElement32(index), tuple1.getElement32(index), Math.max(getEpsilon(), 1.0e-6));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -229,7 +229,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2.get(2, tupleArray);
          tuple1.set(2, tupleArray);
          for (int index = 0; index < 4; index++)
-            assertEquals(tuple2.get32(index), tuple1.get32(index), Math.max(getEpsilon(), 1.0e-6));
+            assertEquals(tuple2.getElement32(index), tuple1.getElement32(index), Math.max(getEpsilon(), 1.0e-6));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)

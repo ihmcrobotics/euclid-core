@@ -786,6 +786,86 @@ public class Matrix3DToolsTest
    }
 
    @Test
+   public void testSubTransformTuple() throws Exception
+   {
+      Random random = new Random(3489756L);
+      Matrix3D matrix = new Matrix3D();
+      Tuple3DBasics tupleOriginal = new Vector3D();
+      Tuple3DBasics tupleActual = new Vector3D();
+      Tuple3DBasics tupleExpected = new Vector3D();
+
+      { // Test transforming with the zero matrix does not do anything.
+         matrix.setToZero();
+         Matrix3D matrixCopy = new Matrix3D(matrix);
+         tupleOriginal = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Tuple3DBasics tupleOriginalCopy = new Vector3D(tupleOriginal);
+         tupleExpected = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleActual.set(tupleExpected);
+         Matrix3DTools.subTransform(matrix, tupleOriginal, tupleActual);
+         EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
+         assertEquals(tupleOriginal, tupleOriginalCopy);
+         assertEquals(matrix, matrixCopy);
+      }
+
+      { // Test that transforming with identity simply adds up the two tuples.
+         matrix.setIdentity();
+         tupleOriginal = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleActual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleExpected.sub(tupleActual, tupleOriginal);
+         Matrix3DTools.subTransform(matrix, tupleOriginal, tupleActual);
+         EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
+      }
+
+      // Test some random scaling
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         matrix = EuclidCoreRandomTools.generateRandomDiagonalMatrix3D(random, 1.0, 10.0);
+         tupleOriginal = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleActual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleExpected.setX(matrix.getM00() * tupleOriginal.getX());
+         tupleExpected.setY(matrix.getM11() * tupleOriginal.getY());
+         tupleExpected.setZ(matrix.getM22() * tupleOriginal.getZ());
+         tupleExpected.sub(tupleActual, tupleExpected);
+
+         Matrix3DTools.subTransform(matrix, tupleOriginal, tupleActual);
+         EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
+      }
+
+      DenseMatrix64F denseMatrix = new DenseMatrix64F(3, 3);
+      DenseMatrix64F denseVectorOriginal = new DenseMatrix64F(3, 1);
+      DenseMatrix64F denseVectorTransformed = new DenseMatrix64F(3, 1);
+
+      // Test against EJML
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         tupleOriginal = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleActual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         matrix.get(denseMatrix);
+         tupleOriginal.get(denseVectorOriginal);
+         tupleActual.get(denseVectorTransformed);
+
+         CommonOps.multAdd(-1.0, denseMatrix, denseVectorOriginal, denseVectorTransformed);
+         tupleExpected.set(denseVectorTransformed);
+
+         Matrix3DTools.subTransform(matrix, tupleOriginal, tupleActual);
+         EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
+      }
+
+      // Test transforming in-place
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         tupleActual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         tupleExpected.set(tupleActual);
+
+         Matrix3DTools.subTransform(matrix, tupleActual, tupleExpected);
+         Matrix3DTools.subTransform(matrix, tupleActual, tupleActual);
+         EuclidCoreTestTools.assertTuple3DEquals(tupleExpected, tupleActual, EPS);
+      }
+   }
+
+   @Test
    public void testTransformTuple2D() throws Exception
    {
       Random random = new Random(3489756L);
@@ -1012,11 +1092,11 @@ public class Matrix3DToolsTest
          vectorOriginal = EuclidCoreRandomTools.generateRandomVector4D(random);
          matrix.get(denseMatrix);
          for (int index = 0; index < 3; index++)
-            denseVectorOriginal.set(index, vectorOriginal.get(index));
+            denseVectorOriginal.set(index, vectorOriginal.getElement(index));
 
          CommonOps.mult(denseMatrix, denseVectorOriginal, denseVectorTransformed);
          for (int index = 0; index < 3; index++)
-            vectorExpected.set(index, denseVectorTransformed.get(index));
+            vectorExpected.setElement(index, denseVectorTransformed.get(index));
          vectorExpected.setS(vectorOriginal.getS());
 
          Matrix3DTools.transform(matrix, vectorOriginal, vectorActual);

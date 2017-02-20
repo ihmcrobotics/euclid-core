@@ -41,7 +41,7 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
       { // Test set(int index, double value)
          try
          {
-            tuple1.set(-1, random.nextDouble());
+            tuple1.setElement(-1, random.nextDouble());
             fail("Should have thrown a IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -55,7 +55,7 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
 
          try
          {
-            tuple1.set(2, random.nextDouble());
+            tuple1.setElement(2, random.nextDouble());
             fail("Should have thrown a IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -69,8 +69,8 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
 
          double x = random.nextDouble();
          double y = random.nextDouble();
-         tuple1.set(0, x);
-         tuple1.set(1, y);
+         tuple1.setElement(0, x);
+         tuple1.setElement(1, y);
 
          assertEquals(tuple1.getX(), x, getEpsilon());
          assertEquals(tuple1.getY(), y, getEpsilon());

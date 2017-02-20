@@ -446,6 +446,20 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
+    * Generates a random rigid-body transform with the rotation part being a transform in the XY plane.
+    *
+    * @param random the random generator to use.
+    * @return the random rigid-body transform.
+    */
+   public static RigidBodyTransform generateRandomRigidBodyTransform2D(Random random)
+   {
+      RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
+      rigidBodyTransform.setTranslation(generateRandomPoint3D(random));
+      rigidBodyTransform.setRotationYaw(generateRandomDouble(random, Math.PI));
+      return rigidBodyTransform;
+   }
+
+   /**
     * Generates a random quaternion-based transform.
     * <p>
     * <ul>
@@ -807,7 +821,7 @@ public abstract class EuclidCoreRandomTools
    {
       Vector4D vector = new Vector4D();
       for (int i = 0; i < 4; i++)
-         vector.set(i, generateRandomDouble(random));
+         vector.setElement(i, generateRandomDouble(random));
       return vector;
    }
 
@@ -888,7 +902,7 @@ public abstract class EuclidCoreRandomTools
    {
       Vector4D32 vector = new Vector4D32();
       for (int i = 0; i < 4; i++)
-         vector.set(i, generateRandomDouble(random));
+         vector.setElement(i, generateRandomDouble(random));
       return vector;
    }
 
@@ -965,7 +979,7 @@ public abstract class EuclidCoreRandomTools
    public static void randomizeTuple3D(Random random, Tuple3DReadOnly minMax, Tuple3DBasics tupleToRandomize)
    {
       for (int i = 0; i < 3; i++)
-         tupleToRandomize.set(i, generateRandomDouble(random, minMax.get(i)));
+         tupleToRandomize.setElement(i, generateRandomDouble(random, minMax.getElement(i)));
    }
 
    /**
@@ -983,7 +997,7 @@ public abstract class EuclidCoreRandomTools
    public static void randomizeTuple3D(Random random, Tuple3DReadOnly min, Tuple3DReadOnly max, Tuple3DBasics tupleToRandomize)
    {
       for (int i = 0; i < 3; i++)
-         tupleToRandomize.set(i, generateRandomDouble(random, min.get(i), max.get(i)));
+         tupleToRandomize.setElement(i, generateRandomDouble(random, min.getElement(i), max.getElement(i)));
    }
 
    /**
@@ -1015,7 +1029,7 @@ public abstract class EuclidCoreRandomTools
    public static void randomizeTuple2D(Random random, Tuple2DReadOnly minMax, Tuple2DBasics tupleToRandomize)
    {
       for (int i = 0; i < 2; i++)
-         tupleToRandomize.set(i, generateRandomDouble(random, minMax.get(i)));
+         tupleToRandomize.setElement(i, generateRandomDouble(random, minMax.getElement(i)));
    }
 
    /**
@@ -1033,6 +1047,6 @@ public abstract class EuclidCoreRandomTools
    public static void randomizeTuple2D(Random random, Tuple2DReadOnly min, Tuple2DReadOnly max, Tuple2DBasics tupleToRandomize)
    {
       for (int i = 0; i < 2; i++)
-         tupleToRandomize.set(i, generateRandomDouble(random, min.get(i), max.get(i)));
+         tupleToRandomize.setElement(i, generateRandomDouble(random, min.getElement(i), max.getElement(i)));
    }
 }

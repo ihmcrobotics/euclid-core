@@ -56,12 +56,12 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly>
          double y = random.nextDouble();
          tuple = createTuple(x, y);
 
-         assertEquals(tuple.get(0), x, getEpsilon());
-         assertEquals(tuple.get(1), y, getEpsilon());
+         assertEquals(tuple.getElement(0), x, getEpsilon());
+         assertEquals(tuple.getElement(1), y, getEpsilon());
 
          try
          {
-            tuple.get(-1);
+            tuple.getElement(-1);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -75,7 +75,7 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly>
 
          try
          {
-            tuple.get(2);
+            tuple.getElement(2);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -94,12 +94,12 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly>
          float y = random.nextFloat();
          tuple = createTuple(x, y);
 
-         assertTrue(tuple.get32(0) == x);
-         assertTrue(tuple.get32(1) == y);
+         assertTrue(tuple.getElement32(0) == x);
+         assertTrue(tuple.getElement32(1) == y);
 
          try
          {
-            tuple.get32(-1);
+            tuple.getElement32(-1);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)
@@ -113,7 +113,7 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly>
 
          try
          {
-            tuple.get32(2);
+            tuple.getElement32(2);
             fail("Should have thrown IndexOutOfBoundsException.");
          }
          catch (IndexOutOfBoundsException e)

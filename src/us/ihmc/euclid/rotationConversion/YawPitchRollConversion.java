@@ -4,7 +4,6 @@ import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreTools;
-import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
@@ -634,7 +633,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, Vector3D eulerAnglesToPack)
+   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, Vector3DBasics eulerAnglesToPack)
    {
       if (quaternion.containsNaN())
       {

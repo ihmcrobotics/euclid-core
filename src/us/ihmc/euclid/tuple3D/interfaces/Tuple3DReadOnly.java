@@ -104,7 +104,7 @@ public interface Tuple3DReadOnly
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 2].
     */
-   default double get(int index)
+   default double getElement(int index)
    {
       switch (index)
       {
@@ -130,7 +130,7 @@ public interface Tuple3DReadOnly
     * @return the value of the component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 2].
     */
-   default double get32(int index)
+   default double getElement32(int index)
    {
       switch (index)
       {

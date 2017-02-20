@@ -90,7 +90,7 @@ public class Point3DTest extends Point3DBasicsTest<Point3D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         tuple1.set(i % 3, random.nextDouble());
+         tuple1.setElement(i % 3, random.nextDouble());
          newHashCode = tuple1.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;

@@ -32,6 +32,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple4D.Quaternion;
 import us.ihmc.euclid.tuple4D.Vector4D;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
@@ -218,6 +219,14 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
             for (int j = 0; j < yawPitchRoll.length; j++)
                Assert.assertEquals(yawPitchRoll[j], expectedYawPitchRoll[j], getEpsilon());
+         }
+
+         { // Test getEuler(Vector3DBasics eulerAnglesToPack)
+            Vector3DBasics eulerAngles = new Vector3D();
+            quaternion.getEuler(eulerAngles);
+            Vector3DBasics expectedEulerAngles = new Vector3D();
+            YawPitchRollConversion.convertQuaternionToYawPitchRoll(quaternion, expectedEulerAngles);
+            EuclidCoreTestTools.assertTuple3DEquals(expectedEulerAngles, eulerAngles, getEpsilon());
          }
 
          { // Test getYaw()
@@ -1156,21 +1165,46 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T qExpected = createEmptyTuple();
 
          { // Test multiplyConjugateThis(QuaternionReadOnly other)
-            qActual.set(qOther1);
             qExpected.set(qOther1);
+            qExpected.conjugate();
+            qExpected.multiply(qOther2);
+
+            qActual.set(qOther1);
             qActual.multiplyConjugateThis(qOther2);
-            QuaternionTools.multiplyConjugateLeft(qExpected, qOther2, qExpected);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
          }
 
          { // Test multiplyConjugateOther(QuaternionReadOnly other)
-            qActual.set(qOther1);
             qExpected.set(qOther1);
+            T qOther2Conjugated = createEmptyTuple();
+            qOther2Conjugated.setAndConjugate(qOther2);
+            qExpected.multiply(qOther2Conjugated);
+
+            qActual.set(qOther1);
             qActual.multiplyConjugateOther(qOther2);
-            QuaternionTools.multiplyConjugateRight(qExpected, qOther2, qExpected);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test multiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
+            qExpected.set(qOther1);
+            qExpected.multiplyConjugateThis(qOther2);
+
+            qActual.set(qOther1);
+            qActual.multiplyConjugateThis(new RotationMatrix(qOther2));
+
+            EuclidCoreTestTools.assertQuaternionEqualsSmart(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test multiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
+            qExpected.set(qOther1);
+            qExpected.multiplyConjugateOther(qOther2);
+
+            qActual.set(qOther1);
+            qActual.multiplyTransposeMatrix(new RotationMatrix(qOther2));
+
+            EuclidCoreTestTools.assertQuaternionEqualsSmart(qActual, qExpected, getEpsilon());
          }
       }
    }
@@ -1330,21 +1364,46 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T qExpected = createEmptyTuple();
 
          { // Test preMultiplyConjugateThis(QuaternionBasics other)
-            qActual.set(qOther1);
             qExpected.set(qOther1);
+            qExpected.conjugate();
+            qExpected.preMultiply(qOther2);
+
+            qActual.set(qOther1);
             qActual.preMultiplyConjugateThis(qOther2);
-            QuaternionTools.multiplyConjugateRight(qOther2, qExpected, qExpected);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
          }
 
-         { // Test multiplyConjugateOther(QuaternionBasics other)
-            qActual.set(qOther1);
+         { // Test preMultiplyConjugateOther(QuaternionBasics other)
             qExpected.set(qOther1);
+            T qOther2Conjugated = createEmptyTuple();
+            qOther2Conjugated.setAndConjugate(qOther2);
+            qExpected.preMultiply(qOther2Conjugated);
+
+            qActual.set(qOther1);
             qActual.preMultiplyConjugateOther(qOther2);
-            QuaternionTools.multiplyConjugateLeft(qOther2, qExpected, qExpected);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test preMultiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
+            qExpected.set(qOther1);
+            qExpected.preMultiplyConjugateThis(qOther2);
+
+            qActual.set(qOther1);
+            qActual.preMultiplyConjugateThis(new RotationMatrix(qOther2));
+
+            EuclidCoreTestTools.assertQuaternionEqualsSmart(qActual, qExpected, getEpsilon());
+         }
+
+         { // Test preMultiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
+            qExpected.set(qOther1);
+            qExpected.preMultiplyConjugateOther(qOther2);
+
+            qActual.set(qOther1);
+            qActual.preMultiplyTransposeMatrix(new RotationMatrix(qOther2));
+
+            EuclidCoreTestTools.assertQuaternionEqualsSmart(qActual, qExpected, getEpsilon());
          }
       }
    }

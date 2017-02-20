@@ -333,7 +333,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     * @param value the new value of the selected component.
     * @throws IndexOutOfBoundsException if {@code index} &notin; [0, 3].
     */
-   default void set(int index, double value)
+   default void setElement(int index, double value)
    {
       switch (index)
       {

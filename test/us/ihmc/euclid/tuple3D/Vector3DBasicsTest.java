@@ -153,7 +153,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          vector1.setToNaN();
          vector1.normalize();
          for (int index = 0; index < 3; index++)
-            assertTrue(Double.isNaN(vector1.get(index)));
+            assertTrue(Double.isNaN(vector1.getElement(index)));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -178,7 +178,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          vector1.setToZero();
          vector1.setAndNormalize(vector3);
          for (int index = 0; index < 3; index++)
-            assertTrue(Double.isNaN(vector1.get(index)));
+            assertTrue(Double.isNaN(vector1.getElement(index)));
       }
    }
 
