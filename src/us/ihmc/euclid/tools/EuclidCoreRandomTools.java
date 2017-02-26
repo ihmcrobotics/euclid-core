@@ -294,7 +294,7 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
-    * Generates a random double &in; [-{@code minValue}; {@code maxValue}].
+    * Generates a random double &in; [{@code minValue}; {@code maxValue}].
     *
     * @param random the random generator to use.
     * @param minValue the minimum value of the generated double.
@@ -597,6 +597,51 @@ public abstract class EuclidCoreRandomTools
       Point3D point = new Point3D();
       randomizeTuple3D(random, point);
       return point;
+   }
+
+   /**
+    * Generates a random point.
+    * <p>
+    * {@code point.x} &in; [-minMax; minMax]. <br>
+    * {@code point.y} &in; [-minMax; minMax]. <br>
+    * {@code point.z} &in; [-minMax; minMax]. <br>
+    * </p>
+    * 
+    * @param random the random generator to use.
+    * @param minMax the maximum absolute value for each coordinate.
+    * @return the random point.
+    * @throws RuntimeException if {@code minMax < 0}.
+    */
+   public static Point3D generateRandomPoint3D(Random random, double minMax)
+   {
+      double x = generateRandomDouble(random, -minMax, minMax);
+      double y = generateRandomDouble(random, -minMax, minMax);
+      double z = generateRandomDouble(random, -minMax, minMax);
+
+      return new Point3D(x, y, z);
+   }
+
+   /**
+    * Generates a random point.
+    * <p>
+    * {@code point.x} &in; [min; max]. <br>
+    * {@code point.y} &in; [min; max]. <br>
+    * {@code point.z} &in; [min; max]. <br>
+    * </p>
+    * 
+    * @param random the random generator to use.
+    * @param min the minimum value for each coordinate.
+    * @param max the maximum value for each coordinate.
+    * @return the random point.
+    * @throws RuntimeException if {@code min > max}.
+    */
+   public static Point3D generateRandomPoint3D(Random random, double min, double max)
+   {
+      double x = generateRandomDouble(random, min, max);
+      double y = generateRandomDouble(random, min, max);
+      double z = generateRandomDouble(random, min, max);
+
+      return new Point3D(x, y, z);
    }
 
    /**
