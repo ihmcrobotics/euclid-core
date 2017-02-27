@@ -692,7 +692,7 @@ public abstract class EuclidCoreRandomTools
     * @param normalize whether to normalize the generated vector or not.
     * @return the random vector.
     */
-   public static Vector3D generateRandomOrthogonalVector3d(Random random, Vector3DReadOnly vectorToBeOrthogonalTo, boolean normalize)
+   public static Vector3D generateRandomOrthogonalVector3D(Random random, Vector3DReadOnly vectorToBeOrthogonalTo, boolean normalize)
    {
       Vector3D v1 = new Vector3D(vectorToBeOrthogonalTo.getY(), -vectorToBeOrthogonalTo.getX(), 0.0);
       Vector3D v2 = new Vector3D(-vectorToBeOrthogonalTo.getZ(), 0.0, vectorToBeOrthogonalTo.getX());
