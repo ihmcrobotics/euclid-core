@@ -819,10 +819,13 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependYawRotation(double yaw)
          QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
-         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         QuaternionBasedTransform yawTransform = new QuaternionBasedTransform();
+         
          double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependYawRotation(yaw);
-         expected.set(expectedRotation, original.getTranslationVector());
+
+         yawTransform.setRotationYaw(yaw);
+         expected.set(original);
+         expected.preMultiply(yawTransform);
 
          actual.set(original);
          actual.prependYawRotation(yaw);
@@ -833,10 +836,13 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependPitchRotation(double pitch)
          QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
-         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         QuaternionBasedTransform pitchTransform = new QuaternionBasedTransform();
+
          double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependPitchRotation(pitch);
-         expected.set(expectedRotation, original.getTranslationVector());
+
+         pitchTransform.setRotationPitch(pitch);
+         expected.set(original);
+         expected.preMultiply(pitchTransform);
 
          actual.set(original);
          actual.prependPitchRotation(pitch);
@@ -847,10 +853,13 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependRollRotation(double roll)
          QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
-         RotationMatrix expectedRotation = new RotationMatrix(original.getQuaternion());
+         QuaternionBasedTransform rollTransform = new QuaternionBasedTransform();
+         
          double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependRollRotation(roll);
-         expected.set(expectedRotation, original.getTranslationVector());
+
+         rollTransform.setRotationRoll(roll);
+         expected.set(original);
+         expected.preMultiply(rollTransform);
 
          actual.set(original);
          actual.prependRollRotation(roll);

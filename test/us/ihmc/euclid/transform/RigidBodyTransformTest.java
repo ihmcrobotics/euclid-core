@@ -972,10 +972,13 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependYawRotation(double yaw)
          RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
-         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         RigidBodyTransform yawTransform = new RigidBodyTransform();
+         
          double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependYawRotation(yaw);
-         expected.set(expectedRotation, original.getTranslationVector());
+         
+         yawTransform.setRotationYaw(yaw);
+         expected.set(original);
+         expected.preMultiply(yawTransform);
 
          actual.set(original);
          actual.prependYawRotation(yaw);
@@ -986,10 +989,14 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependPitchRotation(double pitch)
          RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
-         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         RigidBodyTransform pitchTransform = new RigidBodyTransform();
+         
          double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependPitchRotation(pitch);
-         expected.set(expectedRotation, original.getTranslationVector());
+         
+         pitchTransform.setRotationPitch(pitch);
+         expected.set(original);
+         expected.preMultiply(pitchTransform);
+
 
          actual.set(original);
          actual.prependPitchRotation(pitch);
@@ -1000,10 +1007,13 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependRollRotation(double roll)
          RigidBodyTransform original = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
-         RotationMatrix expectedRotation = new RotationMatrix(original.getRotationMatrix());
+         RigidBodyTransform rollTransform = new RigidBodyTransform();
+         
          double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependRollRotation(roll);
-         expected.set(expectedRotation, original.getTranslationVector());
+         
+         rollTransform.setRotationRoll(roll);
+         expected.set(original);
+         expected.preMultiply(rollTransform);
 
          actual.set(original);
          actual.prependRollRotation(roll);
