@@ -64,7 +64,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
       {
          T vector1 = createRandomTuple(random);
          vector1.scale(EuclidCoreRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
+         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3D(random, vector1, true);
          double angle = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
 
          T vector2 = createEmptyTuple();
@@ -87,7 +87,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
       {
          T vector1 = createRandomTuple(random);
          vector1.scale(EuclidCoreRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
+         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3D(random, vector1, true);
          double expectedAngle = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
 
          T vector2 = createEmptyTuple();
@@ -109,7 +109,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
       { // cross(Vector3DReadOnly other)
          T vector1 = createRandomTuple(random);
          vector1.scale(EuclidCoreRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3d(random, vector1, true);
+         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3D(random, vector1, true);
          double angle = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Math.PI);
 
          T vector2 = createEmptyTuple();

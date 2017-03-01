@@ -927,7 +927,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       AffineTransform expected = new AffineTransform();
       AffineTransform actual = new AffineTransform();
 
@@ -1019,17 +1019,20 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
    public void testPrependYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       AffineTransform expected = new AffineTransform();
       AffineTransform actual = new AffineTransform();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependYawRotation(double yaw)
          AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
-         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         AffineTransform yawTransform = new AffineTransform();
+
          double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependYawRotation(yaw);
-         expected.set(expectedRotation, original.getTranslationVector());
+
+         yawTransform.setRotationYaw(yaw);
+         expected.set(original);
+         expected.preMultiply(yawTransform);
 
          actual.set(original);
          actual.prependYawRotation(yaw);
@@ -1040,10 +1043,13 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependPitchRotation(double pitch)
          AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
-         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         AffineTransform pitchTransform = new AffineTransform();
+         
          double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependPitchRotation(pitch);
-         expected.set(expectedRotation, original.getTranslationVector());
+
+         pitchTransform.setRotationPitch(pitch);
+         expected.set(original);
+         expected.preMultiply(pitchTransform);
 
          actual.set(original);
          actual.prependPitchRotation(pitch);
@@ -1054,10 +1060,13 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // prependRollRotation(double roll)
          AffineTransform original = EuclidCoreRandomTools.generateRandomAffineTransform(random);
-         RotationScaleMatrix expectedRotation = new RotationScaleMatrix(original.getRotationScaleMatrix());
+         AffineTransform rollTransform = new AffineTransform();
+         
          double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-         expectedRotation.prependRollRotation(roll);
-         expected.set(expectedRotation, original.getTranslationVector());
+
+         rollTransform.setRotationRoll(roll);
+         expected.set(original);
+         expected.preMultiply(rollTransform);
 
          actual.set(original);
          actual.prependRollRotation(roll);
@@ -1812,7 +1821,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       actual.set(original);
       transform.transform(actual);
       EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
-      
+
       RigidBodyTransform inverse = new RigidBodyTransform();
       transform.getRigidBodyTransform(inverse);
       inverse.invert();
@@ -2131,7 +2140,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       Random random = new Random(5464L);
       AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
       RotationScaleMatrixReadOnly rotationScaleMatrix = transform.getRotationScaleMatrix();
-      Vector3DReadOnly translation = transform.getTranslationVector(); 
+      Vector3DReadOnly translation = transform.getTranslationVector();
 
       assertTrue(rotationScaleMatrix.getM00() == transform.getM00());
       assertTrue(rotationScaleMatrix.getM01() == transform.getM01());

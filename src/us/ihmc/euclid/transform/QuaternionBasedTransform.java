@@ -14,6 +14,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.QuaternionTools;
+import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
@@ -1178,7 +1179,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       quaternion.preMultiplyConjugateThis(affineTransform.getRotationMatrix());
       quaternion.transform(translationVector);
       translationVector.sub(affineTransform.getTranslationVector(), translationVector);
-   
+
    }
 
    /**
@@ -1210,7 +1211,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *        / 1 0 0 translation.x \ 
     * this = | 0 1 0 translation.y | * this
     *        | 0 0 1 translation.z | 
-    *        \ 0 0 0      1        / 
+    *        \ 0 0 0      1        /
     * </pre>
     * <p>
     * This method does not affect the rotation part of this transform.
@@ -1230,7 +1231,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *        / 1 0 0 x \ 
     * this = | 0 1 0 y | * this
     *        | 0 0 1 z | 
-    *        \ 0 0 0 1 / 
+    *        \ 0 0 0 1 /
     * </pre>
     * <p>
     * This method does not affect the rotation part of this transform.
@@ -1246,53 +1247,90 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Prepend a rotation about the z-axis to the rotation part 'q' of this transform.
+    * Prepend a rotation about the z-axis to this transform.
+    * <p>
+    * This method first rotates the translation part 't' and then prepend the yaw-rotation to the
+    * rotation part 'q' of this transform.
+    * </p>
     * 
     * <pre>
-    *     / qx =     0      \ 
-    * q = | qy =     0      | * q
-    *     | qz = sin(yaw/2) | 
-    *     \ qs = cos(yaw/2) / 
+    * t = q(yaw) * t
+    * q = q(yaw) * q
+    * </pre>
+    * 
+    * where:
+    * 
+    * <pre>
+    *          / qx =     0      \
+    * q(yaw) = | qy =     0      |
+    *          | qz = sin(yaw/2) |
+    *          \ qs = cos(yaw/2) /
     * </pre>
     * 
     * @param yaw the angle to rotate about the z-axis.
     */
    public void prependYawRotation(double yaw)
    {
+      RotationMatrixTools.applyYawRotation(yaw, translationVector, translationVector);
       quaternion.prependYawRotation(yaw);
    }
 
    /**
-    * Prepend a rotation about the y-axis to the rotation part 'q' of this transform.
+    * Prepend a rotation about the y-axis to this transform.
+    * <p>
+    * This method first rotates the translation part 't' and then prepend the pitch-rotation to the
+    * rotation part 'q' of this transform.
+    * </p>
     * 
     * <pre>
-    *     / qx =      0       \ 
-    * q = | qy = sin(pitch/2) | * q
-    *     | qz =      0       | 
-    *     \ qs = cos(pitch/2) / 
+    * t = q(pitch) * t
+    * q = q(pitch) * q
     * </pre>
+    * 
+    * where:
+    * 
+    * <pre>
+    *            / qx =      0       \
+    * q(pitch) = | qy = sin(pitch/2) |
+    *            | qz =      0       |
+    *            \ qs = cos(pitch/2) /
+    * </pre>
+    * 
     * 
     * @param pitch the angle to rotate about the y-axis.
     */
    public void prependPitchRotation(double pitch)
    {
+      RotationMatrixTools.applyPitchRotation(pitch, translationVector, translationVector);
       quaternion.prependPitchRotation(pitch);
    }
 
    /**
     * Prepend a rotation about the x-axis to the rotation part 'q' of this transform.
+    * <p>
+    * This method first rotates the translation part 't' and then prepend the roll-rotation to the
+    * rotation part 'q' of this transform.
+    * </p>
     * 
     * <pre>
-    *     / qx = sin(roll/2) \ 
-    * q = | qy =      0      | * q
-    *     | qz =      0      | 
-    *     \ qs = cos(roll/2) / 
+    * t = q(roll) * t
+    * q = q(roll) * q
+    * </pre>
+    * 
+    * where:
+    * 
+    * <pre>
+    *           / qx = sin(roll/2) \
+    * q(roll) = | qy =      0      |
+    *           | qz =      0      |
+    *           \ qs = cos(roll/2) /
     * </pre>
     * 
     * @param roll the angle to rotate about the x-axis.
     */
    public void prependRollRotation(double roll)
    {
+      RotationMatrixTools.applyRollRotation(roll, translationVector, translationVector);
       quaternion.prependRollRotation(roll);
    }
 
