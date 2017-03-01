@@ -19,6 +19,7 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.Matrix3DFeatures;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.tools.QuaternionTools;
+import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
@@ -1811,7 +1812,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     *        / 1 0 0 translation.x \ 
     * this = | 0 1 0 translation.y | * this
     *        | 0 0 1 translation.z | 
-    *        \ 0 0 0      1        / 
+    *        \ 0 0 0      1        /
     * </pre>
     * <p>
     * This method does not affect the rotation part of this transform.
@@ -1831,7 +1832,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     *        / 1 0 0 x \ 
     * this = | 0 1 0 y | * this
     *        | 0 0 1 z | 
-    *        \ 0 0 0 1 / 
+    *        \ 0 0 0 1 /
     * </pre>
     * <p>
     * This method does not affect the rotation part of this transform.
@@ -1847,59 +1848,68 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    }
 
    /**
-    * Prepend a rotation about the z-axis to the rotation part of this transform.
+    * Prepend a rotation about the z-axis to this transform.
+    * <p>
+    * This method first rotates the translation part and then prepend the yaw-rotation to the
+    * rotation part of this transform.
+    * </p>
     * 
     * <pre>
-    *     / cos(yaw) -sin(yaw) 0 \ 
-    * R = | sin(yaw)  cos(yaw) 0 | * R
-    *     \    0         0     1 /
+    *        / cos(yaw) -sin(yaw)  0   0 \ 
+    * this = | sin(yaw)  cos(yaw)  0   0 | * this
+    *        |    0         0      1   0 |
+    *        \    0         0      0   1 /
     * </pre>
-    * <p>
-    * This method does not affect the translation part of this transform.
-    * </p>
     *
     * @param yaw the angle to rotate about the z-axis.
     */
    public void prependYawRotation(double yaw)
    {
+      RotationMatrixTools.applyYawRotation(yaw, translationVector, translationVector);
       rotationMatrix.prependYawRotation(yaw);
    }
 
    /**
-    * Prepend a rotation about the y-axis to the rotation part of this transform.
+    * Prepend a rotation about the y-axis to this transform.
+    * <p>
+    * This method first rotates the translation part and then prepend the pitch-rotation to the
+    * rotation part of this transform.
+    * </p>
     * 
     * <pre>
-    *     /  cos(pitch) 0 sin(pitch) \ 
-    * R = |      0      1     0      | * R
-    *     \ -sin(pitch) 0 cos(pitch) /
+    *        /  cos(pitch) 0 sin(pitch)  0 \ 
+    * this = |      0      1     0       0 | * this
+    *        | -sin(pitch) 0 cos(pitch)  0 |
+    *        \      0      0     0       1 /
     * </pre>
-    * <p>
-    * This method does not affect the translation part of this transform.
-    * </p>
     *
     * @param pitch the angle to rotate about the y-axis.
     */
    public void prependPitchRotation(double pitch)
    {
+      RotationMatrixTools.applyPitchRotation(pitch, translationVector, translationVector);
       rotationMatrix.prependPitchRotation(pitch);
    }
 
    /**
-    * Prepend a rotation about the x-axis to the rotation part of this transform.
+    * Prepend a rotation about the x-axis to this transform.
+    * <p>
+    * This method first rotates the translation part and then prepend the roll-rotation to the
+    * rotation part of this transform.
+    * </p>
     * 
     * <pre>
-    *     /  cos(pitch) 0 sin(pitch) \ 
-    * R = |      0      1     0      | * R
-    *     \ -sin(pitch) 0 cos(pitch) /
+    *        / 1     0          0     0 \ 
+    * this = | 0 cos(roll) -sin(roll) 0 | * this
+    *        | 0 sin(roll)  cos(roll) 0 |
+    *        \ 0     0          0     1 / 
     * </pre>
-    * <p>
-    * This method does not affect the translation part of this transform.
-    * </p>
     *
-    * @param yaw the angle to rotate about the x-axis.
+    * @param roll the angle to rotate about the x-axis.
     */
    public void prependRollRotation(double roll)
    {
+      RotationMatrixTools.applyRollRotation(roll, translationVector, translationVector);
       rotationMatrix.prependRollRotation(roll);
    }
 
