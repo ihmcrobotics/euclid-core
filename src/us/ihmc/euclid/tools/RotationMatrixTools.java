@@ -2,6 +2,10 @@ package us.ihmc.euclid.tools;
 
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
 public abstract class RotationMatrixTools
 {
@@ -307,5 +311,115 @@ public abstract class RotationMatrixTools
       double m21 = cRoll * matrixOriginal.getM21() + sRoll * matrixOriginal.getM22();
       double m22 = -sRoll * matrixOriginal.getM21() + cRoll * matrixOriginal.getM22();
       matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+   }
+
+   /**
+    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result
+    * in {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in-place transformation.
+    * </p>
+    * 
+    * <pre>
+    *                    / cos(yaw) -sin(yaw) 0 \
+    * tupleTransformed = | sin(yaw)  cos(yaw) 0 | * tupleOriginal
+    *                    \    0         0     1 /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param tupleOriginal the tuple to be transformed. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
+   public static void applyYawRotation(double yaw, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      double cYaw = Math.cos(yaw);
+      double sYaw = Math.sin(yaw);
+
+      double x = tupleOriginal.getX() * cYaw - tupleOriginal.getY() * sYaw;
+      double y = tupleOriginal.getX() * sYaw + tupleOriginal.getY() * cYaw;
+      double z = tupleOriginal.getZ();
+      tupleTransformed.set(x, y, z);
+   }
+
+   /**
+    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result
+    * in {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in-place transformation.
+    * </p>
+    * 
+    * <pre>
+    * tupleTransformed = / cos(yaw) -sin(yaw) \ * tupleOriginal
+    *                    \ sin(yaw)  cos(yaw) /
+    * </pre>
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param tupleOriginal the tuple to be transformed. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
+   public static void applyYawRotation(double yaw, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   {
+      double cYaw = Math.cos(yaw);
+      double sYaw = Math.sin(yaw);
+
+      double x = tupleOriginal.getX() * cYaw - tupleOriginal.getY() * sYaw;
+      double y = tupleOriginal.getX() * sYaw + tupleOriginal.getY() * cYaw;
+      tupleTransformed.set(x, y);
+   }
+
+   /**
+    * Rotates the given {@code tupleOriginal} by a rotation about the y-axis and stores the result
+    * in {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in-place transformation.
+    * </p>
+    * 
+    * <pre>
+    *                    /  cos(pitch) 0 sin(pitch) \
+    * tupleTransformed = |      0      1     0      | * tupleOriginal
+    *                    \ -sin(pitch) 0 cos(pitch) /
+    * </pre>
+    * 
+    * @param pitch the angle to rotate about the y-axis.
+    * @param tupleOriginal the tuple to be transformed. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
+   public static void applyPitchRotation(double pitch, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      double cPitch = Math.cos(pitch);
+      double sPitch = Math.sin(pitch);
+
+      double x = tupleOriginal.getX() * cPitch + tupleOriginal.getZ() * sPitch;
+      double y = tupleOriginal.getY();
+      double z = -tupleOriginal.getX() * sPitch + tupleOriginal.getZ() * cPitch;
+      tupleTransformed.set(x, y, z);
+   }
+
+   /**
+    * Rotates the given {@code tupleOriginal} by a rotation about the x-axis and stores the result
+    * in {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in-place transformation.
+    * </p>
+    * 
+    * <pre>
+    *                    / 1     0          0     \
+    * tupleTransformed = | 0 cos(roll) -sin(roll) | * tupleOriginal
+    *                    \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    * 
+    * @param roll the angle to rotate about the x-axis.
+    * @param tupleOriginal the tuple to be transformed. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
+   public static void applyRollRotation(double roll, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      double cRoll = Math.cos(roll);
+      double sRoll = Math.sin(roll);
+
+      double x = tupleOriginal.getX();
+      double y = tupleOriginal.getY() * cRoll - tupleOriginal.getZ() * sRoll;
+      double z = tupleOriginal.getY() * sRoll + tupleOriginal.getZ() * cRoll;
+      tupleTransformed.set(x, y, z);
    }
 }
