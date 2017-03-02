@@ -85,13 +85,10 @@ public interface Vector2DReadOnly extends Tuple2DReadOnly
     */
    default double angle(Vector2DReadOnly other)
    {
-      double firstVectorLength = length();
-      double firstVectorX = getX() / firstVectorLength;
-      double firstVectorY = getY() / firstVectorLength;
-
-      double secondVectorLength = other.length();
-      double secondVectorX = other.getX() / secondVectorLength;
-      double secondVectorY = other.getY() / secondVectorLength;
+      double firstVectorX = getX();
+      double firstVectorY = getY();
+      double secondVectorX = other.getX();
+      double secondVectorY = other.getY();
 
       // The sign of the angle comes from the cross product
       double crossProduct = firstVectorX * secondVectorY - firstVectorY * secondVectorX;
