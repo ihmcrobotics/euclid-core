@@ -155,8 +155,6 @@ public abstract class YawPitchRollConversion
     */
    public static double computeYaw(RotationMatrixReadOnly rotationMatrix)
    {
-      rotationMatrix.normalize();
-
       if (Double.isNaN(computePitchImpl(rotationMatrix.getM20())))
          return Double.NaN;
       else
@@ -178,7 +176,6 @@ public abstract class YawPitchRollConversion
     */
    public static double computePitch(RotationMatrixReadOnly rotationMatrix)
    {
-      rotationMatrix.normalize();
       return computePitchImpl(rotationMatrix.getM20());
    }
 
@@ -197,8 +194,6 @@ public abstract class YawPitchRollConversion
     */
    public static double computeRoll(RotationMatrixReadOnly rotationMatrix)
    {
-      rotationMatrix.normalize();
-
       if (Double.isNaN(computePitchImpl(rotationMatrix.getM20())))
          return Double.NaN;
       else
@@ -306,7 +301,6 @@ public abstract class YawPitchRollConversion
     */
    public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly rotationMatrix, double[] yawPitchRollToPack)
    {
-      rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());
       yawPitchRollToPack[1] = pitch;
       if (Double.isNaN(pitch))
@@ -365,7 +359,6 @@ public abstract class YawPitchRollConversion
     */
    public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly rotationMatrix, Tuple3DBasics eulerAnglesToPack)
    {
-      rotationMatrix.normalize();
       double pitch = computePitchImpl(rotationMatrix.getM20());
       eulerAnglesToPack.setY(pitch);
 

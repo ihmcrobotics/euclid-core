@@ -189,8 +189,12 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       setIdentity();
    }
 
-   /** {@inheritDoc} */
-   @Override
+   /**
+    * Orthonormalization of the rotation matrix using the
+    * <a href="https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process"> Gram-Schmidt method</a>.
+    *
+    * @throws NotARotationMatrixException if the orthonormalization failed.
+    */
    public void normalize()
    {
       Matrix3DTools.normalize(this);

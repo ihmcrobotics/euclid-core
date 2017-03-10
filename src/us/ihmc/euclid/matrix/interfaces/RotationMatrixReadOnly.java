@@ -1,6 +1,5 @@
 package us.ihmc.euclid.matrix.interfaces;
 
-import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
@@ -39,14 +38,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  */
 public interface RotationMatrixReadOnly extends Matrix3DReadOnly
 {
-   /**
-    * Orthonormalization of the rotation matrix using the
-    * <a href="https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process"> Gram-Schmidt method</a>.
-    *
-    * @throws NotARotationMatrixException if the orthonormalization failed.
-    */
-   void normalize();
-
    /**
     * Computes and packs the orientation described by this rotation matrix as a rotation vector.
     * <p>
@@ -137,30 +128,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
       return YawPitchRollConversion.computeRoll(this);
    }
 
-   /** {@inheritDoc} */
-   @Override
-   default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
-   {
-      normalize();
-      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
-   {
-      normalize();
-      Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane)
-   {
-      normalize();
-      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed, checkIfRotationInXYPlane);
-   }
-
    /**
     * Transforms the given quaternion by this rotation matrix.
     * <p>
@@ -188,16 +155,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     */
    default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
-      normalize();
       QuaternionTools.multiply(this, quaternionOriginal, quaternionTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-   {
-      normalize();
-      Matrix3DTools.transform(this, vectorOriginal, vectorTransformed);
    }
 
    /**
@@ -225,7 +183,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     */
    default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
-      normalize();
       RotationMatrixTools.multiply(this, matrixOriginal, matrixTransformed);
    }
 
@@ -255,7 +212,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     */
    default void transform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
    {
-      normalize();
       matrixTransformed.set(matrixOriginal);
       matrixTransformed.preMultiply(this);
    }
@@ -264,7 +220,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
    @Override
    default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
-      normalize();
       Matrix3DTools.multiply(this, matrixOriginal, matrixTransformed);
       Matrix3DTools.multiplyTransposeRight(matrixTransformed, this, matrixTransformed);
    }
@@ -273,7 +228,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
    @Override
    default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
-      normalize();
       double x = getM00() * tupleOriginal.getX() + getM10() * tupleOriginal.getY() + getM20() * tupleOriginal.getZ();
       double y = getM01() * tupleOriginal.getX() + getM11() * tupleOriginal.getY() + getM21() * tupleOriginal.getZ();
       double z = getM02() * tupleOriginal.getX() + getM12() * tupleOriginal.getY() + getM22() * tupleOriginal.getZ();
@@ -284,8 +238,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
    @Override
    default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
-      normalize();
-
       if (checkIfTransformInXYPlane)
          checkIfMatrix2D();
 
@@ -328,7 +280,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     */
    default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
-      normalize();
       QuaternionTools.multiplyTransposeMatrix(this, quaternionOriginal, quaternionTransformed);
    }
 
@@ -336,7 +287,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
    @Override
    default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      normalize();
       double x = getM00() * vectorOriginal.getX() + getM10() * vectorOriginal.getY() + getM20() * vectorOriginal.getZ();
       double y = getM01() * vectorOriginal.getX() + getM11() * vectorOriginal.getY() + getM21() * vectorOriginal.getZ();
       double z = getM02() * vectorOriginal.getX() + getM12() * vectorOriginal.getY() + getM22() * vectorOriginal.getZ();
@@ -379,7 +329,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     */
    default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
-      normalize();
       RotationMatrixTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
    }
 
@@ -421,7 +370,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     */
    default void inverseTransform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
    {
-      normalize();
       matrixTransformed.set(matrixOriginal);
       matrixTransformed.preMultiplyTransposeOther(this);
    }
@@ -430,7 +378,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
    @Override
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
-      normalize();
       Matrix3DTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
       Matrix3DTools.multiply(matrixTransformed, this, matrixTransformed);
    }
