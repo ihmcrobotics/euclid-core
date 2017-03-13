@@ -783,6 +783,25 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
+    * Generates a random vector.
+    * <p>
+    * {@code vector}<sub>i</sub> &in; [{@code min}; {@code max}].
+    * </p>
+    *
+    * @param random the random generator to use.
+    * @param min upper-bound for each component of the generated vector. Not modified.
+    * @param max lower-bound for each component of the generated vector. Not modified.
+    * @return the random vector.
+    * @throws RuntimeException if {@code min > max}.
+    */
+   public static Vector2D generateRandomVector2D(Random random, double min, double max)
+   {
+      Vector2D vector = new Vector2D();
+      randomizeTuple2D(random, new Point2D(min, min), new Point2D(max, max), vector);
+      return vector;
+   }
+
+   /**
     * Generates a random 2D point.
     * <p>
     * {@code point}<sub>i</sub> &in; [-1.0; 1.0].
@@ -812,6 +831,27 @@ public abstract class EuclidCoreRandomTools
    {
       double x = generateRandomDouble(random, -minMax, minMax);
       double y = generateRandomDouble(random, -minMax, minMax);
+      return new Point2D(x, y);
+   }
+
+   /**
+    * Generates a random point.
+    * <p>
+    * {@code point.x} &in; [min; max]. <br>
+    * {@code point.y} &in; [min; max]. <br>
+    * </p>
+    * 
+    * @param random the random generator to use.
+    * @param min the minimum value for each coordinate.
+    * @param max the maximum value for each coordinate.
+    * @return the random point.
+    * @throws RuntimeException if {@code min > max}.
+    */
+   public static Point2D generateRandomPoint2D(Random random, double min, double max)
+   {
+      double x = generateRandomDouble(random, min, max);
+      double y = generateRandomDouble(random, min, max);
+
       return new Point2D(x, y);
    }
 

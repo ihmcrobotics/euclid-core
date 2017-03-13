@@ -943,7 +943,7 @@ public class RotationScaleMatrix
    private void checkIfScalesProper(double scaleX, double scaleY, double scaleZ)
    {
       if (scaleX < 0.0 || scaleY < 0.0 || scaleZ < 0.0)
-         throw new NotARotationScaleMatrixException("Mirroring or zero scale is not handled, scale values: " + scaleX + ", " + scaleY + ", " + scaleZ + ".");
+         throw new NotARotationScaleMatrixException("Mirroring is not handled, scale values: " + scaleX + ", " + scaleY + ", " + scaleZ + ".");
    }
 
    /**

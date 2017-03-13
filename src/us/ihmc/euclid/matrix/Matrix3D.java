@@ -826,37 +826,9 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
-   {
-      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
-   {
-      Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
-   {
-      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
-   }
-
-   /** {@inheritDoc} */
-   @Override
    public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       Matrix3DTools.transform(this, matrixOriginal, matrixTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
-   {
-      Matrix3DTools.transform(this, vectorOriginal, vectorTransformed);
    }
 
    /** {@inheritDoc} */

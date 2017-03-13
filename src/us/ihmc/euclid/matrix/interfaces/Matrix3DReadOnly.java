@@ -603,7 +603,10 @@ public interface Matrix3DReadOnly
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
-   void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
+   default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed);
+   }
 
    /**
     * Transforms the given tuple by this matrix and add the result to the tuple.
@@ -628,7 +631,10 @@ public interface Matrix3DReadOnly
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to add the result to. Modified.
     */
-   void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
+   default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      Matrix3DTools.addTransform(this, tupleOriginal, tupleTransformed);
+   }
 
    /**
     * Transforms the given tuple by this matrix.
@@ -693,7 +699,10 @@ public interface Matrix3DReadOnly
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
     *            does not represent a transformation in the XY plane.
     */
-   void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane);
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane)
+   {
+      Matrix3DTools.transform(this, tupleOriginal, tupleTransformed, checkIfRotationInXYPlane);
+   }
 
    /**
     * Transforms the given 3D matrix by this matrix.
@@ -747,7 +756,10 @@ public interface Matrix3DReadOnly
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
-   void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
+   default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   {
+      Matrix3DTools.transform(this, vectorOriginal, vectorTransformed);
+   }
 
    /**
     * Performs the inverse of the transform to the given tuple by this matrix.
