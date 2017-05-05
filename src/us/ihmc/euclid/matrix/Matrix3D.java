@@ -551,6 +551,23 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    }
 
    /**
+    * {@inheritDoc}
+    * <p>
+    * this = R<sup>T</sup> * this * R<br>
+    * where 'R' is the 3-by-3 matrix representing the rotation part of the {@code transform}.
+    * </p>
+    * <p>
+    * Note: the transformation of a {@code Matrix3D} strongly differs from the transformation of a
+    * {@link RotationMatrix}.
+    * </p>
+    */
+   @Override
+   public void applyInverseTransform(Transform transform)
+   {
+      transform.inverseTransform(this);
+   }
+
+   /**
     * Invert this matrix.
     * <p>
     * this = this<sup>-1</sup>

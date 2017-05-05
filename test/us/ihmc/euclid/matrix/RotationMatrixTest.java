@@ -875,6 +875,54 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
    }
 
    @Test
+   public void testApplyInverseTransform()
+   {
+      Random random = new Random(23523L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RotationMatrix original = createRandomMatrix(random);
+         RotationMatrix expected = new RotationMatrix();
+         RotationMatrix actual = new RotationMatrix();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         RotationMatrix original = createRandomMatrix(random);
+         RotationMatrix expected = new RotationMatrix();
+         RotationMatrix actual = new RotationMatrix();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         RotationMatrix original = createRandomMatrix(random);
+         RotationMatrix expected = new RotationMatrix();
+         RotationMatrix actual = new RotationMatrix();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+   }
+
+   @Test
    public void testInvert()
    {
       Random random = new Random(65474L);

@@ -113,4 +113,68 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          actual.applyTransform(rigidBodyTransform, false);
       }
    }
+
+   @Test
+   public void testApplyInverseTransform() throws Exception
+   {
+      Random random = new Random(2342L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         T original = createRandomTuple(random);
+         T actual = createEmptyTuple();
+         T expected = createEmptyTuple();
+
+         RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
+         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.generateRandomDouble(random, Math.PI));
+         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0));
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(rigidBodyTransform);
+         actual.applyInverseTransform(rigidBodyTransform);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+
+         actual.set(original);
+         actual.applyTransform(rigidBodyTransform, false);
+         actual.applyInverseTransform(rigidBodyTransform, false);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+
+         actual.set(original);
+         actual.applyTransform(rigidBodyTransform, true);
+         actual.applyInverseTransform(rigidBodyTransform, true);
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
+
+         rigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+
+         try
+         {
+            actual.applyInverseTransform(rigidBodyTransform);
+            fail("Should have thrown a NotAMatrix2DException.");
+         }
+         catch (NotAMatrix2DException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a NotAMatrix2DException.");
+         }
+
+         try
+         {
+            actual.applyInverseTransform(rigidBodyTransform, true);
+            fail("Should have thrown a NotAMatrix2DException.");
+         }
+         catch (NotAMatrix2DException e)
+         {
+            // good
+         }
+         catch (Exception e)
+         {
+            fail("Should have thrown a NotAMatrix2DException.");
+         }
+         actual.applyInverseTransform(rigidBodyTransform, false);
+      }
+   }
 }

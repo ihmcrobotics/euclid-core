@@ -1383,6 +1383,54 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
       }
    }
 
+   @Test
+   public void testApplyInverseTransform() throws Exception
+   {
+      Random random = new Random(23523L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         Matrix3D original = createRandomMatrix(random);
+         Matrix3D expected = createEmptyMatrix();
+         Matrix3D actual = createEmptyMatrix();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         Matrix3D original = createRandomMatrix(random);
+         Matrix3D expected = createEmptyMatrix();
+         Matrix3D actual = createEmptyMatrix();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         Matrix3D original = createRandomMatrix(random);
+         Matrix3D expected = createEmptyMatrix();
+         Matrix3D actual = createEmptyMatrix();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
+      }
+   }
+
    @Override
    public Matrix3D createEmptyMatrix()
    {

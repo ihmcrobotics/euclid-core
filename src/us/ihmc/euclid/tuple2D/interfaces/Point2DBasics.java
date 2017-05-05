@@ -75,4 +75,48 @@ public interface Point2DBasics extends Tuple2DBasics, Point2DReadOnly
    {
       transform.transform(this, checkIfTransformInXYplane);
    }
+
+   /**
+    * Transforms this point by the inverse of the given {@code transform}.
+    * <p>
+    * The transformation depends on the implementation of the transform, here are a few examples:
+    * <ul>
+    * <li>{@link RigidBodyTransform} rotates then translates a point.
+    * <li>{@link QuaternionBasedTransform} rotates then translates a point.
+    * <li>{@link AffineTransform} scales, rotates, then translates a point.
+    * </ul>
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this point. Not modified.
+    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
+    *            transformation in the XY plane.
+    */
+   @Override
+   default void applyInverseTransform(Transform transform)
+   {
+      transform.inverseTransform(this);
+   }
+
+   /**
+    * Transforms this point by the inverse of the given {@code transform}.
+    * <p>
+    * The transformation depends on the implementation of the transform, here are a few examples:
+    * <ul>
+    * <li>{@link RigidBodyTransform} rotates then translates a point.
+    * <li>{@link QuaternionBasedTransform} rotates then translates a point.
+    * <li>{@link AffineTransform} scales, rotates, then translates a point.
+    * </ul>
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this point. Not modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
+    *           the given transform represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
+    *            part of {@code transform} is not a transformation in the XY plane.
+    */
+   @Override
+   default void applyInverseTransform(Transform transform, boolean checkIfTransformInXYplane)
+   {
+      transform.inverseTransform(this, checkIfTransformInXYplane);
+   }
 }
