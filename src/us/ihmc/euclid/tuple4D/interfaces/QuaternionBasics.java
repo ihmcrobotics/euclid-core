@@ -484,7 +484,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    /**
     * Pre-multiplies this quaternion by {@code other}.
     * <p>
-    * this = other * other
+    * this = other * this
     * </p>
     *
     * @param other the other quaternion to multiply this with. Not modified.
