@@ -105,8 +105,8 @@ public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
     *            part of {@code transform} is not a transformation in the XY plane.
     */
    @Override
-   default void applyTransform(Transform transform, boolean checkIfTransformInXYplane)
+   default void applyTransform(Transform transform, boolean checkIfTransformInXYPlane)
    {
-      transform.transform(this, checkIfTransformInXYplane);
+      transform.transform(this, checkIfTransformInXYPlane);
    }
 }
