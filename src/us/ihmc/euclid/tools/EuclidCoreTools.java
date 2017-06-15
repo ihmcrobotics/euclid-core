@@ -2,7 +2,10 @@ package us.ihmc.euclid.tools;
 
 public class EuclidCoreTools
 {
+   public static final double TwoPI = 2.0 * Math.PI;
+
    public static final double EPS_NORM_FAST_SQRT = 2.107342e-08;
+   public static final double EPS_ANGLE_SHIFT = 1.0e-12;
 
    /**
     * Calculates and returns the square root of the given value.
@@ -217,5 +220,71 @@ public class EuclidCoreTools
    public static double norm(double x, double y, double z, double s)
    {
       return fastSquareRoot(normSquared(x, y, z, s));
+   }
+
+   /**
+    * Recomputes the angle value {@code angleToShift} such that the result is in [ -<i>pi</i>,
+    * <i>pi</i> [ and still represent the same physical angle as {@code angleToShift}.
+    * <p>
+    * Edge cases:
+    * <ul>
+    * <li>if {@code Math.abs(angleToShift + Math.PI) <} {@link #EPS_ANGLE_SHIFT}, the returned angle
+    * is {@code -Math.PI}.
+    * <li>if {@code Math.abs(angleToShift - Math.PI) <} {@link #EPS_ANGLE_SHIFT}, the returned angle
+    * is {@code -Math.PI}.
+    * </ul>
+    * </p>
+    *
+    * @param angleToShift the angle to shift.
+    * @param angleStart the lowest admissible angle value.
+    * @return the result that is in [ -<i>pi</i>, <i>pi</i> [
+    */
+   public static double trimAngleMinusPiToPi(double angleToShift)
+   {
+      return shiftAngleInRange(angleToShift, -Math.PI);
+   }
+
+   /**
+    * Computes the angle difference:<br>
+    * {@code difference = angleA - angleB}<br>
+    * and shift the result to be contained in [ -<i>pi</i>, <i>pi</i> [.
+    *
+    * @param angleA the first angle in the difference.
+    * @param angleB the second angle in the difference.
+    * @return the result of the subtraction contained in [ -<i>pi</i>, <i>pi</i> [.
+    */
+   public static double angleDifferenceMinusPiToPi(double angleA, double angleB)
+   {
+      return trimAngleMinusPiToPi(angleA - angleB);
+   }
+
+   /**
+    * Recomputes the angle value {@code angleToShift} such that the result is in
+    * [{@code angleStart}, {@code angleStart} + 2<i>pi</i>[ and still represent the same physical
+    * angle as {@code angleToShift}.
+    * <p>
+    * Edge cases:
+    * <ul>
+    * <li>if {@code Math.abs(angleToShift - angleStart) <} {@link #EPS_ANGLE_SHIFT}, the returned
+    * angle is {@code angleStart}.
+    * <li>if {@code Math.abs(angleToShift - angleStart + 2.0 * Math.PI) <} {@link #EPS_ANGLE_SHIFT},
+    * the returned angle is {@code angleStart}.
+    * </ul>
+    * </p>
+    *
+    * @param angleToShift the angle to shift.
+    * @param angleStart the lowest admissible angle value.
+    * @return the result that is in [{@code angleStart}, {@code angleStart} + 2<i>pi</i>[
+    */
+   public static double shiftAngleInRange(double angleToShift, double angleStart)
+   {
+      angleStart = angleStart - EPS_ANGLE_SHIFT;
+
+      double deltaFromStart = (angleToShift - angleStart) % TwoPI;
+
+      if (deltaFromStart < 0)
+         deltaFromStart += TwoPI;
+
+      return angleStart + deltaFromStart;
    }
 }
