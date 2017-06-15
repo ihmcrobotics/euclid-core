@@ -1,19 +1,16 @@
 package us.ihmc.euclid.tools;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static us.ihmc.euclid.tools.EuclidCoreTools.EPS_NORM_FAST_SQRT;
+import static org.junit.Assert.*;
+import static us.ihmc.euclid.tools.EuclidCoreTools.*;
 
 import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tools.EuclidCoreTools;
-
 public class EuclidCoreToolsTest
 {
+   private static final int ITERATIONS = 10000;
+
    @Test
    public void testFastSquareRoot() throws Exception
    {
@@ -232,5 +229,75 @@ public class EuclidCoreToolsTest
       assertTrue(EuclidCoreTools.norm(0.0, -2.0, 0.0, 0.0) == 2.0);
       assertTrue(EuclidCoreTools.norm(0.0, 0.0, -2.0, 0.0) == 2.0);
       assertTrue(EuclidCoreTools.norm(0.0, 0.0, 0.0, -2.0) == 2.0);
+   }
+
+   @Test
+   public void testTrimAngleMinusPiToPi() throws Exception
+   {
+      Random random = new Random(2323L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         double startOfRange = -Math.PI;
+         double endOfRange = Math.PI;
+         double expectedAngle = EuclidCoreRandomTools.generateRandomDouble(random, startOfRange, endOfRange);
+         double angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
+         double actualAngle = EuclidCoreTools.trimAngleMinusPiToPi(angleToShift);
+         assertEquals("iteration: " + i, expectedAngle, actualAngle, 1.0e-12);
+         
+         expectedAngle = startOfRange;
+         angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
+         actualAngle = EuclidCoreTools.trimAngleMinusPiToPi(angleToShift);
+         assertEquals(expectedAngle, actualAngle, 1.0e-12);
+
+         expectedAngle = endOfRange - 1.0e-9;
+         angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
+         actualAngle = EuclidCoreTools.trimAngleMinusPiToPi(angleToShift);
+         assertEquals(expectedAngle, actualAngle, 1.0e-12);
+      }
+   }
+
+   @Test
+   public void testAngleDifferenceMinusPiToPi() throws Exception
+   {
+      Random random = new Random(2323L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         double startOfRange = -Math.PI;
+         double endOfRange = Math.PI;
+         double expectedDifference = EuclidCoreRandomTools.generateRandomDouble(random, startOfRange, endOfRange);
+         double untrimmedDifference = expectedDifference + (random.nextInt(21) - 10) * 2.0 * Math.PI;
+         double angleA = EuclidCoreRandomTools.generateRandomDouble(random, 4.0 * Math.PI);
+         double angleB = angleA - untrimmedDifference;
+         double actualDifference = EuclidCoreTools.angleDifferenceMinusPiToPi(angleA, angleB);
+         assertEquals("iteration: " + i, expectedDifference, actualDifference, 1.0e-12);
+      }
+   }
+
+   @Test
+   public void testShiftAngleInRange() throws Exception
+   {
+      Random random = new Random(23423L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         double startOfRange = EuclidCoreRandomTools.generateRandomDouble(random, 2.0 * Math.PI);
+         double endOfRange = startOfRange + 2.0 * Math.PI;
+         double expectedAngle = EuclidCoreRandomTools.generateRandomDouble(random, startOfRange, endOfRange);
+         double angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
+         double actualAngle = EuclidCoreTools.shiftAngleInRange(angleToShift, startOfRange);
+         assertEquals("iteration: " + i, expectedAngle, actualAngle, 1.0e-12);
+         
+         expectedAngle = startOfRange;
+         angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
+         actualAngle = EuclidCoreTools.shiftAngleInRange(angleToShift, startOfRange);
+         assertEquals(expectedAngle, actualAngle, 1.0e-12);
+
+         expectedAngle = endOfRange - 1.0e-9;
+         angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
+         actualAngle = EuclidCoreTools.shiftAngleInRange(angleToShift, startOfRange);
+         assertEquals(expectedAngle, actualAngle, 1.0e-12);
+      }
    }
 }
