@@ -124,7 +124,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     */
    default double getAngle()
    {
-      double sinHalfTheta = Math.sqrt(getX() * getX() + getY() * getY() + getZ() * getZ());
+      double sinHalfTheta = Math.sqrt(EuclidCoreTools.normSquared(getX(), getY(), getZ()));
       return 2.0 * Math.atan2(sinHalfTheta, getS());
    }
 
