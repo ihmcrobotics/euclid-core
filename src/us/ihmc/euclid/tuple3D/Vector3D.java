@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 
@@ -27,6 +28,8 @@ public class Vector3D implements Serializable, Vector3DBasics, GeometryObject<Ve
    private double y;
    /** The z-component. */
    private double z;
+
+   private Vector2DReadOnly linkedVector2D = null;
 
    /**
     * Creates a new vector and initializes it components to zero.
@@ -144,6 +147,14 @@ public class Vector3D implements Serializable, Vector3DBasics, GeometryObject<Ve
    public double getZ()
    {
       return z;
+   }
+
+   @Override
+   public Vector2DReadOnly getLinkedVector2D()
+   {
+      if (linkedVector2D == null)
+         linkedVector2D = Vector3DBasics.super.getLinkedVector2D();
+      return linkedVector2D;
    }
 
    /**
