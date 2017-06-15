@@ -554,9 +554,8 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     * Note: transforming a point differs from transforming a vector in the way that the point can be
     * translated, whereas the vector can be only rotated and scaled.
     * </p>
-    * s
     *
-    * @param transform the geometric transform to apply on this vector. Not modified.
+    * @param transform the geometric transform to apply on this tuple. Not modified.
     * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
     *            transformation in the XY plane.
     */
