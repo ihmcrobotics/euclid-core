@@ -745,4 +745,52 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, 10.0 * getEpsilon());
       }
    }
+
+   @Test
+   public void testApplyInverseTransform() throws Exception
+   {
+      Random random = new Random(23523L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         T original = createRandomTuple(random);
+         T expected = createEmptyTuple();
+         T actual = createEmptyTuple();
+
+         expected.set(original);
+         actual.set(original);
+         actual.applyTransform(transform);
+         actual.applyInverseTransform(transform);
+         EuclidCoreTestTools.assertTuple4DEquals(expected, actual, 10.0 * getEpsilon());
+      }
+   }
 }

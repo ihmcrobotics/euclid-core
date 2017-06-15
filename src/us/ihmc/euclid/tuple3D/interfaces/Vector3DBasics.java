@@ -96,4 +96,23 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
    {
       transform.transform(this);
    }
+
+   /**
+    * Transforms this vector by the inverse of the given {@code transform}.
+    * <p>
+    * The transformation depends on the implementation of the transform, here are a few examples:
+    * <ul>
+    * <li>{@link RigidBodyTransform} rotates a vector.
+    * <li>{@link QuaternionBasedTransform} rotates a vector.
+    * <li>{@link AffineTransform} scales then rotates a vector.
+    * </ul>
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this vector. Not modified.
+    */
+   @Override
+   default void applyInverseTransform(Transform transform)
+   {
+      transform.inverseTransform(this);
+   }
 }

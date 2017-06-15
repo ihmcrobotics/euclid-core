@@ -50,4 +50,23 @@ public interface Point3DBasics extends Tuple3DBasics, Point3DReadOnly, Transform
    {
       transform.transform(this);
    }
+
+   /**
+    * Transforms this point by the inverse of the given {@code transform}.
+    * <p>
+    * The transformation depends on the implementation of the transform, here are a few examples:
+    * <ul>
+    * <li>{@link RigidBodyTransform} rotates then translates a point.
+    * <li>{@link QuaternionBasedTransform} rotates then translates a point.
+    * <li>{@link AffineTransform} scales, rotates, then translates a point.
+    * </ul>
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this point. Not modified.
+    */
+   @Override
+   default void applyInverseTransform(Transform transform)
+   {
+      transform.inverseTransform(this);
+   }
 }
