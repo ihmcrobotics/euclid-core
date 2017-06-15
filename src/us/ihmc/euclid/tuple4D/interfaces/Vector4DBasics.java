@@ -521,4 +521,26 @@ public interface Vector4DBasics extends Vector4DReadOnly, Tuple4DBasics
    {
       transform.transform(this);
    }
+
+   /**
+    * Performs the inverse the transform on the vector part (x, y, z) of this vector as a 3D vector
+    * and translates it by {@code s} times the translation part of the transform. The scalar part
+    * (s) remains unchanged.
+    * <p>
+    * Note that for {@code s = 0}, a 4D vector behaves as a 3D vector, and for {@code s = 1} it
+    * behaves as a 3D point.
+    * </p>
+    * <p>
+    * <li>{@link RigidBodyTransform} rotates then translates a vector.
+    * <li>{@link QuaternionBasedTransform} rotates then translates a vector.
+    * <li>{@link AffineTransform} scales, rotates, then translates a vector.
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this vector. Not modified.
+    */
+   @Override
+   default void applyInverseTransform(Transform transform)
+   {
+      transform.inverseTransform(this);
+   }
 }

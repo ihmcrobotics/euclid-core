@@ -484,7 +484,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    /**
     * Pre-multiplies this quaternion by {@code other}.
     * <p>
-    * this = other * other
+    * this = other * this
     * </p>
     *
     * @param other the other quaternion to multiply this with. Not modified.
@@ -690,5 +690,21 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    default void applyTransform(Transform transform)
    {
       transform.transform(this);
+   }
+
+   /**
+    * Transforms this quaternion using the inverse of the given {@code transform}.
+    * <p>
+    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform}
+    * prepend their rotation part the given quaternion. No scale or translation is applied to the
+    * quaternion such that the output of this method is still a unit-quaternion.
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this vector. Not modified.
+    */
+   @Override
+   default void applyInverseTransform(Transform transform)
+   {
+      transform.inverseTransform(this);
    }
 }

@@ -979,6 +979,24 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
       normalize();
    }
 
+   /**
+    * {@inheritDoc}
+    * <p>
+    * this = R<sup>T</sup> * this where 'R' is the 3-by-3 matrix representing the rotation part of
+    * the {@code transform}.
+    * </p>
+    * <p>
+    * Note: the transformation of a {@code RotationMatrix} strongly differs from the transformation
+    * of a {@link Matrix3D}.
+    * </p>
+    */
+   @Override
+   public void applyInverseTransform(Transform transform)
+   {
+      transform.inverseTransform(this);
+      normalize();
+   }
+
    /** {@inheritDoc} */
    @Override
    public double getM00()

@@ -554,9 +554,8 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     * Note: transforming a point differs from transforming a vector in the way that the point can be
     * translated, whereas the vector can be only rotated and scaled.
     * </p>
-    * s
     *
-    * @param transform the geometric transform to apply on this vector. Not modified.
+    * @param transform the geometric transform to apply on this tuple. Not modified.
     * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
     *            transformation in the XY plane.
     */
@@ -580,4 +579,37 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     *            part of {@code transform} is not a transformation in the XY plane.
     */
    void applyTransform(Transform transform, boolean checkIfTransformInXYplane);
+
+   /**
+    * Transforms this tuple by the inverse of the given {@code transform}.
+    * <p>
+    * Note: transforming a point differs from transforming a vector in the way that the point can be
+    * translated, whereas the vector can be only rotated and scaled.
+    * </p>
+    * s
+    *
+    * @param transform the geometric transform to apply on this vector. Not modified.
+    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
+    *            transformation in the XY plane.
+    */
+   @Override
+   default void applyInverseTransform(Transform transform)
+   {
+      applyInverseTransform(transform, true);
+   }
+
+   /**
+    * Transforms this tuple by the inverse of the given {@code transform}.
+    * <p>
+    * Note: transforming a point differs from transforming a vector in the way that the point can be
+    * translated, whereas the vector can be only rotated and scaled.
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this tuple. Not modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
+    *           the given transform represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
+    *            part of {@code transform} is not a transformation in the XY plane.
+    */
+   void applyInverseTransform(Transform transform, boolean checkIfTransformInXYplane);
 }

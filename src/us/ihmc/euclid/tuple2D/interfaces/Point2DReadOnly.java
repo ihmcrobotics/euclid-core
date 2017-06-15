@@ -29,7 +29,7 @@ public interface Point2DReadOnly extends Tuple2DReadOnly
    /**
     * Calculates and returns the distance between this point and {@code other}.
     *
-    * @param other the other point used to measure the distance.
+    * @param other the other point used to measure the distance. Not modified.
     * @return the distance between the two points.
     */
    default double distance(Point2DReadOnly other)
@@ -45,7 +45,7 @@ public interface Point2DReadOnly extends Tuple2DReadOnly
     * between several pairs of points.
     * </p>
     *
-    * @param other the other point used to measure the square of the distance.
+    * @param other the other point used to measure the square of the distance. Not modified.
     * @return the square of the distance between the two points.
     */
    default double distanceSquared(Point2DReadOnly other)
