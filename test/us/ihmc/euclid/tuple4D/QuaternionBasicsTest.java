@@ -1,10 +1,6 @@
 package us.ihmc.euclid.tuple4D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -164,6 +160,27 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          quaternion.set(0.0, 0.0, qz, qs);
          quaternion.checkIfIsZOnly(getEpsilon());
+      }
+   }
+
+   @Test
+   public void testDistance() throws Exception
+   {
+      Random random = new Random(1651L);
+      Quaternion qDiff = new Quaternion();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionReadOnly q1 = createRandomTuple(random);
+         
+         for (int j = 0; j < NUMBER_OF_ITERATIONS; j++)
+         {
+            QuaternionReadOnly q2 = createRandomTuple(random);
+            qDiff.difference(q1, q2);
+            double expectedAngle = qDiff.getAngle();
+            double actualAngle = q1.distance(q2);
+            assertEquals(expectedAngle, actualAngle, 75.0 * getEpsilon());
+         }
       }
    }
 
