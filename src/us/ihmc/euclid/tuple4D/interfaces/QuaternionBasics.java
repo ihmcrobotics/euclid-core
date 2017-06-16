@@ -129,7 +129,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * Normalizes this quaternion and then limits the angle of the rotation it represents to be &in;
     * [-<i>pi</i>;<i>pi</i>].
     */
-   default void normalizeAndLimitToPiMinusPi()
+   default void normalizeAndLimitToPi()
    {
       normalize();
 
