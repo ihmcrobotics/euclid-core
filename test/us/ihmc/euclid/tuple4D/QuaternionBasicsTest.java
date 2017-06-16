@@ -863,7 +863,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    }
 
    @Test
-   public void testNormalizeAndLimitToPiMinusPi()
+   public void testNormalizeAndLimitToPi()
    {
       Random random = new Random(15461L);
 
@@ -883,14 +883,14 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       qExpected.setUnsafe(qx, qy, qz, qs);
       T qActual = createEmptyTuple();
       qActual.setUnsafe(qx, qy, qz, qs);
-      qActual.normalizeAndLimitToPiMinusPi();
+      qActual.normalizeAndLimitToPi();
 
       EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
 
       // Test that the quaternion is normalized
       double scale = random.nextDouble();
       qActual.setUnsafe(scale * qx, scale * qy, scale * qz, scale * qs);
-      qActual.normalizeAndLimitToPiMinusPi();
+      qActual.normalizeAndLimitToPi();
 
       assertEquals(1.0, qActual.norm(), getEpsilon());
       EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
@@ -909,7 +909,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          qExpected.setUnsafe(qx, qy, qz, qs);
          qActual.setUnsafe(qx, qy, qz, qs);
-         qActual.normalizeAndLimitToPiMinusPi();
+         qActual.normalizeAndLimitToPi();
          if (Math.abs(qExpected.getAngle()) < Math.PI)
          {
             EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());

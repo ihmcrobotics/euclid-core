@@ -44,7 +44,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(double x, double y, double z, double s)
          expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
-         expected.normalizeAndLimitToPiMinusPi();
+         expected.normalizeAndLimitToPi();
          quaternion = new Quaternion(expected.getX(), expected.getY(), expected.getZ(), expected.getS());
 
          EuclidCoreTestTools.assertQuaternionEquals(quaternion, expected, EPS);
