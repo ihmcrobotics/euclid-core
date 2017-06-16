@@ -923,6 +923,26 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       }
    }
 
+   @Test
+   public void testPow() throws Exception
+   {
+      Random random = new Random(541651L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasics original = createRandomTuple(random);
+         double alpha = EuclidCoreRandomTools.generateRandomDouble(random, 2.0);
+         AxisAngle axisAngle = new AxisAngle(original);
+         axisAngle.setAngle(alpha * axisAngle.getAngle());
+         QuaternionBasics expected = createEmptyTuple();
+         expected.set(axisAngle);
+         QuaternionBasics actual = createEmptyTuple();
+         actual.set(original);
+         actual.pow(alpha);
+         EuclidCoreTestTools.assertQuaternionEquals(expected, actual, getEpsilon());
+      }
+   }
+
    @Override
    public void testSetDoubles()
    {
