@@ -15,8 +15,8 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.Matrix3DFeatures;
-import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
@@ -1384,7 +1384,7 @@ public class RotationScaleMatrix
     */
    public double getMaxScale()
    {
-      return Matrix3DTools.max(scale.getX(), scale.getY(), scale.getZ());
+      return EuclidCoreTools.max(scale.getX(), scale.getY(), scale.getZ());
    }
 
    /**

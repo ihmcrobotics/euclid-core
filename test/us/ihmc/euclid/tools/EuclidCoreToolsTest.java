@@ -244,7 +244,7 @@ public class EuclidCoreToolsTest
          double angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
          double actualAngle = EuclidCoreTools.trimAngleMinusPiToPi(angleToShift);
          assertEquals("iteration: " + i, expectedAngle, actualAngle, 1.0e-12);
-         
+
          expectedAngle = startOfRange;
          angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
          actualAngle = EuclidCoreTools.trimAngleMinusPiToPi(angleToShift);
@@ -288,7 +288,7 @@ public class EuclidCoreToolsTest
          double angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
          double actualAngle = EuclidCoreTools.shiftAngleInRange(angleToShift, startOfRange);
          assertEquals("iteration: " + i, expectedAngle, actualAngle, 1.0e-12);
-         
+
          expectedAngle = startOfRange;
          angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
          actualAngle = EuclidCoreTools.shiftAngleInRange(angleToShift, startOfRange);
@@ -298,6 +298,38 @@ public class EuclidCoreToolsTest
          angleToShift = expectedAngle + (random.nextInt(21) - 10) * 2.0 * Math.PI;
          actualAngle = EuclidCoreTools.shiftAngleInRange(angleToShift, startOfRange);
          assertEquals(expectedAngle, actualAngle, 1.0e-12);
+      }
+   }
+
+   @Test
+   public void testMax() throws Exception
+   {
+      Random random = new Random(45645L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         double a = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double b = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double c = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double expected = Math.max(a, Math.max(b, c));
+         double actual = EuclidCoreTools.max(a, b, c);
+         assertTrue(expected == actual);
+      }
+   }
+
+   @Test
+   public void testMin() throws Exception
+   {
+      Random random = new Random(45645L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         double a = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double b = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double c = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double expected = Math.min(a, Math.min(b, c));
+         double actual = EuclidCoreTools.min(a, b, c);
+         assertTrue(expected == actual);
       }
    }
 }

@@ -734,22 +734,6 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Find and return maximum the argument with the maximum value.
-    *
-    * @param a the first argument to compare.
-    * @param b the second argument to compare.
-    * @param c the third argument to compare.
-    * @return the maximum value of the three arguments.
-    */
-   public static final double max(double a, double b, double c)
-   {
-      if (a > b)
-         return a > c ? a : c;
-      else
-         return b > c ? b : c;
-   }
-
-   /**
     * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad column index.
     *
     * @param column the bad column index.
