@@ -807,22 +807,16 @@ public interface AxisAngleReadOnly
     */
    default boolean epsilonEquals(AxisAngleReadOnly other, double epsilon)
    {
-      double diff;
-
-      diff = getX() - other.getX();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getX(), other.getX(), epsilon))
          return false;
 
-      diff = getY() - other.getY();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getY(), other.getY(), epsilon))
          return false;
 
-      diff = getZ() - other.getZ();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getZ(), other.getZ(), epsilon))
          return false;
 
-      diff = getAngle() - other.getAngle();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getAngle(), other.getAngle(), epsilon))
          return false;
 
       return true;

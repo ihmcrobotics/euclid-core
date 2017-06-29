@@ -319,4 +319,21 @@ public class EuclidCoreTools
       else
          return b < c ? b : c;
    }
+
+   /**
+    * Tests if the two values are equal to an {@code epsilon}:<br>
+    * |{@code expectedValue} - {@code actualValue}| &leq; {@code epsilon}
+    * <p>
+    * If any of the two values is equal to {@link Double#NaN}, this method fails and returns {@code false}.
+    * </p>
+    * 
+    * @param expectedValue the first value to compare.
+    * @param actualValue the second value to compare.
+    * @param epsilon the tolerance to use for the test.
+    * @return {@code true} if the two values are considered to be equal, {@code false otherwise}.
+    */
+   public static boolean epsilonEquals(double expectedValue, double actualValue, double epsilon)
+   {
+      return Math.abs(expectedValue - actualValue) <= epsilon;
+   }
 }
