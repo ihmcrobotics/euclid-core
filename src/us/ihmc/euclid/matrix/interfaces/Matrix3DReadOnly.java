@@ -939,42 +939,23 @@ public interface Matrix3DReadOnly
     */
    default boolean epsilonEquals(Matrix3DReadOnly other, double epsilon)
    {
-      double diff;
-
-      diff = other.getM00() - getM00();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM00(), other.getM00(), epsilon))
          return false;
-
-      diff = other.getM01() - getM01();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM01(), other.getM01(), epsilon))
          return false;
-
-      diff = other.getM02() - getM02();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM02(), other.getM02(), epsilon))
          return false;
-
-      diff = other.getM10() - getM10();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM10(), other.getM10(), epsilon))
          return false;
-
-      diff = other.getM11() - getM11();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM11(), other.getM11(), epsilon))
          return false;
-
-      diff = other.getM12() - getM12();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM12(), other.getM12(), epsilon))
          return false;
-
-      diff = other.getM20() - getM20();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM20(), other.getM20(), epsilon))
          return false;
-
-      diff = other.getM21() - getM21();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM21(), other.getM21(), epsilon))
          return false;
-
-      diff = other.getM22() - getM22();
-      if (Double.isNaN(diff) || Math.abs(diff) > epsilon)
+      if (!EuclidCoreTools.epsilonEquals(getM22(), other.getM22(), epsilon))
          return false;
 
       return true;

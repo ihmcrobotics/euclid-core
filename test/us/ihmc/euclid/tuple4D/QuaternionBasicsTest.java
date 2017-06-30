@@ -1,10 +1,6 @@
 package us.ihmc.euclid.tuple4D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -164,6 +160,27 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          quaternion.set(0.0, 0.0, qz, qs);
          quaternion.checkIfIsZOnly(getEpsilon());
+      }
+   }
+
+   @Test
+   public void testDistance() throws Exception
+   {
+      Random random = new Random(1651L);
+      Quaternion qDiff = new Quaternion();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionReadOnly q1 = createRandomTuple(random);
+         
+         for (int j = 0; j < NUMBER_OF_ITERATIONS; j++)
+         {
+            QuaternionReadOnly q2 = createRandomTuple(random);
+            qDiff.difference(q1, q2);
+            double expectedAngle = qDiff.getAngle();
+            double actualAngle = q1.distance(q2);
+            assertEquals(expectedAngle, actualAngle, 75.0 * getEpsilon());
+         }
       }
    }
 
@@ -846,7 +863,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    }
 
    @Test
-   public void testNormalizeAndLimitToPiMinusPi()
+   public void testNormalizeAndLimitToPi()
    {
       Random random = new Random(15461L);
 
@@ -866,14 +883,14 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       qExpected.setUnsafe(qx, qy, qz, qs);
       T qActual = createEmptyTuple();
       qActual.setUnsafe(qx, qy, qz, qs);
-      qActual.normalizeAndLimitToPiMinusPi();
+      qActual.normalizeAndLimitToPi();
 
       EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
 
       // Test that the quaternion is normalized
       double scale = random.nextDouble();
       qActual.setUnsafe(scale * qx, scale * qy, scale * qz, scale * qs);
-      qActual.normalizeAndLimitToPiMinusPi();
+      qActual.normalizeAndLimitToPi();
 
       assertEquals(1.0, qActual.norm(), getEpsilon());
       EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
@@ -892,7 +909,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          qExpected.setUnsafe(qx, qy, qz, qs);
          qActual.setUnsafe(qx, qy, qz, qs);
-         qActual.normalizeAndLimitToPiMinusPi();
+         qActual.normalizeAndLimitToPi();
          if (Math.abs(qExpected.getAngle()) < Math.PI)
          {
             EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
@@ -903,6 +920,26 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qExpected.negate();
             EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
          }
+      }
+   }
+
+   @Test
+   public void testPow() throws Exception
+   {
+      Random random = new Random(541651L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionBasics original = createRandomTuple(random);
+         double alpha = EuclidCoreRandomTools.generateRandomDouble(random, 2.0);
+         AxisAngle axisAngle = new AxisAngle(original);
+         axisAngle.setAngle(alpha * axisAngle.getAngle());
+         QuaternionBasics expected = createEmptyTuple();
+         expected.set(axisAngle);
+         QuaternionBasics actual = createEmptyTuple();
+         actual.set(original);
+         actual.pow(alpha);
+         EuclidCoreTestTools.assertQuaternionEquals(expected, actual, getEpsilon());
       }
    }
 

@@ -3,6 +3,7 @@ package us.ihmc.euclid.tuple4D.interfaces;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
@@ -35,6 +36,8 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  */
 public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
 {
+   public static final double EPS_POW = 1.0e-12;
+
    /**
     * Sets the four components of this quaternion without normalizing.
     * <p>
@@ -126,12 +129,51 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     * Normalizes this quaternion and then limits the angle of the rotation it represents to be &in;
     * [-<i>pi</i>;<i>pi</i>].
     */
-   default void normalizeAndLimitToPiMinusPi()
+   default void normalizeAndLimitToPi()
    {
       normalize();
 
       if (getS() < 0.0)
          negate();
+   }
+
+   /**
+    * Raises this quaternion to the power {@code alpha}.
+    * <p>
+    * This is equivalent to converting this quaternion into an axis-angle, scaling the angle by
+    * {@code alpha}, and finally converting back to a quaternion.
+    * </p>
+    * <p>
+    * Edge cases:
+    * <ul>
+    * <li>If this quaternion contains {@link Double#NaN}, this method is ineffective.
+    * <li>If the length of the vector part is below {@link #EPS_POW}, the method
+    * {@link #setToZero()} is called.
+    * </ul>
+    * </p>
+    * 
+    * @param alpha the real value of the power.
+    */
+   default void pow(double alpha)
+   {
+      if (containsNaN())
+         return;
+
+      double uNorm = Math.sqrt(EuclidCoreTools.normSquared(getX(), getY(), getZ()));
+
+      if (uNorm > EPS_POW)
+      {
+         double angle = alpha * Math.atan2(uNorm, getS());
+         uNorm = Math.sin(angle) / uNorm;
+         double qx = getX() * uNorm;
+         double qy = getY() * uNorm;
+         double qz = getZ() * uNorm;
+         set(qx, qy, qz, Math.cos(angle));
+      }
+      else
+      {
+         setToZero();
+      }
    }
 
    /** {@inheritDoc} */

@@ -104,8 +104,8 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
    }
 
    /**
-    * Normalizes the axis of this axis-angle such that its norm is equal to 1 after calling this method and its
-    * direction remains unchanged.
+    * Normalizes the axis of this axis-angle such that its norm is equal to 1 after calling this
+    * method and its direction remains unchanged.
     * <p>
     * Edge cases:
     * <ul>
@@ -132,6 +132,16 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
       double uz = getZ() * invNorm;
       double angle = getAngle();
       set(ux, uy, uz, angle);
+   }
+
+   /**
+    * Multiplies the angle of this axis-angle by the given {@code scale}.
+    * 
+    * @param scale the scaling factor to apply to the angle of this axis-angle.
+    */
+   default void scaleAngle(double scale)
+   {
+      setAngle(scale * getAngle());
    }
 
    /**

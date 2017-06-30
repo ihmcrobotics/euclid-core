@@ -20,6 +20,21 @@ import us.ihmc.euclid.tuple4D.Quaternion;
 public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends AxisAngleReadOnlyTest<T>
 {
    @Test
+   public void testScaleAngle() throws Exception
+   {
+      Random random = new Random(32434L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AxisAngleBasics axisAngle = createRandomAxisAngle(random);
+         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 2.0);
+         double angle = axisAngle.getAngle();
+         axisAngle.scaleAngle(scale);
+         assertEquals(scale * angle, axisAngle.getAngle(), getSmallestEpsilon());
+      }
+   }
+
+   @Test
    public void testSetAngle()
    {
       Random random = new Random(5646541L);

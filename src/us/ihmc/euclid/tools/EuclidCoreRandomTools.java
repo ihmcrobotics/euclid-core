@@ -446,7 +446,8 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
-    * Generates a random rigid-body transform with the rotation part being a transform in the XY plane.
+    * Generates a random rigid-body transform with the rotation part being a transform in the XY
+    * plane.
     *
     * @param random the random generator to use.
     * @return the random rigid-body transform.
@@ -665,6 +666,33 @@ public abstract class EuclidCoreRandomTools
       double x = generateRandomDouble(random, -maxAbsoluteX, maxAbsoluteX);
       double y = generateRandomDouble(random, -maxAbsoluteY, maxAbsoluteY);
       double z = generateRandomDouble(random, -maxAbsoluteZ, maxAbsoluteZ);
+
+      return new Point3D(x, y, z);
+   }
+
+   /**
+    * Generates a random point.
+    * <p>
+    * {@code point.x} &in; [minX; maxX]. <br>
+    * {@code point.y} &in; [minY; maxY]. <br>
+    * {@code point.z} &in; [minZ; maxZ]. <br>
+    * </p>
+    * 
+    * @param random the random generator to use.
+    * @param minX the minimum value for the x-coordinate.
+    * @param minY the minimum value for the y-coordinate.
+    * @param minZ the minimum value for the z-coordinate.
+    * @param maxX the maximum value for the x-coordinate.
+    * @param maxY the maximum value for the y-coordinate.
+    * @param maxZ the maximum value for the z-coordinate.
+    * @return the random point.
+    * @throws RuntimeException if {@code maxX < minX}, {@code maxY < minY}, {@code maxZ < minZ}.
+    */
+   public static Point3D generateRandomPoint3D(Random random, double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
+   {
+      double x = generateRandomDouble(random, minX, maxX);
+      double y = generateRandomDouble(random, minY, maxY);
+      double z = generateRandomDouble(random, minZ, maxZ);
 
       return new Point3D(x, y, z);
    }

@@ -357,7 +357,7 @@ public class QuaternionToolsTest
    }
 
    @Test
-   public void testNormalizeAndLimitToMinusPiToPi() throws Exception
+   public void testNormalizeAndLimitToPi() throws Exception
    {
       Random random = new Random(3294862L);
       Quaternion qExpected = new Quaternion();
@@ -374,7 +374,7 @@ public class QuaternionToolsTest
          qActual.set(qExpected);
 
          qExpected.normalize();
-         qActual.normalizeAndLimitToPiMinusPi();
+         qActual.normalizeAndLimitToPi();
 
          EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, EPSILON);
       }
@@ -395,7 +395,7 @@ public class QuaternionToolsTest
          qActual.set(qExpected);
 
          qExpected.normalize();
-         qActual.normalizeAndLimitToPiMinusPi();
+         qActual.normalizeAndLimitToPi();
 
          assertFalse(qExpected.epsilonEquals(qActual, EPSILON));
          assertTrue(qExpected.dot(qActual) < 0.0);

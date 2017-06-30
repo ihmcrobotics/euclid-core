@@ -6,6 +6,7 @@ public class EuclidCoreTools
 
    public static final double EPS_NORM_FAST_SQRT = 2.107342e-08;
    public static final double EPS_ANGLE_SHIFT = 1.0e-12;
+   public static final double CLAMP_EPS = 1.0e-10;
 
    /**
     * Calculates and returns the square root of the given value.
@@ -287,4 +288,93 @@ public class EuclidCoreTools
 
       return angleStart + deltaFromStart;
    }
+
+   /**
+    * Find and return the argument with the maximum value.
+    *
+    * @param a the first argument to compare.
+    * @param b the second argument to compare.
+    * @param c the third argument to compare.
+    * @return the maximum value of the three arguments.
+    */
+   public static final double max(double a, double b, double c)
+   {
+      if (a > b)
+         return a > c ? a : c;
+      else
+         return b > c ? b : c;
+   }
+
+   /**
+    * Find and return the argument with the minimum value.
+    *
+    * @param a the first argument to compare.
+    * @param b the second argument to compare.
+    * @param c the third argument to compare.
+    * @return the minimum value of the three arguments.
+    */
+   public static final double min(double a, double b, double c)
+   {
+      if (a < b)
+         return a < c ? a : c;
+      else
+         return b < c ? b : c;
+   }
+
+   /**
+    * Tests if the two values are equal to an {@code epsilon}:<br>
+    * |{@code expectedValue} - {@code actualValue}| &leq; {@code epsilon}
+    * <p>
+    * If any of the two values is equal to {@link Double#NaN}, this method fails and returns
+    * {@code false}.
+    * </p>
+    * 
+    * @param expectedValue the first value to compare.
+    * @param actualValue the second value to compare.
+    * @param epsilon the tolerance to use for the test.
+    * @return {@code true} if the two values are considered to be equal, {@code false otherwise}.
+    */
+   public static boolean epsilonEquals(double expectedValue, double actualValue, double epsilon)
+   {
+      return Math.abs(expectedValue - actualValue) <= epsilon;
+   }
+
+   /**
+    * Clamps value to the given range, defined by {@code -minMax} and {@code minMax}, inclusive.
+    *
+    * @param value value
+    * @param minMax inclusive absolute boundary
+    * @return
+    *         <li>{@code -minMax} if {@code value} is less than {@code -minMax}</li>
+    *         <li>{@code minMax} if {@code value} is greater than {@code minMax}</li>
+    *         <li>{@code value} if {@code value} is between or equal to {@code -minMax} and
+    *         {@code minMax}</li>
+    */
+   public static double clamp(double value, double minMax)
+   {
+      return clamp(value, -minMax, minMax);
+   }
+
+   /**
+    * Clamps value to the given range, inclusive.
+    *
+    * @param value value
+    * @param min inclusive boundary start
+    * @param max inclusive boundary end
+    * @return
+    *         <li>{@code min} if {@code value} is less than {@code min}</li>
+    *         <li>{@code max} if {@code value} is greater than {@code max}</li>
+    *         <li>{@code value} if {@code value} is between or equal to {@code min} and
+    *         {@code max}</li>
+    */
+   public static double clamp(double value, double min, double max)
+   {
+      if (min > (max + CLAMP_EPS))
+      {
+         throw new RuntimeException(EuclidCoreTools.class.getSimpleName() + ".clamp(double, double, double): min > max (" + min + " > " + max + ")");
+      }
+
+      return (Math.min(max, Math.max(value, min)));
+   }
+
 }

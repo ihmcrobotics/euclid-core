@@ -24,7 +24,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  */
 public abstract class QuaternionTools
 {
-   private static final double EPS = 1.0e-12;
+   static final double EPS = 1.0e-12;
 
    /**
     * Performs the multiplication of {@code q1} and {@code q2} and stores the result in

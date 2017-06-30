@@ -1434,20 +1434,4 @@ public class Matrix3DToolsTest
          EuclidCoreTestTools.assertTuple4DEquals(vectorExpected, vectorActual, EPS);
       }
    }
-
-   @Test
-   public void testMax() throws Exception
-   {
-      Random random = new Random(45645L);
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
-         double a = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
-         double b = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
-         double c = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
-         double expected = Math.max(a, Math.max(b, c));
-         double actual = Matrix3DTools.max(a, b, c);
-         assertEquals(expected, actual, EPS);
-      }
-   }
 }
