@@ -121,8 +121,8 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * Computes and returns the distance from this quaternion to {@code other}.
     * 
     * @param other the other quaternion to measure the distance. Not modified.
-    * @return the angle representing the distance between the two quaternion. It is contained in [0,
-    *         <i>pi</i>]
+    * @return the angle representing the distance between the two quaternions. It is contained in
+    *         [0, <i>pi</i>]
     */
    default double distance(QuaternionReadOnly other)
    {
