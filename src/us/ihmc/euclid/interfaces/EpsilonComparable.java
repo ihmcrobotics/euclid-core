@@ -16,7 +16,7 @@ public interface EpsilonComparable<T>
     *
     * @param other the other object to compare against this. Not modified.
     * @param epsilon tolerance to use when comparing each component.
-    * @return {@code true} if the two object are equal component-wise, {@code false} otherwise.
+    * @return {@code true} if the two objects are equal component-wise, {@code false} otherwise.
     */
    boolean epsilonEquals(T other, double epsilon);
 }
