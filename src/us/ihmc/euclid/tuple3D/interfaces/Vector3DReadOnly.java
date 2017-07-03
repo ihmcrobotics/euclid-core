@@ -1,7 +1,5 @@
 package us.ihmc.euclid.tuple3D.interfaces;
 
-import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
-
 /**
  * Read-only interface for a 3 dimensional vector.
  * <p>
@@ -29,24 +27,6 @@ import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
  */
 public interface Vector3DReadOnly extends Tuple3DReadOnly
 {
-   public default Vector2DReadOnly getLinkedVector2D()
-   {
-      return new Vector2DReadOnly()
-      {
-         @Override
-         public double getX()
-         {
-            return Vector3DReadOnly.this.getX();
-         }
-
-         @Override
-         public double getY()
-         {
-            return Vector3DReadOnly.this.getY();
-         }
-      };
-   }
-
    /**
     * Calculates and returns the magnitude of this vector.
     * <p>
