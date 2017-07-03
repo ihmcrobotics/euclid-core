@@ -1,7 +1,5 @@
 package us.ihmc.euclid.tuple3D.interfaces;
 
-import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
-
 /**
  * Read-only interface for a 3 dimensional point.
  * <p>
@@ -28,24 +26,6 @@ import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
  */
 public interface Point3DReadOnly extends Tuple3DReadOnly
 {
-   public default Point2DReadOnly getLinkedPoint2D()
-   {
-      return new Point2DReadOnly()
-      {
-         @Override
-         public double getX()
-         {
-            return Point3DReadOnly.this.getX();
-         }
-
-         @Override
-         public double getY()
-         {
-            return Point3DReadOnly.this.getY();
-         }
-      };
-   }
-
    /**
     * Calculates and returns the distance between this point and {@code other}.
     *

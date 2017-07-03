@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
-import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -27,8 +26,6 @@ public class Point3D implements Serializable, Point3DBasics, GeometryObject<Poin
    private double y;
    /** The z-coordinate. */
    private double z;
-
-   private Point2DReadOnly linkedPoint2D = null;
 
    /**
     * Creates a new point and initializes it coordinates to zero.
@@ -146,14 +143,6 @@ public class Point3D implements Serializable, Point3DBasics, GeometryObject<Poin
    public double getZ()
    {
       return z;
-   }
-
-   @Override
-   public Point2DReadOnly getLinkedPoint2D()
-   {
-      if (linkedPoint2D == null)
-         linkedPoint2D = Point3DBasics.super.getLinkedPoint2D();
-      return linkedPoint2D;
    }
 
    /**
