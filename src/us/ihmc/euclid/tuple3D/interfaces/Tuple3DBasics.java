@@ -4,6 +4,7 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.tools.TupleTools;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 
 /**
  * Write and read interface for a 3 dimensional tuple.
@@ -169,6 +170,20 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
       setX(x);
       setY(y);
       setZ(z);
+   }
+
+   /**
+    * Sets the x and y components of this tuple with the x and y components of the given {@code tuple2DReadOnly}.
+    * <p>
+    * The z component remains unchanged.
+    * </p>
+    * 
+    * @param tuple2DReadOnly the tuple to copy the values from. Not modified.
+    */
+   default void set(Tuple2DReadOnly tuple2DReadOnly)
+   {
+      setX(tuple2DReadOnly.getX());
+      setY(tuple2DReadOnly.getY());
    }
 
    /**
