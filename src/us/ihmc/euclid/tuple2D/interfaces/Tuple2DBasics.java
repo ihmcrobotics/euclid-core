@@ -7,6 +7,7 @@ import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.Transformable;
 import us.ihmc.euclid.tools.TupleTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
 /**
  * Write and read interface for a 2 dimensional tuple.
@@ -170,6 +171,16 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
    default void set(Tuple2DReadOnly other)
    {
       set(other.getX(), other.getY());
+   }
+
+   /**
+    * Sets this tuple with the x and y components of the given {@code tuple3DReadOnly}
+    * 
+    * @param tuple3DReadOnly the tuple 3D to copy the x and y components from. Not modified.
+    */
+   default void set(Tuple3DReadOnly tuple3DReadOnly)
+   {
+      set(tuple3DReadOnly.getX(), tuple3DReadOnly.getY());
    }
 
    /**

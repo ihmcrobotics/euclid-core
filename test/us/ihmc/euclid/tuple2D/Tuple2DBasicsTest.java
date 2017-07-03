@@ -1,18 +1,19 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.TupleTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
 public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2DReadOnlyTest<T>
 {
@@ -102,6 +103,15 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
 
          tuple1.set((Tuple2DReadOnly) tuple2);
          EuclidCoreTestTools.assertTuple2DEquals(tuple1, tuple2, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test set(Tuple3DReadOnly tupleReadOnly)
+         Tuple3DBasics tuple3D = EuclidCoreRandomTools.generateRandomPoint3D(random);
+
+         tuple1.set((Tuple3DReadOnly) tuple3D);
+         assertEquals(tuple3D.getX(), tuple1.getX(), getEpsilon());
+         assertEquals(tuple3D.getY(), tuple1.getY(), getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
