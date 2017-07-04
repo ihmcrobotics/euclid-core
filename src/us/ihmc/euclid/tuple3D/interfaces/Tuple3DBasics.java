@@ -560,6 +560,39 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
    }
 
    /**
+    * Scales this tuple and subtracts {@code other}.
+    * <p>
+    * this = scalar * this - other
+    * </p>
+    *
+    * @param scalar the scale factor to use.
+    * @param other the tuple to subtract to this. Not modified.
+    */
+   default void scaleSub(double scalar, Tuple3DReadOnly other)
+   {
+      scale(scalar);
+      sub(other);
+   }
+
+   /**
+    * Sets this tuple to the difference of {@code tuple1} scaled and {@code tuple2}.
+    * <p>
+    * this = scalar * tuple1 - tuple2
+    * </p>
+    *
+    * @param scalar the scale factor to use on {@code tuple1}.
+    * @param tuple1 the first tuple of the difference. Not modified.
+    * @param tuple2 the second tuple of the difference. Not modified.
+    */
+   default void scaleSub(double scalar, Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
+   {
+      double x = scalar * tuple1.getX() - tuple2.getX();
+      double y = scalar * tuple1.getY() - tuple2.getY();
+      double z = scalar * tuple1.getZ() - tuple2.getZ();
+      set(x, y, z);
+   }
+
+   /**
     * Performs a linear interpolation from this tuple to {@code other} given the percentage
     * {@code alpha}.
     * <p>
