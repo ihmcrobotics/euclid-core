@@ -1,5 +1,7 @@
 package us.ihmc.euclid.tuple3D.interfaces;
 
+import us.ihmc.euclid.tools.EuclidCoreTools;
+
 /**
  * Read-only interface for a 3 dimensional vector.
  * <p>
@@ -55,7 +57,7 @@ public interface Vector3DReadOnly extends Tuple3DReadOnly
     */
    default double lengthSquared()
    {
-      return dot(this);
+      return EuclidCoreTools.normSquared(getX(), getY(), getZ());
    }
 
    /**

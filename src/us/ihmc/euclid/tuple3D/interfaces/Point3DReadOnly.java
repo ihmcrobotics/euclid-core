@@ -1,5 +1,7 @@
 package us.ihmc.euclid.tuple3D.interfaces;
 
+import us.ihmc.euclid.tools.EuclidCoreTools;
+
 /**
  * Read-only interface for a 3 dimensional point.
  * <p>
@@ -53,7 +55,7 @@ public interface Point3DReadOnly extends Tuple3DReadOnly
       double dx = getX() - other.getX();
       double dy = getY() - other.getY();
       double dz = getZ() - other.getZ();
-      return dx * dx + dy * dy + dz * dz;
+      return EuclidCoreTools.normSquared(dx, dy, dz);
    }
 
    /**
@@ -78,6 +80,6 @@ public interface Point3DReadOnly extends Tuple3DReadOnly
     */
    default double distanceFromOriginSquared()
    {
-      return getX() * getX() + getY() * getY() + getZ() * getZ();
+      return EuclidCoreTools.normSquared(getX(), getY(), getZ());
    }
 }
