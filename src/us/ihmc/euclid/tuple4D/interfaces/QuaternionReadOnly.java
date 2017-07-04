@@ -122,7 +122,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * 
     * @param other the other quaternion to measure the distance. Not modified.
     * @return the angle representing the distance between the two quaternions. It is contained in
-    *         [0, <i>pi</i>]
+    *         [0, 2<i>pi</i>]
     */
    default double distance(QuaternionReadOnly other)
    {
@@ -132,7 +132,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    /**
     * Calculates and returns the angle of the rotation this quaternion represents.
     *
-    * @return the angle &in; [-<i>pi</i>;<i>pi</i>].
+    * @return the angle &in; [-2<i>pi</i>;2<i>pi</i>].
     */
    default double getAngle()
    {
