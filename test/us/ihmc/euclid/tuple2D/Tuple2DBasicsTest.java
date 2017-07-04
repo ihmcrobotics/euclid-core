@@ -413,6 +413,24 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
       T tuple3 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test addX(double x) and addY(double y)
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+
+         tuple1.addX(x);
+         assertEquals(tuple1.getX(), xOld + x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld, getEpsilon());
+
+         tuple1.addY(y);
+         assertEquals(tuple1.getX(), xOld + x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld + y, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test add(double x, double y)
          double xOld = random.nextDouble();
          double yOld = random.nextDouble();
@@ -462,6 +480,24 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
       T tuple1 = createEmptyTuple();
       T tuple2 = createEmptyTuple();
       T tuple3 = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test subX(double x) and subY(double y)
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+
+         tuple1.subX(x);
+         assertEquals(tuple1.getX(), xOld - x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld, getEpsilon());
+
+         tuple1.subY(y);
+         assertEquals(tuple1.getX(), xOld - x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld - y, getEpsilon());
+      }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test sub(double x, double y)

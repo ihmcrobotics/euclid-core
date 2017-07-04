@@ -482,6 +482,34 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3D
       T tuple3 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test addX(double x), addY(double y), and addZ(double z)
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         double zOld = random.nextDouble();
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         double z = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+         tuple1.setZ(zOld);
+
+         tuple1.addX(x);
+         assertEquals(tuple1.getX(), xOld + x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld, getEpsilon());
+         assertEquals(tuple1.getZ(), zOld, getEpsilon());
+
+         tuple1.addY(y);
+         assertEquals(tuple1.getX(), xOld + x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld + y, getEpsilon());
+         assertEquals(tuple1.getZ(), zOld, getEpsilon());
+         
+         tuple1.addZ(z);
+         assertEquals(tuple1.getX(), xOld + x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld + y, getEpsilon());
+         assertEquals(tuple1.getZ(), zOld + z, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test add(double x, double y)
          double xOld = random.nextDouble();
          double yOld = random.nextDouble();
@@ -543,6 +571,34 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3D
       T tuple1 = createEmptyTuple();
       T tuple2 = createEmptyTuple();
       T tuple3 = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test subX(double x), subY(double y), and subZ(double z)
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         double zOld = random.nextDouble();
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         double z = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+         tuple1.setZ(zOld);
+
+         tuple1.subX(x);
+         assertEquals(tuple1.getX(), xOld - x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld, getEpsilon());
+         assertEquals(tuple1.getZ(), zOld, getEpsilon());
+
+         tuple1.subY(y);
+         assertEquals(tuple1.getX(), xOld - x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld - y, getEpsilon());
+         assertEquals(tuple1.getZ(), zOld, getEpsilon());
+         
+         tuple1.subZ(z);
+         assertEquals(tuple1.getX(), xOld - x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld - y, getEpsilon());
+         assertEquals(tuple1.getZ(), zOld - z, getEpsilon());
+      }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test sub(double x, double y)
