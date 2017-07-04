@@ -2,10 +2,13 @@ package us.ihmc.euclid.tools;
 
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
+import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 public abstract class RotationMatrixTools
 {
@@ -421,5 +424,127 @@ public abstract class RotationMatrixTools
       double y = tupleOriginal.getY() * cRoll - tupleOriginal.getZ() * sRoll;
       double z = tupleOriginal.getY() * sRoll + tupleOriginal.getZ() * cRoll;
       tupleTransformed.set(x, y, z);
+   }
+
+   /**
+    * Performs a linear interpolation in SO(3) from {@code r0} to {@code rf} given the percentage
+    * {@code alpha}.
+    * <p>
+    * This is equivalent to but much more computationally expensive than the <i>Spherical Linear
+    * Interpolation</i> performed with quaternions, see
+    * {@link QuaternionBasics#interpolate(QuaternionReadOnly, QuaternionReadOnly, double)}.
+    * </p>
+    * 
+    * @param r0 the first rotation matrix used in the interpolation. Not modified.
+    * @param rf the second rotation matrix used in the interpolation. Not modified.
+    * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
+    *           {@code matrixToPack} to {@code r0}, while a value of 1 is equivalent to setting
+    *           {@code matrixToPack} to {@code rf}.
+    * @param matrixToPack the rotation matrix in which the result of the interpolation is stored.
+    *           Modified.
+    */
+   public static void interpolate(RotationMatrixReadOnly r0, RotationMatrixReadOnly rf, double alpha, RotationMatrix matrixToPack)
+   {
+      if (r0.containsNaN() || rf.containsNaN())
+      {
+         matrixToPack.setToNaN();
+         return;
+      }
+
+      if (r0.epsilonEquals(rf, AxisAngleConversion.EPS))
+      {
+         matrixToPack.set(r0);
+         return;
+      }
+
+      double m00 = r0.getM00() * rf.getM00() + r0.getM10() * rf.getM10() + r0.getM20() * rf.getM20();
+      double m01 = r0.getM00() * rf.getM01() + r0.getM10() * rf.getM11() + r0.getM20() * rf.getM21();
+      double m02 = r0.getM00() * rf.getM02() + r0.getM10() * rf.getM12() + r0.getM20() * rf.getM22();
+      double m10 = r0.getM01() * rf.getM00() + r0.getM11() * rf.getM10() + r0.getM21() * rf.getM20();
+      double m11 = r0.getM01() * rf.getM01() + r0.getM11() * rf.getM11() + r0.getM21() * rf.getM21();
+      double m12 = r0.getM01() * rf.getM02() + r0.getM11() * rf.getM12() + r0.getM21() * rf.getM22();
+      double m20 = r0.getM02() * rf.getM00() + r0.getM12() * rf.getM10() + r0.getM22() * rf.getM20();
+      double m21 = r0.getM02() * rf.getM01() + r0.getM12() * rf.getM11() + r0.getM22() * rf.getM21();
+      double m22 = r0.getM02() * rf.getM02() + r0.getM12() * rf.getM12() + r0.getM22() * rf.getM22();
+
+      double angle, x, y, z; // variables for result
+
+      x = m21 - m12;
+      y = m02 - m20;
+      z = m10 - m01;
+
+      double s = Math.sqrt(x * x + y * y + z * z);
+
+      if (s > AxisAngleConversion.EPS)
+      {
+         double sin = 0.5 * s;
+         double cos = 0.5 * (m00 + m11 + m22 - 1.0);
+         angle = Math.atan2(sin, cos);
+         x /= s;
+         y /= s;
+         z /= s;
+      }
+      else
+      {
+         // otherwise this singularity is angle = 180
+         angle = Math.PI;
+         double xx = 0.50 * (m00 + 1.0);
+         double yy = 0.50 * (m11 + 1.0);
+         double zz = 0.50 * (m22 + 1.0);
+         double xy = 0.25 * (m01 + m10);
+         double xz = 0.25 * (m02 + m20);
+         double yz = 0.25 * (m12 + m21);
+
+         if (xx > yy && xx > zz)
+         { // m00 is the largest diagonal term
+            x = Math.sqrt(xx);
+            y = xy / x;
+            z = xz / x;
+         }
+         else if (yy > zz)
+         { // m11 is the largest diagonal term
+            y = Math.sqrt(yy);
+            x = xy / y;
+            z = yz / y;
+         }
+         else
+         { // m22 is the largest diagonal term so base result on this
+            z = Math.sqrt(zz);
+            x = xz / z;
+            y = yz / z;
+         }
+      }
+
+      angle *= alpha;
+
+      double sinTheta = Math.sin(angle);
+      double cosTheta = Math.cos(angle);
+      double t = 1.0 - cosTheta;
+
+      double xz = x * z;
+      double xy = x * y;
+      double yz = y * z;
+
+      m00 = t * x * x + cosTheta;
+      m01 = t * xy - sinTheta * z;
+      m02 = t * xz + sinTheta * y;
+      m10 = t * xy + sinTheta * z;
+      m11 = t * y * y + cosTheta;
+      m12 = t * yz - sinTheta * x;
+      m20 = t * xz - sinTheta * y;
+      m21 = t * yz + sinTheta * x;
+      m22 = t * z * z + cosTheta;
+
+      double r00 = r0.getM00() * m00 + r0.getM01() * m10 + r0.getM02() * m20;
+      double r01 = r0.getM00() * m01 + r0.getM01() * m11 + r0.getM02() * m21;
+      double r02 = r0.getM00() * m02 + r0.getM01() * m12 + r0.getM02() * m22;
+      double r10 = r0.getM10() * m00 + r0.getM11() * m10 + r0.getM12() * m20;
+      double r11 = r0.getM10() * m01 + r0.getM11() * m11 + r0.getM12() * m21;
+      double r12 = r0.getM10() * m02 + r0.getM11() * m12 + r0.getM12() * m22;
+      double r20 = r0.getM20() * m00 + r0.getM21() * m10 + r0.getM22() * m20;
+      double r21 = r0.getM20() * m01 + r0.getM21() * m11 + r0.getM22() * m21;
+      double r22 = r0.getM20() * m02 + r0.getM21() * m12 + r0.getM22() * m22;
+
+      matrixToPack.set(r00, r01, r02, r10, r11, r12, r20, r21, r22);
    }
 }

@@ -1,10 +1,6 @@
 package us.ihmc.euclid.matrix;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -569,6 +565,52 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          actual.prependRollRotation(roll);
 
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
+   public void testInterpolate() throws Exception
+   {
+      Random random = new Random(3245235);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Tests interpolate(RotationMatrixReadOnly rf, double alpha)
+         RotationMatrix actual = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expected = new RotationMatrix();
+
+         RotationMatrix rf = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         Quaternion qf = new Quaternion(rf);
+
+         double alpha = random.nextDouble();
+
+         Quaternion qInterpolated = new Quaternion(actual);
+         qInterpolated.interpolate(qf, alpha);
+         expected.set(qInterpolated);
+
+         actual.interpolate(rf, alpha);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, 1.0e-5);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Tests interpolate(RotationMatrixReadOnly r0, RotationMatrixReadOnly rf, double alpha)
+         RotationMatrix r0 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rf = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         Quaternion q0 = new Quaternion(r0);
+         Quaternion qf = new Quaternion(rf);
+
+         RotationMatrix actual = new RotationMatrix();
+         RotationMatrix expected = new RotationMatrix();
+
+         double alpha = random.nextDouble();
+
+         Quaternion qInterpolated = new Quaternion();
+         qInterpolated.interpolate(q0, qf, alpha);
+         expected.set(qInterpolated);
+
+         actual.interpolate(r0, rf, alpha);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, 1.0e-5);
       }
    }
 

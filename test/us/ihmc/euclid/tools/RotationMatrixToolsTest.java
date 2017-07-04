@@ -1,9 +1,12 @@
 package us.ihmc.euclid.tools;
 
+import static org.junit.Assert.*;
+
 import java.util.Random;
 
 import org.junit.Test;
 
+import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.tuple2D.Vector2D;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
@@ -11,6 +14,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.euclid.tuple4D.Quaternion;
 
 public class RotationMatrixToolsTest
 {
@@ -112,6 +116,74 @@ public class RotationMatrixToolsTest
          actualTuple.set(tupleOriginal);
          RotationMatrixTools.applyRollRotation(roll, actualTuple, actualTuple);
          EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, EPS);
+      }
+   }
+
+   @Test
+   public void testInterpolate() throws Exception
+   {
+      Random random = new Random(74232);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         RotationMatrix r1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix r2 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         Quaternion q1 = new Quaternion(r1);
+         Quaternion q2 = new Quaternion(r2);
+
+         double alpha = random.nextDouble();
+         Quaternion qInterpolated = new Quaternion();
+         qInterpolated.interpolate(q1, q2, alpha);
+         RotationMatrix expectedMatrix = new RotationMatrix(qInterpolated);
+
+         RotationMatrix actualMatrix = new RotationMatrix();
+         RotationMatrixTools.interpolate(r1, r2, alpha, actualMatrix);
+
+         EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
+      }
+
+      {
+         double errorAverage = 0.0;
+
+         for (int i = 0; i < ITERATIONS; i++)
+         {// Test with singularities
+            AxisAngle axisAngle = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), Math.PI);
+            RotationMatrix diff = new RotationMatrix(axisAngle);
+            RotationMatrix r1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+            RotationMatrix r2 = new RotationMatrix();
+            r2.set(r1);
+            r2.multiply(diff);
+
+            double alpha = random.nextDouble();
+
+            axisAngle.scaleAngle(alpha);
+            diff.set(axisAngle);
+
+            RotationMatrix expectedMatrix = new RotationMatrix();
+            expectedMatrix.set(r1);
+            expectedMatrix.multiply(diff);
+
+            RotationMatrix actualMatrix = new RotationMatrix();
+            RotationMatrixTools.interpolate(r1, r2, alpha, actualMatrix);
+
+            if (!expectedMatrix.epsilonEquals(actualMatrix, EPS))
+            {
+               axisAngle.scaleAngle(-1.0);
+               diff.set(axisAngle);
+               expectedMatrix.set(r1);
+               expectedMatrix.multiply(diff);
+
+               EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
+            }
+
+            for (int row = 0; row < 3; row ++)
+               for (int column = 0; column < 3; column ++)
+                  errorAverage += Math.abs(expectedMatrix.getElement(row, column) - actualMatrix.getElement(row, column));
+         }
+
+         errorAverage /= 9.0 * ITERATIONS;
+         assertTrue(errorAverage < 5.0e-5);
       }
    }
 }
