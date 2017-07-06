@@ -173,7 +173,8 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
    }
 
    /**
-    * Sets the x and y components of this tuple with the x and y components of the given {@code tuple2DReadOnly}.
+    * Sets the x and y components of this tuple with the x and y components of the given
+    * {@code tuple2DReadOnly}.
     * <p>
     * The z component remains unchanged.
     * </p>

@@ -67,7 +67,6 @@ public interface Vector3DReadOnly extends Tuple3DReadOnly
     * p . q = &sum;<sub>i=1:3</sub>(p<sub>i</sub> * q<sub>i</sub>)
     * </p>
     *
-    *
     * @param other the other vector used for the dot product. Not modified.
     * @return the value of the dot product.
     */
