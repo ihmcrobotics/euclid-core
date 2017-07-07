@@ -62,19 +62,19 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
    }
 
    /**
-    * Sets this vector to the cross product of {@code vector1} and {@code vector2}.
+    * Sets this vector to the cross product of {@code tuple1} and {@code tuple2}.
     * <p>
-    * this = vector1 {@code x} vector2
+    * this = tuple1 &times; tuple2
     * </p>
     *
-    * @param vector1 the first vector in the cross product. Not modified.
-    * @param vector2 the second vector in the cross product. Not modified.
+    * @param tuple1 the first tuple in the cross product. Not modified.
+    * @param tuple2 the second tuple in the cross product. Not modified.
     */
-   default void cross(Vector3DReadOnly vector1, Vector3DReadOnly vector2)
+   default void cross(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
-      double x = vector1.getY() * vector2.getZ() - vector1.getZ() * vector2.getY();
-      double y = vector1.getZ() * vector2.getX() - vector1.getX() * vector2.getZ();
-      double z = vector1.getX() * vector2.getY() - vector1.getY() * vector2.getX();
+      double x = tuple1.getY() * tuple2.getZ() - tuple1.getZ() * tuple2.getY();
+      double y = tuple1.getZ() * tuple2.getX() - tuple1.getX() * tuple2.getZ();
+      double z = tuple1.getX() * tuple2.getY() - tuple1.getY() * tuple2.getX();
       set(x, y, z);
    }
 
