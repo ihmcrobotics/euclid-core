@@ -321,7 +321,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
    }
 
    /**
-    * Sets this tuple to {@code other} and then scales it {@link #scale(double)}.
+    * Sets this tuple to {@code other} and then calls {@link #scale(double)}.
     *
     * @param scalar the scale factor to use on this tuple.
     * @param other the other tuple to copy the values from. Not modified.
@@ -417,7 +417,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     * this = this + other
     * </p>
     *
-    * @param other the other tuple to add to this tuple.
+    * @param other the other tuple to add to this tuple. Not modified.
     */
    default void add(Tuple3DReadOnly other)
    {
@@ -489,7 +489,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     * this = this - other
     * </p>
     *
-    * @param other the other tuple to add to this tuple.
+    * @param other the other tuple to subtract to this tuple.
     */
    default void sub(Tuple3DReadOnly other)
    {
@@ -503,7 +503,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     * </p>
     *
     * @param tuple1 the first tuple. Not modified.
-    * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
+    * @param tuple2 the second tuple to subtract to {@code tuple1}. Not modified.
     */
    default void sub(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
