@@ -188,6 +188,20 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
    }
 
    /**
+    * Sets the x and y components of this tuple with the x and y components of the given
+    * {@code tuple2DReadOnly} and the z-component to the given {@code z}.
+    * 
+    * @param tuple2DReadOnly the tuple to copy the values from. Not modified.
+    * @param z the new z-coordinate for this tuple.
+    */
+   default void set(Tuple2DReadOnly tuple2DReadOnly, double z)
+   {
+      setX(tuple2DReadOnly.getX());
+      setY(tuple2DReadOnly.getY());
+      setZ(z);
+   }
+
+   /**
     * Sets this tuple to {@code tupleReadOnly}.
     *
     * @param tupleReadOnly the other tuple to copy the values from. Not modified.
