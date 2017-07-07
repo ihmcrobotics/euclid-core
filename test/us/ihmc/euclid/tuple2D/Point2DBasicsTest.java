@@ -10,8 +10,8 @@ import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.transform.RigidBodyTransform;
-import us.ihmc.euclid.tuple2D.Vector2D;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
+import us.ihmc.euclid.tuple3D.Point3D;
 
 public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2DBasicsTest<T>
 {
@@ -47,6 +47,40 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY());
          double actualDistanceSquared = p1.distanceSquared(p2);
          assertEquals(expectedDistanceSquared, actualDistanceSquared, 10.0 * getEpsilon());
+      }
+   }
+
+   @Test
+   public void testDistanceXY()
+   {
+      Random random = new Random(654135L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
+         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         translation.scale(expectedDistance);
+         T p1 = createRandomTuple(random);
+         Point3D p2 = new Point3D(p1.getX() + translation.getX(), p1.getY() + translation.getY(), random.nextDouble());
+         double actualDistance = p1.distanceXY(p2);
+         assertEquals(expectedDistance, actualDistance, 5.0 * getEpsilon());
+      }
+   }
+
+   @Test
+   public void testDistanceXYSquared()
+   {
+      Random random = new Random(654135L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         translation.scale(Math.sqrt(expectedDistanceSquared));
+         T p1 = createRandomTuple(random);
+         Point3D p2 = new Point3D(p1.getX() + translation.getX(), p1.getY() + translation.getY(), random.nextDouble());
+         double actualDistance = p1.distanceXYSquared(p2);
+         assertEquals(expectedDistanceSquared, actualDistance, 5.0 * getEpsilon());
       }
    }
 

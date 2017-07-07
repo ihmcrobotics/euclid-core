@@ -1,6 +1,7 @@
 package us.ihmc.euclid.tuple3D.interfaces;
 
 import us.ihmc.euclid.tools.EuclidCoreTools;
+import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
 
 /**
  * Read-only interface for a 3 dimensional point.
@@ -56,6 +57,85 @@ public interface Point3DReadOnly extends Tuple3DReadOnly
       double dy = getY() - other.getY();
       double dz = getZ() - other.getZ();
       return EuclidCoreTools.normSquared(dx, dy, dz);
+   }
+
+   /**
+    * Calculates and returns the distance between this point and {@code other} in the XY-plane.
+    * <p>
+    * Effectively, this calculates the distance as follows:<br>
+    * d<sub>xy</sub> = &radic;((this.x - other.x)<sup>2</sup> + (this.y - other.y)<sup>2</sup>)
+    * </p>
+    *
+    * @param other the other point used to measure the distance.
+    * @return the distance between the two points in the XY-plane.
+    */
+   default double distanceXY(Point3DReadOnly other)
+   {
+      return Math.sqrt(distanceXYSquared(other));
+   }
+
+   /**
+    * Calculates and returns the square of the distance between this point and {@code other} in the
+    * XY-plane.
+    * <p>
+    * Effectively, this calculates the distance squared as follows:<br>
+    * d<sub>xy</sub><sup>2</sup> = (this.x - other.x)<sup>2</sup> + (this.y - other.y)<sup>2</sup>
+    * </p>
+    * <p>
+    * This method is usually preferred over {@link #distanceXY(Point3DReadOnly)} when calculation
+    * speed matters and knowledge of the actual distance does not, i.e. when comparing distances
+    * between several pairs of points.
+    * </p>
+    *
+    * @param other the other point used to measure the square of the distance.
+    * @return the square of the distance between the two points in the XY-plane.
+    */
+   default double distanceXYSquared(Point3DReadOnly other)
+   {
+      double dx = getX() - other.getX();
+      double dy = getY() - other.getY();
+      return EuclidCoreTools.normSquared(dx, dy);
+   }
+
+   /**
+    * Calculates and returns the distance between this point and {@code point2DReadOnly} in the
+    * XY-plane.
+    * <p>
+    * Effectively, this calculates the distance as follows:<br>
+    * d<sub>xy</sub> = &radic;((this.x - point2DReadOnly.x)<sup>2</sup> + (this.y -
+    * point2DReadOnly.y)<sup>2</sup>)
+    * </p>
+    *
+    * @param point2DReadOnly the other point used to measure the distance.
+    * @return the distance between the two points in the XY-plane.
+    */
+   default double distanceXY(Point2DReadOnly point2DReadOnly)
+   {
+      return Math.sqrt(distanceXYSquared(point2DReadOnly));
+   }
+
+   /**
+    * Calculates and returns the square of the distance between this point and
+    * {@code point2DReadOnly} in the XY-plane.
+    * <p>
+    * Effectively, this calculates the distance squared as follows:<br>
+    * d<sub>xy</sub><sup>2</sup> = (this.x - point2DReadOnly.x)<sup>2</sup> + (this.y -
+    * point2DReadOnly.y)<sup>2</sup>
+    * </p>
+    * <p>
+    * This method is usually preferred over {@link #distanceXY(Point2DReadOnly)} when calculation
+    * speed matters and knowledge of the actual distance does not, i.e. when comparing distances
+    * between several pairs of points.
+    * </p>
+    *
+    * @param point2DReadOnly the other point used to measure the square of the distance.
+    * @return the square of the distance between the two points in the XY-plane.
+    */
+   default double distanceXYSquared(Point2DReadOnly point2DReadOnly)
+   {
+      double dx = getX() - point2DReadOnly.getX();
+      double dy = getY() - point2DReadOnly.getY();
+      return EuclidCoreTools.normSquared(dx, dy);
    }
 
    /**

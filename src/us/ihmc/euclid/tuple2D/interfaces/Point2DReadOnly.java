@@ -1,5 +1,8 @@
 package us.ihmc.euclid.tuple2D.interfaces;
 
+import us.ihmc.euclid.tools.EuclidCoreTools;
+import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
+
 /**
  * Read-only interface for a 2 dimensional point.
  * <p>
@@ -53,6 +56,47 @@ public interface Point2DReadOnly extends Tuple2DReadOnly
       double dx = getX() - other.getX();
       double dy = getY() - other.getY();
       return dx * dx + dy * dy;
+   }
+
+   /**
+    * Calculates and returns the distance between this point and {@code point3DReadOnly} in the
+    * XY-plane.
+    * <p>
+    * Effectively, this calculates the distance as follows:<br>
+    * d<sub>xy</sub> = &radic;((this.x - point3DReadOnly.x)<sup>2</sup> + (this.y -
+    * point3DReadOnly.y)<sup>2</sup>)
+    * </p>
+    *
+    * @param point3DReadOnly the other point used to measure the distance.
+    * @return the distance between the two points in the XY-plane.
+    */
+   default double distanceXY(Point3DReadOnly point3DReadOnly)
+   {
+      return Math.sqrt(distanceXYSquared(point3DReadOnly));
+   }
+
+   /**
+    * Calculates and returns the square of the distance between this point and
+    * {@code point3DReadOnly} in the XY-plane.
+    * <p>
+    * Effectively, this calculates the distance squared as follows:<br>
+    * d<sub>xy</sub><sup>2</sup> = (this.x - point3DReadOnly.x)<sup>2</sup> + (this.y -
+    * point3DReadOnly.y)<sup>2</sup>
+    * </p>
+    * <p>
+    * This method is usually preferred over {@link #distanceXY(Point3DReadOnly)} when calculation
+    * speed matters and knowledge of the actual distance does not, i.e. when comparing distances
+    * between several pairs of points.
+    * </p>
+    *
+    * @param point3DReadOnly the other point used to measure the square of the distance.
+    * @return the square of the distance between the two points in the XY-plane.
+    */
+   default double distanceXYSquared(Point3DReadOnly point3DReadOnly)
+   {
+      double dx = getX() - point3DReadOnly.getX();
+      double dy = getY() - point3DReadOnly.getY();
+      return EuclidCoreTools.normSquared(dx, dy);
    }
 
    /**
