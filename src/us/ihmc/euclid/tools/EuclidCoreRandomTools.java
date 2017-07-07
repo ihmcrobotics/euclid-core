@@ -884,6 +884,29 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
+    * Generates a random point.
+    * <p>
+    * {@code point.x} &in; [minX; maxX]. <br>
+    * {@code point.y} &in; [minY; maxY]. <br>
+    * </p>
+    * 
+    * @param random the random generator to use.
+    * @param minX the minimum value for the x-coordinate.
+    * @param maxX the maximum value for the x-coordinate.
+    * @param minY the minimum value for the y-coordinate.
+    * @param maxY the maximum value for the y-coordinate.
+    * @return the random point.
+    * @throws RuntimeException if {@code minX > maxX} or {@code minY > maxY}.
+    */
+   public static Point2D generateRandomPoint2D(Random random, double minX, double maxX, double minY, double maxY)
+   {
+      double x = generateRandomDouble(random, minX, maxX);
+      double y = generateRandomDouble(random, minY, maxY);
+
+      return new Point2D(x, y);
+   }
+
+   /**
     * Generates a random 2D vector given its length {@code length}.
     *
     * @param random the random generator to use.
