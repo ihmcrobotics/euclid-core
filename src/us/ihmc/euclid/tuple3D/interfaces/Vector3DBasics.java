@@ -33,6 +33,8 @@ import us.ihmc.euclid.transform.interfaces.Transform;
  */
 public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transformable
 {
+   public static final double EPS_MAX_LENGTH = 1.0e-7;
+
    /**
     * Normalizes this vector such that its magnitude is equal to 1 after calling this method and its
     * direction remains unchanged.
@@ -76,6 +78,35 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
       double y = tuple1.getZ() * tuple2.getX() - tuple1.getX() * tuple2.getZ();
       double z = tuple1.getX() * tuple2.getY() - tuple1.getY() * tuple2.getX();
       set(x, y, z);
+   }
+
+   /**
+    * Limits the magnitude of this vector to {@code maxLength}.
+    * <p>
+    * If the length of this vector is less than {@code maxLength}, this method does nothing. When it
+    * is greater than {@code maxLength}, this vector is scaled such that it length is equal to
+    * {@code maxLength} and its direction is preserved.
+    * </p>
+    * <p>
+    * Edge case: if {@code maxLength <} {@value #EPS_MAX_LENGTH}, this vector is set to zero.
+    * </p>
+    * 
+    * @param maxLength the maximum allowed length for this vector.
+    */
+   default void clipToMaxLength(double maxLength)
+   {
+      if (maxLength < EPS_MAX_LENGTH)
+      {
+         setToZero();
+         return;
+      }
+
+      double lengthSquared = lengthSquared();
+
+      if (lengthSquared < maxLength * maxLength)
+         return;
+
+      scale(maxLength / Math.sqrt(lengthSquared));
    }
 
    /**

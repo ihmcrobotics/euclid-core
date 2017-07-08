@@ -5,6 +5,7 @@ import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.transform.interfaces.Transform;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 
 /**
  * Write and read interface for a 2 dimensional vector.
@@ -60,6 +61,35 @@ public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
    {
       set(other);
       normalize();
+   }
+
+   /**
+    * Limits the magnitude of this vector to {@code maxLength}.
+    * <p>
+    * If the length of this vector is less than {@code maxLength}, this method does nothing. When it
+    * is greater than {@code maxLength}, this vector is scaled such that it length is equal to
+    * {@code maxLength} and its direction is preserved.
+    * </p>
+    * <p>
+    * Edge case: if {@code maxLength <} {@value #EPS_MAX_LENGTH}, this vector is set to zero.
+    * </p>
+    * 
+    * @param maxLength the maximum allowed length for this vector.
+    */
+   default void clipToMaxLength(double maxLength)
+   {
+      if (maxLength < Vector3DBasics.EPS_MAX_LENGTH)
+      {
+         setToZero();
+         return;
+      }
+
+      double lengthSquared = lengthSquared();
+
+      if (lengthSquared < maxLength * maxLength)
+         return;
+
+      scale(maxLength / Math.sqrt(lengthSquared));
    }
 
    /**

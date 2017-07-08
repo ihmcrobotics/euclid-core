@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tuple3D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -126,6 +125,45 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
          assertEquals(0.0, vector1.dot(vector3), 10.0 * getEpsilon());
          assertEquals(0.0, vector2.dot(vector3), 10.0 * getEpsilon());
+      }
+   }
+
+   @Test
+   public void testClipToMaxLength() throws Exception
+   {
+      Random random = new Random(234234);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test with maxLength > EPS_MAX_LENGTH
+         double maxLength = EuclidCoreRandomTools.generateRandomDouble(random, Vector3DBasics.EPS_MAX_LENGTH, 10.0);
+         double vectorLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         T expectedVector = createTuple(1.0, 0.0, 0.0);
+         RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrix.transform(expectedVector, expectedVector);
+         T actualVector = createEmptyTuple();
+         actualVector.setAndScale(vectorLength, expectedVector);
+
+         if (maxLength > vectorLength)
+            expectedVector.scale(vectorLength);
+         else
+            expectedVector.scale(maxLength);
+
+         actualVector.clipToMaxLength(maxLength);
+
+         EuclidCoreTestTools.assertTuple3DEquals("Iteration: " + i + ", maxLength: " + maxLength, expectedVector, actualVector, 5.0 * getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test with maxLength < EPS_MAX_LENGTH
+         double maxLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Vector3DBasics.EPS_MAX_LENGTH);
+         double vectorLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         T actualVector = createTuple(vectorLength, 0.0, 0.0);
+         RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrix.transform(actualVector, actualVector);
+         
+         actualVector.clipToMaxLength(maxLength);
+         
+         EuclidCoreTestTools.assertTuple3DIsSetToZero("Iteration: " + i + ", maxLength: " + maxLength, actualVector);
       }
    }
 
