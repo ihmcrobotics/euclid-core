@@ -53,7 +53,7 @@ public class Vector3D implements Serializable, Vector3DBasics, GeometryObject<Ve
     * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z} in order
     * from the given array.
     *
-    * @param pointArray the array containing this vector's components. Not modified.
+    * @param vectorArray the array containing this vector's components. Not modified.
     */
    public Vector3D(double[] vectorArray)
    {
