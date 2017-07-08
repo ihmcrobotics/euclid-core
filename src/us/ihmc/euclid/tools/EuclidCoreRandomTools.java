@@ -680,15 +680,15 @@ public abstract class EuclidCoreRandomTools
     * 
     * @param random the random generator to use.
     * @param minX the minimum value for the x-coordinate.
-    * @param minY the minimum value for the y-coordinate.
-    * @param minZ the minimum value for the z-coordinate.
     * @param maxX the maximum value for the x-coordinate.
+    * @param minY the minimum value for the y-coordinate.
     * @param maxY the maximum value for the y-coordinate.
+    * @param minZ the minimum value for the z-coordinate.
     * @param maxZ the maximum value for the z-coordinate.
     * @return the random point.
     * @throws RuntimeException if {@code maxX < minX}, {@code maxY < minY}, {@code maxZ < minZ}.
     */
-   public static Point3D generateRandomPoint3D(Random random, double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
+   public static Point3D generateRandomPoint3D(Random random, double minX, double maxX, double minY, double maxY, double minZ, double maxZ)
    {
       double x = generateRandomDouble(random, minX, maxX);
       double y = generateRandomDouble(random, minY, maxY);
@@ -792,6 +792,33 @@ public abstract class EuclidCoreRandomTools
       Vector3D vector = new Vector3D();
       randomizeTuple3D(random, new Point3D(min, min, min), new Point3D(max, max, max), vector);
       return vector;
+   }
+
+   /**
+    * Generates a random vector.
+    * <p>
+    * {@code vector.x} &in; [minX; maxX]. <br>
+    * {@code vector.y} &in; [minY; maxY]. <br>
+    * {@code vector.z} &in; [minZ; maxZ]. <br>
+    * </p>
+    * 
+    * @param random the random generator to use.
+    * @param minX the minimum value for the x-component.
+    * @param maxX the maximum value for the x-component.
+    * @param minY the minimum value for the y-component.
+    * @param maxY the maximum value for the y-component.
+    * @param minZ the minimum value for the z-component.
+    * @param maxZ the maximum value for the z-component.
+    * @return the random vector.
+    * @throws RuntimeException if {@code maxX < minX}, {@code maxY < minY}, {@code maxZ < minZ}.
+    */
+   public static Vector3D generateRandomVector3D(Random random, double minX, double maxX, double minY, double maxY, double minZ, double maxZ)
+   {
+      double x = generateRandomDouble(random, minX, maxX);
+      double y = generateRandomDouble(random, minY, maxY);
+      double z = generateRandomDouble(random, minZ, maxZ);
+
+      return new Vector3D(x, y, z);
    }
 
    /**
