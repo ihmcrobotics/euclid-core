@@ -569,22 +569,6 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
-    * Generates a random vector.
-    * <p>
-    * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
-    * </p>
-    *
-    * @param random the random generator to use.
-    * @return the random vector.
-    */
-   public static Vector3D generateRandomVector3D(Random random)
-   {
-      Vector3D vector = new Vector3D();
-      randomizeTuple3D(random, vector);
-      return vector;
-   }
-
-   /**
     * Generates a random point.
     * <p>
     * {@code point}<sub>i</sub> &in; [-1.0; 1.0].
@@ -698,43 +682,19 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
-    * Generates a random vector given its length {@code length}.
+    * Generates a random vector.
+    * <p>
+    * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
+    * </p>
     *
     * @param random the random generator to use.
-    * @param length the length of the generated vector.
     * @return the random vector.
     */
-   public static Vector3D generateRandomVector3DWithFixedLength(Random random, double length)
+   public static Vector3D generateRandomVector3D(Random random)
    {
-      Vector3D vector = generateRandomVector3D(random);
-      vector.normalize();
-      vector.scale(length);
+      Vector3D vector = new Vector3D();
+      randomizeTuple3D(random, vector);
       return vector;
-   }
-
-   /**
-    * Generates a random vector that is perpendicular to {@code vectorToBeOrthogonalTo}.
-    *
-    * @param random the random generator to use.
-    * @param vectorToBeOrthogonalTo the vector to be orthogonal to. Not modified.
-    * @param normalize whether to normalize the generated vector or not.
-    * @return the random vector.
-    */
-   public static Vector3D generateRandomOrthogonalVector3D(Random random, Vector3DReadOnly vectorToBeOrthogonalTo, boolean normalize)
-   {
-      Vector3D v1 = new Vector3D(vectorToBeOrthogonalTo.getY(), -vectorToBeOrthogonalTo.getX(), 0.0);
-      Vector3D v2 = new Vector3D(-vectorToBeOrthogonalTo.getZ(), 0.0, vectorToBeOrthogonalTo.getX());
-
-      Vector3D randomPerpendicular = new Vector3D();
-      double a = generateRandomDouble(random, 1.0);
-      double b = generateRandomDouble(random, 1.0);
-      randomPerpendicular.scaleAdd(a, v1, randomPerpendicular);
-      randomPerpendicular.scaleAdd(b, v2, randomPerpendicular);
-
-      if (normalize)
-         randomPerpendicular.normalize();
-
-      return randomPerpendicular;
    }
 
    /**
@@ -822,38 +782,43 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
-    * Generates a random 2D vector.
-    * <p>
-    * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
-    * </p>
+    * Generates a random vector given its length {@code length}.
     *
     * @param random the random generator to use.
-    * @return the random 2D vector.
+    * @param length the length of the generated vector.
+    * @return the random vector.
     */
-   public static Vector2D generateRandomVector2D(Random random)
+   public static Vector3D generateRandomVector3DWithFixedLength(Random random, double length)
    {
-      Vector2D vector = new Vector2D();
-      randomizeTuple2D(random, vector);
+      Vector3D vector = generateRandomVector3D(random);
+      vector.normalize();
+      vector.scale(length);
       return vector;
    }
 
    /**
-    * Generates a random vector.
-    * <p>
-    * {@code vector}<sub>i</sub> &in; [{@code min}; {@code max}].
-    * </p>
+    * Generates a random vector that is perpendicular to {@code vectorToBeOrthogonalTo}.
     *
     * @param random the random generator to use.
-    * @param min upper-bound for each component of the generated vector. Not modified.
-    * @param max lower-bound for each component of the generated vector. Not modified.
+    * @param vectorToBeOrthogonalTo the vector to be orthogonal to. Not modified.
+    * @param normalize whether to normalize the generated vector or not.
     * @return the random vector.
-    * @throws RuntimeException if {@code min > max}.
     */
-   public static Vector2D generateRandomVector2D(Random random, double min, double max)
+   public static Vector3D generateRandomOrthogonalVector3D(Random random, Vector3DReadOnly vectorToBeOrthogonalTo, boolean normalize)
    {
-      Vector2D vector = new Vector2D();
-      randomizeTuple2D(random, new Point2D(min, min), new Point2D(max, max), vector);
-      return vector;
+      Vector3D v1 = new Vector3D(vectorToBeOrthogonalTo.getY(), -vectorToBeOrthogonalTo.getX(), 0.0);
+      Vector3D v2 = new Vector3D(-vectorToBeOrthogonalTo.getZ(), 0.0, vectorToBeOrthogonalTo.getX());
+
+      Vector3D randomPerpendicular = new Vector3D();
+      double a = generateRandomDouble(random, 1.0);
+      double b = generateRandomDouble(random, 1.0);
+      randomPerpendicular.scaleAdd(a, v1, randomPerpendicular);
+      randomPerpendicular.scaleAdd(b, v2, randomPerpendicular);
+
+      if (normalize)
+         randomPerpendicular.normalize();
+
+      return randomPerpendicular;
    }
 
    /**
@@ -931,6 +896,41 @@ public abstract class EuclidCoreRandomTools
       double y = generateRandomDouble(random, minY, maxY);
 
       return new Point2D(x, y);
+   }
+
+   /**
+    * Generates a random 2D vector.
+    * <p>
+    * {@code vector}<sub>i</sub> &in; [-1.0; 1.0].
+    * </p>
+    *
+    * @param random the random generator to use.
+    * @return the random 2D vector.
+    */
+   public static Vector2D generateRandomVector2D(Random random)
+   {
+      Vector2D vector = new Vector2D();
+      randomizeTuple2D(random, vector);
+      return vector;
+   }
+
+   /**
+    * Generates a random vector.
+    * <p>
+    * {@code vector}<sub>i</sub> &in; [{@code min}; {@code max}].
+    * </p>
+    *
+    * @param random the random generator to use.
+    * @param min upper-bound for each component of the generated vector. Not modified.
+    * @param max lower-bound for each component of the generated vector. Not modified.
+    * @return the random vector.
+    * @throws RuntimeException if {@code min > max}.
+    */
+   public static Vector2D generateRandomVector2D(Random random, double min, double max)
+   {
+      Vector2D vector = new Vector2D();
+      randomizeTuple2D(random, new Point2D(min, min), new Point2D(max, max), vector);
+      return vector;
    }
 
    /**
