@@ -92,21 +92,23 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
     * </p>
     * 
     * @param maxLength the maximum allowed length for this vector.
+    * @return whether the length of this vector has been changed or not.
     */
-   default void clipToMaxLength(double maxLength)
+   default boolean clipToMaxLength(double maxLength)
    {
-      if (maxLength < EPS_MAX_LENGTH)
+      if (maxLength < Vector3DBasics.EPS_MAX_LENGTH)
       {
          setToZero();
-         return;
+         return true;
       }
 
       double lengthSquared = lengthSquared();
 
       if (lengthSquared < maxLength * maxLength)
-         return;
+         return false;
 
       scale(maxLength / Math.sqrt(lengthSquared));
+      return true;
    }
 
    /**

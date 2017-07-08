@@ -185,11 +185,15 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          actualVector.setAndScale(vectorLength, expectedVector);
 
          if (maxLength > vectorLength)
+         {
             expectedVector.scale(vectorLength);
+            assertFalse(actualVector.clipToMaxLength(maxLength));
+         }
          else
+         {
             expectedVector.scale(maxLength);
-
-         actualVector.clipToMaxLength(maxLength);
+            assertTrue(actualVector.clipToMaxLength(maxLength));
+         }
 
          EuclidCoreTestTools.assertTuple2DEquals("Iteration: " + i + ", maxLength: " + maxLength, expectedVector, actualVector, 5.0 * getEpsilon());
       }
@@ -202,7 +206,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          RotationMatrixTools.applyYawRotation(yaw, actualVector, actualVector);
          
-         actualVector.clipToMaxLength(maxLength);
+         assertTrue(actualVector.clipToMaxLength(maxLength));
          
          EuclidCoreTestTools.assertTuple2DIsSetToZero("Iteration: " + i + ", maxLength: " + maxLength, actualVector);
       }

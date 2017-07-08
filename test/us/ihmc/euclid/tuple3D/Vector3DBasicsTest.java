@@ -144,11 +144,15 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          actualVector.setAndScale(vectorLength, expectedVector);
 
          if (maxLength > vectorLength)
+         {
             expectedVector.scale(vectorLength);
+            assertFalse(actualVector.clipToMaxLength(maxLength));
+         }
          else
+         {
             expectedVector.scale(maxLength);
-
-         actualVector.clipToMaxLength(maxLength);
+            assertTrue(actualVector.clipToMaxLength(maxLength));
+         }
 
          EuclidCoreTestTools.assertTuple3DEquals("Iteration: " + i + ", maxLength: " + maxLength, expectedVector, actualVector, 5.0 * getEpsilon());
       }
@@ -161,7 +165,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          rotationMatrix.transform(actualVector, actualVector);
          
-         actualVector.clipToMaxLength(maxLength);
+         assertTrue(actualVector.clipToMaxLength(maxLength));
          
          EuclidCoreTestTools.assertTuple3DIsSetToZero("Iteration: " + i + ", maxLength: " + maxLength, actualVector);
       }
