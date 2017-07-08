@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 
@@ -57,6 +58,16 @@ public class Vector3D implements Serializable, Vector3DBasics, GeometryObject<Ve
    public Vector3D(double[] vectorArray)
    {
       set(vectorArray);
+   }
+
+   /**
+    * Creates a new vector and initializes its x and y components to {@code tuple2DReadOnly}.
+    *
+    * @param tuple2DReadOnly the tuple to copy the coordinates from. Not modified.
+    */
+   public Vector3D(Tuple2DReadOnly tuple2DReadOnly)
+   {
+      set(tuple2DReadOnly);
    }
 
    /**
