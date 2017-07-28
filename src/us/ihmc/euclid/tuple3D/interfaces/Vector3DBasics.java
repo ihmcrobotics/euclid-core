@@ -62,6 +62,20 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
       set(other);
       normalize();
    }
+   
+   /**
+    * Sets this vector to the cross product of {@code tuple1} and {@code tuple2}.
+    * <p>
+    * this = tuple1 &times; tuple2
+    * </p>
+    *
+    * @param tuple1 the first tuple in the cross product. Not modified.
+    * @param tuple2 the second tuple in the cross product. Not modified.
+    */
+   default void cross(Tuple3DReadOnly other)
+   {
+      cross(this, other);
+   }
 
    /**
     * Sets this vector to the cross product of {@code tuple1} and {@code tuple2}.
