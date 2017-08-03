@@ -628,6 +628,48 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
          assertEquals(tuple1.getX(), tuple2.getX() * scale + tuple3.getX(), getEpsilon());
          assertEquals(tuple1.getY(), tuple2.getY() * scale + tuple3.getY(), getEpsilon());
       }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test scaleSub(double scalar, TupleBasics other)
+         double scale = random.nextDouble();
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+         tuple2.setX(random.nextDouble());
+         tuple2.setY(random.nextDouble());
+
+         tuple1.scaleSub(scale, tuple2);
+         assertEquals(tuple1.getX(), xOld * scale - tuple2.getX(), getEpsilon());
+         assertEquals(tuple1.getY(), yOld * scale - tuple2.getY(), getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test scaleSub(double scalar, TupleBasics tuple1, TupleBasics tuple2)
+         double scale = random.nextDouble();
+         tuple1.setX(random.nextDouble());
+         tuple1.setY(random.nextDouble());
+         tuple2.setX(random.nextDouble());
+         tuple2.setY(random.nextDouble());
+         tuple3.setX(random.nextDouble());
+         tuple3.setY(random.nextDouble());
+
+         tuple1.scaleSub(scale, tuple2, tuple3);
+         assertEquals(tuple1.getX(), tuple2.getX() * scale - tuple3.getX(), getEpsilon());
+         assertEquals(tuple1.getY(), tuple2.getY() * scale - tuple3.getY(), getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test scaleSub(double scalar, TupleBasics tuple1, TupleBasics tuple2) with tuple2 == this
+         double scale = random.nextDouble();
+         tuple1.set(random.nextDouble(), random.nextDouble());
+         tuple2.set(random.nextDouble(), random.nextDouble());
+         tuple3.set(tuple1);
+
+         tuple1.scaleSub(scale, tuple2, tuple1);
+         assertEquals(tuple1.getX(), tuple2.getX() * scale - tuple3.getX(), getEpsilon());
+         assertEquals(tuple1.getY(), tuple2.getY() * scale - tuple3.getY(), getEpsilon());
+      }
    }
 
    @Test

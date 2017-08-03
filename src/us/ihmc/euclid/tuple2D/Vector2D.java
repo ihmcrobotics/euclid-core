@@ -6,6 +6,7 @@ import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
 /**
  * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane. For
@@ -65,6 +66,16 @@ public class Vector2D implements Serializable, Vector2DBasics, GeometryObject<Ve
    public Vector2D(Tuple2DReadOnly other)
    {
       set(other);
+   }
+
+   /**
+    * Creates a new vector and initializes it to {@code tuple3DReadOnly} x and y components.
+    *
+    * @param tuple3DReadOnly the tuple to copy the coordinates from. Not modified.
+    */
+   public Vector2D(Tuple3DReadOnly tuple3DReadOnly)
+   {
+      set(tuple3DReadOnly);
    }
 
    /**

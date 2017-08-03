@@ -37,7 +37,7 @@ public abstract class TupleTools
    {
       if (!EuclidCoreTools.epsilonEquals(tuple1.getX(), tuple2.getX(), epsilon))
          return false;
-      
+
       if (!EuclidCoreTools.epsilonEquals(tuple1.getY(), tuple2.getY(), epsilon))
          return false;
 
@@ -59,10 +59,10 @@ public abstract class TupleTools
    {
       if (!EuclidCoreTools.epsilonEquals(tuple1.getX(), tuple2.getX(), epsilon))
          return false;
-      
+
       if (!EuclidCoreTools.epsilonEquals(tuple1.getY(), tuple2.getY(), epsilon))
          return false;
-      
+
       if (!EuclidCoreTools.epsilonEquals(tuple1.getZ(), tuple2.getZ(), epsilon))
          return false;
 

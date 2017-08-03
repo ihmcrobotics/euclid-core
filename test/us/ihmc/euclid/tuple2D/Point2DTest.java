@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -9,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tuple2D.Point2D;
+import us.ihmc.euclid.tuple3D.Point3D;
 
 public class Point2DTest extends Point2DBasicsTest<Point2D>
 {
@@ -45,8 +44,17 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Point2D(TupleBasics tuple)
+      { // Test Point2D(Tuple2DReadOnly tuple)
          Point2D point2 = createRandomTuple(random);
+         point = new Point2D(point2);
+
+         Assert.assertTrue(point.getX() == point2.getX());
+         Assert.assertTrue(point.getY() == point2.getY());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test Point2D(Tuple3DReadOnly tuple)
+         Point3D point2 = EuclidCoreRandomTools.generateRandomPoint3D(random);
          point = new Point2D(point2);
 
          Assert.assertTrue(point.getX() == point2.getX());

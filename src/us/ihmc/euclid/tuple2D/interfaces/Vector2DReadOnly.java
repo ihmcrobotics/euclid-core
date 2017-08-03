@@ -99,25 +99,25 @@ public interface Vector2DReadOnly extends Tuple2DReadOnly
    }
 
    /**
-    * Calculates and returns the value of the cross product of this vector with {@code other}.
+    * Calculates and returns the value of the cross product of this vector with {@code tuple}.
     *
-    * @param other the second vector of the cross product. Not modified.
+    * @param tuple the second term in the cross product. Not modified.
     * @return the value of the cross product.
     */
-   default double cross(Vector2DReadOnly other)
+   default double cross(Tuple2DReadOnly tuple)
    {
-      return cross(this, other);
+      return cross(this, tuple);
    }
 
    /**
-    * Calculates and returns the value of the cross product of {@code vector1} with {@code vector2}.
+    * Calculates and returns the value of the cross product of {@code tuple1} with {@code tuple2}.
     *
-    * @param vector1 the first vector in the cross product. Not modified.
-    * @param vector2 the second vector in the cross product. Not modified.
+    * @param tuple1 the first tuple in the cross product. Not modified.
+    * @param tuple2 the second tuple in the cross product. Not modified.
     * @return the value of the cross product.
     */
-   public static double cross(Vector2DReadOnly vector1, Vector2DReadOnly vector2)
+   public static double cross(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
    {
-      return vector1.getX() * vector2.getY() - vector1.getY() * vector2.getX();
+      return tuple1.getX() * tuple2.getY() - tuple1.getY() * tuple2.getX();
    }
 }
