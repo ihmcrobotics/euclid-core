@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -9,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tuple2D.Vector2D;
+import us.ihmc.euclid.tuple3D.Vector3D;
 
 public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
 {
@@ -52,8 +51,17 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Vector2D(TupleBasics tuple)
+      { // Test Vector2D(Tuple2DReadOnly tuple)
          Vector2D vector2 = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vector = new Vector2D(vector2);
+
+         Assert.assertTrue(vector.getX() == vector2.getX());
+         Assert.assertTrue(vector.getY() == vector2.getY());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test Vector2D(Tuple3DReadOnly tuple)
+         Vector3D vector2 = EuclidCoreRandomTools.generateRandomVector3D(random);
          vector = new Vector2D(vector2);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
