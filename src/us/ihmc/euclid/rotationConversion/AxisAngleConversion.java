@@ -25,7 +25,7 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  */
 public class AxisAngleConversion
 {
-   private static final double EPS = 1.0e-12;
+   public static final double EPS = 1.0e-12;
 
    /**
     * Converts the rotation part of the given rotation-scale matrix into an axis-angle.

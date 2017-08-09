@@ -13,7 +13,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 sourceCompatibility = 1.8
-version = '0.4.5'
+version = '0.4.6'
 
 project.ext.fullVersion = version
 project.ext.vcsUrl = "https://github.com/ihmcrobotics/euclid-core"
@@ -40,6 +40,11 @@ jar {
 task sourceJar(type: Jar, dependsOn: classes) {
    classifier = 'sources'
    from sourceSets.main.allJava
+}
+
+task testJar(type: Jar, dependsOn: [classes, testClasses]) {
+   classifier = 'test'
+   from sourceSets.test.output
 }
 
 publishing {
@@ -80,6 +85,10 @@ publishing {
 
 		artifact sourceJar {
 			classifier "sources"
+		}
+
+		artifact testJar {
+			classifier "test"
 		}
       }
    }

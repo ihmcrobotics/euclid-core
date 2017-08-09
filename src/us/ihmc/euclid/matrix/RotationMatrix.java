@@ -962,6 +962,43 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
    }
 
    /**
+    * Performs a linear interpolation in SO(3) from {@code this} to {@code rf} given the percentage
+    * {@code alpha}.
+    * <p>
+    * This is equivalent to but much more computationally expensive than the <i>Spherical Linear
+    * Interpolation</i> performed with quaternions.
+    * </p>
+    *
+    * @param rf the other rotation matrix used for the interpolation. Not modified.
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
+    *           modifying this rotation matrix, while a value of 1 is equivalent to setting this
+    *           rotation matrix to {@code rf}.
+    */
+   public void interpolate(RotationMatrixReadOnly rf, double alpha)
+   {
+      interpolate(this, rf, alpha);
+   }
+
+   /**
+    * Performs a linear interpolation in SO(3) from {@code r0} to {@code rf} given the percentage
+    * {@code alpha}.
+    * <p>
+    * This is equivalent to but much more computationally expensive than the <i>Spherical Linear
+    * Interpolation</i> performed with quaternions.
+    * </p>
+    *
+    * @param r0 the first rotation matrix used in the interpolation. Not modified.
+    * @param rf the second rotation matrix used in the interpolation. Not modified.
+    * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
+    *           this rotation matrix to {@code r0}, while a value of 1 is equivalent to setting this
+    *           rotation matrix to {@code rf}.
+    */
+   public void interpolate(RotationMatrixReadOnly r0, RotationMatrixReadOnly rf, double alpha)
+   {
+      RotationMatrixTools.interpolate(r0, rf, alpha, this);
+   }
+
+   /**
     * {@inheritDoc}
     * <p>
     * this = R * this where 'R' is the 3-by-3 matrix representing the rotation part of the

@@ -1,18 +1,19 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.TupleTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
 public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2DReadOnlyTest<T>
 {
@@ -102,6 +103,15 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
 
          tuple1.set((Tuple2DReadOnly) tuple2);
          EuclidCoreTestTools.assertTuple2DEquals(tuple1, tuple2, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test set(Tuple3DReadOnly tupleReadOnly)
+         Tuple3DBasics tuple3D = EuclidCoreRandomTools.generateRandomPoint3D(random);
+
+         tuple1.set((Tuple3DReadOnly) tuple3D);
+         assertEquals(tuple3D.getX(), tuple1.getX(), getEpsilon());
+         assertEquals(tuple3D.getY(), tuple1.getY(), getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -403,6 +413,24 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
       T tuple3 = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test addX(double x) and addY(double y)
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+
+         tuple1.addX(x);
+         assertEquals(tuple1.getX(), xOld + x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld, getEpsilon());
+
+         tuple1.addY(y);
+         assertEquals(tuple1.getX(), xOld + x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld + y, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test add(double x, double y)
          double xOld = random.nextDouble();
          double yOld = random.nextDouble();
@@ -452,6 +480,24 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
       T tuple1 = createEmptyTuple();
       T tuple2 = createEmptyTuple();
       T tuple3 = createEmptyTuple();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test subX(double x) and subY(double y)
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+
+         tuple1.subX(x);
+         assertEquals(tuple1.getX(), xOld - x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld, getEpsilon());
+
+         tuple1.subY(y);
+         assertEquals(tuple1.getX(), xOld - x, getEpsilon());
+         assertEquals(tuple1.getY(), yOld - y, getEpsilon());
+      }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test sub(double x, double y)
@@ -581,6 +627,48 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
          tuple1.scaleAdd(scale, tuple2, tuple1);
          assertEquals(tuple1.getX(), tuple2.getX() * scale + tuple3.getX(), getEpsilon());
          assertEquals(tuple1.getY(), tuple2.getY() * scale + tuple3.getY(), getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test scaleSub(double scalar, TupleBasics other)
+         double scale = random.nextDouble();
+         double xOld = random.nextDouble();
+         double yOld = random.nextDouble();
+         tuple1.setX(xOld);
+         tuple1.setY(yOld);
+         tuple2.setX(random.nextDouble());
+         tuple2.setY(random.nextDouble());
+
+         tuple1.scaleSub(scale, tuple2);
+         assertEquals(tuple1.getX(), xOld * scale - tuple2.getX(), getEpsilon());
+         assertEquals(tuple1.getY(), yOld * scale - tuple2.getY(), getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test scaleSub(double scalar, TupleBasics tuple1, TupleBasics tuple2)
+         double scale = random.nextDouble();
+         tuple1.setX(random.nextDouble());
+         tuple1.setY(random.nextDouble());
+         tuple2.setX(random.nextDouble());
+         tuple2.setY(random.nextDouble());
+         tuple3.setX(random.nextDouble());
+         tuple3.setY(random.nextDouble());
+
+         tuple1.scaleSub(scale, tuple2, tuple3);
+         assertEquals(tuple1.getX(), tuple2.getX() * scale - tuple3.getX(), getEpsilon());
+         assertEquals(tuple1.getY(), tuple2.getY() * scale - tuple3.getY(), getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test scaleSub(double scalar, TupleBasics tuple1, TupleBasics tuple2) with tuple2 == this
+         double scale = random.nextDouble();
+         tuple1.set(random.nextDouble(), random.nextDouble());
+         tuple2.set(random.nextDouble(), random.nextDouble());
+         tuple3.set(tuple1);
+
+         tuple1.scaleSub(scale, tuple2, tuple1);
+         assertEquals(tuple1.getX(), tuple2.getX() * scale - tuple3.getX(), getEpsilon());
+         assertEquals(tuple1.getY(), tuple2.getY() * scale - tuple3.getY(), getEpsilon());
       }
    }
 

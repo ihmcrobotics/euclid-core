@@ -1,5 +1,7 @@
 package us.ihmc.euclid.tuple3D.interfaces;
 
+import us.ihmc.euclid.tools.EuclidCoreTools;
+
 /**
  * Read-only interface for a 3 dimensional vector.
  * <p>
@@ -55,7 +57,7 @@ public interface Vector3DReadOnly extends Tuple3DReadOnly
     */
    default double lengthSquared()
    {
-      return dot(this);
+      return EuclidCoreTools.normSquared(getX(), getY(), getZ());
    }
 
    /**
@@ -64,7 +66,6 @@ public interface Vector3DReadOnly extends Tuple3DReadOnly
     * For instance, the dot product of two vectors p and q is defined as: <br>
     * p . q = &sum;<sub>i=1:3</sub>(p<sub>i</sub> * q<sub>i</sub>)
     * </p>
-    *
     *
     * @param other the other vector used for the dot product. Not modified.
     * @return the value of the dot product.

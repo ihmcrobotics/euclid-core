@@ -6,6 +6,7 @@ import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
 /**
  * A 2D point represents the 2D coordinates of a location on the XY-plane.
@@ -63,6 +64,16 @@ public class Point2D implements Serializable, Point2DBasics, GeometryObject<Poin
    public Point2D(Tuple2DReadOnly other)
    {
       set(other);
+   }
+
+   /**
+    * Creates a new point and initializes it to {@code tuple3DReadOnly} x and y components.
+    *
+    * @param tuple3DReadOnly the tuple to copy the coordinates from. Not modified.
+    */
+   public Point2D(Tuple3DReadOnly tuple3DReadOnly)
+   {
+      set(tuple3DReadOnly);
    }
 
    /**

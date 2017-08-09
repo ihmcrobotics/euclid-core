@@ -4,6 +4,7 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.tools.TupleTools;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 
 /**
  * Write and read interface for a 3 dimensional tuple.
@@ -172,6 +173,35 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
    }
 
    /**
+    * Sets the x and y components of this tuple with the x and y components of the given
+    * {@code tuple2DReadOnly}.
+    * <p>
+    * The z component remains unchanged.
+    * </p>
+    * 
+    * @param tuple2DReadOnly the tuple to copy the values from. Not modified.
+    */
+   default void set(Tuple2DReadOnly tuple2DReadOnly)
+   {
+      setX(tuple2DReadOnly.getX());
+      setY(tuple2DReadOnly.getY());
+   }
+
+   /**
+    * Sets the x and y components of this tuple with the x and y components of the given
+    * {@code tuple2DReadOnly} and the z-component to the given {@code z}.
+    * 
+    * @param tuple2DReadOnly the tuple to copy the values from. Not modified.
+    * @param z the new z-coordinate for this tuple.
+    */
+   default void set(Tuple2DReadOnly tuple2DReadOnly, double z)
+   {
+      setX(tuple2DReadOnly.getX());
+      setY(tuple2DReadOnly.getY());
+      setZ(z);
+   }
+
+   /**
     * Sets this tuple to {@code tupleReadOnly}.
     *
     * @param tupleReadOnly the other tuple to copy the values from. Not modified.
@@ -291,7 +321,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
    }
 
    /**
-    * Sets this tuple to {@code other} and then scales it {@link #scale(double)}.
+    * Sets this tuple to {@code other} and then calls {@link #scale(double)}.
     *
     * @param scalar the scale factor to use on this tuple.
     * @param other the other tuple to copy the values from. Not modified.
@@ -387,7 +417,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     * this = this + other
     * </p>
     *
-    * @param other the other tuple to add to this tuple.
+    * @param other the other tuple to add to this tuple. Not modified.
     */
    default void add(Tuple3DReadOnly other)
    {
@@ -459,7 +489,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     * this = this - other
     * </p>
     *
-    * @param other the other tuple to add to this tuple.
+    * @param other the other tuple to subtract to this tuple.
     */
    default void sub(Tuple3DReadOnly other)
    {
@@ -473,7 +503,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     * </p>
     *
     * @param tuple1 the first tuple. Not modified.
-    * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
+    * @param tuple2 the second tuple to subtract to {@code tuple1}. Not modified.
     */
    default void sub(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
    {
@@ -541,6 +571,39 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
       double x = scalar * tuple1.getX() + tuple2.getX();
       double y = scalar * tuple1.getY() + tuple2.getY();
       double z = scalar * tuple1.getZ() + tuple2.getZ();
+      set(x, y, z);
+   }
+
+   /**
+    * Scales this tuple and subtracts {@code other}.
+    * <p>
+    * this = scalar * this - other
+    * </p>
+    *
+    * @param scalar the scale factor to use.
+    * @param other the tuple to subtract to this. Not modified.
+    */
+   default void scaleSub(double scalar, Tuple3DReadOnly other)
+   {
+      scale(scalar);
+      sub(other);
+   }
+
+   /**
+    * Sets this tuple to the difference of {@code tuple1} scaled and {@code tuple2}.
+    * <p>
+    * this = scalar * tuple1 - tuple2
+    * </p>
+    *
+    * @param scalar the scale factor to use on {@code tuple1}.
+    * @param tuple1 the first tuple of the difference. Not modified.
+    * @param tuple2 the second tuple of the difference. Not modified.
+    */
+   default void scaleSub(double scalar, Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
+   {
+      double x = scalar * tuple1.getX() - tuple2.getX();
+      double y = scalar * tuple1.getY() - tuple2.getY();
+      double z = scalar * tuple1.getZ() - tuple2.getZ();
       set(x, y, z);
    }
 

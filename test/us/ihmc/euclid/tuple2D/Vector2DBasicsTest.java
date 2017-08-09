@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -10,9 +9,11 @@ import org.junit.Test;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
+import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 
 public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple2DBasicsTest<T>
 {
@@ -165,6 +166,49 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          vector3.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
          vector1.setAndNormalize(vector3);
          EuclidCoreTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testClipToMaxLength() throws Exception
+   {
+      Random random = new Random(234234);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test with maxLength > EPS_MAX_LENGTH
+         double maxLength = EuclidCoreRandomTools.generateRandomDouble(random, Vector3DBasics.EPS_MAX_LENGTH, 10.0);
+         double vectorLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         T expectedVector = createTuple(1.0, 0.0);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         RotationMatrixTools.applyYawRotation(yaw, expectedVector, expectedVector);
+         T actualVector = createEmptyTuple();
+         actualVector.setAndScale(vectorLength, expectedVector);
+
+         if (maxLength > vectorLength)
+         {
+            expectedVector.scale(vectorLength);
+            assertFalse(actualVector.clipToMaxLength(maxLength));
+         }
+         else
+         {
+            expectedVector.scale(maxLength);
+            assertTrue(actualVector.clipToMaxLength(maxLength));
+         }
+
+         EuclidCoreTestTools.assertTuple2DEquals("Iteration: " + i + ", maxLength: " + maxLength, expectedVector, actualVector, 5.0 * getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test with maxLength < EPS_MAX_LENGTH
+         double maxLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Vector3DBasics.EPS_MAX_LENGTH);
+         double vectorLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         T actualVector = createTuple(vectorLength, 0.0);
+         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         RotationMatrixTools.applyYawRotation(yaw, actualVector, actualVector);
+         
+         assertTrue(actualVector.clipToMaxLength(maxLength));
+         
+         EuclidCoreTestTools.assertTuple2DIsSetToZero("Iteration: " + i + ", maxLength: " + maxLength, actualVector);
       }
    }
 
