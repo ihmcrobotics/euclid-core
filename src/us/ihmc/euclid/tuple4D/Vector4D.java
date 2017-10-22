@@ -205,6 +205,28 @@ public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Ve
    }
 
    /**
+    * Tests if {@code this} and {@code other} represent the same vector 4D to an {@code epsilon}.
+    * <p>
+    * Two vectors are considered geometrically equal if the length of their difference is less than
+    * or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other vector 4D to compare against this. Not modified.
+    * @param epsilon the maximum length of the difference vector can be for the two vectors to be
+    *           considered equal.
+    * @return {@code true} if the two vectors represent the same geometry, {@code false} otherwise.
+    */
+   @Override
+   public boolean geometricallyEquals(Vector4D other, double epsilon)
+   {
+      return Vector4DBasics.super.geometricallyEquals(other, epsilon);
+   }
+
+   /**
     * Provides a {@code String} representation of this 4D vector as follows: (x, y, z, s).
     *
     * @return the {@code String} representing this 4D vector.
