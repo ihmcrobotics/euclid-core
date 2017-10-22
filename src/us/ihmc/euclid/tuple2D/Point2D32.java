@@ -198,6 +198,27 @@ public class Point2D32 implements Serializable, Point2DBasics, GeometryObject<Po
    }
 
    /**
+    * Tests if {@code this} and {@code other} represent the same point 2D to an {@code epsilon}.
+    * <p>
+    * Two points are considered geometrically equal if they are at a distance of less than or equal
+    * to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other point 2D to compare against this. Not modified.
+    * @param epsilon the maximum distance that the two points can be spaced and still considered equal.
+    * @return {@code true} if the two points represent the same geometry, {@code false} otherwise.
+    */
+   @Override
+   public boolean geometricallyEquals(Point2D32 other, double epsilon)
+   {
+      return Point2DBasics.super.geometricallyEquals(other, epsilon);
+   }
+
+   /**
     * Provides a {@code String} representation of this point 2D as follows: (x, y).
     *
     * @return the {@code String} representing this point 2D.
