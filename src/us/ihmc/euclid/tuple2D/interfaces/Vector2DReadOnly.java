@@ -1,5 +1,7 @@
 package us.ihmc.euclid.tuple2D.interfaces;
 
+import us.ihmc.euclid.tools.EuclidCoreTools;
+
 /**
  * Read-only interface for a 2 dimensional vector.
  * <p>
@@ -119,5 +121,28 @@ public interface Vector2DReadOnly extends Tuple2DReadOnly
    public static double cross(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2)
    {
       return tuple1.getX() * tuple2.getY() - tuple1.getY() * tuple2.getX();
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same vector 2D to an {@code epsilon}.
+    * <p>
+    * Two vectors are considered geometrically equal if the length of their difference is less than
+    * or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other vector 2D to compare against this. Not modified.
+    * @param epsilon the maximum length of the difference vector can be for the two vectors to be
+    *           considered equal.
+    * @return {@code true} if the two vectors represent the same geometry, {@code false} otherwise.
+    */
+   default boolean geometricallyEquals(Vector2DReadOnly other, double epsilon)
+   {
+      double dx = getX() - other.getX();
+      double dy = getY() - other.getY();
+      return Math.sqrt(EuclidCoreTools.normSquared(dx, dy)) <= epsilon;
    }
 }
