@@ -652,6 +652,33 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
    }
 
    /**
+    * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
+    * <p>
+    * Two quaternions are considered geometrically equal if the magnitude of their difference is
+    * less than or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that two quaternions of opposite sign are considered equal, such that the two quaternions
+    * {@code q1 = (x, y, z, s)} and {@code q2 = (-x, -y, -z, -s)} are considered geometrically
+    * equal.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other quaternion to compare against this. Not modified.
+    * @param epsilon the maximum angle of the difference quaternion can be for the two quaternions
+    *           to be considered equal.
+    * @return {@code true} if the two quaternions represent the same geometry, {@code false}
+    *         otherwise.
+    */
+   default boolean geometricallyEquals(QuaternionReadOnly other, double epsilon)
+   {
+      return Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(distance(other))) <= epsilon;
+   }
+
+   /**
     * Provides a {@code String} representation of this quaternion converted to yaw-pitch-roll angles
     * as follows: yaw-pitch-roll: (yaw, pitch, roll).
     *
