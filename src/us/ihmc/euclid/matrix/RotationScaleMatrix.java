@@ -9,6 +9,7 @@ import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
+import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -58,8 +59,8 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class RotationScaleMatrix
-      implements Serializable, Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>
+public class RotationScaleMatrix implements Serializable, Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>,
+      EpsilonComparable<RotationScaleMatrix>, GeometricallyComparable<RotationScaleMatrix>
 {
    private static final long serialVersionUID = 5012534518639484244L;
 
@@ -1548,7 +1549,7 @@ public class RotationScaleMatrix
 
    /** {@inheritDoc} */
    @Override
-   public Tuple3DReadOnly getScale()
+   public Vector3DReadOnly getScale()
    {
       return scale;
    }
@@ -1711,7 +1712,7 @@ public class RotationScaleMatrix
    @Override
    public boolean epsilonEquals(RotationScaleMatrix other, double epsilon)
    {
-      return rotationMatrix.epsilonEquals(other.rotationMatrix, epsilon) && scale.epsilonEquals(other.scale, epsilon);
+      return RotationScaleMatrixReadOnly.super.epsilonEquals(other, epsilon);
    }
 
    /**
@@ -1734,6 +1735,6 @@ public class RotationScaleMatrix
     */
    public boolean geometricallyEquals(RotationScaleMatrix other, double epsilon)
    {
-      return rotationMatrix.geometricallyEquals(other.rotationMatrix, epsilon) && scale.geometricallyEquals(other.scale, epsilon);
+      return RotationScaleMatrixReadOnly.super.geometricallyEquals(other, epsilon);
    }
 }
