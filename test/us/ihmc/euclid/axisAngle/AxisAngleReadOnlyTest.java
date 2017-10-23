@@ -1,8 +1,6 @@
 package us.ihmc.euclid.axisAngle;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -340,6 +338,25 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          axisAngle = createAxisAngle(0.0, 0.0, uz, angle);
          axisAngle.checkIfIsZOnly(getEpsilon());
+      }
+   }
+
+   @Test
+   public void testDistance() throws Exception
+   {
+      Random random = new Random(32434L);
+      
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         AxisAngleReadOnly aa1 = createRandomAxisAngle(random);
+         AxisAngleReadOnly aa2 = createRandomAxisAngle(random);
+
+         Quaternion q1 = new Quaternion(aa1);
+         Quaternion q2 = new Quaternion(aa2);
+
+         double actualDistance = aa1.distance(aa2);
+         double expectedDistance = q1.distance(q2);
+         assertEquals(expectedDistance, actualDistance, getEpsilon());
       }
    }
 

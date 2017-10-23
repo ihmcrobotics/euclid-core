@@ -167,6 +167,11 @@ public interface AxisAngleReadOnly
          throw new NotAMatrix2DException("The axis-angle is not in XY plane: " + toString());
    }
 
+   default double distance(AxisAngleReadOnly other)
+   {
+      return AxisAngleTools.distance(this, other);
+   }
+
    /**
     * Converts and gets the orientation represented by this axis-angle as a rotation vector. See
     * {@link RotationVectorConversion#convertAxisAngleToRotationVector(AxisAngleReadOnly, Vector3DBasics)}.
@@ -820,6 +825,27 @@ public interface AxisAngleReadOnly
          return false;
 
       return true;
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
+    * <p>
+    * Two axis-angle are considered geometrically equal if the magnitude of their difference is less
+    * than or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other axis-angle to compare against this. Not modified.
+    * @param epsilon the maximum angle for the two quaternions to be considered equal.
+    * @return {@code true} if the two axis-angle represent the same geometry, {@code false}
+    *         otherwise.
+    */
+   default boolean geometricallyEquals(AxisAngleReadOnly other, double epsilon)
+   {
+      return distance(other) <= epsilon;
    }
 
    /**

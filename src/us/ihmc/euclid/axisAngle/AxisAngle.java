@@ -5,6 +5,7 @@ import java.io.Serializable;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
+import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
@@ -22,7 +23,7 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  *
  * @author Sylvain
  */
-public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparable<AxisAngle>, Settable<AxisAngle>
+public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparable<AxisAngle>, Settable<AxisAngle>, GeometricallyComparable<AxisAngle>
 {
    private static final long serialVersionUID = -7238256250079419416L;
 
@@ -250,6 +251,28 @@ public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparab
    public boolean epsilonEquals(AxisAngle other, double epsilon)
    {
       return AxisAngleBasics.super.epsilonEquals(other, epsilon);
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
+    * <p>
+    * Two axis-angle are considered geometrically equal if the magnitude of their difference is less
+    * than or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other axis-angle to compare against this. Not modified.
+    * @param epsilon the maximum angle for the two quaternions to be considered equal.
+    * @return {@code true} if the two axis-angle represent the same geometry, {@code false}
+    *         otherwise.
+    */
+   @Override
+   public boolean geometricallyEquals(AxisAngle other, double epsilon)
+   {
+      return AxisAngleBasics.super.geometricallyEquals(other, epsilon);
    }
 
    /**
