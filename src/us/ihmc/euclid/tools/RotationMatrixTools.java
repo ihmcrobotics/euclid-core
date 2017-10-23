@@ -547,4 +547,47 @@ public abstract class RotationMatrixTools
 
       matrixToPack.set(r00, r01, r02, r10, r11, r12, r20, r21, r22);
    }
+
+   /**
+    * Computes and returns the distance from the rotation matrix {@code m1} to {@code m2}.
+    * 
+    * @param m1 the first rotation matrix. Not modified.
+    * @param m2 the second rotation matrix. Not modified.
+    * @return the angle representing the distance between the two rotation matrices. It is contained
+    *         in [0, <i>pi</i>].
+    */
+   public static double distance(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2)
+   {
+      double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM01() + m1.getM02() * m2.getM02();
+      double m01 = m1.getM00() * m2.getM10() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM12();
+      double m02 = m1.getM00() * m2.getM20() + m1.getM01() * m2.getM21() + m1.getM02() * m2.getM22();
+      double m10 = m1.getM10() * m2.getM00() + m1.getM11() * m2.getM01() + m1.getM12() * m2.getM02();
+      double m11 = m1.getM10() * m2.getM10() + m1.getM11() * m2.getM11() + m1.getM12() * m2.getM12();
+      double m12 = m1.getM10() * m2.getM20() + m1.getM11() * m2.getM21() + m1.getM12() * m2.getM22();
+      double m20 = m1.getM20() * m2.getM00() + m1.getM21() * m2.getM01() + m1.getM22() * m2.getM02();
+      double m21 = m1.getM20() * m2.getM10() + m1.getM21() * m2.getM11() + m1.getM22() * m2.getM12();
+      double m22 = m1.getM20() * m2.getM20() + m1.getM21() * m2.getM21() + m1.getM22() * m2.getM22();
+
+      double angle, x, y, z; // variables for result
+
+      x = m21 - m12;
+      y = m02 - m20;
+      z = m10 - m01;
+
+      double s = EuclidCoreTools.norm(x, y, z);
+
+      if (s > AxisAngleConversion.EPS)
+      {
+         double sin = 0.5 * s;
+         double cos = 0.5 * (m00 + m11 + m22 - 1.0);
+         angle = Math.atan2(sin, cos);
+      }
+      else
+      {
+         // otherwise this singularity is angle = 180
+         angle = Math.PI;
+      }
+
+      return angle;
+   }
 }

@@ -39,6 +39,18 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 public interface RotationMatrixReadOnly extends Matrix3DReadOnly
 {
    /**
+    * Computes and returns the distance between this rotation matrix and the {@code other}.
+    * 
+    * @param other the other rotation matrix to compute the distance. Not modified.
+    * @return the angle representing the distance between the two rotation matrices. It is contained
+    *         in [0, <i>pi</i>].
+    */
+   default double distance(RotationMatrixReadOnly other)
+   {
+      return RotationMatrixTools.distance(this, other);
+   }
+
+   /**
     * Computes and packs the orientation described by this rotation matrix as a rotation vector.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.

@@ -744,6 +744,22 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
    }
 
    @Test
+   public void testDistance() throws Exception
+   {
+      Random random = new Random(3242L);
+      
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         RotationMatrix m1 = createRandomMatrix(random);
+         RotationMatrix m2 = createRandomMatrix(random);
+         
+         double actualDistance = m1.distance(m2);
+         double expectedDistance = RotationMatrixTools.distance(m1, m2);
+         assertEquals(expectedDistance, actualDistance, EPS);
+      }
+   }
+
+   @Test
    public void testGet()
    {
       Random random = new Random(6841L);

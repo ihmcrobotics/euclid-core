@@ -177,13 +177,65 @@ public class RotationMatrixToolsTest
                EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, EPS);
             }
 
-            for (int row = 0; row < 3; row ++)
-               for (int column = 0; column < 3; column ++)
+            for (int row = 0; row < 3; row++)
+               for (int column = 0; column < 3; column++)
                   errorAverage += Math.abs(expectedMatrix.getElement(row, column) - actualMatrix.getElement(row, column));
          }
 
          errorAverage /= 9.0 * ITERATIONS;
          assertTrue(errorAverage < 5.0e-5);
+      }
+   }
+
+   @Test
+   public void testDistance() throws Exception
+   {
+      Random random = new Random(45345L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      { // Testing against quaternion distance
+         RotationMatrix m1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix m2 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         Quaternion q1 = new Quaternion(m1);
+         Quaternion q2 = new Quaternion(m2);
+
+         double actualDistance = RotationMatrixTools.distance(m1, m2);
+         double expectedDistance = Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(q1.distance(q2)));
+         assertEquals(expectedDistance, actualDistance, EPS);
+      }
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         RotationMatrix m1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         RotationMatrix m2 = new RotationMatrix();
+         m2.set(axisAngle);
+         m2.preMultiply(m1);
+
+         double actualDistance = RotationMatrixTools.distance(m1, m2);
+         double expectedDistance = Math.abs(axisAngle.getAngle());
+         EuclidCoreTestTools.assertAngleEquals(expectedDistance, actualDistance, EPS);
+
+         m2.set(axisAngle);
+         m2.preMultiplyTransposeThis(m1);
+
+         actualDistance = RotationMatrixTools.distance(m1, m2);
+         EuclidCoreTestTools.assertAngleEquals(expectedDistance, actualDistance, EPS);
+      }
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         RotationMatrix m1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         axisAngle.setAngle(Math.PI);
+         RotationMatrix m2 = new RotationMatrix();
+         m2.set(axisAngle);
+         m2.preMultiply(m1);
+
+         double actualDistance = RotationMatrixTools.distance(m1, m2);
+         double expectedDistance = Math.abs(axisAngle.getAngle());
+         EuclidCoreTestTools.assertAngleEquals(expectedDistance, actualDistance, EPS);
       }
    }
 }
