@@ -1326,7 +1326,7 @@ public class RotationScaleMatrix
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \ 
     * R = | sin(yaw)  cos(yaw) 0 | * R
-    *     \    0         0     1 / 
+    *     \    0         0     1 /
     * </pre>
     * <p>
     * This method does not affect the scale part of this rotation-scale matrix.
@@ -1345,7 +1345,7 @@ public class RotationScaleMatrix
     * <pre>
     *     /  cos(pitch) 0 sin(pitch) \ 
     * R = |      0      1     0      | * R
-    *     \ -sin(pitch) 0 cos(pitch) / 
+    *     \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     * <p>
     * This method does not affect the scale part of this rotation-scale matrix.
@@ -1364,7 +1364,7 @@ public class RotationScaleMatrix
     * <pre>
     *     /  cos(pitch) 0 sin(pitch) \ 
     * R = |      0      1     0      | * R
-    *     \ -sin(pitch) 0 cos(pitch) / 
+    *     \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     * <p>
     * This method does not affect the scale part of this rotation-scale matrix.
@@ -1712,5 +1712,28 @@ public class RotationScaleMatrix
    public boolean epsilonEquals(RotationScaleMatrix other, double epsilon)
    {
       return rotationMatrix.epsilonEquals(other.rotationMatrix, epsilon) && scale.epsilonEquals(other.scale, epsilon);
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same rotation-scale to an
+    * {@code epsilon}.
+    * <p>
+    * Two rotation-scale matrices are considered geometrically equal if the their respective
+    * rotation matrices and scale vectors are geometrically equal.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other rotation-scale matrix to compare against this. Not modified.
+    * @param epsilon the threshold used when comparing the internal rotation and scale to
+    *           {@code other}'s rotation and scale.
+    * @return {@code true} if the two rotation-scale matrices represent the same geometry,
+    *         {@code false} otherwise.
+    */
+   public boolean geometricallyEquals(RotationScaleMatrix other, double epsilon)
+   {
+      return rotationMatrix.geometricallyEquals(other.rotationMatrix, epsilon) && scale.geometricallyEquals(other.scale, epsilon);
    }
 }

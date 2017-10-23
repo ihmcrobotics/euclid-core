@@ -1133,6 +1133,28 @@ public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMat
    }
 
    /**
+    * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
+    * <p>
+    * Two rotation matrices are considered geometrically equal if the magnitude of their difference
+    * is less than or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other rotation matrix to compare against this. Not modified.
+    * @param epsilon the maximum angle between the two rotation matrices to be considered equal.
+    * @return {@code true} if the two rotation matrices represent the same geometry, {@code false}
+    *         otherwise.
+    */
+   @Override
+   public boolean geometricallyEquals(RotationMatrix other, double epsilon)
+   {
+      return RotationMatrixReadOnly.super.geometricallyEquals(other, epsilon);
+   }
+
+   /**
     * Provides a {@code String} representation of this matrix as follows: <br>
     * m00, m01, m02 <br>
     * m10, m11, m12 <br>

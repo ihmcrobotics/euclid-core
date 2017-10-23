@@ -266,8 +266,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    }
 
    /**
-    * Sets this matrix to represent a counter clockwise rotation around the y-axis of
-    * an angle {@code pitch}.
+    * Sets this matrix to represent a counter clockwise rotation around the y-axis of an angle
+    * {@code pitch}.
     *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
@@ -285,8 +285,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    }
 
    /**
-    * Sets this matrix to represent a counter clockwise rotation around the x-axis of
-    * an angle {@code roll}.
+    * Sets this matrix to represent a counter clockwise rotation around the x-axis of an angle
+    * {@code roll}.
     *
     * <pre>
     *        / 1     0          0     \
@@ -1379,8 +1379,8 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
 
    /**
     * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the {@code object}
-    * is {@code null}.
+    * returns {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the
+    * {@code object} is {@code null}.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -1410,6 +1410,22 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
    public boolean epsilonEquals(Matrix3D other, double epsilon)
    {
       return Matrix3DBasics.super.epsilonEquals(other, epsilon);
+   }
+
+   /**
+    * Two 3D matrices are considered geometrically equal if they are epsilon equal.
+    * <p>
+    * This method is equivalent to {@link #epsilonEquals(Matrix3D, double)}.
+    * </p>
+    * 
+    * @param other the other matrix to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two matrices are equal, {@code false} otherwise.
+    */
+   @Override
+   public boolean geometricallyEquals(Matrix3D other, double epsilon)
+   {
+      return epsilonEquals(other, epsilon);
    }
 
    /**
