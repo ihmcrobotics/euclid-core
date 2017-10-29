@@ -184,6 +184,11 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
       normalize();
    }
 
+   /**
+    * Sets this quaternion to {@code other}.
+    *
+    * @param other the other quaternion to copy the values from. Not modified.
+    */
    default void set(QuaternionReadOnly other)
    {
       setUnsafe(other.getX(), other.getY(), other.getZ(), other.getS());

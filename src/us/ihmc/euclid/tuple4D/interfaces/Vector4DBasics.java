@@ -374,7 +374,7 @@ public interface Vector4DBasics extends Vector4DReadOnly, Tuple4DBasics
     * this = this - tupleReadOnly
     * </p>
     *
-    * @param other the tuple to add to this vector.
+    * @param tupleReadOnly the tuple to subtract to this vector.
     */
    default void sub(Tuple4DReadOnly tupleReadOnly)
    {
@@ -388,7 +388,7 @@ public interface Vector4DBasics extends Vector4DReadOnly, Tuple4DBasics
     * </p>
     *
     * @param tuple1 the first tuple. Not modified.
-    * @param tuple2 the second to subtract to {@code tuple1}. Not modified.
+    * @param tuple2 the second tuple to subtract to {@code tuple1}. Not modified.
     */
    default void sub(Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2)
    {
