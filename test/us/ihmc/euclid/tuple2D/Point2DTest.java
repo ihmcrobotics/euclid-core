@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple3D.Point3D;
 
 public class Point2DTest extends Point2DBasicsTest<Point2D>
@@ -59,6 +60,28 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
 
          Assert.assertTrue(point.getX() == point2.getX());
          Assert.assertTrue(point.getY() == point2.getY());
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception {
+      Point2D pointA;
+      Point2D pointB;
+      Random random = new Random(System.currentTimeMillis());
+
+      for (int i = 0; i < 100; ++i) {
+         pointA = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         pointB = EuclidCoreRandomTools.generateRandomPoint2D(random);
+
+         if (pointA.epsilonEquals(pointB, getEpsilon())) {
+            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
+         } else {
+            if (Math.sqrt(EuclidCoreTools.normSquared(pointA.getX() - pointB.getX(), pointA.getY() - pointB.getY())) <= getEpsilon()) {
+               assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+            } else {
+               assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+            }
+         }
       }
    }
 

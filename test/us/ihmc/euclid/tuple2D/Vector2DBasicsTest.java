@@ -9,6 +9,7 @@ import org.junit.Test;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
@@ -335,6 +336,28 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
             fail("Should have thrown a NotAMatrix2DException.");
          }
          actual.applyInverseTransform(rigidBodyTransform, false);
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception {
+      Vector2DBasics vectorA;
+      Vector2DBasics vectorB;
+      Random random = new Random(System.currentTimeMillis());
+
+      for (int i = 0; i < 100; ++i) {
+         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorB = EuclidCoreRandomTools.generateRandomVector2D(random);
+
+         if (vectorA.epsilonEquals(vectorB, getEpsilon())) {
+            assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3)*getEpsilon()));
+         } else {
+            if (Math.sqrt(EuclidCoreTools.normSquared(vectorA.getX() - vectorB.getX(), vectorA.getY() - vectorB.getY())) <= getEpsilon()) {
+               assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+            } else {
+               assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+            }
+         }
       }
    }
 }
