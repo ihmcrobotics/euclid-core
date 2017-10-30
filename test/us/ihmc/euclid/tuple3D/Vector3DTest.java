@@ -67,7 +67,8 @@ public class Vector3DTest extends Vector3DBasicsTest<Vector3D>
       Random random = new Random(621541L);
       Vector3D tuple1 = createRandomTuple(random);
 
-      int newHashCode, previousHashCode;
+      long bits;
+      int newHashCode, previousHashCode, expectedHashCode;
       newHashCode = tuple1.hashCode();
       assertEquals(newHashCode, tuple1.hashCode());
 
@@ -77,6 +78,14 @@ public class Vector3DTest extends Vector3DBasicsTest<Vector3D>
       {
          tuple1.setElement(i % 3, random.nextDouble());
          newHashCode = tuple1.hashCode();
+
+         bits = 1L;
+         bits = 31L * bits + Double.doubleToLongBits(tuple1.getX());
+         bits = 31L * bits + Double.doubleToLongBits(tuple1.getY());
+         bits = 31L * bits + Double.doubleToLongBits(tuple1.getZ());
+         expectedHashCode = (int) (bits ^ bits >> 32);
+
+         assertEquals(expectedHashCode, newHashCode);
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }

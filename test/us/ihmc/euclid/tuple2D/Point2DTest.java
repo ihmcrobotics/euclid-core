@@ -68,7 +68,8 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
       Random random = new Random(621541L);
       Point2D tuple1 = createRandomTuple(random);
 
-      int newHashCode, previousHashCode;
+      long bits;
+      int newHashCode, previousHashCode, expectedHashCode;
       newHashCode = tuple1.hashCode();
       assertEquals(newHashCode, tuple1.hashCode());
 
@@ -78,6 +79,13 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
       {
          tuple1.setElement(i % 2, random.nextDouble());
          newHashCode = tuple1.hashCode();
+
+         bits = 1L;
+         bits = 31L * bits + Double.doubleToLongBits(tuple1.getX());
+         bits = 31L * bits + Double.doubleToLongBits(tuple1.getY());
+         expectedHashCode = (int) (bits ^ bits >> 32);
+
+         assertEquals(expectedHashCode, newHashCode);
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }

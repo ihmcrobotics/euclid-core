@@ -94,7 +94,8 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
       Random random = new Random(621541L);
       Point2D32 point = EuclidCoreRandomTools.nextPoint2D32(random);
 
-      int newHashCode, previousHashCode;
+      long bits;
+      int newHashCode, previousHashCode, expectedHashCode;
       newHashCode = point.hashCode();
       assertEquals(newHashCode, point.hashCode());
 
@@ -104,6 +105,13 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
       {
          point.setElement(i % 2, random.nextFloat());
          newHashCode = point.hashCode();
+
+         bits = 1L;
+         bits = 31L * bits + Float.floatToIntBits(point.getX32());
+         bits = 31L * bits + Float.floatToIntBits(point.getY32());
+         expectedHashCode = (int) (bits ^ bits >> 32);
+
+         assertEquals(expectedHashCode, newHashCode);
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }

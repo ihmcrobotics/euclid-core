@@ -104,7 +104,8 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
       Random random = new Random(621541L);
       Quaternion q = EuclidCoreRandomTools.nextQuaternion(random);
 
-      int newHashCode, previousHashCode;
+      long bits;
+      int newHashCode, previousHashCode, expectedHashCode;
       newHashCode = q.hashCode();
       assertEquals(newHashCode, q.hashCode());
 
@@ -133,6 +134,15 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          }
          q.setUnsafe(qx, qy, qz, qs);
          newHashCode = q.hashCode();
+
+         bits = 1L;
+         bits = 31L * bits + Double.doubleToLongBits(q.getX());
+         bits = 31L * bits + Double.doubleToLongBits(q.getY());
+         bits = 31L * bits + Double.doubleToLongBits(q.getZ());
+         bits = 31L * bits + Double.doubleToLongBits(q.getS());
+         expectedHashCode = (int) (bits ^ bits >> 32);
+
+         assertEquals(expectedHashCode, newHashCode);
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }
