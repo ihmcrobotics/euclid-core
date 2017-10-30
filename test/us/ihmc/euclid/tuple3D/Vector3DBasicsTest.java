@@ -363,7 +363,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
             }
          }
 
-         vectorA = (T) EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorA = (T) EuclidCoreRandomTools.generateRandomVector3D(random);
          vectorB = (T) new Vector3D(vectorA);
 
          assertTrue(vectorA.geometricallyEquals(vectorB, 0));
