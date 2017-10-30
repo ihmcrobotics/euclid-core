@@ -272,10 +272,10 @@ public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Double.doubleToLongBits(x);
-      bits = 31L * bits + Double.doubleToLongBits(y);
-      bits = 31L * bits + Double.doubleToLongBits(z);
-      bits = 31L * bits + Double.doubleToLongBits(s);
+      bits = 31L * bits + Float.floatToIntBits(x);
+      bits = 31L * bits + Float.floatToIntBits(y);
+      bits = 31L * bits + Float.floatToIntBits(z);
+      bits = 31L * bits + Float.floatToIntBits(s);
       return (int) (bits ^ bits >> 32);
    }
 }
