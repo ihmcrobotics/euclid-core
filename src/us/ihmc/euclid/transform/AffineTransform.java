@@ -2386,6 +2386,20 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
    }
 
    /**
+    * Two affine transforms are considered geometrically equal if both the rotation-scale matrices
+    * and translation vectors are equal.
+    *
+    * @param other the other affine transform to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two rigid body transforms are equal, {@code false} otherwise.
+    */
+   public boolean geometricallyEquals(AffineTransform other, double epsilon)
+   {
+      return other.rotationScaleMatrix.geometricallyEquals(this.rotationScaleMatrix, epsilon)
+            && other.translationVector.geometricallyEquals(this.translationVector, epsilon);
+   }
+
+   /**
     * Provides a {@code String} representation of this transform as follows: <br>
     * m00, m01, m02 | m03 <br>
     * m10, m11, m12 | m13 <br>

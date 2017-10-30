@@ -1792,6 +1792,20 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
+    * Two quaternion based transforms are considered geometrically equal if both the rotation-scale
+    * matrices and translation vectors are equal.
+    *
+    * @param other the other quaternion based transform to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two quaternion based transforms are equal, {@code false} otherwise.
+    */
+   public boolean geometricallyEquals(QuaternionBasedTransform other, double epsilon)
+   {
+      return other.quaternion.geometricallyEquals(this.quaternion, epsilon)
+            && other.translationVector.geometricallyEquals(this.translationVector, epsilon);
+   }
+
+   /**
     * Provides a {@code String} representation of this transform as follows: <br>
     * Quaternion: (qx, qy, qz, qs) <br>
     * Translation: ( x, y, z)

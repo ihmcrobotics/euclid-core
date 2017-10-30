@@ -38,7 +38,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
 /**
- * A {@code RigidBodyTransform} represents a 4-by-4 transformation matrix that rotate and translate.
+ * A {@code RigidBodyTransform} represents a 4-by-4 transformation matrix that can rotate and translate.
  * <p>
  * For efficiency and readability, the transform is never stored in a 4-by-4 matrix.
  * </p>
@@ -2740,6 +2740,20 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
          return false;
       else
          return rotationMatrix.equals(other.rotationMatrix) && translationVector.equals(other.translationVector);
+   }
+
+   /**
+    * Two rigid body transforms are considered geometrically equal if both the rotation matrices
+    * and translation vectors are equal.
+    *
+    * @param other the other rigid body transform to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two rigid body transforms are equal, {@code false} otherwise.
+    */
+   public boolean geometricallyEquals(RigidBodyTransform other, double epsilon)
+   {
+      return other.rotationMatrix.geometricallyEquals(this.rotationMatrix, epsilon)
+            && other.translationVector.geometricallyEquals(this.translationVector, epsilon);
    }
 
    /**
