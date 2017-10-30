@@ -341,13 +341,13 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
 
    @Test
    public void testGeometricallyEquals() throws Exception {
-      Vector2DBasics vectorA;
-      Vector2DBasics vectorB;
+      T vectorA;
+      T vectorB;
       Random random = new Random(621541L);
 
       for (int i = 0; i < 100; ++i) {
-         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorA = (T) EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorB = (T) EuclidCoreRandomTools.generateRandomVector2D(random);
 
          if (vectorA.epsilonEquals(vectorB, getEpsilon())) {
             assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3)*getEpsilon()));

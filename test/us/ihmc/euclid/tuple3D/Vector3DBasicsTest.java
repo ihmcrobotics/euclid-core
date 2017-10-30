@@ -345,13 +345,13 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
    @Test
    public void testGeometricallyEquals() throws Exception {
-      Vector3DBasics vectorA;
-      Vector3DBasics vectorB;
+      T vectorA;
+      T vectorB;
       Random random = new Random(621541L);
 
       for (int i = 0; i < 100; ++i) {
-         vectorA = EuclidCoreRandomTools.generateRandomVector3D(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector3D(random);
+         vectorA = (T) EuclidCoreRandomTools.generateRandomVector3D(random);
+         vectorB = (T) EuclidCoreRandomTools.generateRandomVector3D(random);
 
          if (vectorA.epsilonEquals(vectorB, getEpsilon())) {
             assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3)*getEpsilon()));
