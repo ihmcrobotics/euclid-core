@@ -358,6 +358,27 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
                assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
             }
          }
+
+         vectorA = (T) EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorB = (T) new Vector2D(vectorA);
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, 0));
+
+         vectorB.set(vectorA.getX() + 0.9d * getEpsilon(), vectorA.getY());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX() + 1.1d * getEpsilon(), vectorA.getY());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY() + 0.9d * getEpsilon());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY() + 1.1d * getEpsilon());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
       }
    }
 }

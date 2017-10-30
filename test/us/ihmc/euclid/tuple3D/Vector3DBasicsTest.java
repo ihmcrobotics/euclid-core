@@ -362,6 +362,35 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
                assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
             }
          }
+
+         vectorA = (T) EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorB = (T) new Vector3D(vectorA);
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, 0));
+
+         vectorB.set(vectorA.getX() + 0.9d * getEpsilon(), vectorA.getY(), vectorA.getZ());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX() + 1.1d * getEpsilon(), vectorA.getY(), vectorA.getZ());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY() + 0.9d * getEpsilon(), vectorA.getZ());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY() + 1.1d * getEpsilon(), vectorA.getZ());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY(), vectorA.getZ() + 0.9d * getEpsilon());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY(), vectorA.getZ() + 1.1d * getEpsilon());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
       }
    }
 }
