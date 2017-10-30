@@ -8,6 +8,7 @@ import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
+import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
@@ -70,7 +71,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class AffineTransform implements Transform, EpsilonComparable<AffineTransform>, Settable<AffineTransform>, Clearable
+public class AffineTransform implements Transform, EpsilonComparable<AffineTransform>, GeometricallyComparable<AffineTransform>, Settable<AffineTransform>, Clearable
 {
    /** The rotation plus scaling part of this transform. */
    private final RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
@@ -2393,6 +2394,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two rigid body transforms are equal, {@code false} otherwise.
     */
+   @Override
    public boolean geometricallyEquals(AffineTransform other, double epsilon)
    {
       return other.rotationScaleMatrix.geometricallyEquals(this.rotationScaleMatrix, epsilon)

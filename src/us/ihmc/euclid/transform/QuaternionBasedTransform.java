@@ -6,6 +6,7 @@ import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
+import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
@@ -56,7 +57,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain
  *
  */
-public class QuaternionBasedTransform implements Transform, EpsilonComparable<QuaternionBasedTransform>, Settable<QuaternionBasedTransform>, Clearable
+public class QuaternionBasedTransform implements Transform, EpsilonComparable<QuaternionBasedTransform>, GeometricallyComparable<QuaternionBasedTransform>, Settable<QuaternionBasedTransform>, Clearable
 {
    /** The rotation part of this transform. */
    private final Quaternion quaternion = new Quaternion();
@@ -1799,6 +1800,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two quaternion based transforms are equal, {@code false} otherwise.
     */
+   @Override
    public boolean geometricallyEquals(QuaternionBasedTransform other, double epsilon)
    {
       return other.quaternion.geometricallyEquals(this.quaternion, epsilon)

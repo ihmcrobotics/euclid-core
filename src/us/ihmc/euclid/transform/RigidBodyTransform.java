@@ -8,6 +8,7 @@ import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
+import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
@@ -64,7 +65,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBodyTransform>, Settable<RigidBodyTransform>, Clearable
+public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBodyTransform>, GeometricallyComparable<RigidBodyTransform>, Settable<RigidBodyTransform>, Clearable
 {
    /** The rotation part of this transform. */
    private final RotationMatrix rotationMatrix = new RotationMatrix();
