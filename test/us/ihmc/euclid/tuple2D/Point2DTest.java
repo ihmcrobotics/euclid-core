@@ -82,6 +82,27 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
                assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
             }
          }
+
+         pointA = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         pointB = new Point2D(pointA);
+
+         assertTrue(pointA.geometricallyEquals(pointB, 0));
+
+         pointB.set(pointA.getX() + 0.9d * getEpsilon(), pointA.getY());
+
+         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX() + 1.1d * getEpsilon(), pointA.getY());
+
+         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY() + 0.9d * getEpsilon());
+
+         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY() + 1.1d * getEpsilon());
+
+         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
       }
    }
 

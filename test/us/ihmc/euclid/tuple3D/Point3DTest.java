@@ -92,6 +92,35 @@ public class Point3DTest extends Point3DBasicsTest<Point3D>
                assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
             }
          }
+
+         pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         pointB = new Point3D(pointA);
+
+         assertTrue(pointA.geometricallyEquals(pointB, 0));
+
+         pointB.set(pointA.getX() + 0.9d * getEpsilon(), pointA.getY(), pointA.getZ());
+
+         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX() + 1.1d * getEpsilon(), pointA.getY(), pointA.getZ());
+
+         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY() + 0.9d * getEpsilon(), pointA.getZ());
+
+         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY() + 1.1d * getEpsilon(), pointA.getZ());
+
+         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY(), pointA.getZ() + 0.9d * getEpsilon());
+
+         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY(), pointA.getZ() + 1.1d * getEpsilon());
+
+         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
       }
    }
 
