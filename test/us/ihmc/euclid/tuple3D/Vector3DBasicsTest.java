@@ -347,7 +347,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
    public void testGeometricallyEquals() throws Exception {
       Vector3DBasics vectorA;
       Vector3DBasics vectorB;
-      Random random = new Random(System.currentTimeMillis());
+      Random random = new Random(621541L);
 
       for (int i = 0; i < 100; ++i) {
          vectorA = EuclidCoreRandomTools.generateRandomVector3D(random);

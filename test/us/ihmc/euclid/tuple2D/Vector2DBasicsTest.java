@@ -343,7 +343,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
    public void testGeometricallyEquals() throws Exception {
       Vector2DBasics vectorA;
       Vector2DBasics vectorB;
-      Random random = new Random(System.currentTimeMillis());
+      Random random = new Random(621541L);
 
       for (int i = 0; i < 100; ++i) {
          vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);

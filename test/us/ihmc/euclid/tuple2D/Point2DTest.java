@@ -67,7 +67,7 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
    public void testGeometricallyEquals() throws Exception {
       Point2D pointA;
       Point2D pointB;
-      Random random = new Random(System.currentTimeMillis());
+      Random random = new Random(621541L);
 
       for (int i = 0; i < 100; ++i) {
          pointA = EuclidCoreRandomTools.generateRandomPoint2D(random);

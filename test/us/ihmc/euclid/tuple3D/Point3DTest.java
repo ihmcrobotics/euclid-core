@@ -77,7 +77,7 @@ public class Point3DTest extends Point3DBasicsTest<Point3D>
    public void testGeometricallyEquals() throws Exception {
       Point3D pointA;
       Point3D pointB;
-      Random random = new Random(System.currentTimeMillis());
+      Random random = new Random(621541L);
 
       for (int i = 0; i < 100; ++i) {
          pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
