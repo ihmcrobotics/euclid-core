@@ -167,6 +167,13 @@ public interface AxisAngleReadOnly
          throw new NotAMatrix2DException("The axis-angle is not in XY plane: " + toString());
    }
 
+   /**
+    * Computes and returns the distance from this axis-angle to {@code other}.
+    * 
+    * @param other the other axis-angle to measure the distance. Not modified.
+    * @return the angle representing the distance between the two axis-angles. It is contained in
+    *         [0, 2<i>pi</i>]
+    */
    default double distance(AxisAngleReadOnly other)
    {
       return AxisAngleTools.distance(this, other);

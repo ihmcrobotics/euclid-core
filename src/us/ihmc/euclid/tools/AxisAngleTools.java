@@ -1025,6 +1025,14 @@ public abstract class AxisAngleTools
       axisAngleToPack.set(sinHalfGammaUx * sinHalfGammaInv, sinHalfGammaUy * sinHalfGammaInv, sinHalfGammaUz * sinHalfGammaInv, gamma);
    }
 
+   /**
+    * Computes and returns the distance between the two axis-angles {@code aa1} and {@code aa2}.
+    * 
+    * @param aa1 the first axis-angle to measure the distance. Not modified.
+    * @param aa2 the second axis-angle to measure the distance. Not modified.
+    * @return the angle representing the distance between the two axis-angles. It is contained in
+    *         [0, 2<i>pi</i>]
+    */
    public static double distance(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2)
    {
 
