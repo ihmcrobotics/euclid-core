@@ -40,7 +40,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
 {
    /**
     * Computes and returns the distance between this rotation matrix and the {@code other}.
-    * 
+    *
     * @param other the other rotation matrix to compute the distance. Not modified.
     * @return the angle representing the distance between the two rotation matrices. It is contained
     *         in [0, <i>pi</i>].

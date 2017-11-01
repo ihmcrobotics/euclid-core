@@ -1,7 +1,6 @@
 package us.ihmc.euclid.transform;
 
 import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.Clearable;
@@ -22,12 +21,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.Vector3D;
-import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.*;
 import us.ihmc.euclid.tuple4D.Quaternion;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
@@ -57,7 +51,9 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain
  *
  */
-public class QuaternionBasedTransform implements Transform, EpsilonComparable<QuaternionBasedTransform>, GeometricallyComparable<QuaternionBasedTransform>, Settable<QuaternionBasedTransform>, Clearable
+public class QuaternionBasedTransform
+      implements Transform, EpsilonComparable<QuaternionBasedTransform>, GeometricallyComparable<QuaternionBasedTransform>, Settable<QuaternionBasedTransform>,
+      Clearable
 {
    /** The rotation part of this transform. */
    private final Quaternion quaternion = new Quaternion();
@@ -945,7 +941,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Append a translation transform to this transform.
-    * 
+    *
     * <pre>
     *               / 1 0 0 translation.x \
     * this = this * | 0 1 0 translation.y |
@@ -965,7 +961,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Append a translation transform to this transform.
-    * 
+    *
     * <pre>
     *               / 1 0 0 x \
     * this = this * | 0 1 0 y |
@@ -993,14 +989,14 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Append a rotation about the z-axis to the rotation part 'q' of this transform.
-    * 
+    *
     * <pre>
     *         / qx =     0      \
     * q = q * | qy =     0      |
     *         | qz = sin(yaw/2) |
     *         \ qs = cos(yaw/2) /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    public void appendYawRotation(double yaw)
@@ -1010,14 +1006,14 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Append a rotation about the y-axis to the rotation part 'q' of this transform.
-    * 
+    *
     * <pre>
     *         / qx =      0       \
     * q = q * | qy = sin(pitch/2) |
     *         | qz =      0       |
     *         \ qs = cos(pitch/2) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    public void appendPitchRotation(double pitch)
@@ -1027,14 +1023,14 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Append a rotation about the x-axis to the rotation part 'q' of this transform.
-    * 
+    *
     * <pre>
     *         / qx = sin(roll/2) \
     * q = q * | qy =      0      |
     *         | qz =      0      |
     *         \ qs = cos(roll/2) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    public void appendRollRotation(double roll)
@@ -1207,7 +1203,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Prepend a translation transform to this transform.
-    * 
+    *
     * <pre>
     *        / 1 0 0 translation.x \ 
     * this = | 0 1 0 translation.y | * this
@@ -1227,7 +1223,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Prepend a translation transform to this transform.
-    * 
+    *
     * <pre>
     *        / 1 0 0 x \ 
     * this = | 0 1 0 y | * this
@@ -1253,21 +1249,21 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * This method first rotates the translation part 't' and then prepend the yaw-rotation to the
     * rotation part 'q' of this transform.
     * </p>
-    * 
+    *
     * <pre>
     * t = q(yaw) * t
     * q = q(yaw) * q
     * </pre>
-    * 
+    *
     * where:
-    * 
+    *
     * <pre>
     *          / qx =     0      \
     * q(yaw) = | qy =     0      |
     *          | qz = sin(yaw/2) |
     *          \ qs = cos(yaw/2) /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    public void prependYawRotation(double yaw)
@@ -1282,22 +1278,22 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * This method first rotates the translation part 't' and then prepend the pitch-rotation to the
     * rotation part 'q' of this transform.
     * </p>
-    * 
+    *
     * <pre>
     * t = q(pitch) * t
     * q = q(pitch) * q
     * </pre>
-    * 
+    *
     * where:
-    * 
+    *
     * <pre>
     *            / qx =      0       \
     * q(pitch) = | qy = sin(pitch/2) |
     *            | qz =      0       |
     *            \ qs = cos(pitch/2) /
     * </pre>
-    * 
-    * 
+    *
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    public void prependPitchRotation(double pitch)
@@ -1312,21 +1308,21 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * This method first rotates the translation part 't' and then prepend the roll-rotation to the
     * rotation part 'q' of this transform.
     * </p>
-    * 
+    *
     * <pre>
     * t = q(roll) * t
     * q = q(roll) * q
     * </pre>
-    * 
+    *
     * where:
-    * 
+    *
     * <pre>
     *           / qx = sin(roll/2) \
     * q(roll) = | qy =      0      |
     *           | qz =      0      |
     *           \ qs = cos(roll/2) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    public void prependRollRotation(double roll)
@@ -1713,7 +1709,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Gets the x-component of the translation part of this transform.
-    * 
+    *
     * @return the x-component of the translation part.
     */
    public double getTranslationX()
@@ -1723,7 +1719,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Gets the y-component of the translation part of this transform.
-    * 
+    *
     * @return the y-component of the translation part.
     */
    public double getTranslationY()
@@ -1733,7 +1729,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /**
     * Gets the z-component of the translation part of this transform.
-    * 
+    *
     * @return the z-component of the translation part.
     */
    public double getTranslationZ()
@@ -1803,8 +1799,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    @Override
    public boolean geometricallyEquals(QuaternionBasedTransform other, double epsilon)
    {
-      return other.quaternion.geometricallyEquals(this.quaternion, epsilon)
-            && other.translationVector.geometricallyEquals(this.translationVector, epsilon);
+      return other.quaternion.geometricallyEquals(this.quaternion, epsilon) && other.translationVector.geometricallyEquals(this.translationVector, epsilon);
    }
 
    /**

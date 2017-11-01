@@ -73,7 +73,7 @@ public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
     * <p>
     * Edge case: if {@code maxLength <} {@value #EPS_MAX_LENGTH}, this vector is set to zero.
     * </p>
-    * 
+    *
     * @param maxLength the maximum allowed length for this vector.
     * @return whether the length of this vector has been changed or not.
     */

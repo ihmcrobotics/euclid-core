@@ -71,7 +71,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
 
    /**
     * Asserts that this quaternion has a norm equal to 1+/-{@value #EPS_UNITARY}.
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @throws RuntimeException if this quaternion is not a proper unit-quaternion.
     */
@@ -82,7 +82,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
 
    /**
     * Asserts that this quaternion has a norm equal to 1+/-{@code epsilon}.
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @throws RuntimeException if this quaternion is not a proper unit-quaternion.
     */
@@ -119,7 +119,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
 
    /**
     * Computes and returns the distance from this quaternion to {@code other}.
-    * 
+    *
     * @param other the other quaternion to measure the distance. Not modified.
     * @return the angle representing the distance between the two quaternions. It is contained in
     *         [0, 2<i>pi</i>]

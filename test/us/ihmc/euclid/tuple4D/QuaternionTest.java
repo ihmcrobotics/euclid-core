@@ -1,17 +1,14 @@
 package us.ihmc.euclid.tuple4D;
 
-import java.util.Random;
-
 import org.junit.Test;
-
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
-import us.ihmc.euclid.tuple2D.Point2D32;
 import us.ihmc.euclid.tuple3D.Vector3D;
-import us.ihmc.euclid.tuple4D.Quaternion;
+
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -129,21 +126,29 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
+   public void testGeometricallyEquals() throws Exception
+   {
       Quaternion quaternionA;
       Quaternion quaternionB;
       Random random = new Random(621541L);
 
-      for (int i = 0; i < 100; ++i) {
+      for (int i = 0; i < 100; ++i)
+      {
          quaternionA = EuclidCoreRandomTools.generateRandomQuaternion(random);
          quaternionB = EuclidCoreRandomTools.generateRandomQuaternion(random);
 
-         if (quaternionA.epsilonEquals(quaternionB, getEpsilon())) {
-            assertTrue(quaternionA.geometricallyEquals(quaternionB, Math.sqrt(3)*getEpsilon()));
-         } else {
-            if (Math.sqrt(EuclidCoreTools.normSquared(quaternionA.getX() - quaternionB.getX(), quaternionA.getY() - quaternionB.getY())) <= getEpsilon()) {
+         if (quaternionA.epsilonEquals(quaternionB, getEpsilon()))
+         {
+            assertTrue(quaternionA.geometricallyEquals(quaternionB, Math.sqrt(3) * getEpsilon()));
+         }
+         else
+         {
+            if (Math.sqrt(EuclidCoreTools.normSquared(quaternionA.getX() - quaternionB.getX(), quaternionA.getY() - quaternionB.getY())) <= getEpsilon())
+            {
                assertTrue(quaternionA.geometricallyEquals(quaternionB, getEpsilon()));
-            } else {
+            }
+            else
+            {
                assertFalse(quaternionA.geometricallyEquals(quaternionB, getEpsilon()));
             }
          }

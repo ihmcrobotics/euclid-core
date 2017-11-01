@@ -62,7 +62,7 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
       set(other);
       normalize();
    }
-   
+
    /**
     * Sets this vector to the cross product of {@code tuple1} and {@code tuple2}.
     * <p>
@@ -104,7 +104,7 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
     * <p>
     * Edge case: if {@code maxLength <} {@value #EPS_MAX_LENGTH}, this vector is set to zero.
     * </p>
-    * 
+    *
     * @param maxLength the maximum allowed length for this vector.
     * @return whether the length of this vector has been changed or not.
     */

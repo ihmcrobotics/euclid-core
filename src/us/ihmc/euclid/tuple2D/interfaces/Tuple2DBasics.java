@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tuple2D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.Transformable;
@@ -175,7 +174,7 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
 
    /**
     * Sets this tuple with the x and y components of the given {@code tuple3DReadOnly}
-    * 
+    *
     * @param tuple3DReadOnly the tuple 3D to copy the x and y components from. Not modified.
     */
    default void set(Tuple3DReadOnly tuple3DReadOnly)

@@ -1,13 +1,13 @@
 package us.ihmc.euclid.tuple4D;
 
-import java.io.Serializable;
-
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
+
+import java.io.Serializable;
 
 /**
  * Class used to represent generic quaternions.

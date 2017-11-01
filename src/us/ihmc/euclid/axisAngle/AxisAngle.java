@@ -1,7 +1,5 @@
 package us.ihmc.euclid.axisAngle;
 
-import java.io.Serializable;
-
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
@@ -12,6 +10,8 @@ import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
+
+import java.io.Serializable;
 
 /**
  * An {@code AxisAngle} is used to represent a 3D orientation by a unitary axis of components (x, y,

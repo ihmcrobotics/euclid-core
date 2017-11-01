@@ -85,21 +85,29 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
+   public void testGeometricallyEquals() throws Exception
+   {
       Point2D32 pointA;
       Point2D32 pointB;
       Random random = new Random(621541L);
 
-      for (int i = 0; i < 100; ++i) {
+      for (int i = 0; i < 100; ++i)
+      {
          pointA = EuclidCoreRandomTools.generateRandomPoint2D32(random);
          pointB = EuclidCoreRandomTools.generateRandomPoint2D32(random);
 
-         if (pointA.epsilonEquals(pointB, getEpsilon())) {
-            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
-         } else {
-            if (Math.sqrt(EuclidCoreTools.normSquared(pointA.getX() - pointB.getX(), pointA.getY() - pointB.getY())) <= getEpsilon()) {
+         if (pointA.epsilonEquals(pointB, getEpsilon()))
+         {
+            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3) * getEpsilon()));
+         }
+         else
+         {
+            if (Math.sqrt(EuclidCoreTools.normSquared(pointA.getX() - pointB.getX(), pointA.getY() - pointB.getY())) <= getEpsilon())
+            {
                assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
-            } else {
+            }
+            else
+            {
                assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
             }
          }

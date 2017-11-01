@@ -1,11 +1,11 @@
 package us.ihmc.euclid.tuple2D;
 
-import java.io.Serializable;
-
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
+
+import java.io.Serializable;
 
 /**
  * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane. For

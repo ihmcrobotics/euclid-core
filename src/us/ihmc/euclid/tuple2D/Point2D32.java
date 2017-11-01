@@ -1,11 +1,11 @@
 package us.ihmc.euclid.tuple2D;
 
-import java.io.Serializable;
-
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+
+import java.io.Serializable;
 
 /**
  * A 2D point represents the 2D coordinates of a location on the XY-plane.

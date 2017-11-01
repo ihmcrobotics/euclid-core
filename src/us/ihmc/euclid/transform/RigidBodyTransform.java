@@ -1,7 +1,6 @@
 package us.ihmc.euclid.transform;
 
 import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
@@ -16,23 +15,14 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.euclid.tools.EuclidCoreIOTools;
-import us.ihmc.euclid.tools.Matrix3DFeatures;
-import us.ihmc.euclid.tools.Matrix3DTools;
-import us.ihmc.euclid.tools.QuaternionTools;
-import us.ihmc.euclid.tools.RotationMatrixTools;
+import us.ihmc.euclid.tools.*;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.Vector3D;
-import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.*;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
@@ -65,7 +55,8 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBodyTransform>, GeometricallyComparable<RigidBodyTransform>, Settable<RigidBodyTransform>, Clearable
+public class RigidBodyTransform
+      implements Transform, EpsilonComparable<RigidBodyTransform>, GeometricallyComparable<RigidBodyTransform>, Settable<RigidBodyTransform>, Clearable
 {
    /** The rotation part of this transform. */
    private final RotationMatrix rotationMatrix = new RotationMatrix();
@@ -95,7 +86,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
    /**
     * Creates a new rigid-body transform and sets it to {@code quaternionBasedTransform}.
     *
-    * @param quaternionBasedTransform
+    * @param quaternionBasedTransform the {@link QuaternionBasedTransform} to initialize to.
     */
    public RigidBodyTransform(QuaternionBasedTransform quaternionBasedTransform)
    {
@@ -1536,7 +1527,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Append a translation transform to this transform.
-    * 
+    *
     * <pre>
     *               / 1 0 0 translation.x \
     * this = this * | 0 1 0 translation.y |
@@ -1556,7 +1547,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Append a translation transform to this transform.
-    * 
+    *
     * <pre>
     *               / 1 0 0 x \
     * this = this * | 0 1 0 y |
@@ -1584,7 +1575,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Append a rotation about the z-axis to the rotation part of this transform.
-    * 
+    *
     * <pre>
     *         / cos(yaw) -sin(yaw) 0 \
     * R = R * | sin(yaw)  cos(yaw) 0 |
@@ -1603,7 +1594,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Append a rotation about the y-axis to the rotation part of this transform.
-    * 
+    *
     * <pre>
     *         /  cos(pitch) 0 sin(pitch) \
     * R = R * |      0      1     0      |
@@ -1622,7 +1613,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Append a rotation about the x-axis to the rotation part of this transform.
-    * 
+    *
     * <pre>
     *         /  cos(pitch) 0 sin(pitch) \
     * R = R * |      0      1     0      |
@@ -1808,7 +1799,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Prepend a translation transform to this transform.
-    * 
+    *
     * <pre>
     *        / 1 0 0 translation.x \ 
     * this = | 0 1 0 translation.y | * this
@@ -1828,7 +1819,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Prepend a translation transform to this transform.
-    * 
+    *
     * <pre>
     *        / 1 0 0 x \ 
     * this = | 0 1 0 y | * this
@@ -1854,7 +1845,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * This method first rotates the translation part and then prepend the yaw-rotation to the
     * rotation part of this transform.
     * </p>
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw)  0   0 \ 
     * this = | sin(yaw)  cos(yaw)  0   0 | * this
@@ -1876,7 +1867,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * This method first rotates the translation part and then prepend the pitch-rotation to the
     * rotation part of this transform.
     * </p>
-    * 
+    *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch)  0 \ 
     * this = |      0      1     0       0 | * this
@@ -1898,7 +1889,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     * This method first rotates the translation part and then prepend the roll-rotation to the
     * rotation part of this transform.
     * </p>
-    * 
+    *
     * <pre>
     *        / 1     0          0     0 \ 
     * this = | 0 cos(roll) -sin(roll) 0 | * this
@@ -2445,7 +2436,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the x-component of the translation part of this transform.
-    * 
+    *
     * @return the x-component of the translation part.
     */
    public double getTranslationX()
@@ -2455,7 +2446,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the y-component of the translation part of this transform.
-    * 
+    *
     * @return the y-component of the translation part.
     */
    public double getTranslationY()
@@ -2465,7 +2456,7 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
 
    /**
     * Gets the z-component of the translation part of this transform.
-    * 
+    *
     * @return the z-component of the translation part.
     */
    public double getTranslationZ()
@@ -2753,8 +2744,8 @@ public class RigidBodyTransform implements Transform, EpsilonComparable<RigidBod
     */
    public boolean geometricallyEquals(RigidBodyTransform other, double epsilon)
    {
-      return other.rotationMatrix.geometricallyEquals(this.rotationMatrix, epsilon)
-            && other.translationVector.geometricallyEquals(this.translationVector, epsilon);
+      return other.rotationMatrix.geometricallyEquals(this.rotationMatrix, epsilon) && other.translationVector
+            .geometricallyEquals(this.translationVector, epsilon);
    }
 
    /**

@@ -1,7 +1,5 @@
 package us.ihmc.euclid.matrix;
 
-import java.io.Serializable;
-
 import us.ihmc.euclid.exceptions.SingularMatrixException;
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
@@ -17,6 +15,8 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+
+import java.io.Serializable;
 
 /**
  * A {@code Matrix3D} is a 3-by-3 matrix used for general linear applications.
@@ -237,7 +237,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
 
    /**
     * Sets this matrix to {@code other} and then calls {@link #negate()}.
-    * 
+    *
     * @param other the other matrix used to update this matrix. Not modified.
     */
    public void setAndNegate(Matrix3DReadOnly other)
@@ -1417,7 +1417,7 @@ public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Ma
     * <p>
     * This method is equivalent to {@link #epsilonEquals(Matrix3D, double)}.
     * </p>
-    * 
+    *
     * @param other the other matrix to compare against this. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two matrices are equal, {@code false} otherwise.
