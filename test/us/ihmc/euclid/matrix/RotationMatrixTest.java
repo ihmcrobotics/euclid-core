@@ -1,13 +1,8 @@
 package us.ihmc.euclid.matrix;
 
-import static org.junit.Assert.*;
-
-import java.util.Random;
-
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Assert;
 import org.junit.Test;
-
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -15,11 +10,7 @@ import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tools.EuclidCoreTestTools;
-import us.ihmc.euclid.tools.Matrix3DTools;
-import us.ihmc.euclid.tools.QuaternionTools;
-import us.ihmc.euclid.tools.RotationMatrixTools;
+import us.ihmc.euclid.tools.*;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
@@ -35,6 +26,10 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
 {
@@ -747,12 +742,12 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
    public void testDistance() throws Exception
    {
       Random random = new Random(3242L);
-      
+
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          RotationMatrix m1 = createRandomMatrix(random);
          RotationMatrix m2 = createRandomMatrix(random);
-         
+
          double actualDistance = m1.distance(m2);
          double expectedDistance = RotationMatrixTools.distance(m1, m2);
          assertEquals(expectedDistance, actualDistance, EPS);
@@ -1902,6 +1897,40 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
             m2.set(coeffs);
             assertFalse(m1.equals(m2));
          }
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      Random random = new Random(19825L);
+      RotationMatrix rotmatA;
+      RotationMatrix rotmatB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         rotmatA = createRandomMatrix(random);
+         double angleDiff = 0.99 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         rotmatB = new RotationMatrix(aa);
+         rotmatB.preMultiply(rotmatA);
+
+         assertTrue(rotmatA.geometricallyEquals(rotmatB, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         rotmatA = createRandomMatrix(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         rotmatB = new RotationMatrix(aa);
+         rotmatB.preMultiply(rotmatA);
+
+         assertFalse(rotmatA.geometricallyEquals(rotmatB, epsilon));
       }
    }
 
