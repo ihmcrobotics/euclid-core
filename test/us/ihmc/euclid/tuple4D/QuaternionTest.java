@@ -1,6 +1,7 @@
 package us.ihmc.euclid.tuple4D;
 
 import org.junit.Test;
+import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
@@ -122,36 +123,6 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          newHashCode = q.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
-      }
-   }
-
-   @Test
-   public void testGeometricallyEquals() throws Exception
-   {
-      Quaternion quaternionA;
-      Quaternion quaternionB;
-      Random random = new Random(621541L);
-
-      for (int i = 0; i < 100; ++i)
-      {
-         quaternionA = EuclidCoreRandomTools.generateRandomQuaternion(random);
-         quaternionB = EuclidCoreRandomTools.generateRandomQuaternion(random);
-
-         if (quaternionA.epsilonEquals(quaternionB, getEpsilon()))
-         {
-            assertTrue(quaternionA.geometricallyEquals(quaternionB, Math.sqrt(3) * getEpsilon()));
-         }
-         else
-         {
-            if (Math.sqrt(EuclidCoreTools.normSquared(quaternionA.getX() - quaternionB.getX(), quaternionA.getY() - quaternionB.getY())) <= getEpsilon())
-            {
-               assertTrue(quaternionA.geometricallyEquals(quaternionB, getEpsilon()));
-            }
-            else
-            {
-               assertFalse(quaternionA.geometricallyEquals(quaternionB, getEpsilon()));
-            }
-         }
       }
    }
 
