@@ -243,4 +243,55 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
          EuclidCoreTestTools.assertTuple3DEquals(expected, actual, 50.0 * getEpsilon());
       }
    }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception {
+      Point3DBasics pointA;
+      Point3DBasics pointB;
+      Random random = new Random(621541L);
+
+      for (int i = 0; i < 100; ++i) {
+         pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         pointB = EuclidCoreRandomTools.generateRandomPoint3D(random);
+
+         if (pointA.epsilonEquals(pointB, getEpsilon())) {
+            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
+         } else {
+            if (Math.sqrt((pointA.getX() - pointB.getX()) * (pointA.getX() - pointB.getX()) + (pointA.getY() - pointB.getY()) * (pointA.getY() - pointB.getY()) + (pointA.getZ() - pointB.getZ()) * (pointA.getZ() - pointB.getZ())) <= getEpsilon()) {
+               assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+            } else {
+               assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+            }
+         }
+
+         pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         pointB = new Point3D(pointA);
+
+         assertTrue(pointA.geometricallyEquals(pointB, 0));
+
+         pointB.set(pointA.getX() + 0.9d * getEpsilon(), pointA.getY(), pointA.getZ());
+
+         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX() + 1.1d * getEpsilon(), pointA.getY(), pointA.getZ());
+
+         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY() + 0.9d * getEpsilon(), pointA.getZ());
+
+         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY() + 1.1d * getEpsilon(), pointA.getZ());
+
+         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY(), pointA.getZ() + 0.9d * getEpsilon());
+
+         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+
+         pointB.set(pointA.getX(), pointA.getY(), pointA.getZ() + 1.1d * getEpsilon());
+
+         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+      }
+   }
 }

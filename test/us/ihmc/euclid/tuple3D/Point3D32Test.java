@@ -92,28 +92,6 @@ public class Point3D32Test extends Point3DBasicsTest<Point3D32>
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
-      Point3D32 pointA;
-      Point3D32 pointB;
-      Random random = new Random(621541L);
-
-      for (int i = 0; i < 100; ++i) {
-         pointA = EuclidCoreRandomTools.generateRandomPoint3D32(random);
-         pointB = EuclidCoreRandomTools.generateRandomPoint3D32(random);
-
-         if (pointA.epsilonEquals(pointB, getEpsilon())) {
-            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
-         } else {
-            if (Math.sqrt((pointA.getX() - pointB.getX()) * (pointA.getX() - pointB.getX()) + (pointA.getY() - pointB.getY()) * (pointA.getY() - pointB.getY()) + (pointA.getZ() - pointB.getZ()) * (pointA.getZ() - pointB.getZ())) <= getEpsilon()) {
-               assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
-            } else {
-               assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
-            }
-         }
-      }
-   }
-
-   @Test
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
