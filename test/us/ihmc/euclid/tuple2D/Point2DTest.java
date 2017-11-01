@@ -64,49 +64,6 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
-      Point2D pointA;
-      Point2D pointB;
-      Random random = new Random(621541L);
-
-      for (int i = 0; i < 100; ++i) {
-         pointA = EuclidCoreRandomTools.generateRandomPoint2D(random);
-         pointB = EuclidCoreRandomTools.generateRandomPoint2D(random);
-
-         if (pointA.epsilonEquals(pointB, getEpsilon())) {
-            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
-         } else {
-            if (Math.sqrt(EuclidCoreTools.normSquared(pointA.getX() - pointB.getX(), pointA.getY() - pointB.getY())) <= getEpsilon()) {
-               assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
-            } else {
-               assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
-            }
-         }
-
-         pointA = EuclidCoreRandomTools.generateRandomPoint2D(random);
-         pointB = new Point2D(pointA);
-
-         assertTrue(pointA.geometricallyEquals(pointB, 0));
-
-         pointB.set(pointA.getX() + 0.9d * getEpsilon(), pointA.getY());
-
-         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
-
-         pointB.set(pointA.getX() + 1.1d * getEpsilon(), pointA.getY());
-
-         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
-
-         pointB.set(pointA.getX(), pointA.getY() + 0.9d * getEpsilon());
-
-         assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
-
-         pointB.set(pointA.getX(), pointA.getY() + 1.1d * getEpsilon());
-
-         assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
-      }
-   }
-
-   @Test
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
