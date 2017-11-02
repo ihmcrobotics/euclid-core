@@ -181,6 +181,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             double expectedAngle = qDiff.getAngle();
             double actualAngle = q1.distance(q2);
             assertEquals(expectedAngle, actualAngle, 75.0 * getEpsilon());
+            assertEquals(0.0, q1.distance(q1), 1.0e-3);
          }
       }
 
@@ -219,6 +220,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             q2.preMultiply(q1);
             double actualAngle = q1.distancePrecise(q2);
             assertEquals(expectedAngle, actualAngle, getEpsilon());
+            assertEquals(0.0, q1.distance(q1), 1.0e-3);
          }
       }
    }

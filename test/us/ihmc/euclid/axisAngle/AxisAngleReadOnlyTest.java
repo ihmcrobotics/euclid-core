@@ -357,6 +357,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double actualDistance = aa1.distance(aa2);
          double expectedDistance = q1.distance(q2);
          assertEquals(expectedDistance, actualDistance, getEpsilon());
+         assertEquals(0.0, aa1.distance(aa1), getEpsilon());
       }
    }
 
