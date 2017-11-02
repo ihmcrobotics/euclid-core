@@ -852,7 +852,7 @@ public interface AxisAngleReadOnly
     */
    default boolean geometricallyEquals(AxisAngleReadOnly other, double epsilon)
    {
-      return distance(other) <= epsilon;
+      return Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(distance(other))) <= epsilon;
    }
 
    /**

@@ -1997,6 +1997,8 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          rotationMatrixB = new RotationMatrix(aa);
          rotationMatrixB.preMultiply(rotationMatrixA);
 
+         assertTrue(rotationMatrixA.geometricallyEquals(rotationMatrixB, epsilon));
+
          quaternionA = new Quaternion(rotationMatrixA);
          quaternionB = new Quaternion(rotationMatrixB);
 
