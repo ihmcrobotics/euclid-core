@@ -41,6 +41,8 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
  */
 public interface QuaternionReadOnly extends Tuple4DReadOnly
 {
+   /** Threshold used to trigger a more expensive comparison between two quaternions. */
+   public static final double GEOMETRICALLY_EQUALS_THRESHOLD = 0.005;
    public static final double EPS_UNITARY = 1.0e-7;
 
    /**
@@ -126,7 +128,29 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     */
    default double distance(QuaternionReadOnly other)
    {
-      return 2.0 * Math.acos(dot(other));
+      double dot = dot(other);
+      if (dot > 1.0)
+         dot = 1.0;
+      else if (dot < -1.0)
+         dot = -1.0;
+      return 2.0 * Math.acos(dot);
+   }
+
+   /**
+    * Computes and returns the distance from this quaternion to {@code other}.
+    * <p>
+    * This method is equivalent to {@link #distance(QuaternionReadOnly)} but is more accurate when
+    * computing the distance between two quaternions that are very close. Note that it is also more
+    * expensive.
+    * </p>
+    *
+    * @param other the other quaternion to measure the distance. Not modified.
+    * @return the angle representing the distance between the two quaternions. It is contained in
+    *         [0, 2<i>pi</i>]
+    */
+   default double distancePrecise(QuaternionReadOnly other)
+   {
+      return QuaternionTools.distancePrecise(this, other);
    }
 
    /**
@@ -675,7 +699,15 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     */
    default boolean geometricallyEquals(QuaternionReadOnly other, double epsilon)
    {
-      return Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(distance(other))) <= epsilon;
+      if (epsilon >= Math.PI)
+         return true; // Trivial case. If epsilon is greater than pi, then any pair of quaternions are equal.
+
+      double angle;
+      if (epsilon > GEOMETRICALLY_EQUALS_THRESHOLD)
+         angle = distance(other);
+      else
+         angle = distancePrecise(other);
+      return Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(angle)) <= epsilon;
    }
 
    /**
