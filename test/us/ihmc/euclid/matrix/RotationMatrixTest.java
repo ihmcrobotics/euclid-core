@@ -1978,6 +1978,58 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
    }
 
    @Test
+   public void testEpsilonConsistencyWithQuaternionAndAxisAngle() throws Exception
+   {
+      Random random = new Random(9762344L);
+      RotationMatrix rotationMatrixA;
+      RotationMatrix rotationMatrixB;
+      Quaternion quaternionA;
+      Quaternion quaternionB;
+      AxisAngle axisAngleA;
+      AxisAngle axisAngleB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+         rotationMatrixA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         double angleDiff = 0.99 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         rotationMatrixB = new RotationMatrix(aa);
+         rotationMatrixB.preMultiply(rotationMatrixA);
+
+         quaternionA = new Quaternion(rotationMatrixA);
+         quaternionB = new Quaternion(rotationMatrixB);
+
+         assertTrue(quaternionA.geometricallyEquals(quaternionB, epsilon));
+
+         axisAngleA = new AxisAngle(rotationMatrixA);
+         axisAngleB = new AxisAngle(rotationMatrixB);
+
+         assertTrue(axisAngleA.geometricallyEquals(axisAngleB, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+         rotationMatrixA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         rotationMatrixB = new RotationMatrix(aa);
+         rotationMatrixB.preMultiply(rotationMatrixA);
+
+         quaternionA = new Quaternion(rotationMatrixA);
+         quaternionB = new Quaternion(rotationMatrixB);
+
+         assertFalse(quaternionA.geometricallyEquals(quaternionB, epsilon));
+
+         axisAngleA = new AxisAngle(rotationMatrixA);
+         axisAngleB = new AxisAngle(rotationMatrixB);
+
+         assertFalse(axisAngleA.geometricallyEquals(axisAngleB, epsilon));
+      }
+   }
+
+   @Test
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
