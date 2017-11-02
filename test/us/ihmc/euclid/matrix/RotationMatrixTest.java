@@ -1903,34 +1903,77 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
    @Test
    public void testGeometricallyEquals() throws Exception
    {
-      Random random = new Random(19825L);
-      RotationMatrix rotmatA;
-      RotationMatrix rotmatB;
+      RotationMatrix mA;
+      RotationMatrix mB;
+      Random random = new Random(621541L);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         double epsilon = random.nextDouble();
-         rotmatA = createRandomMatrix(random);
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, 1.0e-12, 1.0e-11);
+         mA = createRandomMatrix(random);
          double angleDiff = 0.99 * epsilon;
          AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
 
-         rotmatB = new RotationMatrix(aa);
-         rotmatB.preMultiply(rotmatA);
+         mB = new RotationMatrix(aa);
+         mB.preMultiply(mA);
 
-         assertTrue(rotmatA.geometricallyEquals(rotmatB, epsilon));
+         assertTrue("Epsilon = " + epsilon, mA.geometricallyEquals(mB, epsilon));
+         assertTrue(mA.geometricallyEquals(mA, 0.0));
+         assertTrue(mB.geometricallyEquals(mB, 0.0));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         double epsilon = random.nextDouble();
-         rotmatA = createRandomMatrix(random);
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, 1.0e-12, 1.0e-11);
+         mA = createRandomMatrix(random);
          double angleDiff = 1.01 * epsilon;
          AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
 
-         rotmatB = new RotationMatrix(aa);
-         rotmatB.preMultiply(rotmatA);
+         mB = new RotationMatrix(aa);
+         mB.preMultiply(mA);
 
-         assertFalse(rotmatA.geometricallyEquals(rotmatB, epsilon));
+         assertFalse("Epsilon = " + epsilon, mA.geometricallyEquals(mB, epsilon));
+         assertTrue(mA.geometricallyEquals(mA, 0.0));
+         assertTrue(mB.geometricallyEquals(mB, 0.0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0 * Math.PI);
+         mA = createRandomMatrix(random);
+         double angleDiff = 0.99 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         mB = new RotationMatrix(aa);
+         mB.preMultiply(mA);
+
+         assertTrue("Epsilon = " + epsilon, mA.geometricallyEquals(mB, epsilon));
+         assertTrue(mA.geometricallyEquals(mA, 0.0));
+         assertTrue(mB.geometricallyEquals(mB, 0.0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Math.PI / 1.02); // Make sure to not go over Math.PI
+         mA = createRandomMatrix(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         mB = new RotationMatrix(aa);
+         mB.preMultiply(mA);
+
+         assertFalse("Epsilon = " + epsilon, mA.geometricallyEquals(mB, epsilon));
+         assertTrue(mA.geometricallyEquals(mA, 0.0));
+         assertTrue(mB.geometricallyEquals(mB, 0.0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      { // If epsilon >= Math.PI, any pair of two quaternions will be equal
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI, 2.0 * Math.PI);
+         mA = createRandomMatrix(random);
+         mB = createRandomMatrix(random);
+
+         assertTrue("Epsilon = " + epsilon, mA.geometricallyEquals(mB, epsilon));
       }
    }
 
