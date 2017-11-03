@@ -2547,6 +2547,28 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       }
    }
 
+   @Test
+   public void testToString() throws Exception {
+      Random random = new Random(12345L);
+
+      AffineTransform affA;
+      AffineTransform affB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         affA = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         affB = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+
+         assertNotEquals(affA.toString(), affB.toString());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         affA = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         affB = new AffineTransform(affA);
+
+         assertEquals(affA.toString(), affB.toString());
+      }
+   }
+
    @Override
    public AffineTransform createRandomTransform(Random random)
    {
