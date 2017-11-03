@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -80,29 +81,34 @@ public class EuclidCoreTestSuite
       if (reportDirectory.isDirectory() && reportDirectory.exists())
       {
          String[] list = reportDirectory.list();
-         String lastDirectoryName = list[list.length - 1];
 
-         System.out.println("Found last directory " + lastDirectoryName);
-
-         File reportFile = new File(reportDirectory, lastDirectoryName + "/index.html");
-         String absolutePath;
-         try
+         if (list == null)
          {
-            absolutePath = reportFile.getCanonicalPath();
-
-            absolutePath = absolutePath.replace("\\", "/");
-            System.out.println("Opening " + "file://" + absolutePath);
-
-            URI uri = new URI("file://" + absolutePath);
-            Desktop.getDesktop().browse(uri);
+            System.err.printf("Cannot find report file in '%s'.\n", reportDirectory.getAbsolutePath());
          }
-         catch (IOException e)
+         else
          {
-            e.printStackTrace();
-         }
-         catch (URISyntaxException e)
-         {
-            e.printStackTrace();
+            Arrays.sort(list); //TODO: make sure this works
+            String lastDirectoryName = list[list.length - 1];
+
+            System.out.println("Found last directory " + lastDirectoryName);
+
+            File reportFile = new File(reportDirectory, lastDirectoryName + "/index.html");
+            String absolutePath;
+            try
+            {
+               absolutePath = reportFile.getCanonicalPath();
+
+               absolutePath = absolutePath.replace("\\", "/");
+               System.out.println("Opening " + "file://" + absolutePath);
+
+               URI uri = new URI("file://" + absolutePath);
+               Desktop.getDesktop().browse(uri);
+            }
+            catch (IOException | URISyntaxException e)
+            {
+               e.printStackTrace();
+            }
          }
       }
    }
