@@ -1,20 +1,18 @@
 package us.ihmc.euclid.tuple3D;
 
-import static org.junit.Assert.*;
-
-import java.util.Random;
-
 import org.junit.Test;
-
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
-import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
+
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple3DBasicsTest<T>
 {
@@ -127,8 +125,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          assertEquals(0.0, vector1.dot(vector3), 10.0 * getEpsilon());
          assertEquals(0.0, vector2.dot(vector3), 10.0 * getEpsilon());
       }
-      
-      
+
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // cross(Tuple3DReadOnly other)
          T vector1 = createRandomTuple(random);
@@ -187,9 +184,9 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          T actualVector = createTuple(vectorLength, 0.0, 0.0);
          RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          rotationMatrix.transform(actualVector, actualVector);
-         
+
          assertTrue(actualVector.clipToMaxLength(maxLength));
-         
+
          EuclidCoreTestTools.assertTuple3DIsSetToZero("Iteration: " + i + ", maxLength: " + maxLength, actualVector);
       }
    }
@@ -344,27 +341,36 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
-      T vectorA;
-      T vectorB;
+   public void testGeometricallyEquals() throws Exception
+   {
+      Vector3DBasics vectorA;
+      Vector3DBasics vectorB;
       Random random = new Random(621541L);
 
-      for (int i = 0; i < 100; ++i) {
-         vectorA = (T) EuclidCoreRandomTools.generateRandomVector3D(random);
-         vectorB = (T) EuclidCoreRandomTools.generateRandomVector3D(random);
+      for (int i = 0; i < 100; ++i)
+      {
+         vectorA = EuclidCoreRandomTools.generateRandomVector3D(random);
+         vectorB = EuclidCoreRandomTools.generateRandomVector3D(random);
 
-         if (vectorA.epsilonEquals(vectorB, getEpsilon())) {
-            assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3)*getEpsilon()));
-         } else {
-            if (Math.sqrt((vectorA.getX() - vectorB.getX()) * (vectorA.getX() - vectorB.getX()) + (vectorA.getY() - vectorB.getY()) * (vectorA.getY() - vectorB.getY()) + (vectorA.getZ() - vectorB.getZ()) * (vectorA.getZ() - vectorB.getZ())) <= getEpsilon()) {
+         if (vectorA.epsilonEquals(vectorB, getEpsilon()))
+         {
+            assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3) * getEpsilon()));
+         }
+         else
+         {
+            if (Math.sqrt((vectorA.getX() - vectorB.getX()) * (vectorA.getX() - vectorB.getX()) + (vectorA.getY() - vectorB.getY()) * (vectorA.getY() - vectorB
+                  .getY()) + (vectorA.getZ() - vectorB.getZ()) * (vectorA.getZ() - vectorB.getZ())) <= getEpsilon())
+            {
                assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-            } else {
+            }
+            else
+            {
                assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
             }
          }
 
-         vectorA = (T) EuclidCoreRandomTools.generateRandomVector3D(random);
-         vectorB = (T) new Vector3D(vectorA);
+         vectorA = EuclidCoreRandomTools.generateRandomVector3D(random);
+         vectorB = new Vector3D(vectorA);
 
          assertTrue(vectorA.geometricallyEquals(vectorB, 0));
 
