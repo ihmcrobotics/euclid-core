@@ -1796,6 +1796,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          qbtB = new QuaternionBasedTransform(quaternion, qbtA.getTranslationVector());
 
          assertTrue(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertTrue(qbtB.geometricallyEquals(qbtA, epsilon));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
@@ -1811,6 +1812,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          qbtB = new QuaternionBasedTransform(quaternion, qbtA.getTranslationVector());
 
          assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
@@ -1825,33 +1827,39 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
 
          assertTrue(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertTrue(qbtB.geometricallyEquals(qbtA, epsilon));
 
          perturb.setX(translation.getX() + 1.1 * epsilon);
          qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
 
          assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
 
          perturb = new Vector3D(translation);
          perturb.setY(translation.getY() + 0.9 * epsilon);
          qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
 
          assertTrue(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertTrue(qbtB.geometricallyEquals(qbtA, epsilon));
 
          perturb.setY(translation.getY() + 1.1 * epsilon);
          qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
 
          assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
 
          perturb = new Vector3D(translation);
          perturb.setZ(translation.getZ() + 0.9 * epsilon);
          qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
 
          assertTrue(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertTrue(qbtB.geometricallyEquals(qbtA, epsilon));
 
          perturb.setZ(translation.getZ() + 1.1 * epsilon);
          qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
 
          assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
@@ -1867,6 +1875,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          qbtB = new QuaternionBasedTransform(quaternion, qbtA.getTranslationVector());
 
          assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
       }
    }
 

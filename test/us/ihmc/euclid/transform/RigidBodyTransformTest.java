@@ -2768,6 +2768,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          rigbodB = new RigidBodyTransform(rotmat, rigbodA.getTranslationVector());
 
          assertTrue(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertTrue(rigbodB.geometricallyEquals(rigbodA, epsilon));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
@@ -2783,6 +2784,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          rigbodB = new RigidBodyTransform(rotmat, rigbodA.getTranslationVector());
 
          assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
@@ -2797,33 +2799,39 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
 
          assertTrue(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertTrue(rigbodB.geometricallyEquals(rigbodA, epsilon));
 
          perturb.setX(translation.getX() + 1.1 * epsilon);
          rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
 
          assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
 
          perturb = new Vector3D(translation);
          perturb.setY(translation.getY() + 0.9 * epsilon);
          rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
 
          assertTrue(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertTrue(rigbodB.geometricallyEquals(rigbodA, epsilon));
 
          perturb.setY(translation.getY() + 1.1 * epsilon);
          rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
 
          assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
 
          perturb = new Vector3D(translation);
          perturb.setZ(translation.getZ() + 0.9 * epsilon);
          rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
 
          assertTrue(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertTrue(rigbodB.geometricallyEquals(rigbodA, epsilon));
 
          perturb.setZ(translation.getZ() + 1.1 * epsilon);
          rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
 
          assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
@@ -2839,6 +2847,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          rigbodB = new RigidBodyTransform(rotmat, rigbodA.getTranslationVector());
 
          assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
       }
    }
 
