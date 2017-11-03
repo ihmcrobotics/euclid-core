@@ -1,14 +1,14 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
+import us.ihmc.euclid.tuple3D.Vector3D;
 
 import java.util.Random;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tuple3D.Vector3D;
+import static org.junit.Assert.*;
 
 public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
 {
@@ -87,6 +87,59 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
          newHashCode = tuple1.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      super.testGeometricallyEquals();
+
+      Vector2D vectorA;
+      Vector2D vectorB;
+      Random random = new Random(621541L);
+
+      for (int i = 0; i < 100; ++i)
+      {
+         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorB = EuclidCoreRandomTools.generateRandomVector2D(random);
+
+         if (vectorA.epsilonEquals(vectorB, getEpsilon()))
+         {
+            assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3) * getEpsilon()));
+         }
+         else
+         {
+            if (Math.sqrt(EuclidCoreTools.normSquared(vectorA.getX() - vectorB.getX(), vectorA.getY() - vectorB.getY())) <= getEpsilon())
+            {
+               assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+            }
+            else
+            {
+               assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+            }
+         }
+
+         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorB = new Vector2D(vectorA);
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, 0));
+
+         vectorB.set(vectorA.getX() + 0.9d * getEpsilon(), vectorA.getY());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX() + 1.1d * getEpsilon(), vectorA.getY());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY() + 0.9d * getEpsilon());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY() + 1.1d * getEpsilon());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
       }
    }
 

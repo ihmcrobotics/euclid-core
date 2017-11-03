@@ -1,11 +1,6 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.*;
-
-import java.util.Random;
-
 import org.junit.Test;
-
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
@@ -15,6 +10,10 @@ import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
+
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple2DBasicsTest<T>
 {
@@ -206,9 +205,9 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          T actualVector = createTuple(vectorLength, 0.0);
          double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
          RotationMatrixTools.applyYawRotation(yaw, actualVector, actualVector);
-         
+
          assertTrue(actualVector.clipToMaxLength(maxLength));
-         
+
          EuclidCoreTestTools.assertTuple2DIsSetToZero("Iteration: " + i + ", maxLength: " + maxLength, actualVector);
       }
    }
@@ -340,27 +339,35 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
-      T vectorA;
-      T vectorB;
+   public void testGeometricallyEquals() throws Exception
+   {
+      Vector2DBasics vectorA;
+      Vector2DBasics vectorB;
       Random random = new Random(621541L);
 
-      for (int i = 0; i < 100; ++i) {
-         vectorA = (T) EuclidCoreRandomTools.generateRandomVector2D(random);
-         vectorB = (T) EuclidCoreRandomTools.generateRandomVector2D(random);
+      for (int i = 0; i < 100; ++i)
+      {
+         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorB = EuclidCoreRandomTools.generateRandomVector2D(random);
 
-         if (vectorA.epsilonEquals(vectorB, getEpsilon())) {
-            assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3)*getEpsilon()));
-         } else {
-            if (Math.sqrt(EuclidCoreTools.normSquared(vectorA.getX() - vectorB.getX(), vectorA.getY() - vectorB.getY())) <= getEpsilon()) {
+         if (vectorA.epsilonEquals(vectorB, getEpsilon()))
+         {
+            assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3) * getEpsilon()));
+         }
+         else
+         {
+            if (Math.sqrt(EuclidCoreTools.normSquared(vectorA.getX() - vectorB.getX(), vectorA.getY() - vectorB.getY())) <= getEpsilon())
+            {
                assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-            } else {
+            }
+            else
+            {
                assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
             }
          }
 
-         vectorA = (T) EuclidCoreRandomTools.generateRandomVector2D(random);
-         vectorB = (T) new Vector2D(vectorA);
+         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorB = new Vector2D(vectorA);
 
          assertTrue(vectorA.geometricallyEquals(vectorB, 0));
 
