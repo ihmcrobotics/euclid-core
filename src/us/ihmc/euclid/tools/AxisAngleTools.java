@@ -18,7 +18,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
 public abstract class AxisAngleTools
 {
-   private static final double EPS = 1.0e-12;
+   public static final double EPS = 1.0e-12;
 
    /**
     * Transforms the tuple {@code tupleOriginal} using {@code axisAngle} and stores the result in
