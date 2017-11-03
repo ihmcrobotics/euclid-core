@@ -1,5 +1,6 @@
 package us.ihmc.euclid.transform;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -1877,6 +1878,32 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
          assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
+      }
+   }
+
+   @Test
+   public void testHashCode() throws Exception
+   {
+      Random random = new Random(12345L);
+
+      Quaternion quaternion;
+      Vector3D translation;
+      QuaternionBasedTransform qbt = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+      int lastHashCode = qbt.hashCode();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         qbt = new QuaternionBasedTransform(quaternion, translation);
+
+         long bits = 31L * quaternion.hashCode() + translation.hashCode();
+         int expectedHashCode = (int) (bits ^ bits >> 32);
+
+         assertEquals(expectedHashCode, qbt.hashCode());
+         assertNotEquals(lastHashCode, qbt.hashCode());
+
+         lastHashCode = qbt.hashCode();
       }
    }
 
