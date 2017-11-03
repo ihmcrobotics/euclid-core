@@ -2522,21 +2522,28 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       RotationScaleMatrix rsm;
       Vector3D translation;
       AffineTransform affine = EuclidCoreRandomTools.generateRandomAffineTransform(random);
-      int lastHashCode = affine.hashCode();
+
+      long bits;
+      int newHashCode, previousHashCode, expectedHashCode;
+      newHashCode = affine.hashCode();
+      assertEquals(newHashCode, affine.hashCode());
+
+      previousHashCode = affine.hashCode();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
          rsm = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 2.0);
          translation = EuclidCoreRandomTools.generateRandomVector3D(random);
          affine = new AffineTransform(rsm, translation);
+         newHashCode = affine.hashCode();
 
-         long bits = 31L * rsm.hashCode() + translation.hashCode();
-         int expectedHashCode = (int) (bits ^ bits >> 32);
+         bits = 31L * rsm.hashCode() + translation.hashCode();
+         expectedHashCode = (int) (bits ^ bits >> 32);
 
-         assertEquals(expectedHashCode, affine.hashCode());
-         assertNotEquals(lastHashCode, affine.hashCode());
+         assertEquals(expectedHashCode, newHashCode);
+         assertNotEquals(previousHashCode, newHashCode);
 
-         lastHashCode = affine.hashCode();
+         previousHashCode = newHashCode;
       }
    }
 

@@ -2860,21 +2860,27 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       RotationMatrix rotation;
       Vector3D translation;
       RigidBodyTransform rbt = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
-      int lastHashCode = rbt.hashCode();
+
+      long bits;
+      int newHashCode, previousHashCode, expectedHashCode;
+      newHashCode = rbt.hashCode();
+      assertEquals(newHashCode, rbt.hashCode());
+
+      previousHashCode = rbt.hashCode();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
          rotation = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
          translation = EuclidCoreRandomTools.generateRandomVector3D(random);
          rbt = new RigidBodyTransform(rotation, translation);
+         newHashCode = rbt.hashCode();
 
-         long bits = 31L * rotation.hashCode() + translation.hashCode();
-         int expectedHashCode = (int) (bits ^ bits >> 32);
+         bits = 31L * rotation.hashCode() + translation.hashCode();
+         expectedHashCode = (int) (bits ^ bits >> 32);
 
-         assertEquals(expectedHashCode, rbt.hashCode());
-         assertNotEquals(lastHashCode, rbt.hashCode());
-
-         lastHashCode = rbt.hashCode();
+         assertEquals(expectedHashCode, newHashCode);
+         assertNotEquals(previousHashCode, newHashCode);
+         previousHashCode = newHashCode;
       }
    }
 
