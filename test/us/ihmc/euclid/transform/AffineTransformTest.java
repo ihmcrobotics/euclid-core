@@ -2341,6 +2341,152 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       }
    }
 
+   @Test
+   public void testGeometricallyEquals() throws Exception {
+      Random random = new Random(54321L);
+
+      RotationMatrix rmA;
+      RotationMatrix rmB;
+      Vector3D scaleA;
+      Vector3D scaleB;
+      Vector3D translationA;
+      Vector3D translationB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+         double angleEps = epsilon * 0.99;
+
+         rmA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleEps);
+
+         rmB = new RotationMatrix(aa);
+         rmB.preMultiply(rmA);
+
+         scaleA = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 2.0);
+         scaleB = new Vector3D(scaleA);
+
+         translationA = EuclidCoreRandomTools.generateRandomVector3D(random);
+         translationB = new Vector3D(translationA);
+
+         assertTrue(new AffineTransform(new RotationScaleMatrix(rmA, scaleA), translationA).geometricallyEquals(new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB), epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+         double angleEps = epsilon * 1.01;
+
+         rmA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleEps);
+
+         rmB = new RotationMatrix(aa);
+         rmB.preMultiply(rmA);
+
+         scaleA = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 2.0);
+         scaleB = new Vector3D(scaleA);
+
+         translationA = EuclidCoreRandomTools.generateRandomVector3D(random);
+         translationB = new Vector3D(translationA);
+
+         assertFalse(new AffineTransform(new RotationScaleMatrix(rmA, scaleA), translationA).geometricallyEquals(new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB), epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+
+         rmA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rmB = new RotationMatrix(rmA);
+
+         scaleA = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 2.0);
+         scaleB = new Vector3D(scaleA);
+
+         translationA = EuclidCoreRandomTools.generateRandomVector3D(random);
+         translationB = new Vector3D(translationA);
+
+         AffineTransform affA = new AffineTransform(new RotationScaleMatrix(rmA, scaleA), translationA);
+
+         scaleB.setX(scaleA.getX() + 0.9 * epsilon);
+         AffineTransform affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertTrue(affA.geometricallyEquals(affB, epsilon));
+
+         scaleB.setX(scaleA.getX() + 1.1 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertFalse(affA.geometricallyEquals(affB, epsilon));
+
+         scaleB = new Vector3D(scaleA);
+         scaleB.setY(scaleA.getY() + 0.9 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertTrue(affA.geometricallyEquals(affB, epsilon));
+
+         scaleB.setY(scaleA.getY() + 1.1 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertFalse(affA.geometricallyEquals(affB, epsilon));
+
+         scaleB = new Vector3D(scaleA);
+         scaleB.setZ(scaleA.getZ() + 0.9 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertTrue(affA.geometricallyEquals(affB, epsilon));
+
+         scaleB.setZ(scaleA.getZ() + 1.1 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertFalse(affA.geometricallyEquals(affB, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+
+         rmA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rmB = new RotationMatrix(rmA);
+
+         scaleA = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 2.0);
+         scaleB = new Vector3D(scaleA);
+
+         translationA = EuclidCoreRandomTools.generateRandomVector3D(random);
+         translationB = new Vector3D(translationA);
+
+         AffineTransform affA = new AffineTransform(new RotationScaleMatrix(rmA, scaleA), translationA);
+
+         translationB.setX(translationA.getX() + 0.9 * epsilon);
+         AffineTransform affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertTrue(affA.geometricallyEquals(affB, epsilon));
+
+         translationB.setX(translationA.getX() + 1.1 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertFalse(affA.geometricallyEquals(affB, epsilon));
+
+         translationB = new Vector3D(translationA);
+         translationB.setY(translationA.getY() + 0.9 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertTrue(affA.geometricallyEquals(affB, epsilon));
+
+         translationB.setY(translationA.getY() + 1.1 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertFalse(affA.geometricallyEquals(affB, epsilon));
+
+         translationB = new Vector3D(translationA);
+         translationB.setZ(translationA.getZ() + 0.9 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertTrue(affA.geometricallyEquals(affB, epsilon));
+
+         translationB.setZ(translationA.getZ() + 1.1 * epsilon);
+         affB = new AffineTransform(new RotationScaleMatrix(rmB, scaleB), translationB);
+
+         assertFalse(affA.geometricallyEquals(affB, epsilon));
+      }
+   }
+
    @Override
    public AffineTransform createRandomTransform(Random random)
    {
