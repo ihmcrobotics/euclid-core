@@ -850,7 +850,7 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
       Vector4DBasics vectorB;
       Random random = new Random(621541L);
 
-      for (int i = 0; i < 100; ++i)
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
          vectorA = EuclidCoreRandomTools.generateRandomVector4D(random);
          vectorB = EuclidCoreRandomTools.generateRandomVector4D(random);
@@ -861,9 +861,9 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
          }
          else
          {
-            if (Math.sqrt((vectorA.getX() - vectorB.getX()) * (vectorA.getX() - vectorB.getX()) + (vectorA.getY() - vectorB.getY()) * (vectorA.getY() - vectorB
-                  .getY()) + (vectorA.getZ() - vectorB.getZ()) * (vectorA.getZ() - vectorB.getZ()) + (vectorA.getS() - vectorB.getS()) * (vectorA.getS()
-                  - vectorB.getS())) <= getEpsilon())
+            Vector4D diff = new Vector4D();
+            diff.sub(vectorA, vectorB);
+            if (diff.norm() <= getEpsilon())
             {
                assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
             }
