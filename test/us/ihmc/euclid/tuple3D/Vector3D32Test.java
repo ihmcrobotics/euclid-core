@@ -3,6 +3,7 @@ package us.ihmc.euclid.tuple3D;
 import org.junit.Assert;
 import org.junit.Test;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 import java.util.Random;
 
@@ -131,51 +132,14 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
          vectorA = EuclidCoreRandomTools.generateRandomVector3D32(random);
          vectorB = EuclidCoreRandomTools.generateRandomVector3D32(random);
 
-         if (vectorA.epsilonEquals(vectorB, getEpsilon()))
+         if (((Vector3DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
          {
-            assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3) * getEpsilon()));
+            assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
          }
          else
          {
-            if (Math.sqrt((vectorA.getX() - vectorB.getX()) * (vectorA.getX() - vectorB.getX()) + (vectorA.getY() - vectorB.getY()) * (vectorA.getY() - vectorB
-                  .getY()) + (vectorA.getZ() - vectorB.getZ()) * (vectorA.getZ() - vectorB.getZ())) <= getEpsilon())
-            {
-               assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-            }
-            else
-            {
-               assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-            }
+            assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
          }
-
-         vectorA = EuclidCoreRandomTools.generateRandomVector3D32(random);
-         vectorB = new Vector3D32(vectorA);
-
-         assertTrue(vectorA.geometricallyEquals(vectorB, 0));
-
-         vectorB.set(vectorA.getX() + 0.9d * getEpsilon(), vectorA.getY(), vectorA.getZ());
-
-         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-
-         vectorB.set(vectorA.getX() + 1.1d * getEpsilon(), vectorA.getY(), vectorA.getZ());
-
-         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-
-         vectorB.set(vectorA.getX(), vectorA.getY() + 0.9d * getEpsilon(), vectorA.getZ());
-
-         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-
-         vectorB.set(vectorA.getX(), vectorA.getY() + 1.1d * getEpsilon(), vectorA.getZ());
-
-         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-
-         vectorB.set(vectorA.getX(), vectorA.getY(), vectorA.getZ() + 0.9d * getEpsilon());
-
-         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
-
-         vectorB.set(vectorA.getX(), vectorA.getY(), vectorA.getZ() + 1.1d * getEpsilon());
-
-         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
       }
    }
 
