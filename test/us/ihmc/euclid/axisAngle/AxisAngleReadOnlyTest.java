@@ -1,13 +1,7 @@
 package us.ihmc.euclid.axisAngle;
 
-import static org.junit.Assert.*;
-
-import java.util.Random;
-
 import org.junit.Assert;
 import org.junit.Test;
-
-import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
@@ -32,6 +26,10 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 {
@@ -345,7 +343,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
    public void testDistance() throws Exception
    {
       Random random = new Random(32434L);
-      
+
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          AxisAngleReadOnly aa1 = createRandomAxisAngle(random);
@@ -1120,5 +1118,40 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x, y, z, angle + 1.001 * epsilon), epsilon));
       assertFalse(axisAngle.epsilonEquals(createAxisAngle(x, y, z, angle - 1.001 * epsilon), epsilon));
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      Random random = new Random(35454L);
+
+      AxisAngleReadOnly aabA;
+      AxisAngle aabB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         aabA = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         double angleEps = epsilon * 0.99;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleEps);
+
+         aabB = new AxisAngle(aa);
+         aabB.preMultiply(aabA);
+
+         assertTrue(aabA.geometricallyEquals(aabB, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         aabA = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         double angleEps = epsilon * 1.01;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleEps);
+
+         aabB = new AxisAngle(aa);
+         aabB.preMultiply(aabA);
+
+         assertFalse(aabA.geometricallyEquals(aabB, epsilon));
+      }
    }
 }

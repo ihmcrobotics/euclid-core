@@ -1,20 +1,17 @@
 package us.ihmc.euclid.axisAngle;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
-import java.util.Random;
-
 import org.junit.Assert;
 import org.junit.Test;
-
-import us.ihmc.euclid.axisAngle.AxisAngle32;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple4D.Quaternion;
+
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
 {
@@ -177,6 +174,43 @@ public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
          newHashCode = axisAngle.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      super.testGeometricallyEquals();
+
+      Random random = new Random(35454L);
+
+      AxisAngle32 aabA;
+      AxisAngle32 aabB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         aabA = EuclidCoreRandomTools.generateRandomAxisAngle32(random);
+         double angleEps = epsilon * 0.99;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleEps);
+
+         aabB = new AxisAngle32(aa);
+         aabB.preMultiply(aabA);
+
+         assertTrue(aabA.geometricallyEquals(aabB, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         aabA = EuclidCoreRandomTools.generateRandomAxisAngle32(random);
+         double angleEps = epsilon * 1.01;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleEps);
+
+         aabB = new AxisAngle32(aa);
+         aabB.preMultiply(aabA);
+
+         assertFalse(aabA.geometricallyEquals(aabB, epsilon));
       }
    }
 
