@@ -1,13 +1,6 @@
 package us.ihmc.euclid.tuple4D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.Random;
-
 import org.junit.Test;
-
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.TupleTools;
@@ -17,6 +10,10 @@ import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple3D.Point3D;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
+
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple4DBasicsTest<T>
 {
@@ -843,6 +840,75 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
          actual.applyTransform(transform);
          actual.applyInverseTransform(transform);
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, 10.0 * getEpsilon());
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      Vector4DBasics vectorA;
+      Vector4DBasics vectorB;
+      Random random = new Random(621541L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         vectorA = EuclidCoreRandomTools.generateRandomVector4D(random);
+         vectorB = EuclidCoreRandomTools.generateRandomVector4D(random);
+
+         if (vectorA.epsilonEquals(vectorB, getEpsilon()))
+         {
+            assertTrue(vectorA.geometricallyEquals(vectorB, Math.sqrt(3) * getEpsilon()));
+         }
+         else
+         {
+            Vector4D diff = new Vector4D();
+            diff.sub(vectorA, vectorB);
+            if (diff.norm() <= getEpsilon())
+            {
+               assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+            }
+            else
+            {
+               assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+            }
+         }
+
+         vectorA = EuclidCoreRandomTools.generateRandomVector4D(random);
+         vectorB = new Vector4D(vectorA);
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, 0));
+
+         vectorB.set(vectorA.getX() + 0.9d * getEpsilon(), vectorA.getY(), vectorA.getZ(), vectorA.getS());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX() + 1.1d * getEpsilon(), vectorA.getY(), vectorA.getZ(), vectorA.getS());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY() + 0.9d * getEpsilon(), vectorA.getZ(), vectorA.getS());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY() + 1.1d * getEpsilon(), vectorA.getZ(), vectorA.getS());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY(), vectorA.getZ() + 0.9d * getEpsilon(), vectorA.getS());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY(), vectorA.getZ() + 1.1d * getEpsilon(), vectorA.getS());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY(), vectorA.getZ(), vectorA.getS() + 0.9d * getEpsilon());
+
+         assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+
+         vectorB.set(vectorA.getX(), vectorA.getY(), vectorA.getZ(), vectorA.getS() + 1.1d * getEpsilon());
+
+         assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
       }
    }
 }

@@ -1842,4 +1842,23 @@ public abstract class QuaternionTools
       double s = qs * cRoll - qx * sRoll;
       quaternionToPack.setUnsafe(x, y, z, s);
    }
+
+   /**
+    * Computes the distance between the two given quaternions.
+    * 
+    * @param q1 the quaternion to be used in the comparison. Not modified.
+    * @param q2 the quaternion to be used in the comparison. Not modified.
+    * @return the angle representing the distance between the two quaternions. It is contained in
+    *         [0, 2<i>pi</i>]
+    */
+   public static double distancePrecise(QuaternionReadOnly q1, QuaternionReadOnly q2)
+   {
+      double x = q1.getS() * q2.getX() - q1.getX() * q2.getS() - q1.getY() * q2.getZ() + q1.getZ() * q2.getY();
+      double y = q1.getS() * q2.getY() + q1.getX() * q2.getZ() - q1.getY() * q2.getS() - q1.getZ() * q2.getX();
+      double z = q1.getS() * q2.getZ() - q1.getX() * q2.getY() + q1.getY() * q2.getX() - q1.getZ() * q2.getS();
+      double s = q1.getS() * q2.getS() + q1.getX() * q2.getX() + q1.getY() * q2.getY() + q1.getZ() * q2.getZ();
+
+      double sinHalfTheta = Math.sqrt(EuclidCoreTools.normSquared(x, y, z));
+      return 2.0 * Math.atan2(sinHalfTheta, s);
+   }
 }

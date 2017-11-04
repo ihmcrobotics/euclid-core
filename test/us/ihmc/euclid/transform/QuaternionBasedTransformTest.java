@@ -820,7 +820,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       { // prependYawRotation(double yaw)
          QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
          QuaternionBasedTransform yawTransform = new QuaternionBasedTransform();
-         
+
          double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
 
          yawTransform.setRotationYaw(yaw);
@@ -854,7 +854,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       { // prependRollRotation(double roll)
          QuaternionBasedTransform original = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
          QuaternionBasedTransform rollTransform = new QuaternionBasedTransform();
-         
+
          double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
 
          rollTransform.setRotationRoll(roll);
@@ -1773,6 +1773,109 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          coeffs[index] -= 1.001 * epsilon;
          m2.setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6]);
          assertFalse(m1.epsilonEquals(m2, epsilon));
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      Random random = new Random(19825L);
+      QuaternionBasedTransform qbtA;
+      QuaternionBasedTransform qbtB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         qbtA = createRandomTransform(random);
+         double angleDiff = 0.99 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         Quaternion quaternion = new Quaternion(aa);
+         quaternion.preMultiply(qbtA.getQuaternion());
+
+         qbtB = new QuaternionBasedTransform(quaternion, qbtA.getTranslationVector());
+
+         assertTrue(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertTrue(qbtB.geometricallyEquals(qbtA, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         qbtA = createRandomTransform(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         Quaternion quaternion = new Quaternion(aa);
+         quaternion.preMultiply(qbtA.getQuaternion());
+
+         qbtB = new QuaternionBasedTransform(quaternion, qbtA.getTranslationVector());
+
+         assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         qbtA = createRandomTransform(random);
+
+         Vector3D translation = new Vector3D(qbtA.getTranslationVector());
+         Vector3D perturb = new Vector3D(translation);
+
+         perturb.setX(translation.getX() + 0.9 * epsilon);
+         qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
+
+         assertTrue(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertTrue(qbtB.geometricallyEquals(qbtA, epsilon));
+
+         perturb.setX(translation.getX() + 1.1 * epsilon);
+         qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
+
+         assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
+
+         perturb = new Vector3D(translation);
+         perturb.setY(translation.getY() + 0.9 * epsilon);
+         qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
+
+         assertTrue(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertTrue(qbtB.geometricallyEquals(qbtA, epsilon));
+
+         perturb.setY(translation.getY() + 1.1 * epsilon);
+         qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
+
+         assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
+
+         perturb = new Vector3D(translation);
+         perturb.setZ(translation.getZ() + 0.9 * epsilon);
+         qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
+
+         assertTrue(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertTrue(qbtB.geometricallyEquals(qbtA, epsilon));
+
+         perturb.setZ(translation.getZ() + 1.1 * epsilon);
+         qbtB = new QuaternionBasedTransform(new Quaternion(qbtA.getQuaternion()), perturb);
+
+         assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         qbtA = createRandomTransform(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         Quaternion quaternion = new Quaternion(aa);
+         quaternion.preMultiply(qbtA.getQuaternion());
+
+         qbtB = new QuaternionBasedTransform(quaternion, qbtA.getTranslationVector());
+
+         assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
+         assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
       }
    }
 

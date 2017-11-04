@@ -18,7 +18,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
 public abstract class AxisAngleTools
 {
-   private static final double EPS = 1.0e-12;
+   public static final double EPS = 1.0e-12;
 
    /**
     * Transforms the tuple {@code tupleOriginal} using {@code axisAngle} and stores the result in
@@ -1023,5 +1023,65 @@ public abstract class AxisAngleTools
       double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
       double sinHalfGammaInv = 1.0 / sinHalfGamma;
       axisAngleToPack.set(sinHalfGammaUx * sinHalfGammaInv, sinHalfGammaUy * sinHalfGammaInv, sinHalfGammaUz * sinHalfGammaInv, gamma);
+   }
+
+   /**
+    * Computes and returns the distance between the two axis-angles {@code aa1} and {@code aa2}.
+    * 
+    * @param aa1 the first axis-angle to measure the distance. Not modified.
+    * @param aa2 the second axis-angle to measure the distance. Not modified.
+    * @return the angle representing the distance between the two axis-angles. It is contained in
+    *         [0, 2<i>pi</i>]
+    */
+   public static double distance(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2)
+   {
+
+      double axisNorm1 = aa1.axisNorm();
+
+      if (axisNorm1 < EPS)
+         return Double.NaN;
+      axisNorm1 = 1.0 / axisNorm1;
+
+      double alpha = aa1.getAngle();
+      double u1x = aa1.getX() * axisNorm1;
+      double u1y = aa1.getY() * axisNorm1;
+      double u1z = aa1.getZ() * axisNorm1;
+
+      double axisNorm2 = aa2.axisNorm();
+
+      if (axisNorm2 < EPS)
+         return Double.NaN;
+      axisNorm2 = 1.0 / axisNorm2;
+
+      double beta = -aa2.getAngle();
+      double u2x = aa2.getX() * axisNorm2;
+      double u2y = aa2.getY() * axisNorm2;
+      double u2z = aa2.getZ() * axisNorm2;
+
+      double cosHalfAlpha = Math.cos(0.5 * alpha);
+      double sinHalfAlpha = Math.sin(0.5 * alpha);
+      double cosHalfBeta = Math.cos(0.5 * beta);
+      double sinHalfBeta = Math.sin(0.5 * beta);
+
+      double dot = u1x * u2x + u1y * u2y + u1z * u2z;
+      double crossX = u1y * u2z - u1z * u2y;
+      double crossY = u1z * u2x - u1x * u2z;
+      double crossZ = u1x * u2y - u1y * u2x;
+
+      double sinCos = sinHalfAlpha * cosHalfBeta;
+      double cosSin = cosHalfAlpha * sinHalfBeta;
+      double cosCos = cosHalfAlpha * cosHalfBeta;
+      double sinSin = sinHalfAlpha * sinHalfBeta;
+
+      double cosHalfGamma = cosCos - sinSin * dot;
+
+      double sinHalfGammaUx = sinCos * u1x + cosSin * u2x + sinSin * crossX;
+      double sinHalfGammaUy = sinCos * u1y + cosSin * u2y + sinSin * crossY;
+      double sinHalfGammaUz = sinCos * u1z + cosSin * u2z + sinSin * crossZ;
+
+      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+
+      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+      return Math.abs(gamma);
    }
 }

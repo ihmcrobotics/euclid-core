@@ -18,6 +18,7 @@ import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
@@ -180,6 +181,46 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             double expectedAngle = qDiff.getAngle();
             double actualAngle = q1.distance(q2);
             assertEquals(expectedAngle, actualAngle, 75.0 * getEpsilon());
+            assertEquals(0.0, q1.distance(q1), 1.0e-3);
+         }
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionReadOnly q1 = createRandomTuple(random);
+
+         for (int j = 0; j < NUMBER_OF_ITERATIONS; j++)
+         {
+            double expectedAngle = random.nextDouble();
+            AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), expectedAngle);
+            T q2 = createEmptyTuple();
+            q2.set(aa);
+            q2.preMultiply(q1);
+            double actualAngle = q1.distance(q2);
+            assertEquals(expectedAngle, actualAngle, 10000 * getEpsilon());
+         }
+      }
+   }
+
+   @Test
+   public void testDistancePrecise() throws Exception
+   {
+      Random random = new Random(1651L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         QuaternionReadOnly q1 = createRandomTuple(random);
+
+         for (int j = 0; j < NUMBER_OF_ITERATIONS; j++)
+         {
+            double expectedAngle = random.nextDouble();
+            AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), expectedAngle);
+            T q2 = createEmptyTuple();
+            q2.set(aa);
+            q2.preMultiply(q1);
+            double actualAngle = q1.distancePrecise(q2);
+            assertEquals(expectedAngle, actualAngle, getEpsilon());
+            assertEquals(0.0, q1.distance(q1), 1.0e-3);
          }
       }
    }
@@ -1651,6 +1692,121 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          actual.applyTransform(transform);
          actual.applyInverseTransform(transform);
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      T quaternionA;
+      T quaternionB;
+      Quaternion quaternionC = new Quaternion();
+      Random random = new Random(621541L);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         quaternionA = createRandomTuple(random);
+         quaternionB = createRandomTuple(random);
+         quaternionC.difference(quaternionA, quaternionB);
+
+         double angle = quaternionC.getAngle();
+         angle = EuclidCoreTools.trimAngleMinusPiToPi(angle);
+
+         if (Math.abs(angle) <= getEpsilon())
+         {
+            assertTrue(quaternionA.geometricallyEquals(quaternionB, getEpsilon()));
+         }
+         else
+         {
+            assertFalse(quaternionA.geometricallyEquals(quaternionB, getEpsilon()));
+         }
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, 100.0, 1000.0) * getEpsilon();
+         quaternionA = createRandomTuple(random);
+         double angleDiff = 0.99 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         Quaternion quaternionT = new Quaternion(aa);
+         quaternionT.preMultiply(quaternionA);
+
+         quaternionB = createTuple(quaternionT.getX(), quaternionT.getY(), quaternionT.getZ(), quaternionT.getS());
+
+         assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         quaternionB.negate();
+         assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         assertTrue(quaternionA.geometricallyEquals(quaternionA, 0.0));
+         assertTrue(quaternionB.geometricallyEquals(quaternionB, 0.0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, 100.0, 1000.0) * getEpsilon();
+         quaternionA = createRandomTuple(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         Quaternion quaternionT = new Quaternion(aa);
+         quaternionT.preMultiply(quaternionA);
+
+         quaternionB = createTuple(quaternionT.getX(), quaternionT.getY(), quaternionT.getZ(), quaternionT.getS());
+
+         assertFalse("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         quaternionB.negate();
+         assertFalse("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         assertTrue(quaternionA.geometricallyEquals(quaternionA, 0.0));
+         assertTrue(quaternionB.geometricallyEquals(quaternionB, 0.0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0 * Math.PI);
+         quaternionA = createRandomTuple(random);
+         double angleDiff = 0.99 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         Quaternion quaternionT = new Quaternion(aa);
+         quaternionT.preMultiply(quaternionA);
+
+         quaternionB = createTuple(quaternionT.getX(), quaternionT.getY(), quaternionT.getZ(), quaternionT.getS());
+
+         assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         quaternionB.negate();
+         assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         assertTrue(quaternionA.geometricallyEquals(quaternionA, 0.0));
+         assertTrue(quaternionB.geometricallyEquals(quaternionB, 0.0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Math.PI / 1.02); // Make sure to not go over Math.PI
+         quaternionA = createRandomTuple(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         Quaternion quaternionT = new Quaternion(aa);
+         quaternionT.preMultiply(quaternionA);
+
+         quaternionB = createTuple(quaternionT.getX(), quaternionT.getY(), quaternionT.getZ(), quaternionT.getS());
+
+         assertFalse("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         quaternionB.negate();
+         assertFalse("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         assertTrue(quaternionA.geometricallyEquals(quaternionA, 0.0));
+         assertTrue(quaternionB.geometricallyEquals(quaternionB, 0.0));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      { // If epsilon >= Math.PI, any pair of two quaternions will be equal
+         double epsilon = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI, 2.0 * Math.PI);
+         quaternionA = createRandomTuple(random);
+         quaternionB = createRandomTuple(random);
+
+         assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+         quaternionB.negate();
+         assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
       }
    }
 }

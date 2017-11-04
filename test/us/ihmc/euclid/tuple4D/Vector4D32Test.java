@@ -1,20 +1,16 @@
 package us.ihmc.euclid.tuple4D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Random;
-
 import org.junit.Test;
-
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.Quaternion32;
-import us.ihmc.euclid.tuple4D.Vector4D32;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
+import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
 {
@@ -105,6 +101,31 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
          newHashCode = vector.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      super.testGeometricallyEquals();
+
+      Vector4D32 vectorA;
+      Vector4D32 vectorB;
+      Random random = new Random(621541L);
+
+      for (int i = 0; i < 100; ++i)
+      {
+         vectorA = EuclidCoreRandomTools.generateRandomVector4D32(random);
+         vectorB = EuclidCoreRandomTools.generateRandomVector4D32(random);
+
+         if (((Vector4DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
+         {
+            assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+         }
+         else
+         {
+            assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+         }
       }
    }
 

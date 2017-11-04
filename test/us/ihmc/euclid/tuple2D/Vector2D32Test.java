@@ -1,16 +1,14 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import org.junit.Assert;
+import org.junit.Test;
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
+import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 
 import java.util.Random;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tuple2D.Point2D32;
-import us.ihmc.euclid.tuple2D.Vector2D32;
+import static org.junit.Assert.*;
 
 public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
 {
@@ -97,6 +95,31 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
          newHashCode = point.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      super.testGeometricallyEquals();
+
+      Vector2D32 vectorA;
+      Vector2D32 vectorB;
+      Random random = new Random(621541L);
+
+      for (int i = 0; i < 100; ++i)
+      {
+         vectorA = EuclidCoreRandomTools.generateRandomVector2D32(random);
+         vectorB = EuclidCoreRandomTools.generateRandomVector2D32(random);
+
+         if (((Vector2DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
+         {
+            assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+         }
+         else
+         {
+            assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+         }
       }
    }
 

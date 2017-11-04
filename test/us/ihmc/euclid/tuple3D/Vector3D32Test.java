@@ -1,15 +1,13 @@
 package us.ihmc.euclid.tuple3D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import org.junit.Assert;
+import org.junit.Test;
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 import java.util.Random;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tuple3D.Vector3D32;
+import static org.junit.Assert.*;
 
 public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
 {
@@ -117,6 +115,31 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
          newHashCode = tuple1.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      super.testGeometricallyEquals();
+
+      Vector3D32 vectorA;
+      Vector3D32 vectorB;
+      Random random = new Random(621541L);
+
+      for (int i = 0; i < 100; ++i)
+      {
+         vectorA = EuclidCoreRandomTools.generateRandomVector3D32(random);
+         vectorB = EuclidCoreRandomTools.generateRandomVector3D32(random);
+
+         if (((Vector3DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
+         {
+            assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+         }
+         else
+         {
+            assertFalse(vectorA.geometricallyEquals(vectorB, getEpsilon()));
+         }
       }
    }
 

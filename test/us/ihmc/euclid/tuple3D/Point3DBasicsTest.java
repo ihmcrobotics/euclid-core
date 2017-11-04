@@ -243,4 +243,41 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
          EuclidCoreTestTools.assertTuple3DEquals(expected, actual, 50.0 * getEpsilon());
       }
    }
+
+   @Test
+   public void testGeometricallyEquals() throws Exception {
+      Point3DBasics pointA;
+      Point3DBasics pointB;
+      Random random = new Random(621541L);
+
+      for (int i = 0; i < 100; ++i) {
+         double epsilon = random.nextDouble();
+         pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         pointB = EuclidCoreRandomTools.generateRandomPoint3D(random);
+
+         if (pointA.epsilonEquals(pointB, getEpsilon())) {
+            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
+         } else {
+            if (Math.sqrt((pointA.getX() - pointB.getX()) * (pointA.getX() - pointB.getX()) + (pointA.getY() - pointB.getY()) * (pointA.getY() - pointB.getY()) + (pointA.getZ() - pointB.getZ()) * (pointA.getZ() - pointB.getZ())) <= getEpsilon()) {
+               assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
+            } else {
+               assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
+            }
+         }
+
+         pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
+
+         pointB = new Point3D(pointA);
+         Vector3D perturb = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 0.99 * epsilon);
+         pointB.add(perturb);
+
+         assertTrue(pointA.geometricallyEquals(pointB, epsilon));
+
+         pointB = new Point3D(pointA);
+         perturb = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.01 * epsilon);
+         pointB.add(perturb);
+
+         assertFalse(pointA.geometricallyEquals(pointB, epsilon));
+      }
+   }
 }

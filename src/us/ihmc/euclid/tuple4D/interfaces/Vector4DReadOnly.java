@@ -1,5 +1,7 @@
 package us.ihmc.euclid.tuple4D.interfaces;
 
+import us.ihmc.euclid.tools.EuclidCoreTools;
+
 /**
  * Read-only interface for a 4 dimensional vector representing a generic quaternion.
  * <p>
@@ -25,4 +27,28 @@ package us.ihmc.euclid.tuple4D.interfaces;
  */
 public interface Vector4DReadOnly extends Tuple4DReadOnly
 {
+   /**
+    * Tests if {@code this} and {@code other} represent the same vector 4D to an {@code epsilon}.
+    * <p>
+    * Two vectors are considered geometrically equal if the length of their difference is less than
+    * or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other vector 4D to compare against this. Not modified.
+    * @param epsilon the maximum length of the difference vector can be for the two vectors to be
+    *           considered equal.
+    * @return {@code true} if the two vectors represent the same geometry, {@code false} otherwise.
+    */
+   default boolean geometricallyEquals(Vector4DReadOnly other, double epsilon)
+   {
+      double dx = getX() - other.getX();
+      double dy = getY() - other.getY();
+      double dz = getZ() - other.getZ();
+      double ds = getS() - other.getS();
+      return Math.sqrt(EuclidCoreTools.normSquared(dx, dy, dz, ds)) <= epsilon;
+   }
 }

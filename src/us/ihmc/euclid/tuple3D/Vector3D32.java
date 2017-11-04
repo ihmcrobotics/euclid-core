@@ -1,12 +1,12 @@
 package us.ihmc.euclid.tuple3D;
 
-import java.io.Serializable;
-
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple2D.Vector2D32;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
+
+import java.io.Serializable;
 
 /**
  * A 3D vector represents a physical quantity with a magnitude and a direction. For instance, it can
@@ -243,6 +243,28 @@ public class Vector3D32 implements Serializable, Vector3DBasics, GeometryObject<
    public boolean epsilonEquals(Vector3D32 other, double epsilon)
    {
       return Vector3DBasics.super.epsilonEquals(other, epsilon);
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same vector 3D to an {@code epsilon}.
+    * <p>
+    * Two vectors are considered geometrically equal if the length of their difference is less than
+    * or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other vector 3D to compare against this. Not modified.
+    * @param epsilon the maximum length of the difference vector can be for the two vectors to be
+    *           considered equal.
+    * @return {@code true} if the two vectors represent the same geometry, {@code false} otherwise.
+    */
+   @Override
+   public boolean geometricallyEquals(Vector3D32 other, double epsilon)
+   {
+      return Vector3DBasics.super.geometricallyEquals(other, epsilon);
    }
 
    /**

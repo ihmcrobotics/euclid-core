@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tuple3D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.TupleTools;
 

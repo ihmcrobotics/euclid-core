@@ -1,13 +1,13 @@
 package us.ihmc.euclid.transform;
 
 import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
+import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
@@ -25,12 +25,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.Vector3D;
-import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.*;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
@@ -70,7 +65,8 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public class AffineTransform implements Transform, EpsilonComparable<AffineTransform>, Settable<AffineTransform>, Clearable
+public class AffineTransform
+      implements Transform, EpsilonComparable<AffineTransform>, GeometricallyComparable<AffineTransform>, Settable<AffineTransform>, Clearable
 {
    /** The rotation plus scaling part of this transform. */
    private final RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();
@@ -981,7 +977,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * <p>
     * this = this * other
     * </p>
-    * 
+    *
     * @param other the other transform to multiply this with. Not modified.
     */
    public void multiply(AffineTransform other)
@@ -999,7 +995,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * <p>
     * this = this * rigidBodyTransform
     * </p>
-    * 
+    *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
     */
    public void multiply(RigidBodyTransform rigidBodyTransform)
@@ -1019,7 +1015,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * where H(q) is the function converting a quaternion-based transform into a 4-by-4
     * transformation matrix.
     * </p>
-    * 
+    *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
     *           modified.
     */
@@ -1038,7 +1034,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * <p>
     * this = this<sup>-1</sup> * other
     * </p>
-    * 
+    *
     * @param other the other transform to multiply this with. Not modified.
     */
    public void multiplyInvertThis(AffineTransform other)
@@ -1057,7 +1053,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * <p>
     * this = this * other<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param other the other transform to multiply this with. Not modified.
     */
    public void multiplyInvertOther(AffineTransform other)
@@ -1075,7 +1071,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * <p>
     * this = this<sup>-1</sup> * rigidBodyTransform
     * </p>
-    * 
+    *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
     */
    public void multiplyInvertThis(RigidBodyTransform rigidBodyTransform)
@@ -1094,7 +1090,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * <p>
     * this = this * rigidBodyTransform<sup>-1</sup>
     * </p>
-    * 
+    *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
     */
    public void multiplyInvertOther(RigidBodyTransform rigidBodyTransform)
@@ -1154,7 +1150,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * Note: the scale part of this affine transform is not used when performing the
     * multiplication.
     * </p>
-    * 
+    *
     * <pre>
     *               / 1 0 0 translation.x \
     * this = this * | 0 1 0 translation.y |
@@ -1178,7 +1174,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * Note: the scale part of this affine transform is not used when performing the
     * multiplication.
     * </p>
-    * 
+    *
     * <pre>
     *               / 1 0 0 x \
     * this = this * | 0 1 0 y |
@@ -1206,7 +1202,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Append a rotation about the z-axis to the rotation part of this transform.
-    * 
+    *
     * <pre>
     *         / cos(yaw) -sin(yaw) 0 \
     * R = R * | sin(yaw)  cos(yaw) 0 |
@@ -1225,7 +1221,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Append a rotation about the y-axis to the rotation part of this transform.
-    * 
+    *
     * <pre>
     *         /  cos(pitch) 0 sin(pitch) \
     * R = R * |      0      1     0      |
@@ -1244,7 +1240,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Append a rotation about the x-axis to the rotation part of this transform.
-    * 
+    *
     * <pre>
     *         /  cos(pitch) 0 sin(pitch) \
     * R = R * |      0      1     0      |
@@ -1440,7 +1436,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Prepend a translation transform to this transform.
-    * 
+    *
     * <pre>
     *        / 1 0 0 translation.x \ 
     * this = | 0 1 0 translation.y | * this
@@ -1460,7 +1456,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Prepend a translation transform to this transform.
-    * 
+    *
     * <pre>
     *        / 1 0 0 x \ 
     * this = | 0 1 0 y | * this
@@ -1489,7 +1485,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method first rotates the translation part and then prepend the yaw-rotation to the
     * rotation part of this transform.
     * </p>
-    * 
+    *
     * <pre>
     *        / cos(yaw) -sin(yaw)  0   0 \ 
     * this = | sin(yaw)  cos(yaw)  0   0 | * this
@@ -1514,7 +1510,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method first rotates the translation part and then prepend the pitch-rotation to the
     * rotation part of this transform.
     * </p>
-    * 
+    *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch)  0 \ 
     * this = |      0      1     0       0 | * this
@@ -1539,7 +1535,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
     * This method first rotates the translation part and then prepend the roll-rotation to the
     * rotation part of this transform.
     * </p>
-    * 
+    *
     * <pre>
     *        / 1     0          0     0 \ 
     * this = | 0 cos(roll) -sin(roll) 0 | * this
@@ -2087,7 +2083,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Gets the x-component of the translation part of this transform.
-    * 
+    *
     * @return the x-component of the translation part.
     */
    public double getTranslationX()
@@ -2097,7 +2093,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Gets the y-component of the translation part of this transform.
-    * 
+    *
     * @return the y-component of the translation part.
     */
    public double getTranslationY()
@@ -2107,7 +2103,7 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
 
    /**
     * Gets the z-component of the translation part of this transform.
-    * 
+    *
     * @return the z-component of the translation part.
     */
    public double getTranslationZ()
@@ -2383,6 +2379,21 @@ public class AffineTransform implements Transform, EpsilonComparable<AffineTrans
          return false;
       else
          return rotationScaleMatrix.equals(other.rotationScaleMatrix) && translationVector.equals(other.translationVector);
+   }
+
+   /**
+    * Two affine transforms are considered geometrically equal if both the rotation-scale matrices
+    * and translation vectors are equal.
+    *
+    * @param other the other affine transform to compare against this. Not modified.
+    * @param epsilon the tolerance to use when comparing each component.
+    * @return {@code true} if the two rigid body transforms are equal, {@code false} otherwise.
+    */
+   @Override
+   public boolean geometricallyEquals(AffineTransform other, double epsilon)
+   {
+      return other.rotationScaleMatrix.geometricallyEquals(this.rotationScaleMatrix, epsilon) && other.translationVector
+            .geometricallyEquals(this.translationVector, epsilon);
    }
 
    /**
