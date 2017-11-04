@@ -39,6 +39,18 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 public interface RotationMatrixReadOnly extends Matrix3DReadOnly
 {
    /**
+    * Computes and returns the distance between this rotation matrix and the {@code other}.
+    *
+    * @param other the other rotation matrix to compute the distance. Not modified.
+    * @return the angle representing the distance between the two rotation matrices. It is contained
+    *         in [0, <i>pi</i>].
+    */
+   default double distance(RotationMatrixReadOnly other)
+   {
+      return RotationMatrixTools.distance(this, other);
+   }
+
+   /**
     * Computes and packs the orientation described by this rotation matrix as a rotation vector.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
@@ -383,8 +395,29 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
    }
 
    /**
-    * Provides a {@code String} representation of this rotation matrix converted to yaw-pitch-roll angles
-    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
+    * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
+    * <p>
+    * Two rotation matrices are considered geometrically equal if the magnitude of their difference
+    * is less than or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other rotation matrix to compare against this. Not modified.
+    * @param epsilon the maximum angle between the two rotation matrices to be considered equal.
+    * @return {@code true} if the two rotation matrices represent the same geometry, {@code false}
+    *         otherwise.
+    */
+   default boolean geometricallyEquals(RotationMatrixReadOnly other, double epsilon)
+   {
+      return distance(other) <= epsilon;
+   }
+
+   /**
+    * Provides a {@code String} representation of this rotation matrix converted to yaw-pitch-roll
+    * angles as follows: yaw-pitch-roll: (yaw, pitch, roll).
     *
     * @return
     */

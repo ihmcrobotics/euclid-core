@@ -168,6 +168,18 @@ public interface AxisAngleReadOnly
    }
 
    /**
+    * Computes and returns the distance from this axis-angle to {@code other}.
+    * 
+    * @param other the other axis-angle to measure the distance. Not modified.
+    * @return the angle representing the distance between the two axis-angles. It is contained in
+    *         [0, 2<i>pi</i>]
+    */
+   default double distance(AxisAngleReadOnly other)
+   {
+      return AxisAngleTools.distance(this, other);
+   }
+
+   /**
     * Converts and gets the orientation represented by this axis-angle as a rotation vector. See
     * {@link RotationVectorConversion#convertAxisAngleToRotationVector(AxisAngleReadOnly, Vector3DBasics)}.
     *
@@ -820,6 +832,27 @@ public interface AxisAngleReadOnly
          return false;
 
       return true;
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
+    * <p>
+    * Two axis-angle are considered geometrically equal if the magnitude of their difference is less
+    * than or equal to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other axis-angle to compare against this. Not modified.
+    * @param epsilon the maximum angle for the two quaternions to be considered equal.
+    * @return {@code true} if the two axis-angle represent the same geometry, {@code false}
+    *         otherwise.
+    */
+   default boolean geometricallyEquals(AxisAngleReadOnly other, double epsilon)
+   {
+      return Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(distance(other))) <= epsilon;
    }
 
    /**

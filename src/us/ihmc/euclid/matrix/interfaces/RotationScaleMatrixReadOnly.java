@@ -6,6 +6,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
@@ -49,7 +50,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
     *
     * @return the read-only reference to the scale factors.
     */
-   public Tuple3DReadOnly getScale();
+   public Vector3DReadOnly getScale();
 
    /**
     * Returns the current value of the first scale factor of this rotation-scale matrix.
@@ -311,5 +312,40 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
       matrixTransformed.scaleRows(1.0 / getScaleX(), 1.0 / getScaleY(), 1.0 / getScaleZ());
       // Equivalent to: M = M * S
       matrixTransformed.scaleColumns(getScaleX(), getScaleY(), getScaleZ());
+   }
+
+   /**
+    * Tests the rotation parts and scales of both matrices are equal to an {@code epsilon}.
+    *
+    * @param other the other matrix to compare against this. Not modified.
+    * @param epsilon tolerance to use when comparing each component.
+    * @return {@code true} if the two matrix are equal, {@code false} otherwise.
+    */
+   default boolean epsilonEquals(RotationScaleMatrixReadOnly other, double epsilon)
+   {
+      return getRotationMatrix().epsilonEquals(other.getRotationMatrix(), epsilon) && getScale().epsilonEquals(other.getScale(), epsilon);
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same rotation-scale to an
+    * {@code epsilon}.
+    * <p>
+    * Two rotation-scale matrices are considered geometrically equal if the their respective
+    * rotation matrices and scale vectors are geometrically equal.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other rotation-scale matrix to compare against this. Not modified.
+    * @param epsilon the threshold used when comparing the internal rotation and scale to
+    *           {@code other}'s rotation and scale.
+    * @return {@code true} if the two rotation-scale matrices represent the same geometry,
+    *         {@code false} otherwise.
+    */
+   default boolean geometricallyEquals(RotationScaleMatrixReadOnly other, double epsilon)
+   {
+      return getRotationMatrix().geometricallyEquals(other.getRotationMatrix(), epsilon) && getScale().geometricallyEquals(other.getScale(), epsilon);
    }
 }

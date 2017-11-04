@@ -1431,6 +1431,67 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
       }
    }
 
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      Random random = new Random(621541L);
+      double epsilon = random.nextDouble();
+
+      Matrix3D matrix = createRandomMatrix(random);
+      double m00 = matrix.getM00();
+      double m01 = matrix.getM01();
+      double m02 = matrix.getM02();
+      double m10 = matrix.getM10();
+      double m11 = matrix.getM11();
+      double m12 = matrix.getM12();
+      double m20 = matrix.getM20();
+      double m21 = matrix.getM21();
+      double m22 = matrix.getM22();
+
+      double small = 0.999 * epsilon;
+      double big = 1.001 * epsilon;
+
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00 + small, m01, m02, m10, m11, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01 + small, m02, m10, m11, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02 + small, m10, m11, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10 + small, m11, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11 + small, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12 + small, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20 + small, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20, m21 + small, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20, m21, m22 + small), epsilon));
+
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00 - small, m01, m02, m10, m11, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01 - small, m02, m10, m11, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02 - small, m10, m11, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10 - small, m11, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11 - small, m12, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12 - small, m20, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20 - small, m21, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20, m21 - small, m22), epsilon));
+      assertTrue(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20, m21, m22 - small), epsilon));
+
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00 + big, m01, m02, m10, m11, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01 + big, m02, m10, m11, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02 + big, m10, m11, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10 + big, m11, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11 + big, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12 + big, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20 + big, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20, m21 + big, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20, m21, m22 + big), epsilon));
+
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00 - big, m01, m02, m10, m11, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01 - big, m02, m10, m11, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02 - big, m10, m11, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10 - big, m11, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11 - big, m12, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12 - big, m20, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20 - big, m21, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20, m21 - big, m22), epsilon));
+      assertFalse(matrix.geometricallyEquals(createMatrix(m00, m01, m02, m10, m11, m12, m20, m21, m22 - big), epsilon));
+   }
+
    @Override
    public Matrix3D createEmptyMatrix()
    {

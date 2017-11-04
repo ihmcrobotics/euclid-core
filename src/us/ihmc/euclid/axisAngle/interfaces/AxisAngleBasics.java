@@ -136,7 +136,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 
    /**
     * Multiplies the angle of this axis-angle by the given {@code scale}.
-    * 
+    *
     * @param scale the scaling factor to apply to the angle of this axis-angle.
     */
    default void scaleAngle(double scale)
@@ -419,14 +419,14 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 
    /**
     * Append a rotation about the z-axis to this axis-angle.
-    * 
+    *
     * <pre>
     *               / ux    =  0  \
     * this = this * | uy    =  0  |
     *               | uz    =  1  |
     *               \ angle = yaw /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    default void appendYawRotation(double yaw)
@@ -436,14 +436,14 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 
    /**
     * Append a rotation about the y-axis to this axis-angle.
-    * 
+    *
     * <pre>
     *               / ux    =  0    \
     * this = this * | uy    =  1    |
     *               | uz    =  0    |
     *               \ angle = pitch /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    default void appendPitchRotation(double pitch)
@@ -453,14 +453,14 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 
    /**
     * Append a rotation about the x-axis to this axis-angle.
-    * 
+    *
     * <pre>
     *               / ux    =  1   \
     * this = this * | uy    =  0   |
     *               | uz    =  0   |
     *               \ angle = roll /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    default void appendRollRotation(double roll)
@@ -509,14 +509,14 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 
    /**
     * Prepend a rotation about the z-axis to this axis-angle.
-    * 
+    *
     * <pre>
     *        / ux    =  0  \
     * this = | uy    =  0  | * this
     *        | uz    =  1  |
     *        \ angle = yaw /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    default void prependYawRotation(double yaw)
@@ -526,14 +526,14 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 
    /**
     * Prepend a rotation about the y-axis to this axis-angle.
-    * 
+    *
     * <pre>
     *        / ux    =  0    \
     * this = | uy    =  1    | * this
     *        | uz    =  0    |
     *        \ angle = pitch /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    default void prependPitchRotation(double pitch)
@@ -543,14 +543,14 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 
    /**
     * Prepend a rotation about the x-axis to this axis-angle.
-    * 
+    *
     * <pre>
     *        / ux    =  1   \
     * this = | uy    =  0   | * this
     *        | uz    =  0   |
     *        \ angle = roll /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    default void prependRollRotation(double roll)

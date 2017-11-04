@@ -2430,6 +2430,110 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       }
    }
 
+   @Test
+   public void testGeometricallyEquals() throws Exception {
+      Random random = new Random(54321L);
+
+      RotationScaleMatrix rsmA;
+      RotationScaleMatrix rsmB;
+      RotationMatrix rmA;
+      RotationMatrix rmB;
+      Vector3D scaleA;
+      Vector3D scaleB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+         double angleEps = epsilon * 0.99;
+
+         rmA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleEps);
+
+         rmB = new RotationMatrix(aa);
+         rmB.preMultiply(rmA);
+
+         scaleA = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 2.0);
+         scaleB = new Vector3D(scaleA);
+
+         rsmA = new RotationScaleMatrix(rmA, scaleA);
+         rsmB = new RotationScaleMatrix(rmB, scaleB);
+
+         assertTrue(rsmA.geometricallyEquals(rsmB, epsilon));
+         assertTrue(rsmB.geometricallyEquals(rsmA, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+         double angleEps = epsilon * 1.01;
+
+         rmA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleEps);
+
+         rmB = new RotationMatrix(aa);
+         rmB.preMultiply(rmA);
+
+         scaleA = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 2.0);
+         scaleB = new Vector3D(scaleA);
+
+         rsmA = new RotationScaleMatrix(rmA, scaleA);
+         rsmB = new RotationScaleMatrix(rmB, scaleB);
+
+         assertFalse(rsmA.geometricallyEquals(rsmB, epsilon));
+         assertFalse(rsmB.geometricallyEquals(rsmA, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+         double epsilon = random.nextDouble();
+
+         rmA = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rmB = new RotationMatrix(rmA);
+
+         scaleA = EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 2.0);
+         scaleB = new Vector3D(scaleA);
+
+         rsmA = new RotationScaleMatrix(rmA, scaleA);
+
+         scaleB.setX(scaleA.getX() + 0.9 * epsilon);
+         rsmB = new RotationScaleMatrix(rmB, scaleB);
+
+         assertTrue(rsmA.geometricallyEquals(rsmB, epsilon));
+         assertTrue(rsmB.geometricallyEquals(rsmA, epsilon));
+
+         scaleB.setX(scaleA.getX() + 1.1 * epsilon);
+         rsmB = new RotationScaleMatrix(rmB, scaleB);
+
+         assertFalse(rsmA.geometricallyEquals(rsmB, epsilon));
+         assertFalse(rsmB.geometricallyEquals(rsmA, epsilon));
+
+         scaleB = new Vector3D(scaleA);
+         scaleB.setY(scaleA.getY() + 0.9 * epsilon);
+         rsmB = new RotationScaleMatrix(rmB, scaleB);
+
+         assertTrue(rsmA.geometricallyEquals(rsmB, epsilon));
+         assertTrue(rsmB.geometricallyEquals(rsmA, epsilon));
+
+         scaleB.setY(scaleA.getY() + 1.1 * epsilon);
+         rsmB = new RotationScaleMatrix(rmB, scaleB);
+
+         assertFalse(rsmA.geometricallyEquals(rsmB, epsilon));
+         assertFalse(rsmB.geometricallyEquals(rsmA, epsilon));
+
+         scaleB = new Vector3D(scaleA);
+         scaleB.setZ(scaleA.getZ() + 0.9 * epsilon);
+         rsmB = new RotationScaleMatrix(rmB, scaleB);
+
+         assertTrue(rsmA.geometricallyEquals(rsmB, epsilon));
+         assertTrue(rsmB.geometricallyEquals(rsmA, epsilon));
+
+         scaleB.setZ(scaleA.getZ() + 1.1 * epsilon);
+         rsmB = new RotationScaleMatrix(rmB, scaleB);
+
+         assertFalse(rsmA.geometricallyEquals(rsmB, epsilon));
+         assertFalse(rsmB.geometricallyEquals(rsmA, epsilon));
+      }
+   }
+
    @Override
    public RotationScaleMatrix createEmptyMatrix()
    {

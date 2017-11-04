@@ -2748,6 +2748,109 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       }
    }
 
+   @Test
+   public void testGeometricallyEquals() throws Exception
+   {
+      Random random = new Random(19825L);
+      RigidBodyTransform rigbodA;
+      RigidBodyTransform rigbodB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         rigbodA = createRandomTransform(random);
+         double angleDiff = 0.99 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         RotationMatrix rotmat = new RotationMatrix(aa);
+         rotmat.preMultiply(rigbodA.getRotationMatrix());
+
+         rigbodB = new RigidBodyTransform(rotmat, rigbodA.getTranslationVector());
+
+         assertTrue(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertTrue(rigbodB.geometricallyEquals(rigbodA, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         rigbodA = createRandomTransform(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         RotationMatrix rotmat = new RotationMatrix(aa);
+         rotmat.preMultiply(rigbodA.getRotationMatrix());
+
+         rigbodB = new RigidBodyTransform(rotmat, rigbodA.getTranslationVector());
+
+         assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         rigbodA = createRandomTransform(random);
+
+         Vector3D translation = new Vector3D(rigbodA.getTranslationVector());
+         Vector3D perturb = new Vector3D(translation);
+
+         perturb.setX(translation.getX() + 0.9 * epsilon);
+         rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
+
+         assertTrue(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertTrue(rigbodB.geometricallyEquals(rigbodA, epsilon));
+
+         perturb.setX(translation.getX() + 1.1 * epsilon);
+         rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
+
+         assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
+
+         perturb = new Vector3D(translation);
+         perturb.setY(translation.getY() + 0.9 * epsilon);
+         rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
+
+         assertTrue(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertTrue(rigbodB.geometricallyEquals(rigbodA, epsilon));
+
+         perturb.setY(translation.getY() + 1.1 * epsilon);
+         rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
+
+         assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
+
+         perturb = new Vector3D(translation);
+         perturb.setZ(translation.getZ() + 0.9 * epsilon);
+         rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
+
+         assertTrue(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertTrue(rigbodB.geometricallyEquals(rigbodA, epsilon));
+
+         perturb.setZ(translation.getZ() + 1.1 * epsilon);
+         rigbodB = new RigidBodyTransform(new RotationMatrix(rigbodA.getRotationMatrix()), perturb);
+
+         assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         double epsilon = random.nextDouble();
+         rigbodA = createRandomTransform(random);
+         double angleDiff = 1.01 * epsilon;
+         AxisAngle aa = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angleDiff);
+
+         RotationMatrix rotmat = new RotationMatrix(aa);
+         rotmat.preMultiply(rigbodA.getRotationMatrix());
+
+         rigbodB = new RigidBodyTransform(rotmat, rigbodA.getTranslationVector());
+
+         assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
+         assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
+      }
+   }
+
    @Override
    public RigidBodyTransform createRandomTransform(Random random)
    {

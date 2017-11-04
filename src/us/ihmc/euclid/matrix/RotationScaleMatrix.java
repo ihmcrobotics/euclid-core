@@ -1,14 +1,12 @@
 package us.ihmc.euclid.matrix;
 
-import java.io.Serializable;
-
 import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
+import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -24,6 +22,8 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
+
+import java.io.Serializable;
 
 /**
  * A {@code RotationScaleMatrix} is a 3-by-3 matrix that represents a 3D orientation times a
@@ -59,7 +59,8 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  *
  */
 public class RotationScaleMatrix
-      implements Serializable, Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>
+      implements Serializable, Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
+      GeometricallyComparable<RotationScaleMatrix>
 {
    private static final long serialVersionUID = 5012534518639484244L;
 
@@ -1177,7 +1178,7 @@ public class RotationScaleMatrix
 
    /**
     * Append a rotation about the z-axis to the rotation part of this rotation-scale matrix.
-    * 
+    *
     * <pre>
     *         / cos(yaw) -sin(yaw) 0 \
     * R = R * | sin(yaw)  cos(yaw) 0 |
@@ -1196,7 +1197,7 @@ public class RotationScaleMatrix
 
    /**
     * Append a rotation about the y-axis to the rotation part of this rotation-scale matrix.
-    * 
+    *
     * <pre>
     *         /  cos(pitch) 0 sin(pitch) \
     * R = R * |      0      1     0      |
@@ -1215,7 +1216,7 @@ public class RotationScaleMatrix
 
    /**
     * Append a rotation about the x-axis to the rotation part of this rotation-scale matrix.
-    * 
+    *
     * <pre>
     *         /  cos(pitch) 0 sin(pitch) \
     * R = R * |      0      1     0      |
@@ -1322,11 +1323,11 @@ public class RotationScaleMatrix
 
    /**
     * Prepend a rotation about the z-axis to the rotation part of this rotation-scale matrix.
-    * 
+    *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \ 
     * R = | sin(yaw)  cos(yaw) 0 | * R
-    *     \    0         0     1 / 
+    *     \    0         0     1 /
     * </pre>
     * <p>
     * This method does not affect the scale part of this rotation-scale matrix.
@@ -1341,11 +1342,11 @@ public class RotationScaleMatrix
 
    /**
     * Prepend a rotation about the y-axis to the rotation part of this rotation-scale matrix.
-    * 
+    *
     * <pre>
     *     /  cos(pitch) 0 sin(pitch) \ 
     * R = |      0      1     0      | * R
-    *     \ -sin(pitch) 0 cos(pitch) / 
+    *     \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     * <p>
     * This method does not affect the scale part of this rotation-scale matrix.
@@ -1360,11 +1361,11 @@ public class RotationScaleMatrix
 
    /**
     * Prepend a rotation about the x-axis to the rotation part of this rotation-scale matrix.
-    * 
+    *
     * <pre>
     *     /  cos(pitch) 0 sin(pitch) \ 
     * R = |      0      1     0      | * R
-    *     \ -sin(pitch) 0 cos(pitch) / 
+    *     \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     * <p>
     * This method does not affect the scale part of this rotation-scale matrix.
@@ -1548,7 +1549,7 @@ public class RotationScaleMatrix
 
    /** {@inheritDoc} */
    @Override
-   public Tuple3DReadOnly getScale()
+   public Vector3DReadOnly getScale()
    {
       return scale;
    }
@@ -1711,6 +1712,29 @@ public class RotationScaleMatrix
    @Override
    public boolean epsilonEquals(RotationScaleMatrix other, double epsilon)
    {
-      return rotationMatrix.epsilonEquals(other.rotationMatrix, epsilon) && scale.epsilonEquals(other.scale, epsilon);
+      return RotationScaleMatrixReadOnly.super.epsilonEquals(other, epsilon);
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same rotation-scale to an
+    * {@code epsilon}.
+    * <p>
+    * Two rotation-scale matrices are considered geometrically equal if the their respective
+    * rotation matrices and scale vectors are geometrically equal.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other rotation-scale matrix to compare against this. Not modified.
+    * @param epsilon the threshold used when comparing the internal rotation and scale to
+    *           {@code other}'s rotation and scale.
+    * @return {@code true} if the two rotation-scale matrices represent the same geometry,
+    *         {@code false} otherwise.
+    */
+   public boolean geometricallyEquals(RotationScaleMatrix other, double epsilon)
+   {
+      return RotationScaleMatrixReadOnly.super.geometricallyEquals(other, epsilon);
    }
 }

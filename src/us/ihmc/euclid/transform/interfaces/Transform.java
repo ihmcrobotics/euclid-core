@@ -467,7 +467,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param rigidBodyTransformToTransform the rigid-body transform to transform. Modified.
     */
    default void transform(RigidBodyTransform rigidBodyTransformToTransform)
@@ -481,7 +481,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param original the rigid-body transform to transform. Not modified.
     * @param transformed the rigid-body transform in which the result is stored. Modified.
     */
@@ -492,7 +492,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param quaternionBasedTransformToTransform the quaternion based transform to transform.
     *           Modified.
     */
@@ -507,7 +507,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param original the quaternion based transform to transform. Not modified.
     * @param transformed the quaternion based transform in which the result is stored. Modified.
     */
@@ -518,7 +518,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param affineTransformToTransform the affine transform to transform. Modified.
     */
    default void transform(AffineTransform affineTransformToTransform)
@@ -532,7 +532,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param original the affine transform to transform. Not modified.
     * @param transformed the affine transform in which the result is stored. Modified.
     */
@@ -846,7 +846,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param rigidBodyTransformToTransform the rigid-body transform to transform. Modified.
     */
    default void inverseTransform(RigidBodyTransform rigidBodyTransformToTransform)
@@ -864,7 +864,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param original the rigid-body transform to transform. Not modified.
     * @param transformed the rigid-body transform in which the result is stored. Modified.
     */
@@ -880,7 +880,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param quaternionBasedTransformToTransform the quaternion based transform to transform.
     *           Modified.
     */
@@ -900,7 +900,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param original the quaternion based transform to transform. Not modified.
     * @param transformed the quaternion based transform in which the result is stored. Modified.
     */
@@ -915,7 +915,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param affineTransformToTransform the affine transform to transform. Modified.
     */
    default void inverseTransform(AffineTransform affineTransformToTransform)
@@ -933,7 +933,7 @@ public interface Transform
     * <p>
     * The given transform is only rotated and translated, no scaling is applied.
     * </p>
-    * 
+    *
     * @param original the affine transform to transform. Not modified.
     * @param transformed the affine transform in which the result is stored. Modified.
     */

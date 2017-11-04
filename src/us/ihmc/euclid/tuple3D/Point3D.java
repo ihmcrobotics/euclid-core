@@ -1,12 +1,12 @@
 package us.ihmc.euclid.tuple3D;
 
-import java.io.Serializable;
-
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+
+import java.io.Serializable;
 
 /**
  * A 3D point represents the 3D coordinates of a location in space.
@@ -188,6 +188,27 @@ public class Point3D implements Serializable, Point3DBasics, GeometryObject<Poin
    public boolean epsilonEquals(Point3D other, double epsilon)
    {
       return Point3DBasics.super.epsilonEquals(other, epsilon);
+   }
+
+   /**
+    * Tests if {@code this} and {@code other} represent the same point 3D to an {@code epsilon}.
+    * <p>
+    * Two points are considered geometrically equal if they are at a distance of less than or equal
+    * to {@code epsilon}.
+    * </p>
+    * <p>
+    * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
+    * {@code this.epsilonEquals(other, epsilon)} and vice versa.
+    * </p>
+    *
+    * @param other the other point 3D to compare against this. Not modified.
+    * @param epsilon the maximum distance that the two points can be spaced and still considered equal.
+    * @return {@code true} if the two points represent the same geometry, {@code false} otherwise.
+    */
+   @Override
+   public boolean geometricallyEquals(Point3D other, double epsilon)
+   {
+      return Point3DBasics.super.geometricallyEquals(other, epsilon);
    }
 
    /**

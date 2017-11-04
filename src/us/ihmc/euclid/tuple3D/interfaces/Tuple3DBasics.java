@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tuple3D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
-
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.tools.TupleTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
@@ -178,7 +177,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     * <p>
     * The z component remains unchanged.
     * </p>
-    * 
+    *
     * @param tuple2DReadOnly the tuple to copy the values from. Not modified.
     */
    default void set(Tuple2DReadOnly tuple2DReadOnly)
@@ -190,7 +189,7 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
    /**
     * Sets the x and y components of this tuple with the x and y components of the given
     * {@code tuple2DReadOnly} and the z-component to the given {@code z}.
-    * 
+    *
     * @param tuple2DReadOnly the tuple to copy the values from. Not modified.
     * @param z the new z-coordinate for this tuple.
     */
