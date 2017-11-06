@@ -1,14 +1,17 @@
 package us.ihmc.euclid.tuple2D;
 
-import org.junit.Assert;
-import org.junit.Test;
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tools.EuclidCoreTools;
-import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
+
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
 
 public class Point2D32Test extends Point2DBasicsTest<Point2D32>
 {
