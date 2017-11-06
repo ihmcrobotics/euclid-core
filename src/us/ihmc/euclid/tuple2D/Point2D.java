@@ -17,10 +17,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Point2D implements Serializable, Point2DBasics, GeometryObject<Point2D>
+public class Point2D implements Point2DBasics, GeometryObject<Point2D>
 {
-   private static final long serialVersionUID = -615943325053203074L;
-
    /** The x-coordinate. */
    private double x;
    /** The y-coordinate. */

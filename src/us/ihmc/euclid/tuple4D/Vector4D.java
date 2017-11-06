@@ -20,10 +20,8 @@ import java.io.Serializable;
  * @author Sylvain Bertrand
  *
  */
-public class Vector4D implements Serializable, Vector4DBasics, GeometryObject<Vector4D>
+public class Vector4D implements Vector4DBasics, GeometryObject<Vector4D>
 {
-   private static final long serialVersionUID = 3048835798807478377L;
-
    /** The x-component. */
    private double x;
    /** The y-component. */

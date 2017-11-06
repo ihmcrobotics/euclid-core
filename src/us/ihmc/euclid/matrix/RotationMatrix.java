@@ -41,10 +41,8 @@ import java.io.Serializable;
  * @author Sylvain Bertrand
  *
  */
-public class RotationMatrix implements Serializable, Matrix3DBasics, RotationMatrixReadOnly, GeometryObject<RotationMatrix>
+public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, GeometryObject<RotationMatrix>
 {
-   private static final long serialVersionUID = 2802307840830134164L;
-
    /** The 1st row 1st column coefficient of this matrix. */
    private double m00;
    /** The 1st row 2nd column coefficient of this matrix. */

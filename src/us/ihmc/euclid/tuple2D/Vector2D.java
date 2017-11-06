@@ -19,10 +19,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Vector2D implements Serializable, Vector2DBasics, GeometryObject<Vector2D>
+public class Vector2D implements Vector2DBasics, GeometryObject<Vector2D>
 {
-   private static final long serialVersionUID = -1422872858238666884L;
-
    /** The x-component. */
    private double x;
    /** The y-component. */

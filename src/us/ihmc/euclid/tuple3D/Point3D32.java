@@ -17,10 +17,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Point3D32 implements Serializable, Point3DBasics, GeometryObject<Point3D32>
+public class Point3D32 implements Point3DBasics, GeometryObject<Point3D32>
 {
-   private static final long serialVersionUID = 5142616577127976269L;
-
    /** The x-coordinate. */
    private float x;
    /** The y-coordinate. */

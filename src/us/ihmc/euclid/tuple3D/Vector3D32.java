@@ -19,10 +19,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Vector3D32 implements Serializable, Vector3DBasics, GeometryObject<Vector3D32>
+public class Vector3D32 implements Vector3DBasics, GeometryObject<Vector3D32>
 {
-   private static final long serialVersionUID = 1186918378545386628L;
-
    /** The x-component. */
    private float x;
    /** The y-component. */

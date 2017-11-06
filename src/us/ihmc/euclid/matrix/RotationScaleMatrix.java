@@ -59,11 +59,9 @@ import java.io.Serializable;
  *
  */
 public class RotationScaleMatrix
-      implements Serializable, Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
+      implements Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
       GeometricallyComparable<RotationScaleMatrix>
 {
-   private static final long serialVersionUID = 5012534518639484244L;
-
    /** The rotation part of this rotation-scale matrix. */
    private final RotationMatrix rotationMatrix = new RotationMatrix();
    /** The scale part of this rotation-scale matrix. */

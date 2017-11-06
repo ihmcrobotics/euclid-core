@@ -23,10 +23,8 @@ import java.io.Serializable;
  * @author Sylvain Bertrand
  *
  */
-public class Quaternion32 implements Serializable, QuaternionBasics, GeometryObject<Quaternion32>
+public class Quaternion32 implements QuaternionBasics, GeometryObject<Quaternion32>
 {
-   private static final long serialVersionUID = -3523313039213464150L;
-
    /** The x-component. */
    private float x;
    /** The y-component. */

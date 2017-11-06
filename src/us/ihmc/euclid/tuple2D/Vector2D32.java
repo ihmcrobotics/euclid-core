@@ -19,10 +19,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Vector2D32 implements Serializable, Vector2DBasics, GeometryObject<Vector2D32>
+public class Vector2D32 implements Vector2DBasics, GeometryObject<Vector2D32>
 {
-   private static final long serialVersionUID = 6380132073713315352L;
-
    /** The x-component. */
    private float x;
    /** The y-component. */

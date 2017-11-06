@@ -23,10 +23,8 @@ import java.io.Serializable;
  *
  * @author Sylvain
  */
-public class AxisAngle implements Serializable, AxisAngleBasics, EpsilonComparable<AxisAngle>, Settable<AxisAngle>, GeometricallyComparable<AxisAngle>
+public class AxisAngle implements AxisAngleBasics, EpsilonComparable<AxisAngle>, Settable<AxisAngle>, GeometricallyComparable<AxisAngle>
 {
-   private static final long serialVersionUID = -7238256250079419416L;
-
    /** The x-component of the unitary axis. */
    private double x;
    /** The y-component of the unitary axis. */
