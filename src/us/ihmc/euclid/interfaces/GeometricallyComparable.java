@@ -1,6 +1,6 @@
 package us.ihmc.euclid.interfaces;
 
-public interface GeometricallyComparable<T extends GeometricallyComparable<T>>
+public interface GeometricallyComparable<T>
 {
    /**
     * Tests if {@code this} and {@code other} represent the same geometry to an {@code epsilon}.
