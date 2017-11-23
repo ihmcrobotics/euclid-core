@@ -54,8 +54,18 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 public abstract class YawPitchRollConversion
 {
    public static final double SAFE_THRESHOLD_PITCH = Math.toRadians(1.82);
-   public static final double MAX_PITCH_ANGLE = Math.PI / 2.0 - SAFE_THRESHOLD_PITCH;
-   public static final double MIN_PITCH_ANGLE = -MAX_PITCH_ANGLE;
+   /**
+    * Pitch angle that defines the upper bound of the safe region in which the resulting pitch angle
+    * of a conversion is accurate. If the pitch angle from a conversion is beyond this bound, the
+    * yaw-pitch-roll becomes inaccurate.
+    */
+   public static final double MAX_SAFE_PITCH_ANGLE = Math.PI / 2.0 - SAFE_THRESHOLD_PITCH;
+   /**
+    * Pitch angle that defines the lower bound of the safe region in which the resulting pitch angle
+    * of a conversion is accurate. If the pitch angle from a conversion is beyond this bound, the
+    * yaw-pitch-roll becomes inaccurate.
+    */
+   public static final double MIN_SAFE_PITCH_ANGLE = -MAX_SAFE_PITCH_ANGLE;
 
    private static final double EPS = 1.0e-12;
 
@@ -106,12 +116,13 @@ public abstract class YawPitchRollConversion
    {
       if (Double.isNaN(m20))
          return Double.NaN;
-      double pitch = Math.asin(-m20);
 
-      if (Math.abs(pitch) > MAX_PITCH_ANGLE)
-         return Double.NaN;
+      if (m20 > 1.0)
+         m20 = 1.0;
+      else if (m20 < -1.0)
+         m20 = -1.0;
 
-      return pitch;
+      return Math.asin(-m20);
    }
 
    /**
@@ -155,10 +166,7 @@ public abstract class YawPitchRollConversion
     */
    public static double computeYaw(RotationMatrixReadOnly rotationMatrix)
    {
-      if (Double.isNaN(computePitchImpl(rotationMatrix.getM20())))
-         return Double.NaN;
-      else
-         return computeYawImpl(rotationMatrix.getM00(), rotationMatrix.getM10());
+      return computeYawImpl(rotationMatrix.getM00(), rotationMatrix.getM10());
    }
 
    /**
@@ -194,10 +202,7 @@ public abstract class YawPitchRollConversion
     */
    public static double computeRoll(RotationMatrixReadOnly rotationMatrix)
    {
-      if (Double.isNaN(computePitchImpl(rotationMatrix.getM20())))
-         return Double.NaN;
-      else
-         return computeRollImpl(rotationMatrix.getM21(), rotationMatrix.getM22());
+      return computeRollImpl(rotationMatrix.getM21(), rotationMatrix.getM22());
    }
 
    /**
@@ -301,18 +306,9 @@ public abstract class YawPitchRollConversion
     */
    public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly rotationMatrix, double[] yawPitchRollToPack)
    {
-      double pitch = computePitchImpl(rotationMatrix.getM20());
-      yawPitchRollToPack[1] = pitch;
-      if (Double.isNaN(pitch))
-      {
-         yawPitchRollToPack[0] = Double.NaN;
-         yawPitchRollToPack[2] = Double.NaN;
-      }
-      else
-      {
-         yawPitchRollToPack[0] = computeYawImpl(rotationMatrix.getM00(), rotationMatrix.getM10());
-         yawPitchRollToPack[2] = computeRollImpl(rotationMatrix.getM21(), rotationMatrix.getM22());
-      }
+      yawPitchRollToPack[0] = computeYawImpl(rotationMatrix.getM00(), rotationMatrix.getM10());
+      yawPitchRollToPack[1] = computePitchImpl(rotationMatrix.getM20());
+      yawPitchRollToPack[2] = computeRollImpl(rotationMatrix.getM21(), rotationMatrix.getM22());
    }
 
    /**
@@ -359,19 +355,9 @@ public abstract class YawPitchRollConversion
     */
    public static void convertMatrixToYawPitchRoll(RotationMatrixReadOnly rotationMatrix, Tuple3DBasics eulerAnglesToPack)
    {
-      double pitch = computePitchImpl(rotationMatrix.getM20());
-      eulerAnglesToPack.setY(pitch);
-
-      if (Double.isNaN(pitch))
-      {
-         eulerAnglesToPack.setX(Double.NaN);
-         eulerAnglesToPack.setZ(Double.NaN);
-      }
-      else
-      {
-         eulerAnglesToPack.setX(computeRollImpl(rotationMatrix.getM21(), rotationMatrix.getM22()));
-         eulerAnglesToPack.setZ(computeYawImpl(rotationMatrix.getM00(), rotationMatrix.getM10()));
-      }
+      eulerAnglesToPack.setX(computeRollImpl(rotationMatrix.getM21(), rotationMatrix.getM22()));
+      eulerAnglesToPack.setY(computePitchImpl(rotationMatrix.getM20()));
+      eulerAnglesToPack.setZ(computeYawImpl(rotationMatrix.getM00(), rotationMatrix.getM10()));
    }
 
    /**
@@ -408,10 +394,12 @@ public abstract class YawPitchRollConversion
    {
       double pitchArgument = 2.0 * (qs * qy - qx * qz);
 
-      double pitch = Math.asin(pitchArgument);
-      if (Math.abs(pitch) > MAX_PITCH_ANGLE)
-         return Double.NaN;
-      return pitch;
+      if (pitchArgument > 1.0)
+         pitchArgument = 1.0;
+      else if (pitchArgument < -1.0)
+         pitchArgument = -1.0;
+
+      return Math.asin(pitchArgument);
    }
 
    /**
@@ -465,10 +453,7 @@ public abstract class YawPitchRollConversion
       qz *= norm;
       qs *= norm;
 
-      if (Double.isNaN(computePitchFromQuaternionImpl(qx, qy, qz, qs)))
-         return Double.NaN;
-      else
-         return computeYawFromQuaternionImpl(qx, qy, qz, qs);
+      return computeYawFromQuaternionImpl(qx, qy, qz, qs);
    }
 
    /**
@@ -540,10 +525,7 @@ public abstract class YawPitchRollConversion
       qz *= norm;
       qs *= norm;
 
-      if (Double.isNaN(computePitchFromQuaternionImpl(qx, qy, qz, qs)))
-         return Double.NaN;
-      else
-         return computeRollFromQuaternionImpl(qx, qy, qz, qs);
+      return computeRollFromQuaternionImpl(qx, qy, qz, qs);
    }
 
    /**
@@ -594,18 +576,9 @@ public abstract class YawPitchRollConversion
       qz *= norm;
       qs *= norm;
 
-      double pitch = computePitchFromQuaternionImpl(qx, qy, qz, qs);
-      yawPitchRollToPack[1] = pitch;
-      if (Double.isNaN(pitch))
-      {
-         yawPitchRollToPack[0] = Double.NaN;
-         yawPitchRollToPack[2] = Double.NaN;
-      }
-      else
-      {
-         yawPitchRollToPack[0] = computeYawFromQuaternionImpl(qx, qy, qz, qs);
-         yawPitchRollToPack[2] = computeRollFromQuaternionImpl(qx, qy, qz, qs);
-      }
+      yawPitchRollToPack[0] = computeYawFromQuaternionImpl(qx, qy, qz, qs);
+      yawPitchRollToPack[1] = computePitchFromQuaternionImpl(qx, qy, qz, qs);
+      yawPitchRollToPack[2] = computeRollFromQuaternionImpl(qx, qy, qz, qs);
    }
 
    /**
@@ -652,17 +625,9 @@ public abstract class YawPitchRollConversion
       qz *= norm;
       qs *= norm;
 
-      double pitch = computePitchFromQuaternionImpl(qx, qy, qz, qs);
-      eulerAnglesToPack.setY(pitch);
-      if (Double.isNaN(pitch))
-      {
-         eulerAnglesToPack.setToNaN();
-      }
-      else
-      {
-         eulerAnglesToPack.setZ(computeYawFromQuaternionImpl(qx, qy, qz, qs));
-         eulerAnglesToPack.setX(computeRollFromQuaternionImpl(qx, qy, qz, qs));
-      }
+      eulerAnglesToPack.setZ(computeYawFromQuaternionImpl(qx, qy, qz, qs));
+      eulerAnglesToPack.setY(computePitchFromQuaternionImpl(qx, qy, qz, qs));
+      eulerAnglesToPack.setX(computeRollFromQuaternionImpl(qx, qy, qz, qs));
    }
 
    /**
@@ -761,10 +726,7 @@ public abstract class YawPitchRollConversion
       uy *= uNorm;
       uz *= uNorm;
 
-      if (Double.isNaN(computePitchFromAxisAngleImpl(ux, uy, uz, angle)))
-         return Double.NaN;
-      else
-         return computeYawFromAxisAngleImpl(ux, uy, uz, angle);
+      return computeYawFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
    /**
@@ -836,10 +798,7 @@ public abstract class YawPitchRollConversion
       uy *= uNorm;
       uz *= uNorm;
 
-      if (Double.isNaN(computePitchFromAxisAngleImpl(ux, uy, uz, angle)))
-         return Double.NaN;
-      else
-         return computeRollFromAxisAngleImpl(ux, uy, uz, angle);
+      return computeRollFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
    /**
@@ -957,24 +916,14 @@ public abstract class YawPitchRollConversion
       double cosTheta = Math.cos(angle);
       double t = 1.0 - cosTheta;
       double m20 = t * ux * uz - sinTheta * uy;
-      double pitch = computePitchImpl(m20);
-      yawPitchRollToPack[1] = pitch;
+      double m10 = t * ux * uy + sinTheta * uz;
+      double m00 = t * ux * ux + cosTheta;
+      double m21 = t * uy * uz + sinTheta * ux;
+      double m22 = t * uz * uz + cosTheta;
 
-      if (Double.isNaN(pitch))
-      {
-         yawPitchRollToPack[0] = Double.NaN;
-         yawPitchRollToPack[2] = Double.NaN;
-      }
-      else
-      {
-         double m10 = t * ux * uy + sinTheta * uz;
-         double m00 = t * ux * ux + cosTheta;
-         double m21 = t * uy * uz + sinTheta * ux;
-         double m22 = t * uz * uz + cosTheta;
-
-         yawPitchRollToPack[0] = computeYawImpl(m00, m10);
-         yawPitchRollToPack[2] = computeRollImpl(m21, m22);
-      }
+      yawPitchRollToPack[0] = computeYawImpl(m00, m10);
+      yawPitchRollToPack[1] = computePitchImpl(m20);
+      yawPitchRollToPack[2] = computeRollImpl(m21, m22);
    }
 
    /**
@@ -1000,23 +949,14 @@ public abstract class YawPitchRollConversion
       double cosTheta = Math.cos(angle);
       double t = 1.0 - cosTheta;
       double m20 = t * ux * uz - sinTheta * uy;
-      double pitch = computePitchImpl(m20);
-      eulerAnglesToPack.setY(pitch);
+      double m10 = t * ux * uy + sinTheta * uz;
+      double m00 = t * ux * ux + cosTheta;
+      double m21 = t * uy * uz + sinTheta * ux;
+      double m22 = t * uz * uz + cosTheta;
 
-      if (Double.isNaN(pitch))
-      {
-         eulerAnglesToPack.setToNaN();
-      }
-      else
-      {
-         double m10 = t * ux * uy + sinTheta * uz;
-         double m00 = t * ux * ux + cosTheta;
-         double m21 = t * uy * uz + sinTheta * ux;
-         double m22 = t * uz * uz + cosTheta;
-
-         eulerAnglesToPack.setZ(computeYawImpl(m00, m10));
-         eulerAnglesToPack.setX(computeRollImpl(m21, m22));
-      }
+      eulerAnglesToPack.setZ(computeYawImpl(m00, m10));
+      eulerAnglesToPack.setY(computePitchImpl(m20));
+      eulerAnglesToPack.setX(computeRollImpl(m21, m22));
    }
 
    /**
@@ -1052,10 +992,7 @@ public abstract class YawPitchRollConversion
       uy *= uNorm;
       uz *= uNorm;
 
-      if (Double.isNaN(computePitchFromAxisAngleImpl(ux, uy, uz, angle)))
-         return Double.NaN;
-      else
-         return computeYawFromAxisAngleImpl(ux, uy, uz, angle);
+      return computeYawFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
    /**
@@ -1126,10 +1063,7 @@ public abstract class YawPitchRollConversion
       uy *= uNorm;
       uz *= uNorm;
 
-      if (Double.isNaN(computePitchFromAxisAngleImpl(ux, uy, uz, angle)))
-         return Double.NaN;
-      else
-         return computeRollFromAxisAngleImpl(ux, uy, uz, angle);
+      return computeRollFromAxisAngleImpl(ux, uy, uz, angle);
    }
 
    /**

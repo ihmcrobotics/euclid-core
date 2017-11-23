@@ -56,7 +56,7 @@ public abstract class EuclidCoreRandomTools
     */
    public static double[] generateRandomYawPitchRoll(Random random)
    {
-      return generateRandomYawPitchRoll(random, Math.PI, YawPitchRollConversion.MAX_PITCH_ANGLE, Math.PI);
+      return generateRandomYawPitchRoll(random, Math.PI, YawPitchRollConversion.MAX_SAFE_PITCH_ANGLE, Math.PI);
    }
 
    /**
