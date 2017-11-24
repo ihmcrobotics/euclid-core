@@ -16,8 +16,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * A {@code Matrix3D} is a 3-by-3 matrix used for general linear applications.
  * <p>
@@ -29,10 +27,8 @@ import java.io.Serializable;
  * @author Sylvain Bertrand
  *
  */
-public class Matrix3D implements Serializable, Matrix3DBasics, GeometryObject<Matrix3D>
+public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
 {
-   private static final long serialVersionUID = -1016899240187632674L;
-
    /** The 1st row 1st column coefficient of this matrix. */
    private double m00;
    /** The 1st row 2nd column coefficient of this matrix. */

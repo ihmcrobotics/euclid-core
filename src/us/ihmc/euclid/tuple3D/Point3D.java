@@ -6,8 +6,6 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * A 3D point represents the 3D coordinates of a location in space.
  * <p>
@@ -17,10 +15,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Point3D implements Serializable, Point3DBasics, GeometryObject<Point3D>
+public class Point3D implements Point3DBasics, GeometryObject<Point3D>
 {
-   private static final long serialVersionUID = -1234830724104344277L;
-
    /** The x-coordinate. */
    private double x;
    /** The y-coordinate. */

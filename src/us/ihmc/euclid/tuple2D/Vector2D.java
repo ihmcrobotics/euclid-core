@@ -6,8 +6,6 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane. For
  * instance, it can be used to represent a 2D velocity, force, or translation from one 2D point to
@@ -19,10 +17,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Vector2D implements Serializable, Vector2DBasics, GeometryObject<Vector2D>
+public class Vector2D implements Vector2DBasics, GeometryObject<Vector2D>
 {
-   private static final long serialVersionUID = -1422872858238666884L;
-
    /** The x-component. */
    private double x;
    /** The y-component. */
