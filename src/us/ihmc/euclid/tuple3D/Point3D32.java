@@ -5,8 +5,6 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * A 3D point represents the 3D coordinates of a location in space.
  * <p>

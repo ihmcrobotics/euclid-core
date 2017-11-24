@@ -1,6 +1,7 @@
 package us.ihmc.euclid.tuple2D.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
+
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.Transformable;

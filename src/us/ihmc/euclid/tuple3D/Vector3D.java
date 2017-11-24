@@ -6,8 +6,6 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 
-import java.io.Serializable;
-
 /**
  * A 3D vector represents a physical quantity with a magnitude and a direction. For instance, it can
  * be used to represent a 3D velocity, force, or translation from one 3D point to another.

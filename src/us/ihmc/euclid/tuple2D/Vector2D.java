@@ -6,8 +6,6 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * A 2D vector represents a physical quantity with a magnitude and a direction in the XY-plane. For
  * instance, it can be used to represent a 2D velocity, force, or translation from one 2D point to

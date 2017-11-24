@@ -10,8 +10,6 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * Class used to represent unit-quaternions which are used to represent 3D orientations.
  * <p>

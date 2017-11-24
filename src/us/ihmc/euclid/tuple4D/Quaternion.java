@@ -1,6 +1,7 @@
 package us.ihmc.euclid.tuple4D;
 
 import org.ejml.data.DenseMatrix64F;
+
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
@@ -9,8 +10,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
-
-import java.io.Serializable;
 
 /**
  * Class used to represent unit-quaternions which are used to represent 3D orientations.

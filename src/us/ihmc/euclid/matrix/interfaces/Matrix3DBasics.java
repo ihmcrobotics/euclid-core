@@ -1,6 +1,7 @@
 package us.ihmc.euclid.matrix.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
+
 import us.ihmc.euclid.interfaces.Clearable;
 
 /**

@@ -6,8 +6,6 @@ import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * A 2D point represents the 2D coordinates of a location on the XY-plane.
  * <p>

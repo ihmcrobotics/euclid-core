@@ -1,6 +1,7 @@
 package us.ihmc.euclid.matrix;
 
 import org.ejml.data.DenseMatrix64F;
+
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.interfaces.GeometryObject;
@@ -16,8 +17,6 @@ import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
-
-import java.io.Serializable;
 
 /**
  * A {@code RotationMatrix} is a 3-by-3 matrix used to represent 3d orientations.

@@ -16,8 +16,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * A {@code Matrix3D} is a 3-by-3 matrix used for general linear applications.
  * <p>
