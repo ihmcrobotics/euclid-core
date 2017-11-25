@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static us.ihmc.euclid.tools.EuclidCoreTools.EPS_NORM_FAST_SQRT;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import org.junit.Test;
@@ -334,6 +335,27 @@ public class EuclidCoreToolsTest
          assertTrue(expected == actual);
       }
    }
+
+   @Test
+   public void testMed() throws Exception
+   {
+      Random random = new Random(45645L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         double a = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double b = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double c = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double[] sorted = {a, b, c};
+         Arrays.sort(sorted);
+         double expected = sorted[1];
+         double actual = EuclidCoreTools.med(a, b, c);
+         if (expected != actual)
+            EuclidCoreTools.med(a, b, c);
+         assertTrue("a = " + a + ", b = " + b + ", c = " + c, expected == actual);
+      }
+   }
+
    @Test
    public void testInterpolate() throws Exception
    {
