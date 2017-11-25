@@ -6,8 +6,6 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 
-import java.io.Serializable;
-
 /**
  * A 3D vector represents a physical quantity with a magnitude and a direction. For instance, it can
  * be used to represent a 3D velocity, force, or translation from one 3D point to another.
@@ -18,10 +16,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Vector3D implements Serializable, Vector3DBasics, GeometryObject<Vector3D>
+public class Vector3D implements Vector3DBasics, GeometryObject<Vector3D>
 {
-   private static final long serialVersionUID = -8494204802892437237L;
-
    /** The x-component. */
    private double x;
    /** The y-component. */

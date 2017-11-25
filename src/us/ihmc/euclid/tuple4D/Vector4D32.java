@@ -8,8 +8,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 
-import java.io.Serializable;
-
 /**
  * Class used to represent generic quaternions.
  * <p>
@@ -22,10 +20,8 @@ import java.io.Serializable;
  * @author Sylvain Bertrand
  *
  */
-public class Vector4D32 implements Serializable, Vector4DBasics, GeometryObject<Vector4D32>
+public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
 {
-   private static final long serialVersionUID = 3048835798807478377L;
-
    /** The x-component. */
    private float x;
    /** The y-component. */
@@ -276,10 +272,10 @@ public class Vector4D32 implements Serializable, Vector4DBasics, GeometryObject<
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Double.doubleToLongBits(x);
-      bits = 31L * bits + Double.doubleToLongBits(y);
-      bits = 31L * bits + Double.doubleToLongBits(z);
-      bits = 31L * bits + Double.doubleToLongBits(s);
+      bits = 31L * bits + Float.floatToIntBits(x);
+      bits = 31L * bits + Float.floatToIntBits(y);
+      bits = 31L * bits + Float.floatToIntBits(z);
+      bits = 31L * bits + Float.floatToIntBits(s);
       return (int) (bits ^ bits >> 32);
    }
 }

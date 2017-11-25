@@ -1,6 +1,7 @@
 package us.ihmc.euclid.matrix;
 
 import org.ejml.data.DenseMatrix64F;
+
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
@@ -22,8 +23,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
-
-import java.io.Serializable;
 
 /**
  * A {@code RotationScaleMatrix} is a 3-by-3 matrix that represents a 3D orientation times a
@@ -59,11 +58,9 @@ import java.io.Serializable;
  *
  */
 public class RotationScaleMatrix
-      implements Serializable, Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
+      implements Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
       GeometricallyComparable<RotationScaleMatrix>
 {
-   private static final long serialVersionUID = 5012534518639484244L;
-
    /** The rotation part of this rotation-scale matrix. */
    private final RotationMatrix rotationMatrix = new RotationMatrix();
    /** The scale part of this rotation-scale matrix. */

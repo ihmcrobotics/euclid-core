@@ -11,8 +11,6 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
-import java.io.Serializable;
-
 /**
  * An {@code AxisAngle} is used to represent a 3D orientation by a unitary axis of components (x, y,
  * z) and an angle of rotation usually expressed in radians.
@@ -23,10 +21,8 @@ import java.io.Serializable;
  *
  * @author Sylvain
  */
-public class AxisAngle32 implements Serializable, AxisAngleBasics, Settable<AxisAngle32>, EpsilonComparable<AxisAngle32>, GeometricallyComparable<AxisAngle32>
+public class AxisAngle32 implements AxisAngleBasics, Settable<AxisAngle32>, EpsilonComparable<AxisAngle32>, GeometricallyComparable<AxisAngle32>
 {
-   private static final long serialVersionUID = 3750855120438442145L;
-
    /** The x-component of the unitary axis. */
    private float x;
    /** The y-component of the unitary axis. */

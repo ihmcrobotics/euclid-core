@@ -5,8 +5,6 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 
-import java.io.Serializable;
-
 /**
  * A 2D point represents the 2D coordinates of a location on the XY-plane.
  * <p>
@@ -17,10 +15,8 @@ import java.io.Serializable;
  *
  * @author Sylvain Bertrand
  */
-public class Point2D32 implements Serializable, Point2DBasics, GeometryObject<Point2D32>
+public class Point2D32 implements Point2DBasics, GeometryObject<Point2D32>
 {
-   private static final long serialVersionUID = -4681227587308478166L;
-
    /** The x-coordinate. */
    private float x;
    /** The y-coordinate. */
