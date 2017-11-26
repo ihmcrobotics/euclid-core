@@ -2,9 +2,9 @@ package us.ihmc.euclid.tools;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static us.ihmc.euclid.tools.EuclidCoreRandomTools.generateRandomAxisAngle;
-import static us.ihmc.euclid.tools.EuclidCoreRandomTools.generateRandomDouble;
-import static us.ihmc.euclid.tools.EuclidCoreRandomTools.generateRandomVector3DWithFixedLength;
+import static us.ihmc.euclid.tools.EuclidCoreRandomTools.nextVector3DWithFixedLength;
+import static us.ihmc.euclid.tools.EuclidCoreRandomTools.nextAxisAngle;
+import static us.ihmc.euclid.tools.EuclidCoreRandomTools.nextDouble;
 
 import java.util.Random;
 
@@ -27,8 +27,8 @@ public class AxisAngleToolsTest
       
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AxisAngleReadOnly aa1 = generateRandomAxisAngle(random);
-         AxisAngleReadOnly aa2 = generateRandomAxisAngle(random);
+         AxisAngleReadOnly aa1 = nextAxisAngle(random);
+         AxisAngleReadOnly aa2 = nextAxisAngle(random);
 
          Quaternion q1 = new Quaternion(aa1);
          Quaternion q2 = new Quaternion(aa2);
@@ -41,10 +41,10 @@ public class AxisAngleToolsTest
       
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D u1 = generateRandomVector3DWithFixedLength(random, generateRandomDouble(random, 0.1, 1.0));
-         Vector3D u2 = generateRandomVector3DWithFixedLength(random, generateRandomDouble(random, 0.1, 1.0));
-         AxisAngleReadOnly aa1 = new AxisAngle(u1, generateRandomDouble(random, Math.PI));
-         AxisAngleReadOnly aa2 = new AxisAngle(u2, generateRandomDouble(random, Math.PI));
+         Vector3D u1 = nextVector3DWithFixedLength(random, nextDouble(random, 0.1, 1.0));
+         Vector3D u2 = nextVector3DWithFixedLength(random, nextDouble(random, 0.1, 1.0));
+         AxisAngleReadOnly aa1 = new AxisAngle(u1, nextDouble(random, Math.PI));
+         AxisAngleReadOnly aa2 = new AxisAngle(u2, nextDouble(random, Math.PI));
          
          Quaternion q1 = new Quaternion(aa1);
          Quaternion q2 = new Quaternion(aa2);
@@ -57,10 +57,10 @@ public class AxisAngleToolsTest
       
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D u1 = generateRandomVector3DWithFixedLength(random, generateRandomDouble(random, 0.0, 0.9 * AxisAngleTools.EPS));
-         Vector3D u2 = generateRandomVector3DWithFixedLength(random, generateRandomDouble(random, 0.1, 1.0));
-         AxisAngleReadOnly aa1 = new AxisAngle(u1, generateRandomDouble(random, Math.PI));
-         AxisAngleReadOnly aa2 = new AxisAngle(u2, generateRandomDouble(random, Math.PI));
+         Vector3D u1 = nextVector3DWithFixedLength(random, nextDouble(random, 0.0, 0.9 * AxisAngleTools.EPS));
+         Vector3D u2 = nextVector3DWithFixedLength(random, nextDouble(random, 0.1, 1.0));
+         AxisAngleReadOnly aa1 = new AxisAngle(u1, nextDouble(random, Math.PI));
+         AxisAngleReadOnly aa2 = new AxisAngle(u2, nextDouble(random, Math.PI));
 
          double distance = AxisAngleTools.distance(aa1, aa2);
          assertTrue(Double.isNaN(distance));
@@ -68,10 +68,10 @@ public class AxisAngleToolsTest
       
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D u1 = generateRandomVector3DWithFixedLength(random, generateRandomDouble(random, 0.1, 1.0));
-         Vector3D u2 = generateRandomVector3DWithFixedLength(random, generateRandomDouble(random, 0.0, 0.9 * AxisAngleTools.EPS));
-         AxisAngleReadOnly aa1 = new AxisAngle(u1, generateRandomDouble(random, Math.PI));
-         AxisAngleReadOnly aa2 = new AxisAngle(u2, generateRandomDouble(random, Math.PI));
+         Vector3D u1 = nextVector3DWithFixedLength(random, nextDouble(random, 0.1, 1.0));
+         Vector3D u2 = nextVector3DWithFixedLength(random, nextDouble(random, 0.0, 0.9 * AxisAngleTools.EPS));
+         AxisAngleReadOnly aa1 = new AxisAngle(u1, nextDouble(random, Math.PI));
+         AxisAngleReadOnly aa2 = new AxisAngle(u2, nextDouble(random, Math.PI));
          
          double distance = AxisAngleTools.distance(aa1, aa2);
          assertTrue(Double.isNaN(distance));

@@ -106,7 +106,7 @@ public class YawPitchRollConversionTest
          {
             for (double pitch = -Math.PI / 2.0; pitch <= Math.PI / 2.0; pitch += deltaAngle)
             {
-               matrix.setScale(EuclidCoreRandomTools.generateRandomPoint3D(random, 0.0, 10.0));
+               matrix.setScale(EuclidCoreRandomTools.nextPoint3D(random, 0.0, 10.0));
                matrix.setYawPitchRoll(yaw, pitch, roll);
 
                double actualYaw = YawPitchRollConversion.computeYaw(matrix);
@@ -196,7 +196,7 @@ public class YawPitchRollConversionTest
             for (double pitch = MIN_PITCH_ANGLE; pitch <= MAX_PITCH_ANGLE; pitch += deltaAngle)
             {
                QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, quaternion);
-               double randomScale = EuclidCoreRandomTools.generateRandomDouble(random, 0.1, 10.0);
+               double randomScale = EuclidCoreRandomTools.nextDouble(random, 0.1, 10.0);
                quaternion.setUnsafe(quaternion.getX() * randomScale, quaternion.getY() * randomScale, quaternion.getZ() * randomScale,
                      quaternion.getS() * randomScale);
 
@@ -407,7 +407,7 @@ public class YawPitchRollConversionTest
             for (double pitch = MIN_PITCH_ANGLE; pitch <= MAX_PITCH_ANGLE; pitch += deltaAngle)
             {
                AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, axisAngle);
-               double randomScale = EuclidCoreRandomTools.generateRandomDouble(random, 0.1, 10.0);
+               double randomScale = EuclidCoreRandomTools.nextDouble(random, 0.1, 10.0);
                axisAngle.setX(axisAngle.getX() * randomScale);
                axisAngle.setY(axisAngle.getY() * randomScale);
                axisAngle.setZ(axisAngle.getZ() * randomScale);

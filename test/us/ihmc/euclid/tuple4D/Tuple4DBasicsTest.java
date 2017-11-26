@@ -48,7 +48,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
 
          T tuple2 = createRandomTuple(random);
          tuple2.normalize();
-         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scale = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          tuple1 = createTuple(scale * tuple2.getX(), scale * tuple2.getY(), scale * tuple2.getZ(), scale * tuple2.getS());
          tuple1.normalize();
          EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
@@ -73,7 +73,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
          tuple2 = createRandomTuple(random);
          tuple2.normalize();
          T tuple3 = createEmptyTuple();
-         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scale = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          tuple3 = createTuple(scale * tuple2.getX(), scale * tuple2.getY(), scale * tuple2.getZ(), scale * tuple2.getS());
          tuple1.setAndNormalize(tuple3);
          EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());

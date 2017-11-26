@@ -107,7 +107,7 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test set(Tuple3DReadOnly tupleReadOnly)
-         Tuple3DBasics tuple3D = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         Tuple3DBasics tuple3D = EuclidCoreRandomTools.nextPoint3D(random);
 
          tuple1.set((Tuple3DReadOnly) tuple3D);
          assertEquals(tuple3D.getX(), tuple1.getX(), getEpsilon());

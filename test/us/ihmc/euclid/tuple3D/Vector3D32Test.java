@@ -57,7 +57,7 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector32(TupleBasics tuple)
-         Vector3D32 vector2 = EuclidCoreRandomTools.generateRandomVector3D32(random);
+         Vector3D32 vector2 = EuclidCoreRandomTools.nextVector3D32(random);
 
          vector = new Vector3D32(vector2);
 
@@ -129,8 +129,8 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
 
       for (int i = 0; i < 100; ++i)
       {
-         vectorA = EuclidCoreRandomTools.generateRandomVector3D32(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector3D32(random);
+         vectorA = EuclidCoreRandomTools.nextVector3D32(random);
+         vectorB = EuclidCoreRandomTools.nextVector3D32(random);
 
          if (((Vector3DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
          {
@@ -158,7 +158,7 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
    @Override
    public Vector3D32 createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomVector3D32(random);
+      return EuclidCoreRandomTools.nextVector3D32(random);
    }
 
    @Override

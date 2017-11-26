@@ -24,8 +24,8 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
-         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector3D translation = EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0);
+         double expectedDistance = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY(), p1.getZ() + translation.getZ());
@@ -41,8 +41,8 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
-         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector3D translation = EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY(), p1.getZ() + translation.getZ());
@@ -58,10 +58,10 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // With other point 3D
-         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D translation = EuclidCoreRandomTools.nextVector3D(random);
          translation.setZ(0.0);
          translation.normalize();
-         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double expectedDistance = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY(), p1.getZ() + random.nextDouble());
@@ -71,10 +71,10 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // With point 2D
-         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D translation = EuclidCoreRandomTools.nextVector3D(random);
          translation.setZ(0.0);
          translation.normalize();
-         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double expectedDistance = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p1 = createRandomTuple(random);
          Point2D p2 = new Point2D(p1.getX() + translation.getX(), p1.getY() + translation.getY());
@@ -90,10 +90,10 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // With other point 3D
-         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3D(random, 1.0, 2.0);
+         Vector3D translation = EuclidCoreRandomTools.nextVector3D(random, 1.0, 2.0);
          translation.setZ(0.0);
          translation.normalize();
-         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 1.0, 10.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.nextDouble(random, 1.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY(), p1.getZ() + random.nextDouble());
@@ -103,10 +103,10 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // With point 2D
-         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3D(random, 1.0, 2.0);
+         Vector3D translation = EuclidCoreRandomTools.nextVector3D(random, 1.0, 2.0);
          translation.setZ(0.0);
          translation.normalize();
-         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 1.0, 10.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.nextDouble(random, 1.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p1 = createRandomTuple(random);
          Point2D p2 = new Point2D(p1.getX() + translation.getX(), p1.getY() + translation.getY());
@@ -122,8 +122,8 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
-         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector3D translation = EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0);
+         double expectedDistance = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p = createTuple(translation.getX(), translation.getY(), translation.getZ());
          double actualDistance = p.distanceFromOrigin();
@@ -138,8 +138,8 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D translation = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
-         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector3D translation = EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p = createTuple(translation.getX(), translation.getY(), translation.getZ());
          double actualDistance = p.distanceFromOriginSquared();
@@ -155,7 +155,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform transform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -169,7 +169,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -183,7 +183,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform transform = EuclidCoreRandomTools.nextAffineTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -203,7 +203,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform transform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -217,7 +217,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -231,7 +231,7 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform transform = EuclidCoreRandomTools.nextAffineTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -252,8 +252,8 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
 
       for (int i = 0; i < 100; ++i) {
          double epsilon = random.nextDouble();
-         pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
-         pointB = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         pointA = EuclidCoreRandomTools.nextPoint3D(random);
+         pointB = EuclidCoreRandomTools.nextPoint3D(random);
 
          if (pointA.epsilonEquals(pointB, getEpsilon())) {
             assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
@@ -265,16 +265,16 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
             }
          }
 
-         pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         pointA = EuclidCoreRandomTools.nextPoint3D(random);
 
          pointB = new Point3D(pointA);
-         Vector3D perturb = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 0.99 * epsilon);
+         Vector3D perturb = EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 0.99 * epsilon);
          pointB.add(perturb);
 
          assertTrue(pointA.geometricallyEquals(pointB, epsilon));
 
          pointB = new Point3D(pointA);
-         perturb = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.01 * epsilon);
+         perturb = EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.01 * epsilon);
          pointB.add(perturb);
 
          assertFalse(pointA.geometricallyEquals(pointB, epsilon));

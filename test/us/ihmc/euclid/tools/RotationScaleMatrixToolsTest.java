@@ -26,9 +26,9 @@ public class RotationScaleMatrixToolsTest
    public void testTransformTuple() throws Exception
    {
       Random random = new Random(34534L);
-      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
-      Vector3D originalVector = EuclidCoreRandomTools.generateRandomVector3D(random);
+      Vector3D originalVector = EuclidCoreRandomTools.nextVector3D(random);
       Vector3D actualVector = new Vector3D();
       Vector3D expectedVector = new Vector3D();
 
@@ -48,7 +48,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.setToYawMatrix(2.0 * Math.PI * random.nextDouble());
       rotationScaleMatrix.setScale(1.0 + random.nextDouble(), 1.0 + random.nextDouble(), 1.0);
 
-      Vector2D originalVector = EuclidCoreRandomTools.generateRandomVector2D(random);
+      Vector2D originalVector = EuclidCoreRandomTools.nextVector2D(random);
       Vector2D actualVector = new Vector2D();
       Vector2D expectedVector = new Vector2D();
 
@@ -61,7 +61,7 @@ public class RotationScaleMatrixToolsTest
 
       try
       {
-         RotationScaleMatrix randomRotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         RotationScaleMatrix randomRotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
          randomRotationScaleMatrix.transform(originalVector, actualVector, true);
          fail("Should have thrown an excetpion");
       }
@@ -75,9 +75,9 @@ public class RotationScaleMatrixToolsTest
    public void testTransformQuaternion() throws Exception
    {
       Random random = new Random(34534L);
-      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
-      Quaternion originalQuaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+      Quaternion originalQuaternion = EuclidCoreRandomTools.nextQuaternion(random);
       Quaternion actualQuaternion = new Quaternion();
       Quaternion expectedQuaternion = new Quaternion();
 
@@ -90,9 +90,9 @@ public class RotationScaleMatrixToolsTest
    public void testTransformVector4D() throws Exception
    {
       Random random = new Random(34534L);
-      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
-      Vector4D originalVector = EuclidCoreRandomTools.generateRandomVector4D(random);
+      Vector4D originalVector = EuclidCoreRandomTools.nextVector4D(random);
       Vector4D actualVector = new Vector4D();
       Vector4D expectedVector = new Vector4D();
 
@@ -108,9 +108,9 @@ public class RotationScaleMatrixToolsTest
    public void testTransformRotationMatrix() throws Exception
    {
       Random random = new Random(34534L);
-      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
-      RotationMatrix originalRotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+      RotationMatrix originalRotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
       RotationMatrix actualRotationMatrix = new RotationMatrix();
       RotationMatrix expectedRotationMatrix = new RotationMatrix();
 
@@ -125,9 +125,9 @@ public class RotationScaleMatrixToolsTest
    public void testTransformMatrix3D() throws Exception
    {
       Random random = new Random(34534L);
-      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
-      Matrix3D originalMatrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+      Matrix3D originalMatrix = EuclidCoreRandomTools.nextMatrix3D(random);
       Matrix3D actualMatrix = new Matrix3D();
       Matrix3D expectedMatrix = new Matrix3D();
 
@@ -144,9 +144,9 @@ public class RotationScaleMatrixToolsTest
    public void testInverseTransformTuple() throws Exception
    {
       Random random = new Random(24534L);
-      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
-      Vector3D originalVector = EuclidCoreRandomTools.generateRandomVector3D(random);
+      Vector3D originalVector = EuclidCoreRandomTools.nextVector3D(random);
       Vector3D actualVector = new Vector3D();
       Vector3D expectedVector = new Vector3D(originalVector);
 
@@ -164,7 +164,7 @@ public class RotationScaleMatrixToolsTest
       rotationScaleMatrix.setToYawMatrix(2.0 * Math.PI * random.nextDouble());
       rotationScaleMatrix.setScale(1.0 + random.nextDouble(), 1.0 + random.nextDouble(), 1.0);
 
-      Vector2D originalVector = EuclidCoreRandomTools.generateRandomVector2D(random);
+      Vector2D originalVector = EuclidCoreRandomTools.nextVector2D(random);
       Vector2D actualVector = new Vector2D();
       Vector2D expectedVector = new Vector2D(originalVector);
 
@@ -175,7 +175,7 @@ public class RotationScaleMatrixToolsTest
 
       try
       {
-         RotationScaleMatrix randomRotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         RotationScaleMatrix randomRotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
          randomRotationScaleMatrix.inverseTransform(originalVector, actualVector, true);
          fail("Should have thrown an excetpion");
       }
@@ -189,9 +189,9 @@ public class RotationScaleMatrixToolsTest
    public void testInverseTransformTuple4D() throws Exception
    {
       Random random = new Random(24534L);
-      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+      RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
-      Vector4D originalVector = EuclidCoreRandomTools.generateRandomVector4D(random);
+      Vector4D originalVector = EuclidCoreRandomTools.nextVector4D(random);
       Vector4D actualVector = new Vector4D();
       Vector4D expectedVector = new Vector4D(originalVector);
 

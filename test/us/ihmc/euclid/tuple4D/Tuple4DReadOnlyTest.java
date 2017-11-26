@@ -252,7 +252,7 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
       {
          T tuple1 = createRandomTuple(random);
          double length1 = tuple1.norm();
-         double scalar = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scalar = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          T tuple2 = createTuple(scalar * tuple1.getX(), scalar * tuple1.getY(), scalar * tuple1.getZ(), scalar * tuple1.getS());
          double expectedLength2 = scalar * length1;
          double actualLength2 = tuple2.norm();
@@ -269,7 +269,7 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
       {
          T tuple1 = createRandomTuple(random);
          double length1 = tuple1.norm();
-         double scalar = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scalar = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          T tuple2 = createTuple(scalar * tuple1.getX(), scalar * tuple1.getY(), scalar * tuple1.getZ(), scalar * tuple1.getS());
          double expectedLength2 = scalar * length1;
          double actualLength2 = tuple2.normSquared();
@@ -354,6 +354,7 @@ public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>
       assertFalse(tuple.epsilonEquals(createTuple(x, y, z, s - 1.001 * epsilon), epsilon));
    }
 
+   @SuppressWarnings("unlikely-arg-type")
    @Test
    public void testEquals() throws Exception
    {

@@ -55,7 +55,7 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point2D32(TupleBasics tuple)
-         Point2D32 point2 = EuclidCoreRandomTools.generateRandomPoint2D32(random);
+         Point2D32 point2 = EuclidCoreRandomTools.nextPoint2D32(random);
 
          point = new Point2D32(point2);
 
@@ -92,7 +92,7 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      Point2D32 point = EuclidCoreRandomTools.generateRandomPoint2D32(random);
+      Point2D32 point = EuclidCoreRandomTools.nextPoint2D32(random);
 
       int newHashCode, previousHashCode;
       newHashCode = point.hashCode();
@@ -120,8 +120,8 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
 
       for (int i = 0; i < 100; ++i)
       {
-         pointA = EuclidCoreRandomTools.generateRandomPoint2D32(random);
-         pointB = EuclidCoreRandomTools.generateRandomPoint2D32(random);
+         pointA = EuclidCoreRandomTools.nextPoint2D32(random);
+         pointB = EuclidCoreRandomTools.nextPoint2D32(random);
 
          if (((Point2DReadOnly) pointA).geometricallyEquals(pointB, getEpsilon()))
          {
@@ -155,6 +155,6 @@ public class Point2D32Test extends Point2DBasicsTest<Point2D32>
    @Override
    public Point2D32 createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomPoint2D32(random);
+      return EuclidCoreRandomTools.nextPoint2D32(random);
    }
 }

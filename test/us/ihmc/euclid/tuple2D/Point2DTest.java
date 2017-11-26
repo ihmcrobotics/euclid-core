@@ -54,7 +54,7 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point2D(Tuple3DReadOnly tuple)
-         Point3D point2 = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         Point3D point2 = EuclidCoreRandomTools.nextPoint3D(random);
          point = new Point2D(point2);
 
          Assert.assertTrue(point.getX() == point2.getX());
@@ -94,8 +94,8 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
 
       for (int i = 0; i < 100; ++i)
       {
-         pointA = EuclidCoreRandomTools.generateRandomPoint2D(random);
-         pointB = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         pointA = EuclidCoreRandomTools.nextPoint2D(random);
+         pointB = EuclidCoreRandomTools.nextPoint2D(random);
 
          if (((Point2DReadOnly) pointA).geometricallyEquals(pointB, getEpsilon()))
          {
@@ -129,6 +129,6 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
    @Override
    public Point2D createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomPoint2D(random);
+      return EuclidCoreRandomTools.nextPoint2D(random);
    }
 }

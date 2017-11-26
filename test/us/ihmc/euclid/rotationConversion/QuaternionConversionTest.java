@@ -32,7 +32,7 @@ public class QuaternionConversionTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
          double angle = axisAngle.getAngle();
          double ux = axisAngle.getX();
          double uy = axisAngle.getY();
@@ -51,7 +51,7 @@ public class QuaternionConversionTest
 
       // Test with an axis-angle that has a non unnitary axis.
       double scale = random.nextDouble();
-      AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+      AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
       double angle = axisAngle.getAngle();
       double ux = axisAngle.getX();
       double uy = axisAngle.getY();
@@ -79,7 +79,7 @@ public class QuaternionConversionTest
       // Test with an actual quaternion
       for (int i = 0; i < 100; i++)
       {
-         axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
          AxisAngle axisAngleCopy = new AxisAngle(axisAngle);
          angle = axisAngle.getAngle();
          ux = axisAngle.getX();
@@ -106,7 +106,7 @@ public class QuaternionConversionTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         expectedQuaternion = EuclidCoreRandomTools.generateRandomQuaternion(random, minMaxAngleRange);
+         expectedQuaternion = EuclidCoreRandomTools.nextQuaternion(random, minMaxAngleRange);
          double qx = expectedQuaternion.getX();
          double qy = expectedQuaternion.getY();
          double qz = expectedQuaternion.getZ();
@@ -130,13 +130,13 @@ public class QuaternionConversionTest
          rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
 
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPSILON);
          EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D randomVector = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D randomVector = EuclidCoreRandomTools.nextVector3D(random);
          randomVector.normalize();
          expectedQuaternion.setUnsafe(randomVector.getX(), randomVector.getY(), randomVector.getZ(), 0.0); // rotation angle of Pi
          double qx = expectedQuaternion.getX();
@@ -161,7 +161,7 @@ public class QuaternionConversionTest
 
          rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPSILON);
          EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
@@ -359,7 +359,7 @@ public class QuaternionConversionTest
       // Test with a RotationScaleMatrix
       for (int i = 0; i < 1000; i++)
       {
-         RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
          RotationScaleMatrix rotationScaleMatrixCopy = new RotationScaleMatrix(rotationScaleMatrix);
          QuaternionConversion.convertMatrixToQuaternion(rotationScaleMatrix, actualQuaternion);
          QuaternionConversion.convertMatrixToQuaternion(rotationScaleMatrix.getRotationMatrix(), expectedQuaternion);
@@ -406,7 +406,7 @@ public class QuaternionConversionTest
                rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
                QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expectedQuaternion);
                QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, actualQuaternion);
-               EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+               EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPSILON);
                EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
             }
          }
@@ -435,7 +435,7 @@ public class QuaternionConversionTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
          double rx = axisAngle.getX() * axisAngle.getAngle();
          double ry = axisAngle.getY() * axisAngle.getAngle();
          double rz = axisAngle.getZ() * axisAngle.getAngle();

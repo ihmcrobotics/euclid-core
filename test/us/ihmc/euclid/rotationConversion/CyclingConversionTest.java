@@ -71,23 +71,23 @@ public class CyclingConversionTest
          switch (initialRotationType)
          {
          case MATRIX:
-            originalMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+            originalMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
             initialRotationType.rotationHolder = new RotationMatrix(originalMatrix);
             break;
          case AXISANGLE:
-            originalAxisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+            originalAxisAngle = EuclidCoreRandomTools.nextAxisAngle(random);
             initialRotationType.rotationHolder = new AxisAngle(originalAxisAngle);
             break;
          case QUATERNION:
-            originalQuaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+            originalQuaternion = EuclidCoreRandomTools.nextQuaternion(random);
             initialRotationType.rotationHolder = new Quaternion(originalQuaternion);
             break;
          case VECTOR:
-            originalRotationVector = EuclidCoreRandomTools.generateRandomRotationVector(random);
+            originalRotationVector = EuclidCoreRandomTools.nextRotationVector(random);
             initialRotationType.rotationHolder = new Vector3D(originalRotationVector);
             break;
          case YAW_PITCH_ROLL:
-            originalYawPitchRoll = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+            originalYawPitchRoll = EuclidCoreRandomTools.nextYawPitchRoll(random);
             initialRotationType.rotationHolder = new double[3];
             System.arraycopy(originalYawPitchRoll, 0, initialRotationType.rotationHolder, 0, 3);
             break;
@@ -157,13 +157,13 @@ public class CyclingConversionTest
                EuclidCoreTestTools.assertMatrix3DEquals(originalMatrix, (Matrix3DReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case AXISANGLE:
-               EuclidCoreTestTools.assertAxisAngleEqualsSmart(originalAxisAngle, (AxisAngleReadOnly) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertAxisAngleGeometricallyEquals(originalAxisAngle, (AxisAngleReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case QUATERNION:
-               EuclidCoreTestTools.assertQuaternionEqualsSmart(originalQuaternion, (QuaternionReadOnly) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertQuaternionGeometricallyEquals(originalQuaternion, (QuaternionReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case VECTOR:
-               EuclidCoreTestTools.assertRotationVectorEquals(originalRotationVector, (Vector3DReadOnly) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(originalRotationVector, (Vector3DReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case YAW_PITCH_ROLL:
                EuclidCoreTestTools.assertYawPitchRollEquals(originalYawPitchRoll, (double[]) nextRotationType.rotationHolder, epsilon);

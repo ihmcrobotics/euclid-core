@@ -120,7 +120,7 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test set(Tuple2DReadOnly tupleReadOnly)
-         Tuple2DReadOnly tuple2D = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         Tuple2DReadOnly tuple2D = EuclidCoreRandomTools.nextPoint2D(random);
          double expectedZ = tuple1.getZ();
 
          tuple1.set((Tuple2DReadOnly) tuple2D);
@@ -131,7 +131,7 @@ public abstract class Tuple3DBasicsTest<T extends Tuple3DBasics> extends Tuple3D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test set(Tuple2DReadOnly tupleReadOnly, double)
-         Tuple2DReadOnly tuple2D = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         Tuple2DReadOnly tuple2D = EuclidCoreRandomTools.nextPoint2D(random);
          double expectedZ = random.nextDouble();
 
          tuple1.set((Tuple2DReadOnly) tuple2D, expectedZ);
