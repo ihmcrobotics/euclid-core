@@ -27,7 +27,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          AxisAngleBasics axisAngle = createRandomAxisAngle(random);
-         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 2.0);
+         double scale = EuclidCoreRandomTools.nextDouble(random, 2.0);
          double angle = axisAngle.getAngle();
          axisAngle.scaleAngle(scale);
          assertEquals(scale * angle, axisAngle.getAngle(), getSmallestEpsilon());
@@ -141,10 +141,10 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         double x = EuclidCoreRandomTools.generateRandomDouble(random);
-         double y = EuclidCoreRandomTools.generateRandomDouble(random);
-         double z = EuclidCoreRandomTools.generateRandomDouble(random);
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random);
+         double x = EuclidCoreRandomTools.nextDouble(random);
+         double y = EuclidCoreRandomTools.nextDouble(random);
+         double z = EuclidCoreRandomTools.nextDouble(random);
+         double angle = EuclidCoreRandomTools.nextDouble(random);
          T expectedAxisAngle = createAxisAngle(-x, -y, -z, -angle);
          T actualAxisAngle = createAxisAngle(x, y, z, angle);
          actualAxisAngle.negate();
@@ -159,10 +159,10 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         double x = EuclidCoreRandomTools.generateRandomDouble(random);
-         double y = EuclidCoreRandomTools.generateRandomDouble(random);
-         double z = EuclidCoreRandomTools.generateRandomDouble(random);
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random);
+         double x = EuclidCoreRandomTools.nextDouble(random);
+         double y = EuclidCoreRandomTools.nextDouble(random);
+         double z = EuclidCoreRandomTools.nextDouble(random);
+         double angle = EuclidCoreRandomTools.nextDouble(random);
          T expectedAxisAngle = createAxisAngle(Math.abs(x), Math.abs(y), Math.abs(z), Math.abs(angle));
          T actualAxisAngle = createAxisAngle(x, y, z, angle);
          actualAxisAngle.absolute();
@@ -177,8 +177,8 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector3D randomAxis = EuclidCoreRandomTools.generateRandomRotationVector(random);
-         double randomAngle = EuclidCoreRandomTools.generateRandomDouble(random);
+         Vector3D randomAxis = EuclidCoreRandomTools.nextRotationVector(random);
+         double randomAngle = EuclidCoreRandomTools.nextDouble(random);
 
          T actualAxisAngle = createAxisAngle(randomAxis.getX(), randomAxis.getY(), randomAxis.getZ(), randomAngle);
          actualAxisAngle.normalizeAxis();
@@ -265,7 +265,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       { // Test set(VectorBasics axis, double angle)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            Vector3D vectorAxis = EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0);
+            Vector3D vectorAxis = EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0);
             double angle = random.nextDouble();
 
             actualAxisAngle.set(vectorAxis, angle);
@@ -349,7 +349,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       { // Test set(QuaternionReadOnly quaternion)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            Quaternion quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+            Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
             actualAxisAngle.set(quaternion);
             AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, expectedAxisAngle);
             EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
@@ -359,7 +359,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       { // Test set(RotationMatrixReadOnly rotationMatrix)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            RotationMatrix matrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+            RotationMatrix matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
             actualAxisAngle.set(matrix);
             AxisAngleConversion.convertMatrixToAxisAngle(matrix, expectedAxisAngle);
             EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
@@ -369,7 +369,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       { // Test set(Vector3DReadOnly rotationVector)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            Vector3D rotationVector = EuclidCoreRandomTools.generateRandomRotationVector(random);
+            Vector3D rotationVector = EuclidCoreRandomTools.nextRotationVector(random);
             actualAxisAngle.set(rotationVector);
             AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, expectedAxisAngle);
             EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
@@ -379,7 +379,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       { // Test setYawPitchRoll(double[] yawPitchRoll)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            double[] yawPitchRoll = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+            double[] yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRoll(random);
             actualAxisAngle.setYawPitchRoll(yawPitchRoll);
             AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, expectedAxisAngle);
             EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
@@ -389,9 +389,9 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       { // Test setYawPitchRoll(double yaw, double pitch, double roll)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
-            double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI / 2.0);
-            double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+            double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
+            double pitch = EuclidCoreRandomTools.nextDouble(random, Math.PI / 2.0);
+            double roll = EuclidCoreRandomTools.nextDouble(random, Math.PI);
             actualAxisAngle.setYawPitchRoll(yaw, pitch, roll);
             AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, expectedAxisAngle);
             EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
@@ -609,7 +609,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // appendYawRotation(double yaw)
          T original = createRandomAxisAngle(random);
-         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          T yawRotation = createAxisAngle(0.0, 0.0, 1.0, yaw);
 
          AxisAngleTools.multiply(original, yawRotation, expected);
@@ -631,7 +631,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // appendPitchRotation(double pitch)
          T original = createRandomAxisAngle(random);
-         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double pitch = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          T pitchRotation = createAxisAngle(0.0, 1.0, 0.0, pitch);
 
          AxisAngleTools.multiply(original, pitchRotation, expected);
@@ -653,7 +653,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // appendRollRotation(double roll)
          T original = createRandomAxisAngle(random);
-         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double roll = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          T rollRotation = createAxisAngle(1.0, 0.0, 0.0, roll);
 
          AxisAngleTools.multiply(original, rollRotation, expected);
@@ -685,7 +685,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // appendYawRotation(double yaw)
          T original = createRandomAxisAngle(random);
-         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          T yawRotation = createAxisAngle(0.0, 0.0, 1.0, yaw);
 
          AxisAngleTools.multiply(yawRotation, original, expected);
@@ -707,7 +707,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // appendPitchRotation(double pitch)
          T original = createRandomAxisAngle(random);
-         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double pitch = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          T pitchRotation = createAxisAngle(0.0, 1.0, 0.0, pitch);
 
          AxisAngleTools.multiply(pitchRotation, original, expected);
@@ -729,7 +729,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // appendRollRotation(double roll)
          T original = createRandomAxisAngle(random);
-         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double roll = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          T rollRotation = createAxisAngle(1.0, 0.0, 0.0, roll);
 
          AxisAngleTools.multiply(rollRotation, original, expected);

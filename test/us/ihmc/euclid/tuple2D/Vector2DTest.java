@@ -56,7 +56,7 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector2D(Tuple2DReadOnly tuple)
-         Vector2D vector2 = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D vector2 = EuclidCoreRandomTools.nextVector2D(random);
          vector = new Vector2D(vector2);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
@@ -65,7 +65,7 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector2D(Tuple3DReadOnly tuple)
-         Vector3D vector2 = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D vector2 = EuclidCoreRandomTools.nextVector3D(random);
          vector = new Vector2D(vector2);
 
          Assert.assertTrue(vector.getX() == vector2.getX());
@@ -105,8 +105,8 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
 
       for (int i = 0; i < 100; ++i)
       {
-         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorA = EuclidCoreRandomTools.nextVector2D(random);
+         vectorB = EuclidCoreRandomTools.nextVector2D(random);
 
          if (((Vector2DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
          {
@@ -140,6 +140,6 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
    @Override
    public Vector2D createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomVector2D(random);
+      return EuclidCoreRandomTools.nextVector2D(random);
    }
 }

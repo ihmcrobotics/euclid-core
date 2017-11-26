@@ -49,7 +49,7 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Vector2D32(TupleBasics tuple)
-         Vector2D32 vector2 = EuclidCoreRandomTools.generateRandomVector2D32(random);
+         Vector2D32 vector2 = EuclidCoreRandomTools.nextVector2D32(random);
          vector = new Vector2D32(vector2);
 
          Assert.assertTrue(vector.getX32() == vector2.getX32());
@@ -84,7 +84,7 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      Point2D32 point = EuclidCoreRandomTools.generateRandomPoint2D32(random);
+      Point2D32 point = EuclidCoreRandomTools.nextPoint2D32(random);
 
       int newHashCode, previousHashCode;
       newHashCode = point.hashCode();
@@ -112,8 +112,8 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
 
       for (int i = 0; i < 100; ++i)
       {
-         vectorA = EuclidCoreRandomTools.generateRandomVector2D32(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector2D32(random);
+         vectorA = EuclidCoreRandomTools.nextVector2D32(random);
+         vectorB = EuclidCoreRandomTools.nextVector2D32(random);
 
          if (((Vector2DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
          {
@@ -147,6 +147,6 @@ public class Vector2D32Test extends Vector2DBasicsTest<Vector2D32>
    @Override
    public Vector2D32 createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomVector2D32(random);
+      return EuclidCoreRandomTools.nextVector2D32(random);
    }
 }

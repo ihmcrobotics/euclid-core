@@ -29,10 +29,10 @@ public class RotationMatrixToolsTest
       for (int i = 0; i < ITERATIONS; i++)
       { // test applyYawRotation(double yaw, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
          RotationMatrix rotationMatrix = new RotationMatrix();
-         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          rotationMatrix.setToYawMatrix(yaw);
 
-         Tuple3DReadOnly tupleOriginal = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0);
+         Tuple3DReadOnly tupleOriginal = EuclidCoreRandomTools.nextPoint3D(random, 10.0);
 
          Tuple3DBasics expectedTuple = new Vector3D();
          Tuple3DBasics actualTuple = new Vector3D();
@@ -49,10 +49,10 @@ public class RotationMatrixToolsTest
       for (int i = 0; i < ITERATIONS; i++)
       { // test applyYawRotation(double yaw, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
          RotationMatrix rotationMatrix = new RotationMatrix();
-         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          rotationMatrix.setToYawMatrix(yaw);
 
-         Tuple2DReadOnly tupleOriginal = EuclidCoreRandomTools.generateRandomPoint2D(random, 10.0);
+         Tuple2DReadOnly tupleOriginal = EuclidCoreRandomTools.nextPoint2D(random, 10.0);
 
          Tuple2DBasics expectedTuple = new Vector2D();
          Tuple2DBasics actualTuple = new Vector2D();
@@ -75,10 +75,10 @@ public class RotationMatrixToolsTest
       for (int i = 0; i < ITERATIONS; i++)
       { // test applyPitchRotation(double pitch, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
          RotationMatrix rotationMatrix = new RotationMatrix();
-         double pitch = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double pitch = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          rotationMatrix.setToPitchMatrix(pitch);
 
-         Tuple3DReadOnly tupleOriginal = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0);
+         Tuple3DReadOnly tupleOriginal = EuclidCoreRandomTools.nextPoint3D(random, 10.0);
 
          Tuple3DBasics expectedTuple = new Vector3D();
          Tuple3DBasics actualTuple = new Vector3D();
@@ -101,10 +101,10 @@ public class RotationMatrixToolsTest
       for (int i = 0; i < ITERATIONS; i++)
       { // test applyRollRotation(double roll, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
          RotationMatrix rotationMatrix = new RotationMatrix();
-         double roll = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double roll = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          rotationMatrix.setToRollMatrix(roll);
 
-         Tuple3DReadOnly tupleOriginal = EuclidCoreRandomTools.generateRandomPoint3D(random, 10.0);
+         Tuple3DReadOnly tupleOriginal = EuclidCoreRandomTools.nextPoint3D(random, 10.0);
 
          Tuple3DBasics expectedTuple = new Vector3D();
          Tuple3DBasics actualTuple = new Vector3D();
@@ -126,8 +126,8 @@ public class RotationMatrixToolsTest
 
       for (int i = 0; i < ITERATIONS; i++)
       {
-         RotationMatrix r1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
-         RotationMatrix r2 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix r1 = EuclidCoreRandomTools.nextRotationMatrix(random);
+         RotationMatrix r2 = EuclidCoreRandomTools.nextRotationMatrix(random);
 
          Quaternion q1 = new Quaternion(r1);
          Quaternion q2 = new Quaternion(r2);
@@ -148,9 +148,9 @@ public class RotationMatrixToolsTest
 
          for (int i = 0; i < ITERATIONS; i++)
          {// Test with singularities
-            AxisAngle axisAngle = new AxisAngle(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), Math.PI);
+            AxisAngle axisAngle = new AxisAngle(EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0), Math.PI);
             RotationMatrix diff = new RotationMatrix(axisAngle);
-            RotationMatrix r1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+            RotationMatrix r1 = EuclidCoreRandomTools.nextRotationMatrix(random);
             RotationMatrix r2 = new RotationMatrix();
             r2.set(r1);
             r2.multiply(diff);
@@ -194,8 +194,8 @@ public class RotationMatrixToolsTest
 
       for (int i = 0; i < ITERATIONS; i++)
       { // Testing against quaternion distance
-         RotationMatrix m1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
-         RotationMatrix m2 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix m1 = EuclidCoreRandomTools.nextRotationMatrix(random);
+         RotationMatrix m2 = EuclidCoreRandomTools.nextRotationMatrix(random);
 
          Quaternion q1 = new Quaternion(m1);
          Quaternion q2 = new Quaternion(m2);
@@ -208,8 +208,8 @@ public class RotationMatrixToolsTest
 
       for (int i = 0; i < ITERATIONS; i++)
       {
-         RotationMatrix m1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
-         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         RotationMatrix m1 = EuclidCoreRandomTools.nextRotationMatrix(random);
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random);
          RotationMatrix m2 = new RotationMatrix();
          m2.set(axisAngle);
          m2.preMultiply(m1);
@@ -229,8 +229,8 @@ public class RotationMatrixToolsTest
 
       for (int i = 0; i < ITERATIONS; i++)
       {
-         RotationMatrix m1 = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
-         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         RotationMatrix m1 = EuclidCoreRandomTools.nextRotationMatrix(random);
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random);
          axisAngle.setAngle(Math.PI);
          RotationMatrix m2 = new RotationMatrix();
          m2.set(axisAngle);

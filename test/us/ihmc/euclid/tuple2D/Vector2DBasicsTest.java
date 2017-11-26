@@ -28,7 +28,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          T vector1 = createRandomTuple(random);
          double length1 = vector1.length();
          T vector2 = createEmptyTuple();
-         double scalar = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scalar = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          vector2.setAndScale(scalar, vector1);
          double expectedLength2 = scalar * length1;
          double actualLength2 = vector2.length();
@@ -46,7 +46,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          T vector1 = createRandomTuple(random);
          double length1 = vector1.length();
          T vector2 = createEmptyTuple();
-         double scalar = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scalar = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          vector2.setAndScale(scalar, vector1);
          double expectedLength2 = scalar * length1;
          double actualLength2 = vector2.lengthSquared();
@@ -62,11 +62,11 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T vector1 = createRandomTuple(random);
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double angle = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();
          double y = Math.sin(angle) * vector1.getX() + Math.cos(angle) * vector1.getY();
          T vector2 = createTuple(x, y);
-         vector2.scale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0));
+         vector2.scale(EuclidCoreRandomTools.nextDouble(random, 0.0, 2.0));
 
          double expectedDot = vector1.length() * vector2.length() * Math.cos(angle);
          double actualDot = vector1.dot(vector2);
@@ -82,11 +82,11 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T vector1 = createRandomTuple(random);
-         double expectedAngle = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double expectedAngle = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          double x = Math.cos(expectedAngle) * vector1.getX() - Math.sin(expectedAngle) * vector1.getY();
          double y = Math.sin(expectedAngle) * vector1.getX() + Math.cos(expectedAngle) * vector1.getY();
          T vector2 = createTuple(x, y);
-         vector2.scale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0));
+         vector2.scale(EuclidCoreRandomTools.nextDouble(random, 0.0, 2.0));
 
          double actualAngle = vector1.angle(vector2);
 
@@ -102,7 +102,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // cross(Vector2DReadOnly other)
          T vector1 = createRandomTuple(random);
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double angle = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();
          double y = Math.sin(angle) * vector1.getX() + Math.cos(angle) * vector1.getY();
          T vector2 = createTuple(x, y);
@@ -115,11 +115,11 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // cross(Vector2DReadOnly v1, Vector2DReadOnly v2)
          T vector1 = createRandomTuple(random);
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double angle = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          double x = Math.cos(angle) * vector1.getX() - Math.sin(angle) * vector1.getY();
          double y = Math.sin(angle) * vector1.getX() + Math.cos(angle) * vector1.getY();
          T vector2 = createTuple(x, y);
-         vector2.scale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0));
+         vector2.scale(EuclidCoreRandomTools.nextDouble(random, 0.0, 2.0));
 
          double expectedCross = vector1.length() * vector2.length() * Math.sin(angle);
          double actualCross = Vector2DReadOnly.cross(vector1, vector2);
@@ -144,7 +144,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
 
          T vector2 = createRandomTuple(random);
          vector2.normalize();
-         vector1.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
+         vector1.setAndScale(EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0), vector2);
          vector1.normalize();
          EuclidCoreTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
       }
@@ -163,7 +163,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          vector2 = createRandomTuple(random);
          vector2.normalize();
          T vector3 = createEmptyTuple();
-         vector3.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
+         vector3.setAndScale(EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0), vector2);
          vector1.setAndNormalize(vector3);
          EuclidCoreTestTools.assertTuple2DEquals(vector1, vector2, getEpsilon());
       }
@@ -176,10 +176,10 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test with maxLength > EPS_MAX_LENGTH
-         double maxLength = EuclidCoreRandomTools.generateRandomDouble(random, Vector3DBasics.EPS_MAX_LENGTH, 10.0);
-         double vectorLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double maxLength = EuclidCoreRandomTools.nextDouble(random, Vector3DBasics.EPS_MAX_LENGTH, 10.0);
+         double vectorLength = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          T expectedVector = createTuple(1.0, 0.0);
-         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          RotationMatrixTools.applyYawRotation(yaw, expectedVector, expectedVector);
          T actualVector = createEmptyTuple();
          actualVector.setAndScale(vectorLength, expectedVector);
@@ -200,10 +200,10 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test with maxLength < EPS_MAX_LENGTH
-         double maxLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Vector3DBasics.EPS_MAX_LENGTH);
-         double vectorLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double maxLength = EuclidCoreRandomTools.nextDouble(random, 0.0, Vector3DBasics.EPS_MAX_LENGTH);
+         double vectorLength = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          T actualVector = createTuple(vectorLength, 0.0);
-         double yaw = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
          RotationMatrixTools.applyYawRotation(yaw, actualVector, actualVector);
 
          assertTrue(actualVector.clipToMaxLength(maxLength));
@@ -224,8 +224,8 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          T expected = createEmptyTuple();
 
          RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
-         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.generateRandomDouble(random, Math.PI));
-         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0));
+         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.nextVector3D(random, 0.0, 10.0));
 
          expected.set(original);
          rigidBodyTransform.transform(expected);
@@ -241,7 +241,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          actual.applyTransform(rigidBodyTransform, true);
          EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
-         rigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         rigidBodyTransform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
 
          try
          {
@@ -286,8 +286,8 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          T expected = createEmptyTuple();
 
          RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
-         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.generateRandomDouble(random, Math.PI));
-         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0));
+         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.nextVector3D(random, 0.0, 10.0));
 
          expected.set(original);
          actual.set(original);
@@ -305,7 +305,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          actual.applyInverseTransform(rigidBodyTransform, true);
          EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
-         rigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         rigidBodyTransform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
 
          try
          {
@@ -347,8 +347,8 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
 
       for (int i = 0; i < 100; ++i)
       {
-         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorA = EuclidCoreRandomTools.nextVector2D(random);
+         vectorB = EuclidCoreRandomTools.nextVector2D(random);
 
          if (vectorA.epsilonEquals(vectorB, getEpsilon()))
          {
@@ -366,7 +366,7 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
             }
          }
 
-         vectorA = EuclidCoreRandomTools.generateRandomVector2D(random);
+         vectorA = EuclidCoreRandomTools.nextVector2D(random);
          vectorB = new Vector2D(vectorA);
 
          assertTrue(vectorA.geometricallyEquals(vectorB, 0));

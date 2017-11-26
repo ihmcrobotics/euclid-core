@@ -24,8 +24,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
-         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector2D translation = EuclidCoreRandomTools.nextVector2DWithFixedLength(random, 1.0);
+         double expectedDistance = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY());
@@ -41,8 +41,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
-         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector2D translation = EuclidCoreRandomTools.nextVector2DWithFixedLength(random, 1.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p1 = createRandomTuple(random);
          T p2 = createTuple(p1.getX() + translation.getX(), p1.getY() + translation.getY());
@@ -58,8 +58,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
-         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector2D translation = EuclidCoreRandomTools.nextVector2DWithFixedLength(random, 1.0);
+         double expectedDistance = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p1 = createRandomTuple(random);
          Point3D p2 = new Point3D(p1.getX() + translation.getX(), p1.getY() + translation.getY(), random.nextDouble());
@@ -75,8 +75,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
-         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector2D translation = EuclidCoreRandomTools.nextVector2DWithFixedLength(random, 1.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p1 = createRandomTuple(random);
          Point3D p2 = new Point3D(p1.getX() + translation.getX(), p1.getY() + translation.getY(), random.nextDouble());
@@ -92,8 +92,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
-         double expectedDistance = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector2D translation = EuclidCoreRandomTools.nextVector2DWithFixedLength(random, 1.0);
+         double expectedDistance = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(expectedDistance);
          T p = createTuple(translation.getX(), translation.getY());
          double actualDistance = p.distanceFromOrigin();
@@ -108,8 +108,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Vector2D translation = EuclidCoreRandomTools.generateRandomVector2DWithFixedLength(random, 1.0);
-         double expectedDistanceSquared = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         Vector2D translation = EuclidCoreRandomTools.nextVector2DWithFixedLength(random, 1.0);
+         double expectedDistanceSquared = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          translation.scale(Math.sqrt(expectedDistanceSquared));
          T p = createTuple(translation.getX(), translation.getY());
          double actualDistance = p.distanceFromOriginSquared();
@@ -130,8 +130,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          T expected = createEmptyTuple();
 
          RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
-         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.generateRandomDouble(random, Math.PI));
-         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0));
+         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.nextVector3D(random, 0.0, 10.0));
 
          expected.set(original);
          rigidBodyTransform.transform(expected);
@@ -147,7 +147,7 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          actual.applyTransform(rigidBodyTransform, true);
          EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
-         rigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         rigidBodyTransform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
 
          try
          {
@@ -192,8 +192,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          T expected = createEmptyTuple();
 
          RigidBodyTransform rigidBodyTransform = new RigidBodyTransform();
-         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.generateRandomDouble(random, Math.PI));
-         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.generateRandomVector3D(random, 0.0, 10.0));
+         rigidBodyTransform.setRotationYaw(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+         rigidBodyTransform.setTranslation(EuclidCoreRandomTools.nextVector3D(random, 0.0, 10.0));
 
          expected.set(original);
          actual.set(original);
@@ -211,7 +211,7 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
          actual.applyInverseTransform(rigidBodyTransform, true);
          EuclidCoreTestTools.assertTuple2DEquals(expected, actual, getEpsilon());
 
-         rigidBodyTransform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         rigidBodyTransform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
 
          try
          {
@@ -251,8 +251,8 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
       Random random = new Random(621541L);
 
       for (int i = 0; i < 100; ++i) {
-         pointA = EuclidCoreRandomTools.generateRandomPoint2D(random);
-         pointB = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         pointA = EuclidCoreRandomTools.nextPoint2D(random);
+         pointB = EuclidCoreRandomTools.nextPoint2D(random);
 
          if (pointA.epsilonEquals(pointB, getEpsilon())) {
             assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
@@ -264,7 +264,7 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
             }
          }
 
-         pointA = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         pointA = EuclidCoreRandomTools.nextPoint2D(random);
          pointB = new Point2D(pointA);
 
          assertTrue(pointA.geometricallyEquals(pointB, 0));

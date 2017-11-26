@@ -61,41 +61,41 @@ public class Matrix3DFeaturesTest
       // Let's first test that it returns true for an actual rotation matrix
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         matrix = new Matrix3D(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrix = new Matrix3D(EuclidCoreRandomTools.nextRotationMatrix(random));
          testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, true);
 
          // Test when the matrix is not a rotation matrix, by assuming that it is most unlikely to generate a rotation matrix by generating random elements
-         matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         matrix = EuclidCoreRandomTools.nextMatrix3D(random);
          testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, false);
 
          // Start from a rotation matrix and apply slight changes to make not a rotation matrix
          // Add an offset to one element
-         matrix = new Matrix3D(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrix = new Matrix3D(EuclidCoreRandomTools.nextRotationMatrix(random));
          int row = random.nextInt(3);
          int column = random.nextInt(3);
          matrix.setElement(row, column, matrix.getElement(row, column) + random.nextDouble());
          testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, false);
 
          // Scale a row
-         matrix = new Matrix3D(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrix = new Matrix3D(EuclidCoreRandomTools.nextRotationMatrix(random));
          row = random.nextInt(3);
-         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 1.0, 1.5);
+         double scale = EuclidCoreRandomTools.nextDouble(random, 1.0, 1.5);
          matrix.setElement(row, 0, scale * matrix.getElement(row, 0));
          matrix.setElement(row, 1, scale * matrix.getElement(row, 1));
          matrix.setElement(row, 2, scale * matrix.getElement(row, 2));
          testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, false);
 
          // Scale a column
-         matrix = new Matrix3D(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrix = new Matrix3D(EuclidCoreRandomTools.nextRotationMatrix(random));
          column = random.nextInt(3);
-         scale = EuclidCoreRandomTools.generateRandomDouble(random, 1.0, 1.5);
+         scale = EuclidCoreRandomTools.nextDouble(random, 1.0, 1.5);
          matrix.setElement(0, column, scale * matrix.getElement(0, column));
          matrix.setElement(1, column, scale * matrix.getElement(1, column));
          matrix.setElement(2, column, scale * matrix.getElement(2, column));
          testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, false);
 
          // Set an element to zero
-         matrix = new Matrix3D(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrix = new Matrix3D(EuclidCoreRandomTools.nextRotationMatrix(random));
          row = random.nextInt(3);
          column = random.nextInt(3);
          double previousValue = matrix.getElement(row, column);
@@ -103,7 +103,7 @@ public class Matrix3DFeaturesTest
          testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, Math.abs(previousValue) < Matrix3DFeatures.EPS_CHECK_ROTATION);
 
          // Swap two elements
-         matrix = new Matrix3D(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrix = new Matrix3D(EuclidCoreRandomTools.nextRotationMatrix(random));
          row = random.nextInt(3);
          column = random.nextInt(3);
          int row2 = random.nextInt(2);
@@ -118,7 +118,7 @@ public class Matrix3DFeaturesTest
          testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, false);
 
          // Swap 2 rows
-         matrix = new Matrix3D(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrix = new Matrix3D(EuclidCoreRandomTools.nextRotationMatrix(random));
          row = random.nextInt(3);
          row2 = random.nextInt(2);
          if (row2 == row)
@@ -132,7 +132,7 @@ public class Matrix3DFeaturesTest
          testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, false);
 
          // Swap 2 columns
-         matrix = new Matrix3D(EuclidCoreRandomTools.generateRandomRotationMatrix(random));
+         matrix = new Matrix3D(EuclidCoreRandomTools.nextRotationMatrix(random));
          column = random.nextInt(3);
          column2 = random.nextInt(2);
          if (column2 == column)
@@ -304,7 +304,7 @@ public class Matrix3DFeaturesTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         Matrix3D randomMatrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D randomMatrix = EuclidCoreRandomTools.nextMatrix3D(random);
          randomMatrix.setM02(0.0);
          randomMatrix.setM20(0.0);
          randomMatrix.setM12(0.0);
@@ -445,7 +445,7 @@ public class Matrix3DFeaturesTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test that the determinant of a random rotation matrix is also equal to 1.0
-         RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          assertEquals(1.0, rotationMatrix.determinant(), EPS);
          double m00 = rotationMatrix.getM00();
          double m01 = rotationMatrix.getM01();
@@ -541,7 +541,7 @@ public class Matrix3DFeaturesTest
          double det = Matrix3DFeatures.determinant(column0[0], column1[0], column2[0], column0[1], column1[1], column2[1], column0[2], column1[2], column2[2]);
 
          int rowScale = random.nextInt(3);
-         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 5.0);
+         double scale = EuclidCoreRandomTools.nextDouble(random, 5.0);
 
          column0[rowScale] *= scale;
          column1[rowScale] *= scale;
@@ -562,7 +562,7 @@ public class Matrix3DFeaturesTest
          double det = Matrix3DFeatures.determinant(row0[0], row0[1], row0[2], row1[0], row1[1], row1[2], row2[0], row2[1], row2[2]);
 
          int columnScale = random.nextInt(3);
-         double scale = EuclidCoreRandomTools.generateRandomDouble(random, 5.0);
+         double scale = EuclidCoreRandomTools.nextDouble(random, 5.0);
 
          row0[columnScale] *= scale;
          row1[columnScale] *= scale;
@@ -610,7 +610,7 @@ public class Matrix3DFeaturesTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Finally test against EJML
-         Matrix3D matrix = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D matrix = EuclidCoreRandomTools.nextMatrix3D(random);
          matrix.get(denseMatrix);
 
          assertEquals(CommonOps.det(denseMatrix), matrix.determinant(), EPS);
@@ -716,16 +716,16 @@ public class Matrix3DFeaturesTest
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          matrix.setToZero();
-         matrix.setM01(EuclidCoreRandomTools.generateRandomDouble(random));
-         matrix.setM02(EuclidCoreRandomTools.generateRandomDouble(random));
-         matrix.setM12(EuclidCoreRandomTools.generateRandomDouble(random));
+         matrix.setM01(EuclidCoreRandomTools.nextDouble(random));
+         matrix.setM02(EuclidCoreRandomTools.nextDouble(random));
+         matrix.setM12(EuclidCoreRandomTools.nextDouble(random));
          matrix.setM10(-matrix.getM01());
          matrix.setM20(-matrix.getM02());
          matrix.setM21(-matrix.getM12());
 
          testAllIsMatrixSkewSymmetrixMethods(matrix, true);
 
-         double delta = EuclidCoreRandomTools.generateRandomDouble(random, 10.0 * Matrix3DFeatures.EPS_CHECK_SKEW);
+         double delta = EuclidCoreRandomTools.nextDouble(random, 10.0 * Matrix3DFeatures.EPS_CHECK_SKEW);
          boolean isSkewSymmetric = Math.abs(delta) < Matrix3DFeatures.EPS_CHECK_SKEW;
 
          matrixCorrupted.set(matrix);
@@ -800,7 +800,7 @@ public class Matrix3DFeaturesTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random, 10.0);
+         m1 = EuclidCoreRandomTools.nextMatrix3D(random, 10.0);
          double epsilon = random.nextDouble();
 
          delta.fill(0.1 * epsilon);
@@ -842,7 +842,7 @@ public class Matrix3DFeaturesTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         m1 = EuclidCoreRandomTools.generateRandomMatrix3D(random, 10.0);
+         m1 = EuclidCoreRandomTools.nextMatrix3D(random, 10.0);
 
          m2.set(m1);
          assertTrue(Matrix3DFeatures.equals(m1, m2));

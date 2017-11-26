@@ -32,7 +32,7 @@ public class RotationVectorConversionTest
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
          Vector3D rotationVector = new Vector3D();
          double ux = axisAngle.getX();
          double uy = axisAngle.getY();
@@ -47,7 +47,7 @@ public class RotationVectorConversionTest
       }
 
       // Test with a non-unitary axis.
-      Vector3D expectedRotationVector = EuclidCoreRandomTools.generateRandomVector3D(random);
+      Vector3D expectedRotationVector = EuclidCoreRandomTools.nextVector3D(random);
       Vector3D actualRotationVector = new Vector3D();
 
       double ux = expectedRotationVector.getX();
@@ -74,7 +74,7 @@ public class RotationVectorConversionTest
 
       for (int i = 0; i < 100; i++)
       {
-         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
          AxisAngle axisAngleCopy = new AxisAngle(axisAngle);
          ux = axisAngle.getX();
          uy = axisAngle.getY();
@@ -99,7 +99,7 @@ public class RotationVectorConversionTest
 
       for (int i = 0; i < 10000; i++)
       {
-         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
          double ux = axisAngle.getX();
          double uy = axisAngle.getY();
          double uz = axisAngle.getZ();
@@ -152,7 +152,7 @@ public class RotationVectorConversionTest
       {
          AxisAngle axisAngle = new AxisAngle();
          axisAngle.setAngle(Math.PI);
-         Vector3D randomVector = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D randomVector = EuclidCoreRandomTools.nextVector3D(random);
          randomVector.normalize();
          axisAngle.setX(randomVector.getX());
          axisAngle.setY(randomVector.getY());
@@ -191,7 +191,7 @@ public class RotationVectorConversionTest
 
       for (int i = 0; i < 10000; i++)
       {
-         AxisAngle axisAngle = EuclidCoreRandomTools.generateRandomAxisAngle(random, minMaxAngleRange);
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
          double ux = axisAngle.getX();
          double uy = axisAngle.getY();
          double uz = axisAngle.getZ();
@@ -393,7 +393,7 @@ public class RotationVectorConversionTest
       // Test with an actual matrix
       for (int i = 0; i < 1000; i++)
       {
-         RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          RotationMatrix rotationMatrixCopy = new RotationMatrix(rotationMatrix);
          m00 = rotationMatrix.getM00();
          m01 = rotationMatrix.getM01();
@@ -414,7 +414,7 @@ public class RotationVectorConversionTest
       // Test with a RotationScaleMatrix
       for (int i = 0; i < 1000; i++)
       {
-         RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 10.0);
+         RotationScaleMatrix rotationScaleMatrix = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
          RotationScaleMatrix rotationScaleMatrixCopy = new RotationScaleMatrix(rotationScaleMatrix);
          m00 = rotationScaleMatrix.getRotationMatrix().getM00();
          m01 = rotationScaleMatrix.getRotationMatrix().getM01();

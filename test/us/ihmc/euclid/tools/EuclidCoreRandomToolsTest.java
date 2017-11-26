@@ -20,7 +20,7 @@ public class EuclidCoreRandomToolsTest
    private static final double EPSILON = 1.0e-12;
 
    @Test
-   public void testGenerateRandomVector()
+   public void testNextVector3D()
    {
       for (int i = 0; i < 10000; i++)
       {
@@ -31,7 +31,7 @@ public class EuclidCoreRandomToolsTest
          Vector3D min = new Vector3D(-1, -1, -1);
          Vector3D max = new Vector3D(1, 1, 1);
 
-         EuclidCoreRandomTools.generateRandomVector3D(random);
+         EuclidCoreRandomTools.nextVector3D(random);
 
          assertTrue(min.getX() <= vector.getX());
          assertTrue(vector.getX() <= max.getX());
@@ -49,7 +49,7 @@ public class EuclidCoreRandomToolsTest
    }
 
    @Test
-   public void testRandomizeTuple()
+   public void testRandomizeTuple3D()
    {
       Random random = new Random(6841032L);
       Tuple3DBasics tupleToRandomize = new Point3D();
@@ -124,7 +124,7 @@ public class EuclidCoreRandomToolsTest
    }
 
    @Test
-   public void testRandomizeAxisAngle() throws Exception
+   public void testNextAxisAngle() throws Exception
    {
       Random random = new Random(54654L);
       AxisAngle axisAngle = new AxisAngle();

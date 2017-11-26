@@ -56,7 +56,7 @@ public class Point3D32Test extends Point3DBasicsTest<Point3D32>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Point32(TupleBasics tuple)
          Point3D32 point;
-         Point3D32 point2 = EuclidCoreRandomTools.generateRandomPoint3D32(random);
+         Point3D32 point2 = EuclidCoreRandomTools.nextPoint3D32(random);
          point = new Point3D32(point2);
          EuclidCoreTestTools.assertTuple3DEquals(point, point2, EPS);
       }
@@ -124,8 +124,8 @@ public class Point3D32Test extends Point3DBasicsTest<Point3D32>
 
       for (int i = 0; i < 100; ++i)
       {
-         pointA = EuclidCoreRandomTools.generateRandomPoint3D32(random);
-         pointB = EuclidCoreRandomTools.generateRandomPoint3D32(random);
+         pointA = EuclidCoreRandomTools.nextPoint3D32(random);
+         pointB = EuclidCoreRandomTools.nextPoint3D32(random);
 
          if (((Point3DReadOnly) pointA).geometricallyEquals(pointB, getEpsilon()))
          {
@@ -147,7 +147,7 @@ public class Point3D32Test extends Point3DBasicsTest<Point3D32>
    @Override
    public Point3D32 createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomPoint3D32(random);
+      return EuclidCoreRandomTools.nextPoint3D32(random);
    }
 
    @Override

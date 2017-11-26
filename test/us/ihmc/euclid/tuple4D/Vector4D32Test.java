@@ -55,19 +55,19 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
       }
 
       { // Test Vector4D32(QuaternionReadOnly quaternion)
-         Quaternion32 quaternion = EuclidCoreRandomTools.generateRandomQuaternion32(random);
+         Quaternion32 quaternion = EuclidCoreRandomTools.nextQuaternion32(random);
          Vector4D32 vector = new Vector4D32(quaternion);
          EuclidCoreTestTools.assertTuple4DEquals(quaternion, vector, EPS);
       }
 
       { // Test Vector4D32(Tuple4DReadOnly other)
-         Tuple4DReadOnly quaternion = EuclidCoreRandomTools.generateRandomQuaternion32(random);
+         Tuple4DReadOnly quaternion = EuclidCoreRandomTools.nextQuaternion32(random);
          Vector4D32 vector = new Vector4D32(quaternion);
          EuclidCoreTestTools.assertTuple4DEquals(quaternion, vector, EPS);
       }
 
       { // Test Vector4D(Vector3DReadOnly vector3D)
-         Vector3DReadOnly vector3D = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3DReadOnly vector3D = EuclidCoreRandomTools.nextVector3D(random);
          Vector4D32 vector = new Vector4D32(vector3D);
          for (int i = 0; i < 3; i++)
             assertTrue(vector.getElement32(i) == vector3D.getElement32(i));
@@ -75,7 +75,7 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
       }
 
       { // Test Vector4D(Point3DReadOnly vector3D)
-         Point3DReadOnly point3D = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         Point3DReadOnly point3D = EuclidCoreRandomTools.nextPoint3D(random);
          Vector4D32 vector = new Vector4D32(point3D);
          for (int i = 0; i < 3; i++)
             assertTrue(vector.getElement32(i) == point3D.getElement32(i));
@@ -115,8 +115,8 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
 
       for (int i = 0; i < 100; ++i)
       {
-         vectorA = EuclidCoreRandomTools.generateRandomVector4D32(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector4D32(random);
+         vectorA = EuclidCoreRandomTools.nextVector4D32(random);
+         vectorB = EuclidCoreRandomTools.nextVector4D32(random);
 
          if (((Vector4DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
          {
@@ -138,7 +138,7 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
    @Override
    public Vector4D32 createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomVector4D32(random);
+      return EuclidCoreRandomTools.nextVector4D32(random);
    }
 
    @Override

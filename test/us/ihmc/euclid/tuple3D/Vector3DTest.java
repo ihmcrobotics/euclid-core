@@ -93,8 +93,8 @@ public class Vector3DTest extends Vector3DBasicsTest<Vector3D>
 
       for (int i = 0; i < 100; ++i)
       {
-         vectorA = EuclidCoreRandomTools.generateRandomVector3D(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector3D(random);
+         vectorA = EuclidCoreRandomTools.nextVector3D(random);
+         vectorB = EuclidCoreRandomTools.nextVector3D(random);
 
          if (((Vector3DReadOnly) vectorA).geometricallyEquals(vectorB, getEpsilon()))
          {
@@ -116,7 +116,7 @@ public class Vector3DTest extends Vector3DBasicsTest<Vector3D>
    @Override
    public Vector3D createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomRotationVector(random);
+      return EuclidCoreRandomTools.nextRotationVector(random);
    }
 
    @Override

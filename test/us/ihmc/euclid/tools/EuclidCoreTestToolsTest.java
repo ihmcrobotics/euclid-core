@@ -48,20 +48,20 @@ public class EuclidCoreTestToolsTest
 
       for (int i = 0; i < ITERATIONS; i++)
       {
-         Quaternion q1 = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion q1 = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion q2 = new Quaternion();
 
          Quaternion qDiff = new Quaternion();
          AxisAngle axisAngleDiff = new AxisAngle();
 
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random, EPSILON);
-         axisAngleDiff.set(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angle);
+         double angle = EuclidCoreRandomTools.nextDouble(random, EPSILON);
+         axisAngleDiff.set(EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0), angle);
          qDiff.set(axisAngleDiff);
          q2.multiply(q1, qDiff);
          EuclidCoreTestTools.assertQuaternionEqualsUsingDifference(q1, q2, EPSILON);
 
-         angle = 2.0 * Math.PI + EuclidCoreRandomTools.generateRandomDouble(random, EPSILON);
-         axisAngleDiff.set(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angle);
+         angle = 2.0 * Math.PI + EuclidCoreRandomTools.nextDouble(random, EPSILON);
+         axisAngleDiff.set(EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0), angle);
          qDiff.set(axisAngleDiff);
          q2.multiply(q1, qDiff);
          EuclidCoreTestTools.assertQuaternionEqualsUsingDifference(q1, q2, EPSILON);
@@ -69,15 +69,15 @@ public class EuclidCoreTestToolsTest
 
       for (int i = 0; i < ITERATIONS; i++)
       {
-         Quaternion q1 = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion q1 = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion q2 = new Quaternion();
 
          Quaternion qDiff = new Quaternion();
          AxisAngle axisAngleDiff = new AxisAngle();
 
-         double delta = EuclidCoreRandomTools.generateRandomDouble(random, 5.0 * EPSILON);
+         double delta = EuclidCoreRandomTools.nextDouble(random, 5.0 * EPSILON);
          double angle = delta;
-         axisAngleDiff.set(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angle);
+         axisAngleDiff.set(EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0), angle);
          qDiff.set(axisAngleDiff);
          q2.multiply(q1, qDiff);
 
@@ -101,7 +101,7 @@ public class EuclidCoreTestToolsTest
          }
 
          angle = 2.0 * Math.PI + delta;
-         axisAngleDiff.set(EuclidCoreRandomTools.generateRandomVector3DWithFixedLength(random, 1.0), angle);
+         axisAngleDiff.set(EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0), angle);
          qDiff.set(axisAngleDiff);
          q2.multiply(q1, qDiff);
          if (Math.abs(delta) < EPSILON)
@@ -140,25 +140,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
          double[] actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          double[] expected = null;
-         double[] actual = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         double[] actual = EuclidCoreRandomTools.nextYawPitchRoll(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
-         double[] actual = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] actual = EuclidCoreRandomTools.nextYawPitchRoll(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
          double[] actual = expected.clone();
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -178,25 +178,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
          double[] actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          double[] expected = null;
-         double[] actual = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         double[] actual = EuclidCoreRandomTools.nextYawPitchRoll(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
-         double[] actual = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] actual = EuclidCoreRandomTools.nextYawPitchRoll(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.generateRandomYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
          double[] actual = expected.clone();
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -216,25 +216,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
          Vector3D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Vector3D expected = null;
-         Vector3D actual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D actual = EuclidCoreRandomTools.nextVector3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
-         Vector3D actual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
+         Vector3D actual = EuclidCoreRandomTools.nextVector3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
          Vector3D actual = new Vector3D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -254,25 +254,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Vector2D expected = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D expected = EuclidCoreRandomTools.nextVector2D(random);
          Vector2D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Vector2D expected = null;
-         Vector2D actual = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D actual = EuclidCoreRandomTools.nextVector2D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector2D expected = EuclidCoreRandomTools.generateRandomVector2D(random);
-         Vector2D actual = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D expected = EuclidCoreRandomTools.nextVector2D(random);
+         Vector2D actual = EuclidCoreRandomTools.nextVector2D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector2D expected = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D expected = EuclidCoreRandomTools.nextVector2D(random);
          Vector2D actual = new Vector2D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -292,25 +292,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Point2D expected = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         Point2D expected = EuclidCoreRandomTools.nextPoint2D(random);
          Point2D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Point2D expected = null;
-         Point2D actual = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         Point2D actual = EuclidCoreRandomTools.nextPoint2D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Point2D expected = EuclidCoreRandomTools.generateRandomPoint2D(random);
-         Point2D actual = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         Point2D expected = EuclidCoreRandomTools.nextPoint2D(random);
+         Point2D actual = EuclidCoreRandomTools.nextPoint2D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Point2D expected = EuclidCoreRandomTools.generateRandomPoint2D(random);
+         Point2D expected = EuclidCoreRandomTools.nextPoint2D(random);
          Point2D actual = new Point2D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -330,25 +330,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Vector2D expected = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D expected = EuclidCoreRandomTools.nextVector2D(random);
          Vector2D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Vector2D expected = null;
-         Vector2D actual = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D actual = EuclidCoreRandomTools.nextVector2D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector2D expected = EuclidCoreRandomTools.generateRandomVector2D(random);
-         Vector2D actual = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D expected = EuclidCoreRandomTools.nextVector2D(random);
+         Vector2D actual = EuclidCoreRandomTools.nextVector2D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector2D expected = EuclidCoreRandomTools.generateRandomVector2D(random);
+         Vector2D expected = EuclidCoreRandomTools.nextVector2D(random);
          Vector2D actual = new Vector2D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -368,25 +368,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
          Vector3D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Vector3D expected = null;
-         Vector3D actual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D actual = EuclidCoreRandomTools.nextVector3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
-         Vector3D actual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
+         Vector3D actual = EuclidCoreRandomTools.nextVector3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
          Vector3D actual = new Vector3D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -406,25 +406,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Point3D expected = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         Point3D expected = EuclidCoreRandomTools.nextPoint3D(random);
          Point3D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Point3D expected = null;
-         Point3D actual = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         Point3D actual = EuclidCoreRandomTools.nextPoint3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Point3D expected = EuclidCoreRandomTools.generateRandomPoint3D(random);
-         Point3D actual = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         Point3D expected = EuclidCoreRandomTools.nextPoint3D(random);
+         Point3D actual = EuclidCoreRandomTools.nextPoint3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Point3D expected = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         Point3D expected = EuclidCoreRandomTools.nextPoint3D(random);
          Point3D actual = new Point3D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -444,25 +444,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
          Vector3D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Vector3D expected = null;
-         Vector3D actual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D actual = EuclidCoreRandomTools.nextVector3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
-         Vector3D actual = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
+         Vector3D actual = EuclidCoreRandomTools.nextVector3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector3D expected = EuclidCoreRandomTools.generateRandomVector3D(random);
+         Vector3D expected = EuclidCoreRandomTools.nextVector3D(random);
          Vector3D actual = new Vector3D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -482,25 +482,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Vector4D expected = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4D expected = EuclidCoreRandomTools.nextVector4D(random);
          Vector4D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Vector4D expected = null;
-         Vector4D actual = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4D actual = EuclidCoreRandomTools.nextVector4D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector4D expected = EuclidCoreRandomTools.generateRandomVector4D(random);
-         Vector4D actual = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4D expected = EuclidCoreRandomTools.nextVector4D(random);
+         Vector4D actual = EuclidCoreRandomTools.nextVector4D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector4D expected = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4D expected = EuclidCoreRandomTools.nextVector4D(random);
          Vector4D actual = new Vector4D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -520,25 +520,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Vector4D expected = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4D expected = EuclidCoreRandomTools.nextVector4D(random);
          Vector4D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Vector4D expected = null;
-         Vector4D actual = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4D actual = EuclidCoreRandomTools.nextVector4D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector4D expected = EuclidCoreRandomTools.generateRandomVector4D(random);
-         Vector4D actual = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4D expected = EuclidCoreRandomTools.nextVector4D(random);
+         Vector4D actual = EuclidCoreRandomTools.nextVector4D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Vector4D expected = EuclidCoreRandomTools.generateRandomVector4D(random);
+         Vector4D expected = EuclidCoreRandomTools.nextVector4D(random);
          Vector4D actual = new Vector4D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -558,25 +558,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Matrix3D expected = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D expected = EuclidCoreRandomTools.nextMatrix3D(random);
          Matrix3D actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Matrix3D expected = null;
-         Matrix3D actual = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D actual = EuclidCoreRandomTools.nextMatrix3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Matrix3D expected = EuclidCoreRandomTools.generateRandomMatrix3D(random);
-         Matrix3D actual = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D expected = EuclidCoreRandomTools.nextMatrix3D(random);
+         Matrix3D actual = EuclidCoreRandomTools.nextMatrix3D(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Matrix3D expected = EuclidCoreRandomTools.generateRandomMatrix3D(random);
+         Matrix3D expected = EuclidCoreRandomTools.nextMatrix3D(random);
          Matrix3D actual = new Matrix3D(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -596,25 +596,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         RotationMatrix expected = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expected = EuclidCoreRandomTools.nextRotationMatrix(random);
          RotationMatrix actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          RotationMatrix expected = null;
-         RotationMatrix actual = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix actual = EuclidCoreRandomTools.nextRotationMatrix(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         RotationMatrix expected = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
-         RotationMatrix actual = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expected = EuclidCoreRandomTools.nextRotationMatrix(random);
+         RotationMatrix actual = EuclidCoreRandomTools.nextRotationMatrix(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         RotationMatrix expected = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expected = EuclidCoreRandomTools.nextRotationMatrix(random);
          RotationMatrix actual = new RotationMatrix(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -634,25 +634,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Quaternion expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion expected = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Quaternion expected = null;
-         Quaternion actual = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion actual = EuclidCoreRandomTools.nextQuaternion(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Quaternion expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
-         Quaternion actual = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion expected = EuclidCoreRandomTools.nextQuaternion(random);
+         Quaternion actual = EuclidCoreRandomTools.nextQuaternion(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Quaternion expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion expected = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion actual = new Quaternion(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -672,25 +672,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         Quaternion expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion expected = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          Quaternion expected = null;
-         Quaternion actual = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion actual = EuclidCoreRandomTools.nextQuaternion(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Quaternion expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
-         Quaternion actual = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion expected = EuclidCoreRandomTools.nextQuaternion(random);
+         Quaternion actual = EuclidCoreRandomTools.nextQuaternion(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         Quaternion expected = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         Quaternion expected = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion actual = new Quaternion(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -710,25 +710,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         AxisAngle expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         AxisAngle expected = EuclidCoreRandomTools.nextAxisAngle(random);
          AxisAngle actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          AxisAngle expected = null;
-         AxisAngle actual = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         AxisAngle actual = EuclidCoreRandomTools.nextAxisAngle(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         AxisAngle expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
-         AxisAngle actual = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         AxisAngle expected = EuclidCoreRandomTools.nextAxisAngle(random);
+         AxisAngle actual = EuclidCoreRandomTools.nextAxisAngle(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         AxisAngle expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         AxisAngle expected = EuclidCoreRandomTools.nextAxisAngle(random);
          AxisAngle actual = new AxisAngle(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -748,25 +748,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         AxisAngle expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         AxisAngle expected = EuclidCoreRandomTools.nextAxisAngle(random);
          AxisAngle actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          AxisAngle expected = null;
-         AxisAngle actual = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         AxisAngle actual = EuclidCoreRandomTools.nextAxisAngle(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         AxisAngle expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
-         AxisAngle actual = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         AxisAngle expected = EuclidCoreRandomTools.nextAxisAngle(random);
+         AxisAngle actual = EuclidCoreRandomTools.nextAxisAngle(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         AxisAngle expected = EuclidCoreRandomTools.generateRandomAxisAngle(random);
+         AxisAngle expected = EuclidCoreRandomTools.nextAxisAngle(random);
          AxisAngle actual = new AxisAngle(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -786,25 +786,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         RigidBodyTransform expected = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform expected = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          RigidBodyTransform actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          RigidBodyTransform expected = null;
-         RigidBodyTransform actual = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform actual = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         RigidBodyTransform expected = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
-         RigidBodyTransform actual = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform expected = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+         RigidBodyTransform actual = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         RigidBodyTransform expected = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform expected = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          RigidBodyTransform actual = new RigidBodyTransform(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -824,25 +824,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         RigidBodyTransform expected = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform expected = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          RigidBodyTransform actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          RigidBodyTransform expected = null;
-         RigidBodyTransform actual = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform actual = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         RigidBodyTransform expected = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
-         RigidBodyTransform actual = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform expected = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+         RigidBodyTransform actual = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         RigidBodyTransform expected = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform expected = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          RigidBodyTransform actual = new RigidBodyTransform(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -862,25 +862,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         QuaternionBasedTransform expected = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform expected = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          QuaternionBasedTransform actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          QuaternionBasedTransform expected = null;
-         QuaternionBasedTransform actual = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform actual = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         QuaternionBasedTransform expected = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
-         QuaternionBasedTransform actual = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform expected = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
+         QuaternionBasedTransform actual = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         QuaternionBasedTransform expected = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform expected = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          QuaternionBasedTransform actual = new QuaternionBasedTransform(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -900,25 +900,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         QuaternionBasedTransform expected = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform expected = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          QuaternionBasedTransform actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          QuaternionBasedTransform expected = null;
-         QuaternionBasedTransform actual = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform actual = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         QuaternionBasedTransform expected = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
-         QuaternionBasedTransform actual = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform expected = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
+         QuaternionBasedTransform actual = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         QuaternionBasedTransform expected = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform expected = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          QuaternionBasedTransform actual = new QuaternionBasedTransform(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -938,25 +938,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.nextAffineTransform(random);
          AffineTransform actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          AffineTransform expected = null;
-         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.nextAffineTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
-         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.nextAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.nextAffineTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.nextAffineTransform(random);
          AffineTransform actual = new AffineTransform(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -976,25 +976,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.nextAffineTransform(random);
          AffineTransform actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          AffineTransform expected = null;
-         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.nextAffineTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
-         AffineTransform actual = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.nextAffineTransform(random);
+         AffineTransform actual = EuclidCoreRandomTools.nextAffineTransform(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         AffineTransform expected = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform expected = EuclidCoreRandomTools.nextAffineTransform(random);
          AffineTransform actual = new AffineTransform(expected);
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }

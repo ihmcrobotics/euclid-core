@@ -66,7 +66,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // set(Matrix3DReadOnly other)
-         RotationMatrix expectedMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expectedMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          T actualMatrix = createEmptyMatrix();
          actualMatrix.set(expectedMatrix);
          EuclidCoreTestTools.assertMatrix3DEquals(expectedMatrix, actualMatrix, SMALL_EPS);
@@ -74,7 +74,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // set(double[] matrixArray)
-         RotationMatrix expectedMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expectedMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          double[] array = new double[40];
          expectedMatrix.get(array);
          T actualMatrix = createEmptyMatrix();
@@ -84,7 +84,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // set(int startIndex, double[] matrixArray)
-         RotationMatrix expectedMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expectedMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          double[] array = new double[40];
          int startIndex = random.nextInt(array.length - 9);
          expectedMatrix.get(startIndex, array);
@@ -95,7 +95,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // set(DenseMatrix64F matrix)
-         RotationMatrix expectedMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expectedMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(30, 30);
          expectedMatrix.get(denseMatrix);
          T actualMatrix = createEmptyMatrix();
@@ -105,7 +105,7 @@ public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matri
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // set(int startRow, int startColumn, DenseMatrix64F matrix)
-         RotationMatrix expectedMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix expectedMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          DenseMatrix64F denseMatrix = new DenseMatrix64F(30, 30);
          int startRow = random.nextInt(denseMatrix.getNumRows() - 3);
          int startColumn = random.nextInt(denseMatrix.getNumCols() - 3);

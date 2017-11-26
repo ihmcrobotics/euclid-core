@@ -32,7 +32,7 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion32(QuaternionBasics other)
-         quaternion = quaternionCopy = EuclidCoreRandomTools.generateRandomQuaternion32(random);
+         quaternion = quaternionCopy = EuclidCoreRandomTools.nextQuaternion32(random);
          Quaternion32 quaternion2 = new Quaternion32(quaternion);
 
          EuclidCoreTestTools.assertQuaternionEquals(quaternion, quaternion2, EPS);
@@ -41,7 +41,7 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion32(float[] quaternionArray)
-         expected = EuclidCoreRandomTools.generateRandomQuaternion32(random);
+         expected = EuclidCoreRandomTools.nextQuaternion32(random);
 
          float[] quaternionArray;
          quaternionArray = new float[] {expected.getX32(), expected.getY32(), expected.getZ32(), expected.getS32()};
@@ -54,7 +54,7 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion32(RotationMatrix rotationMatrix) about X-axis
          RotationMatrix rotationMatrix, rotationMatrixCopy;
-         rotationMatrix = rotationMatrixCopy = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         rotationMatrix = rotationMatrixCopy = EuclidCoreRandomTools.nextRotationMatrix(random);
 
          quaternion = new Quaternion32(rotationMatrix);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expected);
@@ -66,7 +66,7 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion32(VectorBasics rotationVector)
          Vector3D rotationVector, rotationVectorCopy;
-         rotationVector = rotationVectorCopy = EuclidCoreRandomTools.generateRandomRotationVector(random);
+         rotationVector = rotationVectorCopy = EuclidCoreRandomTools.nextRotationVector(random);
 
          quaternion = new Quaternion32(rotationVector);
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expected);
@@ -77,7 +77,7 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test Quaternion(double x, double y, double z, double s)
-         expected = EuclidCoreRandomTools.generateRandomQuaternion32(random);
+         expected = EuclidCoreRandomTools.nextQuaternion32(random);
          quaternion = new Quaternion32(expected.getX32(), expected.getY32(), expected.getZ32(), expected.getS32());
 
          EuclidCoreTestTools.assertQuaternionEquals(quaternion, expected, EPS);
@@ -88,7 +88,7 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
    public void testHashCode() throws Exception
    {
       Random random = new Random(621541L);
-      Quaternion32 q = EuclidCoreRandomTools.generateRandomQuaternion32(random);
+      Quaternion32 q = EuclidCoreRandomTools.nextQuaternion32(random);
 
       int newHashCode, previousHashCode;
       newHashCode = q.hashCode();
@@ -133,7 +133,7 @@ public class Quaternion32Test extends QuaternionBasicsTest<Quaternion32>
    @Override
    public Quaternion32 createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomQuaternion32(random);
+      return EuclidCoreRandomTools.nextQuaternion32(random);
    }
 
    @Override

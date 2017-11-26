@@ -110,8 +110,8 @@ public class Point3DTest extends Point3DBasicsTest<Point3D>
 
       for (int i = 0; i < 100; ++i)
       {
-         pointA = EuclidCoreRandomTools.generateRandomPoint3D(random);
-         pointB = EuclidCoreRandomTools.generateRandomPoint3D(random);
+         pointA = EuclidCoreRandomTools.nextPoint3D(random);
+         pointB = EuclidCoreRandomTools.nextPoint3D(random);
 
          if (((Point3DReadOnly) pointA).geometricallyEquals(pointB, getEpsilon()))
          {
@@ -133,7 +133,7 @@ public class Point3DTest extends Point3DBasicsTest<Point3D>
    @Override
    public Point3D createRandomTuple(Random random)
    {
-      return EuclidCoreRandomTools.generateRandomPoint3D(random);
+      return EuclidCoreRandomTools.nextPoint3D(random);
    }
 
    @Override

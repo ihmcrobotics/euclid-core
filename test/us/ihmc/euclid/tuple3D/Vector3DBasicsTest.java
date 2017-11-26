@@ -27,7 +27,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          T vector1 = createRandomTuple(random);
          double length1 = vector1.length();
          T vector2 = createEmptyTuple();
-         double scalar = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scalar = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          vector2.setAndScale(scalar, vector1);
          double expectedLength2 = scalar * length1;
          double actualLength2 = vector2.length();
@@ -45,7 +45,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          T vector1 = createRandomTuple(random);
          double length1 = vector1.length();
          T vector2 = createEmptyTuple();
-         double scalar = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double scalar = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          vector2.setAndScale(scalar, vector1);
          double expectedLength2 = scalar * length1;
          double actualLength2 = vector2.lengthSquared();
@@ -61,14 +61,14 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T vector1 = createRandomTuple(random);
-         vector1.scale(EuclidCoreRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3D(random, vector1, true);
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         vector1.scale(EuclidCoreRandomTools.nextDouble(random, 2.0));
+         Vector3DBasics axis = EuclidCoreRandomTools.nextOrthogonalVector3D(random, vector1, true);
+         double angle = EuclidCoreRandomTools.nextDouble(random, Math.PI);
 
          T vector2 = createEmptyTuple();
          RotationMatrix rotationMatrix = new RotationMatrix(new AxisAngle(axis, angle));
          rotationMatrix.transform(vector1, vector2);
-         vector2.scale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0));
+         vector2.scale(EuclidCoreRandomTools.nextDouble(random, 0.0, 2.0));
 
          double expectedDot = vector1.length() * vector2.length() * Math.cos(angle);
          double actualDot = vector1.dot(vector2);
@@ -84,14 +84,14 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          T vector1 = createRandomTuple(random);
-         vector1.scale(EuclidCoreRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3D(random, vector1, true);
-         double expectedAngle = EuclidCoreRandomTools.generateRandomDouble(random, Math.PI);
+         vector1.scale(EuclidCoreRandomTools.nextDouble(random, 2.0));
+         Vector3DBasics axis = EuclidCoreRandomTools.nextOrthogonalVector3D(random, vector1, true);
+         double expectedAngle = EuclidCoreRandomTools.nextDouble(random, Math.PI);
 
          T vector2 = createEmptyTuple();
          RotationMatrix rotationMatrix = new RotationMatrix(new AxisAngle(axis, expectedAngle));
          rotationMatrix.transform(vector1, vector2);
-         vector2.scale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0));
+         vector2.scale(EuclidCoreRandomTools.nextDouble(random, 0.0, 2.0));
 
          double actualAngle = vector1.angle(vector2);
          assertEquals(Math.abs(expectedAngle), actualAngle, 20.0 * getEpsilon());
@@ -106,14 +106,14 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // cross(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2)
          T vector1 = createRandomTuple(random);
-         vector1.scale(EuclidCoreRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3D(random, vector1, true);
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Math.PI);
+         vector1.scale(EuclidCoreRandomTools.nextDouble(random, 2.0));
+         Vector3DBasics axis = EuclidCoreRandomTools.nextOrthogonalVector3D(random, vector1, true);
+         double angle = EuclidCoreRandomTools.nextDouble(random, 0.0, Math.PI);
 
          T vector2 = createEmptyTuple();
          RotationMatrix rotationMatrix = new RotationMatrix(new AxisAngle(axis, angle));
          rotationMatrix.transform(vector1, vector2);
-         vector2.scale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0));
+         vector2.scale(EuclidCoreRandomTools.nextDouble(random, 0.0, 2.0));
 
          T vector3 = createEmptyTuple();
          vector3.cross(vector1, vector2);
@@ -129,14 +129,14 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // cross(Tuple3DReadOnly other)
          T vector1 = createRandomTuple(random);
-         vector1.scale(EuclidCoreRandomTools.generateRandomDouble(random, 2.0));
-         Vector3DBasics axis = EuclidCoreRandomTools.generateRandomOrthogonalVector3D(random, vector1, true);
-         double angle = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Math.PI);
+         vector1.scale(EuclidCoreRandomTools.nextDouble(random, 2.0));
+         Vector3DBasics axis = EuclidCoreRandomTools.nextOrthogonalVector3D(random, vector1, true);
+         double angle = EuclidCoreRandomTools.nextDouble(random, 0.0, Math.PI);
 
          T vector2 = createEmptyTuple();
          RotationMatrix rotationMatrix = new RotationMatrix(new AxisAngle(axis, angle));
          rotationMatrix.transform(vector1, vector2);
-         vector2.scale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 2.0));
+         vector2.scale(EuclidCoreRandomTools.nextDouble(random, 0.0, 2.0));
 
          T expectedVector = createEmptyTuple();
          expectedVector.cross(vector1, vector2);
@@ -155,10 +155,10 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test with maxLength > EPS_MAX_LENGTH
-         double maxLength = EuclidCoreRandomTools.generateRandomDouble(random, Vector3DBasics.EPS_MAX_LENGTH, 10.0);
-         double vectorLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double maxLength = EuclidCoreRandomTools.nextDouble(random, Vector3DBasics.EPS_MAX_LENGTH, 10.0);
+         double vectorLength = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          T expectedVector = createTuple(1.0, 0.0, 0.0);
-         RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          rotationMatrix.transform(expectedVector, expectedVector);
          T actualVector = createEmptyTuple();
          actualVector.setAndScale(vectorLength, expectedVector);
@@ -179,10 +179,10 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test with maxLength < EPS_MAX_LENGTH
-         double maxLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, Vector3DBasics.EPS_MAX_LENGTH);
-         double vectorLength = EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0);
+         double maxLength = EuclidCoreRandomTools.nextDouble(random, 0.0, Vector3DBasics.EPS_MAX_LENGTH);
+         double vectorLength = EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0);
          T actualVector = createTuple(vectorLength, 0.0, 0.0);
-         RotationMatrix rotationMatrix = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         RotationMatrix rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          rotationMatrix.transform(actualVector, actualVector);
 
          assertTrue(actualVector.clipToMaxLength(maxLength));
@@ -208,7 +208,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
          T vector2 = createRandomTuple(random);
          vector2.normalize();
-         vector1.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
+         vector1.setAndScale(EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0), vector2);
          vector1.normalize();
          EuclidCoreTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
 
@@ -232,7 +232,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          vector2 = createRandomTuple(random);
          vector2.normalize();
          T vector3 = createEmptyTuple();
-         vector3.setAndScale(EuclidCoreRandomTools.generateRandomDouble(random, 0.0, 10.0), vector2);
+         vector3.setAndScale(EuclidCoreRandomTools.nextDouble(random, 0.0, 10.0), vector2);
          vector1.setAndNormalize(vector3);
          EuclidCoreTestTools.assertTuple3DEquals(vector1, vector2, getEpsilon());
 
@@ -251,7 +251,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform transform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -265,7 +265,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -279,7 +279,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform transform = EuclidCoreRandomTools.nextAffineTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -299,7 +299,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         RigidBodyTransform transform = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         RigidBodyTransform transform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -313,7 +313,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         QuaternionBasedTransform transform = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         QuaternionBasedTransform transform = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -327,7 +327,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         AffineTransform transform = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         AffineTransform transform = EuclidCoreRandomTools.nextAffineTransform(random);
          T original = createRandomTuple(random);
          T expected = createEmptyTuple();
          T actual = createEmptyTuple();
@@ -349,8 +349,8 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
 
       for (int i = 0; i < 100; ++i)
       {
-         vectorA = EuclidCoreRandomTools.generateRandomVector3D(random);
-         vectorB = EuclidCoreRandomTools.generateRandomVector3D(random);
+         vectorA = EuclidCoreRandomTools.nextVector3D(random);
+         vectorB = EuclidCoreRandomTools.nextVector3D(random);
 
          if (vectorA.epsilonEquals(vectorB, getEpsilon()))
          {
@@ -369,7 +369,7 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
             }
          }
 
-         vectorA = EuclidCoreRandomTools.generateRandomVector3D(random);
+         vectorA = EuclidCoreRandomTools.nextVector3D(random);
          vectorB = new Vector3D(vectorA);
 
          assertTrue(vectorA.geometricallyEquals(vectorB, 0));
