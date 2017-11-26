@@ -6,6 +6,7 @@ import static us.ihmc.euclid.tools.EuclidCoreIOTools.getMatrixString;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.getQuaternionBasedTransformString;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.getRigidBodyTransformString;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.getStringFormat;
+import static us.ihmc.euclid.tools.EuclidCoreIOTools.getStringOf;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.getTuple2DString;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.getTuple3DString;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.getTuple4DString;
@@ -16,13 +17,17 @@ import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
+import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple2D.Vector2D;
+import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.Vector3D;
+import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
@@ -31,6 +36,7 @@ import us.ihmc.euclid.tuple4D.Vector4D;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
+import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
 public abstract class EuclidCoreTestTools
 {
@@ -119,6 +125,32 @@ public abstract class EuclidCoreTestTools
     */
    public static void assertYawPitchRollEquals(String messagePrefix, double[] expected, double[] actual, double epsilon)
    {
+      assertYawPitchRollEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two sets of yaw-pitch-roll angles are equal to an
+    * {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected set of yaw-pitch-roll angles. Not modified.
+    * @param actual the actual set of yaw-pitch-roll angles. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal. If only one of
+    *            the arguments is equal to {@code null}. If at least one of the arguments has a
+    *            length different than 3.
+    */
+   public static void assertYawPitchRollEquals(String messagePrefix, double[] expected, double[] actual, double epsilon, String format)
+   {
       if (expected == null && actual == null)
          return;
 
@@ -139,7 +171,94 @@ public abstract class EuclidCoreTestTools
       }
       catch (AssertionError e)
       {
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+      }
+   }
+
+   /**
+    * Asserts on a per component basis that the two sets of yaw-pitch-roll angles represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected set of yaw-pitch-roll angles. Not modified.
+    * @param actual the actual set of yaw-pitch-roll angles. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two sets of yaw-pitch-roll angles do not represent the same
+    *            geometry. If only one of the arguments is equal to {@code null}. If at least one of
+    *            the arguments has a length different than 3.
+    */
+   public static void assertYawPitchRollGeometricallyEquals(double[] expected, double[] actual, double epsilon)
+   {
+      assertYawPitchRollGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two sets of yaw-pitch-roll angles represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected set of yaw-pitch-roll angles. Not modified.
+    * @param actual the actual set of yaw-pitch-roll angles. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two sets of yaw-pitch-roll angles do not represent the same
+    *            geometry. If only one of the arguments is equal to {@code null}. If at least one of
+    *            the arguments has a length different than 3.
+    */
+   public static void assertYawPitchRollGeometricallyEquals(String messagePrefix, double[] expected, double[] actual, double epsilon)
+   {
+      assertYawPitchRollGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two sets of yaw-pitch-roll angles represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected set of yaw-pitch-roll angles. Not modified.
+    * @param actual the actual set of yaw-pitch-roll angles. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two sets of yaw-pitch-roll angles do not represent the same
+    *            geometry. If only one of the arguments is equal to {@code null}. If at least one of
+    *            the arguments has a length different than 3.
+    */
+   public static void assertYawPitchRollGeometricallyEquals(String messagePrefix, double[] expected, double[] actual, double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
          throwNotEqualAssertionError(messagePrefix, Arrays.toString(expected), Arrays.toString(actual));
+
+      if (expected.length != 3)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected size for the expected argument: " + expected.length));
+
+      if (actual.length != 3)
+         throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected size for the actual argument: " + actual.length));
+
+      Quaternion expectedQuaternion = new Quaternion();
+      Quaternion actualQuaternion = new Quaternion();
+      expectedQuaternion.setYawPitchRoll(expected);
+      actualQuaternion.setYawPitchRoll(actual);
+
+      try
+      {
+         assertQuaternionGeometricallyEquals(messagePrefix, expectedQuaternion, actualQuaternion, epsilon, format);
+      }
+      catch (AssertionError e)
+      {
+         double difference = expectedQuaternion.distance(actualQuaternion);
+         difference = Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(difference));
+         throwNotEqualAssertionError(messagePrefix, expected, actual, difference, format);
       }
    }
 
@@ -153,6 +272,10 @@ public abstract class EuclidCoreTestTools
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
+    *
+    * @deprecated Use
+    *             {@link #assertRotationVectorEquals(Vector3DReadOnly, Vector3DReadOnly, double)}
+    *             instead. This method will be removed in a future version.
     *
     * @param expected the expected rotation vector. Not modified.
     * @param actual the actual rotation vector. Not modified.
@@ -176,6 +299,10 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertRotationVectorEquals(String, Vector3DReadOnly, Vector3DReadOnly, double)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected rotation vector. Not modified.
     * @param actual the actual rotation vector. Not modified.
@@ -198,6 +325,10 @@ public abstract class EuclidCoreTestTools
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
+    *
+    * @deprecated Use
+    *             {@link #assertRotationVectorEquals(String, Vector3DReadOnly, Vector3DReadOnly, double, String)}
+    *             instead. This method will be removed in a future version.
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected rotation vector. Not modified.
@@ -231,13 +362,102 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis that the two rotation vectors represent the same geometry to
+    * an {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected rotation vector. Not modified.
+    * @param actual the actual rotation vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two rotation vectors do not represent the same geometry. If only
+    *            one of the arguments is equal to {@code null}.
+    */
+   public static void assertRotationVectorGeometricallyEquals(Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon)
+   {
+      assertRotationVectorGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two rotation vectors represent the same geometry to
+    * an {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected rotation vector. Not modified.
+    * @param actual the actual rotation vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two rotation vectors do not represent the same geometry. If only
+    *            one of the arguments is equal to {@code null}.
+    */
+   public static void assertRotationVectorGeometricallyEquals(String messagePrefix, Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon)
+   {
+      assertRotationVectorGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two rotation vectors represent the same geometry to
+    * an {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected rotation vector. Not modified.
+    * @param actual the actual rotation vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two rotation vectors do not represent the same geometry. If only
+    *            one of the arguments is equal to {@code null}.
+    */
+   public static void assertRotationVectorGeometricallyEquals(String messagePrefix, Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon,
+                                                              String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      Quaternion expectedQuaternion = new Quaternion(expected);
+      Quaternion actualQuaternion = new Quaternion(actual);
+
+      try
+      {
+         assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, epsilon);
+      }
+      catch (AssertionError e)
+      {
+         double difference = expectedQuaternion.distance(actualQuaternion);
+         difference = Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(difference));
+         throwNotEqualAssertionError(messagePrefix, expected, actual, difference, format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
     *            to {@code null}.
@@ -254,8 +474,8 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the automated message.
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
     *            to {@code null}.
@@ -272,8 +492,8 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the automated message.
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
@@ -297,13 +517,149 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis that the two points represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected point. Not modified.
+    * @param actual the actual point. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two points do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertPoint2DGeometricallyEquals(Point2DReadOnly expected, Point2DReadOnly actual, double epsilon)
+   {
+      assertPoint2DGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two points represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected point. Not modified.
+    * @param actual the actual point. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two points do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertPoint2DGeometricallyEquals(String messagePrefix, Point2DReadOnly expected, Point2DReadOnly actual, double epsilon)
+   {
+      assertPoint2DGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two points represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected point. Not modified.
+    * @param actual the actual point. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two points do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertPoint2DGeometricallyEquals(String messagePrefix, Point2DReadOnly expected, Point2DReadOnly actual, double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         throwNotEqualAssertionError(messagePrefix, expected, actual, expected.distance(actual), format);
+      }
+   }
+
+   /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector2DGeometricallyEquals(Vector2DReadOnly expected, Vector2DReadOnly actual, double epsilon)
+   {
+      assertVector2DGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector2DGeometricallyEquals(String messagePrefix, Vector2DReadOnly expected, Vector2DReadOnly actual, double epsilon)
+   {
+      assertVector2DGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector2DGeometricallyEquals(String messagePrefix, Vector2DReadOnly expected, Vector2DReadOnly actual, double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         Vector2D difference = new Vector2D(actual);
+         difference.sub(expected);
+         throwNotEqualAssertionError(messagePrefix, expected, actual, difference.length(), format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
     *            to {@code null}.
@@ -320,8 +676,8 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
     *            to {@code null}.
@@ -338,8 +694,8 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
@@ -363,13 +719,149 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis that the two points represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected point. Not modified.
+    * @param actual the actual point. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two points do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertPoint3DGeometricallyEquals(Point3DReadOnly expected, Point3DReadOnly actual, double epsilon)
+   {
+      assertPoint3DGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two points represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected point. Not modified.
+    * @param actual the actual point. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two points do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertPoint3DGeometricallyEquals(String messagePrefix, Point3DReadOnly expected, Point3DReadOnly actual, double epsilon)
+   {
+      assertPoint3DGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two points represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected point. Not modified.
+    * @param actual the actual point. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two points do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertPoint3DGeometricallyEquals(String messagePrefix, Point3DReadOnly expected, Point3DReadOnly actual, double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         throwNotEqualAssertionError(messagePrefix, expected, actual, expected.distance(actual), format);
+      }
+   }
+
+   /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector3DGeometricallyEquals(Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon)
+   {
+      assertVector3DGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector3DGeometricallyEquals(String messagePrefix, Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon)
+   {
+      assertVector3DGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector3DGeometricallyEquals(String messagePrefix, Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         Vector3D difference = new Vector3D(actual);
+         difference.sub(expected);
+         throwNotEqualAssertionError(messagePrefix, expected, actual, difference.length(), format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis that the two tuples are equal to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
     *            to {@code null}.
@@ -386,8 +878,8 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two tuples are not equal. If only one of the arguments is equal
     *            to {@code null}.
@@ -404,8 +896,8 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expected the expected tuple.
-    * @param actual the actual tuple.
+    * @param expected the expected tuple. Not modified.
+    * @param actual the actual tuple. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
@@ -429,13 +921,82 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector4DGeometricallyEquals(Vector4DReadOnly expected, Vector4DReadOnly actual, double epsilon)
+   {
+      assertVector4DGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector4DGeometricallyEquals(String messagePrefix, Vector4DReadOnly expected, Vector4DReadOnly actual, double epsilon)
+   {
+      assertVector4DGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two vectors represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected vector. Not modified.
+    * @param actual the actual vector. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two vectors do not represent the same geometry. If only one of
+    *            the arguments is equal to {@code null}.
+    */
+   public static void assertVector4DGeometricallyEquals(String messagePrefix, Vector4DReadOnly expected, Vector4DReadOnly actual, double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         Vector4D difference = new Vector4D(actual);
+         difference.sub(expected);
+         throwNotEqualAssertionError(messagePrefix, expected, actual, difference.norm(), format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis that the two matrices are equal to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
-    * @param expected the expected matrix.
-    * @param actual the actual matrix.
+    * @param expected the expected matrix. Not modified.
+    * @param actual the actual matrix. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two matrices are not equal. If only one of the arguments is
     *            equal to {@code null}.
@@ -452,8 +1013,8 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expected the expected matrix.
-    * @param actual the actual matrix.
+    * @param expected the expected matrix. Not modified.
+    * @param actual the actual matrix. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two matrices are not equal. If only one of the arguments is
     *            equal to {@code null}.
@@ -470,8 +1031,8 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @param messagePrefix prefix to add to the error message.
-    * @param expected the expected matrix.
-    * @param actual the actual matrix.
+    * @param expected the expected matrix. Not modified.
+    * @param actual the actual matrix. Not modified.
     * @param epsilon the tolerance to use.
     * @param format the format to use for printing each component when an {@code AssertionError} is
     *           thrown.
@@ -489,6 +1050,75 @@ public abstract class EuclidCoreTestTools
       if (!Matrix3DFeatures.epsilonEquals(expected, actual, epsilon))
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+      }
+   }
+
+   /**
+    * Asserts on a per component basis that the two rotation matrices represent the same geometry to
+    * an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected rotation matrix. Not modified.
+    * @param actual the actual rotation matrix. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two rotation matrices do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertRotationMatrixGeometricallyEquals(RotationMatrixReadOnly expected, RotationMatrixReadOnly actual, double epsilon)
+   {
+      assertRotationMatrixGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two rotation matrices represent the same geometry to
+    * an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected rotation matrix. Not modified.
+    * @param actual the actual rotation matrix. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two rotation matrices do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertRotationMatrixGeometricallyEquals(String messagePrefix, RotationMatrixReadOnly expected, RotationMatrixReadOnly actual,
+                                                              double epsilon)
+   {
+      assertRotationMatrixGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two rotation matrices represent the same geometry to
+    * an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected rotation matrix. Not modified.
+    * @param actual the actual rotation matrix. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two rotation matrices do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertRotationMatrixGeometricallyEquals(String messagePrefix, RotationMatrixReadOnly expected, RotationMatrixReadOnly actual,
+                                                              double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         throwNotEqualAssertionError(messagePrefix, expected, actual, expected.distance(actual), format);
       }
    }
 
@@ -808,6 +1438,76 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis that the two quaternions represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternions do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertQuaternionGeometricallyEquals(QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
+   {
+      assertQuaternionGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two quaternions represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternions do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertQuaternionGeometricallyEquals(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
+   {
+      assertQuaternionGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two quaternions represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected quaternion. Not modified.
+    * @param actual the actual quaternion. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two quaternions do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertQuaternionGeometricallyEquals(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon,
+                                                          String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         double difference = expected.distance(actual);
+         difference = Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(difference));
+         throwNotEqualAssertionError(messagePrefix, expected, actual, difference, format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis that the two quaternions are equal to an {@code epsilon}.
     * <p>
     * This method changes the sign of one of the two quaternions when comparing if their dot product
@@ -816,6 +1516,10 @@ public abstract class EuclidCoreTestTools
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
+    *
+    * @deprecated Use
+    *             {@link #assertQuaternionGeometricallyEquals(QuaternionReadOnly, QuaternionReadOnly, double)}
+    *             instead. This method will be removed in a future version.
     *
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
@@ -838,6 +1542,10 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertQuaternionGeometricallyEquals(String, QuaternionReadOnly, QuaternionReadOnly, double)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
@@ -859,6 +1567,10 @@ public abstract class EuclidCoreTestTools
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
+    *
+    * @deprecated Use
+    *             {@link #assertQuaternionGeometricallyEquals(String, QuaternionReadOnly, QuaternionReadOnly, double, String)}
+    *             instead. This method will be removed in a future version.
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion. Not modified.
@@ -893,6 +1605,10 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertQuaternionGeometricallyEquals(QuaternionReadOnly, QuaternionReadOnly, double)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
@@ -910,6 +1626,10 @@ public abstract class EuclidCoreTestTools
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
+    *
+    * @deprecated Use
+    *             {@link #assertQuaternionGeometricallyEquals(String, QuaternionReadOnly, QuaternionReadOnly, double)}
+    *             instead. This method will be removed in a future version.
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion. Not modified.
@@ -929,6 +1649,10 @@ public abstract class EuclidCoreTestTools
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
+    *
+    * @deprecated Use
+    *             {@link #assertQuaternionGeometricallyEquals(String, QuaternionReadOnly, QuaternionReadOnly, double, String)}
+    *             instead. This method will be removed in a future version.
     *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion. Not modified.
@@ -1024,6 +1748,76 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis if the two axis-angles represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two axis-angles do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertAxisAngleGeometricallyEquals(AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon)
+   {
+      assertAxisAngleGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis if the two axis-angles represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two axis-angles do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertAxisAngleGeometricallyEquals(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon)
+   {
+      assertAxisAngleGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis if the two axis-angles represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected axis-angle. Not modified.
+    * @param actual the actual axis-angle. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two axis-angles do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertAxisAngleGeometricallyEquals(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon,
+                                                         String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         double difference = expected.distance(actual);
+         difference = Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(difference));
+         throwNotEqualAssertionError(messagePrefix, expected, actual, difference, format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis if the two axis-angles are equal to an {@code epsilon}.
     * <p>
     * This method changes the sign of one of the two axis-angles when comparing if the dot product
@@ -1033,12 +1827,17 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertAxisAngleGeometricallyEquals(AxisAngleReadOnly, AxisAngleReadOnly, double)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param expected the expected axis-angle. Not modified.
     * @param actual the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
     *            equal to {@code null}.
     */
+   @Deprecated
    public static void assertAxisAngleEqualsSmart(AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon)
    {
       assertAxisAngleEqualsSmart(null, expected, actual, epsilon);
@@ -1054,6 +1853,10 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertAxisAngleGeometricallyEquals(String, AxisAngleReadOnly, AxisAngleReadOnly, double)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected axis-angle. Not modified.
     * @param actual the actual axis-angle. Not modified.
@@ -1061,6 +1864,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
     *            equal to {@code null}.
     */
+   @Deprecated
    public static void assertAxisAngleEqualsSmart(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon)
    {
       assertAxisAngleEqualsSmart(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
@@ -1076,6 +1880,10 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertAxisAngleGeometricallyEquals(String, AxisAngleReadOnly, AxisAngleReadOnly, double, String)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected axis-angle. Not modified.
     * @param actual the actual axis-angle. Not modified.
@@ -1085,6 +1893,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two axis-angles are not equal. If only one of the arguments is
     *            equal to {@code null}.
     */
+   @Deprecated
    public static void assertAxisAngleEqualsSmart(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double epsilon, String format)
    {
       if (expected == null && actual == null)
@@ -1613,6 +2422,74 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis that the two given rigid-body transform represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected rigid-body transform. Not modified.
+    * @param actual the actual rigid-body transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two rigid-body transforms do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertRigidBodyTransformGeometricallyEquals(RigidBodyTransform expected, RigidBodyTransform actual, double epsilon)
+   {
+      assertRigidBodyTransformGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two given rigid-body transform represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected rigid-body transform. Not modified.
+    * @param actual the actual rigid-body transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two rigid-body transforms do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertRigidBodyTransformGeometricallyEquals(String messagePrefix, RigidBodyTransform expected, RigidBodyTransform actual, double epsilon)
+   {
+      assertRigidBodyTransformGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two given rigid-body transform represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected rigid-body transform. Not modified.
+    * @param actual the actual rigid-body transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two rigid-body transforms do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertRigidBodyTransformGeometricallyEquals(String messagePrefix, RigidBodyTransform expected, RigidBodyTransform actual, double epsilon,
+                                                                  String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis that the two quaternion-based transforms are equal to an
     * {@code epsilon}.
     * <p>
@@ -1682,6 +2559,75 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis that the two quaternion-based transforms represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected quaternion-based transform. Not modified.
+    * @param actual the actual quaternion-based transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternion-based transforms do not represent the same
+    *            geometry. If only one of the arguments is equal to {@code null}.
+    */
+   public static void assertQuaternionBasedTransformGeometricallyEquals(QuaternionBasedTransform expected, QuaternionBasedTransform actual, double epsilon)
+   {
+      assertQuaternionBasedTransformGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the two quaternion-based transforms represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected quaternion-based transform. Not modified.
+    * @param actual the actual quaternion-based transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two quaternion-based transforms do not represent the same
+    *            geometry. If only one of the arguments is equal to {@code null}.
+    */
+   public static void assertQuaternionBasedTransformGeometricallyEquals(String messagePrefix, QuaternionBasedTransform expected,
+                                                                        QuaternionBasedTransform actual, double epsilon)
+   {
+      assertQuaternionBasedTransformGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the two quaternion-based transforms represent the same
+    * geometry to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected quaternion-based transform. Not modified.
+    * @param actual the actual quaternion-based transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two quaternion-based transforms do not represent the same
+    *            geometry. If only one of the arguments is equal to {@code null}.
+    */
+   public static void assertQuaternionBasedTransformGeometricallyEquals(String messagePrefix, QuaternionBasedTransform expected,
+                                                                        QuaternionBasedTransform actual, double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis that the two quaternion-based transforms are equal to an
     * {@code epsilon}.
     * <p>
@@ -1692,12 +2638,17 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertQuaternionBasedTransformGeometryEquals(QuaternionBasedTransform, QuaternionBasedTransform, double)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
     *            the arguments is equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionBasedTransformEqualsSmart(QuaternionBasedTransform expected, QuaternionBasedTransform actual, double epsilon)
    {
       assertQuaternionBasedTransformEqualsSmart(null, expected, actual, epsilon);
@@ -1714,6 +2665,10 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertQuaternionBasedTransformGeometryEquals(String, QuaternionBasedTransform, QuaternionBasedTransform, double)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
@@ -1721,6 +2676,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
     *            the arguments is equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionBasedTransformEqualsSmart(String messagePrefix, QuaternionBasedTransform expected, QuaternionBasedTransform actual,
                                                                 double epsilon)
    {
@@ -1738,6 +2694,10 @@ public abstract class EuclidCoreTestTools
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
     *
+    * @deprecated Use
+    *             {@link #assertQuaternionBasedTransformGeometricallyEquals(String, QuaternionBasedTransform, QuaternionBasedTransform, double, String)}
+    *             instead. This method will be removed in a future version.
+    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
@@ -1747,6 +2707,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two quaternion-based transforms are not equal. If only one of
     *            the arguments is equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionBasedTransformEqualsSmart(String messagePrefix, QuaternionBasedTransform expected, QuaternionBasedTransform actual,
                                                                 double epsilon, String format)
    {
@@ -1836,6 +2797,76 @@ public abstract class EuclidCoreTestTools
       }
    }
 
+   /**
+    * Asserts that the two given affine transforms represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected affine transform. Not modified.
+    * @param actual the actual affine transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two affine transforms do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertAffineTransformGeometricallyEquals(AffineTransform expected, AffineTransform actual, double epsilon)
+   {
+      assertAffineTransformGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts that the two given affine transforms represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected affine transform. Not modified.
+    * @param actual the actual affine transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two affine transforms do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertAffineTransformGeometricallyEquals(String messagePrefix, AffineTransform expected, AffineTransform actual, double epsilon)
+   {
+      assertAffineTransformGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts that the two given affine transforms represent the same geometry to an
+    * {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected affine transform. Not modified.
+    * @param actual the actual affine transform. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two affine transforms do not represent the same geometry. If
+    *            only one of the arguments is equal to {@code null}.
+    */
+   public static void assertAffineTransformGeometricallyEquals(String messagePrefix, AffineTransform expected, AffineTransform actual, double epsilon,
+                                                               String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+      }
+   }
+
    private static void throwNotEqualAssertionError(String messagePrefix, Tuple2DReadOnly expected, Tuple2DReadOnly actual, String format)
    {
       String expectedAsString = getTuple2DString(format, expected);
@@ -1885,11 +2916,25 @@ public abstract class EuclidCoreTestTools
       throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString);
    }
 
+   private static void throwNotEqualAssertionError(String messagePrefix, AxisAngleReadOnly expected, AxisAngleReadOnly actual, double difference, String format)
+   {
+      String expectedAsString = getAxisAngleString(format, expected);
+      String actualAsString = getAxisAngleString(format, actual);
+      throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString, Double.toString(difference));
+   }
+
    private static void throwNotEqualAssertionError(String messagePrefix, Matrix3DReadOnly expected, Matrix3DReadOnly actual, String format)
    {
       String expectedAsString = getMatrixString(format, expected);
       String actualAsString = getMatrixString(format, actual);
       throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString);
+   }
+
+   private static void throwNotEqualAssertionError(String messagePrefix, Matrix3DReadOnly expected, Matrix3DReadOnly actual, double difference, String format)
+   {
+      String expectedAsString = getMatrixString(format, expected);
+      String actualAsString = getMatrixString(format, actual);
+      throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString, Double.toString(difference));
    }
 
    private static void throwNotEqualAssertionError(String messagePrefix, AffineTransform expected, AffineTransform actual, String format)
@@ -1911,6 +2956,20 @@ public abstract class EuclidCoreTestTools
       String expectedAsString = getQuaternionBasedTransformString(format, expected);
       String actualAsString = getQuaternionBasedTransformString(format, actual);
       throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString);
+   }
+
+   private static void throwNotEqualAssertionError(String messagePrefix, double[] expected, double[] actual, String format)
+   {
+      String expectedAsString = getStringOf("[", "]", ",", format, expected);
+      String actualAsString = getStringOf("[", "]", ",", format, actual);
+      throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString);
+   }
+
+   private static void throwNotEqualAssertionError(String messagePrefix, double[] expected, double[] actual, double difference, String format)
+   {
+      String expectedAsString = getStringOf("[", "]", ",", format, expected);
+      String actualAsString = getStringOf("[", "]", ",", format, actual);
+      throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString, Double.toString(difference));
    }
 
    private static void throwNotEqualAssertionError(String messagePrefix, String expectedAsString, String actualAsString)
