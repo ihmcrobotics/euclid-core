@@ -1,8 +1,11 @@
 package us.ihmc.euclid.tools;
 
-import static org.junit.Assert.*;
-import static us.ihmc.euclid.tools.EuclidCoreTools.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static us.ihmc.euclid.tools.EuclidCoreTools.EPS_NORM_FAST_SQRT;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import org.junit.Test;
@@ -330,6 +333,59 @@ public class EuclidCoreToolsTest
          double expected = Math.min(a, Math.min(b, c));
          double actual = EuclidCoreTools.min(a, b, c);
          assertTrue(expected == actual);
+      }
+   }
+
+   @Test
+   public void testMed() throws Exception
+   {
+      Random random = new Random(45645L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+         double a = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double b = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double c = EuclidCoreRandomTools.generateRandomDouble(random, 10.0);
+         double[] sorted = {a, b, c};
+         Arrays.sort(sorted);
+         double expected = sorted[1];
+         double actual = EuclidCoreTools.med(a, b, c);
+         if (expected != actual)
+            EuclidCoreTools.med(a, b, c);
+         assertTrue("a = " + a + ", b = " + b + ", c = " + c, expected == actual);
+      }
+   }
+
+   @Test
+   public void testInterpolate() throws Exception
+   {
+      Random random = new Random(3665L);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      { // Test Tuple.interpolate(double a, double b, double alpha)
+         double a = random.nextDouble();
+         double b = random.nextDouble();
+         double alpha = random.nextDouble();
+
+         double result = EuclidCoreTools.interpolate(a, b, alpha);
+         double expected = a + alpha * (b - a);
+         assertEquals(result, expected, 1.0e-10);
+
+         alpha = 0.5;
+         result = EuclidCoreTools.interpolate(a, b, alpha);
+         assertTrue(result == 0.5 * a + 0.5 * b);
+         alpha = 0.0;
+         result = EuclidCoreTools.interpolate(a, b, alpha);
+         assertTrue(result == a);
+         alpha = 1.0;
+         result = EuclidCoreTools.interpolate(a, b, alpha);
+         assertTrue(result == b);
+
+         for (alpha = -2.0; alpha <= 2.0; alpha += 0.1)
+         {
+            result = EuclidCoreTools.interpolate(a, b, alpha);
+            assertEquals(result, a + alpha * (b - a), 1.0e-10);
+         }
       }
    }
 }

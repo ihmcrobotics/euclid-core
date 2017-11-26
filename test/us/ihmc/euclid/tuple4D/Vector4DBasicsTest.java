@@ -3,7 +3,7 @@ package us.ihmc.euclid.tuple4D;
 import org.junit.Test;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
-import us.ihmc.euclid.tools.TupleTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
@@ -726,10 +726,10 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
          tuple2.setS(random.nextDouble());
 
          tuple1.interpolate(tuple2, alpha);
-         assertEquals(tuple1.getX(), TupleTools.interpolate(xOld, tuple2.getX(), alpha), getEpsilon());
-         assertEquals(tuple1.getY(), TupleTools.interpolate(yOld, tuple2.getY(), alpha), getEpsilon());
-         assertEquals(tuple1.getZ(), TupleTools.interpolate(zOld, tuple2.getZ(), alpha), getEpsilon());
-         assertEquals(tuple1.getS(), TupleTools.interpolate(sOld, tuple2.getS(), alpha), getEpsilon());
+         assertEquals(tuple1.getX(), EuclidCoreTools.interpolate(xOld, tuple2.getX(), alpha), getEpsilon());
+         assertEquals(tuple1.getY(), EuclidCoreTools.interpolate(yOld, tuple2.getY(), alpha), getEpsilon());
+         assertEquals(tuple1.getZ(), EuclidCoreTools.interpolate(zOld, tuple2.getZ(), alpha), getEpsilon());
+         assertEquals(tuple1.getS(), EuclidCoreTools.interpolate(sOld, tuple2.getS(), alpha), getEpsilon());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -740,10 +740,10 @@ public abstract class Vector4DBasicsTest<T extends Vector4DBasics> extends Tuple
          tuple3.set(random.nextDouble(), random.nextDouble(), random.nextDouble(), random.nextDouble());
 
          tuple1.interpolate(tuple2, tuple3, alpha);
-         assertEquals(tuple1.getX(), TupleTools.interpolate(tuple2.getX(), tuple3.getX(), alpha), getEpsilon());
-         assertEquals(tuple1.getY(), TupleTools.interpolate(tuple2.getY(), tuple3.getY(), alpha), getEpsilon());
-         assertEquals(tuple1.getZ(), TupleTools.interpolate(tuple2.getZ(), tuple3.getZ(), alpha), getEpsilon());
-         assertEquals(tuple1.getS(), TupleTools.interpolate(tuple2.getS(), tuple3.getS(), alpha), getEpsilon());
+         assertEquals(tuple1.getX(), EuclidCoreTools.interpolate(tuple2.getX(), tuple3.getX(), alpha), getEpsilon());
+         assertEquals(tuple1.getY(), EuclidCoreTools.interpolate(tuple2.getY(), tuple3.getY(), alpha), getEpsilon());
+         assertEquals(tuple1.getZ(), EuclidCoreTools.interpolate(tuple2.getZ(), tuple3.getZ(), alpha), getEpsilon());
+         assertEquals(tuple1.getS(), EuclidCoreTools.interpolate(tuple2.getS(), tuple3.getS(), alpha), getEpsilon());
       }
    }
 

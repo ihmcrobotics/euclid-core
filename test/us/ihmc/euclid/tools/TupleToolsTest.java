@@ -1,6 +1,5 @@
 package us.ihmc.euclid.tools;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -8,7 +7,6 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import us.ihmc.euclid.tools.TupleTools;
 import us.ihmc.euclid.tuple2D.Point2D;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple3D.Point3D;
@@ -18,8 +16,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 
 public class TupleToolsTest
 {
-   private static final int NUMBER_OF_ITERATIONS = 100;
-
    @Test
    public void testEpsilonEqualsTuple2D() throws Exception
    {
@@ -214,38 +210,5 @@ public class TupleToolsTest
       tuple2.setZ(tuple1.getZ() - epsilon);
       tuple2.setS(tuple1.getS() - epsilon);
       assertTrue(TupleTools.epsilonEquals(tuple1, tuple2, epsilon));
-   }
-
-   @Test
-   public void testInterpolate() throws Exception
-   {
-      Random random = new Random(3665L);
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test Tuple.interpolate(double a, double b, double alpha)
-         double a = random.nextDouble();
-         double b = random.nextDouble();
-         double alpha = random.nextDouble();
-
-         double result = TupleTools.interpolate(a, b, alpha);
-         double expected = a + alpha * (b - a);
-         assertEquals(result, expected, 1.0e-10);
-
-         alpha = 0.5;
-         result = TupleTools.interpolate(a, b, alpha);
-         assertTrue(result == 0.5 * a + 0.5 * b);
-         alpha = 0.0;
-         result = TupleTools.interpolate(a, b, alpha);
-         assertTrue(result == a);
-         alpha = 1.0;
-         result = TupleTools.interpolate(a, b, alpha);
-         assertTrue(result == b);
-
-         for (alpha = -2.0; alpha <= 2.0; alpha += 0.1)
-         {
-            result = TupleTools.interpolate(a, b, alpha);
-            assertEquals(result, a + alpha * (b - a), 1.0e-10);
-         }
-      }
    }
 }

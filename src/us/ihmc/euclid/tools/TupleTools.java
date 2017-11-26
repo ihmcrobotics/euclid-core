@@ -84,9 +84,10 @@ public abstract class TupleTools
     * @param alpha the percentage to use for the interpolation. A value of 0 will return {@code a},
     *           while a value of 1 will return {@code b}.
     * @return the interpolated value.
+    * @deprecated Use {@link EuclidCoreTools#interpolate(double,double,double)} instead
     */
    public static double interpolate(double a, double b, double alpha)
    {
-      return (1.0 - alpha) * a + alpha * b;
+      return EuclidCoreTools.interpolate(a, b, alpha);
    }
 }

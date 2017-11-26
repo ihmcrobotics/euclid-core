@@ -164,6 +164,8 @@ public abstract class EuclidCoreIOTools
     */
    public static String getQuaternionBasedTransformString(String format, QuaternionBasedTransform quaternionBasedTransform)
    {
+      if (quaternionBasedTransform == null)
+         return "null";
       return getQuaternionBasedTransformString(format, quaternionBasedTransform.getQuaternion(), quaternionBasedTransform.getTranslationVector());
    }
 

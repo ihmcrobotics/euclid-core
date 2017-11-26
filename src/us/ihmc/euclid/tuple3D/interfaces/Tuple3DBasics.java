@@ -3,7 +3,7 @@ package us.ihmc.euclid.tuple3D.interfaces;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.interfaces.Clearable;
-import us.ihmc.euclid.tools.TupleTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 
 /**
@@ -639,9 +639,9 @@ public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
     */
    default void interpolate(Tuple3DReadOnly tuple1, Tuple3DReadOnly tuple2, double alpha)
    {
-      double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
-      double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
-      double z = TupleTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
+      double x = EuclidCoreTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
+      double y = EuclidCoreTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
+      double z = EuclidCoreTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
       set(x, y, z);
    }
 }

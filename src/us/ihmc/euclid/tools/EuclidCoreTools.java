@@ -322,6 +322,32 @@ public class EuclidCoreTools
    }
 
    /**
+    * Find and return the argument with the value in between the two others.
+    *
+    * @param a the first argument to compare.
+    * @param b the second argument to compare.
+    * @param c the third argument to compare.
+    * @return the value in between the two other arguments.
+    */
+   public static final double med(double a, double b, double c)
+   {
+      if (a > b)
+      {
+         if (a > c)
+            return b > c ? b : c;
+         else
+            return a;
+      }
+      else
+      {
+         if (b > c)
+            return a > c ? a : c;
+         else
+            return b;
+      }
+   }
+
+   /**
     * Tests if the two values are equal to an {@code epsilon}:<br>
     * |{@code expectedValue} - {@code actualValue}| &leq; {@code epsilon}
     * <p>
@@ -375,6 +401,24 @@ public class EuclidCoreTools
       }
 
       return (Math.min(max, Math.max(value, min)));
+   }
+
+   /**
+    * Performs a linear interpolation from {@code a} to {@code b} given the percentage
+    * {@code alpha}.
+    * <p>
+    * result = (1.0 - alpha) * a + alpha * b
+    * </p>
+    *
+    * @param a the first value used in the interpolation.
+    * @param b the second value used in the interpolation.
+    * @param alpha the percentage to use for the interpolation. A value of 0 will return {@code a},
+    *           while a value of 1 will return {@code b}.
+    * @return the interpolated value.
+    */
+   public static double interpolate(double a, double b, double alpha)
+   {
+      return (1.0 - alpha) * a + alpha * b;
    }
 
 }
