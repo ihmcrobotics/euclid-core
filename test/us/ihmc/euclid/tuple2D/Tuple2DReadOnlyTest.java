@@ -231,6 +231,7 @@ public abstract class Tuple2DReadOnlyTest<T extends Tuple2DReadOnly>
       assertFalse(tuple.epsilonEquals(createTuple(x, y - 1.001 * epsilon), epsilon));
    }
 
+   @SuppressWarnings("unlikely-arg-type")
    @Test
    public void testEquals() throws Exception
    {

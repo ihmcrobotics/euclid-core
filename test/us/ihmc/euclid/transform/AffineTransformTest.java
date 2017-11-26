@@ -2223,6 +2223,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       }
    }
 
+   @SuppressWarnings("unlikely-arg-type")
    @Test
    public void testEquals() throws Exception
    {

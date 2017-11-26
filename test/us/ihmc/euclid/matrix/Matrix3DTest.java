@@ -1279,6 +1279,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
       assertTrue(matrix.getM22() == coeff);
    }
 
+   @SuppressWarnings("unlikely-arg-type")
    @Test
    public void testEquals() throws Exception
    {

@@ -1696,6 +1696,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       EuclidCoreTestTools.assertAffineTransformEquals(expected, actual, EPS);
    }
 
+   @SuppressWarnings("unlikely-arg-type")
    @Test
    public void testEquals() throws Exception
    {

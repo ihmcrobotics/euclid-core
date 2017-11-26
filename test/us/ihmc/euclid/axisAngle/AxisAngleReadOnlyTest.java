@@ -1050,6 +1050,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       }
    }
 
+   @SuppressWarnings("unlikely-arg-type")
    @Test
    public void testEquals() throws Exception
    {

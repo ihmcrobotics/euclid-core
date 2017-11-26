@@ -1862,6 +1862,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
    }
 
+   @SuppressWarnings("unlikely-arg-type")
    @Test
    public void testEquals() throws Exception
    {
