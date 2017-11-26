@@ -274,7 +274,7 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @deprecated Use
-    *             {@link #assertRotationVectorEquals(Vector3DReadOnly, Vector3DReadOnly, double)}
+    *             {@link #assertRotationVectorGeometricallyEquals(Vector3DReadOnly, Vector3DReadOnly, double)}
     *             instead. This method will be removed in a future version.
     *
     * @param expected the expected rotation vector. Not modified.
@@ -300,7 +300,7 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @deprecated Use
-    *             {@link #assertRotationVectorEquals(String, Vector3DReadOnly, Vector3DReadOnly, double)}
+    *             {@link #assertRotationVectorGeometricallyEquals(String, Vector3DReadOnly, Vector3DReadOnly, double)}
     *             instead. This method will be removed in a future version.
     *
     * @param messagePrefix prefix to add to the error message.
@@ -327,7 +327,7 @@ public abstract class EuclidCoreTestTools
     * </p>
     *
     * @deprecated Use
-    *             {@link #assertRotationVectorEquals(String, Vector3DReadOnly, Vector3DReadOnly, double, String)}
+    *             {@link #assertRotationVectorGeometricallyEquals(String, Vector3DReadOnly, Vector3DReadOnly, double, String)}
     *             instead. This method will be removed in a future version.
     *
     * @param messagePrefix prefix to add to the error message.
