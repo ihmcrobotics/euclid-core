@@ -86,7 +86,7 @@ public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
             Assert.assertEquals(axisAngle.getZ(), vectorAxis.getZ(), EPS);
             Assert.assertEquals(axisAngle.getAngle(), angle, EPS);
 
-            EuclidCoreTestTools.assertRotationVectorEquals(vectorAxis, vectorAxisCopy, EPS);
+            EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(vectorAxis, vectorAxisCopy, EPS);
             Assert.assertTrue(angle == angleCopy);
          }
       }
@@ -139,7 +139,7 @@ public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
             AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, expectedAxisAngle32);
 
             EuclidCoreTestTools.assertAxisAngleEquals(axisAngle, expectedAxisAngle32, EPS);
-            EuclidCoreTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
+            EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(rotationVector, rotationVectorCopy, EPS);
          }
       }
 

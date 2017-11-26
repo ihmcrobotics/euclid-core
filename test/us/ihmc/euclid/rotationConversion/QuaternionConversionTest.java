@@ -130,7 +130,7 @@ public class QuaternionConversionTest
          rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
 
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPSILON);
          EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
@@ -161,7 +161,7 @@ public class QuaternionConversionTest
 
          rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, actualQuaternion);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPSILON);
          EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
       }
 
@@ -406,7 +406,7 @@ public class QuaternionConversionTest
                rotationMatrix.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
                QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, expectedQuaternion);
                QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, actualQuaternion);
-               EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+               EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPSILON);
                EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
             }
          }

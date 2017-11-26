@@ -375,7 +375,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          axisAngle.getRotationVector(actualVector);
          RotationVectorConversion.convertAxisAngleToRotationVector(axisAngle, expectedVector);
 
-         EuclidCoreTestTools.assertRotationVectorEquals(actualVector, expectedVector, getEpsilon());
+         EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(actualVector, expectedVector, getEpsilon());
       }
    }
 

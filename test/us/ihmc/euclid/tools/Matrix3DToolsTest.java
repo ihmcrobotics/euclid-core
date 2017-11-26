@@ -1034,7 +1034,7 @@ public class Matrix3DToolsTest
          matrixExpected.multiply(matrixOriginal);
          qExpected.set(matrixExpected);
          matrix.transform(qOriginal, qActual);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(qExpected, qActual, EPS);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qExpected, qActual, EPS);
       }
    }
 

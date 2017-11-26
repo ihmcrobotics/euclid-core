@@ -296,7 +296,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          Vector3D translation = EuclidCoreRandomTools.nextVector3D(random);
          actualTransform.set(new RotationMatrix(quaternion), translation);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(quaternion, actualTransform.getQuaternion(), EPS);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternion, actualTransform.getQuaternion(), EPS);
          EuclidCoreTestTools.assertTuple3DEquals(translation, actualTransform.getTranslationVector(), EPS);
       }
 
@@ -381,7 +381,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          rigidBodyTransform.setRotationYaw(yaw);
          QuaternionBasedTransform expectedTransform = new QuaternionBasedTransform(rigidBodyTransform);
          actualTransform.setRotationYaw(yaw);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expectedTransform, actualTransform, EPS);
       }
 
       { // Test setRotationPitch(double pitch)
@@ -390,7 +390,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          rigidBodyTransform.setRotationPitch(pitch);
          QuaternionBasedTransform expectedTransform = new QuaternionBasedTransform(rigidBodyTransform);
          actualTransform.setRotationPitch(pitch);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expectedTransform, actualTransform, EPS);
       }
 
       { // Test setRotationRoll(double roll)
@@ -399,7 +399,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          rigidBodyTransform.setRotationRoll(roll);
          QuaternionBasedTransform expectedTransform = new QuaternionBasedTransform(rigidBodyTransform);
          actualTransform.setRotationRoll(roll);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expectedTransform, actualTransform, EPS);
       }
 
       { // Test setRotationYawPitchRoll(double roll)
@@ -410,19 +410,19 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          rigidBodyTransform.setRotationYawPitchRoll(yaw, pitch, roll);
          QuaternionBasedTransform expectedTransform = new QuaternionBasedTransform(rigidBodyTransform);
          actualTransform.setRotationYawPitchRoll(yaw, pitch, roll);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expectedTransform, actualTransform, EPS);
 
          actualTransform.setRotationToZero();
          actualTransform.setRotationYawPitchRoll(new double[] {yaw, pitch, roll});
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expectedTransform, actualTransform, EPS);
 
          actualTransform.setRotationToZero();
          actualTransform.setRotationEuler(new Vector3D(roll, pitch, yaw));
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expectedTransform, actualTransform, EPS);
 
          actualTransform.setRotationToZero();
          actualTransform.setRotationEuler(roll, pitch, yaw);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expectedTransform, actualTransform, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expectedTransform, actualTransform, EPS);
       }
    }
 
@@ -551,41 +551,41 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          RotationMatrix rotationMatrix = new RotationMatrix();
          transform.getRotation(rotationMatrix);
          actualQuaternion.set(rotationMatrix);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPS);
       }
 
       { // Test getRotation(QuaternionBasics quaternionToPack)
          actualQuaternion.setToNaN();
          transform.getRotation(actualQuaternion);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPS);
       }
 
       { // Test getRotation(AxisAngleBasics axisAngleToPack)
          AxisAngle axisAngle = new AxisAngle();
          transform.getRotation(axisAngle);
          actualQuaternion.set(axisAngle);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPS);
       }
 
       { // Test getRotation(Vector3DBasics rotationVectorToPack)
          Vector3D rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
          actualQuaternion.set(rotationVector);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPS);
       }
 
       { // Test getRotationYawPitchRoll(double[] yawPitchRollToPack)
          double[] yawPitchRoll = new double[3];
          transform.getRotationYawPitchRoll(yawPitchRoll);
          actualQuaternion.setYawPitchRoll(yawPitchRoll);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPS);
       }
 
       { // Test getRotation(Vector3DBasics rotationVectorToPack)
          Vector3D eulerAngles = new Vector3D();
          transform.getRotationEuler(eulerAngles);
          actualQuaternion.setEuler(eulerAngles);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPS);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPS);
       }
    }
 
@@ -697,7 +697,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.appendTranslation(x, y, z);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -712,7 +712,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.appendTranslation(translation);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -735,7 +735,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.appendYawRotation(yaw);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -749,7 +749,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.appendPitchRotation(pitch);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -763,7 +763,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.appendRollRotation(roll);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -789,7 +789,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.prependTranslation(x, y, z);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -804,7 +804,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.prependTranslation(translation);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -830,7 +830,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.prependYawRotation(yaw);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -847,7 +847,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.prependPitchRotation(pitch);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -864,7 +864,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          actual.set(original);
          actual.prependRollRotation(roll);
 
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -889,7 +889,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiply(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -914,7 +914,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiply(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -939,7 +939,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiply(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -964,7 +964,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiplyInvertThis(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -989,7 +989,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiplyInvertOther(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1014,7 +1014,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiplyInvertThis(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1039,7 +1039,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiplyInvertOther(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1064,7 +1064,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiplyInvertThis(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1089,7 +1089,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.multiplyInvertOther(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1114,7 +1114,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiply(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1139,7 +1139,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiply(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1164,7 +1164,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiply(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1189,7 +1189,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiplyInvertThis(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1214,7 +1214,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiplyInvertOther(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1239,7 +1239,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiplyInvertThis(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1264,7 +1264,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiplyInvertOther(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1289,7 +1289,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiplyInvertThis(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 
@@ -1314,7 +1314,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          actual.set(original);
          actual.preMultiplyInvertOther(multipliedWith);
-         EuclidCoreTestTools.assertQuaternionBasedTransformEqualsSmart(expected, actual, EPS);
+         EuclidCoreTestTools.assertQuaternionBasedTransformGeometricallyEquals(expected, actual, EPS);
       }
    }
 

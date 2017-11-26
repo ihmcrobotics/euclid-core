@@ -233,9 +233,9 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
 
          tildeMatrix.transform(vector2, expectedVector3);
 
-         EuclidCoreTestTools.assertRotationVectorEquals(vector, vectorCopy, EPS);
-         EuclidCoreTestTools.assertRotationVectorEquals(vector2, vector2Copy, EPS);
-         EuclidCoreTestTools.assertRotationVectorEquals(vector3, expectedVector3, EPS);
+         EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(vector, vectorCopy, EPS);
+         EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(vector2, vector2Copy, EPS);
+         EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(vector3, expectedVector3, EPS);
       }
    }
 

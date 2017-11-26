@@ -41,6 +41,7 @@ public class EuclidCoreTestToolsTest
    private static final int ITERATIONS = 1000;
    private static final double EPSILON = 0.0001;
 
+   @Deprecated
    @Test
    public void testAssertQuaternionEqualsUsingDifference() throws Exception
    {

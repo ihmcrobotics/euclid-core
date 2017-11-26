@@ -132,7 +132,7 @@ public class RotationMatrixConversionTest
          EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
          // Here we assume that the axis angle conversion is already well tested
          AxisAngleConversion.convertMatrixToAxisAngle(actualMatrix, actualAxisAngle);
-         EuclidCoreTestTools.assertAxisAngleEqualsSmart(expectedAxisAngle, actualAxisAngle, EPSILON);
+         EuclidCoreTestTools.assertAxisAngleGeometricallyEquals(expectedAxisAngle, actualAxisAngle, EPSILON);
       }
 
       RotationMatrixConversion.convertAxisAngleToMatrix(0.0, 0.0, 0.0, 1.0, actualMatrix);
@@ -204,7 +204,7 @@ public class RotationMatrixConversionTest
          EuclidCoreTestTools.assertRotationMatrix(actualMatrix, EPSILON);
          // Assuming the quaternion conversion is well tested
          QuaternionConversion.convertMatrixToQuaternion(actualMatrix, actualQuaternion);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPSILON);
       }
 
       expectedQuaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);

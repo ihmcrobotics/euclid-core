@@ -81,7 +81,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expected);
 
          EuclidCoreTestTools.assertQuaternionEquals(quaternion, expected, EPS);
-         EuclidCoreTestTools.assertRotationVectorEquals(rotationVector, rotationVectorCopy, EPS);
+         EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(rotationVector, rotationVectorCopy, EPS);
       }
    }
 

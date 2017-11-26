@@ -721,7 +721,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          RotationMatrixConversion.convertYawPitchRollToMatrix(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), expected);
 
          EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-         EuclidCoreTestTools.assertRotationVectorEquals(eulerAngles, eulerAnglesCopy, EPS);
+         EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(eulerAngles, eulerAnglesCopy, EPS);
          EuclidCoreTestTools.assertMatrix3DEquals(yawPitchRoll, expected, EPS);
       }
 
@@ -733,7 +733,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          RotationMatrixConversion.convertYawPitchRollToMatrix(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), expected);
 
          EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-         EuclidCoreTestTools.assertRotationVectorEquals(eulerAngles, eulerAnglesCopy, EPS);
+         EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(eulerAngles, eulerAnglesCopy, EPS);
          EuclidCoreTestTools.assertMatrix3DEquals(yawPitchRoll, expected, EPS);
       }
    }
@@ -770,7 +770,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          rotationMatrix.get(vector);
          RotationVectorConversion.convertMatrixToRotationVector(rotationMatrix, expectedVector);
 
-         EuclidCoreTestTools.assertRotationVectorEquals(vector, expectedVector, EPS);
+         EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(vector, expectedVector, EPS);
          EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
       }
    }
@@ -790,7 +790,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
             yawPitchRoll.getEuler(eulerAngles);
             YawPitchRollConversion.convertMatrixToYawPitchRoll(expected, eulerAnglesCopy);
 
-            EuclidCoreTestTools.assertRotationVectorEquals(eulerAngles, eulerAnglesCopy, EPS);
+            EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(eulerAngles, eulerAnglesCopy, EPS);
             EuclidCoreTestTools.assertMatrix3DEquals(yawPitchRoll, expected, EPS);
          }
          catch (AssertionError e)

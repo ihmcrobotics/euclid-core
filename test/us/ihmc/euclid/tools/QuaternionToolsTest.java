@@ -404,7 +404,7 @@ public class QuaternionToolsTest
          assertTrue(axisAngle.getAngle() < Math.PI && axisAngle.getAngle() > -Math.PI);
          AxisAngleConversion.convertQuaternionToAxisAngle(qExpected, axisAngle);
          assertTrue(axisAngle.getAngle() > Math.PI || axisAngle.getAngle() < -Math.PI);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(qExpected, qActual, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qExpected, qActual, EPSILON);
       }
    }
 
@@ -1149,7 +1149,7 @@ public class QuaternionToolsTest
 
          QuaternionTools.multiply(quaternion, new Quaternion(transposed), quaternionExpected);
          QuaternionTools.multiplyTransposeMatrix(quaternion, matrix, quaternionActual);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(quaternionExpected, quaternionActual, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternionExpected, quaternionActual, EPSILON);
       }
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
@@ -1164,7 +1164,7 @@ public class QuaternionToolsTest
 
          QuaternionTools.multiply(conjugate, new Quaternion(transposed), quaternionExpected);
          QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, matrix, quaternionActual);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(quaternionExpected, quaternionActual, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternionExpected, quaternionActual, EPSILON);
       }
    }
 
@@ -1220,7 +1220,7 @@ public class QuaternionToolsTest
 
          QuaternionTools.multiply(new Quaternion(transposed), quaternion, quaternionExpected);
          QuaternionTools.multiplyTransposeMatrix(matrix, quaternion, quaternionActual);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(quaternionExpected, quaternionActual, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternionExpected, quaternionActual, EPSILON);
       }
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
@@ -1235,7 +1235,7 @@ public class QuaternionToolsTest
 
          QuaternionTools.multiply(new Quaternion(transposed), conjugate, quaternionExpected);
          QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, quaternionActual);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(quaternionExpected, quaternionActual, EPSILON);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternionExpected, quaternionActual, EPSILON);
       }
    }
 

@@ -1272,7 +1272,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qActual.set(qOther1);
             qActual.multiplyConjugateThis(new RotationMatrix(qOther2));
 
-            EuclidCoreTestTools.assertQuaternionEqualsSmart(qActual, qExpected, getEpsilon());
+            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
          }
 
          { // Test multiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
@@ -1282,7 +1282,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qActual.set(qOther1);
             qActual.multiplyTransposeMatrix(new RotationMatrix(qOther2));
 
-            EuclidCoreTestTools.assertQuaternionEqualsSmart(qActual, qExpected, getEpsilon());
+            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
          }
       }
    }
@@ -1471,7 +1471,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qActual.set(qOther1);
             qActual.preMultiplyConjugateThis(new RotationMatrix(qOther2));
 
-            EuclidCoreTestTools.assertQuaternionEqualsSmart(qActual, qExpected, getEpsilon());
+            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
          }
 
          { // Test preMultiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
@@ -1481,7 +1481,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qActual.set(qOther1);
             qActual.preMultiplyTransposeMatrix(new RotationMatrix(qOther2));
 
-            EuclidCoreTestTools.assertQuaternionEqualsSmart(qActual, qExpected, getEpsilon());
+            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
          }
       }
    }
@@ -1544,11 +1544,11 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          double angleInterpolated = (1.0 - alpha) * angle0 + alpha * anglef;
          QuaternionConversion.convertAxisAngleToQuaternion(axis.getX(), axis.getY(), axis.getZ(), angleInterpolated, qExpected);
          qActual.interpolate(q0, qf, alpha);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+         EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, epsilon);
 
          qActual.set(q0);
          qActual.interpolate(qf, alpha);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+         EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, epsilon);
       }
 
       // Test when swapping q0 and qf and 'inverting' alpha
@@ -1559,11 +1559,11 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          double alpha = EuclidCoreRandomTools.nextDouble(random, 0.0, 1.0);
          qExpected.interpolate(q0, qf, alpha);
          qActual.interpolate(qf, q0, 1.0 - alpha);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qExpected, qActual, epsilon);
 
          qActual.set(qf);
          qActual.interpolate(q0, 1.0 - alpha);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qExpected, qActual, epsilon);
       }
 
       // Test with a different algorithm
@@ -1591,11 +1591,11 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          qExpected.multiply(q0, qDiff);
 
          qActual.interpolate(q0, qf, alpha);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qExpected, qActual, epsilon);
 
          qActual.set(q0);
          qActual.interpolate(qf, alpha);
-         EuclidCoreTestTools.assertQuaternionEqualsSmart(qExpected, qActual, epsilon);
+         EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qExpected, qActual, epsilon);
       }
    }
 
