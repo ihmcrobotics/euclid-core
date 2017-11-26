@@ -322,6 +322,32 @@ public class EuclidCoreTools
    }
 
    /**
+    * Find and return the argument with the value in between the two others.
+    *
+    * @param a the first argument to compare.
+    * @param b the second argument to compare.
+    * @param c the third argument to compare.
+    * @return the value in between the two other arguments.
+    */
+   public static final double med(double a, double b, double c)
+   {
+      if (a > b)
+      {
+         if (a > c)
+            return b > c ? b : c;
+         else
+            return a;
+      }
+      else
+      {
+         if (b > c)
+            return a > c ? a : c;
+         else
+            return b;
+      }
+   }
+
+   /**
     * Tests if the two values are equal to an {@code epsilon}:<br>
     * |{@code expectedValue} - {@code actualValue}| &leq; {@code epsilon}
     * <p>
