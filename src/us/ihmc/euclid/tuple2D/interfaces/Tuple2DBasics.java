@@ -5,7 +5,7 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.Transformable;
-import us.ihmc.euclid.tools.TupleTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -586,8 +586,8 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     */
    default void interpolate(Tuple2DReadOnly tuple1, Tuple2DReadOnly tuple2, double alpha)
    {
-      double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
-      double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
+      double x = EuclidCoreTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
+      double y = EuclidCoreTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
       set(x, y);
    }
 

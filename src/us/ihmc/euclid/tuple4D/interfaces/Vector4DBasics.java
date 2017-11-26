@@ -1,6 +1,6 @@
 package us.ihmc.euclid.tuple4D.interfaces;
 
-import us.ihmc.euclid.tools.TupleTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
@@ -528,10 +528,10 @@ public interface Vector4DBasics extends Vector4DReadOnly, Tuple4DBasics
     */
    default void interpolate(Tuple4DReadOnly tuple1, Tuple4DReadOnly tuple2, double alpha)
    {
-      double x = TupleTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
-      double y = TupleTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
-      double z = TupleTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
-      double s = TupleTools.interpolate(tuple1.getS(), tuple2.getS(), alpha);
+      double x = EuclidCoreTools.interpolate(tuple1.getX(), tuple2.getX(), alpha);
+      double y = EuclidCoreTools.interpolate(tuple1.getY(), tuple2.getY(), alpha);
+      double z = EuclidCoreTools.interpolate(tuple1.getZ(), tuple2.getZ(), alpha);
+      double s = EuclidCoreTools.interpolate(tuple1.getS(), tuple2.getS(), alpha);
       set(x, y, z, s);
    }
 

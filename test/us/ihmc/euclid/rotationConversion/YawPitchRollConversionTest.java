@@ -12,7 +12,7 @@ import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
-import us.ihmc.euclid.tools.TupleTools;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple4D.Quaternion;
 
@@ -166,21 +166,21 @@ public class YawPitchRollConversionTest
          {
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double pitch = TupleTools.interpolate(MIN_PITCH_ANGLE, MAX_PITCH_ANGLE, alpha);
+               double pitch = EuclidCoreTools.interpolate(MIN_PITCH_ANGLE, MAX_PITCH_ANGLE, alpha);
                assertQuaternionToYawPitchRoll(yaw, pitch, roll, EPSILON);
             }
 
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double epsilon = TupleTools.interpolate(EPSILON, 1.0e-3, alpha);
-               double pitch = TupleTools.interpolate(MAX_PITCH_ANGLE, Math.PI / 2.0 - EPSILON, alpha);
+               double epsilon = EuclidCoreTools.interpolate(EPSILON, 1.0e-3, alpha);
+               double pitch = EuclidCoreTools.interpolate(MAX_PITCH_ANGLE, Math.PI / 2.0 - EPSILON, alpha);
                assertQuaternionToYawPitchRoll(yaw, pitch, roll, epsilon);
             }
 
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double epsilon = TupleTools.interpolate(EPSILON, 1.0e-3, alpha);
-               double pitch = TupleTools.interpolate(MIN_PITCH_ANGLE, -Math.PI / 2.0 + EPSILON, alpha);
+               double epsilon = EuclidCoreTools.interpolate(EPSILON, 1.0e-3, alpha);
+               double pitch = EuclidCoreTools.interpolate(MIN_PITCH_ANGLE, -Math.PI / 2.0 + EPSILON, alpha);
                assertQuaternionToYawPitchRoll(yaw, pitch, roll, epsilon);
             }
          }
@@ -377,21 +377,21 @@ public class YawPitchRollConversionTest
          {
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double pitch = TupleTools.interpolate(MIN_PITCH_ANGLE, MAX_PITCH_ANGLE, alpha);
+               double pitch = EuclidCoreTools.interpolate(MIN_PITCH_ANGLE, MAX_PITCH_ANGLE, alpha);
                assertAxisAngleToYawPitchRoll(yaw, pitch, roll, EPSILON);
             }
 
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double epsilon = TupleTools.interpolate(EPSILON, 1.0e-3, alpha);
-               double pitch = TupleTools.interpolate(MAX_PITCH_ANGLE, Math.PI / 2.0 - EPSILON, alpha);
+               double epsilon = EuclidCoreTools.interpolate(EPSILON, 1.0e-3, alpha);
+               double pitch = EuclidCoreTools.interpolate(MAX_PITCH_ANGLE, Math.PI / 2.0 - EPSILON, alpha);
                assertAxisAngleToYawPitchRoll(yaw, pitch, roll, epsilon);
             }
 
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double epsilon = TupleTools.interpolate(EPSILON, 1.0e-3, alpha);
-               double pitch = TupleTools.interpolate(MIN_PITCH_ANGLE, -Math.PI / 2.0 + EPSILON, alpha);
+               double epsilon = EuclidCoreTools.interpolate(EPSILON, 1.0e-3, alpha);
+               double pitch = EuclidCoreTools.interpolate(MIN_PITCH_ANGLE, -Math.PI / 2.0 + EPSILON, alpha);
                assertAxisAngleToYawPitchRoll(yaw, pitch, roll, epsilon);
             }
          }
@@ -588,21 +588,21 @@ public class YawPitchRollConversionTest
          {
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double pitch = TupleTools.interpolate(MIN_PITCH_ANGLE, MAX_PITCH_ANGLE, alpha);
+               double pitch = EuclidCoreTools.interpolate(MIN_PITCH_ANGLE, MAX_PITCH_ANGLE, alpha);
                assertRotationVectorToYawPitchRoll(yaw, pitch, roll, EPSILON);
             }
 
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double epsilon = TupleTools.interpolate(EPSILON, 1.0e-3, alpha);
-               double pitch = TupleTools.interpolate(MAX_PITCH_ANGLE, Math.PI / 2.0 - EPSILON, alpha);
+               double epsilon = EuclidCoreTools.interpolate(EPSILON, 1.0e-3, alpha);
+               double pitch = EuclidCoreTools.interpolate(MAX_PITCH_ANGLE, Math.PI / 2.0 - EPSILON, alpha);
                assertRotationVectorToYawPitchRoll(yaw, pitch, roll, epsilon);
             }
 
             for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1)
             {
-               double epsilon = TupleTools.interpolate(EPSILON, 1.0e-3, alpha);
-               double pitch = TupleTools.interpolate(MIN_PITCH_ANGLE, -Math.PI / 2.0 + EPSILON, alpha);
+               double epsilon = EuclidCoreTools.interpolate(EPSILON, 1.0e-3, alpha);
+               double pitch = EuclidCoreTools.interpolate(MIN_PITCH_ANGLE, -Math.PI / 2.0 + EPSILON, alpha);
                assertRotationVectorToYawPitchRoll(yaw, pitch, roll, epsilon);
             }
          }
