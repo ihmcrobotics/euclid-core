@@ -1004,9 +1004,16 @@ public class EuclidCoreTestToolsTest
                                                             double epsilon)
          throws Throwable
    {
-      Method assertionMethod1 = EuclidCoreTestTools.class.getMethod(methodName, argumentsClass, argumentsClass, Double.TYPE);
-      Method assertionMethod2 = EuclidCoreTestTools.class.getMethod(methodName, String.class, argumentsClass, argumentsClass, Double.TYPE);
-      Method assertionMethod3 = EuclidCoreTestTools.class.getMethod(methodName, String.class, argumentsClass, argumentsClass, Double.TYPE, String.class);
+      assertAssertionMethodsBehaveProperly(EuclidCoreTestTools.class, failExpected, methodName, argumentsClass, expected, actual, epsilon);
+   }
+
+   public static void assertAssertionMethodsBehaveProperly(Class<?> assertionClassHolder, boolean failExpected, String methodName, Class<?> argumentsClass,
+                                                           Object expected, Object actual, double epsilon)
+         throws Throwable
+   {
+      Method assertionMethod1 = assertionClassHolder.getMethod(methodName, argumentsClass, argumentsClass, Double.TYPE);
+      Method assertionMethod2 = assertionClassHolder.getMethod(methodName, String.class, argumentsClass, argumentsClass, Double.TYPE);
+      Method assertionMethod3 = assertionClassHolder.getMethod(methodName, String.class, argumentsClass, argumentsClass, Double.TYPE, String.class);
 
       try
       {
@@ -1083,7 +1090,8 @@ public class EuclidCoreTestToolsTest
          {
             throw (AssertionError) invocationTargetException.getTargetException();
          }
-         else {
+         else
+         {
             throw invocationTargetException.getTargetException();
          }
       }
