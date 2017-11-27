@@ -3,6 +3,7 @@ package us.ihmc.euclid.tuple4D;
 import org.junit.Test;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
+import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tuple3D.Vector3D;
@@ -82,6 +83,18 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 
          EuclidCoreTestTools.assertQuaternionEquals(quaternion, expected, EPS);
          EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(rotationVector, rotationVectorCopy, EPS);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test Quaternion(double yaw, double pitch, double roll)
+         double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
+         double pitch = EuclidCoreRandomTools.nextDouble(random, YawPitchRollConversion.MAX_SAFE_PITCH_ANGLE);
+         double roll = EuclidCoreRandomTools.nextDouble(random, Math.PI);
+
+         quaternion = new Quaternion(yaw, pitch, roll);
+         QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, expected);
+
+         EuclidCoreTestTools.assertQuaternionEquals(quaternion, expected, EPS);
       }
    }
 

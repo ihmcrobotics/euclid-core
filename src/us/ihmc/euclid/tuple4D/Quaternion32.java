@@ -120,6 +120,19 @@ public class Quaternion32 implements QuaternionBasics, GeometryObject<Quaternion
    }
 
    /**
+    * Creates and new quaternion and initializes such that it represents the same orientation as the
+    * given yaw-pitch-roll {@code yaw}, {@code pitch}, and {@code roll}.
+    * 
+    * @param yaw the angle to rotate about the z-axis.
+    * @param pitch the angle to rotate about the y-axis.
+    * @param roll the angle to rotate about the x-axis.
+    */
+   public Quaternion32(double yaw, double pitch, double roll)
+   {
+      setYawPitchRoll(yaw, pitch, roll);
+   }
+
+   /**
     * Sets this quaternion to {@code other}.
     *
     * @param other the other quaternion to copy the values from. Not modified.
