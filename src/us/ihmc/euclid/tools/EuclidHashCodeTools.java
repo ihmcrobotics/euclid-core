@@ -83,9 +83,11 @@ public class EuclidHashCodeTools
     * @param value double to add to hash.
     * @throws InvalidHashException if a hash has not been started
     */
-   public static void hash(double... values) throws InvalidHashException
+   public static void hash(double value1, double... values) throws InvalidHashException
    {
       checkHashStarted();
+      
+      bits = MULTIPLIER * bits + Double.doubleToLongBits(value1);
       
       for (double value : values)
          bits = MULTIPLIER * bits + Double.doubleToLongBits(value);
@@ -97,9 +99,11 @@ public class EuclidHashCodeTools
     * @param value float to add to hash.
     * @throws InvalidHashException if a hash has not been started
     */
-   public static void hash(float... values) throws InvalidHashException
+   public static void hash(float value1, float... values) throws InvalidHashException
    {
       checkHashStarted();
+      
+      bits = MULTIPLIER * bits + Float.floatToIntBits(value1);
       
       for (float value : values)
          bits = MULTIPLIER * bits + Float.floatToIntBits(value);
