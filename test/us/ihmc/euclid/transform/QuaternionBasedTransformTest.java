@@ -1890,8 +1890,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       Vector3D translation;
       QuaternionBasedTransform qbt = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
 
-      long bits;
-      int previousHashCode, newHashCode, expectedHashCode;
+      int previousHashCode, newHashCode;
       newHashCode = qbt.hashCode();
       assertEquals(newHashCode, qbt.hashCode());
 
@@ -1903,11 +1902,6 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
          translation = EuclidCoreRandomTools.generateRandomVector3D(random);
          qbt = new QuaternionBasedTransform(quaternion, translation);
          newHashCode = qbt.hashCode();
-
-         bits = 31L * quaternion.hashCode() + translation.hashCode();
-         expectedHashCode = (int) (bits ^ bits >> 32);
-
-         assertEquals(expectedHashCode, newHashCode);
          assertNotEquals(previousHashCode, newHashCode);
 
          previousHashCode = newHashCode;

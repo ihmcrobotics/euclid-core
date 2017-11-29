@@ -84,8 +84,7 @@ public class Point3DTest extends Point3DBasicsTest<Point3D>
       tuple1.setY(random.nextDouble());
       tuple1.setZ(random.nextDouble());
 
-      long bits;
-      int newHashCode, previousHashCode, expectedHashCode;
+      int newHashCode, previousHashCode;
       newHashCode = tuple1.hashCode();
       assertEquals(newHashCode, tuple1.hashCode());
 
@@ -95,14 +94,6 @@ public class Point3DTest extends Point3DBasicsTest<Point3D>
       {
          tuple1.setElement(i % 3, random.nextDouble());
          newHashCode = tuple1.hashCode();
-
-         bits = 1L;
-         bits = 31L * bits + Double.doubleToLongBits(tuple1.getX());
-         bits = 31L * bits + Double.doubleToLongBits(tuple1.getY());
-         bits = 31L * bits + Double.doubleToLongBits(tuple1.getZ());
-         expectedHashCode = (int) (bits ^ bits >> 32);
-
-         assertEquals(newHashCode, expectedHashCode);
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }

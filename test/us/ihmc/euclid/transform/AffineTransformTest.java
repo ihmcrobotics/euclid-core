@@ -2523,8 +2523,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       Vector3D translation;
       AffineTransform affine = EuclidCoreRandomTools.generateRandomAffineTransform(random);
 
-      long bits;
-      int newHashCode, previousHashCode, expectedHashCode;
+      int newHashCode, previousHashCode;
       newHashCode = affine.hashCode();
       assertEquals(newHashCode, affine.hashCode());
 
@@ -2536,11 +2535,6 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          translation = EuclidCoreRandomTools.generateRandomVector3D(random);
          affine = new AffineTransform(rsm, translation);
          newHashCode = affine.hashCode();
-
-         bits = 31L * rsm.hashCode() + translation.hashCode();
-         expectedHashCode = (int) (bits ^ bits >> 32);
-
-         assertEquals(expectedHashCode, newHashCode);
          assertNotEquals(previousHashCode, newHashCode);
 
          previousHashCode = newHashCode;

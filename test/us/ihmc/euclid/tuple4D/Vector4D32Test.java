@@ -89,8 +89,7 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
       Random random = new Random(621541L);
       Vector4D32 vector = createRandomTuple(random);
 
-      long bits;
-      int newHashCode, previousHashCode, expectedHashCode;
+      int newHashCode, previousHashCode;
       newHashCode = vector.hashCode();
       assertEquals(newHashCode, vector.hashCode());
 
@@ -100,15 +99,6 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
       {
          vector.setElement(i % 4, random.nextDouble());
          newHashCode = vector.hashCode();
-
-         bits = 1L;
-         bits = 31L * bits + Float.floatToIntBits(vector.getX32());
-         bits = 31L * bits + Float.floatToIntBits(vector.getY32());
-         bits = 31L * bits + Float.floatToIntBits(vector.getZ32());
-         bits = 31L * bits + Float.floatToIntBits(vector.getS32());
-         expectedHashCode = (int) (bits ^ bits >> 32);
-
-         assertEquals(expectedHashCode, newHashCode);
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
       }
