@@ -80,7 +80,8 @@ public class EuclidHashCodeTools
    /**
     * Add the next double value to the hash.
     * 
-    * @param value double to add to hash.
+    * @param value1 first double to add to hash.
+    * @param values additional doubles to add to hash.
     * @throws InvalidHashException if a hash has not been started
     */
    public static void hash(double value1, double... values) throws InvalidHashException
@@ -96,7 +97,8 @@ public class EuclidHashCodeTools
    /**
     * Add the next float value to the hash.
     *
-    * @param value float to add to hash.
+    * @param value1 first float to add to hash.
+    * @param values additional floats to add to hash.
     * @throws InvalidHashException if a hash has not been started
     */
    public static void hash(float value1, float... values) throws InvalidHashException
