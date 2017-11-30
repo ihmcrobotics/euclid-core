@@ -6,7 +6,7 @@ public class EuclidHashCodeTools
     * Long used for the multiplication factor in each step
     * of the hash.
     */
-   private static long MULTIPLIER = 31L;
+   private final static long MULTIPLIER = 31L;
    
    /**
     * Returns a hash bit stream as an integer hash value.
