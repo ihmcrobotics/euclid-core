@@ -1,7 +1,5 @@
 package us.ihmc.euclid.tools;
 
-import us.ihmc.euclid.exceptions.InvalidHashException;
-
 public class EuclidHashCodeTools
 {
    /**
