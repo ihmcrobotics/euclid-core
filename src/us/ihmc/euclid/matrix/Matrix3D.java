@@ -7,6 +7,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
@@ -1447,15 +1448,15 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Double.doubleToLongBits(m00);
-      bits = 31L * bits + Double.doubleToLongBits(m01);
-      bits = 31L * bits + Double.doubleToLongBits(m02);
-      bits = 31L * bits + Double.doubleToLongBits(m10);
-      bits = 31L * bits + Double.doubleToLongBits(m11);
-      bits = 31L * bits + Double.doubleToLongBits(m12);
-      bits = 31L * bits + Double.doubleToLongBits(m20);
-      bits = 31L * bits + Double.doubleToLongBits(m21);
-      bits = 31L * bits + Double.doubleToLongBits(m22);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m00);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m01);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m02);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m10);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m11);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m12);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m20);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m21);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m22);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

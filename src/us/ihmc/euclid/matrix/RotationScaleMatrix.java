@@ -15,6 +15,7 @@ import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DFeatures;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
@@ -1695,8 +1696,8 @@ public class RotationScaleMatrix
    @Override
    public int hashCode()
    {
-      long bits = 31L * rotationMatrix.hashCode() + scale.hashCode();
-      return (int) (bits ^ bits >> 32);
+      long bits = EuclidHashCodeTools.addToHashCode(rotationMatrix.hashCode(), scale.hashCode());
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 
    /**

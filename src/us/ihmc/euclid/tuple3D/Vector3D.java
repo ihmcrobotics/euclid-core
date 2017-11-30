@@ -2,6 +2,7 @@ package us.ihmc.euclid.tuple3D;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
@@ -229,9 +230,9 @@ public class Vector3D implements Vector3DBasics, GeometryObject<Vector3D>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Double.doubleToLongBits(x);
-      bits = 31L * bits + Double.doubleToLongBits(y);
-      bits = 31L * bits + Double.doubleToLongBits(z);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, x);
+      bits = EuclidHashCodeTools.addToHashCode(bits, y);
+      bits = EuclidHashCodeTools.addToHashCode(bits, z);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

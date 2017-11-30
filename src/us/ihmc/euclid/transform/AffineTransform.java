@@ -18,6 +18,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
@@ -2419,7 +2420,7 @@ public class AffineTransform
    @Override
    public int hashCode()
    {
-      long bits = 31L * rotationScaleMatrix.hashCode() + translationVector.hashCode();
-      return (int) (bits ^ bits >> 32);
+      long bits = EuclidHashCodeTools.addToHashCode(rotationScaleMatrix.hashCode(), translationVector.hashCode());
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

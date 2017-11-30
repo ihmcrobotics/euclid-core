@@ -2,6 +2,7 @@ package us.ihmc.euclid.tuple4D;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
@@ -242,10 +243,10 @@ public class Vector4D implements Vector4DBasics, GeometryObject<Vector4D>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Double.doubleToLongBits(x);
-      bits = 31L * bits + Double.doubleToLongBits(y);
-      bits = 31L * bits + Double.doubleToLongBits(z);
-      bits = 31L * bits + Double.doubleToLongBits(s);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, x);
+      bits = EuclidHashCodeTools.addToHashCode(bits, y);
+      bits = EuclidHashCodeTools.addToHashCode(bits, z);
+      bits = EuclidHashCodeTools.addToHashCode(bits, s);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

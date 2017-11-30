@@ -14,6 +14,7 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
@@ -1824,7 +1825,7 @@ public class QuaternionBasedTransform
    @Override
    public int hashCode()
    {
-      long bits = 31L * quaternion.hashCode() + translationVector.hashCode();
-      return (int) (bits ^ bits >> 32);
+      long bits = EuclidHashCodeTools.addToHashCode(quaternion.hashCode(), translationVector.hashCode());
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }
