@@ -1696,7 +1696,7 @@ public class RotationScaleMatrix
    @Override
    public int hashCode()
    {
-      long bits = EuclidHashCodeTools.addToHashCode(rotationMatrix.hashCode(), scale.hashCode());
+      long bits = EuclidHashCodeTools.combineHashCode(rotationMatrix.hashCode(), scale.hashCode());
       return EuclidHashCodeTools.toIntHashCode(bits);
    }
 
