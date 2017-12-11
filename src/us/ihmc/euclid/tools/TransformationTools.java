@@ -1,17 +1,24 @@
 package us.ihmc.euclid.tools;
 
+import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
+import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
+import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
+import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
- * {@code TransformationTools} provides a list a methods for transforming geometry objects useful
- * in particular contexts where the result cannot be stored in an object.
+ * {@code TransformationTools} provides a list a methods for transforming geometry objects useful in
+ * particular contexts where the result cannot be stored in an object.
  * <p>
  * Note that in common situations, the use of {@code TransformationTools} should be avoided
  * preferring the use of the 'transform' or 'applyTransform' methods provided with the concerned
@@ -20,7 +27,6 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  * 
  * @author Sylvain Bertrand
- *
  */
 public class TransformationTools
 {
@@ -698,5 +704,99 @@ public class TransformationTools
          double z = vectorOriginal.getZ() * affineTransform.getScaleZ();
          return computeTransformedZ(affineTransform.getRotationMatrix(), invert, x, y, z);
       }
+   }
+
+   /**
+    * Transforms the given tuple {@code tuple2DOriginal} by the two given matrices and stores the
+    * result in {@code tuple2DTransformed}.
+    * <p>
+    * tuple2DTransformed = m1 * m2 * tuple2DOriginal
+    * </p>
+    *
+    * @param m1 the first matrix use in the transformation. Not modified.
+    * @param m2 the second matrix use in the transformation. Not modified.
+    * @param tuple2DOriginal the tuple to transform. Not modified.
+    * @param tuple2DTransformed the tuple to store the result. Modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the transformation
+    *           {@code m1 * m2} represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the
+    *            transformation {@code m1 * m2} does not represent a transformation in the XY plane.
+    */
+   public static void applyRotationMatrices(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Tuple2DReadOnly tuple2DOriginal, Tuple2DBasics tuple2DTransformed,
+                                            boolean checkIfTransformationInXYplane)
+   {
+      double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM10() + m1.getM02() * m2.getM20();
+      double m01 = m1.getM00() * m2.getM01() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM21();
+      double m02 = m1.getM00() * m2.getM02() + m1.getM01() * m2.getM12() + m1.getM02() * m2.getM22();
+      double m10 = m1.getM10() * m2.getM00() + m1.getM11() * m2.getM10() + m1.getM12() * m2.getM20();
+      double m11 = m1.getM10() * m2.getM01() + m1.getM11() * m2.getM11() + m1.getM12() * m2.getM21();
+      double m12 = m1.getM10() * m2.getM02() + m1.getM11() * m2.getM12() + m1.getM12() * m2.getM22();
+      double m20 = m1.getM20() * m2.getM00() + m1.getM21() * m2.getM10() + m1.getM22() * m2.getM20();
+      double m21 = m1.getM20() * m2.getM01() + m1.getM21() * m2.getM11() + m1.getM22() * m2.getM21();
+      double m22 = m1.getM20() * m2.getM02() + m1.getM21() * m2.getM12() + m1.getM22() * m2.getM22();
+
+      if (checkIfTransformationInXYplane)
+      {
+         if (!Matrix3DFeatures.isMatrix2D(m00, m01, m02, m10, m11, m12, m20, m21, m22, Matrix3DFeatures.EPS_CHECK_2D))
+            throw new NotAMatrix2DException(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      }
+
+      double x = m00 * tuple2DOriginal.getX() + m01 * tuple2DOriginal.getY();
+      double y = m10 * tuple2DOriginal.getX() + m11 * tuple2DOriginal.getY();
+      tuple2DTransformed.set(x, y);
+   }
+
+   /**
+    * Transforms the given {@code point2DOriginal} by the two given transforms and stores the result
+    * in {@code point2DTransformed}.
+    * <p>
+    * point2DTransformed = transform1 * trasnform2 * point2DOriginal
+    * </p>
+    *
+    * @param transform1 the first transform to use in the transformation. Not modified.
+    * @param transform2 the second transform to use in the transformation. Not modified.
+    * @param point2DOriginal the point to transform. Not modified.
+    * @param point2DTransformed the point in which the result is stored. Modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation
+    *           {@code transform1.getRotationMatrix() * transfor2.getRotationMatrix()} represents a
+    *           transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
+    *            {@code transform1.getRotationMatrix() * transform2.getRotationMatrix()} is not a
+    *            transformation in the XY plane.
+    */
+   public static void applyRigidBodyTransforms(RigidBodyTransform transform1, RigidBodyTransform transform2, Point2DReadOnly point2DOriginal,
+                                               Point2DBasics point2DTransformed, boolean checkIfTransformationInXYplane)
+   {
+      applyRotationMatrices(transform1.getRotationMatrix(), transform2.getRotationMatrix(), point2DOriginal, point2DTransformed,
+                            checkIfTransformationInXYplane);
+      double tx = transform1.getM00() * transform2.getM03() + transform1.getM01() * transform2.getM13() + transform1.getM02() * transform2.getM23()
+            + transform1.getM03();
+      double ty = transform1.getM10() * transform2.getM03() + transform1.getM11() * transform2.getM13() + transform1.getM12() * transform2.getM23()
+            + transform1.getM13();
+      point2DTransformed.add(tx, ty);
+   }
+
+   /**
+    * Transforms the given {@code vector2DOriginal} by the two given transforms and stores the
+    * result in {@code vector2DTransformed}.
+    * <p>
+    * vector2DTransformed = transform1 * transform2 * vector2DOriginal
+    * </p>
+    *
+    * @param transform1 the first transform to use in the transformation. Not modified.
+    * @param transform2 the second transform to use in the transformation. Not modified.
+    * @param vector2DOriginal the vector to transform. Not modified.
+    * @param vector2DTransformed the vector in which the result is stored. Modified.
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation
+    *           {@code transform1.getRotationMatrix() * transfor2.getRotationMatrix()} represents a
+    *           transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
+    *            {@code transform1.getRotationMatrix() * transform2.getRotationMatrix()} is not a
+    *            transformation in the XY plane.
+    */
+   public static void applyRigidBodyTransforms(RigidBodyTransform m1, RigidBodyTransform m2, Vector2DReadOnly vector2DOriginal,
+                                               Vector2DBasics vector2DTransformed, boolean checkIfTransformationInXYplane)
+   {
+      applyRotationMatrices(m1.getRotationMatrix(), m2.getRotationMatrix(), vector2DOriginal, vector2DTransformed, checkIfTransformationInXYplane);
    }
 }

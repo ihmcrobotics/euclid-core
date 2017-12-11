@@ -1,13 +1,25 @@
 package us.ihmc.euclid.tools;
 
+import static org.junit.Assert.fail;
+
 import java.util.Random;
 
 import org.junit.Test;
 
+import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
+import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
+import us.ihmc.euclid.tuple2D.Point2D;
+import us.ihmc.euclid.tuple2D.Vector2D;
+import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
+import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
+import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
+import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
+import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.Point3D;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
@@ -223,6 +235,198 @@ public class TransformationToolsTest
          vectorActual.setY(TransformationTools.computeTransformedY(transform, true, vectorOriginal));
          vectorActual.setZ(TransformationTools.computeTransformedZ(transform, true, vectorOriginal));
          EuclidCoreTestTools.assertTuple3DEquals(vectorExpected, vectorActual, EPSILON);
+      }
+   }
+
+   @Test
+   public void testApplyRotationMatrices() throws Exception
+   {
+      Random random = new Random(234235);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test with random matrices, should throw an exception when checkIfTransformationInXYplane = true
+         RotationMatrix m1 = EuclidCoreRandomTools.nextRotationMatrix(random);
+         RotationMatrix m2 = EuclidCoreRandomTools.nextRotationMatrix(random);
+         Tuple2DReadOnly tupleOriginal = EuclidCoreRandomTools.nextPoint2D(random);
+         Tuple2DBasics tupleTransformed = EuclidCoreRandomTools.nextPoint2D(random);
+         boolean checkIfTransformationInXYplane = true;
+         try
+         {
+            TransformationTools.applyRotationMatrices(m1, m2, tupleOriginal, tupleTransformed, checkIfTransformationInXYplane);
+            fail("Should have thrown a " + NotAMatrix2DException.class.getSimpleName());
+         }
+         catch (NotAMatrix2DException e)
+         {
+            // good
+         }
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test with random matrices, test the transformation when checkIfTransformationInXYplane = false
+         RotationMatrix m1 = EuclidCoreRandomTools.nextRotationMatrix(random);
+         RotationMatrix m2 = EuclidCoreRandomTools.nextRotationMatrix(random);
+         RotationMatrix m1TimesM2 = new RotationMatrix(m1);
+         m1TimesM2.multiply(m2);
+         Tuple2DReadOnly tupleOriginal = EuclidCoreRandomTools.nextPoint2D(random);
+         Tuple2DBasics actual = EuclidCoreRandomTools.nextPoint2D(random);
+         Tuple2DBasics expected = new Point2D();
+         boolean checkIfTransformationInXYplane = false;
+         m1TimesM2.transform(tupleOriginal, expected, checkIfTransformationInXYplane);
+         TransformationTools.applyRotationMatrices(m1, m2, tupleOriginal, actual, checkIfTransformationInXYplane);
+
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPSILON);
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test with random matrices which are not 2D matrices but when multiplied represent a 2D matrix
+         RotationMatrix m1 = new RotationMatrix();
+         RotationMatrix m2 = new RotationMatrix();
+         m1.setToYawMatrix(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+         m2.setToYawMatrix(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+         RotationMatrix m1TimesM2 = new RotationMatrix(m1);
+         m1TimesM2.multiply(m2);
+
+         RotationMatrix m3D = EuclidCoreRandomTools.nextRotationMatrix(random);
+         m1.multiply(m3D);
+         m2.preMultiplyTransposeOther(m3D);
+
+         Tuple2DReadOnly tupleOriginal = EuclidCoreRandomTools.nextPoint2D(random);
+         Tuple2DBasics actual = EuclidCoreRandomTools.nextPoint2D(random);
+         Tuple2DBasics expected = new Point2D();
+         boolean checkIfTransformationInXYplane = true;
+         m1TimesM2.transform(tupleOriginal, expected, checkIfTransformationInXYplane);
+         TransformationTools.applyRotationMatrices(m1, m2, tupleOriginal, actual, checkIfTransformationInXYplane);
+
+         EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPSILON);
+      }
+   }
+
+   @Test
+   public void testApplyRigidBodyTransforms() throws Exception
+   {
+      Random random = new Random(78654);
+
+      { // Test applyRigidBodyTransforms(RigidBodyTransform m1, RigidBodyTransform m2, Point2DReadOnly pointOriginal, Point2DBasics pointTransformed, boolean checkIfTransformationInXYplane)
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         { // Test with random transforms, should throw an exception when checkIfTransformationInXYplane = true
+            RigidBodyTransform m1 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            RigidBodyTransform m2 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            Point2DReadOnly pointOriginal = EuclidCoreRandomTools.nextPoint2D(random);
+            Point2DBasics pointTransformed = EuclidCoreRandomTools.nextPoint2D(random);
+            boolean checkIfTransformationInXYplane = true;
+            try
+            {
+               TransformationTools.applyRigidBodyTransforms(m1, m2, pointOriginal, pointTransformed, checkIfTransformationInXYplane);
+               fail("Should have thrown a " + NotAMatrix2DException.class.getSimpleName());
+            }
+            catch (NotAMatrix2DException e)
+            {
+               // good
+            }
+         }
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         { // Test with random transforms, test the transformation when checkIfTransformationInXYplane = false
+            RigidBodyTransform m1 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            RigidBodyTransform m2 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            RigidBodyTransform m1TimesM2 = new RigidBodyTransform(m1);
+            m1TimesM2.multiply(m2);
+            Point2DReadOnly pointOriginal = EuclidCoreRandomTools.nextPoint2D(random);
+            Point2DBasics actual = EuclidCoreRandomTools.nextPoint2D(random);
+            Point2DBasics expected = new Point2D();
+            boolean checkIfTransformationInXYplane = false;
+            m1TimesM2.transform(pointOriginal, expected, checkIfTransformationInXYplane);
+            TransformationTools.applyRigidBodyTransforms(m1, m2, pointOriginal, actual, checkIfTransformationInXYplane);
+
+            EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPSILON);
+         }
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         { // Test with random transforms which are not 2D transforms but when multiplied represent a 2D transform
+            RigidBodyTransform m1 = new RigidBodyTransform();
+            RigidBodyTransform m2 = new RigidBodyTransform();
+            m1.setRotationYaw(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+            m1.setTranslation(EuclidCoreRandomTools.nextVector3D(random));
+            m2.setRotationYaw(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+            m2.setTranslation(EuclidCoreRandomTools.nextVector3D(random));
+            RigidBodyTransform m1TimesM2 = new RigidBodyTransform(m1);
+            m1TimesM2.multiply(m2);
+
+            RigidBodyTransform m3D = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            m1.multiply(m3D);
+            m2.preMultiplyInvertOther(m3D);
+
+            Point2DReadOnly pointOriginal = EuclidCoreRandomTools.nextPoint2D(random);
+            Point2DBasics actual = EuclidCoreRandomTools.nextPoint2D(random);
+            Point2DBasics expected = new Point2D();
+            boolean checkIfTransformationInXYplane = true;
+            m1TimesM2.transform(pointOriginal, expected, checkIfTransformationInXYplane);
+            TransformationTools.applyRigidBodyTransforms(m1, m2, pointOriginal, actual, checkIfTransformationInXYplane);
+
+            EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPSILON);
+         }
+      }
+
+      { // Test applyRigidBodyTransforms(RigidBodyTransform m1, RigidBodyTransform m2, Vector2DReadOnly pointOriginal, Vector2DBasics pointTransformed, boolean checkIfTransformationInXYplane)
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         { // Test with random transforms, should throw an exception when checkIfTransformationInXYplane = true
+            RigidBodyTransform m1 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            RigidBodyTransform m2 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            Vector2DReadOnly vectorOriginal = EuclidCoreRandomTools.nextVector2D(random);
+            Vector2DBasics vectorTransformed = EuclidCoreRandomTools.nextVector2D(random);
+            boolean checkIfTransformationInXYplane = true;
+            try
+            {
+               TransformationTools.applyRigidBodyTransforms(m1, m2, vectorOriginal, vectorTransformed, checkIfTransformationInXYplane);
+               fail("Should have thrown a " + NotAMatrix2DException.class.getSimpleName());
+            }
+            catch (NotAMatrix2DException e)
+            {
+               // good
+            }
+         }
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         { // Test with random transforms, test the transformation when checkIfTransformationInXYplane = false
+            RigidBodyTransform m1 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            RigidBodyTransform m2 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            RigidBodyTransform m1TimesM2 = new RigidBodyTransform(m1);
+            m1TimesM2.multiply(m2);
+            Vector2DReadOnly vectorOriginal = EuclidCoreRandomTools.nextVector2D(random);
+            Vector2DBasics actual = EuclidCoreRandomTools.nextVector2D(random);
+            Vector2DBasics expected = new Vector2D();
+            boolean checkIfTransformationInXYplane = false;
+            m1TimesM2.transform(vectorOriginal, expected, checkIfTransformationInXYplane);
+            TransformationTools.applyRigidBodyTransforms(m1, m2, vectorOriginal, actual, checkIfTransformationInXYplane);
+
+            EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPSILON);
+         }
+
+         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+         { // Test with random transforms which are not 2D transforms but when multiplied represent a 2D transform
+            RigidBodyTransform m1 = new RigidBodyTransform();
+            RigidBodyTransform m2 = new RigidBodyTransform();
+            m1.setRotationYaw(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+            m1.setTranslation(EuclidCoreRandomTools.nextVector3D(random));
+            m2.setRotationYaw(EuclidCoreRandomTools.nextDouble(random, Math.PI));
+            m2.setTranslation(EuclidCoreRandomTools.nextVector3D(random));
+            RigidBodyTransform m1TimesM2 = new RigidBodyTransform(m1);
+            m1TimesM2.multiply(m2);
+
+            RigidBodyTransform m3D = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+            m1.multiply(m3D);
+            m2.preMultiplyInvertOther(m3D);
+
+            Vector2DReadOnly vectorOriginal = EuclidCoreRandomTools.nextVector2D(random);
+            Vector2DBasics actual = EuclidCoreRandomTools.nextVector2D(random);
+            Vector2DBasics expected = new Vector2D();
+            boolean checkIfTransformationInXYplane = true;
+            m1TimesM2.transform(vectorOriginal, expected, checkIfTransformationInXYplane);
+            TransformationTools.applyRigidBodyTransforms(m1, m2, vectorOriginal, actual, checkIfTransformationInXYplane);
+
+            EuclidCoreTestTools.assertTuple2DEquals(expected, actual, EPSILON);
+         }
       }
    }
 }
