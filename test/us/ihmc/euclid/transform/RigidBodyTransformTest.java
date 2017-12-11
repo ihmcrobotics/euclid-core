@@ -2879,20 +2879,23 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    }
 
    @Test
-   public void testToString() throws Exception {
+   public void testToString() throws Exception
+   {
       Random random = new Random(12345L);
 
       RigidBodyTransform rbtA;
       RigidBodyTransform rbtB;
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          rbtA = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
          rbtB = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
 
          assertNotEquals(rbtA.toString(), rbtB.toString());
       }
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          rbtA = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
          rbtB = new RigidBodyTransform(rbtA);
 

@@ -1909,20 +1909,23 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
    }
 
    @Test
-   public void testToString() throws Exception {
+   public void testToString() throws Exception
+   {
       Random random = new Random(12345L);
 
       QuaternionBasedTransform quaternionA;
       QuaternionBasedTransform quaternionB;
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          quaternionA = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
          quaternionB = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
 
          assertNotEquals(quaternionA.toString(), quaternionB.toString());
       }
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          quaternionA = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
          quaternionB = new QuaternionBasedTransform(quaternionA);
 
