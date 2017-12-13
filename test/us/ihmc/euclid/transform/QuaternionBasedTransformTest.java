@@ -1,5 +1,6 @@
 package us.ihmc.euclid.transform;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -1877,6 +1878,58 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
          assertFalse(qbtA.geometricallyEquals(qbtB, epsilon));
          assertFalse(qbtB.geometricallyEquals(qbtA, epsilon));
+      }
+   }
+
+   @Test
+   public void testHashCode() throws Exception
+   {
+      Random random = new Random(12345L);
+
+      Quaternion quaternion;
+      Vector3D translation;
+      QuaternionBasedTransform qbt = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+      int previousHashCode, newHashCode;
+      newHashCode = qbt.hashCode();
+      assertEquals(newHashCode, qbt.hashCode());
+
+      previousHashCode = qbt.hashCode();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
+         translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         qbt = new QuaternionBasedTransform(quaternion, translation);
+         newHashCode = qbt.hashCode();
+         assertNotEquals(previousHashCode, newHashCode);
+
+         previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testToString() throws Exception
+   {
+      Random random = new Random(12345L);
+
+      QuaternionBasedTransform quaternionA;
+      QuaternionBasedTransform quaternionB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         quaternionA = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         quaternionB = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+
+         assertNotEquals(quaternionA.toString(), quaternionB.toString());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         quaternionA = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         quaternionB = new QuaternionBasedTransform(quaternionA);
+
+         assertEquals(quaternionA.toString(), quaternionB.toString());
       }
    }
 

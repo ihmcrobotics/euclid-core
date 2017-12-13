@@ -2,6 +2,7 @@ package us.ihmc.euclid.transform;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -832,7 +833,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    public void testAppendTranslation() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       RigidBodyTransform expected = new RigidBodyTransform();
       RigidBodyTransform actual = new RigidBodyTransform();
 
@@ -873,7 +874,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       RigidBodyTransform expected = new RigidBodyTransform();
       RigidBodyTransform actual = new RigidBodyTransform();
 
@@ -924,7 +925,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    public void testPrependTranslation() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       RigidBodyTransform expected = new RigidBodyTransform();
       RigidBodyTransform actual = new RigidBodyTransform();
 
@@ -965,7 +966,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    public void testPrependYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       RigidBodyTransform expected = new RigidBodyTransform();
       RigidBodyTransform actual = new RigidBodyTransform();
 
@@ -973,9 +974,9 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       { // prependYawRotation(double yaw)
          RigidBodyTransform original = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          RigidBodyTransform yawTransform = new RigidBodyTransform();
-         
+
          double yaw = EuclidCoreRandomTools.nextDouble(random, Math.PI);
-         
+
          yawTransform.setRotationYaw(yaw);
          expected.set(original);
          expected.preMultiply(yawTransform);
@@ -990,13 +991,12 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       { // prependPitchRotation(double pitch)
          RigidBodyTransform original = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          RigidBodyTransform pitchTransform = new RigidBodyTransform();
-         
+
          double pitch = EuclidCoreRandomTools.nextDouble(random, Math.PI);
-         
+
          pitchTransform.setRotationPitch(pitch);
          expected.set(original);
          expected.preMultiply(pitchTransform);
-
 
          actual.set(original);
          actual.prependPitchRotation(pitch);
@@ -1008,9 +1008,9 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       { // prependRollRotation(double roll)
          RigidBodyTransform original = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          RigidBodyTransform rollTransform = new RigidBodyTransform();
-         
+
          double roll = EuclidCoreRandomTools.nextDouble(random, Math.PI);
-         
+
          rollTransform.setRotationRoll(roll);
          expected.set(original);
          expected.preMultiply(rollTransform);
@@ -2487,7 +2487,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       actual.set(original);
       transform.transform(actual);
       EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
-      
+
       RigidBodyTransform inverse = new RigidBodyTransform(transform);
       inverse.invert();
 
@@ -2849,6 +2849,57 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 
          assertFalse(rigbodA.geometricallyEquals(rigbodB, epsilon));
          assertFalse(rigbodB.geometricallyEquals(rigbodA, epsilon));
+      }
+   }
+
+   @Test
+   public void testHashCode() throws Exception
+   {
+      Random random = new Random(12345L);
+
+      RotationMatrix rotation;
+      Vector3D translation;
+      RigidBodyTransform rbt = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+
+      int newHashCode, previousHashCode;
+      newHashCode = rbt.hashCode();
+      assertEquals(newHashCode, rbt.hashCode());
+
+      previousHashCode = rbt.hashCode();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         rotation = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
+         translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         rbt = new RigidBodyTransform(rotation, translation);
+         newHashCode = rbt.hashCode();
+         assertNotEquals(previousHashCode, newHashCode);
+         previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testToString() throws Exception
+   {
+      Random random = new Random(12345L);
+
+      RigidBodyTransform rbtA;
+      RigidBodyTransform rbtB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         rbtA = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         rbtB = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+
+         assertNotEquals(rbtA.toString(), rbtB.toString());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         rbtA = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         rbtB = new RigidBodyTransform(rbtA);
+
+         assertEquals(rbtA.toString(), rbtB.toString());
       }
    }
 
