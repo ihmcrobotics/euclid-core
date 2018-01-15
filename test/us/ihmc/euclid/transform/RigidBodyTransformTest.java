@@ -2859,7 +2859,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 
       RotationMatrix rotation;
       Vector3D translation;
-      RigidBodyTransform rbt = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+      RigidBodyTransform rbt = EuclidCoreRandomTools.nextRigidBodyTransform(random);
 
       int newHashCode, previousHashCode;
       newHashCode = rbt.hashCode();
@@ -2869,8 +2869,8 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         rotation = EuclidCoreRandomTools.generateRandomRotationMatrix(random);
-         translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         rotation = EuclidCoreRandomTools.nextRotationMatrix(random);
+         translation = EuclidCoreRandomTools.nextVector3D(random);
          rbt = new RigidBodyTransform(rotation, translation);
          newHashCode = rbt.hashCode();
          assertNotEquals(previousHashCode, newHashCode);
@@ -2888,15 +2888,15 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         rbtA = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
-         rbtB = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         rbtA = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+         rbtB = EuclidCoreRandomTools.nextRigidBodyTransform(random);
 
          assertNotEquals(rbtA.toString(), rbtB.toString());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         rbtA = EuclidCoreRandomTools.generateRandomRigidBodyTransform(random);
+         rbtA = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          rbtB = new RigidBodyTransform(rbtA);
 
          assertEquals(rbtA.toString(), rbtB.toString());

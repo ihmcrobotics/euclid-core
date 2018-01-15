@@ -2521,7 +2521,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
 
       RotationScaleMatrix rsm;
       Vector3D translation;
-      AffineTransform affine = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+      AffineTransform affine = EuclidCoreRandomTools.nextAffineTransform(random);
 
       int newHashCode, previousHashCode;
       newHashCode = affine.hashCode();
@@ -2531,8 +2531,8 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         rsm = EuclidCoreRandomTools.generateRandomRotationScaleMatrix(random, 2.0);
-         translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         rsm = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 2.0);
+         translation = EuclidCoreRandomTools.nextVector3D(random);
          affine = new AffineTransform(rsm, translation);
          newHashCode = affine.hashCode();
          assertNotEquals(previousHashCode, newHashCode);
@@ -2551,15 +2551,15 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         affA = EuclidCoreRandomTools.generateRandomAffineTransform(random);
-         affB = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         affA = EuclidCoreRandomTools.nextAffineTransform(random);
+         affB = EuclidCoreRandomTools.nextAffineTransform(random);
 
          assertNotEquals(affA.toString(), affB.toString());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         affA = EuclidCoreRandomTools.generateRandomAffineTransform(random);
+         affA = EuclidCoreRandomTools.nextAffineTransform(random);
          affB = new AffineTransform(affA);
 
          assertEquals(affA.toString(), affB.toString());

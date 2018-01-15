@@ -1888,7 +1888,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
       Quaternion quaternion;
       Vector3D translation;
-      QuaternionBasedTransform qbt = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+      QuaternionBasedTransform qbt = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
 
       int previousHashCode, newHashCode;
       newHashCode = qbt.hashCode();
@@ -1898,8 +1898,8 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         quaternion = EuclidCoreRandomTools.generateRandomQuaternion(random);
-         translation = EuclidCoreRandomTools.generateRandomVector3D(random);
+         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
+         translation = EuclidCoreRandomTools.nextVector3D(random);
          qbt = new QuaternionBasedTransform(quaternion, translation);
          newHashCode = qbt.hashCode();
          assertNotEquals(previousHashCode, newHashCode);
@@ -1918,15 +1918,15 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         quaternionA = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
-         quaternionB = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         quaternionA = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
+         quaternionB = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
 
          assertNotEquals(quaternionA.toString(), quaternionB.toString());
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
       {
-         quaternionA = EuclidCoreRandomTools.generateRandomQuaternionBasedTransform(random);
+         quaternionA = EuclidCoreRandomTools.nextQuaternionBasedTransform(random);
          quaternionB = new QuaternionBasedTransform(quaternionA);
 
          assertEquals(quaternionA.toString(), quaternionB.toString());
