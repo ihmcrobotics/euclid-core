@@ -115,6 +115,26 @@ public abstract class AxisAngleTools
    }
 
    /**
+    * Transforms the tuple {@code tupleOriginal} using {@code axisAngle} and adds the result to
+    * {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    *
+    * @param axisAngle the axis-angle used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
+   public static void addTransform(AxisAngleReadOnly axisAngle, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      double x = tupleTransformed.getX();
+      double y = tupleTransformed.getY();
+      double z = tupleTransformed.getZ();
+      transform(axisAngle, tupleOriginal, tupleTransformed);
+      tupleTransformed.add(x, y, z);
+   }
+
+   /**
     * Transforms the tuple {@code tupleOriginal} using {@code axisAngle} and stores the result in
     * {@code tupleTransformed}.
     * <p>

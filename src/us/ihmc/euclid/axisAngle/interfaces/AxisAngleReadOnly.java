@@ -377,19 +377,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    }
 
    /**
-    * Transforms the given tuple by this axis-angle.
-    * <p>
-    * tupleToTransform = this * tupleToTransform
-    * </p>
-    *
-    * @param tupleToTransform the tuple to transform. Modified.
-    */
-   default void transform(Tuple3DBasics tupleToTransform)
-   {
-      transform(tupleToTransform, tupleToTransform);
-   }
-
-   /**
     * Transforms the given tuple {@code tupleOriginal} by this axis-angle and stores the result in
     * {@code tupleTransformed}.
     * <p>
@@ -404,53 +391,10 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
       AxisAngleTools.transform(this, tupleOriginal, tupleTransformed);
    }
 
-   /**
-    * Transforms the given tuple by this axis-angle.
-    * <p>
-    * tupleToTransform = this * tupleToTransform
-    * </p>
-    *
-    * @param tupleToTransform the tuple to transform. Modified.
-    * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
-    *            plane.
-    */
-   default void transform(Tuple2DBasics tupleToTransform)
+   @Override
+   default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
-      transform(tupleToTransform, tupleToTransform, true);
-   }
-
-   /**
-    * Transforms the given tuple {@code tupleOriginal} by this quaternion and stores the result in
-    * {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = this * tupleOriginal
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple to store the result. Modified.
-    * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
-    *            plane.
-    */
-   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
-   {
-      AxisAngleTools.transform(this, tupleOriginal, tupleTransformed, true);
-   }
-
-   /**
-    * Transforms the given tuple by this quaternion.
-    * <p>
-    * tupleToTransform = this * tupleToTransform
-    * </p>
-    *
-    * @param tupleToTransform the tuple to transform. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this quaternion
-    *           represents a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
-    *            does not represent a transformation in the XY plane.
-    */
-   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
-   {
-      transform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
+      AxisAngleTools.addTransform(this, tupleOriginal, tupleTransformed);
    }
 
    /**
@@ -473,20 +417,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    }
 
    /**
-    * Transforms the given 3D matrix by this axis-angle.
-    * <p>
-    * matrixToTransform = R(this) * matrixToTransform * R(this)<sup>-1</sup> <br>
-    * where R(axisAngle) is the function that converts an axis-angle into a rotation matrix.
-    * </p>
-    *
-    * @param matrixToTransform the matrix to transform. Modified.
-    */
-   default void transform(Matrix3D matrixToTransform)
-   {
-      transform(matrixToTransform, matrixToTransform);
-   }
-
-   /**
     * Transforms the given 3D matrix {@code matrixOriginal} by this axis-angle and stores the result
     * in {@code matrixTransformed}.
     * <p>
@@ -500,20 +430,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       AxisAngleTools.transform(this, matrixOriginal, matrixTransformed);
-   }
-
-   /**
-    * Transforms the given quaternion by this axis-angle.
-    * <p>
-    * quaternionToTransform = Q(this) * quaternionToTransform <br>
-    * where Q(axisAngle) is the function that converts an axis-angle into a quaternion.
-    * </p>
-    *
-    * @param quaternionToTransform the quaternion to transform. Modified.
-    */
-   default void transform(QuaternionBasics quaternionToTransform)
-   {
-      transform(quaternionToTransform, quaternionToTransform);
    }
 
    /**
@@ -533,20 +449,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    }
 
    /**
-    * Transforms the vector part of the given 4D vector.
-    * <p>
-    * vectorToTransform.s = vectorToTransform.s <br>
-    * vectorToTransform.xyz = this * vectorToTransform.xyz * this<sup>-1</sup>
-    * </p>
-    *
-    * @param vectorToTransform the vector to transform. Modified.
-    */
-   default void transform(Vector4DBasics vectorToTransform)
-   {
-      transform(vectorToTransform, vectorToTransform);
-   }
-
-   /**
     * Transforms the vector part of the given 4D vector {@code vectorOriginal} and stores the result
     * into {@code vectorTransformed}.
     * <p>
@@ -560,20 +462,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       AxisAngleTools.transform(this, vectorOriginal, vectorTransformed);
-   }
-
-   /**
-    * Transforms the given rotation matrix by this axis-angle.
-    * <p>
-    * matrixToTransform = R(this) * matrixToTransform <br>
-    * where R(axisAngle) is the function that converts an axis-angle to a rotation matrix.
-    * </p>
-    *
-    * @param matrixToTransform the rotation matrix to transform. Modified.
-    */
-   default void transform(RotationMatrix matrixToTransform)
-   {
-      transform(matrixToTransform, matrixToTransform);
    }
 
    /**
@@ -593,21 +481,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this
-    * axis-angle and stores the result in {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = this<sup>-1</sup> * tupleOriginal * this
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple in which the result is stored. Modified.
-    */
-   default void inverseTransform(Tuple3DBasics tupleToTransform)
-   {
-      inverseTransform(tupleToTransform, tupleToTransform);
-   }
-
-   /**
     * Performs the inverse of the transform to the given tuple by this axis-angle.
     * <p>
     * tupleToTransform = this<sup>-1</sup> * tupleToTransform * this
@@ -620,55 +493,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       AxisAngleTools.inverseTransform(this, tupleOriginal, tupleTransformed);
-   }
-
-   /**
-    * Performs the inverse of the transform to the given tuple by this axis-angle.
-    * <p>
-    * tupleToTransform = this<sup>-1</sup> * tupleToTransform * this
-    * </p>
-    *
-    * @param tupleToTransform the tuple to transform. Modified.
-    * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
-    *            plane.
-    */
-   default void inverseTransform(Tuple2DBasics tupleToTransform)
-   {
-      inverseTransform(tupleToTransform, true);
-   }
-
-   /**
-    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this
-    * axis-angle and stores the result in {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = this<sup>-1</sup> * tupleOriginal * this
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @throws NotAMatrix2DException if this axis-angle does not represent a transformation in the XY
-    *            plane.
-    */
-   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
-   {
-      AxisAngleTools.inverseTransform(this, tupleOriginal, tupleTransformed, true);
-   }
-
-   /**
-    * Performs the inverse of the transform to the given tuple by this axis-angle.
-    * <p>
-    * tupleToTransform = this<sup>-1</sup> * tupleToTransform * this
-    * </p>
-    *
-    * @param tupleToTransform the tuple to transform. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this axis-angle
-    *           represents a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this axis-angle
-    *            does not represent a transformation in the XY plane.
-    */
-   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
-   {
-      inverseTransform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
    }
 
    /**
@@ -691,19 +515,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion {@code quaternionToTransform}.
-    * <p>
-    * quaternionToTransform = this<sup>-1</sup> * quaternionToTransform <br>
-    * </p>
-    *
-    * @param quaternionToTransform the quaternion to transform. Modified.
-    */
-   default void inverseTransform(QuaternionBasics quaternionToTransform)
-   {
-      inverseTransform(quaternionToTransform, quaternionToTransform);
-   }
-
-   /**
     * Performs the inverse of the transform to the given quaternion {@code quaternionOriginal} and
     * stores the result into {@code quaternionTransformed}.
     * <p>
@@ -716,21 +527,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       AxisAngleTools.inverseTransform(this, quaternionOriginal, quaternionTransformed);
-   }
-
-   /**
-    * Performs the inverse of the transform to the vector part the given 4D vector by this
-    * axis-angle.
-    * <p>
-    * vectorToTransform.s = vectorToTransform.s <br>
-    * vectorToTransform.xyz = this<sup>-1</sup> * vectorToTransform.xyz * this
-    * </p>
-    *
-    * @param vectorToTransform the vector to transform. Modified.
-    */
-   default void inverseTransform(Vector4DBasics vectorToTransform)
-   {
-      inverseTransform(vectorToTransform, vectorToTransform);
    }
 
    /**
@@ -751,20 +547,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
 
    /**
     * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal} by this
-    * axis-angle.
-    * <p>
-    * matrixToTransform = this<sup>-1</sup> * matrixToTransform * this
-    * </p>
-    *
-    * @param matrixToTransform the matrix to transform. Not modified.
-    */
-   default void inverseTransform(Matrix3D matrixToTransform)
-   {
-      inverseTransform(matrixToTransform, matrixToTransform);
-   }
-
-   /**
-    * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal} by this
     * axis-angle and stores the result in {@code matrixTransformed}.
     * <p>
     * s matrixTransformed = this<sup>-1</sup> * matrixOriginal * this
@@ -776,20 +558,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       AxisAngleTools.inverseTransform(this, matrixOriginal, matrixTransformed);
-   }
-
-   /**
-    * Performs the inverse of the transform to the given rotation matrix {@code matrixToTransform}
-    * by this axis-angle.
-    * <p>
-    * matrixToTransform = this<sup>-1</sup> * matrixToTransform
-    * </p>
-    *
-    * @param matrixToTransform the rotation matrix to transform. Modified.
-    */
-   default void inverseTransform(RotationMatrix matrixToTransform)
-   {
-      inverseTransform(matrixToTransform, matrixToTransform);
    }
 
    /**

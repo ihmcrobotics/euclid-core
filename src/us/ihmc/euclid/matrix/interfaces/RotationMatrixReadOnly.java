@@ -179,6 +179,66 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       return YawPitchRollConversion.computeRoll(this);
    }
 
+   @Override
+   default void addTransform(Tuple3DBasics tupleToTransform)
+   {
+      Matrix3DReadOnly.super.addTransform(tupleToTransform);
+   }
+
+   @Override
+   default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      Matrix3DReadOnly.super.addTransform(tupleOriginal, tupleTransformed);
+   }
+
+   @Override
+   default void transform(Tuple3DBasics tupleToTransform)
+   {
+      Matrix3DReadOnly.super.transform(tupleToTransform);
+   }
+
+   @Override
+   default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      Matrix3DReadOnly.super.transform(tupleOriginal, tupleTransformed);
+   }
+
+   @Override
+   default void transform(Tuple2DBasics tupleToTransform)
+   {
+      Matrix3DReadOnly.super.transform(tupleToTransform);
+   }
+
+   @Override
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   {
+      Matrix3DReadOnly.super.transform(tupleOriginal, tupleTransformed);
+   }
+
+   @Override
+   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   {
+      Matrix3DReadOnly.super.transform(tupleToTransform, checkIfTransformInXYPlane);
+   }
+
+   @Override
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane)
+   {
+      Matrix3DReadOnly.super.transform(tupleOriginal, tupleTransformed, checkIfRotationInXYPlane);
+   }
+
+   @Override
+   default void transform(Vector4DBasics vectorToTransform)
+   {
+      Matrix3DReadOnly.super.transform(vectorToTransform);
+   }
+
+   @Override
+   default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
+   {
+      Matrix3DReadOnly.super.transform(vectorOriginal, vectorTransformed);
+   }
+
    /**
     * Transforms the given quaternion by this rotation matrix.
     * <p>
@@ -207,6 +267,12 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.multiply(this, quaternionOriginal, quaternionTransformed);
+   }
+
+   @Override
+   default void transform(Matrix3D matrixToTransform)
+   {
+      Matrix3DReadOnly.super.transform(matrixToTransform);
    }
 
    /**
@@ -275,6 +341,12 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       Matrix3DTools.multiplyTransposeRight(matrixTransformed, this, matrixTransformed);
    }
 
+   @Override
+   default void inverseTransform(Tuple3DBasics tupleToTransform)
+   {
+      Matrix3DReadOnly.super.inverseTransform(tupleToTransform);
+   }
+
    /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
@@ -283,6 +355,24 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       double y = getM01() * tupleOriginal.getX() + getM11() * tupleOriginal.getY() + getM21() * tupleOriginal.getZ();
       double z = getM02() * tupleOriginal.getX() + getM12() * tupleOriginal.getY() + getM22() * tupleOriginal.getZ();
       tupleTransformed.set(x, y, z);
+   }
+
+   @Override
+   default void inverseTransform(Tuple2DBasics tupleToTransform)
+   {
+      Matrix3DReadOnly.super.inverseTransform(tupleToTransform);
+   }
+
+   @Override
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
+   {
+      Matrix3DReadOnly.super.inverseTransform(tupleOriginal, tupleTransformed);
+   }
+
+   @Override
+   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   {
+      Matrix3DReadOnly.super.inverseTransform(tupleToTransform, checkIfTransformInXYPlane);
    }
 
    /** {@inheritDoc} */
@@ -295,21 +385,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       double x = getM00() * tupleOriginal.getX() + getM10() * tupleOriginal.getY();
       double y = getM01() * tupleOriginal.getX() + getM11() * tupleOriginal.getY();
       tupleTransformed.set(x, y);
-   }
-
-   /**
-    * Performs the inverse of the transform to the given quaternion {@code quaternionToTransform}.
-    * <p>
-    * quaternionToTransform = Q(this<sup>-1</sup>) * quaternionToTransform <br>
-    * where Q(this<sup>-1</sup>) is the equivalent quaternion for the inverse of this rotation
-    * matrix.
-    * </p>
-    *
-    * @param quaternionToTransform the quaternion to transform. Modified.
-    */
-   default void inverseTransform(QuaternionBasics quaternionToTransform)
-   {
-      inverseTransform(quaternionToTransform, quaternionToTransform);
    }
 
    /**
@@ -334,6 +409,12 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       QuaternionTools.multiplyTransposeMatrix(this, quaternionOriginal, quaternionTransformed);
    }
 
+   @Override
+   default void inverseTransform(Vector4DBasics vectorToTransform)
+   {
+      Matrix3DReadOnly.super.inverseTransform(vectorToTransform);
+   }
+
    /** {@inheritDoc} */
    @Override
    default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
@@ -342,25 +423,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       double y = getM01() * vectorOriginal.getX() + getM11() * vectorOriginal.getY() + getM21() * vectorOriginal.getZ();
       double z = getM02() * vectorOriginal.getX() + getM12() * vectorOriginal.getY() + getM22() * vectorOriginal.getZ();
       vectorTransformed.set(x, y, z, vectorOriginal.getS());
-   }
-
-   /**
-    * Performs the inverse of the transform to the given rotation matrix {@code matrixToTransform}
-    * by this rotation matrix.
-    * <p>
-    * matrixToTransform = this<sup>-1</sup> * matrixToTransform
-    * </p>
-    * <p>
-    * This operation uses the property: <br>
-    * R<sup>-1</sup> = R<sup>T</sup> </br>
-    * of a rotation matrix preventing to actually compute the inverse of the matrix.
-    * </p>
-    *
-    * @param matrixToTransform the rotation matrix to transform. Modified.
-    */
-   default void inverseTransform(RotationMatrix matrixToTransform)
-   {
-      inverseTransform(matrixToTransform, matrixToTransform);
    }
 
    /**
@@ -385,25 +447,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
 
    /**
     * Performs the inverse of the transform to the rotation part of the given rotation-scale matrix
-    * {@code matrixToTransform} by this rotation matrix.
-    * <p>
-    * matrixToTransform.rotationMatrix = this<sup>-1</sup> * matrixToTransform.rotationMatrix
-    * </p>
-    * <p>
-    * This operation uses the property: <br>
-    * R<sup>-1</sup> = R<sup>T</sup> </br>
-    * of a rotation matrix preventing to actually compute the inverse of the matrix.
-    * </p>
-    *
-    * @param matrixToTransform the rotation-scale matrix to transform. Modified.
-    */
-   default void inverseTransform(RotationScaleMatrix matrixToTransform)
-   {
-      inverseTransform(matrixToTransform, matrixToTransform);
-   }
-
-   /**
-    * Performs the inverse of the transform to the rotation part of the given rotation-scale matrix
     * {@code matrixOriginal} by this rotation matrix and stores the result in
     * {@code matrixTransformed}.
     * <p>
@@ -423,6 +466,12 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    {
       matrixTransformed.set(matrixOriginal);
       matrixTransformed.preMultiplyTransposeOther(this);
+   }
+
+   @Override
+   default void inverseTransform(Matrix3D matrixToTransform)
+   {
+      Matrix3DReadOnly.super.inverseTransform(matrixToTransform);
    }
 
    /** {@inheritDoc} */

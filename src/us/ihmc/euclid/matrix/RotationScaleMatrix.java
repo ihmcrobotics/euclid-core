@@ -1536,9 +1536,14 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
       scaleToPack.set(scale);
    }
 
-   /** {@inheritDoc} */
+   /**
+    * Returns the reference to the rotation matrix used to compose this rotation-scale
+    * matrix.
+    *
+    * @return the reference to the rotation matrix.
+    */
    @Override
-   public RotationMatrixReadOnly getRotationMatrix()
+   public RotationMatrix getRotationMatrix()
    {
       return rotationMatrix;
    }
