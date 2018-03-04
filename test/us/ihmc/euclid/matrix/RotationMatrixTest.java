@@ -776,7 +776,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          Vector3D vector = new Vector3D();
          Vector3D expectedVector = new Vector3D();
 
-         rotationMatrix.get(vector);
+         rotationMatrix.getRotationVector(vector);
          RotationVectorConversion.convertMatrixToRotationVector(rotationMatrix, expectedVector);
 
          EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(vector, expectedVector, EPS);

@@ -1,10 +1,14 @@
 package us.ihmc.euclid.tuple4D.interfaces;
 
+import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
+import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
+import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
@@ -38,7 +42,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
  * @author Sylvain Bertrand
  * @param <T> The final type of the quaternion used.
  */
-public interface QuaternionReadOnly extends Tuple4DReadOnly
+public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOnly
 {
    /** Threshold used to trigger a more expensive comparison between two quaternions. */
    public static final double GEOMETRICALLY_EQUALS_THRESHOLD = 0.005;
@@ -172,8 +176,42 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly
     * </p>
     *
     * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
+    * @deprecated Use {@link #getRotationVector(Vector3DBasics)} instead
     */
    default void get(Vector3DBasics rotationVectorToPack)
+   {
+      getRotationVector(rotationVectorToPack);
+   }
+
+   @Override
+   default void get(RotationMatrix rotationMatrixToPack)
+   {
+      RotationMatrixConversion.convertQuaternionToMatrix(this, rotationMatrixToPack);
+   }
+
+   @Override
+   default void get(AxisAngleBasics axisAngleToPack)
+   {
+      AxisAngleConversion.convertQuaternionToAxisAngle(this, axisAngleToPack);
+   }
+
+   @Override
+   default void get(QuaternionBasics quaternionToPack)
+   {
+      quaternionToPack.set(this);
+   }
+
+   /**
+    * Computes and packs the orientation described by this quaternion as a rotation vector.
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    *
+    * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
+    */
+   default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertQuaternionToRotationVector(this, rotationVectorToPack);
    }

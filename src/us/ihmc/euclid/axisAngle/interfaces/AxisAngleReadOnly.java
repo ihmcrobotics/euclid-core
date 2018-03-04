@@ -5,6 +5,9 @@ import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
+import us.ihmc.euclid.rotationConversion.QuaternionConversion;
+import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
@@ -30,7 +33,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * @author Sylvain
  * @param T the final type of the axis-angle used.
  */
-public interface AxisAngleReadOnly
+public interface AxisAngleReadOnly extends Orientation3DReadOnly
 {
    /**
     * Returns the angle of this axis-angle, usually expressed in radians.
@@ -176,6 +179,24 @@ public interface AxisAngleReadOnly
    default double distance(AxisAngleReadOnly other)
    {
       return AxisAngleTools.distance(this, other);
+   }
+
+   @Override
+   default void get(RotationMatrix rotationMatrixToPack)
+   {
+      RotationMatrixConversion.convertAxisAngleToMatrix(this, rotationMatrixToPack);
+   }
+
+   @Override
+   default void get(AxisAngleBasics axisAngleToPack)
+   {
+      axisAngleToPack.set(this);
+   }
+
+   @Override
+   default void get(QuaternionBasics quaternionToPack)
+   {
+      QuaternionConversion.convertAxisAngleToQuaternion(this, quaternionToPack);;
    }
 
    /**

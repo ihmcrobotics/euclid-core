@@ -1450,7 +1450,7 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
     */
    public void getRotation(Vector3DBasics rotationVectorToPack)
    {
-      rotationMatrix.get(rotationVectorToPack);
+      rotationMatrix.getRotationVector(rotationVectorToPack);
    }
 
    /**

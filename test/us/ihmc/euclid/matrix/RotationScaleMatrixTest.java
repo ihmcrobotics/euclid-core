@@ -1163,7 +1163,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       { // Test setRotation(VectorReadOnly rotationVector)
          RotationMatrix rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          Vector3D rotationVector = new Vector3D();
-         rotationMatrix.get(rotationVector);
+         rotationMatrix.getRotationVector(rotationVector);
          Vector3D scale = EuclidCoreRandomTools.nextVector3D(random);
          scale.absolute();
          RotationScaleMatrix rotationScaleMatrix = new RotationScaleMatrix();

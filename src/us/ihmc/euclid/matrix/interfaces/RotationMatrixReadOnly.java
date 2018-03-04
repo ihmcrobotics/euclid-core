@@ -1,8 +1,12 @@
 package us.ihmc.euclid.matrix.interfaces;
 
+import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
+import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
+import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
@@ -36,7 +40,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  *
  * @author Sylvain Bertrand
  */
-public interface RotationMatrixReadOnly extends Matrix3DReadOnly
+public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DReadOnly
 {
    /**
     * Computes and returns the distance between this rotation matrix and the {@code other}.
@@ -60,8 +64,43 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly
     *
     * @param rotationVectorToPack the rotation vector representing the same orientation as this.
     *           Modified.
+    * @deprecated Use {@link #getRotationVector(Vector3DBasics)} instead
     */
    default void get(Vector3DBasics rotationVectorToPack)
+   {
+      getRotationVector(rotationVectorToPack);
+   }
+
+   @Override
+   default void get(RotationMatrix rotationMatrixToPack)
+   {
+      rotationMatrixToPack.set(this);
+   }
+
+   @Override
+   default void get(AxisAngleBasics axisAngleToPack)
+   {
+      AxisAngleConversion.convertMatrixToAxisAngle(this, axisAngleToPack);
+   }
+
+   @Override
+   default void get(QuaternionBasics quaternionToPack)
+   {
+      QuaternionConversion.convertMatrixToQuaternion(this, quaternionToPack);
+   }
+
+   /**
+    * Computes and packs the orientation described by this rotation matrix as a rotation vector.
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
+    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
+    * of the same axis-angle.
+    * </p>
+    *
+    * @param rotationVectorToPack the rotation vector representing the same orientation as this.
+    *           Modified.
+    */
+   default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertMatrixToRotationVector(this, rotationVectorToPack);
    }

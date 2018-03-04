@@ -257,7 +257,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          Vector3D actualRotationVector = new Vector3D();
 
          RotationVectorConversion.convertQuaternionToRotationVector(quaternion, expectedRotationVector);
-         quaternion.get(actualRotationVector);
+         quaternion.getRotationVector(actualRotationVector);
          EuclidCoreTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, getEpsilon());
       }
    }

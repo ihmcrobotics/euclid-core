@@ -2,6 +2,8 @@ package us.ihmc.euclid.tuple4D.interfaces;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.QuaternionTools;
@@ -33,7 +35,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  * @author Sylvain Bertrand
  * @param <T> The final type of the quaternion used.
  */
-public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
+public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasics, Tuple4DBasics
 {
    public static final double EPS_POW = 1.0e-12;
 
@@ -181,6 +183,12 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    {
       setUnsafe(x, y, z, s);
       normalize();
+   }
+
+   @Override
+   default void set(Orientation3DReadOnly orientation3DReadOnly)
+   {
+      orientation3DReadOnly.get(this);
    }
 
    /**

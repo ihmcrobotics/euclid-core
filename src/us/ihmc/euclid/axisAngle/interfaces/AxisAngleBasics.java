@@ -2,6 +2,8 @@ package us.ihmc.euclid.axisAngle.interfaces;
 
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
@@ -17,7 +19,7 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * @author Sylvain
  * @param T the final type of the axis-angle used.
  */
-public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
+public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics, Clearable
 {
    /**
     * Sets a new angle to this axis-angle.
@@ -158,6 +160,12 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
       setX(x);
       setY(y);
       setZ(z);
+   }
+
+   @Override
+   default void set(Orientation3DReadOnly orientation3DReadOnly)
+   {
+      orientation3DReadOnly.get(this);
    }
 
    /**

@@ -2249,7 +2249,7 @@ public class RigidBodyTransform
     */
    public void get(Vector3DBasics rotationVectorToPack, Tuple3DBasics translationToPack)
    {
-      rotationMatrix.get(rotationVectorToPack);
+      rotationMatrix.getRotationVector(rotationVectorToPack);
       translationToPack.set(translationVector);
    }
 
@@ -2390,7 +2390,7 @@ public class RigidBodyTransform
     */
    public void getRotation(Vector3DBasics rotationVectorToPack)
    {
-      rotationMatrix.get(rotationVectorToPack);
+      rotationMatrix.getRotationVector(rotationVectorToPack);
    }
 
    /**

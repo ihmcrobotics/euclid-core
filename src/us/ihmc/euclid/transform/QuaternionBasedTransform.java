@@ -1656,7 +1656,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     */
    public void getRotation(Vector3DBasics rotationVectorToPack)
    {
-      quaternion.get(rotationVectorToPack);
+      quaternion.getRotationVector(rotationVectorToPack);
    }
 
    /**
