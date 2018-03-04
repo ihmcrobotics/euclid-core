@@ -272,6 +272,36 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       setAngle(axisAngleArray[startIndex]);
    }
 
+   @Override
+   default void setFromAxisAngle(double x, double y, double z, double angle)
+   {
+      set(x, y, z, angle);
+   }
+
+   @Override
+   default void setFromQuaternion(double x, double y, double z, double s)
+   {
+      AxisAngleConversion.convertQuaternionToAxisAngle(x, y, z, s, this);
+   }
+
+   @Override
+   default void setFromRotationVector(double x, double y, double z)
+   {
+      AxisAngleConversion.convertRotationVectorToAxisAngle(x, y, z, this);
+   }
+
+   @Override
+   default void setFromYawPitchRoll(double yaw, double pitch, double roll)
+   {
+      AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, this);
+   }
+
+   @Override
+   default void setFromRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      AxisAngleConversion.convertMatrixToAxisAngle(m00, m01, m02, m10, m11, m12, m20, m21, m22, this);
+   }
+
    /**
     * Sets the components of this axis-angle such that it represents the same orientation as the
     * given {@code quaternion}. See

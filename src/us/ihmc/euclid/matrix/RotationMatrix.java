@@ -469,6 +469,36 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       transpose();
    }
 
+   @Override
+   public void setFromAxisAngle(double x, double y, double z, double angle)
+   {
+      RotationMatrixConversion.convertAxisAngleToMatrix(x, y, z, angle, this);
+   }
+
+   @Override
+   public void setFromRotationVector(double x, double y, double z)
+   {
+      RotationMatrixConversion.convertRotationVectorToMatrix(x, y, z, this);
+   }
+
+   @Override
+   public void setFromQuaternion(double x, double y, double z, double s)
+   {
+      RotationMatrixConversion.convertQuaternionToMatrix(x, y, z, s, this);
+   }
+
+   @Override
+   public void setFromYawPitchRoll(double yaw, double pitch, double roll)
+   {
+      RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitch, roll, this);
+   }
+
+   @Override
+   public void setFromRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+   }
+
    /**
     * Sets this rotation matrix to the same orientation described by the given {@code axisAngle}.
     *

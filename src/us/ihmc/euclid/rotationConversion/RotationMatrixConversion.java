@@ -192,18 +192,23 @@ public abstract class RotationMatrixConversion
     */
    public static void convertQuaternionToMatrix(QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
    {
-      if (quaternion.containsNaN())
-      {
-         matrixToPack.setToNaN();
-         return;
-      }
-
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double norm = quaternion.norm();
+      convertQuaternionToMatrix(qx, qy, qz, qs, matrixToPack);
+   }
+
+   public static void convertQuaternionToMatrix(double qx, double qy, double qz, double qs, RotationMatrix matrixToPack)
+   {
+      if (EuclidCoreTools.containsNaN(qx, qy, qz, qs))
+      {
+         matrixToPack.setToNaN();
+         return;
+      }
+
+      double norm = EuclidCoreTools.norm(qx, qy, qz, qs);
 
       if (norm < EPS)
       {

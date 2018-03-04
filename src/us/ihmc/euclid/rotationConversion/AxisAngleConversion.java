@@ -78,7 +78,13 @@ public class AxisAngleConversion
       double m21 = rotationMatrix.getM21();
       double m22 = rotationMatrix.getM22();
 
-      if (rotationMatrix.containsNaN())
+      convertMatrixToAxisAngle(m00, m01, m02, m10, m11, m12, m20, m21, m22, axisAngleToPack);
+   }
+
+   public static void convertMatrixToAxisAngle(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
+                                                AxisAngleBasics axisAngleToPack)
+   {
+      if (EuclidCoreTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
          axisAngleToPack.setToNaN();
          return;
@@ -159,18 +165,31 @@ public class AxisAngleConversion
     */
    public static void convertQuaternionToAxisAngle(QuaternionReadOnly quaternion, AxisAngleBasics axisAngleToPack)
    {
-      if (quaternion.containsNaN())
+      double qx = quaternion.getX();
+      double qy = quaternion.getY();
+      double qz = quaternion.getZ();
+      double qs = quaternion.getS();
+      
+      convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);
+   }
+
+   /**
+    * @deprecated Use {@link #convertQuaternionToAxisAngle(double,double,double,double,AxisAngleBasics)} instead
+    */
+   public static void convertQuaternionToAxisAngle(AxisAngleBasics axisAngleToPack, double qx, double qy, double qz, double qs)
+   {
+      convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);
+   }
+
+   public static void convertQuaternionToAxisAngle(double qx, double qy, double qz, double qs, AxisAngleBasics axisAngleToPack)
+   {
+      if (EuclidCoreTools.containsNaN(qx, qy, qz, qs))
       {
          axisAngleToPack.setToNaN();
          return;
       }
 
-      double qx = quaternion.getX();
-      double qy = quaternion.getY();
-      double qz = quaternion.getZ();
-      double qs = quaternion.getS();
-
-      double uNorm = Math.sqrt(qx * qx + qy * qy + qz * qz);
+      double uNorm = Math.sqrt(EuclidCoreTools.normSquared(qx, qy, qz));
 
       if (uNorm > EPS)
       {

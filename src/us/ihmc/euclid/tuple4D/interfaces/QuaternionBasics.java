@@ -248,6 +248,36 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       inverse();
    }
 
+   @Override
+   default void setFromAxisAngle(double x, double y, double z, double angle)
+   {
+      QuaternionConversion.convertAxisAngleToQuaternion(x, y, z, angle, this);
+   }
+
+   @Override
+   default void setFromQuaternion(double x, double y, double z, double s)
+   {
+      setUnsafe(x, y, z, s);
+   }
+
+   @Override
+   default void setFromRotationVector(double x, double y, double z)
+   {
+      QuaternionConversion.convertRotationVectorToQuaternion(x, y, z, this);
+   }
+
+   @Override
+   default void setFromYawPitchRoll(double yaw, double pitch, double roll)
+   {
+      QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, this);
+   }
+
+   @Override
+   default void setFromRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      QuaternionConversion.convertMatrixToQuaternion(m00, m01, m02, m10, m11, m12, m20, m21, m22, this);
+   }
+
    /**
     * Sets this quaternion to the same orientation described by the given {@code axisAngle}.
     *
