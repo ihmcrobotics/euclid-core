@@ -1,6 +1,5 @@
 package us.ihmc.euclid.tuple4D.interfaces;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
@@ -11,7 +10,6 @@ import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.transform.interfaces.Transform;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 /**
  * Write and read interface for unit-quaternion used to represent 3D orientations.
@@ -89,6 +87,12 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
    default void conjugate()
    {
       setUnsafe(-getX(), -getY(), -getZ(), getS());
+   }
+
+   @Override
+   default void invert()
+   {
+      conjugate();
    }
 
    /**
@@ -279,54 +283,6 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
    }
 
    /**
-    * Sets this quaternion to the same orientation described by the given {@code axisAngle}.
-    *
-    * @param axisAngle the axis-angle used to set this quaternion. Not modified.
-    */
-   default void set(AxisAngleReadOnly axisAngle)
-   {
-      QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, this);
-   }
-
-   /**
-    * Sets this quaternion to the same orientation described by the given {@code rotationMatrix}.
-    *
-    * @param rotationMatrix the rotation matrix used to set this quaternion. Not modified.
-    */
-   default void set(RotationMatrixReadOnly rotationMatrix)
-   {
-      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, this);
-   }
-
-   /**
-    * Sets this quaternion to the same orientation described by the given rotation vector
-    * {@code rotationVector}.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
-    * </p>
-    *
-    * @param rotation vector the rotation vector used to set this quaternion. Not modified.
-    */
-   default void set(Vector3DReadOnly rotationVector)
-   {
-      QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, this);
-   }
-
-   /**
-    * Sets this quaternion to represent the same orientation as the given yaw-pitch-roll
-    * {@code yawPitchRoll}.
-    *
-    * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
-    *           modified.
-    */
-   default void setYawPitchRoll(double[] yawPitchRoll)
-   {
-      QuaternionConversion.convertYawPitchRollToQuaternion(yawPitchRoll, this);
-   }
-
-   /**
     * Sets this quaternion to represent the same orientation as the given yaw-pitch-roll
     * {@code yaw}, {@code pitch}, and {@code roll}.
     *
@@ -337,37 +293,6 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
    default void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, this);
-   }
-
-   /**
-    * Sets this quaternion to represent the same orientation as the given Euler angles
-    * {@code eulerAngles}.
-    * <p>
-    * This is equivalent to
-    * {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
-    * </p>
-    *
-    * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
-    */
-   default void setEuler(Vector3DReadOnly eulerAngles)
-   {
-      QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), this);
-   }
-
-   /**
-    * Sets this quaternion to represent the same orientation as the given Euler angles {@code rotX},
-    * {@code rotY}, and {@code rotZ}.
-    * <p>
-    * This is equivalent to {@code this.setYawPitchRoll(rotZ, rotY, rotX)}.
-    * </p>
-    *
-    * @param rotX the angle to rotate about the x-axis.
-    * @param rotY the angle to rotate about the y-axis.
-    * @param rotZ the angle to rotate about the z-axis.
-    */
-   default void setEuler(double rotX, double rotY, double rotZ)
-   {
-      QuaternionConversion.convertYawPitchRollToQuaternion(rotZ, rotY, rotX, this);
    }
 
    /**

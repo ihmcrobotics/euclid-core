@@ -403,19 +403,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
    }
 
    /**
-    * Sets this rotation matrix to equal the other given one {@code other} and then normalizes
-    * {@code this}.
-    *
-    * @param other the matrix to copy the values from. Not modified.
-    * @throws NotARotationMatrixException if the normalization failed.
-    */
-   public void setAndNormalize(RotationMatrixReadOnly other)
-   {
-      set(other);
-      normalize();
-   }
-
-   /**
     * Sets this rotation matrix to the invert of the given {@code matrix}.
     * <p>
     * This operation uses the property: <br>
@@ -500,42 +487,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
    }
 
    /**
-    * Sets this rotation matrix to the same orientation described by the given {@code axisAngle}.
-    *
-    * @param axisAngle the axis-angle used to set this matrix. Not modified.
-    */
-   public void set(AxisAngleReadOnly axisAngle)
-   {
-      RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, this);
-   }
-
-   /**
-    * Sets this rotation matrix to the same orientation described by the given {@code quaternion}.
-    *
-    * @param quaternion the quaternion used to set this matrix. Not modified.
-    */
-   public void set(QuaternionReadOnly quaternion)
-   {
-      RotationMatrixConversion.convertQuaternionToMatrix(quaternion, this);
-   }
-
-   /**
-    * Sets this rotation matrix to the same orientation described by the given rotation vector
-    * {@code rotationVector}.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
-    * </p>
-    *
-    * @param rotation vector the rotation vector used to set this matrix. Not modified.
-    */
-   public void set(Vector3DReadOnly rotationVector)
-   {
-      RotationMatrixConversion.convertRotationVectorToMatrix(rotationVector, this);
-   }
-
-   /**
     * Sets this rotation matrix to represent a counter clockwise rotation around the z-axis of an
     * angle {@code yaw}.
     *
@@ -588,24 +539,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
 
    /**
     * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
-    * {@code yawPitchRoll}.
-    *
-    * <pre>
-    *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
-    * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
-    *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
-    * </pre>
-    *
-    * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
-    *           modified.
-    */
-   public void setYawPitchRoll(double[] yawPitchRoll)
-   {
-      setYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
-   }
-
-   /**
-    * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
     * {@code yaw}, {@code pitch}, and {@code roll}.
     *
     * <pre>
@@ -621,49 +554,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
    public void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitch, roll, this);
-   }
-
-   /**
-    * Sets this rotation matrix to represent the same orientation as the given Euler angles
-    * {@code eulerAngles}.
-    *
-    * <pre>
-    *        / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
-    * this = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
-    *        \         0                   0          1 /   \ -sin(eulerAngles.y) 0 cos(eulerAngles.y) /   \ 0 sin(eulerAngles.x)  cos(eulerAngles.x) /
-    * </pre>
-    * <p>
-    * This is equivalent to
-    * {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
-    * </p>
-    *
-    * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
-    */
-   public void setEuler(Vector3DReadOnly eulerAngles)
-   {
-      setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX());
-   }
-
-   /**
-    * Sets this rotation matrix to represent the same orientation as the given Euler angles
-    * {@code rotX}, {@code rotY}, and {@code rotZ}.
-    *
-    * <pre>
-    *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
-    * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
-    *        \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
-    * </pre>
-    * <p>
-    * This is equivalent to {@code this.setYawPitchRoll(rotZ, rotY, rotX)}.
-    * </p>
-    *
-    * @param rotX the angle to rotate about the x-axis.
-    * @param rotY the angle to rotate about the y-axis.
-    * @param rotZ the angle to rotate about the z-axis.
-    */
-   public void setEuler(double rotX, double rotY, double rotZ)
-   {
-      setYawPitchRoll(rotZ, rotY, rotX);
    }
 
    /**

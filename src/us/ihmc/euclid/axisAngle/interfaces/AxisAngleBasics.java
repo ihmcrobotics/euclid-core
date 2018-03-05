@@ -1,13 +1,11 @@
 package us.ihmc.euclid.axisAngle.interfaces;
 
 import us.ihmc.euclid.interfaces.Clearable;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
  * Write and read interface for an axis-angle object.
@@ -108,6 +106,12 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    default void normalize()
    {
       normalizeAxis();
+   }
+
+   @Override
+   default void invert()
+   {
+      inverse();
    }
 
    /**
@@ -306,59 +310,6 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    default void setFromRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
       AxisAngleConversion.convertMatrixToAxisAngle(m00, m01, m02, m10, m11, m12, m20, m21, m22, this);
-   }
-
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given {@code quaternion}. See
-    * {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
-    *
-    * @param quaternion the quaternion to convert. Not modified.
-    */
-   default void set(QuaternionReadOnly quaternion)
-   {
-      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, this);
-   }
-
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given {@code rotationMatrix}. See
-    * {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
-    *
-    * @param rotationMatrix the rotation matrix to convert. Not modified.
-    */
-   default void set(RotationMatrixReadOnly rotationMatrix)
-   {
-      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, this);
-   }
-
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given {@code rotationVector}. See
-    * {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
-    * </p>
-    *
-    * @param rotationVector the rotation vector to convert. Not modified.
-    */
-   default void set(Vector3DReadOnly rotationVector)
-   {
-      AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, this);
-   }
-
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given yaw-pitch-roll angles. See
-    * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double[], AxisAngleBasics)}.
-    *
-    * @param yawPitchRoll array containing the yaw, pitch, and roll angles. Not modified.
-    */
-   default void setYawPitchRoll(double[] yawPitchRoll)
-   {
-      AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, this);
    }
 
    /**
