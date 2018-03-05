@@ -104,6 +104,12 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       setAngle(-getAngle());
    }
 
+   @Override
+   default void normalize()
+   {
+      normalizeAxis();
+   }
+
    /**
     * Normalizes the axis of this axis-angle such that its norm is equal to 1 after calling this
     * method and its direction remains unchanged.
