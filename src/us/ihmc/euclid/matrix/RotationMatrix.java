@@ -2,7 +2,6 @@ package us.ihmc.euclid.matrix;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
@@ -18,7 +17,6 @@ import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
  * A {@code RotationMatrix} is a 3-by-3 matrix used to represent 3d orientations.
@@ -139,25 +137,13 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
    }
 
    /**
-    * Creates a new rotation matrix representing the same orientation as the given
-    * {@code axisAngle}.
+    * Creates a new rotation matrix that represents the same orientation as the given one.
     *
-    * @param axisAngle the axis-angle used to initialize this rotation matrix. Not modified.
+    * @param orientation the orientation used to initialize this rotation matrix. Not modified.
     */
-   public RotationMatrix(AxisAngleReadOnly axisAngle)
+   public RotationMatrix(Orientation3DReadOnly orientation)
    {
-      set(axisAngle);
-   }
-
-   /**
-    * Creates a new rotation matrix representing the same orientation as the given
-    * {@code quaternion}.
-    *
-    * @param quaternion the quaternion used to initialize this rotation matrix. Not modified.
-    */
-   public RotationMatrix(QuaternionReadOnly quaternion)
-   {
-      set(quaternion);
+      set(orientation);
    }
 
    /**
