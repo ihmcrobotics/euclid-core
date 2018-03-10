@@ -1471,7 +1471,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).multiply(q2);
+         ((RotationMatrix) expected.getRotationMatrix()).append(q2);
          actual.set(m1);
          actual.multiply(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1603,7 +1603,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).preMultiply(q2);
+         ((RotationMatrix) expected.getRotationMatrix()).prepend(q2);
          actual.set(m1);
          actual.preMultiply(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);

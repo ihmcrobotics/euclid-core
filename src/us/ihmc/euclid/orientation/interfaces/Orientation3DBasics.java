@@ -66,19 +66,19 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
       invert();
    }
 
-   void multiply(Orientation3DReadOnly orientation);
+   void append(Orientation3DReadOnly orientation);
 
-   void multiplyInvertOther(Orientation3DReadOnly orientation);
+   void appendInvertOther(Orientation3DReadOnly orientation);
 
-   void multiplyInvertThis(Orientation3DReadOnly orientation);
+   void appendInvertThis(Orientation3DReadOnly orientation);
 
-   void multiplyInvertBoth(Orientation3DReadOnly orientation);
+   void appendInvertBoth(Orientation3DReadOnly orientation);
    
-   void preMultiply(Orientation3DReadOnly orientation);
+   void prepend(Orientation3DReadOnly orientation);
    
-   void preMultiplyInvertOther(Orientation3DReadOnly orientation);
+   void prependInvertOther(Orientation3DReadOnly orientation);
    
-   void preMultiplyInvertThis(Orientation3DReadOnly orientation);
+   void prependInvertThis(Orientation3DReadOnly orientation);
 
-   void preMultiplyInvertBoth(Orientation3DReadOnly orientation);
+   void prependInvertBoth(Orientation3DReadOnly orientation);
 }

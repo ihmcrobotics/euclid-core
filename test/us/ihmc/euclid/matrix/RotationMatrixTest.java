@@ -915,7 +915,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          RotationMatrix actual = new RotationMatrix();
 
          expected.set(original);
-         expected.preMultiply(transform.getQuaternion());
+         expected.prepend(transform.getQuaternion());
          actual.set(original);
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
@@ -1034,7 +1034,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
          expected.set(multiplied);
 
-         multiplied.multiply(quaternion);
+         multiplied.append(quaternion);
 
          expected.checkIfRotationMatrix();
          QuaternionTools.multiply(expected, quaternion, expected);
@@ -1182,7 +1182,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
          expected.set(multiplied);
 
-         multiplied.preMultiply(quaternion);
+         multiplied.prepend(quaternion);
 
          expected.checkIfRotationMatrix();
          QuaternionTools.multiply(quaternion, expected, expected);
@@ -1217,7 +1217,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
          expected.set(multiplied);
 
-         multiplied.preMultiplyInvertThis(quaternion);
+         multiplied.prependInvertThis(quaternion);
 
          expected.checkIfRotationMatrix();
          QuaternionTools.multiplyTransposeMatrix(quaternion, expected, expected);

@@ -1098,7 +1098,7 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
 
    public void multiply(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.multiply(orientation);
+      rotationMatrix.append(orientation);
    }
 
    /**
@@ -1133,12 +1133,12 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
 
    public void multiplyInvertThis(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.multiplyInvertThis(orientation);
+      rotationMatrix.appendInvertThis(orientation);
    }
 
    public void multiplyInvertOther(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.multiplyInvertOther(orientation);
+      rotationMatrix.appendInvertOther(orientation);
    }
 
    /**
@@ -1213,7 +1213,7 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
 
    public void preMultiply(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.preMultiply(orientation);
+      rotationMatrix.prepend(orientation);
    }
 
    /**
@@ -1247,12 +1247,12 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
 
    public void preMultiplyInvertThis(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.preMultiplyInvertThis(orientation);
+      rotationMatrix.prependInvertThis(orientation);
    }
 
    public void preMultiplyInvertOther(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.preMultiplyInvertOther(orientation);
+      rotationMatrix.prependInvertOther(orientation);
    }
 
    /**

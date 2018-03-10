@@ -366,7 +366,7 @@ public abstract class AxisAngleTools
    public static void inverseTransform(AxisAngleReadOnly axisAngle, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       quaternionTransformed.set(quaternionOriginal);
-      quaternionTransformed.preMultiplyInvertOther(axisAngle);
+      quaternionTransformed.prependInvertOther(axisAngle);
    }
 
    /**

@@ -1224,7 +1224,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qActual.set(qOther1);
             qExpected.set(qOther1);
 
-            qActual.multiply(matrix);
+            qActual.append(matrix);
             QuaternionTools.multiply(qExpected, matrix, qExpected);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
@@ -1423,7 +1423,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
             qActual.set(qOther1);
             qExpected.set(qOther1);
-            qActual.preMultiply(matrix);
+            qActual.prepend(matrix);
             QuaternionTools.multiply(matrix, qExpected, qExpected);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
@@ -1614,7 +1614,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T actual = createEmptyTuple();
 
          expected.set(original);
-         expected.preMultiply(transform.getRotationMatrix());
+         expected.prepend(transform.getRotationMatrix());
          actual.set(original);
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
@@ -1642,7 +1642,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T actual = createEmptyTuple();
 
          expected.set(original);
-         expected.preMultiply(transform.getRotationMatrix());
+         expected.prepend(transform.getRotationMatrix());
          actual.set(original);
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());

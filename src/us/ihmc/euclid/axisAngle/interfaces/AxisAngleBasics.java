@@ -372,7 +372,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    @Override
-   default void multiply(Orientation3DReadOnly other)
+   default void append(Orientation3DReadOnly other)
    {
       AxisAngleTools.multiply(this, false, other, false, this);
    }
@@ -405,7 +405,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    @Override
-   default void multiplyInvertOther(Orientation3DReadOnly orientation)
+   default void appendInvertOther(Orientation3DReadOnly orientation)
    {
       AxisAngleTools.multiply(this, false, orientation, true, this);
    }
@@ -424,7 +424,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
    
    @Override
-   default void multiplyInvertThis(Orientation3DReadOnly orientation)
+   default void appendInvertThis(Orientation3DReadOnly orientation)
    {
       AxisAngleTools.multiply(this, true, orientation, false, this);
    }
@@ -443,7 +443,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
    
    @Override
-   default void multiplyInvertBoth(Orientation3DReadOnly orientation)
+   default void appendInvertBoth(Orientation3DReadOnly orientation)
    {
       AxisAngleTools.multiply(this, true, orientation, true, this);
    }
@@ -513,7 +513,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    @Override
-   default void preMultiply(Orientation3DReadOnly orientation)
+   default void prepend(Orientation3DReadOnly orientation)
    {
       AxisAngleTools.multiply(orientation, false, this, false, this);
    }
@@ -532,7 +532,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    @Override
-   default void preMultiplyInvertOther(Orientation3DReadOnly orientation)
+   default void prependInvertOther(Orientation3DReadOnly orientation)
    {
       AxisAngleTools.multiply(orientation, true, this, false, this);
    }
@@ -551,7 +551,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    @Override
-   default void preMultiplyInvertThis(Orientation3DReadOnly orientation)
+   default void prependInvertThis(Orientation3DReadOnly orientation)
    {
       AxisAngleTools.multiply(orientation, false, this, true, this);
    }
@@ -570,7 +570,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    @Override
-   default void preMultiplyInvertBoth(Orientation3DReadOnly orientation)
+   default void prependInvertBoth(Orientation3DReadOnly orientation)
    {
       AxisAngleTools.multiply(orientation, true, this, true, this);
    }
