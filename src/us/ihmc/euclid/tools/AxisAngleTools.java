@@ -650,8 +650,8 @@ public abstract class AxisAngleTools
    }
 
    /**
-    * Performs the multiplication of the inverse of {@code aa1} and the inverse of {@code aa2} and stores the
-    * result in {@code axisAngleToPack}.
+    * Performs the multiplication of the inverse of {@code aa1} and the inverse of {@code aa2} and
+    * stores the result in {@code axisAngleToPack}.
     * <p>
     * <p>
     * All three arguments can be the same object for in place operations.

@@ -163,7 +163,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
    @Override
    public double getEpsilon()
    {
-      return 1.0e-15;
+      return 1.0e-14;
    }
 
    @Test

@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Random;
 
 import org.junit.Assert;
@@ -17,6 +20,8 @@ import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasicsTest;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
@@ -1217,18 +1222,6 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
          }
-
-         { // Test multiply(RotationMatrixReadOnly matrix)
-            RotationMatrix matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-
-            qActual.set(qOther1);
-            qExpected.set(qOther1);
-
-            qActual.append(matrix);
-            QuaternionTools.multiply(qExpected, matrix, qExpected);
-
-            EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
-         }
       }
    }
 
@@ -1265,26 +1258,6 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qActual.multiplyConjugateOther(qOther2);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
-         }
-
-         { // Test multiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
-            qExpected.set(qOther1);
-            qExpected.multiplyConjugateThis(qOther2);
-
-            qActual.set(qOther1);
-            qActual.multiplyConjugateThis(new RotationMatrix(qOther2));
-
-            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
-         }
-
-         { // Test multiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
-            qExpected.set(qOther1);
-            qExpected.multiplyConjugateOther(qOther2);
-
-            qActual.set(qOther1);
-            qActual.multiplyTransposeMatrix(new RotationMatrix(qOther2));
-
-            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
          }
       }
    }
@@ -1417,17 +1390,6 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
          }
-
-         { // Test preMultiply(RotationMatrixReadOnly matrix)
-            RotationMatrix matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-
-            qActual.set(qOther1);
-            qExpected.set(qOther1);
-            qActual.prepend(matrix);
-            QuaternionTools.multiply(matrix, qExpected, qExpected);
-
-            EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
-         }
       }
    }
 
@@ -1464,26 +1426,6 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qActual.preMultiplyConjugateOther(qOther2);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
-         }
-
-         { // Test preMultiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
-            qExpected.set(qOther1);
-            qExpected.preMultiplyConjugateThis(qOther2);
-
-            qActual.set(qOther1);
-            qActual.preMultiplyConjugateThis(new RotationMatrix(qOther2));
-
-            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
-         }
-
-         { // Test preMultiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
-            qExpected.set(qOther1);
-            qExpected.preMultiplyConjugateOther(qOther2);
-
-            qActual.set(qOther1);
-            qActual.preMultiplyTransposeMatrix(new RotationMatrix(qOther2));
-
-            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
          }
       }
    }
@@ -1809,6 +1751,43 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
          quaternionB.negate();
          assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+      }
+   }
+
+   @Test
+   public void testOrientation3DBasicsFeatures() throws Throwable
+   {
+      Orientation3DBasicsTest test = new Orientation3DBasicsTest()
+      {
+         @Override
+         public Orientation3DBasics createEmptyOrientation3DBasics()
+         {
+            return createEmptyTuple();
+         }
+
+         @Override
+         public double getEpsilon()
+         {
+            return QuaternionBasicsTest.this.getEpsilon();
+         }
+      };
+      for (Method testMethod : test.getClass().getMethods())
+      {
+         if (!testMethod.getName().startsWith("test"))
+            continue;
+         if (!Modifier.isPublic(testMethod.getModifiers()))
+            continue;
+         if (Modifier.isStatic(testMethod.getModifiers()))
+            continue;
+
+         try
+         {
+            testMethod.invoke(test);
+         }
+         catch (InvocationTargetException e)
+         {
+            throw e.getTargetException();
+         }
       }
    }
 }

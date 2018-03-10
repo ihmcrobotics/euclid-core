@@ -422,7 +422,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    {
       AxisAngleTools.multiplyInvertLeft(this, other, this);
    }
-   
+
    @Override
    default void appendInvertThis(Orientation3DReadOnly orientation)
    {
@@ -430,7 +430,8 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    /**
-    * Sets this axis-angle to the multiplication of the inverse of {@code this} and the inverse of {@code other}.
+    * Sets this axis-angle to the multiplication of the inverse of {@code this} and the inverse of
+    * {@code other}.
     * <p>
     * this = this<sup>-1</sup> * other<sup>-1</sup>
     * </p>
@@ -441,7 +442,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    {
       AxisAngleTools.multiplyInvertBoth(this, other, this);
    }
-   
+
    @Override
    default void appendInvertBoth(Orientation3DReadOnly orientation)
    {
@@ -557,7 +558,8 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    /**
-    * Sets this axis-angle to the multiplication of the inverse of {@code other} and the inverse of {@code this}.
+    * Sets this axis-angle to the multiplication of the inverse of {@code other} and the inverse of
+    * {@code this}.
     * <p>
     * this = other<sup>-1</sup> * this<sup>-1</sup>
     * </p>

@@ -196,7 +196,8 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    @Override
    default void get(QuaternionBasics quaternionToPack)
    {
-      QuaternionConversion.convertAxisAngleToQuaternion(this, quaternionToPack);;
+      QuaternionConversion.convertAxisAngleToQuaternion(this, quaternionToPack);
+      ;
    }
 
    /**
@@ -206,6 +207,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param rotationVectorToPack rotation vector in which the orientation of this axis-angle is
     *           stored. Modified.
     */
+   @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertAxisAngleToRotationVector(this, rotationVectorToPack);
@@ -220,6 +222,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
     */
+   @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {
       YawPitchRollConversion.convertAxisAngleToYawPitchRoll(this, yawPitchRollToPack);
@@ -234,6 +237,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     *
     * @return the yaw angle around the z-axis.
     */
+   @Override
    default double getYaw()
    {
       return YawPitchRollConversion.computeYaw(this);
@@ -249,6 +253,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     *
     * @return the pitch angle around the y-axis.
     */
+   @Override
    default double getPitch()
    {
       return YawPitchRollConversion.computePitch(this);
@@ -263,6 +268,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     *
     * @return the roll angle around the x-axis.
     */
+   @Override
    default double getRoll()
    {
       return YawPitchRollConversion.computeRoll(this);
@@ -386,6 +392,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
+   @Override
    default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       AxisAngleTools.transform(this, tupleOriginal, tupleTransformed);
@@ -411,6 +418,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
     *            does not represent a transformation in the XY plane.
     */
+   @Override
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       AxisAngleTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
@@ -427,6 +435,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
+   @Override
    default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       AxisAngleTools.transform(this, matrixOriginal, matrixTransformed);
@@ -443,6 +452,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
+   @Override
    default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       AxisAngleTools.transform(this, quaternionOriginal, quaternionTransformed);
@@ -459,6 +469,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
+   @Override
    default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       AxisAngleTools.transform(this, vectorOriginal, vectorTransformed);
@@ -475,6 +486,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
+   @Override
    default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       AxisAngleTools.transform(this, matrixOriginal, matrixTransformed);
@@ -490,6 +502,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
     */
+   @Override
    default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       AxisAngleTools.inverseTransform(this, tupleOriginal, tupleTransformed);
@@ -509,6 +522,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this axis-angle
     *            does not represent a transformation in the XY plane.
     */
+   @Override
    default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       AxisAngleTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
@@ -524,6 +538,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       AxisAngleTools.inverseTransform(this, quaternionOriginal, quaternionTransformed);
@@ -540,6 +555,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       AxisAngleTools.inverseTransform(this, vectorOriginal, vectorTransformed);
@@ -555,6 +571,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       AxisAngleTools.inverseTransform(this, matrixOriginal, matrixTransformed);
@@ -570,6 +587,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       AxisAngleTools.inverseTransform(this, matrixOriginal, matrixTransformed);

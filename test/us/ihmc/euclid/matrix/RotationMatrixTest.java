@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Random;
 
 import org.ejml.data.DenseMatrix64F;
@@ -16,6 +19,8 @@ import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasicsTest;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
@@ -1029,22 +1034,6 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiply(QuaternionReadOnly quaternion)
-         Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
-         expected.set(multiplied);
-
-         multiplied.append(quaternion);
-
-         expected.checkIfRotationMatrix();
-         QuaternionTools.multiply(expected, quaternion, expected);
-
-         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
-
-         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test multiplyTransposeThis(RotationMatrixReadOnly other)
          rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
@@ -1058,22 +1047,6 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          expected.normalize();
 
          EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
-
-         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyTransposeThis(QuaternionReadOnly quaternion)
-         Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
-         expected.set(multiplied);
-
-         multiplied.multiplyTransposeThis(quaternion);
-
-         expected.checkIfRotationMatrix();
-         QuaternionTools.multiplyTransposeMatrix(expected, quaternion, expected);
-
          EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
 
          assertEquals(1.0, multiplied.determinant(), 1.0e-10);
@@ -1099,22 +1072,6 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyConjugateQuaternion(QuaternionReadOnly quaternion)
-         Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
-         expected.set(multiplied);
-
-         multiplied.multiplyConjugateQuaternion(quaternion);
-
-         expected.checkIfRotationMatrix();
-         QuaternionTools.multiplyConjugateQuaternion(expected, quaternion, expected);
-
-         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
-
-         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test multiplyTransposeBoth(RotationMatrixReadOnly other)
          rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
@@ -1128,22 +1085,6 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          expected.normalize();
 
          EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
-
-         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test multiplyTransposeMatrixConjugateQuaternion(QuaternionReadOnly quaternion)
-         Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
-         expected.set(multiplied);
-
-         multiplied.multiplyTransposeThisConjugateQuaternion(quaternion);
-
-         expected.checkIfRotationMatrix();
-         QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(expected, quaternion, expected);
-
          EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
 
          assertEquals(1.0, multiplied.determinant(), 1.0e-10);
@@ -1177,22 +1118,6 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiply(QuaternionReadOnly quaternion)
-         Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
-         expected.set(multiplied);
-
-         multiplied.prepend(quaternion);
-
-         expected.checkIfRotationMatrix();
-         QuaternionTools.multiply(quaternion, expected, expected);
-
-         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
-
-         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test preMultiplyTransposeThis(RotationMatrixReadOnly other)
          rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
@@ -1206,22 +1131,6 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          expected.normalize();
 
          EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
-
-         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyInvertThis(QuaternionReadOnly quaternion)
-         Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
-         expected.set(multiplied);
-
-         multiplied.prependInvertThis(quaternion);
-
-         expected.checkIfRotationMatrix();
-         QuaternionTools.multiplyTransposeMatrix(quaternion, expected, expected);
-
          EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
 
          assertEquals(1.0, multiplied.determinant(), 1.0e-10);
@@ -1247,22 +1156,6 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyConjugateQuaternion(QuaternionReadOnly quaternion)
-         Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
-         expected.set(multiplied);
-
-         multiplied.preMultiplyConjugateQuaternion(quaternion);
-
-         expected.checkIfRotationMatrix();
-         QuaternionTools.multiplyConjugateQuaternion(quaternion, expected, expected);
-
-         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
-
-         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test preMultiplyTransposeBoth(RotationMatrixReadOnly other)
          rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          rotationMatrixCopy.set(rotationMatrix);
@@ -1276,22 +1169,6 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          expected.normalize();
 
          EuclidCoreTestTools.assertMatrix3DEquals(rotationMatrix, rotationMatrixCopy, EPS);
-         EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
-
-         assertEquals(1.0, multiplied.determinant(), 1.0e-10);
-      }
-
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
-         Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
-         expected.set(multiplied);
-
-         multiplied.preMultiplyTransposeThisConjugateQuaternion(quaternion);
-
-         expected.checkIfRotationMatrix();
-         QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, expected, expected);
-
          EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
 
          assertEquals(1.0, multiplied.determinant(), 1.0e-10);
@@ -1761,7 +1638,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          QuaternionBasics expected = EuclidCoreRandomTools.nextQuaternion(random);
          rotationMatrix = createRandomMatrix(random);
 
-         QuaternionTools.multiplyTransposeMatrix(rotationMatrix, original, expected);
+         QuaternionTools.multiply(rotationMatrix, true, original, false, expected);
          rotationMatrix.inverseTransform(actual);
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, EPS);
       }
@@ -1773,7 +1650,7 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          QuaternionBasics expected = EuclidCoreRandomTools.nextQuaternion(random);
          rotationMatrix = createRandomMatrix(random);
 
-         QuaternionTools.multiplyTransposeMatrix(rotationMatrix, original, expected);
+         QuaternionTools.multiply(rotationMatrix, true, original, false, expected);
          rotationMatrix.inverseTransform(original, actual);
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, EPS);
       }
@@ -2076,6 +1953,43 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          newHashCode = rotationMatrix.hashCode();
          assertNotEquals(newHashCode, previousHashCode);
          previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testOrientation3DBasicsFeatures() throws Throwable
+   {
+      Orientation3DBasicsTest test = new Orientation3DBasicsTest()
+      {
+         @Override
+         public Orientation3DBasics createEmptyOrientation3DBasics()
+         {
+            return createEmptyMatrix();
+         }
+
+         @Override
+         public double getEpsilon()
+         {
+            return EPS;
+         }
+      };
+      for (Method testMethod : test.getClass().getMethods())
+      {
+         if (!testMethod.getName().startsWith("test"))
+            continue;
+         if (!Modifier.isPublic(testMethod.getModifiers()))
+            continue;
+         if (Modifier.isStatic(testMethod.getModifiers()))
+            continue;
+
+         try
+         {
+            testMethod.invoke(test);
+         }
+         catch (InvocationTargetException e)
+         {
+            throw e.getTargetException();
+         }
       }
    }
 

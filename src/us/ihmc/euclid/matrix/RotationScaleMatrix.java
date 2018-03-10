@@ -1475,8 +1475,7 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
    }
 
    /**
-    * Returns the reference to the rotation matrix used to compose this rotation-scale
-    * matrix.
+    * Returns the reference to the rotation matrix used to compose this rotation-scale matrix.
     *
     * @return the reference to the rotation matrix.
     */

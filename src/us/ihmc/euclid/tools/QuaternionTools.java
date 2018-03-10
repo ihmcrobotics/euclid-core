@@ -83,8 +83,8 @@ public abstract class QuaternionTools
    }
 
    /**
-    * Performs the multiplication of the conjugate of {@code q1} and the conjugate of {@code q2} and stores the result in
-    * {@code quaternionToPack}.
+    * Performs the multiplication of the conjugate of {@code q1} and the conjugate of {@code q2} and
+    * stores the result in {@code quaternionToPack}.
     * <p>
     * quaternionToPack = q1* * q2*
     * </p>

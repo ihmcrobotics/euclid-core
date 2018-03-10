@@ -66,6 +66,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     *           Modified.
     * @deprecated Use {@link #getRotationVector(Vector3DBasics)} instead
     */
+   @Deprecated
    default void get(Vector3DBasics rotationVectorToPack)
    {
       getRotationVector(rotationVectorToPack);
@@ -100,6 +101,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * @param rotationVectorToPack the rotation vector representing the same orientation as this.
     *           Modified.
     */
+   @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertMatrixToRotationVector(this, rotationVectorToPack);
@@ -129,6 +131,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
     */
+   @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {
       YawPitchRollConversion.convertMatrixToYawPitchRoll(this, yawPitchRollToPack);
@@ -144,6 +147,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     *
     * @return the yaw angle around the z-axis.
     */
+   @Override
    default double getYaw()
    {
       return YawPitchRollConversion.computeYaw(this);
@@ -159,6 +163,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     *
     * @return the pitch angle around the y-axis.
     */
+   @Override
    default double getPitch()
    {
       return YawPitchRollConversion.computePitch(this);
@@ -174,6 +179,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     *
     * @return the roll angle around the x-axis.
     */
+   @Override
    default double getRoll()
    {
       return YawPitchRollConversion.computeRoll(this);
@@ -248,6 +254,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     *
     * @param quaternionToTransform the quaternion to transform. Modified.
     */
+   @Override
    default void transform(QuaternionBasics quaternionToTransform)
    {
       transform(quaternionToTransform, quaternionToTransform);
@@ -264,6 +271,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
+   @Override
    default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.multiply(this, false, quaternionOriginal, false, quaternionTransformed);
@@ -283,6 +291,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     *
     * @param matrixToTransform the rotation matrix to transform. Modified.
     */
+   @Override
    default void transform(RotationMatrix matrixToTransform)
    {
       transform(matrixToTransform, matrixToTransform);
@@ -298,6 +307,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
+   @Override
    default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       RotationMatrixTools.multiply(this, matrixOriginal, matrixTransformed);
@@ -311,6 +321,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     *
     * @param matrixToTransform the rotation matrix to transform. Modified.
     */
+   @Override
    default void transform(RotationScaleMatrix matrixToTransform)
    {
       transform(matrixToTransform, matrixToTransform);
@@ -327,6 +338,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * @param matrixOriginal the rotation-scale matrix to transform. Not modified.
     * @param matrixTransformed the rotation-scale matrix in which the result is stored. Modified.
     */
+   @Override
    default void transform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
    {
       matrixTransformed.set(matrixOriginal);
@@ -404,6 +416,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.multiply(this, true, quaternionOriginal, false, quaternionTransformed);
@@ -440,6 +453,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       RotationMatrixTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
@@ -462,6 +476,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * @param matrixOriginal the rotation-scale matrix to transform. Not modified.
     * @param matrixTransformed the rotation-scale matrix in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
    {
       matrixTransformed.set(matrixOriginal);

@@ -73,11 +73,11 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
    void appendInvertThis(Orientation3DReadOnly orientation);
 
    void appendInvertBoth(Orientation3DReadOnly orientation);
-   
+
    void prepend(Orientation3DReadOnly orientation);
-   
+
    void prependInvertOther(Orientation3DReadOnly orientation);
-   
+
    void prependInvertThis(Orientation3DReadOnly orientation);
 
    void prependInvertBoth(Orientation3DReadOnly orientation);

@@ -4,12 +4,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Random;
 
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasicsTest;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
@@ -747,6 +752,43 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actual.set(expected);
          actual.prependRollRotation(roll);
          EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testOrientation3DBasicsFeatures() throws Throwable
+   {
+      Orientation3DBasicsTest test = new Orientation3DBasicsTest()
+      {
+         @Override
+         public Orientation3DBasics createEmptyOrientation3DBasics()
+         {
+            return createEmptyAxisAngle();
+         }
+
+         @Override
+         public double getEpsilon()
+         {
+            return AxisAngleBasicsTest.this.getEpsilon();
+         }
+      };
+      for (Method testMethod : test.getClass().getMethods())
+      {
+         if (!testMethod.getName().startsWith("test"))
+            continue;
+         if (!Modifier.isPublic(testMethod.getModifiers()))
+            continue;
+         if (Modifier.isStatic(testMethod.getModifiers()))
+            continue;
+
+         try
+         {
+            testMethod.invoke(test);
+         }
+         catch (InvocationTargetException e)
+         {
+            throw e.getTargetException();
+         }
       }
    }
 }

@@ -14,7 +14,6 @@ import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
-import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
@@ -193,6 +192,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     *
     * @throws NotARotationMatrixException if the orthonormalization failed.
     */
+   @Override
    public void normalize()
    {
       Matrix3DTools.normalize(this);
@@ -567,6 +567,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     * This is equivalent to {@code this.transpose()}.
     * </p>
     */
+   @Override
    public void invert()
    {
       transpose();
@@ -585,6 +586,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiply(this, other, this);
    }
 
+   @Override
    public void append(Orientation3DReadOnly orientation)
    {
       RotationMatrixTools.multiply(this, false, orientation, false, this);
@@ -603,6 +605,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeLeft(this, other, this);
    }
 
+   @Override
    public void appendInvertThis(Orientation3DReadOnly orientation)
    {
       RotationMatrixTools.multiply(this, true, orientation, false, this);
@@ -621,6 +624,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeRight(this, other, this);
    }
 
+   @Override
    public void appendInvertOther(Orientation3DReadOnly orientation)
    {
       RotationMatrixTools.multiply(this, false, orientation, true, this);
@@ -639,6 +643,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeBoth(this, other, this);
    }
 
+   @Override
    public void appendInvertBoth(Orientation3DReadOnly orientation)
    {
       RotationMatrixTools.multiply(this, true, orientation, true, this);
@@ -705,6 +710,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiply(other, this, this);
    }
 
+   @Override
    public void prepend(Orientation3DReadOnly orientation)
    {
       RotationMatrixTools.multiply(orientation, false, this, false, this);
@@ -723,9 +729,10 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeRight(other, this, this);
    }
 
+   @Override
    public void prependInvertThis(Orientation3DReadOnly orientation)
    {
-      RotationMatrixTools.multiply(orientation, false, this, false, this);
+      RotationMatrixTools.multiply(orientation, false, this, true, this);
    }
 
    /**
@@ -741,9 +748,10 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeLeft(other, this, this);
    }
 
+   @Override
    public void prependInvertOther(Orientation3DReadOnly orientation)
    {
-      RotationMatrixTools.multiply(orientation, false, this, true, this);
+      RotationMatrixTools.multiply(orientation, true, this, false, this);
    }
 
    /**
@@ -759,6 +767,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeBoth(other, this, this);
    }
 
+   @Override
    public void prependInvertBoth(Orientation3DReadOnly orientation)
    {
       RotationMatrixTools.multiply(orientation, true, this, true, this);

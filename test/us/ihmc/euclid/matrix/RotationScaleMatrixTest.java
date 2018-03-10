@@ -383,7 +383,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       matrix.checkIfRotationScaleMatrixProper(); // Should not throw any exception
       matrix.checkIfScalesProper(); // Should not throw any exception
 
-      RotationMatrix rotationMatrix = (RotationMatrix) matrix.getRotationMatrix();
+      RotationMatrix rotationMatrix = matrix.getRotationMatrix();
       rotationMatrix.setUnsafe(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       matrix.checkIfScalesProper(); // Should not throw any exception
 
@@ -493,7 +493,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          double m20 = randomRotation.getM20() + corruptionFactor * random.nextDouble();
          double m21 = randomRotation.getM21() + corruptionFactor * random.nextDouble();
          double m22 = randomRotation.getM22() + corruptionFactor * random.nextDouble();
-         ((RotationMatrix) matrixActual.getRotationMatrix()).setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+         matrixActual.getRotationMatrix().setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          matrixActual.normalizeRotationMatrix();
 
          // Test that each row & column vectors are unit-length
@@ -1449,7 +1449,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).multiply(m2);
+         expected.getRotationMatrix().multiply(m2);
          actual.set(m1);
          actual.multiply(m2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1471,7 +1471,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).append(q2);
+         expected.getRotationMatrix().append(q2);
          actual.set(m1);
          actual.multiply(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1493,7 +1493,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).multiplyTransposeThis(m2);
+         expected.getRotationMatrix().multiplyTransposeThis(m2);
          actual.set(m1);
          actual.multiplyTransposeThis(m2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1515,7 +1515,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).multiplyTransposeOther(m2);
+         expected.getRotationMatrix().multiplyTransposeOther(m2);
          actual.set(m1);
          actual.multiplyTransposeOther(m2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1537,7 +1537,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).multiplyTransposeThis(q2);
+         expected.getRotationMatrix().multiplyTransposeThis(q2);
          actual.set(m1);
          actual.multiplyTransposeThis(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1559,7 +1559,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).multiplyConjugateQuaternion(q2);
+         expected.getRotationMatrix().multiplyConjugateQuaternion(q2);
          actual.set(m1);
          actual.multiplyConjugateQuaternion(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1581,7 +1581,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).preMultiply(m2);
+         expected.getRotationMatrix().preMultiply(m2);
          actual.set(m1);
          actual.preMultiply(m2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1603,7 +1603,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).prepend(q2);
+         expected.getRotationMatrix().prepend(q2);
          actual.set(m1);
          actual.preMultiply(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1625,7 +1625,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).preMultiplyTransposeThis(m2);
+         expected.getRotationMatrix().preMultiplyTransposeThis(m2);
          actual.set(m1);
          actual.preMultiplyTransposeThis(m2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1647,7 +1647,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).preMultiplyTransposeOther(m2);
+         expected.getRotationMatrix().preMultiplyTransposeOther(m2);
          actual.set(m1);
          actual.preMultiplyTransposeOther(m2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1669,7 +1669,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).preMultiplyTransposeThis(q2);
+         expected.getRotationMatrix().preMultiplyTransposeThis(q2);
          actual.set(m1);
          actual.preMultiplyTransposeThis(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -1691,7 +1691,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          m1 = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 10.0);
 
          expected.set(m1);
-         ((RotationMatrix) expected.getRotationMatrix()).preMultiplyConjugateQuaternion(q2);
+         expected.getRotationMatrix().preMultiplyConjugateQuaternion(q2);
          actual.set(m1);
          actual.preMultiplyConjugateQuaternion(q2);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, EPS);
@@ -2400,32 +2400,28 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
             assertTrue(m1.epsilonEquals(m2, epsilon));
             m1.getRotation(coeffs);
             coeffs[3 * row + column] += 0.999 * epsilon;
-            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7],
-                                                                coeffs[8]);
+            m2.getRotationMatrix().setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7], coeffs[8]);
             assertTrue(m1.epsilonEquals(m2, epsilon));
 
             m2.set(m1);
             assertTrue(m1.epsilonEquals(m2, epsilon));
             m1.getRotation(coeffs);
             coeffs[3 * row + column] += 1.001 * epsilon;
-            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7],
-                                                                coeffs[8]);
+            m2.getRotationMatrix().setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7], coeffs[8]);
             assertFalse(m1.epsilonEquals(m2, epsilon));
 
             m2.set(m1);
             assertTrue(m1.epsilonEquals(m2, epsilon));
             m1.getRotation(coeffs);
             coeffs[3 * row + column] -= 0.999 * epsilon;
-            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7],
-                                                                coeffs[8]);
+            m2.getRotationMatrix().setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7], coeffs[8]);
             assertTrue(m1.epsilonEquals(m2, epsilon));
 
             m2.set(m1);
             assertTrue(m1.epsilonEquals(m2, epsilon));
             m1.getRotation(coeffs);
             coeffs[3 * row + column] -= 1.001 * epsilon;
-            ((RotationMatrix) m2.getRotationMatrix()).setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7],
-                                                                coeffs[8]);
+            m2.getRotationMatrix().setUnsafe(coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4], coeffs[5], coeffs[6], coeffs[7], coeffs[8]);
             assertFalse(m1.epsilonEquals(m2, epsilon));
          }
       }

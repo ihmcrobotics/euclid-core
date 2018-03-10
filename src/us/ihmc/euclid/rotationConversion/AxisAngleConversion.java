@@ -82,7 +82,7 @@ public class AxisAngleConversion
    }
 
    public static void convertMatrixToAxisAngle(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
-                                                AxisAngleBasics axisAngleToPack)
+                                               AxisAngleBasics axisAngleToPack)
    {
       if (EuclidCoreTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
@@ -169,13 +169,16 @@ public class AxisAngleConversion
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
-      
+
       convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);
    }
 
    /**
-    * @deprecated Use {@link #convertQuaternionToAxisAngle(double,double,double,double,AxisAngleBasics)} instead
+    * @deprecated Use
+    *             {@link #convertQuaternionToAxisAngle(double,double,double,double,AxisAngleBasics)}
+    *             instead
     */
+   @Deprecated
    public static void convertQuaternionToAxisAngle(AxisAngleBasics axisAngleToPack, double qx, double qy, double qz, double qs)
    {
       convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);

@@ -178,6 +178,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
     * @deprecated Use {@link #getRotationVector(Vector3DBasics)} instead
     */
+   @Deprecated
    default void get(Vector3DBasics rotationVectorToPack)
    {
       getRotationVector(rotationVectorToPack);
@@ -211,6 +212,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
     */
+   @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertQuaternionToRotationVector(this, rotationVectorToPack);
@@ -225,6 +227,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
     */
+   @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {
       YawPitchRollConversion.convertQuaternionToYawPitchRoll(this, yawPitchRollToPack);
@@ -253,6 +256,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @return the yaw angle around the z-axis.
     */
+   @Override
    default double getYaw()
    {
       return YawPitchRollConversion.computeYaw(this);
@@ -268,6 +272,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @return the pitch angle around the y-axis.
     */
+   @Override
    default double getPitch()
    {
       return YawPitchRollConversion.computePitch(this);
@@ -282,6 +287,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @return the roll angle around the x-axis.
     */
+   @Override
    default double getRoll()
    {
       return YawPitchRollConversion.computeRoll(this);
@@ -297,6 +303,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
     */
+   @Override
    default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed);
@@ -322,6 +329,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
     *            does not represent a transformation in the XY plane.
     */
+   @Override
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
@@ -337,6 +345,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
+   @Override
    default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
@@ -352,6 +361,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
+   @Override
    default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.transform(this, quaternionOriginal, quaternionTransformed);
@@ -368,6 +378,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
+   @Override
    default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       QuaternionTools.transform(this, vectorOriginal, vectorTransformed);
@@ -383,6 +394,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
+   @Override
    default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
@@ -398,6 +410,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
     *            plane.
     */
+   @Override
    default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed);
@@ -417,6 +430,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
     *            does not represent a transformation in the XY plane.
     */
+   @Override
    default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
@@ -432,6 +446,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param quaternionOriginal the quaternion to transform. Not modified.
     * @param quaternionTransformed the quaternion in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.inverseTransform(this, quaternionOriginal, quaternionTransformed);
@@ -448,6 +463,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       QuaternionTools.inverseTransform(this, vectorOriginal, vectorTransformed);
@@ -463,6 +479,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
@@ -478,6 +495,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
+   @Override
    default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
