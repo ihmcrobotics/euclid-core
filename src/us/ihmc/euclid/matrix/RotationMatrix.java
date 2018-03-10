@@ -402,6 +402,11 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       normalize();
    }
 
+   public void setAndNormalize(RotationMatrixReadOnly other)
+   {
+      setAndNormalize((Matrix3DReadOnly) other);
+   }
+
    /**
     * Sets this rotation matrix to the invert of the given {@code matrix}.
     * <p>
