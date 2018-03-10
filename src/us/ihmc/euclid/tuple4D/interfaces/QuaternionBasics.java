@@ -1,6 +1,5 @@
 package us.ihmc.euclid.tuple4D.interfaces;
 
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
@@ -369,18 +368,10 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiply(q1, q2, this);
    }
 
-   /**
-    * Multiplies this quaternion by {@code matrix}.
-    * <p>
-    * this = this * Q(matrix)<br>
-    * where Q(matrix) is the equivalent quaternion for the given rotation matrix.
-    * </p>
-    *
-    * @param matrix the rotation matrix to multiply this with. Not modified.
-    */
-   default void multiply(RotationMatrixReadOnly matrix)
+   @Override
+   default void multiply(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiply(this, matrix, this);
+      QuaternionTools.multiply(this, false, orientation, false, this);
    }
 
    /**
@@ -396,6 +387,12 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiplyConjugateRight(this, other, this);
    }
 
+   @Override
+   default void multiplyInvertOther(Orientation3DReadOnly orientation)
+   {
+      QuaternionTools.multiply(this, false, orientation, true, this);
+   }
+
    /**
     * Sets this quaternion to the multiplication of the conjugate of {@code this} and {@code other}.
     * <p>
@@ -409,34 +406,29 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiplyConjugateLeft(this, other, this);
    }
 
-   /**
-    * Sets this quaternion to the multiplication of {@code this} and the transpose of
-    * {@code rotationMatrix}.
-    * <p>
-    * this = this * Q(rotationMatrix<sup>T</sup>)<br>
-    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
-    */
-   default void multiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
+   @Override
+   default void multiplyInvertThis(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyTransposeMatrix(this, rotationMatrix, this);
+      QuaternionTools.multiply(this, true, orientation, false, this);
    }
 
    /**
-    * Sets this quaternion to the multiplication of the conjugate of {@code this} and
-    * {@code rotationMatrix}.
+    * Sets this quaternion to the multiplication of the conjugate of {@code this} and {@code other}.
     * <p>
-    * this = this* * Q(rotationMatrix)<br>
-    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
+    * this = this* * other
     * </p>
     *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
-   default void multiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
+   default void multiplyConjugateBoth(QuaternionReadOnly other)
    {
-      QuaternionTools.multiplyConjugateQuaternion(this, rotationMatrix, this);
+      QuaternionTools.multiplyConjugateBoth(this, other, this);
+   }
+
+   @Override
+   default void multiplyInvertBoth(Orientation3DReadOnly orientation)
+   {
+      QuaternionTools.multiply(this, true, orientation, true, this);
    }
 
    /**
@@ -503,18 +495,10 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiply(other, this, this);
    }
 
-   /**
-    * Pre-multiplies this quaternion by {@code matrix}.
-    * <p>
-    * this = Q(matrix) * this<br>
-    * where Q(matrix) is the equivalent quaternion for the given rotation matrix.
-    * </p>
-    *
-    * @param matrix the rotation matrix to multiply this with. Not modified.
-    */
-   default void preMultiply(RotationMatrixReadOnly matrix)
+   @Override
+   default void preMultiply(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiply(matrix, this, this);
+      QuaternionTools.multiply(orientation, false, this, false, this);
    }
 
    /**
@@ -530,6 +514,12 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiplyConjugateLeft(other, this, this);
    }
 
+   @Override
+   default void preMultiplyInvertOther(Orientation3DReadOnly orientation)
+   {
+      QuaternionTools.multiply(orientation, true, this, false, this);
+   }
+
    /**
     * Sets this quaternion to the multiplication of {@code other} and the conjugate of {@code this}.
     * <p>
@@ -543,34 +533,30 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiplyConjugateRight(other, this, this);
    }
 
-   /**
-    * Sets this quaternion to the multiplication of the transpose of {@code rotationMatrix} and
-    * {@code this}.
-    * <p>
-    * this = Q(rotationMatrix<sup>T</sup>) * this<br>
-    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
-    */
-   default void preMultiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
+   @Override
+   default void preMultiplyInvertThis(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyTransposeMatrix(rotationMatrix, this, this);
+      QuaternionTools.multiply(orientation, false, this, true, this);
    }
 
    /**
-    * Sets this quaternion to the multiplication of {@code rotationMatrix} and the conjugate of
-    * {@code this}.
+    * Sets this quaternion to the multiplication of the conjugate of {@code other} and the conjugate
+    * of {@code this}.
     * <p>
-    * this = Q(rotationMatrix) * this*<br>
-    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
+    * this = other* * this*
     * </p>
     *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
-   default void preMultiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
+   default void preMultiplyConjugateBoth(QuaternionReadOnly other)
    {
-      QuaternionTools.multiplyConjugateQuaternion(rotationMatrix, this, this);
+      QuaternionTools.multiplyConjugateBoth(other, this, this);
+   }
+
+   @Override
+   default void preMultiplyInvertBoth(Orientation3DReadOnly orientation)
+   {
+      QuaternionTools.multiply(orientation, true, this, true, this);
    }
 
    /**

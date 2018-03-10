@@ -19,7 +19,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
    void setFromRotationVector(double x, double y, double z);
 
    void setFromYawPitchRoll(double yaw, double pitch, double roll);
-   
+
    default void setYawPitchRoll(double[] yawPitchRoll)
    {
       setFromYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
@@ -46,7 +46,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
    {
       setFromYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX());
    }
-   
+
    default void setEuler(double rotX, double rotY, double rotZ)
    {
       setFromYawPitchRoll(rotZ, rotY, rotX);
@@ -65,4 +65,20 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
       set(orientation3DReadOnly);
       invert();
    }
+
+   void multiply(Orientation3DReadOnly orientation);
+
+   void multiplyInvertOther(Orientation3DReadOnly orientation);
+
+   void multiplyInvertThis(Orientation3DReadOnly orientation);
+
+   void multiplyInvertBoth(Orientation3DReadOnly orientation);
+   
+   void preMultiply(Orientation3DReadOnly orientation);
+   
+   void preMultiplyInvertOther(Orientation3DReadOnly orientation);
+   
+   void preMultiplyInvertThis(Orientation3DReadOnly orientation);
+
+   void preMultiplyInvertBoth(Orientation3DReadOnly orientation);
 }

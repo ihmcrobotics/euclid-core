@@ -881,7 +881,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    {
       translationVector.sub(rigidBodyTransform.getTranslationVector(), translationVector);
       quaternion.inverseTransform(translationVector, translationVector);
-      QuaternionTools.multiplyConjugateQuaternion(quaternion, rigidBodyTransform.getRotationMatrix(), quaternion);
+      quaternion.preMultiplyInvertThis(rigidBodyTransform.getRotationMatrix());
    }
 
    /**
@@ -896,7 +896,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     */
    public void multiplyInvertOther(RigidBodyTransform rigidBodyTransform)
    {
-      QuaternionTools.multiplyTransposeMatrix(quaternion, rigidBodyTransform.getRotationMatrix(), quaternion);
+      quaternion.preMultiplyInvertOther(rigidBodyTransform.getRotationMatrix());
       QuaternionTools.subTransform(quaternion, rigidBodyTransform.getTranslationVector(), translationVector);
    }
 
@@ -919,7 +919,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    {
       translationVector.sub(affineTransform.getTranslationVector(), translationVector);
       quaternion.inverseTransform(translationVector, translationVector);
-      QuaternionTools.multiplyConjugateQuaternion(quaternion, affineTransform.getRotationMatrix(), quaternion);
+      quaternion.preMultiplyInvertThis(affineTransform.getRotationMatrix());
    }
 
    /**
@@ -939,7 +939,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     */
    public void multiplyInvertOther(AffineTransform affineTransform)
    {
-      QuaternionTools.multiplyTransposeMatrix(quaternion, affineTransform.getRotationMatrix(), quaternion);
+      quaternion.preMultiplyInvertOther(affineTransform.getRotationMatrix());
       QuaternionTools.subTransform(quaternion, affineTransform.getTranslationVector(), translationVector);
    }
 
@@ -1138,7 +1138,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     */
    public void preMultiplyInvertThis(RigidBodyTransform rigidBodyTransform)
    {
-      quaternion.preMultiplyConjugateThis(rigidBodyTransform.getRotationMatrix());
+      quaternion.preMultiplyInvertThis(rigidBodyTransform.getRotationMatrix());
       quaternion.transform(translationVector);
       translationVector.sub(rigidBodyTransform.getTranslationVector(), translationVector);
    }
@@ -1157,7 +1157,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    {
       translationVector.sub(rigidBodyTransform.getTranslationVector());
       rigidBodyTransform.getRotationMatrix().inverseTransform(translationVector);
-      quaternion.preMultiplyTransposeMatrix(rigidBodyTransform.getRotationMatrix());
+      quaternion.preMultiplyInvertOther(rigidBodyTransform.getRotationMatrix());
    }
 
    /**
@@ -1177,7 +1177,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     */
    public void preMultiplyInvertThis(AffineTransform affineTransform)
    {
-      quaternion.preMultiplyConjugateThis(affineTransform.getRotationMatrix());
+      quaternion.preMultiplyInvertThis(affineTransform.getRotationMatrix());
       quaternion.transform(translationVector);
       translationVector.sub(affineTransform.getTranslationVector(), translationVector);
 
@@ -1202,7 +1202,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    {
       translationVector.sub(affineTransform.getTranslationVector());
       affineTransform.getRotationMatrix().inverseTransform(translationVector);
-      quaternion.preMultiplyTransposeMatrix(affineTransform.getRotationMatrix());
+      quaternion.preMultiplyInvertOther(affineTransform.getRotationMatrix());
    }
 
    /**

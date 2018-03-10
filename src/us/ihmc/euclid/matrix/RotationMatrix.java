@@ -585,18 +585,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiply(this, other, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = this * R(quaternion) <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void multiply(QuaternionReadOnly quaternion)
+   public void multiply(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiply(this, quaternion, this);
+      RotationMatrixTools.multiply(this, false, orientation, false, this);
    }
 
    /**
@@ -612,18 +603,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeLeft(this, other, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = this<sup>T</sup> * R(quaternion) <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void multiplyTransposeThis(QuaternionReadOnly quaternion)
+   public void multiplyInvertThis(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyTransposeMatrix(this, quaternion, this);
+      RotationMatrixTools.multiply(this, true, orientation, false, this);
    }
 
    /**
@@ -639,18 +621,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeRight(this, other, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = this * R(quaternion*) <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void multiplyConjugateQuaternion(QuaternionReadOnly quaternion)
+   public void multiplyInvertOther(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyConjugateQuaternion(this, quaternion, this);
+      RotationMatrixTools.multiply(this, false, orientation, true, this);
    }
 
    /**
@@ -666,18 +639,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeBoth(this, other, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = this<sup>T</sup> * R(quaternion*) <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void multiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
+   public void multiplyInvertBoth(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(this, quaternion, this);
+      RotationMatrixTools.multiply(this, true, orientation, true, this);
    }
 
    /**
@@ -741,18 +705,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiply(other, this, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = R(quaternion) * this <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void preMultiply(QuaternionReadOnly quaternion)
+   public void preMultiply(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiply(quaternion, this, this);
+      RotationMatrixTools.multiply(orientation, false, this, false, this);
    }
 
    /**
@@ -768,18 +723,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeRight(other, this, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = R(quaternion) * this<sup>T</sup> <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void preMultiplyTransposeThis(QuaternionReadOnly quaternion)
+   public void preMultiplyInvertThis(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyTransposeMatrix(quaternion, this, this);
+      RotationMatrixTools.multiply(orientation, false, this, false, this);
    }
 
    /**
@@ -795,18 +741,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeLeft(other, this, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = R(quaternion*) * this <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void preMultiplyConjugateQuaternion(QuaternionReadOnly quaternion)
+   public void preMultiplyInvertOther(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyConjugateQuaternion(quaternion, this, this);
+      RotationMatrixTools.multiply(orientation, false, this, true, this);
    }
 
    /**
@@ -822,18 +759,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeBoth(other, this, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = R(quaternion*) * this<sup>T</sup> <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
+   public void preMultiplyInvertBoth(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, this, this);
+      RotationMatrixTools.multiply(orientation, true, this, true, this);
    }
 
    /**

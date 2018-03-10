@@ -1212,12 +1212,12 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test preMultiplyTransposeThis(QuaternionReadOnly quaternion)
+      { // Test preMultiplyInvertThis(QuaternionReadOnly quaternion)
          Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          multiplied = EuclidCoreRandomTools.nextRotationMatrix(random);
          expected.set(multiplied);
 
-         multiplied.preMultiplyTransposeThis(quaternion);
+         multiplied.preMultiplyInvertThis(quaternion);
 
          expected.checkIfRotationMatrix();
          QuaternionTools.multiplyTransposeMatrix(quaternion, expected, expected);

@@ -1471,7 +1471,7 @@ public class RigidBodyTransform
    {
       translationVector.sub(quaternionBasedTransform.getTranslationVector(), translationVector);
       rotationMatrix.inverseTransform(translationVector, translationVector);
-      QuaternionTools.multiplyTransposeMatrix(rotationMatrix, quaternionBasedTransform.getQuaternion(), rotationMatrix);
+      rotationMatrix.preMultiplyInvertThis(quaternionBasedTransform.getQuaternion());
    }
 
    /**
@@ -1488,7 +1488,7 @@ public class RigidBodyTransform
     */
    public void multiplyInvertOther(QuaternionBasedTransform quaternionBasedTransform)
    {
-      rotationMatrix.multiplyConjugateQuaternion(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.preMultiplyInvertOther(quaternionBasedTransform.getQuaternion());
       Matrix3DTools.subTransform(rotationMatrix, quaternionBasedTransform.getTranslationVector(), translationVector);
    }
 
@@ -1739,7 +1739,7 @@ public class RigidBodyTransform
     */
    public void preMultiplyInvertThis(QuaternionBasedTransform quaternionBasedTransform)
    {
-      rotationMatrix.preMultiplyTransposeThis(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.preMultiplyInvertThis(quaternionBasedTransform.getQuaternion());
       rotationMatrix.transform(translationVector);
       translationVector.sub(quaternionBasedTransform.getTranslationVector(), translationVector);
    }
@@ -1760,7 +1760,7 @@ public class RigidBodyTransform
    {
       translationVector.sub(quaternionBasedTransform.getTranslationVector());
       quaternionBasedTransform.getQuaternion().inverseTransform(translationVector);
-      rotationMatrix.preMultiplyConjugateQuaternion(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.preMultiplyInvertOther(quaternionBasedTransform.getQuaternion());
    }
 
    /**

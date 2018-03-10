@@ -266,7 +266,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     */
    default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
-      QuaternionTools.multiply(this, quaternionOriginal, quaternionTransformed);
+      QuaternionTools.multiply(this, false, quaternionOriginal, false, quaternionTransformed);
    }
 
    @Override
@@ -406,7 +406,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     */
    default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
-      QuaternionTools.multiplyTransposeMatrix(this, quaternionOriginal, quaternionTransformed);
+      QuaternionTools.multiply(this, true, quaternionOriginal, false, quaternionTransformed);
    }
 
    @Override

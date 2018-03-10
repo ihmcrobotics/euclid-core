@@ -13,6 +13,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
@@ -1095,19 +1096,9 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
       this.rotationMatrix.multiply(rotationMatrix);
    }
 
-   /**
-    * Multiplies the given {@code quaternion} to the rotation part of this rotation-scale matrix.
-    * <p>
-    * R = R * R(quaternion) <br>
-    * with R being the rotation part of this matrix and R(quaternion) is the function to convert a
-    * quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this with. Not modified.
-    */
-   public void multiply(QuaternionReadOnly quaternion)
+   public void multiply(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.multiply(quaternion);
+      rotationMatrix.multiply(orientation);
    }
 
    /**
@@ -1140,36 +1131,14 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
       this.rotationMatrix.multiplyTransposeOther(rotationMatrix);
    }
 
-   /**
-    * Multiplies the given {@code quaternion} to the transpose of the rotation part of this
-    * rotation-scale matrix.
-    * <p>
-    * R = R<sup>T</sup> * R(quaternion) <br>
-    * with R being the rotation part of this matrix and R(quaternion) is the function to convert a
-    * quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this with. Not modified
-    */
-   public void multiplyTransposeThis(QuaternionReadOnly quaternion)
+   public void multiplyInvertThis(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.multiplyTransposeThis(quaternion);
+      rotationMatrix.multiplyInvertThis(orientation);
    }
 
-   /**
-    * Multiplies the conjugate of the given {@code quaternion} to the rotation part of this
-    * rotation-scale matrix.
-    * <p>
-    * R = R * R(quaternion)<sup>T</sup> <br>
-    * with R being the rotation part of this matrix and R(quaternion) is the function to convert a
-    * quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this with. Not modified
-    */
-   public void multiplyConjugateQuaternion(QuaternionReadOnly quaternion)
+   public void multiplyInvertOther(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.multiplyConjugateQuaternion(quaternion);
+      rotationMatrix.multiplyInvertOther(orientation);
    }
 
    /**
@@ -1242,18 +1211,9 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
       this.rotationMatrix.preMultiply(rotationMatrix);
    }
 
-   /**
-    * Performs a matrix multiplication on this.
-    * <p>
-    * this = R(quaternion) * this where R(quaternion) is the function to convert a quaternion into a
-    * rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply with by. Not modified.
-    */
-   public void preMultiply(QuaternionReadOnly quaternion)
+   public void preMultiply(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.preMultiply(quaternion);
+      rotationMatrix.preMultiply(orientation);
    }
 
    /**
@@ -1285,36 +1245,14 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
       this.rotationMatrix.preMultiplyTransposeOther(rotationMatrix);
    }
 
-   /**
-    * Sets the rotation part of this to the multiplication of the transpose of the rotation part of
-    * this with the given {@code quaternion}.
-    * <p>
-    * R = R(quaternion) * R<sup>T</sup> <br>
-    * with R being the rotation part of this matrix and R(quaternion) is the function to convert a
-    * quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this with. Not modified
-    */
-   public void preMultiplyTransposeThis(QuaternionReadOnly quaternion)
+   public void preMultiplyInvertThis(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.preMultiplyTransposeThis(quaternion);
+      rotationMatrix.preMultiplyInvertThis(orientation);
    }
 
-   /**
-    * Sets the rotation part of this to the multiplication of the rotation part of this with the
-    * conjugate of the given {@code quaternion}.
-    * <p>
-    * R = R(quaternion)<sup>T</sup> * R <br>
-    * with R being the rotation part of this matrix and R(quaternion) is the function to convert a
-    * quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this with. Not modified
-    */
-   public void preMultiplyConjugateQuaternion(QuaternionReadOnly quaternion)
+   public void preMultiplyInvertOther(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.preMultiplyConjugateQuaternion(quaternion);
+      rotationMatrix.preMultiplyInvertOther(orientation);
    }
 
    /**
