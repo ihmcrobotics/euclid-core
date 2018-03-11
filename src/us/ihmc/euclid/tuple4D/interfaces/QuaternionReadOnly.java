@@ -339,8 +339,8 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this quaternion
-    *           represents a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this quaternion represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
     *            does not represent a transformation in the XY plane.
     */
@@ -408,8 +408,8 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this quaternion
-    *           represents a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this quaternion represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
     *            does not represent a transformation in the XY plane.
     */

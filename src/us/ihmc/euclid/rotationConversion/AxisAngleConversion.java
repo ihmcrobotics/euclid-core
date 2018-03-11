@@ -173,17 +173,6 @@ public class AxisAngleConversion
       convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);
    }
 
-   /**
-    * @deprecated Use
-    *             {@link #convertQuaternionToAxisAngle(double,double,double,double,AxisAngleBasics)}
-    *             instead
-    */
-   @Deprecated
-   public static void convertQuaternionToAxisAngle(AxisAngleBasics axisAngleToPack, double qx, double qy, double qz, double qs)
-   {
-      convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);
-   }
-
    public static void convertQuaternionToAxisAngle(double qx, double qy, double qz, double qs, AxisAngleBasics axisAngleToPack)
    {
       if (EuclidCoreTools.containsNaN(qx, qy, qz, qs))

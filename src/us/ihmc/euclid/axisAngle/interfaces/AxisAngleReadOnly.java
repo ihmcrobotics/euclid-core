@@ -427,8 +427,8 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this quaternion
-    *           represents a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this quaternion represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
     *            does not represent a transformation in the XY plane.
     */
@@ -497,8 +497,8 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this axis-angle
-    *           represents a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this axis-angle represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this axis-angle
     *            does not represent a transformation in the XY plane.
     */
