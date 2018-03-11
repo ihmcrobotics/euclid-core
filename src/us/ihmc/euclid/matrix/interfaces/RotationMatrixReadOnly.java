@@ -339,8 +339,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    @Override
    default void transform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
    {
-      matrixTransformed.set(matrixOriginal);
-      matrixTransformed.preMultiply(this);
+      Orientation3DReadOnly.super.transform(matrixOriginal, matrixTransformed);
    }
 
    /** {@inheritDoc} */
@@ -477,8 +476,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    @Override
    default void inverseTransform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
    {
-      matrixTransformed.set(matrixOriginal);
-      matrixTransformed.preMultiplyTransposeOther(this);
+      Orientation3DReadOnly.super.inverseTransform(matrixOriginal, matrixTransformed);
    }
 
    @Override
