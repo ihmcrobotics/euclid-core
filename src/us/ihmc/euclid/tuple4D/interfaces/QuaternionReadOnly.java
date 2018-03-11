@@ -339,15 +339,15 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this quaternion
+    * @param checkIfOrientation2D whether this method should assert that this quaternion
     *           represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
     *            does not represent a transformation in the XY plane.
     */
    @Override
-   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
-      QuaternionTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
+      QuaternionTools.transform(this, tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
    /**
@@ -408,15 +408,15 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this quaternion
+    * @param checkIfOrientation2D whether this method should assert that this quaternion
     *           represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
     *            does not represent a transformation in the XY plane.
     */
    @Override
-   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
-      QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
+      QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
    /**

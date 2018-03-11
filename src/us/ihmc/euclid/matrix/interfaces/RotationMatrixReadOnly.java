@@ -233,15 +233,15 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    }
 
    @Override
-   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfOrientation2D)
    {
-      Matrix3DReadOnly.super.transform(tupleToTransform, checkIfTransformInXYPlane);
+      Matrix3DReadOnly.super.transform(tupleToTransform, checkIfOrientation2D);
    }
 
    @Override
-   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane)
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
-      Matrix3DReadOnly.super.transform(tupleOriginal, tupleTransformed, checkIfRotationInXYPlane);
+      Matrix3DReadOnly.super.transform(tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
    @Override
@@ -299,17 +299,17 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    }
 
    @Override
-   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfOrientation2D)
    {
-      Matrix3DReadOnly.super.inverseTransform(tupleToTransform, checkIfTransformInXYPlane);
+      Matrix3DReadOnly.super.inverseTransform(tupleToTransform, checkIfOrientation2D);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
-      if (checkIfTransformInXYPlane)
-         checkIfMatrix2D();
+      if (checkIfOrientation2D)
+         checkIfOrientation2D();
 
       double x = getM00() * tupleOriginal.getX() + getM10() * tupleOriginal.getY();
       double y = getM01() * tupleOriginal.getX() + getM11() * tupleOriginal.getY();

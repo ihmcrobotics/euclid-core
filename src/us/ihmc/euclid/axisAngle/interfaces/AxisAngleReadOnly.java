@@ -427,15 +427,15 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this quaternion
+    * @param checkIfOrientation2D whether this method should assert that this quaternion
     *           represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
     *            does not represent a transformation in the XY plane.
     */
    @Override
-   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
-      AxisAngleTools.transform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
+      AxisAngleTools.transform(this, tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
    /**
@@ -497,15 +497,15 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this axis-angle
+    * @param checkIfOrientation2D whether this method should assert that this axis-angle
     *           represents a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this axis-angle
     *            does not represent a transformation in the XY plane.
     */
    @Override
-   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
+   default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
-      AxisAngleTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfTransformInXYPlane);
+      AxisAngleTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
    /**

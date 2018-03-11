@@ -229,139 +229,507 @@ public interface Orientation3DReadOnly
     */
    void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
 
+   /**
+    * Transforms the given tuple by this orientation and adds the result to the tuple.
+    * <p>
+    * If the given tuple is expressed in the local frame described by this orientation, then the
+    * tuple is transformed such that it is, after this method is called, expressed in the base frame
+    * in which this orientation is expressed.
+    * </p>
+    * 
+    * @param tupleToTransform the 3D tuple to be transformed. Modified.
+    */
    default void addTransform(Tuple3DBasics tupleToTransform)
    {
       addTransform(tupleToTransform, tupleToTransform);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} by this orientation and <b>adds</b> the result to
+    * {@code tupleTransformed}.
+    * <p>
+    * If the given tuple is expressed in the local frame described by this orientation, then the
+    * tuple is transformed such that it is, after this method is called, expressed in the base frame
+    * in which this orientation is expressed.
+    * </p>
+    * 
+    * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
+    * @param tupleTransformed the result of the original tuple after transformation. Modified.
+    */
    void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
 
+   /**
+    * Transforms the given tuple by this orientation.
+    * <p>
+    * If the given tuple is expressed in the local frame described by this orientation, then the
+    * tuple is transformed such that it is, after this method is called, expressed in the base frame
+    * in which this orientation is expressed.
+    * </p>
+    * 
+    * @param tupleToTransform the 2D tuple to be transformed. Modified.
+    * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
+    */
    default void transform(Tuple2DBasics tupleToTransform)
    {
       transform(tupleToTransform, tupleToTransform, true);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} by this orientation and stores the result in
+    * {@code tupleTransformed}.
+    * <p>
+    * If the given tuple is expressed in the local frame described by this orientation, then the
+    * tuple is transformed such that it is, after this method is called, expressed in the base frame
+    * in which this orientation is expressed.
+    * </p>
+    * 
+    * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
+    * @param tupleTransformed the result of the original tuple after transformation. Modified.
+    * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
+    */
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
    {
       transform(tupleOriginal, tupleTransformed, true);
    }
 
-   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   /**
+    * Transforms the given tuple by this orientation.
+    * <p>
+    * If the given tuple is expressed in the local frame described by this orientation, then the
+    * tuple is transformed such that it is, after this method is called, expressed in the base frame
+    * in which this orientation is expressed.
+    * </p>
+    * 
+    * @param checkIfOrientation2D whether this method should assert that this orientation represents
+    *           a transformation in the XY plane.
+    * @param tupleToTransform the 2D tuple to be transformed. Modified.
+    * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
+    */
+   default void transform(Tuple2DBasics tupleToTransform, boolean checkIfOrientation2D)
    {
-      transform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
+      transform(tupleToTransform, tupleToTransform, checkIfOrientation2D);
    }
 
-   void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane);
+   /**
+    * Transforms the tuple {@code tupleOriginal} by this orientation and stores the result in
+    * {@code tupleTransformed}.
+    * <p>
+    * If the given tuple is expressed in the local frame described by this orientation, then the
+    * tuple is transformed such that it is, after this method is called, expressed in the base frame
+    * in which this orientation is expressed.
+    * </p>
+    * 
+    * @param checkIfOrientation2D whether this method should assert that this orientation represents
+    *           a transformation in the XY plane.
+    * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
+    * @param tupleTransformed the result of the original tuple after transformation. Modified.
+    * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
+    */
+   void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D);
 
+   /**
+    * Transforms the given matrix by this orientation.
+    * <p>
+    * If the given matrix is expressed in the local frame described by this orientation, then the
+    * matrix is transformed such that it is, after this method is called, expressed in the base
+    * frame in which this orientation is expressed.
+    * </p>
+    * 
+    * @param matrixToTransform the 3D matrix to be transformed. Modified.
+    */
    default void transform(Matrix3D matrixToTransform)
    {
       transform(matrixToTransform, matrixToTransform);
    }
 
+   /**
+    * Transforms the matrix {@code matrixOriginal} by this orientation and stores the result in
+    * {@code matrixTransformed}.
+    * <p>
+    * If the given matrix is expressed in the local frame described by this orientation, then the
+    * matrix is transformed such that it is, after this method is called, expressed in the base
+    * frame in which this orientation is expressed.
+    * </p>
+    * 
+    * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
+    * @param matrixTransformed the result of the original matrix after transformation. Modified.
+    */
    void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
 
+   /**
+    * Transforms the vector part, i.e. the {@code x}, {@code y}, and {@code z} components, of the
+    * given 4D vector, its scalar component {@code s} remains unaffected by this operation.
+    * <p>
+    * If the given vector part is expressed in the local frame described by this orientation, then
+    * the vector part is transformed such that it is, after this method is called, expressed in the
+    * base frame in which this orientation is expressed.
+    * </p>
+    * 
+    * @param vectorToTransform the 4D tuple to be transformed. Modified.
+    */
    default void transform(Vector4DBasics vectorToTransform)
    {
       transform(vectorToTransform, vectorToTransform);
    }
 
+   /**
+    * Transforms the vector part, i.e. the {@code x}, {@code y}, and {@code z} components, of the
+    * given {@code vectorOriginal} and stores the result in {@code vectorTransformed}.
+    * <p>
+    * The scalar component {@code s} remains unaffected by this operation and is simply copied over.
+    * </p>
+    * <p>
+    * If the given vector part is expressed in the local frame described by this orientation, then
+    * the vector part is transformed such that it is, after this method is called, expressed in the
+    * base frame in which this orientation is expressed.
+    * </p>
+    * 
+    * @param vectorOriginal the original value of the vector to be transformed. Not modified.
+    * @param vectorTransformed the result of the original vector after transformation. Modified.
+    */
+   void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
+
+   /**
+    * Transforms the given rotation matrix by this orientation.
+    * <p>
+    * The operation is equivalent to prepend this orientation to the given rotation matrix.
+    * </p>
+    * 
+    * @param matrixToTransform the rotation matrix to be transformed. Modified.
+    */
    default void transform(RotationMatrix matrixToTransform)
    {
       transform(matrixToTransform, matrixToTransform);
    }
 
+   /**
+    * Transforms the given {@code matrixOriginal} and stores the result in
+    * {@code matrixTransformed}.
+    * <p>
+    * The operation is equivalent to prepend this orientation to the {@code matrixOriginal} and
+    * store the result in {@code matrixTransformed}.
+    * </p>
+    * 
+    * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
+    * @param matrixTransformed the result of the original matrix after transformation. Modified.
+    */
    default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       RotationMatrixTools.multiply(this, false, matrixOriginal, false, matrixTransformed);
    }
 
+   /**
+    * Transforms the given rotation-scale matrix by this orientation.
+    * <p>
+    * The operation is equivalent to prepend this orientation to the rotation part of the given
+    * rotation-scale matrix.
+    * </p>
+    * 
+    * @param matrixToTransform the rotation-scale matrix to be transformed. Modified.
+    */
    default void transform(RotationScaleMatrix matrixToTransform)
    {
       transform(matrixToTransform.getRotationMatrix());
    }
 
+   /**
+    * Transforms the given {@code matrixOriginal} and stores the result in
+    * {@code matrixTransformed}.
+    * <p>
+    * The operation is equivalent to prepend this orientation to the rotation part of
+    * {@code matrixOriginal} and store the result in {@code matrixTransformed}.
+    * </p>
+    * 
+    * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
+    * @param matrixTransformed the result of the original matrix after transformation. Modified.
+    */
    default void transform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
    {
       matrixTransformed.set(matrixOriginal);
       transform(matrixOriginal.getRotationMatrix(), matrixTransformed.getRotationMatrix());
    }
 
-   void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
-
-   default void inverseTransform(Tuple3DBasics tupleToTransform)
-   {
-      inverseTransform(tupleToTransform, tupleToTransform);
-   }
-
+   /**
+    * Transforms the given quaternion by this orientation.
+    * <p>
+    * The operation is equivalent to prepend this orientation to the given quaternion.
+    * </p>
+    * 
+    * @param quaternionToTransform the quaternion to be transformed. Modified.
+    */
    default void transform(QuaternionBasics quaternionToTransform)
    {
       transform(quaternionToTransform, quaternionToTransform);
    }
 
+   /**
+    * Transforms the given {@code quaternionOriginal} and stores the result in
+    * {@code quaternionTransformed}.
+    * <p>
+    * The operation is equivalent to prepend this orientation to the {@code quaternionOriginal} and
+    * store the result in {@code quaternionTransformed}.
+    * </p>
+    * 
+    * @param quaternionOriginal the original value of the quaternion to be transformed. Not
+    *           modified.
+    * @param quaternionTransformed the result of the original quaternion after transformation.
+    *           Modified.
+    */
    default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.multiply(this, false, quaternionOriginal, false, quaternionTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform to the given tuple by this orientation.
+    * <p>
+    * If the given tuple is expressed in the base frame in which this orientation is expressed, then
+    * the tuple is transformed such that it is, after this method is called, expressed in the local
+    * frame described by this orientation.
+    * </p>
+    * 
+    * @param tupleToTransform the 3D tuple to be transformed. Modified.
+    */
+   default void inverseTransform(Tuple3DBasics tupleToTransform)
+   {
+      inverseTransform(tupleToTransform, tupleToTransform);
+   }
+
+   /**
+    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation
+    * and stores the result in {@code tupleTransformed}.
+    * <p>
+    * If the given tuple is expressed in the base frame in which this orientation is expressed, then
+    * the tuple is transformed such that it is, after this method is called, expressed in the local
+    * frame described by this orientation.
+    * </p>
+    * 
+    * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
+    * @param tupleTransformed the result of the original tuple after transformation. Modified.
+    */
    void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
 
+   /**
+    * Performs the inverse of the transform to the given tuple by this orientation.
+    * <p>
+    * If the given tuple is expressed in the base frame in which this orientation is expressed, then
+    * the tuple is transformed such that it is, after this method is called, expressed in the local
+    * frame described by this orientation.
+    * </p>
+    * 
+    * @param tupleToTransform the 2D tuple to be transformed. Modified.
+    * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
+    */
    default void inverseTransform(Tuple2DBasics tupleToTransform)
    {
       inverseTransform(tupleToTransform, tupleToTransform, true);
    }
 
+   /**
+    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation
+    * and stores the result in {@code tupleTransformed}.
+    * <p>
+    * If the given tuple is expressed in the base frame in which this orientation is expressed, then
+    * the tuple is transformed such that it is, after this method is called, expressed in the local
+    * frame described by this orientation.
+    * </p>
+    * 
+    * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
+    * @param tupleTransformed the result of the original tuple after transformation. Modified.
+    * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
+    */
    default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
    {
       inverseTransform(tupleOriginal, tupleTransformed, true);
    }
 
-   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
+   /**
+    * Performs the inverse of the transform to the given tuple by this orientation.
+    * <p>
+    * If the given tuple is expressed in the base frame in which this orientation is expressed, then
+    * the tuple is transformed such that it is, after this method is called, expressed in the local
+    * frame described by this orientation.
+    * </p>
+    * 
+    * @param checkIfOrientation2D whether this method should assert that this orientation represents
+    *           a transformation in the XY plane.
+    * @param tupleToTransform the 2D tuple to be transformed. Modified.
+    * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
+    */
+   default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfOrientation2D)
    {
-      inverseTransform(tupleToTransform, tupleToTransform, checkIfTransformInXYPlane);
+      inverseTransform(tupleToTransform, tupleToTransform, checkIfOrientation2D);
    }
 
-   void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane);
+   /**
+    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation
+    * and stores the result in {@code tupleTransformed}.
+    * <p>
+    * If the given tuple is expressed in the base frame in which this orientation is expressed, then
+    * the tuple is transformed such that it is, after this method is called, expressed in the local
+    * frame described by this orientation.
+    * </p>
+    * 
+    * @param checkIfOrientation2D whether this method should assert that this orientation represents
+    *           a transformation in the XY plane.
+    * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
+    * @param tupleTransformed the result of the original tuple after transformation. Modified.
+    * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
+    */
+   void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D);
 
+   /**
+    * Performs the inverse of the transform to the given matrix by this orientation.
+    * <p>
+    * If the given matrix is expressed in the base frame in which this orientation is expressed,
+    * then the matrix is transformed such that it is, after this method is called, expressed in the
+    * local frame described by this orientation.
+    * </p>
+    * 
+    * @param matrixToTransform the 3D matrix to be transformed. Modified.
+    */
    default void inverseTransform(Matrix3D matrixToTransform)
    {
       inverseTransform(matrixToTransform, matrixToTransform);
    }
 
+   /**
+    * Performs the inverse of the transform to the matrix {@code matrixOriginal} by this orientation
+    * and stores the result in {@code matrixTransformed}.
+    * <p>
+    * If the given matrix is expressed in the base frame in which this orientation is expressed,
+    * then the matrix is transformed such that it is, after this method is called, expressed in the
+    * local frame described by this orientation.
+    * </p>
+    * 
+    * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
+    * @param matrixTransformed the result of the original matrix after transformation. Modified.
+    */
    void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
 
+   /**
+    * Performs the inverse of the transform to the vector part, i.e. the {@code x}, {@code y}, and
+    * {@code z} components, of the given 4D vector, its scalar component {@code s} remains
+    * unaffected by this operation.
+    * <p>
+    * If the given vector part is expressed in the base frame in which this orientation is
+    * expressed, then the vector part is transformed such that it is, after this method is called,
+    * expressed in the local frame described by this orientation.
+    * </p>
+    * 
+    * @param vectorToTransform the 4D tuple to be transformed. Modified.
+    */
    default void inverseTransform(Vector4DBasics vectorToTransform)
    {
       inverseTransform(vectorToTransform, vectorToTransform);
    }
 
+   /**
+    * Performs the inverse of the transform to the vector part, i.e. the {@code x}, {@code y}, and
+    * {@code z} components, of the given {@code vectorOriginal} and stores the result in
+    * {@code vectorTransformed}.
+    * <p>
+    * The scalar component {@code s} remains unaffected by this operation and is simply copied over.
+    * </p>
+    * <p>
+    * If the given vector part is expressed in the local frame described by this orientation, then
+    * the vector part is transformed such that it is, after this method is called, expressed in the
+    * base frame in which this orientation is expressed.
+    * </p>
+    * 
+    * @param vectorOriginal the original value of the vector to be transformed. Not modified.
+    * @param vectorTransformed the result of the original vector after transformation. Modified.
+    */
+   void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
+
+   /**
+    * Performs the inverse of the transform to the given rotation matrix by this orientation.
+    * <p>
+    * The operation is equivalent to prepend the inverse of this orientation to the given rotation
+    * matrix.
+    * </p>
+    * 
+    * @param matrixToTransform the rotation matrix to be transformed. Modified.
+    */
    default void inverseTransform(RotationMatrix matrixToTransform)
    {
       inverseTransform(matrixToTransform, matrixToTransform);
    }
 
+   /**
+    * Performs the inverse of the transform to the given {@code matrixOriginal} and stores the
+    * result in {@code matrixTransformed}.
+    * <p>
+    * The operation is equivalent to prepend the inverse of this orientation to the
+    * {@code matrixOriginal} and store the result in {@code matrixTransformed}.
+    * </p>
+    * 
+    * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
+    * @param matrixTransformed the result of the original matrix after transformation. Modified.
+    */
    default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       RotationMatrixTools.multiply(this, true, matrixOriginal, false, matrixTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform to the given rotation-scale matrix by this orientation.
+    * <p>
+    * The operation is equivalent to prepend the inverse of this orientation to the rotation part of
+    * the given rotation-scale matrix.
+    * </p>
+    * 
+    * @param matrixToTransform the rotation-scale matrix to be transformed. Modified.
+    */
    default void inverseTransform(RotationScaleMatrix matrixToTransform)
    {
       inverseTransform(matrixToTransform.getRotationMatrix());
    }
 
+   /**
+    * Performs the inverse of the transform to the given {@code matrixOriginal} and stores the
+    * result in {@code matrixTransformed}.
+    * <p>
+    * The operation is equivalent to prepend the inverse of this orientation to the rotation part of
+    * {@code matrixOriginal} and store the result in {@code matrixTransformed}.
+    * </p>
+    * 
+    * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
+    * @param matrixTransformed the result of the original matrix after transformation. Modified.
+    */
    default void inverseTransform(RotationScaleMatrixReadOnly matrixOriginal, RotationScaleMatrix matrixTransformed)
    {
       matrixTransformed.set(matrixOriginal);
       inverseTransform(matrixOriginal.getRotationMatrix(), matrixTransformed.getRotationMatrix());
    }
 
-   void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed);
-
+   /**
+    * Performs the inverse of the transform to the given quaternion by this orientation.
+    * <p>
+    * The operation is equivalent to prepend the inverse of this orientation to the given
+    * quaternion.
+    * </p>
+    * 
+    * @param quaternionToTransform the quaternion to be transformed. Modified.
+    */
    default void inverseTransform(QuaternionBasics quaternionToTransform)
    {
       inverseTransform(quaternionToTransform, quaternionToTransform);
    }
 
+   /**
+    * Performs the inverse of the transform to the given {@code quaternionOriginal} and stores the
+    * result in {@code quaternionTransformed}.
+    * <p>
+    * The operation is equivalent to prepend the inverse of this orientation to the
+    * {@code quaternionOriginal} and store the result in {@code quaternionTransformed}.
+    * </p>
+    * 
+    * @param quaternionOriginal the original value of the quaternion to be transformed. Not
+    *           modified.
+    * @param quaternionTransformed the result of the original quaternion after transformation.
+    *           Modified.
+    */
    default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
       QuaternionTools.multiply(this, true, quaternionOriginal, false, quaternionTransformed);
