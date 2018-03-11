@@ -5,8 +5,6 @@ import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
-import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
-import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
@@ -75,19 +73,19 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    @Override
    default void get(RotationMatrix rotationMatrixToPack)
    {
-      rotationMatrixToPack.set(this);
+      rotationMatrixToPack.setRotationMatrix(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
    }
 
    @Override
    default void get(AxisAngleBasics axisAngleToPack)
    {
-      AxisAngleConversion.convertMatrixToAxisAngle(this, axisAngleToPack);
+      axisAngleToPack.setRotationMatrix(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
    }
 
    @Override
    default void get(QuaternionBasics quaternionToPack)
    {
-      QuaternionConversion.convertMatrixToQuaternion(this, quaternionToPack);
+      quaternionToPack.setRotationMatrix(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
    }
 
    /**

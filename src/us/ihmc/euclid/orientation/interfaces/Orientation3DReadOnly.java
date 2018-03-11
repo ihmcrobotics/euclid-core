@@ -21,7 +21,7 @@ public interface Orientation3DReadOnly
 {
    /**
     * Converts, if necessary, this orientation into a 3-by-3 rotation matrix.
-    * 
+    *
     * @param rotationMatrixToPack the rotation matrix into which this orientation is to be stored.
     *           Modified.
     */
@@ -29,21 +29,21 @@ public interface Orientation3DReadOnly
 
    /**
     * Converts, if necessary, this orientation into an axis-angle.
-    * 
+    *
     * @param axisAngleToPack the axis-angle into which this orientation is to be stored. Modified.
     */
    void get(AxisAngleBasics axisAngleToPack);
 
    /**
     * Converts, if necessary, this orientation in a quaternion.
-    * 
+    *
     * @param quaternionToPack the quaternion into which this orientation is to be stored. Modified.
     */
    void get(QuaternionBasics quaternionToPack);
 
    /**
     * Converts this orientation in a 3D rotation vector.
-    * 
+    *
     * @param rotationVectorToPack the rotation vector in which this orientation is to be stored.
     *           Modified.
     */
@@ -64,7 +64,7 @@ public interface Orientation3DReadOnly
     * tuple is transformed such that it is, after this method is called, expressed in the base frame
     * in which this orientation is expressed.
     * </p>
-    * 
+    *
     * @param tupleToTransform the 3D tuple to be transformed. Modified.
     */
    default void transform(Tuple3DBasics tupleToTransform)
@@ -80,7 +80,7 @@ public interface Orientation3DReadOnly
     * tuple is transformed such that it is, after this method is called, expressed in the base frame
     * in which this orientation is expressed.
     * </p>
-    * 
+    *
     * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
     * @param tupleTransformed the result of the original tuple after transformation. Modified.
     */

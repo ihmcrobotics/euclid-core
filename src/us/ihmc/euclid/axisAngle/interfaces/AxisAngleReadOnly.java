@@ -6,8 +6,6 @@ import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
-import us.ihmc.euclid.rotationConversion.QuaternionConversion;
-import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
@@ -184,20 +182,19 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    @Override
    default void get(RotationMatrix rotationMatrixToPack)
    {
-      RotationMatrixConversion.convertAxisAngleToMatrix(this, rotationMatrixToPack);
+      rotationMatrixToPack.setAxisAngle(getX(), getY(), getZ(), getAngle());
    }
 
    @Override
    default void get(AxisAngleBasics axisAngleToPack)
    {
-      axisAngleToPack.set(this);
+      axisAngleToPack.setAxisAngle(getX(), getY(), getZ(), getAngle());
    }
 
    @Override
    default void get(QuaternionBasics quaternionToPack)
    {
-      QuaternionConversion.convertAxisAngleToQuaternion(this, quaternionToPack);
-      ;
+      quaternionToPack.setAxisAngle(getX(), getY(), getZ(), getAngle());
    }
 
    /**
