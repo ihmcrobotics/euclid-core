@@ -9,7 +9,6 @@ import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
-import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
@@ -676,16 +675,5 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    default boolean geometricallyEquals(AxisAngleReadOnly other, double epsilon)
    {
       return Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(distance(other))) <= epsilon;
-   }
-
-   /**
-    * Provides a {@code String} representation of this axis-angle converted to yaw-pitch-roll angles
-    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
-    *
-    * @return
-    */
-   default String toStringAsYawPitchRoll()
-   {
-      return EuclidCoreIOTools.getStringOf("yaw-pitch-roll: (", ")", ", ", getYaw(), getPitch(), getRoll());
    }
 }

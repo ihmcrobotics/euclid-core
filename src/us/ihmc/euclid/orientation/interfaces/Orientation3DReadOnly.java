@@ -8,6 +8,7 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
@@ -278,4 +279,16 @@ public interface Orientation3DReadOnly
    }
 
    void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed);
+
+
+   /**
+    * Provides a {@code String} representation of this orientation converted to yaw-pitch-roll angles
+    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
+    *
+    * @return a string representation of this orientation 3D.
+    */
+   default String toStringAsYawPitchRoll()
+   {
+      return EuclidCoreIOTools.getStringOf("yaw-pitch-roll: (", ")", ", ", getYaw(), getPitch(), getRoll());
+   }
 }

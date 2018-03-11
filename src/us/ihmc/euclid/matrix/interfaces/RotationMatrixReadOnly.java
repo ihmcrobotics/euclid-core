@@ -7,7 +7,6 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
-import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
@@ -529,16 +528,5 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    default boolean geometricallyEquals(RotationMatrixReadOnly other, double epsilon)
    {
       return distance(other) <= epsilon;
-   }
-
-   /**
-    * Provides a {@code String} representation of this rotation matrix converted to yaw-pitch-roll
-    * angles as follows: yaw-pitch-roll: (yaw, pitch, roll).
-    *
-    * @return
-    */
-   default String toStringAsYawPitchRoll()
-   {
-      return EuclidCoreIOTools.getStringOf("yaw-pitch-roll: (", ")", ", ", getYaw(), getPitch(), getRoll());
    }
 }
