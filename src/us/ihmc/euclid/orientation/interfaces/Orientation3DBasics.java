@@ -6,6 +6,14 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 public interface Orientation3DBasics extends Orientation3DReadOnly
 {
+   /**
+    * For representations of orientations with more variables than degrees of freedom, some or all
+    * of the variables are constrained. This method updates the variables considering this
+    * constraint.
+    * <p>
+    * The actual implementation of this function strongly depends on the type of orientation.
+    * </p>
+    */
    void normalize();
 
    void invert();

@@ -106,7 +106,15 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       normalize();
    }
 
-   /** {@inheritDoc} */
+   /**
+    * Recomputes this quaternion's components to ensure its norm is equal to 1.
+    * <p>
+    * Edge cases:
+    * <ul>
+    * <li>if this axis-angle contains {@link Double#NaN}, this method is ineffective.
+    * </ul>
+    * </p>
+    */
    @Override
    default void normalize()
    {
