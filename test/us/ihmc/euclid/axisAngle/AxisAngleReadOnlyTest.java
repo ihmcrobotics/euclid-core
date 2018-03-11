@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.euclid.exceptions.NotAMatrix2DException;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -620,59 +620,59 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.transform(new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.transform(new Vector2D(), new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.transform(new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.transform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -878,59 +878,59 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.inverseTransform(new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.inverseTransform(new Vector2D(), new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.inverseTransform(new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.inverseTransform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)

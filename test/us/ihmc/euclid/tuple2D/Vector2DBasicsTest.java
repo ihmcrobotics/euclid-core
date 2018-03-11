@@ -10,6 +10,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
@@ -314,29 +315,29 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          try
          {
             actual.applyInverseTransform(rigidBodyTransform);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAnOrientation2DException e)
          {
             // good
          }
          catch (Exception e)
          {
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException.");
          }
 
          try
          {
             actual.applyInverseTransform(rigidBodyTransform, true);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAnOrientation2DException e)
          {
             // good
          }
          catch (Exception e)
          {
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException.");
          }
          actual.applyInverseTransform(rigidBodyTransform, false);
       }

@@ -1418,7 +1418,7 @@ public class RigidBodyTransform
    {
       translationVector.sub(quaternionBasedTransform.getTranslationVector(), translationVector);
       rotationMatrix.inverseTransform(translationVector, translationVector);
-      rotationMatrix.prependInvertThis(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.appendInvertThis(quaternionBasedTransform.getQuaternion());
    }
 
    /**
@@ -1435,7 +1435,7 @@ public class RigidBodyTransform
     */
    public void multiplyInvertOther(QuaternionBasedTransform quaternionBasedTransform)
    {
-      rotationMatrix.prependInvertOther(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.appendInvertOther(quaternionBasedTransform.getQuaternion());
       Matrix3DTools.subTransform(rotationMatrix, quaternionBasedTransform.getTranslationVector(), translationVector);
    }
 

@@ -31,7 +31,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
    /**
     * Sets this orientation to represents the same orientation as a rotation matrix given its 9
     * components.
-    * 
+    *
     * @param m00 the new 1st row 1st column coefficient of the rotation matrix.
     * @param m01 the new 1st row 2nd column coefficient of the rotation matrix.
     * @param m02 the new 1st row 3rd column coefficient of the rotation matrix.
@@ -47,7 +47,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
    /**
     * Sets this orientation to represents the same orientation as an axis-angle given its 4
     * components.
-    * 
+    *
     * @param x x-component of the axis part of the axis-angle.
     * @param y y-component of the axis part of the axis-angle.
     * @param z z-component of the axis part of the axis-angle.
@@ -58,7 +58,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
    /**
     * Sets this orientation to represents the same orientation as a quaternion given its 4
     * components.
-    * 
+    *
     * @param x the x-component of the quaternion.
     * @param y the y-component of the quaternion.
     * @param z the z-component of the quaternion.
@@ -74,7 +74,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
     * of the same axis-angle.
     * </p>
-    * 
+    *
     * @param x the x-component of the rotation vector.
     * @param y the y-component of the rotation vector.
     * @param z the z-component of the rotation vector.
@@ -106,7 +106,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
     * </p>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -138,7 +138,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
     * </pre>
     * </p>
-    * 
+    *
     * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
     */
    default void setYawPitchRoll(double[] yawPitchRoll)
@@ -183,7 +183,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * This is equivalent to {@link #setYawPitchRoll(double, double, double)} with
     * {@code yaw = rotZ}, {@code pitch = rotY}, and {@code roll = rotX}.
     * </p>
-    * 
+    *
     * @param rotX
     * @param rotY
     * @param rotZ
@@ -196,7 +196,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
    /**
     * Converts, if necessary, and sets this orientation to represents the same orientation as
     * {@code orientation3DReadOnly}.
-    * 
+    *
     * @param orientation3DReadOnly the new orientation. Not modified.
     */
    void set(Orientation3DReadOnly orientation3DReadOnly);
@@ -205,7 +205,6 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * Converts, if necessary, and sets this orientation to represents the same orientation as
     * {@code orientation3DReadOnly} and then normalize this orientation.
     *
-    * 
     * @param orientation3DReadOnly the new orientation. Not modified.
     */
    default void setAndNormalize(Orientation3DReadOnly orientation3DReadOnly)
@@ -216,7 +215,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
 
    /**
     * Sets this orientation to represent the inverse of the given {@code orientation3DReadOnly}.
-    * 
+    *
     * @param orientation3DReadOnly the new orientation. Not modified.
     */
    default void setAndInvert(Orientation3DReadOnly orientation3DReadOnly)
@@ -243,7 +242,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * commutative. Such that: {@code this.append(orientation)} &ne;
     * {@code orientation.append(this)}.
     * </p>
-    * 
+    *
     * @param orientation the orientation to append to this orientation. Not modified.
     */
    void append(Orientation3DReadOnly orientation);
@@ -264,7 +263,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * This operation is in some way similar to subtracting translations, as in this operation can be
     * seen as subtracting {@code orientation} to {@code this}.
     * </p>
-    * 
+    *
     * @param orientation the orientation which the inverse is to be appended to this orientation.
     *           Not modified.
     */
@@ -286,7 +285,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * This operation is in some way similar to subtracting translations, as in this operation can be
     * seen as subtracting {@code this} to {@code orientation}.
     * </p>
-    * 
+    *
     * @param orientation the orientation to append to the inverse of this orientation. Not modified.
     */
    default void appendInvertThis(Orientation3DReadOnly orientation)
@@ -312,7 +311,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * This operation is in some way similar to subtracting translations, as in this operation can be
     * seen as subtracting {@code orientation} to {@code this}.
     * </p>
-    * 
+    *
     * @param orientation the orientation which the inverse is to be appended to this orientation.
     *           Not modified.
     */
@@ -324,7 +323,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
 
    /**
     * Appends a rotation {@code R(yaw)} about the z-axis to this orientation.
-    * 
+    *
     * <pre>
     *          / cos(yaw) -sin(yaw) 0 \
     * R(yaw) = | sin(yaw)  cos(yaw) 0 |
@@ -333,14 +332,14 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * <p>
     * Note that the z-axis refers to the local coordinate system described by this orientation.
     * </p>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    void appendYawRotation(double yaw);
 
    /**
     * Appends a rotation {@code R(pitch)} about the y-axis to this orientation.
-    * 
+    *
     * <pre>
     *            /  cos(pitch) 0 sin(pitch) \
     * R(pitch) = |      0      1     0      |
@@ -349,14 +348,14 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * <p>
     * Note that the y-axis refers to the local coordinate system described by this orientation.
     * </p>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    void appendPitchRotation(double pitch);
 
    /**
     * Appends a rotation {@code R(roll)} about the x-axis to this orientation.
-    * 
+    *
     * <pre>
     *           / 1     0          0     \
     * R(roll) = | 0 cos(roll) -sin(roll) |
@@ -365,7 +364,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * <p>
     * Note that the x-axis refers to the local coordinate system described by this orientation.
     * </p>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    void appendRollRotation(double roll);
@@ -388,7 +387,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * commutative. Such that: {@code this.prepend(orientation)} &ne;
     * {@code orientation.prepend(this)}.
     * </p>
-    * 
+    *
     * @param orientation the orientation to prepend to this orientation. Not modified.
     */
    void prepend(Orientation3DReadOnly orientation);
@@ -409,7 +408,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * This operation is in some way similar to subtracting translations, as in this operation can be
     * seen as subtracting {@code orientation} to {@code this}.
     * </p>
-    * 
+    *
     * @param orientation the orientation which the inverse is to be appended to this orientation.
     *           Not modified.
     */
@@ -431,7 +430,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * This operation is in some way similar to subtracting translations, as in this operation can be
     * seen as subtracting {@code this} to {@code orientation}.
     * </p>
-    * 
+    *
     * @param orientation the orientation to append to the inverse of this orientation. Not modified.
     */
    default void prependInvertThis(Orientation3DReadOnly orientation)
@@ -457,7 +456,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * This operation is in some way similar to subtracting translations, as in this operation can be
     * seen as subtracting {@code orientation} to {@code this}.
     * </p>
-    * 
+    *
     * @param orientation the orientation which the inverse is to be appended to this orientation.
     *           Not modified.
     */
@@ -469,7 +468,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
 
    /**
     * Prepends a rotation {@code R(yaw)} about the z-axis to this orientation.
-    * 
+    *
     * <pre>
     *          / cos(yaw) -sin(yaw) 0 \
     * R(yaw) = | sin(yaw)  cos(yaw) 0 |
@@ -479,14 +478,14 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * Note that the z-axis refers to the base coordinate system in which this orientation is
     * expressed.
     * </p>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     */
    void prependYawRotation(double yaw);
 
    /**
     * Prepends a rotation {@code R(pitch)} about the y-axis to this orientation.
-    * 
+    *
     * <pre>
     *            /  cos(pitch) 0 sin(pitch) \
     * R(pitch) = |      0      1     0      |
@@ -496,14 +495,14 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * Note that the y-axis refers to the base coordinate system in which this orientation is
     * expressed.
     * </p>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     */
    void prependPitchRotation(double pitch);
 
    /**
     * Appends a rotation {@code R(roll)} about the x-axis to this orientation.
-    * 
+    *
     * <pre>
     *           / 1     0          0     \
     * R(roll) = | 0 cos(roll) -sin(roll) |
@@ -513,7 +512,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * Note that the x-axis refers to the base coordinate system in which this orientation is
     * expressed.
     * </p>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     */
    void prependRollRotation(double roll);

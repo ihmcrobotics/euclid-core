@@ -10,7 +10,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
-import us.ihmc.euclid.exceptions.NotAMatrix2DException;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
@@ -746,58 +746,58 @@ public class QuaternionToolsTest
       try
       {
          QuaternionTools.transform(quaternion, tupleActual, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, false);
       try
       {
          QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       quaternion.set(0.0, 1.0, 0.0, 0.0);
       QuaternionTools.transform(quaternion, tupleActual, tupleActual, false);
       try
       {
          QuaternionTools.transform(quaternion, tupleActual, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, false);
       try
       {
          QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -843,58 +843,58 @@ public class QuaternionToolsTest
       try
       {
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, true);
-         fail("Should have thrown a RuntimeException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a RuntimeException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual, false);
       try
       {
          QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       quaternion.set(0.0, 1.0, 0.0, 0.0);
       QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, false);
       try
       {
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual, false);
       try
       {
          QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       // Simply check that inverseTransform(transform(tuple2D)) == tuple2D and that transform(inverseTransform(tuple2D)) == tuple2D
