@@ -4,7 +4,6 @@ import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
@@ -16,7 +15,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
@@ -458,23 +456,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    }
 
    /**
-    * Transforms the given quaternion {@code quaternionOriginal} and stores the result into
-    * {@code quaternionTransformed}.
-    * <p>
-    * quaternionTransformed = Q(this) * quaternionOriginal <br>
-    * where Q(axisAngle) is the function that converts an axis-angle into a quaternion.
-    * </p>
-    *
-    * @param quaternionOriginal the quaternion to transform. Not modified.
-    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
-    */
-   @Override
-   default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
-   {
-      AxisAngleTools.transform(this, quaternionOriginal, quaternionTransformed);
-   }
-
-   /**
     * Transforms the vector part of the given 4D vector {@code vectorOriginal} and stores the result
     * into {@code vectorTransformed}.
     * <p>
@@ -489,23 +470,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       AxisAngleTools.transform(this, vectorOriginal, vectorTransformed);
-   }
-
-   /**
-    * Transforms the given rotation matrix {@code matrixOriginal} by this quaternion and stores the
-    * result in {@code matrixTransformed}.
-    * <p>
-    * matrixTransformed = R(this) * matrixOriginal <br>
-    * where R(axisAngle) is the function that converts an axis-angle to a rotation matrix.
-    * </p>
-    *
-    * @param matrixOriginal the rotation matrix to transform. Not modified.
-    * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
-    */
-   @Override
-   default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
-   {
-      AxisAngleTools.transform(this, matrixOriginal, matrixTransformed);
    }
 
    /**
@@ -545,22 +509,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion {@code quaternionOriginal} and
-    * stores the result into {@code quaternionTransformed}.
-    * <p>
-    * quaternionTransformed = this<sup>-1</sup> * quaternionOriginal <br>
-    * </p>
-    *
-    * @param quaternionOriginal the quaternion to transform. Not modified.
-    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
-    */
-   @Override
-   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
-   {
-      AxisAngleTools.inverseTransform(this, quaternionOriginal, quaternionTransformed);
-   }
-
-   /**
     * Performs the inverse of the transform to the vector part the given 4D vector
     * {@code vectorOriginal} by this axis-angle and stores the result in {@code vectorTransformed}.
     * <p>
@@ -589,22 +537,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     */
    @Override
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
-   {
-      AxisAngleTools.inverseTransform(this, matrixOriginal, matrixTransformed);
-   }
-
-   /**
-    * Performs the inverse of the transform to the given rotation matrix {@code matrixOriginal} by
-    * this axis-angle and stores the result in {@code matrixTransformed}.
-    * <p>
-    * matrixTransformed = this<sup>-1</sup> * matrixOriginal
-    * </p>
-    *
-    * @param matrixOriginal the rotation matrix to transform. Not modified.
-    * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
-    */
-   @Override
-   default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       AxisAngleTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }

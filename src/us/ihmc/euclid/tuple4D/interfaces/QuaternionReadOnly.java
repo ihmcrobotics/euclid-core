@@ -5,7 +5,6 @@ import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
@@ -368,22 +367,6 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    }
 
    /**
-    * Transforms the given quaternion {@code quaternionOriginal} and stores the result into
-    * {@code quaternionTransformed}.
-    * <p>
-    * quaternionTransformed = this * quaternionOriginal <br>
-    * </p>
-    *
-    * @param quaternionOriginal the quaternion to transform. Not modified.
-    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
-    */
-   @Override
-   default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
-   {
-      QuaternionTools.transform(this, quaternionOriginal, quaternionTransformed);
-   }
-
-   /**
     * Transforms the vector part of the given 4D vector {@code vectorOriginal} and stores the result
     * into {@code vectorTransformed}.
     * <p>
@@ -398,22 +381,6 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       QuaternionTools.transform(this, vectorOriginal, vectorTransformed);
-   }
-
-   /**
-    * Transforms the given rotation matrix {@code matrixOriginal} by this quaternion and stores the
-    * result in {@code matrixTransformed}.
-    * <p>
-    * matrixTransformed = this * matrixOriginal
-    * </p>
-    *
-    * @param matrixOriginal the rotation matrix to transform. Not modified.
-    * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
-    */
-   @Override
-   default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
-   {
-      QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
    }
 
    /**
@@ -453,22 +420,6 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion {@code quaternionOriginal} and
-    * stores the result into {@code quaternionTransformed}.
-    * <p>
-    * quaternionTransformed = this<sup>-1</sup> * quaternionOriginal <br>
-    * </p>
-    *
-    * @param quaternionOriginal the quaternion to transform. Not modified.
-    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
-    */
-   @Override
-   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
-   {
-      QuaternionTools.inverseTransform(this, quaternionOriginal, quaternionTransformed);
-   }
-
-   /**
     * Performs the inverse of the transform to the vector part the given 4D vector
     * {@code vectorOriginal} by this quaternion and stores the result in {@code vectorTransformed}.
     * <p>
@@ -497,22 +448,6 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     */
    @Override
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
-   {
-      QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
-   }
-
-   /**
-    * Performs the inverse of the transform to the given rotation matrix {@code matrixOriginal} by
-    * this quaternion and stores the result in {@code matrixTransformed}.
-    * <p>
-    * matrixTransformed = this<sup>-1</sup> * matrixOriginal
-    * </p>
-    *
-    * @param matrixOriginal the rotation matrix to transform. Not modified.
-    * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
-    */
-   @Override
-   default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       QuaternionTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }

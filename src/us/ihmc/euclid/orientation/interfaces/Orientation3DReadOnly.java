@@ -9,6 +9,8 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.QuaternionTools;
+import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
@@ -32,7 +34,7 @@ public interface Orientation3DReadOnly
     * This test uses the default tolerance {@link #ORIENTATION_2D_EPSILON}, to specify explicitly
     * the tolerance to be use, see {@link #isOrientation2D(double)}.
     * </p>
-    * 
+    *
     * @return {@code true} if this orientation represents a 2D orientation in the XY-plane,
     *         {@code false} otherwise.
     */
@@ -50,7 +52,7 @@ public interface Orientation3DReadOnly
     * The implementation of this test depends on the type of representation used for this
     * orientation.
     * </p>
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @return {@code true} if this orientation represents a 2D orientation in the XY-plane,
     *         {@code false} otherwise.
@@ -62,7 +64,7 @@ public interface Orientation3DReadOnly
     * <p>
     * This is commonly used to test if this orientation can be used to transform 2D geometry object.
     * </p>
-    * 
+    *
     * @throws NotAnOrientation2DException if this orientation does not represent a rotation strictly
     *            around the z-axis.
     */
@@ -76,7 +78,7 @@ public interface Orientation3DReadOnly
     * <p>
     * This is commonly used to test if this orientation can be used to transform 2D geometry object.
     * </p>
-    * 
+    *
     * @param epsilon the tolerance to use.
     * @throws NotAnOrientation2DException if this orientation does not represent a rotation strictly
     *            around the z-axis.
@@ -195,7 +197,10 @@ public interface Orientation3DReadOnly
       transform(matrixToTransform, matrixToTransform);
    }
 
-   void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed);
+   default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      RotationMatrixTools.multiply(this, false, matrixOriginal, false, matrixTransformed);
+   }
 
    default void transform(RotationScaleMatrix matrixToTransform)
    {
@@ -220,7 +225,10 @@ public interface Orientation3DReadOnly
       transform(quaternionToTransform, quaternionToTransform);
    }
 
-   void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed);
+   default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   {
+      QuaternionTools.multiply(this, false, quaternionOriginal, false, quaternionTransformed);
+   }
 
    void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed);
 
@@ -258,7 +266,10 @@ public interface Orientation3DReadOnly
       inverseTransform(matrixToTransform, matrixToTransform);
    }
 
-   void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed);
+   default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      RotationMatrixTools.multiply(this, true, matrixOriginal, false, matrixTransformed);
+   }
 
    default void inverseTransform(RotationScaleMatrix matrixToTransform)
    {
@@ -278,12 +289,14 @@ public interface Orientation3DReadOnly
       inverseTransform(quaternionToTransform, quaternionToTransform);
    }
 
-   void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed);
-
+   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   {
+      QuaternionTools.multiply(this, true, quaternionOriginal, false, quaternionTransformed);
+   }
 
    /**
-    * Provides a {@code String} representation of this orientation converted to yaw-pitch-roll angles
-    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
+    * Provides a {@code String} representation of this orientation converted to yaw-pitch-roll
+    * angles as follows: yaw-pitch-roll: (yaw, pitch, roll).
     *
     * @return a string representation of this orientation 3D.
     */

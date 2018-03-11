@@ -8,7 +8,6 @@ import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
  * object restricted to the xy-plane.
  *
  * @author Sylvain
- *
  */
 public class NotAnOrientation2DException extends RuntimeException
 {
