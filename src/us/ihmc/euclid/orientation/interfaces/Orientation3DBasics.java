@@ -82,6 +82,12 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
 
    void appendInvertBoth(Orientation3DReadOnly orientation);
 
+   void appendYawRotation(double yaw);
+
+   void appendPitchRotation(double pitch);
+
+   void appendRollRotation(double roll);
+
    void prepend(Orientation3DReadOnly orientation);
 
    void prependInvertOther(Orientation3DReadOnly orientation);
@@ -89,4 +95,10 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
    void prependInvertThis(Orientation3DReadOnly orientation);
 
    void prependInvertBoth(Orientation3DReadOnly orientation);
+
+   void prependYawRotation(double yaw);
+
+   void prependPitchRotation(double pitch);
+
+   void prependRollRotation(double roll);
 }
