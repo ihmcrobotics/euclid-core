@@ -89,21 +89,21 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T quaternion = createEmptyTuple();
 
          quaternion.set(qx, qy, qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
 
          quaternion.set(0.0, qy, qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
 
          quaternion.set(qx, 0.0, qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
 
          quaternion.set(0.0, 0.0, qz, qs);
-         assertTrue(quaternion.isZOnly(getEpsilon()));
+         assertTrue(quaternion.isOrientation2D(getEpsilon()));
 
          quaternion.set(2.0 * getEpsilon(), 0.0, qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
          quaternion.set(0.0, 2.0 * getEpsilon(), qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
       }
    }
 
@@ -124,7 +124,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          try
          {
-            quaternion.checkIfIsZOnly(getEpsilon());
+            quaternion.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -139,7 +139,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          quaternion.set(0.0, qy, qz, qs);
          try
          {
-            quaternion.checkIfIsZOnly(getEpsilon());
+            quaternion.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -154,7 +154,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          quaternion.set(qx, 0.0, qz, qs);
          try
          {
-            quaternion.checkIfIsZOnly(getEpsilon());
+            quaternion.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -167,7 +167,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          }
 
          quaternion.set(0.0, 0.0, qz, qs);
-         quaternion.checkIfIsZOnly(getEpsilon());
+         quaternion.checkIfOrientation2D(getEpsilon());
       }
    }
 

@@ -41,6 +41,23 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DReadOnly
 {
    /**
+    * {@inheritDoc}
+    * <p>
+    * This rotation matrix is considered to be an orientation 2D if:
+    * <ul>
+    * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@code epsilon},
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
+    * +/- {@code epsilon}.
+    * </ul>
+    * </p>
+    */
+   @Override
+   default boolean isOrientation2D(double epsilon)
+   {
+      return isMatrix2D(epsilon);
+   }
+
+   /**
     * Computes and returns the distance between this rotation matrix and the {@code other}.
     *
     * @param other the other rotation matrix to compute the distance. Not modified.

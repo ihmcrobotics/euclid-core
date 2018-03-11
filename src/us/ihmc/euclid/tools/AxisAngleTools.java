@@ -204,7 +204,7 @@ public abstract class AxisAngleTools
                                      boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
-         axisAngle.checkIfIsZOnly(EPS);
+         axisAngle.checkIfOrientation2D(EPS);
 
       double axisNorm = axisAngle.axisNorm();
 

@@ -250,27 +250,27 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double uz = random.nextDouble();
          double angle = random.nextDouble();
          T axisAngle = createEmptyAxisAngle();
-         assertTrue(axisAngle.isZOnly(getEpsilon()));
+         assertTrue(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(ux, uy, uz, 0.0);
-         assertTrue(axisAngle.isZOnly(getEpsilon()));
+         assertTrue(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(ux, uy, uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(0.0, uy, uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(ux, 0.0, uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(0.0, 0.0, uz, angle);
-         assertTrue(axisAngle.isZOnly(getEpsilon()));
+         assertTrue(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(2.0 * getEpsilon(), 0.0, uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
          axisAngle = createAxisAngle(0.0, 2.0 * getEpsilon(), uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
       }
    }
 
@@ -286,16 +286,16 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double uz = random.nextDouble();
          double angle = random.nextDouble();
          T axisAngle = createEmptyAxisAngle();
-         axisAngle.checkIfIsZOnly(getEpsilon());
+         axisAngle.checkIfOrientation2D(getEpsilon());
 
          axisAngle = createAxisAngle(ux, uy, uz, 0.0);
-         axisAngle.checkIfIsZOnly(getEpsilon());
+         axisAngle.checkIfOrientation2D(getEpsilon());
 
          axisAngle = createAxisAngle(ux, uy, uz, angle);
 
          try
          {
-            axisAngle.checkIfIsZOnly(getEpsilon());
+            axisAngle.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -310,7 +310,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          axisAngle = createAxisAngle(0.0, uy, uz, angle);
          try
          {
-            axisAngle.checkIfIsZOnly(getEpsilon());
+            axisAngle.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -326,7 +326,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          try
          {
-            axisAngle.checkIfIsZOnly(getEpsilon());
+            axisAngle.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -339,7 +339,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          }
 
          axisAngle = createAxisAngle(0.0, 0.0, uz, angle);
-         axisAngle.checkIfIsZOnly(getEpsilon());
+         axisAngle.checkIfOrientation2D(getEpsilon());
       }
    }
 

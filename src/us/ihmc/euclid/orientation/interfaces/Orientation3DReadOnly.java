@@ -1,6 +1,7 @@
 package us.ihmc.euclid.orientation.interfaces;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
@@ -19,6 +20,72 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
 public interface Orientation3DReadOnly
 {
+   static final double ORIENTATION_2D_EPSILON = 1.0e-8;
+
+   /**
+    * Tests if this orientation 3D actually represents a rotation strictly around the z-axis.
+    * <p>
+    * This is commonly used to test if this orientation can be used to transform 2D geometry object.
+    * </p>
+    * <p>
+    * This test uses the default tolerance {@link #ORIENTATION_2D_EPSILON}, to specify explicitly
+    * the tolerance to be use, see {@link #isOrientation2D(double)}.
+    * </p>
+    * 
+    * @return {@code true} if this orientation represents a 2D orientation in the XY-plane,
+    *         {@code false} otherwise.
+    */
+   default boolean isOrientation2D()
+   {
+      return isOrientation2D(ORIENTATION_2D_EPSILON);
+   }
+
+   /**
+    * Tests if this orientation 3D actually represents a rotation strictly around the z-axis.
+    * <p>
+    * This is commonly used to test if this orientation can be used to transform 2D geometry object.
+    * </p>
+    * <p>
+    * The implementation of this test depends on the type of representation used for this
+    * orientation.
+    * </p>
+    * 
+    * @param epsilon the tolerance to use.
+    * @return {@code true} if this orientation represents a 2D orientation in the XY-plane,
+    *         {@code false} otherwise.
+    */
+   boolean isOrientation2D(double epsilon);
+
+   /**
+    * Tests if this orientation 3D actually represents a rotation strictly around the z-axis.
+    * <p>
+    * This is commonly used to test if this orientation can be used to transform 2D geometry object.
+    * </p>
+    * 
+    * @throws NotAnOrientation2DException if this orientation does not represent a rotation strictly
+    *            around the z-axis.
+    */
+   default void checkIfOrientation2D()
+   {
+      checkIfOrientation2D(ORIENTATION_2D_EPSILON);
+   }
+
+   /**
+    * Tests if this orientation 3D actually represents a rotation strictly around the z-axis.
+    * <p>
+    * This is commonly used to test if this orientation can be used to transform 2D geometry object.
+    * </p>
+    * 
+    * @param epsilon the tolerance to use.
+    * @throws NotAnOrientation2DException if this orientation does not represent a rotation strictly
+    *            around the z-axis.
+    */
+   default void checkIfOrientation2D(double epsilon)
+   {
+      if (!isOrientation2D(epsilon))
+         throw new NotAnOrientation2DException(this);
+   }
+
    /**
     * Converts, if necessary, this orientation into a 3-by-3 rotation matrix.
     *

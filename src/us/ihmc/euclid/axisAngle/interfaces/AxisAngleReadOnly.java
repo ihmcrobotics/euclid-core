@@ -145,10 +145,12 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param epsilon the tolerance to use.
     * @return {@code true} if this axis-angle represents a rotation around the z-axis, {@code false}
     *         otherwise.
+    * @deprecated Use {@link #isOrientation2D(double)} instead
     */
+   @Deprecated
    default boolean isZOnly(double epsilon)
    {
-      return Math.abs(getAngle()) < epsilon || Math.abs(getX()) < epsilon && Math.abs(getY()) < epsilon;
+      return isOrientation2D(epsilon);
    }
 
    /**
@@ -160,11 +162,29 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     * @param epsilon the tolerance to use.
     * @throws NotAMatrix2DException if this axis-angle does not represent a rotation around the
     *            z-axis.
+    * @deprecated Use {@link #checkIfOrientation2D(double)} instead
     */
+   @Deprecated
    default void checkIfIsZOnly(double epsilon)
    {
-      if (!isZOnly(epsilon))
-         throw new NotAMatrix2DException("The axis-angle is not in XY plane: " + toString());
+      checkIfOrientation2D(epsilon);
+   }
+
+   /**
+    * {@inheritDoc}
+    * <p>
+    * An axis-angle is an orientation 2D if either:
+    * <ul>
+    * <li>the absolute value of the angle is less that {@code epsilon}.
+    * <li>the absolute value of the x and y components of the axis are both less than
+    * {@code epsilon}.
+    * </ul>
+    * </p>
+    */
+   @Override
+   default boolean isOrientation2D(double epsilon)
+   {
+      return Math.abs(getAngle()) < epsilon || Math.abs(getX()) < epsilon && Math.abs(getY()) < epsilon;
    }
 
    /**

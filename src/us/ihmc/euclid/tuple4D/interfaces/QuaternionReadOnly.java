@@ -66,8 +66,26 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param epsilon the tolerance to use.
     * @return {@code true} if this quaternion represents a rotation around the z-axis, {@code false}
     *         otherwise.
+    * @deprecated Use {@link #isOrientation2D(double)} instead
     */
+   @Deprecated
    default boolean isZOnly(double epsilon)
+   {
+      return isOrientation2D(epsilon);
+   }
+
+   /**
+    * {@inheritDoc}
+    * <p>
+    * A quaternion is an orientation 2D if:
+    * <ul>
+    * <li>the absolute value of the x component is less than {@code epsilon}.
+    * <li>the absolute value of the y component is less than {@code epsilon}.
+    * </ul>
+    * </p>
+    */
+   @Override
+   default boolean isOrientation2D(double epsilon)
    {
       return Math.abs(getX()) < epsilon && Math.abs(getY()) < epsilon;
    }
@@ -104,11 +122,12 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * @param epsilon the tolerance to use.
     * @throws NotAMatrix2DException if this quaternion does not represent a rotation around the
     *            z-axis.
+    * @deprecated Use {@link #checkIfOrientation2D(double)} instead
     */
+   @Deprecated
    default void checkIfIsZOnly(double epsilon)
    {
-      if (!isZOnly(epsilon))
-         throw new NotAMatrix2DException("The quaternion is not in XY plane: " + toString());
+      checkIfOrientation2D(epsilon);
    }
 
    /**

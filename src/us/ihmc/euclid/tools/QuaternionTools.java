@@ -689,7 +689,7 @@ public abstract class QuaternionTools
                                      boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
-         quaternion.checkIfIsZOnly(EPS);
+         quaternion.checkIfOrientation2D(EPS);
 
       double norm = quaternion.norm();
 
