@@ -283,47 +283,33 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    }
 
    @Override
-   default void setFromAxisAngle(double x, double y, double z, double angle)
+   default void setAxisAngle(double x, double y, double z, double angle)
    {
       set(x, y, z, angle);
    }
 
    @Override
-   default void setFromQuaternion(double x, double y, double z, double s)
+   default void setQuaternion(double x, double y, double z, double s)
    {
       AxisAngleConversion.convertQuaternionToAxisAngle(x, y, z, s, this);
    }
 
    @Override
-   default void setFromRotationVector(double x, double y, double z)
+   default void setRotationVector(double x, double y, double z)
    {
       AxisAngleConversion.convertRotationVectorToAxisAngle(x, y, z, this);
    }
 
    @Override
-   default void setFromYawPitchRoll(double yaw, double pitch, double roll)
+   default void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, this);
    }
 
    @Override
-   default void setFromRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   default void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
       AxisAngleConversion.convertMatrixToAxisAngle(m00, m01, m02, m10, m11, m12, m20, m21, m22, this);
-   }
-
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given yaw-pitch-roll angles. See
-    * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
-    *
-    * @param yaw the angle to rotate about the z-axis.
-    * @param pitch the angle to rotate about the y-axis.
-    * @param roll the angle to rotate about the x-axis.
-    */
-   default void setYawPitchRoll(double yaw, double pitch, double roll)
-   {
-      AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, this);
    }
 
    /**

@@ -160,7 +160,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     */
    public RotationMatrix(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**
@@ -448,31 +448,31 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
    }
 
    @Override
-   public void setFromAxisAngle(double x, double y, double z, double angle)
+   public void setAxisAngle(double x, double y, double z, double angle)
    {
       RotationMatrixConversion.convertAxisAngleToMatrix(x, y, z, angle, this);
    }
 
    @Override
-   public void setFromRotationVector(double x, double y, double z)
+   public void setRotationVector(double x, double y, double z)
    {
       RotationMatrixConversion.convertRotationVectorToMatrix(x, y, z, this);
    }
 
    @Override
-   public void setFromQuaternion(double x, double y, double z, double s)
+   public void setQuaternion(double x, double y, double z, double s)
    {
       RotationMatrixConversion.convertQuaternionToMatrix(x, y, z, s, this);
    }
 
    @Override
-   public void setFromYawPitchRoll(double yaw, double pitch, double roll)
+   public void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitch, roll, this);
    }
 
    @Override
-   public void setFromRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   public void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
       setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
@@ -526,25 +526,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
    public void setToRollMatrix(double roll)
    {
       RotationMatrixConversion.computeRollMatrix(roll, this);
-   }
-
-   /**
-    * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
-    * {@code yaw}, {@code pitch}, and {@code roll}.
-    *
-    * <pre>
-    *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
-    * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
-    *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
-    * </pre>
-    *
-    * @param yaw the angle to rotate about the z-axis.
-    * @param pitch the angle to rotate about the y-axis.
-    * @param roll the angle to rotate about the x-axis.
-    */
-   public void setYawPitchRoll(double yaw, double pitch, double roll)
-   {
-      RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitch, roll, this);
    }
 
    /**

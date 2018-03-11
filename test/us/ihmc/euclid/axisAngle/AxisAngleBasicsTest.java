@@ -376,7 +376,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             Vector3D rotationVector = EuclidCoreRandomTools.nextRotationVector(random);
-            actualAxisAngle.set(rotationVector);
+            actualAxisAngle.setRotationVector(rotationVector);
             AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, expectedAxisAngle);
             EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }

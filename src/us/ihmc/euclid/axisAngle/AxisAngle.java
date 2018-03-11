@@ -106,7 +106,7 @@ public class AxisAngle implements AxisAngleBasics, Orientation3DBasics, EpsilonC
     */
    public AxisAngle(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**

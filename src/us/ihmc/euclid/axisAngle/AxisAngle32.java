@@ -99,7 +99,7 @@ public class AxisAngle32 implements AxisAngleBasics, Settable<AxisAngle32>, Epsi
     */
    public AxisAngle32(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**

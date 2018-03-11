@@ -10,19 +10,19 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
 
    void invert();
 
-   void setFromRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22);
+   void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22);
 
-   void setFromAxisAngle(double x, double y, double z, double angle);
+   void setAxisAngle(double x, double y, double z, double angle);
 
-   void setFromQuaternion(double x, double y, double z, double s);
+   void setQuaternion(double x, double y, double z, double s);
 
-   void setFromRotationVector(double x, double y, double z);
+   void setRotationVector(double x, double y, double z);
 
-   void setFromYawPitchRoll(double yaw, double pitch, double roll);
+   void setYawPitchRoll(double yaw, double pitch, double roll);
 
    default void setYawPitchRoll(double[] yawPitchRoll)
    {
-      setFromYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
+      setYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
    }
 
    /**
@@ -37,19 +37,19 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     *
     * @param rotationVector the rotation vector to convert. Not modified.
     */
-   default void set(Vector3DReadOnly rotationVector)
+   default void setRotationVector(Vector3DReadOnly rotationVector)
    {
-      setFromRotationVector(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ());
+      setRotationVector(rotationVector.getX(), rotationVector.getY(), rotationVector.getZ());
    }
 
    default void setEuler(Vector3DReadOnly eulerAngles)
    {
-      setFromYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX());
+      setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX());
    }
 
    default void setEuler(double rotX, double rotY, double rotZ)
    {
-      setFromYawPitchRoll(rotZ, rotY, rotX);
+      setYawPitchRoll(rotZ, rotY, rotX);
    }
 
    void set(Orientation3DReadOnly orientation3DReadOnly);

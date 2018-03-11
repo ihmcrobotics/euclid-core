@@ -766,7 +766,7 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
     */
    public void setRotation(Vector3DReadOnly rotationVector)
    {
-      rotationMatrix.set(rotationVector);
+      rotationMatrix.setRotationVector(rotationVector);
    }
 
    /**

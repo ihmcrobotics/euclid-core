@@ -499,7 +499,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     */
    public void setRotation(Vector3DReadOnly rotationVector)
    {
-      quaternion.set(rotationVector);
+      quaternion.setRotationVector(rotationVector);
    }
 
    /**

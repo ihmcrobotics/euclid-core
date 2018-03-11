@@ -832,7 +832,7 @@ public class RigidBodyTransform
     */
    public void setRotation(Vector3DReadOnly rotationVector)
    {
-      rotationMatrix.set(rotationVector);
+      rotationMatrix.setRotationVector(rotationVector);
    }
 
    /**
@@ -1074,7 +1074,7 @@ public class RigidBodyTransform
     */
    public void setRotationAndZeroTranslation(Vector3DReadOnly rotationVector)
    {
-      rotationMatrix.set(rotationVector);
+      rotationMatrix.setRotationVector(rotationVector);
       translationVector.setToZero();
    }
 

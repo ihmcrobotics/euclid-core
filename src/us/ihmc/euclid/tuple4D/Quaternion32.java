@@ -93,7 +93,7 @@ public class Quaternion32 implements QuaternionBasics, GeometryObject<Quaternion
     */
    public Quaternion32(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**

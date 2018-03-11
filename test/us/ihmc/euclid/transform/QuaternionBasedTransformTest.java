@@ -571,7 +571,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       { // Test getRotation(Vector3DBasics rotationVectorToPack)
          Vector3D rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
-         actualQuaternion.set(rotationVector);
+         actualQuaternion.setRotationVector(rotationVector);
          EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPS);
       }
 

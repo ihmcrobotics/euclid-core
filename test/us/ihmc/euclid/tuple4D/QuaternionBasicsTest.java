@@ -1074,7 +1074,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expectedQuaternion);
 
-         actualQuaternion.set(rotationVector);
+         actualQuaternion.setRotationVector(rotationVector);
          EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
       }
    }
