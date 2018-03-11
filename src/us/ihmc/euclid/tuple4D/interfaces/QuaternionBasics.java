@@ -438,6 +438,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    default void appendYawRotation(double yaw)
    {
       QuaternionTools.appendYawRotation(this, yaw, this);
@@ -455,6 +456,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    default void appendPitchRotation(double pitch)
    {
       QuaternionTools.appendPitchRotation(this, pitch, this);
@@ -472,6 +474,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    default void appendRollRotation(double roll)
    {
       QuaternionTools.appendRollRotation(this, roll, this);
@@ -566,6 +569,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    default void prependYawRotation(double yaw)
    {
       QuaternionTools.prependYawRotation(yaw, this, this);
@@ -583,6 +587,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    default void prependPitchRotation(double pitch)
    {
       QuaternionTools.prependPitchRotation(pitch, this, this);
@@ -600,6 +605,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    default void prependRollRotation(double roll)
    {
       QuaternionTools.prependRollRotation(roll, this, this);

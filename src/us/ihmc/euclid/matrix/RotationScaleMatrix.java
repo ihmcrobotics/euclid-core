@@ -2,8 +2,6 @@ package us.ihmc.euclid.matrix;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
@@ -13,6 +11,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
@@ -23,8 +22,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
  * A {@code RotationScaleMatrix} is a 3-by-3 matrix that represents a 3D orientation times a
@@ -128,49 +125,6 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
 
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
-    * {@code axisAngle} and all three scale factors initialized to {@code scale}.
-    *
-    * @param axisAngle the axis-angle used to initialized the rotation part. Not modified.
-    * @param scale the non-zero and positive scalar used to initialized the scale factors.
-    * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
-    */
-   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, double scale)
-   {
-      set(axisAngle, scale);
-   }
-
-   /**
-    * Creates a new rotation-scale matrix with the rotation part initialized to the
-    * {@code axisAngle} and all three scale factors initialized to {@code scaleX}, {@code scaleY},
-    * and {@code scaleZ}.
-    *
-    * @param axisAngle the axis-angle used to initialized the rotation part. Not modified.
-    * @param scaleX the non-zero and positive scalar used to initialized the x-axis scale factor.
-    * @param scaleY the non-zero and positive scalar used to initialized the y-axis scale factor.
-    * @param scaleZ the non-zero and positive scalar used to initialized the z-axis scale factor.
-    * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
-    */
-   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, double scaleX, double scaleY, double scaleZ)
-   {
-      set(axisAngle, scaleX, scaleY, scaleZ);
-   }
-
-   /**
-    * Creates a new rotation-scale matrix with the rotation part initialized to the
-    * {@code axisAngle} and all three scale factors initialized to {@code scales}.
-    *
-    * @param axisAngle the axis-angle used to initialized the rotation part. Not modified.
-    * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale
-    *           factors. Not modified.
-    * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
-    */
-   public RotationScaleMatrix(AxisAngleReadOnly axisAngle, Tuple3DReadOnly scales)
-   {
-      set(axisAngle, scales);
-   }
-
-   /**
-    * Creates a new rotation-scale matrix with the rotation part initialized to the
     * {@code rotationMatrix} and all three scale factors initialized to {@code scale}.
     *
     * @param rotationMatrix the 3-by-3 matrix used to initialized the rotation part. Not modified.
@@ -220,45 +174,45 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
 
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
-    * {@code quaternion} and all three scale factors initialized to {@code scale}.
+    * {@code orientation} and all three scale factors initialized to {@code scale}.
     *
-    * @param quaternion the quaternion used to initialized the rotation part. Not modified.
+    * @param orientation the orientation used to initialized the rotation part. Not modified.
     * @param scales non-zero and positive scalar used to initialized the scale factors.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public RotationScaleMatrix(QuaternionReadOnly quaternion, double scale)
+   public RotationScaleMatrix(Orientation3DReadOnly orientation, double scale)
    {
-      set(quaternion, scale);
+      set(orientation, scale);
    }
 
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
-    * {@code quaternion} and all three scale factors initialized to {@code scaleX}, {@code scaleY},
+    * {@code orientation} and all three scale factors initialized to {@code scaleX}, {@code scaleY},
     * and {@code scaleZ}.
     *
-    * @param quaternion the quaternion used to initialized the rotation part. Not modified.
+    * @param orientation the orientation used to initialized the rotation part. Not modified.
     * @param scaleX the non-zero and positive scalar used to initialized the x-axis scale factor.
     * @param scaleY the non-zero and positive scalar used to initialized the y-axis scale factor.
     * @param scaleZ the non-zero and positive scalar used to initialized the z-axis scale factor.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(QuaternionReadOnly quaternion, double scaleX, double scaleY, double scaleZ)
+   public RotationScaleMatrix(Orientation3DReadOnly orientation, double scaleX, double scaleY, double scaleZ)
    {
-      set(quaternion, scaleX, scaleY, scaleZ);
+      set(orientation, scaleX, scaleY, scaleZ);
    }
 
    /**
     * Creates a new rotation-scale matrix with the rotation part initialized to the
-    * {@code quaternion} and all three scale factors initialized to {@code scales}.
+    * {@code orientation} and all three scale factors initialized to {@code scales}.
     *
-    * @param quaternion the quaternion used to initialized the rotation part. Not modified.
+    * @param orientation the orientation used to initialized the rotation part. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to initialized the scale
     *           factors. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public RotationScaleMatrix(QuaternionReadOnly quaternion, Tuple3DReadOnly scales)
+   public RotationScaleMatrix(Orientation3DReadOnly orientation, Tuple3DReadOnly scales)
    {
-      set(quaternion, scales);
+      set(orientation, scales);
    }
 
    /**
@@ -465,47 +419,6 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
    }
 
    /**
-    * Sets the rotation part to the {@code axisAngle} and all three scale factors to {@code scale}.
-    *
-    * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
-    * @param scale the non-zero and positive scalar used to set the scale factors to.
-    * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
-    */
-   public void set(AxisAngleReadOnly axisAngle, double scale)
-   {
-      set(axisAngle, scale, scale, scale);
-   }
-
-   /**
-    * Sets the rotation part to the {@code axisAngle} and all three scale factors to {@code scaleX},
-    * {@code scaleY}, and {@code scaleZ}.
-    *
-    * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
-    * @param scaleX the non-zero and positive scalar used to set the x-axis scale factor to.
-    * @param scaleY the non-zero and positive scalar used to set the y-axis scale factor to.
-    * @param scaleZ the non-zero and positive scalar used to set the z-axis scale factor to.
-    * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
-    */
-   public void set(AxisAngleReadOnly axisAngle, double scaleX, double scaleY, double scaleZ)
-   {
-      setRotation(axisAngle);
-      setScale(scaleX, scaleY, scaleZ);
-   }
-
-   /**
-    * Sets the rotation part to the {@code axisAngle} and all three scale factors to {@code scales}.
-    *
-    * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
-    * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors
-    *           to. Not modified.
-    * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
-    */
-   public void set(AxisAngleReadOnly axisAngle, Tuple3DReadOnly scales)
-   {
-      set(axisAngle, scales.getX(), scales.getY(), scales.getZ());
-   }
-
-   /**
     * Sets the rotation part to the {@code rotationMatrix} and all three scale factors to
     * {@code scale}.
     *
@@ -555,45 +468,46 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
    }
 
    /**
-    * Sets the rotation part to the {@code quaternion} and all three scale factors to {@code scale}.
+    * Sets the rotation part to the {@code orientation} and all three scale factors to
+    * {@code scale}.
     *
-    * @param quaternion the quaternion used to set the rotation part to. Not modified.
+    * @param orientation the orientation used to set the rotation part to. Not modified.
     * @param scale the non-zero and positive scalar used to set the scale factors to.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public void set(QuaternionReadOnly quaternion, double scale)
+   public void set(Orientation3DReadOnly orientation, double scale)
    {
-      set(quaternion, scale, scale, scale);
+      set(orientation, scale, scale, scale);
    }
 
    /**
-    * Sets the rotation part to the {@code quaternion} and all three scale factors to
+    * Sets the rotation part to the {@code orientation} and all three scale factors to
     * {@code scaleX}, {@code scaleY}, and {@code scaleZ}.
     *
-    * @param quaternion the quaternion used to set the rotation part to. Not modified.
+    * @param orientation the orientation used to set the rotation part to. Not modified.
     * @param scaleX the non-zero and positive scalar used to set the x-axis scale factor to.
     * @param scaleY the non-zero and positive scalar used to set the y-axis scale factor to.
     * @param scaleZ the non-zero and positive scalar used to set the z-axis scale factor to.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(QuaternionReadOnly quaternion, double scaleX, double scaleY, double scaleZ)
+   public void set(Orientation3DReadOnly orientation, double scaleX, double scaleY, double scaleZ)
    {
-      setRotation(quaternion);
+      setRotation(orientation);
       setScale(scaleX, scaleY, scaleZ);
    }
 
    /**
-    * Sets the rotation part to the {@code quaternion} and all three scale factors to
+    * Sets the rotation part to the {@code orientation} and all three scale factors to
     * {@code scales}.
     *
-    * @param quaternion the quaternion used to set the rotation part to. Not modified.
+    * @param orientation the orientation used to set the rotation part to. Not modified.
     * @param scales tuple holding on the non-zero and positive scalars used to set the scale factors
     *           to. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly scales)
+   public void set(Orientation3DReadOnly orientation, Tuple3DReadOnly scales)
    {
-      set(quaternion, scales.getX(), scales.getY(), scales.getZ());
+      set(orientation, scales.getX(), scales.getY(), scales.getZ());
    }
 
    /**
@@ -713,23 +627,13 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
    }
 
    /**
-    * Sets the rotation part to {@code axisAngle}.
+    * Sets the rotation part to {@code orientation}.
     *
-    * @param axisAngle the axis-angle used to set the rotation part to. Not modified.
+    * @param orientation the orientation used to set the rotation part to. Not modified.
     */
-   public void setRotation(AxisAngleReadOnly axisAngle)
+   public void setRotation(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.set(axisAngle);
-   }
-
-   /**
-    * Sets the rotation part to {@code quaternion}.
-    *
-    * @param quaternion the quaternion used to set the rotation part to. Not modified.
-    */
-   public void setRotation(QuaternionReadOnly quaternion)
-   {
-      rotationMatrix.set(quaternion);
+      rotationMatrix.set(orientation);
    }
 
    /**
@@ -1081,62 +985,17 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
       resetScale();
    }
 
-   /**
-    * Multiplies the given {@code rotationMatrix} to the rotation part of this rotation-scale
-    * matrix.
-    * <p>
-    * R = R * rotationMatrix <br>
-    * with R being the rotation part of this matrix.
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified
-    */
-   public void multiply(RotationMatrixReadOnly rotationMatrix)
-   {
-      this.rotationMatrix.multiply(rotationMatrix);
-   }
-
-   public void multiply(Orientation3DReadOnly orientation)
+   public void append(Orientation3DReadOnly orientation)
    {
       rotationMatrix.append(orientation);
    }
 
-   /**
-    * Multiplies the given {@code rotationMatrix} to the transpose of the rotation part of this
-    * rotation-scale matrix.
-    * <p>
-    * R = R<sup>T</sup> * rotationMatrix <br>
-    * with R being the rotation part of this matrix.
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified
-    */
-   public void multiplyTransposeThis(RotationMatrixReadOnly rotationMatrix)
-   {
-      this.rotationMatrix.multiplyTransposeThis(rotationMatrix);
-   }
-
-   /**
-    * Multiplies the transpose of the given {@code rotationMatrix} to the rotation part of this
-    * rotation-scale matrix.
-    * <p>
-    * R = R * rotationMatrix<sup>T</sup> <br>
-    * with R being the rotation part of this matrix.
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified
-    */
-   public void multiplyTransposeOther(RotationMatrixReadOnly rotationMatrix)
-   {
-      this.rotationMatrix.multiplyTransposeOther(rotationMatrix);
-   }
-
-   public void multiplyInvertThis(Orientation3DReadOnly orientation)
+   public void appendInvertThis(Orientation3DReadOnly orientation)
    {
       rotationMatrix.appendInvertThis(orientation);
    }
 
-   public void multiplyInvertOther(Orientation3DReadOnly orientation)
+   public void appendInvertOther(Orientation3DReadOnly orientation)
    {
       rotationMatrix.appendInvertOther(orientation);
    }
@@ -1198,59 +1057,17 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
       rotationMatrix.appendRollRotation(roll);
    }
 
-   /**
-    * Performs a matrix multiplication on this.
-    * <p>
-    * this = other * this
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply with by. Not modified.
-    */
-   public void preMultiply(RotationMatrixReadOnly rotationMatrix)
-   {
-      this.rotationMatrix.preMultiply(rotationMatrix);
-   }
-
-   public void preMultiply(Orientation3DReadOnly orientation)
+   public void prepend(Orientation3DReadOnly orientation)
    {
       rotationMatrix.prepend(orientation);
    }
 
-   /**
-    * Sets the rotation part of this to the multiplication of the transpose of the rotation part of
-    * this with the given {@code rotationMatrix}.
-    * <p>
-    * R = rotationMatrix * R<sup>T</sup> <br>
-    * with R being the rotation part of this matrix.
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified
-    */
-   public void preMultiplyTransposeThis(RotationMatrixReadOnly rotationMatrix)
-   {
-      this.rotationMatrix.preMultiplyTransposeThis(rotationMatrix);
-   }
-
-   /**
-    * Sets the rotation part of this to the multiplication of the rotation part of this with the
-    * transpose of the given {@code rotationMatrix}.
-    * <p>
-    * this = other<sup>T</sup> * this
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply with by. Not modified.
-    */
-   public void preMultiplyTransposeOther(RotationMatrixReadOnly rotationMatrix)
-   {
-      this.rotationMatrix.preMultiplyTransposeOther(rotationMatrix);
-   }
-
-   public void preMultiplyInvertThis(Orientation3DReadOnly orientation)
+   public void prependInvertThis(Orientation3DReadOnly orientation)
    {
       rotationMatrix.prependInvertThis(orientation);
    }
 
-   public void preMultiplyInvertOther(Orientation3DReadOnly orientation)
+   public void prependInvertOther(Orientation3DReadOnly orientation)
    {
       rotationMatrix.prependInvertOther(orientation);
    }
@@ -1323,14 +1140,13 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
    }
 
    /**
-    * Packs the rotation part as a rotation matrix.
+    * Packs the rotation part.
     *
-    * @param rotationMatrixToPack the rotation matrix in which the rotation part is stored.
-    *           Modified.
+    * @param orientationToPack the orientation in which the rotation part is stored. Modified.
     */
-   public void getRotation(RotationMatrix rotationMatrixToPack)
+   public void getRotation(Orientation3DBasics orientationToPack)
    {
-      rotationMatrixToPack.set(rotationMatrix);
+      orientationToPack.set(rotationMatrix);
    }
 
    /**
@@ -1353,26 +1169,6 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
    public void getRotation(DenseMatrix64F rotationMatrixToPack)
    {
       rotationMatrix.get(rotationMatrixToPack);
-   }
-
-   /**
-    * Packs the rotation part as a quaternion.
-    *
-    * @param quaternionToPack the quaternion in which the rotation part is stored. Modified.
-    */
-   public void getRotation(QuaternionBasics quaternionToPack)
-   {
-      quaternionToPack.set(rotationMatrix);
-   }
-
-   /**
-    * Packs the rotation part as an axis-angle.
-    *
-    * @param axisAngleToPack the axis-angle in which the rotation part is stored. Modified.
-    */
-   public void getRotation(AxisAngleBasics axisAngleToPack)
-   {
-      axisAngleToPack.set(rotationMatrix);
    }
 
    /**

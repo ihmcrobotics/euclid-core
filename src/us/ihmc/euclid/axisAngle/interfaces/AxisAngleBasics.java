@@ -457,6 +457,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    default void appendYawRotation(double yaw)
    {
       AxisAngleTools.appendYawRotation(this, yaw, this);
@@ -474,6 +475,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    default void appendPitchRotation(double pitch)
    {
       AxisAngleTools.appendPitchRotation(this, pitch, this);
@@ -491,6 +493,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    default void appendRollRotation(double roll)
    {
       AxisAngleTools.appendRollRotation(this, roll, this);
@@ -585,6 +588,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    default void prependYawRotation(double yaw)
    {
       AxisAngleTools.prependYawRotation(yaw, this, this);
@@ -602,6 +606,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    default void prependPitchRotation(double pitch)
    {
       AxisAngleTools.prependPitchRotation(pitch, this, this);
@@ -619,6 +624,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    default void prependRollRotation(double roll)
    {
       AxisAngleTools.prependRollRotation(roll, this, this);

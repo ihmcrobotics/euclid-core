@@ -632,6 +632,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    public void appendYawRotation(double yaw)
    {
       RotationMatrixTools.appendYawRotation(this, yaw, this);
@@ -648,6 +649,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    public void appendPitchRotation(double pitch)
    {
       RotationMatrixTools.appendPitchRotation(this, pitch, this);
@@ -664,6 +666,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    public void appendRollRotation(double roll)
    {
       RotationMatrixTools.appendRollRotation(this, roll, this);
@@ -756,6 +759,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    public void prependYawRotation(double yaw)
    {
       RotationMatrixTools.prependYawRotation(yaw, this, this);
@@ -772,6 +776,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    public void prependPitchRotation(double pitch)
    {
       RotationMatrixTools.prependPitchRotation(pitch, this, this);
@@ -788,6 +793,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    public void prependRollRotation(double roll)
    {
       RotationMatrixTools.prependRollRotation(roll, this, this);
