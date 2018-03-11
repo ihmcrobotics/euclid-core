@@ -1572,15 +1572,15 @@ public class RigidBodyTransform
     * Append a rotation about the x-axis to the rotation part of this transform.
     *
     * <pre>
-    *         /  cos(pitch) 0 sin(pitch) \
-    * R = R * |      0      1     0      |
-    *         \ -sin(pitch) 0 cos(pitch) /
+    *         / 1     0          0     \
+    * R = R * | 0 cos(roll) -sin(roll) |
+    *         \ 0 sin(roll)  cos(roll) /
     * </pre>
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
     *
-    * @param yaw the angle to rotate about the x-axis.
+    * @param roll the angle to rotate about the x-axis.
     */
    public void appendRollRotation(double roll)
    {
