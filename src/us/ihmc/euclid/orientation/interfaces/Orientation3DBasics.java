@@ -184,9 +184,9 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * {@code yaw = rotZ}, {@code pitch = rotY}, and {@code roll = rotX}.
     * </p>
     *
-    * @param rotX
-    * @param rotY
-    * @param rotZ
+    * @param rotX the angle to rotate about the x-axis.
+    * @param rotY the angle to rotate about the y-axis.
+    * @param rotZ the angle to rotate about the z-axis.
     */
    default void setEuler(double rotX, double rotY, double rotZ)
    {
