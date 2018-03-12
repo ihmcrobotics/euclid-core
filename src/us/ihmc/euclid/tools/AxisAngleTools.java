@@ -749,14 +749,28 @@ public abstract class AxisAngleTools
       double sinHalfGammaUy = sinCos * u1y + cosSin * u2y + sinSin * crossY;
       double sinHalfGammaUz = sinCos * u1z + cosSin * u2z + sinSin * crossZ;
 
-      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+      double sinHalfGammaSquared = EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz);
 
-      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
-      double sinHalfGammaInv = 1.0 / sinHalfGamma;
-      double ux = sinHalfGammaUx * sinHalfGammaInv;
-      double uy = sinHalfGammaUy * sinHalfGammaInv;
-      double uz = sinHalfGammaUz * sinHalfGammaInv;
-      axisAngleToPack.set(ux, uy, uz, gamma);
+      if (sinHalfGammaSquared < EPS)
+      {
+         axisAngleToPack.set(1.0, 0.0, 0.0, 0.0);
+      }
+      else
+      {
+         double sinHalfGamma = Math.sqrt(sinHalfGammaSquared);
+
+         double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+         double sinHalfGammaInv = 1.0 / sinHalfGamma;
+         double ux = sinHalfGammaUx * sinHalfGammaInv;
+         double uy = sinHalfGammaUy * sinHalfGammaInv;
+         double uz = sinHalfGammaUz * sinHalfGammaInv;
+         axisAngleToPack.set(ux, uy, uz, gamma);
+      }
+   }
+
+   public static void main(String[] args)
+   {
+      System.out.println(Math.atan2(0.0, -1.0));
    }
 
    /**
