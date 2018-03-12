@@ -374,7 +374,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
     */
-   public final void setAndNormalize(Matrix3DReadOnly matrix)
+   public void setAndNormalize(Matrix3DReadOnly matrix)
    {
       m00 = matrix.getM00();
       m01 = matrix.getM01();
@@ -577,12 +577,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeLeft(this, other, this);
    }
 
-   @Override
-   public void appendInvertThis(Orientation3DReadOnly orientation)
-   {
-      RotationMatrixTools.multiply(this, true, orientation, false, this);
-   }
-
    /**
     * Performs a matrix multiplication on this.
     * <p>
@@ -613,12 +607,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
    public void multiplyTransposeBoth(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiplyTransposeBoth(this, other, this);
-   }
-
-   @Override
-   public void appendInvertBoth(Orientation3DReadOnly orientation)
-   {
-      RotationMatrixTools.multiply(this, true, orientation, true, this);
    }
 
    /**
@@ -704,12 +692,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
       RotationMatrixTools.multiplyTransposeRight(other, this, this);
    }
 
-   @Override
-   public void prependInvertThis(Orientation3DReadOnly orientation)
-   {
-      RotationMatrixTools.multiply(orientation, false, this, true, this);
-   }
-
    /**
     * Performs a matrix multiplication on this.
     * <p>
@@ -740,12 +722,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, O
    public void preMultiplyTransposeBoth(RotationMatrixReadOnly other)
    {
       RotationMatrixTools.multiplyTransposeBoth(other, this, this);
-   }
-
-   @Override
-   public void prependInvertBoth(Orientation3DReadOnly orientation)
-   {
-      RotationMatrixTools.multiply(orientation, true, this, true, this);
    }
 
    /**

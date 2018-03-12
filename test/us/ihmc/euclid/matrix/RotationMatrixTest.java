@@ -21,6 +21,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasicsTest;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
@@ -1273,6 +1274,10 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          matrixActual.setToNaN();
          matrixActual.setAndNormalize((Matrix3DReadOnly) matrixExpected);
          EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+
+         matrixActual.setToNaN();
+         matrixActual.setAndNormalize((Orientation3DReadOnly) matrixExpected);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
 
       double corruptionFactor = 0.1;
@@ -1301,6 +1306,10 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
 
          matrixActual.setToNaN();
          matrixActual.setAndNormalize((Matrix3DReadOnly) corrupted);
+         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
+
+         matrixActual.setToNaN();
+         matrixActual.setAndNormalize((Orientation3DReadOnly) corrupted);
          EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPS);
       }
    }

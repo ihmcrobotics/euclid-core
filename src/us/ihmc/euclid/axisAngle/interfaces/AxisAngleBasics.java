@@ -419,12 +419,6 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       AxisAngleTools.multiplyInvertLeft(this, other, this);
    }
 
-   @Override
-   default void appendInvertThis(Orientation3DReadOnly orientation)
-   {
-      AxisAngleTools.multiply(this, true, orientation, false, this);
-   }
-
    /**
     * Sets this axis-angle to the multiplication of the inverse of {@code this} and the inverse of
     * {@code other}.
@@ -437,12 +431,6 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    default void multiplyInvertBoth(AxisAngleReadOnly other)
    {
       AxisAngleTools.multiplyInvertBoth(this, other, this);
-   }
-
-   @Override
-   default void appendInvertBoth(Orientation3DReadOnly orientation)
-   {
-      AxisAngleTools.multiply(this, true, orientation, true, this);
    }
 
    /**
@@ -550,12 +538,6 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       AxisAngleTools.multiplyInvertRight(other, this, this);
    }
 
-   @Override
-   default void prependInvertThis(Orientation3DReadOnly orientation)
-   {
-      AxisAngleTools.multiply(orientation, false, this, true, this);
-   }
-
    /**
     * Sets this axis-angle to the multiplication of the inverse of {@code other} and the inverse of
     * {@code this}.
@@ -568,12 +550,6 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
    default void preMultiplyInvertBoth(AxisAngleReadOnly other)
    {
       AxisAngleTools.multiplyInvertBoth(other, this, this);
-   }
-
-   @Override
-   default void prependInvertBoth(Orientation3DReadOnly orientation)
-   {
-      AxisAngleTools.multiply(orientation, true, this, true, this);
    }
 
    /**

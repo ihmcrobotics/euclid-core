@@ -219,6 +219,13 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       set(other);
    }
 
+   /** {@inheritDoc} */
+   default void setAndNormalize(QuaternionReadOnly other)
+   {
+      set(other);
+      normalize();
+   }
+
    /**
     * Sets this quaternion to the conjugate of {@code other}.
     *
@@ -401,12 +408,6 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiplyConjugateLeft(this, other, this);
    }
 
-   @Override
-   default void appendInvertThis(Orientation3DReadOnly orientation)
-   {
-      QuaternionTools.multiply(this, true, orientation, false, this);
-   }
-
    /**
     * Sets this quaternion to the multiplication of the conjugate of {@code this} and {@code other}.
     * <p>
@@ -418,12 +419,6 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
    default void multiplyConjugateBoth(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateBoth(this, other, this);
-   }
-
-   @Override
-   default void appendInvertBoth(Orientation3DReadOnly orientation)
-   {
-      QuaternionTools.multiply(this, true, orientation, true, this);
    }
 
    /**
@@ -531,12 +526,6 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiplyConjugateRight(other, this, this);
    }
 
-   @Override
-   default void prependInvertThis(Orientation3DReadOnly orientation)
-   {
-      QuaternionTools.multiply(orientation, false, this, true, this);
-   }
-
    /**
     * Sets this quaternion to the multiplication of the conjugate of {@code other} and the conjugate
     * of {@code this}.
@@ -549,12 +538,6 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
    default void preMultiplyConjugateBoth(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateBoth(other, this, this);
-   }
-
-   @Override
-   default void prependInvertBoth(Orientation3DReadOnly orientation)
-   {
-      QuaternionTools.multiply(orientation, true, this, true, this);
    }
 
    /**

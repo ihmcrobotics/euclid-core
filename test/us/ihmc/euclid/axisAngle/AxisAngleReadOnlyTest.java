@@ -239,7 +239,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
    }
 
    @Test
-   public void testIsZOnly() throws Exception
+   public void testIsOrientation2D() throws Exception
    {
       Random random = new Random(23905872L);
 
