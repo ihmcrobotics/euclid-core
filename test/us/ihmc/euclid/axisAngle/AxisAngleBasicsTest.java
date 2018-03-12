@@ -187,35 +187,35 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          double randomAngle = EuclidCoreRandomTools.nextDouble(random);
 
          T actualAxisAngle = createAxisAngle(randomAxis.getX(), randomAxis.getY(), randomAxis.getZ(), randomAngle);
-         actualAxisAngle.normalizeAxis();
+         actualAxisAngle.normalize();
          randomAxis.normalize();
          T expectedAxisAngle = createAxisAngle(randomAxis.getX(), randomAxis.getY(), randomAxis.getZ(), randomAngle);
          EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
       }
 
       T axisAngle = createAxisAngle(Double.NaN, 0.0, 0.0, 0.0);
-      axisAngle.normalizeAxis();
+      axisAngle.normalize();
       assertTrue(Double.isNaN(axisAngle.getX()));
       assertFalse(Double.isNaN(axisAngle.getY()));
       assertFalse(Double.isNaN(axisAngle.getZ()));
       assertFalse(Double.isNaN(axisAngle.getAngle()));
 
       axisAngle = createAxisAngle(0.0, Double.NaN, 0.0, 0.0);
-      axisAngle.normalizeAxis();
+      axisAngle.normalize();
       assertFalse(Double.isNaN(axisAngle.getX()));
       assertTrue(Double.isNaN(axisAngle.getY()));
       assertFalse(Double.isNaN(axisAngle.getZ()));
       assertFalse(Double.isNaN(axisAngle.getAngle()));
 
       axisAngle = createAxisAngle(0.0, 0.0, Double.NaN, 0.0);
-      axisAngle.normalizeAxis();
+      axisAngle.normalize();
       assertFalse(Double.isNaN(axisAngle.getX()));
       assertFalse(Double.isNaN(axisAngle.getY()));
       assertTrue(Double.isNaN(axisAngle.getZ()));
       assertFalse(Double.isNaN(axisAngle.getAngle()));
 
       axisAngle = createAxisAngle(0.0, 0.0, 0.0, Double.NaN);
-      axisAngle.normalizeAxis();
+      axisAngle.normalize();
       assertFalse(Double.isNaN(axisAngle.getX()));
       assertFalse(Double.isNaN(axisAngle.getY()));
       assertFalse(Double.isNaN(axisAngle.getZ()));
@@ -223,7 +223,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
    }
 
    @Test
-   public void testInverse() throws Exception
+   public void testInvert() throws Exception
    {
       Random random = new Random(23423L);
 
@@ -232,7 +232,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          T axisAngle = createRandomAxisAngle(random);
          T inverseAxisAngle = createEmptyAxisAngle();
          inverseAxisAngle.set(axisAngle);
-         inverseAxisAngle.inverse();
+         inverseAxisAngle.invert();
 
          RotationMatrix rotationMatrix = new RotationMatrix(axisAngle);
          RotationMatrix inverseRotationMatrix = new RotationMatrix(inverseAxisAngle);

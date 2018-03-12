@@ -101,7 +101,7 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Converts, if necessary, this orientation into a 3-by-3 rotation matrix.
+    * Converts, if necessary, and packs this orientation into a 3-by-3 rotation matrix.
     *
     * @param rotationMatrixToPack the rotation matrix into which this orientation is to be stored.
     *           Modified.
@@ -109,21 +109,21 @@ public interface Orientation3DReadOnly
    void get(RotationMatrix rotationMatrixToPack);
 
    /**
-    * Converts, if necessary, this orientation into an axis-angle.
+    * Converts, if necessary, and packs this orientation into an axis-angle.
     *
     * @param axisAngleToPack the axis-angle into which this orientation is to be stored. Modified.
     */
    void get(AxisAngleBasics axisAngleToPack);
 
    /**
-    * Converts, if necessary, this orientation in a quaternion.
+    * Converts, if necessary, and packs this orientation in a quaternion.
     *
     * @param quaternionToPack the quaternion into which this orientation is to be stored. Modified.
     */
    void get(QuaternionBasics quaternionToPack);
 
    /**
-    * Converts this orientation in a 3D rotation vector.
+    * Converts and packs this orientation in a 3D rotation vector.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
     * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
@@ -136,7 +136,7 @@ public interface Orientation3DReadOnly
    void getRotationVector(Vector3DBasics rotationVectorToPack);
 
    /**
-    * Converts this orientation in a yaw-pitch-roll representation.
+    * Converts and packs this orientation in a yaw-pitch-roll representation.
     * <p>
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.

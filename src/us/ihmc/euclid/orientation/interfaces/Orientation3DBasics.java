@@ -22,7 +22,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly
     * with respect to A.
     * </p>
     * <p>
-    * Note that appending or prepending an orientation with it inverse will result into a "zero"
+    * Note that appending or prepending an orientation with its inverse will result into a "zero"
     * orientation.
     * </p>
     */

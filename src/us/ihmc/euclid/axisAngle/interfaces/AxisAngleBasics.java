@@ -96,10 +96,38 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
 
    /**
     * Sets this axis-angle to its inverse.
+    *
+    * @deprecated Use {@link #invert()} instead.
     */
+   @Deprecated
    default void inverse()
    {
+      invert();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default void invert()
+   {
       setAngle(-getAngle());
+   }
+
+   /**
+    * Normalizes the axis of this axis-angle such that its norm is equal to 1 after calling this
+    * method and its direction remains unchanged.
+    * <p>
+    * Edge cases:
+    * <ul>
+    * <li>if this axis-angle contains {@link Double#NaN}, this method is ineffective.
+    * </ul>
+    * </p>
+    *
+    * @deprecated Use {@link #normalize()} instead
+    */
+   @Deprecated
+   default void normalizeAxis()
+   {
+      normalize();
    }
 
    /**
@@ -114,27 +142,6 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
     */
    @Override
    default void normalize()
-   {
-      normalizeAxis();
-   }
-
-   @Override
-   default void invert()
-   {
-      inverse();
-   }
-
-   /**
-    * Normalizes the axis of this axis-angle such that its norm is equal to 1 after calling this
-    * method and its direction remains unchanged.
-    * <p>
-    * Edge cases:
-    * <ul>
-    * <li>if this axis-angle contains {@link Double#NaN}, this method is ineffective.
-    * </ul>
-    * </p>
-    */
-   default void normalizeAxis()
    {
       if (containsNaN())
          return;
@@ -182,6 +189,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       setZ(z);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void set(Orientation3DReadOnly orientation3DReadOnly)
    {
@@ -292,30 +300,35 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       setAngle(axisAngleArray[startIndex]);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setAxisAngle(double x, double y, double z, double angle)
    {
       set(x, y, z, angle);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setQuaternion(double x, double y, double z, double s)
    {
       AxisAngleConversion.convertQuaternionToAxisAngle(x, y, z, s, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setRotationVector(double x, double y, double z)
    {
       AxisAngleConversion.convertRotationVectorToAxisAngle(x, y, z, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
@@ -367,6 +380,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       AxisAngleTools.multiply(this, other, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void append(Orientation3DReadOnly other)
    {
@@ -400,6 +414,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       AxisAngleTools.multiplyInvertRight(this, other, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void appendInvertOther(Orientation3DReadOnly orientation)
    {
@@ -500,6 +515,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       AxisAngleTools.multiply(other, this, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void prepend(Orientation3DReadOnly orientation)
    {
@@ -519,6 +535,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       AxisAngleTools.multiplyInvertLeft(other, this, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void prependInvertOther(Orientation3DReadOnly orientation)
    {

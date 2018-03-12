@@ -196,92 +196,56 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
       return AxisAngleTools.distance(this, other);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void get(RotationMatrix rotationMatrixToPack)
    {
       rotationMatrixToPack.setAxisAngle(getX(), getY(), getZ(), getAngle());
    }
 
+   /** {@inheritDoc} */
    @Override
    default void get(AxisAngleBasics axisAngleToPack)
    {
       axisAngleToPack.setAxisAngle(getX(), getY(), getZ(), getAngle());
    }
 
+   /** {@inheritDoc} */
    @Override
    default void get(QuaternionBasics quaternionToPack)
    {
       quaternionToPack.setAxisAngle(getX(), getY(), getZ(), getAngle());
    }
 
-   /**
-    * Converts and gets the orientation represented by this axis-angle as a rotation vector. See
-    * {@link RotationVectorConversion#convertAxisAngleToRotationVector(AxisAngleReadOnly, Vector3DBasics)}.
-    *
-    * @param rotationVectorToPack rotation vector in which the orientation of this axis-angle is
-    *           stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertAxisAngleToRotationVector(this, rotationVectorToPack);
    }
 
-   /**
-    * Computes and packs the orientation described by this axis-angle as the yaw-pitch-roll angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {
       YawPitchRollConversion.convertAxisAngleToYawPitchRoll(this, yawPitchRollToPack);
    }
 
-   /**
-    * Computes and returns the yaw angle from the yaw-pitch-roll representation of this axis-angle.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the yaw angle around the z-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getYaw()
    {
       return YawPitchRollConversion.computeYaw(this);
    }
 
-   /**
-    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this
-    * axis-angle.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the pitch angle around the y-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getPitch()
    {
       return YawPitchRollConversion.computePitch(this);
    }
 
-   /**
-    * Computes and returns the roll angle from the yaw-pitch-roll representation of this axis-angle.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the roll angle around the x-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getRoll()
    {
@@ -396,145 +360,63 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
       }
    }
 
-   /**
-    * Transforms the given tuple {@code tupleOriginal} by this axis-angle and stores the result in
-    * {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = this * tupleOriginal
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple to store the result. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       AxisAngleTools.transform(this, tupleOriginal, tupleTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       AxisAngleTools.addTransform(this, tupleOriginal, tupleTransformed);
    }
 
-   /**
-    * Transforms the given tuple {@code tupleOriginal} by this quaternion and stores the result in
-    * {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = this * tupleOriginal
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple to store the result. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this quaternion represents
-    *           a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
-    *            does not represent a transformation in the XY plane.
-    */
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
       AxisAngleTools.transform(this, tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
-   /**
-    * Transforms the given 3D matrix {@code matrixOriginal} by this axis-angle and stores the result
-    * in {@code matrixTransformed}.
-    * <p>
-    * matrixTransformed = R(this) * matrixOriginal * R(this)<sup>-1</sup> <br>
-    * where R(axisAngle) is the function that converts an axis-angle into a rotation matrix.
-    * </p>
-    *
-    * @param matrixOriginal the matrix to transform. Not modified.
-    * @param matrixTransformed the matrix in which the result is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       AxisAngleTools.transform(this, matrixOriginal, matrixTransformed);
    }
 
-   /**
-    * Transforms the vector part of the given 4D vector {@code vectorOriginal} and stores the result
-    * into {@code vectorTransformed}.
-    * <p>
-    * vectorTransformed.s = vectorOriginal.s <br>
-    * vectorTransformed.xyz = this * vectorOriginal.xyz * this<sup>-1</sup>
-    * </p>
-    *
-    * @param vectorOriginal the vector to transform. Not modified.
-    * @param vectorTransformed the vector in which the result is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       AxisAngleTools.transform(this, vectorOriginal, vectorTransformed);
    }
 
-   /**
-    * Performs the inverse of the transform to the given tuple by this axis-angle.
-    * <p>
-    * tupleToTransform = this<sup>-1</sup> * tupleToTransform * this
-    * </p>
-    *
-    * @param tupleToTransform the tuple to transform. Modified.
-    * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
-    *            plane.
-    */
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       AxisAngleTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }
 
-   /**
-    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this
-    * axis-angle and stores the result in {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = this<sup>-1</sup> * tupleOriginal * this
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this axis-angle represents
-    *           a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this axis-angle
-    *            does not represent a transformation in the XY plane.
-    */
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
       AxisAngleTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
-   /**
-    * Performs the inverse of the transform to the vector part the given 4D vector
-    * {@code vectorOriginal} by this axis-angle and stores the result in {@code vectorTransformed}.
-    * <p>
-    * vectorTransformed.s = vectorOriginal.s <br>
-    * vectorTransformed.xyz = this<sup>-1</sup> * vectorOriginal.xyz * this
-    * </p>
-    *
-    * @param vectorOriginal the vector to transform. Not modified.
-    * @param vectorTransformed the vector in which the result is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       AxisAngleTools.inverseTransform(this, vectorOriginal, vectorTransformed);
    }
 
-   /**
-    * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal} by this
-    * axis-angle and stores the result in {@code matrixTransformed}.
-    * <p>
-    * s matrixTransformed = this<sup>-1</sup> * matrixOriginal * this
-    * </p>
-    *
-    * @param matrixOriginal the matrix to transform. Not modified.
-    * @param matrixTransformed the matrix in which the result is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
