@@ -50,10 +50,10 @@ public class Vector4D implements Vector4DBasics, GeometryObject<Vector4D>
    }
 
    /**
-    * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z}, {@code s}
-    * in order from the given array.
+    * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z}, {@code s} in
+    * order from the given array.
     *
-    * @param pointArray the array containing this vector's components. Not modified.
+    * @param vectorArray the array containing this vector's components. Not modified.
     */
    public Vector4D(double[] vectorArray)
    {
@@ -166,8 +166,8 @@ public class Vector4D implements Vector4DBasics, GeometryObject<Vector4D>
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Tuple4DReadOnly)}, it returns {@code false} otherwise.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method returns
+    * {@link #equals(Tuple4DReadOnly)}, it returns {@code false} otherwise.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -202,8 +202,8 @@ public class Vector4D implements Vector4DBasics, GeometryObject<Vector4D>
    /**
     * Tests if {@code this} and {@code other} represent the same vector 4D to an {@code epsilon}.
     * <p>
-    * Two vectors are considered geometrically equal if the length of their difference is less than
-    * or equal to {@code epsilon}.
+    * Two vectors are considered geometrically equal if the length of their difference is less than or
+    * equal to {@code epsilon}.
     * </p>
     * <p>
     * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply

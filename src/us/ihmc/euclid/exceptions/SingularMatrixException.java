@@ -8,7 +8,7 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
  * this corresponds to when a matrix is singular, i.e. its determinant is equal to zero, making
  * impossible to compute its inverse.
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public class SingularMatrixException extends RuntimeException
 {

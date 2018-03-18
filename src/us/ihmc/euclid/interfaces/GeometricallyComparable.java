@@ -1,5 +1,18 @@
 package us.ihmc.euclid.interfaces;
 
+/**
+ * By implementing {@link GeometricallyComparable}, geometries can implement a custom comparison
+ * with the aim of evaluating the similarity between two geometries of the same type.
+ * <p>
+ * It is important to note the difference between this interface and {@link EpsilonComparable},
+ * implementations of which provide a component-based comparison mostly useful to assert that for
+ * instance components properly send over a network.
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ * @param <T> the final type of the geometry implementing this interface.
+ */
 public interface GeometricallyComparable<T>
 {
    /**

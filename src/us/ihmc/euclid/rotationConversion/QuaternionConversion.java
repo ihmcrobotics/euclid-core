@@ -23,11 +23,15 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
  */
 public abstract class QuaternionConversion
 {
-   private static final double EPS = 1.0e-7;
+   /**
+    * Tolerance used to identify various edge cases, such as to identify when an axis-angle represents
+    * a zero orientation.
+    */
+   public static final double EPS = 1.0e-7;
 
    /**
-    * Sets the given quaternion to represent a counter clockwise rotation around the z-axis of an
-    * angle {@code yaw}.
+    * Sets the given quaternion to represent a counter clockwise rotation around the z-axis of an angle
+    * {@code yaw}.
     *
     * @param yaw the angle to rotate about the z-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
@@ -39,8 +43,8 @@ public abstract class QuaternionConversion
    }
 
    /**
-    * Sets the given quaternion to represent a counter clockwise rotation around the y-axis of an
-    * angle {@code pitch}.
+    * Sets the given quaternion to represent a counter clockwise rotation around the y-axis of an angle
+    * {@code pitch}.
     *
     * @param pitch the angle to rotate about the y-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
@@ -52,8 +56,8 @@ public abstract class QuaternionConversion
    }
 
    /**
-    * Sets the given quaternion to represent a counter clockwise rotation around the x-axis of an
-    * angle {@code roll}.
+    * Sets the given quaternion to represent a counter clockwise rotation around the x-axis of an angle
+    * {@code roll}.
     *
     * @param roll the angle to rotate about the x-axis.
     * @param quaternionToPack the quaternion in which the result is stored.
@@ -156,8 +160,7 @@ public abstract class QuaternionConversion
    /**
     * Converts the given rotation matrix into a quaternion.
     * <p>
-    * After calling this method, the rotation matrix and the quaternion represent the same
-    * orientation.
+    * After calling this method, the rotation matrix and the quaternion represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -185,6 +188,30 @@ public abstract class QuaternionConversion
       convertMatrixToQuaternion(m00, m01, m02, m10, m11, m12, m20, m21, m22, quaternionToPack);
    }
 
+   /**
+    * Converts the given rotation matrix into a quaternion.
+    * <p>
+    * After calling this method, the rotation matrix and the quaternion represent the same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the quaternion is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    *
+    * @param m00 the 1st row 1st column coefficient of the rotation matrix.
+    * @param m01 the 1st row 2nd column coefficient of the rotation matrix.
+    * @param m02 the 1st row 3rd column coefficient of the rotation matrix.
+    * @param m10 the 2nd row 1st column coefficient of the rotation matrix.
+    * @param m11 the 2nd row 2nd column coefficient of the rotation matrix.
+    * @param m12 the 2nd row 3rd column coefficient of the rotation matrix.
+    * @param m20 the 3rd row 1st column coefficient of the rotation matrix.
+    * @param m21 the 3rd row 2nd column coefficient of the rotation matrix.
+    * @param m22 the 3rd row 3rd column coefficient of the rotation matrix.
+    * @param quaternionToPack the quaternion in which the result is stored.
+    */
    public static void convertMatrixToQuaternion(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
                                                 QuaternionBasics quaternionToPack)
    {
@@ -257,8 +284,7 @@ public abstract class QuaternionConversion
    /**
     * Converts the rotation vector into a quaternion.
     * <p>
-    * After calling this method, the rotation vector and the quaternion represent the same
-    * orientation.
+    * After calling this method, the rotation vector and the quaternion represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -268,9 +294,9 @@ public abstract class QuaternionConversion
     * </ul>
     * </p>
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
@@ -284,8 +310,7 @@ public abstract class QuaternionConversion
    /**
     * Converts the rotation vector into a quaternion.
     * <p>
-    * After calling this method, the rotation vector and the quaternion represent the same
-    * orientation.
+    * After calling this method, the rotation vector and the quaternion represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -295,9 +320,9 @@ public abstract class QuaternionConversion
     * </ul>
     * </p>
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rx the x-component of the rotation vector to use in the conversion.
@@ -331,8 +356,7 @@ public abstract class QuaternionConversion
    /**
     * Converts the given yaw-pitch-roll angles into a quaternion.
     * <p>
-    * After calling this method, the yaw-pitch-roll and the quaternion represent the same
-    * orientation.
+    * After calling this method, the yaw-pitch-roll and the quaternion represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -343,9 +367,9 @@ public abstract class QuaternionConversion
     * </p>
     * <p>
     * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
-    * representation of an orientation by decomposing it by three successive rotations around the
-    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
-    * representation is: <br>
+    * representation of an orientation by decomposing it by three successive rotations around the three
+    * axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such representation is:
+    * <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
     *
@@ -360,8 +384,7 @@ public abstract class QuaternionConversion
    /**
     * Converts the given yaw-pitch-roll angles into a quaternion.
     * <p>
-    * After calling this method, the yaw-pitch-roll and the quaternion represent the same
-    * orientation.
+    * After calling this method, the yaw-pitch-roll and the quaternion represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -372,9 +395,9 @@ public abstract class QuaternionConversion
     * </p>
     * <p>
     * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
-    * representation of an orientation by decomposing it by three successive rotations around the
-    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
-    * representation is: <br>
+    * representation of an orientation by decomposing it by three successive rotations around the three
+    * axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such representation is:
+    * <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
     *

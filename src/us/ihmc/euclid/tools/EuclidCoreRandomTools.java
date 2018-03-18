@@ -797,7 +797,7 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
-    * @param minMaxAngle the maximum absolute angle described by the generated quaternion.
+    * @param minMaxAngleRange the maximum absolute angle described by the generated quaternion.
     * @return the random quaternion.
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     * @deprecated Use {@link #nextQuaternion32(Random,double)} instead
@@ -816,7 +816,7 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
-    * @param minMaxAngle the maximum absolute angle described by the generated quaternion.
+    * @param minMaxAngleRange the maximum absolute angle described by the generated quaternion.
     * @return the random quaternion.
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     */
@@ -1642,6 +1642,7 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
+    * @param minMax the maximum absolute value for each coordinate.
     * @return the random 2D point.
     * @throws RuntimeException if {@code minMax < 0}.
     * @deprecated Use {@link #nextPoint2D(Random,double)} instead
@@ -1659,6 +1660,7 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
+    * @param minMax the maximum absolute value for each coordinate.
     * @return the random 2D point.
     * @throws RuntimeException if {@code minMax < 0}.
     */

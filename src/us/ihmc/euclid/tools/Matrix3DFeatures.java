@@ -5,12 +5,29 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 
+/**
+ * Tools for extracting or testing features for a matrix 3D, see {@link Matrix3DTools} for
+ * operations on a matrix 3D.
+ * 
+ * @author Sylvain Bertrand
+ */
 public abstract class Matrix3DFeatures
 {
+   /**
+    * Default tolerance for determining whether a matrix 3D represents the identity matrix or not.
+    */
    public static final double EPS_CHECK_IDENTITY = 1.0e-7;
+   /**
+    * Default tolerance for determining whether a matrix 3D represents a 3D rotation matrix or not.
+    */
    public static final double EPS_CHECK_ROTATION = 1.0e-7;
+   /**
+    * Default tolerance for determining whether a matrix 3D represents a 2D transformation or not.
+    */
    public static final double EPS_CHECK_2D = 1.0e-8;
-   public static final double EPS_CHECK_ZERO_ROTATION = 1.0e-10;
+   /**
+    * Default tolerance for determining whether a matrix 3D is skew symmetric or not.
+    */
    public static final double EPS_CHECK_SKEW = 1.0e-8;
 
    /**
@@ -41,10 +58,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is a rotation matrix if:
     * <ul>
-    * <li>the length of each row vector is equal to 1.0 +/- {@link EPS_CHECK_ROTATION},
-    * <li>the dot product of each pair of row vectors is equal to 0.0 +/-
-    * {@link EPS_CHECK_ROTATION},
-    * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
+    * <li>the length of each row vector is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the dot product of each pair of row vectors is equal to 0.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the determinant of the matrix is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
     *
@@ -71,10 +87,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is a rotation matrix if:
     * <ul>
-    * <li>the length of each row vector is equal to 1.0 +/- {@link EPS_CHECK_ROTATION},
-    * <li>the dot product of each pair of row vectors is equal to 0.0 +/-
-    * {@link EPS_CHECK_ROTATION},
-    * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
+    * <li>the length of each row vector is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the dot product of each pair of row vectors is equal to 0.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the determinant of the matrix is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
     *
@@ -95,10 +110,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is a rotation matrix if:
     * <ul>
-    * <li>the length of each row vector is equal to 1.0 +/- {@link EPS_CHECK_ROTATION},
-    * <li>the dot product of each pair of row vectors is equal to 0.0 +/-
-    * {@link EPS_CHECK_ROTATION},
-    * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
+    * <li>the length of each row vector is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the dot product of each pair of row vectors is equal to 0.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the determinant of the matrix is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
     *
@@ -135,7 +149,7 @@ public abstract class Matrix3DFeatures
    /**
     * Tests if the matrix described by the given 9 coefficients is equal to the identity matrix.
     * <p>
-    * The assertion is done on a per coefficient basis using {@link EPS_CHECK_IDENTITY} as the
+    * The assertion is done on a per coefficient basis using {@link #EPS_CHECK_IDENTITY} as the
     * tolerance.
     * </p>
     *
@@ -191,10 +205,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is a rotation matrix if:
     * <ul>
-    * <li>the length of each row vector is equal to 1.0 +/- {@link EPS_CHECK_ROTATION},
-    * <li>the dot product of each pair of row vectors is equal to 0.0 +/-
-    * {@link EPS_CHECK_ROTATION},
-    * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
+    * <li>the length of each row vector is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the dot product of each pair of row vectors is equal to 0.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the determinant of the matrix is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
     *
@@ -212,10 +225,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is a rotation matrix if:
     * <ul>
-    * <li>the length of each row vector is equal to 1.0 +/- {@link EPS_CHECK_ROTATION},
-    * <li>the dot product of each pair of row vectors is equal to 0.0 +/-
-    * {@link EPS_CHECK_ROTATION},
-    * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
+    * <li>the length of each row vector is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the dot product of each pair of row vectors is equal to 0.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the determinant of the matrix is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
     *
@@ -223,10 +235,10 @@ public abstract class Matrix3DFeatures
     *           encoded in a row-major format.
     * @return {@code true} if the given matrix is a rotation matrix, {@code false} otherwise.
     */
-   public static boolean isRotationMatrix(double[] doubleArray)
+   public static boolean isRotationMatrix(double[] matrixArray)
    {
-      return isRotationMatrix(doubleArray[0], doubleArray[1], doubleArray[2], doubleArray[3], doubleArray[4], doubleArray[5], doubleArray[6], doubleArray[7],
-                              doubleArray[8]);
+      return isRotationMatrix(matrixArray[0], matrixArray[1], matrixArray[2], matrixArray[3], matrixArray[4], matrixArray[5], matrixArray[6], matrixArray[7],
+                              matrixArray[8]);
    }
 
    /**
@@ -234,10 +246,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is a rotation matrix if:
     * <ul>
-    * <li>the length of each row vector is equal to 1.0 +/- {@link EPS_CHECK_ROTATION},
-    * <li>the dot product of each pair of row vectors is equal to 0.0 +/-
-    * {@link EPS_CHECK_ROTATION},
-    * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
+    * <li>the length of each row vector is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the dot product of each pair of row vectors is equal to 0.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the determinant of the matrix is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
     *
@@ -262,10 +273,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is a rotation matrix if:
     * <ul>
-    * <li>the length of each row vector is equal to 1.0 +/- {@link EPS_CHECK_ROTATION},
-    * <li>the dot product of each pair of row vectors is equal to 0.0 +/-
-    * {@link EPS_CHECK_ROTATION},
-    * <li>the determinant of the matrix is equal to 1.0 +/- {@link EPS_CHECK_ROTATION}.
+    * <li>the length of each row vector is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the dot product of each pair of row vectors is equal to 0.0 +/- {@link #EPS_CHECK_ROTATION},
+    * <li>the determinant of the matrix is equal to 1.0 +/- {@link #EPS_CHECK_ROTATION}.
     * </ul>
     * </p>
     *
@@ -320,8 +330,8 @@ public abstract class Matrix3DFeatures
     * The matrix is considered to be a 2D transformation in the XY plane if:
     * <ul>
     * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@code epsilon},
-    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
-    * +/- {@code epsilon}.
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/-
+    * {@code epsilon}.
     * </ul>
     * </p>
     *
@@ -364,10 +374,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is considered to be skew symmetric if:
     * <ul>
-    * <li>each diagonal coefficient is equal to 0.0 +/- {@link EPS_CHECK_SKEW},
-    * <li>the sum of each pair of cross diagonal coefficients ({@code m10}, {@code m01}),
-    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
-    * {@link EPS_CHECK_SKEW}.
+    * <li>each diagonal coefficient is equal to 0.0 +/- {@link #EPS_CHECK_SKEW},
+    * <li>the sum of each pair of cross diagonal coefficients ({@code m10}, {@code m01}), ({@code m12},
+    * {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/- {@link #EPS_CHECK_SKEW}.
     * </ul>
     * </p>
     *
@@ -398,10 +407,9 @@ public abstract class Matrix3DFeatures
     * <p>
     * The given matrix is considered to be skew symmetric if:
     * <ul>
-    * <li>each diagonal coefficient is equal to 0.0 +/- {@link EPS_CHECK_SKEW},
-    * <li>the sum of each pair of cross diagonal coefficients ({@code m10}, {@code m01}),
-    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
-    * {@link EPS_CHECK_SKEW}.
+    * <li>each diagonal coefficient is equal to 0.0 +/- {@link #EPS_CHECK_SKEW},
+    * <li>the sum of each pair of cross diagonal coefficients ({@code m10}, {@code m01}), ({@code m12},
+    * {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/- {@link #EPS_CHECK_SKEW}.
     * </ul>
     * </p>
     *
@@ -479,16 +487,16 @@ public abstract class Matrix3DFeatures
    }
 
    /**
-    * Tests on a per coefficient basis if the two matrices {@code m1} and {@code m2} are
-    * <b>exactly</b> equal.
+    * Tests on a per coefficient basis if the two matrices {@code m1} and {@code m2} are <b>exactly</b>
+    * equal.
     * <p>
     * If any of the two matrices is {@code null}, this methods returns {@code false}.
     * </p>
     *
     * @param m1 the first matrix. Not modified.
     * @param m2 the second matrix. Not modified.
-    * @return {@code true} if the two matrices are <b>exactly</b> equal, {@code false} otherwise or
-    *         if at least one of the two matrices is {@code null}.
+    * @return {@code true} if the two matrices are <b>exactly</b> equal, {@code false} otherwise or if
+    *         at least one of the two matrices is {@code null}.
     */
    public static boolean equals(Matrix3DReadOnly m1, Matrix3DReadOnly m2)
    {

@@ -33,6 +33,9 @@ import us.ihmc.euclid.transform.interfaces.Transform;
  */
 public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transformable
 {
+   /**
+    * Tolerance used in {@link #clipToMaxLength(double)}.
+    */
    public static final double EPS_MAX_LENGTH = 1.0e-7;
 
    /**
@@ -64,13 +67,12 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
    }
 
    /**
-    * Sets this vector to the cross product of {@code tuple1} and {@code tuple2}.
+    * Sets this vector to the cross product of {@code this} and {@code other}.
     * <p>
-    * this = tuple1 &times; tuple2
+    * this = this &times; other
     * </p>
     *
-    * @param tuple1 the first tuple in the cross product. Not modified.
-    * @param tuple2 the second tuple in the cross product. Not modified.
+    * @param other the other tuple used in the cross product. Not modified.
     */
    default void cross(Tuple3DReadOnly other)
    {
@@ -97,8 +99,8 @@ public interface Vector3DBasics extends Tuple3DBasics, Vector3DReadOnly, Transfo
    /**
     * Limits the magnitude of this vector to {@code maxLength}.
     * <p>
-    * If the length of this vector is less than {@code maxLength}, this method does nothing. When it
-    * is greater than {@code maxLength}, this vector is scaled such that it length is equal to
+    * If the length of this vector is less than {@code maxLength}, this method does nothing. When it is
+    * greater than {@code maxLength}, this vector is scaled such that it length is equal to
     * {@code maxLength} and its direction is preserved.
     * </p>
     * <p>

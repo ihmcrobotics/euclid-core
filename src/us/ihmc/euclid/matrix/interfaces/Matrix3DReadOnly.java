@@ -19,7 +19,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 /**
  * Read-only interface for any type of 3-by-3 matrices.
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public interface Matrix3DReadOnly
 {
@@ -145,8 +145,7 @@ public interface Matrix3DReadOnly
    /**
     * Packs the coefficients of this matrix into a row-major 1D array.
     *
-    * @param matrixArrayToPack the array in which the coefficients of this matrix are stored.
-    *           Modified.
+    * @param matrixArrayToPack the array in which the coefficients of this matrix are stored. Modified.
     */
    default void get(double[] matrixArrayToPack)
    {
@@ -166,8 +165,7 @@ public interface Matrix3DReadOnly
     * {@code startIndex}.
     *
     * @param startIndex index in the array to store the first coefficient of this matrix.
-    * @param matrixArrayToPack the array in which the coefficients of this matrix are stored.
-    *           Modified.
+    * @param matrixArrayToPack the array in which the coefficients of this matrix are stored. Modified.
     */
    default void get(int startIndex, double[] matrixArrayToPack)
    {
@@ -202,8 +200,8 @@ public interface Matrix3DReadOnly
    }
 
    /**
-    * Packs the coefficients of this matrix into a dense-matrix given index offsets for the row and
-    * the column.
+    * Packs the coefficients of this matrix into a dense-matrix given index offsets for the row and the
+    * column.
     *
     * @param startRow the first row index to start writing in the dense-matrix.
     * @param startColumn the first column index to start writing in the dense-matrix.
@@ -354,8 +352,8 @@ public interface Matrix3DReadOnly
    /**
     * Tests if at least one element of this matrix is equal to {@linkplain Double#NaN}.
     *
-    * @return {@code true} if at least one element of this matrix is equal to
-    *         {@linkplain Double#NaN}, {@code false} otherwise.
+    * @return {@code true} if at least one element of this matrix is equal to {@linkplain Double#NaN},
+    *         {@code false} otherwise.
     */
    default boolean containsNaN()
    {
@@ -399,10 +397,9 @@ public interface Matrix3DReadOnly
     * <p>
     * This matrix is considered to be a 2D transformation in the XY plane if:
     * <ul>
-    * <li>the last diagonal coefficient m22 is equal to 1.0 +/-
-    * {@link Matrix3DFeatures#EPS_CHECK_2D},
-    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
-    * +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
+    * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D},
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/-
+    * {@link Matrix3DFeatures#EPS_CHECK_2D}.
     * </ul>
     * </p>
     *
@@ -490,15 +487,14 @@ public interface Matrix3DReadOnly
     * <p>
     * This matrix is considered to be a 2D transformation in the XY plane if:
     * <ul>
-    * <li>the last diagonal coefficient m22 is equal to 1.0 +/-
-    * {@link Matrix3DFeatures#EPS_CHECK_2D},
-    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
-    * +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
+    * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D},
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/-
+    * {@link Matrix3DFeatures#EPS_CHECK_2D}.
     * </ul>
     * </p>
     *
-    * @return {@code true} if this matrix describes a 2D transformation in the XY plane,
-    *         {@code false} otherwise.
+    * @return {@code true} if this matrix describes a 2D transformation in the XY plane, {@code false}
+    *         otherwise.
     */
    default boolean isMatrix2D()
    {
@@ -511,14 +507,14 @@ public interface Matrix3DReadOnly
     * This matrix is considered to be a 2D transformation in the XY plane if:
     * <ul>
     * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@code epsilon},
-    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
-    * +/- {@code epsilon}.
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/-
+    * {@code epsilon}.
     * </ul>
     * </p>
     *
     * @param epsilon the tolerance to use.
-    * @return {@code true} if this matrix describes a 2D transformation in the XY plane,
-    *         {@code false} otherwise.
+    * @return {@code true} if this matrix describes a 2D transformation in the XY plane, {@code false}
+    *         otherwise.
     */
    default boolean isMatrix2D(double epsilon)
    {
@@ -563,8 +559,7 @@ public interface Matrix3DReadOnly
     * <ul>
     * <li>each diagonal coefficient is equal to 0.0 +/- {@code epsilon},
     * <li>the sums of each pair of cross-diagonal coefficients ({@code m10}, {@code m01}),
-    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/-
-    * {@code epsilon}.
+    * ({@code m12}, {@code m21}), and ({@code m20}, {@code m02}) are equal to 0.0 +/- {@code epsilon}.
     * </ul>
     * </p>
     *
@@ -639,8 +634,7 @@ public interface Matrix3DReadOnly
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
-    * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY
-    *            plane.
+    * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY plane.
     */
    default void transform(Tuple2DBasics tupleToTransform)
    {
@@ -656,8 +650,7 @@ public interface Matrix3DReadOnly
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
-    * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY
-    *            plane.
+    * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY plane.
     */
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
    {
@@ -671,10 +664,10 @@ public interface Matrix3DReadOnly
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents
-    *           a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
-    *            does not represent a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents a
+    *           transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix does
+    *            not represent a transformation in the XY plane.
     */
    default void transform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
    {
@@ -690,10 +683,10 @@ public interface Matrix3DReadOnly
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents
-    *           a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
-    *            does not represent a transformation in the XY plane.
+    * @param checkIfRotationInXYPlane whether this method should assert that this matrix represents a
+    *           transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix does
+    *            not represent a transformation in the XY plane.
     */
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfRotationInXYPlane)
    {
@@ -772,8 +765,8 @@ public interface Matrix3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this matrix
-    * and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this matrix and
+    * stores the result in {@code tupleTransformed}.
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
@@ -791,8 +784,7 @@ public interface Matrix3DReadOnly
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
-    * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY
-    *            plane.
+    * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY plane.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
    default void inverseTransform(Tuple2DBasics tupleToTransform)
@@ -801,16 +793,15 @@ public interface Matrix3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this matrix
-    * and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this matrix and
+    * stores the result in {@code tupleTransformed}.
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY
-    *            plane.
+    * @throws NotAMatrix2DException if this matrix does not represent a transformation in the XY plane.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
    default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
@@ -825,10 +816,10 @@ public interface Matrix3DReadOnly
     * </p>
     *
     * @param tupleToTransform the tuple to transform. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents
-    *           a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
-    *            does not represent a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents a
+    *           transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix does
+    *            not represent a transformation in the XY plane.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
    default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfTransformInXYPlane)
@@ -837,18 +828,18 @@ public interface Matrix3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this matrix
-    * and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this matrix and
+    * stores the result in {@code tupleTransformed}.
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents
-    *           a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
-    *            does not represent a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that this matrix represents a
+    *           transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix does
+    *            not represent a transformation in the XY plane.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
    void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane);

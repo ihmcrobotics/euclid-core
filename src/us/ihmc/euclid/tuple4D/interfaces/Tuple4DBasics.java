@@ -36,7 +36,6 @@ import us.ihmc.euclid.interfaces.Transformable;
  * </p>
  *
  * @author Sylvain Bertrand
- * @param <T> The final type of the tuple used.
  */
 public interface Tuple4DBasics extends Tuple4DReadOnly, Clearable, Transformable
 {
@@ -96,9 +95,9 @@ public interface Tuple4DBasics extends Tuple4DReadOnly, Clearable, Transformable
     *
     * @param other the other tuple to copy the values from. Not modified.
     */
-   default void set(Tuple4DReadOnly tupleReadOnly)
+   default void set(Tuple4DReadOnly other)
    {
-      set(tupleReadOnly.getX(), tupleReadOnly.getY(), tupleReadOnly.getZ(), tupleReadOnly.getS());
+      set(other.getX(), other.getY(), other.getZ(), other.getS());
    }
 
    /**

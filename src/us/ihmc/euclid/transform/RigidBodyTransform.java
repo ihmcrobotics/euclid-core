@@ -1051,9 +1051,9 @@ public class RigidBodyTransform
     * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
     *            matrix.
     */
-   public void setRotationAndZeroTranslation(DenseMatrix64F matrix)
+   public void setRotationAndZeroTranslation(DenseMatrix64F rotationMatrix)
    {
-      setRotation(matrix);
+      setRotation(rotationMatrix);
       translationVector.setToZero();
    }
 
@@ -2260,7 +2260,7 @@ public class RigidBodyTransform
    /**
     * Packs the rotation part of this rigid-body transform.
     *
-    * @param rotationMarixToPack the rotation-scale matrix that is set to this transform's rotation.
+    * @param rotationMatrixToPack the rotation-scale matrix that is set to this transform's rotation.
     *           The scale part is reset. Modified.
     */
    public void getRotation(RotationScaleMatrix rotationMatrixToPack)
@@ -2274,9 +2274,9 @@ public class RigidBodyTransform
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
-   public void getRotation(DenseMatrix64F matrixToPack)
+   public void getRotation(DenseMatrix64F rotationMatrixToPack)
    {
-      rotationMatrix.get(matrixToPack);
+      rotationMatrix.get(rotationMatrixToPack);
    }
 
    /**
@@ -2342,9 +2342,9 @@ public class RigidBodyTransform
     *
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
-   public void getRotationEuler(Vector3DBasics eulerAngles)
+   public void getRotationEuler(Vector3DBasics eulerAnglesToPack)
    {
-      rotationMatrix.getEuler(eulerAngles);
+      rotationMatrix.getEuler(eulerAnglesToPack);
    }
 
    /**

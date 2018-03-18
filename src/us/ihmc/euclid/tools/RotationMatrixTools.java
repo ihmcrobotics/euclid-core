@@ -11,6 +11,11 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
+/**
+ * Tools for performing operations on rotation matrices.
+ * 
+ * @author Sylvain Bertrand
+ */
 public abstract class RotationMatrixTools
 {
    /**
@@ -77,6 +82,23 @@ public abstract class RotationMatrixTools
       multiplyImpl(m1, false, m2, true, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code matrixToPack}.
+    * <p>
+    * More precisely, {@code orientation1} and {@code orientation2} are first converted to rotation
+    * matrices, then an matrix multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiply(Orientation3DReadOnly orientation1, boolean inverse1, Orientation3DReadOnly orientation2, boolean inverse2,
                                RotationMatrix matrixToPack)
    {
@@ -128,6 +150,23 @@ public abstract class RotationMatrixTools
       multiplyImpl(a00, a01, a02, a10, a11, a12, a20, a21, a22, inverse1, b00, b01, b02, b10, b11, b12, b20, b21, b22, inverse2, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code matrixToPack}.
+    * <p>
+    * More precisely, {@code orientation1} is first converted to a rotation matrix, then an matrix
+    * multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiply(Orientation3DReadOnly orientation1, boolean inverse1, RotationMatrixReadOnly orientation2, boolean inverse2,
                                RotationMatrix matrixToPack)
    {
@@ -161,6 +200,23 @@ public abstract class RotationMatrixTools
       multiplyImpl(a00, a01, a02, a10, a11, a12, a20, a21, a22, inverse1, b00, b01, b02, b10, b11, b12, b20, b21, b22, inverse2, matrixToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code matrixToPack}.
+    * <p>
+    * More precisely, {@code orientation2} is first converted to a rotation matrix, then an matrix
+    * multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
    public static void multiply(RotationMatrixReadOnly orientation1, boolean inverse1, Orientation3DReadOnly orientation2, boolean inverse2,
                                RotationMatrix matrixToPack)
    {
@@ -468,8 +524,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result
-    * in {@code tupleTransformed}.
+    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result in
+    * {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
@@ -496,8 +552,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result
-    * in {@code tupleTransformed}.
+    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result in
+    * {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
@@ -522,8 +578,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Rotates the given {@code tupleOriginal} by a rotation about the y-axis and stores the result
-    * in {@code tupleTransformed}.
+    * Rotates the given {@code tupleOriginal} by a rotation about the y-axis and stores the result in
+    * {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
@@ -550,8 +606,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Rotates the given {@code tupleOriginal} by a rotation about the x-axis and stores the result
-    * in {@code tupleTransformed}.
+    * Rotates the given {@code tupleOriginal} by a rotation about the x-axis and stores the result in
+    * {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
@@ -704,8 +760,8 @@ public abstract class RotationMatrixTools
     *
     * @param m1 the first rotation matrix. Not modified.
     * @param m2 the second rotation matrix. Not modified.
-    * @return the angle representing the distance between the two rotation matrices. It is contained
-    *         in [0, <i>pi</i>].
+    * @return the angle representing the distance between the two rotation matrices. It is contained in
+    *         [0, <i>pi</i>].
     */
    public static double distance(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2)
    {

@@ -24,12 +24,12 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 public class TransformationTools
 {
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code matrix}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code matrix}.
     *
     * @param matrix the matrix used to transform the given tuple. Not modified.
-    * @param transpose whether the operation should performed with the transpose of the given matrix
-    *           or not.
+    * @param transpose whether the operation should performed with the transpose of the given matrix or
+    *           not.
     * @param tupleOriginal the tuple to be transformed. Not modified.
     * @return the x-coordinate resulting from the transformation.
     */
@@ -39,12 +39,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code matrix}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code matrix}.
     *
     * @param matrix the matrix used to transform the given tuple. Not modified.
-    * @param transpose whether the operation should performed with the transpose of the given matrix
-    *           or not.
+    * @param transpose whether the operation should performed with the transpose of the given matrix or
+    *           not.
     * @param x the x-coordinate of the tuple to be transformed.
     * @param y the y-coordinate of the tuple to be transformed.
     * @param z the z-coordinate of the tuple to be transformed.
@@ -59,12 +59,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code matrix}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code matrix}.
     *
     * @param matrix the matrix used to transform the given tuple. Not modified.
-    * @param transpose whether the operation should performed with the transpose of the given matrix
-    *           or not.
+    * @param transpose whether the operation should performed with the transpose of the given matrix or
+    *           not.
     * @param tupleOriginal the tuple to be transformed. Not modified.
     * @return the y-coordinate resulting from the transformation.
     */
@@ -74,12 +74,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code matrix}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code matrix}.
     *
     * @param matrix the matrix used to transform the given tuple. Not modified.
-    * @param transpose whether the operation should performed with the transpose of the given matrix
-    *           or not.
+    * @param transpose whether the operation should performed with the transpose of the given matrix or
+    *           not.
     * @param x the x-coordinate of the tuple to be transformed.
     * @param y the y-coordinate of the tuple to be transformed.
     * @param z the z-coordinate of the tuple to be transformed.
@@ -94,12 +94,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code matrix}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code matrix}.
     *
     * @param matrix the matrix used to transform the given tuple. Not modified.
-    * @param transpose whether the operation should performed with the transpose of the given matrix
-    *           or not.
+    * @param transpose whether the operation should performed with the transpose of the given matrix or
+    *           not.
     * @param tupleOriginal the tuple to be transformed. Not modified.
     * @return the z-coordinate resulting from the transformation.
     */
@@ -109,12 +109,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code matrix}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code matrix}.
     *
     * @param matrix the matrix used to transform the given tuple. Not modified.
-    * @param transpose whether the operation should performed with the transpose of the given matrix
-    *           or not.
+    * @param transpose whether the operation should performed with the transpose of the given matrix or
+    *           not.
     * @param x the x-coordinate of the tuple to be transformed.
     * @param y the y-coordinate of the tuple to be transformed.
     * @param z the z-coordinate of the tuple to be transformed.
@@ -129,8 +129,8 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code quaternion}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code quaternion}.
     *
     * @param quaternion the quaternion used to transform the given tuple. Not modified.
     * @param conjugate whether the operation should performed with the conjugate of the given
@@ -144,8 +144,8 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code quaternion}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code quaternion}.
     *
     * @param quaternion the quaternion used to transform the given tuple. Not modified.
     * @param conjugate whether the operation should performed with the conjugate of the given
@@ -185,8 +185,8 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code quaternion}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code quaternion}.
     *
     * @param quaternion the quaternion used to transform the given tuple. Not modified.
     * @param conjugate whether the operation should performed with the conjugate of the given
@@ -200,8 +200,8 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code quaternion}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code quaternion}.
     *
     * @param quaternion the quaternion used to transform the given tuple. Not modified.
     * @param conjugate whether the operation should performed with the conjugate of the given
@@ -241,8 +241,8 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code quaternion}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code quaternion}.
     *
     * @param quaternion the quaternion used to transform the given tuple. Not modified.
     * @param conjugate whether the operation should performed with the conjugate of the given
@@ -256,8 +256,8 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code tupleOriginal} by {@code quaternion}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code tupleOriginal}
+    * by {@code quaternion}.
     *
     * @param quaternion the quaternion used to transform the given tuple. Not modified.
     * @param conjugate whether the operation should performed with the conjugate of the given
@@ -297,12 +297,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code rigidBodyTransform}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code rigidBodyTransform}.
     *
     * @param rigidBodyTransform the transform used to transform the given point. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the x-coordinate resulting from the transformation.
     */
@@ -322,12 +322,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code rigidBodyTransform}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code rigidBodyTransform}.
     *
     * @param rigidBodyTransform the transform used to transform the given point. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the y-coordinate resulting from the transformation.
     */
@@ -347,12 +347,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code rigidBodyTransform}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code rigidBodyTransform}.
     *
     * @param rigidBodyTransform the transform used to transform the given point. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the z-coordinate resulting from the transformation.
     */
@@ -372,12 +372,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code rigidBodyTransform}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code rigidBodyTransform}.
     *
     * @param rigidBodyTransform the transform used to transform the given vector. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the x-coordinate resulting from the transformation.
     */
@@ -387,12 +387,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code rigidBodyTransform}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code rigidBodyTransform}.
     *
     * @param rigidBodyTransform the transform used to transform the given vector. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the y-coordinate resulting from the transformation.
     */
@@ -402,12 +402,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code rigidBodyTransform}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code rigidBodyTransform}.
     *
     * @param rigidBodyTransform the transform used to transform the given vector. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the z-coordinate resulting from the transformation.
     */
@@ -417,13 +417,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code quaternionBasedTransform}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code quaternionBasedTransform}.
     *
-    * @param quaternionBasedTransforms the transform used to transform the given point. Not
-    *           modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param quaternionBasedTransform the transform used to transform the given point. Not modified.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the x-coordinate resulting from the transformation.
     */
@@ -443,12 +442,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code quaternionBasedTransform}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code quaternionBasedTransform}.
     *
     * @param quaternionBasedTransform the transform used to transform the given point. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the y-coordinate resulting from the transformation.
     */
@@ -468,12 +467,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code quaternionBasedTransform}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code quaternionBasedTransform}.
     *
     * @param quaternionBasedTransform the transform used to transform the given point. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the z-coordinate resulting from the transformation.
     */
@@ -493,13 +492,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code quaternionBasedTransform}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code quaternionBasedTransform}.
     *
-    * @param quaternionBasedTransform the transform used to transform the given vector. Not
-    *           modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param quaternionBasedTransform the transform used to transform the given vector. Not modified.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the x-coordinate resulting from the transformation.
     */
@@ -509,13 +507,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code quaternionBasedTransform}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code quaternionBasedTransform}.
     *
-    * @param quaternionBasedTransform the transform used to transform the given vector. Not
-    *           modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param quaternionBasedTransform the transform used to transform the given vector. Not modified.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the y-coordinate resulting from the transformation.
     */
@@ -525,13 +522,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code quaternionBasedTransform}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code quaternionBasedTransform}.
     *
-    * @param quaternionBasedTransform the transform used to transform the given vector. Not
-    *           modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param quaternionBasedTransform the transform used to transform the given vector. Not modified.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the z-coordinate resulting from the transformation.
     */
@@ -541,12 +537,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code affineTransform}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code affineTransform}.
     *
     * @param affineTransform the transform used to transform the given point. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the x-coordinate resulting from the transformation.
     */
@@ -569,12 +565,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code affineTransform}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code affineTransform}.
     *
     * @param affineTransform the transform used to transform the given point. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the y-coordinate resulting from the transformation.
     */
@@ -597,12 +593,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code pointOriginal} by {@code affineTransform}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code pointOriginal}
+    * by {@code affineTransform}.
     *
     * @param affineTransform the transform used to transform the given point. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param pointOriginal the point to be transformed. Not modified.
     * @return the z-coordinate resulting from the transformation.
     */
@@ -625,12 +621,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the x-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code affineTransform}.
+    * Computes and returns the x-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code affineTransform}.
     *
     * @param affineTransform the transform used to transform the given vector. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the x-coordinate resulting from the transformation.
     */
@@ -650,12 +646,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the y-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code affineTransform}.
+    * Computes and returns the y-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code affineTransform}.
     *
     * @param affineTransform the transform used to transform the given vector. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the y-coordinate resulting from the transformation.
     */
@@ -675,12 +671,12 @@ public class TransformationTools
    }
 
    /**
-    * Computes and returns the z-coordinate resulting from the transformation of
-    * {@code vectorOriginal} by {@code affineTransform}.
+    * Computes and returns the z-coordinate resulting from the transformation of {@code vectorOriginal}
+    * by {@code affineTransform}.
     *
     * @param affineTransform the transform used to transform the given vector. Not modified.
-    * @param invert whether the operation should performed with the inverse of the given transform
-    *           or not.
+    * @param invert whether the operation should performed with the inverse of the given transform or
+    *           not.
     * @param vectorOriginal the vector to be transformed. Not modified.
     * @return the z-coordinate resulting from the transformation.
     */

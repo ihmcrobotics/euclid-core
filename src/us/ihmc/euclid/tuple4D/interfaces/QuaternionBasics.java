@@ -30,10 +30,13 @@ import us.ihmc.euclid.transform.interfaces.Transform;
  * </p>
  *
  * @author Sylvain Bertrand
- * @param <T> The final type of the quaternion used.
  */
 public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasics, Tuple4DBasics
 {
+   /**
+    * Tolerance used in {@link #pow(double)} to determine if this quaternion is equal to the neurtral
+    * quaternion.
+    */
    public static final double EPS_POW = 1.0e-12;
 
    /**
@@ -159,8 +162,8 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
     * Edge cases:
     * <ul>
     * <li>If this quaternion contains {@link Double#NaN}, this method is ineffective.
-    * <li>If the length of the vector part is below {@link #EPS_POW}, the method
-    * {@link #setToZero()} is called.
+    * <li>If the length of the vector part is below {@link #EPS_POW}, the method {@link #setToZero()}
+    * is called.
     * </ul>
     * </p>
     *
@@ -219,7 +222,11 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       set(other);
    }
 
-   /** {@inheritDoc} */
+   /**
+    * Sets this tuple to {@code other} and then calls {@link #normalize()}.
+    *
+    * @param other the other quaternion to copy the values from. Not modified.
+    */
    default void setAndNormalize(QuaternionReadOnly other)
    {
       set(other);
@@ -527,8 +534,8 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
    }
 
    /**
-    * Sets this quaternion to the multiplication of the conjugate of {@code other} and the conjugate
-    * of {@code this}.
+    * Sets this quaternion to the multiplication of the conjugate of {@code other} and the conjugate of
+    * {@code this}.
     * <p>
     * this = other* * this*
     * </p>
@@ -603,9 +610,9 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
     * </p>
     *
     * @param qf the other quaternion used for the interpolation. Not modified.
-    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
-    *           modifying this quaternion, while a value of 1 is equivalent to setting this
-    *           quaternion to {@code qf}.
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not modifying
+    *           this quaternion, while a value of 1 is equivalent to setting this quaternion to
+    *           {@code qf}.
     */
    default void interpolate(QuaternionReadOnly qf, double alpha)
    {
@@ -658,9 +665,9 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
    /**
     * Transforms this quaternion using the given {@code transform}.
     * <p>
-    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform}
-    * prepend their rotation part the given quaternion. No scale or translation is applied to the
-    * quaternion such that the output of this method is still a unit-quaternion.
+    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform} prepend
+    * their rotation part the given quaternion. No scale or translation is applied to the quaternion
+    * such that the output of this method is still a unit-quaternion.
     * </p>
     *
     * @param transform the geometric transform to apply on this vector. Not modified.
@@ -674,9 +681,9 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
    /**
     * Transforms this quaternion using the inverse of the given {@code transform}.
     * <p>
-    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform}
-    * prepend their rotation part the given quaternion. No scale or translation is applied to the
-    * quaternion such that the output of this method is still a unit-quaternion.
+    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform} prepend
+    * their rotation part the given quaternion. No scale or translation is applied to the quaternion
+    * such that the output of this method is still a unit-quaternion.
     * </p>
     *
     * @param transform the geometric transform to apply on this vector. Not modified.

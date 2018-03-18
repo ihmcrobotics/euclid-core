@@ -36,12 +36,12 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
  * </p>
  *
  * @author Sylvain Bertrand
- * @param <T> The final type of the quaternion used.
  */
 public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOnly
 {
    /** Threshold used to trigger a more expensive comparison between two quaternions. */
    public static final double GEOMETRICALLY_EQUALS_THRESHOLD = 0.005;
+   /** Default tolerance used to verify that this quaternion is a unit-quaternion. */
    public static final double EPS_UNITARY = 1.0e-7;
 
    /**
@@ -118,8 +118,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * </p>
     *
     * @param epsilon the tolerance to use.
-    * @throws NotAMatrix2DException if this quaternion does not represent a rotation around the
-    *            z-axis.
+    * @throws NotAMatrix2DException if this quaternion does not represent a rotation around the z-axis.
     * @deprecated Use {@link #checkIfOrientation2D(double)} instead
     */
    @Deprecated
@@ -141,8 +140,8 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * Computes and returns the distance from this quaternion to {@code other}.
     *
     * @param other the other quaternion to measure the distance. Not modified.
-    * @return the angle representing the distance between the two quaternions. It is contained in
-    *         [0, 2<i>pi</i>]
+    * @return the angle representing the distance between the two quaternions. It is contained in [0,
+    *         2<i>pi</i>]
     */
    default double distance(QuaternionReadOnly other)
    {
@@ -163,8 +162,8 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * </p>
     *
     * @param other the other quaternion to measure the distance. Not modified.
-    * @return the angle representing the distance between the two quaternions. It is contained in
-    *         [0, 2<i>pi</i>]
+    * @return the angle representing the distance between the two quaternions. It is contained in [0,
+    *         2<i>pi</i>]
     */
    default double distancePrecise(QuaternionReadOnly other)
    {
@@ -185,9 +184,9 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    /**
     * Computes and packs the orientation described by this quaternion as a rotation vector.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
@@ -220,9 +219,9 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    /**
     * Computes and packs the orientation described by this quaternion as a rotation vector.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
@@ -278,8 +277,7 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    }
 
    /**
-    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this
-    * quaternion.
+    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this quaternion.
     * <p>
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
@@ -339,10 +337,10 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple to store the result. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this quaternion represents
-    *           a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix
-    *            does not represent a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this quaternion represents a
+    *           transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix does
+    *            not represent a transformation in the XY plane.
     */
    @Override
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
@@ -351,8 +349,8 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    }
 
    /**
-    * Transforms the given 3D matrix {@code matrixOriginal} by this quaternion and stores the result
-    * in {@code matrixTransformed}.
+    * Transforms the given 3D matrix {@code matrixOriginal} by this quaternion and stores the result in
+    * {@code matrixTransformed}.
     * <p>
     * matrixTransformed = this * matrixOriginal * this<sup>-1</sup>
     * </p>
@@ -400,16 +398,16 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    }
 
    /**
-    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this
-    * quaternion and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this quaternion
+    * and stores the result in {@code tupleTransformed}.
     * <p>
     * tupleTransformed = this<sup>-1</sup> * tupleOriginal * this
     * </p>
     *
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this quaternion represents
-    *           a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this quaternion represents a
+    *           transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
     *            does not represent a transformation in the XY plane.
     */
@@ -455,13 +453,12 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    /**
     * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
     * <p>
-    * Two quaternions are considered geometrically equal if the magnitude of their difference is
-    * less than or equal to {@code epsilon}.
+    * Two quaternions are considered geometrically equal if the magnitude of their difference is less
+    * than or equal to {@code epsilon}.
     * </p>
     * <p>
     * Note that two quaternions of opposite sign are considered equal, such that the two quaternions
-    * {@code q1 = (x, y, z, s)} and {@code q2 = (-x, -y, -z, -s)} are considered geometrically
-    * equal.
+    * {@code q1 = (x, y, z, s)} and {@code q2 = (-x, -y, -z, -s)} are considered geometrically equal.
     * </p>
     * <p>
     * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
@@ -469,10 +466,9 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
     * </p>
     *
     * @param other the other quaternion to compare against this. Not modified.
-    * @param epsilon the maximum angle of the difference quaternion can be for the two quaternions
-    *           to be considered equal.
-    * @return {@code true} if the two quaternions represent the same geometry, {@code false}
-    *         otherwise.
+    * @param epsilon the maximum angle of the difference quaternion can be for the two quaternions to
+    *           be considered equal.
+    * @return {@code true} if the two quaternions represent the same geometry, {@code false} otherwise.
     */
    default boolean geometricallyEquals(QuaternionReadOnly other, double epsilon)
    {

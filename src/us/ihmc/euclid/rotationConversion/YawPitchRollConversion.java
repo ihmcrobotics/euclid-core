@@ -52,6 +52,9 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  */
 public abstract class YawPitchRollConversion
 {
+   /**
+    * Represents the safety margin that 
+    */
    public static final double SAFE_THRESHOLD_PITCH = Math.toRadians(1.82);
    /**
     * Pitch angle that defines the upper bound of the safe region in which the resulting pitch angle

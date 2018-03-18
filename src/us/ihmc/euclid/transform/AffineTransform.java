@@ -303,8 +303,8 @@ public class AffineTransform
     * </p>
     *
     * @param matrix the matrix to get this transform's components from. Not modified.
-    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part
-    *            of this transform is not a rotation-scale matrix.
+    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part of
+    *            this transform is not a rotation-scale matrix.
     */
    public void set(DenseMatrix64F matrix)
    {
@@ -335,8 +335,8 @@ public class AffineTransform
     * @param matrix the matrix to get this transform's components from. Not modified.
     * @param startRow the row index of the first component to read.
     * @param startColumn the column index of the first component to read.
-    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part
-    *            of this transform is not a rotation-scale matrix.
+    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part of
+    *            this transform is not a rotation-scale matrix.
     */
    public void set(DenseMatrix64F matrix, int startRow, int startColumn)
    {
@@ -366,8 +366,8 @@ public class AffineTransform
     *
     * @param transformArray the 1D row-major array to get this transform's components from. Not
     *           modified.
-    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part
-    *            of this transform is not a rotation-scale matrix.
+    * @throws NotARotationScaleMatrixException if the resulting matrix for the rotation-scale part of
+    *            this transform is not a rotation-scale matrix.
     */
    public void set(double[] transformArray)
    {
@@ -391,8 +391,8 @@ public class AffineTransform
    /**
     * Sets the rotation-scale and translation parts of this transform separately.
     *
-    * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform.
-    *           Not modified.
+    * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform. Not
+    *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if the given {@code rotationScaleMatrix} is not a
     *            rotation-scale matrix.
@@ -406,8 +406,8 @@ public class AffineTransform
    /**
     * Sets the rotation-scale and translation parts of this transform separately.
     *
-    * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform.
-    *           Not modified.
+    * @param rotationScaleMatrix the matrix used to set the rotation-scale part of this transform. Not
+    *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
    public void set(RotationScaleMatrixReadOnly rotationScaleMatrix, Tuple3DReadOnly translation)
@@ -419,12 +419,10 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param scale the scalar used to set the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
    public void set(Matrix3DReadOnly rotationMatrix, double scale, Tuple3DReadOnly translation)
@@ -436,14 +434,12 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param scaleX the new x-component of the scale part of this transform.
     * @param scaleY the new y-component of the scale part of this transform.
     * @param scaleZ the new z-component of the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
    public void set(Matrix3DReadOnly rotationMatrix, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly translation)
@@ -455,12 +451,10 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param scales the tuple used to set the scale part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
    public void set(Matrix3DReadOnly rotationMatrix, Tuple3DReadOnly scales, Tuple3DReadOnly translation)
@@ -472,8 +466,7 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param scale the scalar used to set the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -487,8 +480,7 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param scaleX the new x-component of the scale part of this transform.
     * @param scaleY the new y-component of the scale part of this transform.
     * @param scaleZ the new z-component of the scale part of this transform.
@@ -504,8 +496,7 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param scales the tuple used to set the scale part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
@@ -563,8 +554,7 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not
-    *           modified.
+    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
     * @param scale the scalar used to set the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
@@ -578,8 +568,7 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not
-    *           modified.
+    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
     * @param scaleX the new x-component of the scale part of this transform.
     * @param scaleY the new y-component of the scale part of this transform.
     * @param scaleZ the new z-component of the scale part of this transform.
@@ -595,8 +584,7 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not
-    *           modified.
+    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
     * @param scales the tuple used to set the scale part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
@@ -626,9 +614,9 @@ public class AffineTransform
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVector the rotation vector used to set the rotation part of this transform. Not
@@ -645,10 +633,8 @@ public class AffineTransform
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
    public void setRotation(DenseMatrix64F rotationMatrix)
    {
@@ -661,8 +647,7 @@ public class AffineTransform
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not
-    *           modified.
+    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
     */
    public void setRotation(QuaternionReadOnly quaternion)
    {
@@ -675,10 +660,8 @@ public class AffineTransform
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
    public void setRotation(Matrix3DReadOnly rotationMatrix)
    {
@@ -691,8 +674,7 @@ public class AffineTransform
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     */
    public void setRotation(RotationMatrix rotationMatrix)
    {
@@ -977,8 +959,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of this with the given {@code other}.
     * <p>
-    * Note: the scale part of either affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of either affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = this * other
@@ -1018,8 +1000,8 @@ public class AffineTransform
     * </p>
     * <p>
     * this = this * H(quaternionBasedTransform) <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1114,8 +1096,8 @@ public class AffineTransform
     * </p>
     * <p>
     * this = this<sup>-1</sup> * H(quaternionBasedTransform) <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1137,8 +1119,8 @@ public class AffineTransform
     * </p>
     * <p>
     * this = this * H(quaternionBasedTransform)<sup>-1</sup> <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1246,15 +1228,15 @@ public class AffineTransform
     * Append a rotation about the x-axis to the rotation part of this transform.
     *
     * <pre>
-    *         /  cos(pitch) 0 sin(pitch) \
-    * R = R * |      0      1     0      |
-    *         \ -sin(pitch) 0 cos(pitch) /
+    *         / 1     0          0     \
+    * R = R * | 0 cos(roll) -sin(roll) |
+    *         \ 0 sin(roll)  cos(roll) /
     * </pre>
     * <p>
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     *
-    * @param yaw the angle to rotate about the x-axis.
+    * @param roll the angle to rotate about the x-axis.
     */
    public void appendRollRotation(double roll)
    {
@@ -1264,8 +1246,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of {@code other} with this transform.
     * <p>
-    * Note: the scale part of either affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of either affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = other * this
@@ -1305,8 +1287,8 @@ public class AffineTransform
     * </p>
     * <p>
     * this = H(quaternionBasedTransform) * this <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1322,8 +1304,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of {@code other} with the inverse of this transform.
     * <p>
-    * Note: the scale part of either affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of either affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = other * this<sup>-1</sup>
@@ -1341,8 +1323,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of the inverse of {@code other} with this transform.
     * <p>
-    * Note: the scale part of either affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of either affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = other<sup>-1</sup> * this
@@ -1403,8 +1385,8 @@ public class AffineTransform
     * </p>
     * <p>
     * this = H(quaternionBasedTransform) * this<sup>-1</sup> <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1425,8 +1407,8 @@ public class AffineTransform
     * </p>
     * <p>
     * this = H(quaternionBasedTransform)<sup>-1</sup> * this <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1487,8 +1469,8 @@ public class AffineTransform
     * Note that the scale part of this transform is not used for this operation.
     * </p>
     * <p>
-    * This method first rotates the translation part and then prepend the yaw-rotation to the
-    * rotation part of this transform.
+    * This method first rotates the translation part and then prepend the yaw-rotation to the rotation
+    * part of this transform.
     * </p>
     *
     * <pre>
@@ -1537,8 +1519,8 @@ public class AffineTransform
     * Note that the scale part of this transform is not used for this operation.
     * </p>
     * <p>
-    * This method first rotates the translation part and then prepend the roll-rotation to the
-    * rotation part of this transform.
+    * This method first rotates the translation part and then prepend the roll-rotation to the rotation
+    * part of this transform.
     * </p>
     *
     * <pre>
@@ -1732,8 +1714,8 @@ public class AffineTransform
    /**
     * Packs the rotation and translation parts of this transform in the given rigid-body transform.
     *
-    * @param rigidBodyTransformToPack the transform in which the rotation and translation parts of
-    *           this affine transform are stored. Modified.
+    * @param rigidBodyTransformToPack the transform in which the rotation and translation parts of this
+    *           affine transform are stored. Modified.
     */
    public void getRigidBodyTransform(RigidBodyTransform rigidBodyTransformToPack)
    {
@@ -1936,9 +1918,9 @@ public class AffineTransform
    /**
     * Packs the rotation part of this affine transform as a rotation vector.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVectorToPack the rotation vector that is set to the rotation part of this
@@ -2017,6 +1999,11 @@ public class AffineTransform
       return rotationScaleMatrix.getScaleZ();
    }
 
+   /**
+    * Packs the scale factors in a tuple.
+    *
+    * @param scaleToPack the tuple in which the scale factors are stored. Modified.
+    */
    public void getScale(Tuple3DBasics scaleToPack)
    {
       scaleToPack.set(rotationScaleMatrix.getScale());
@@ -2035,19 +2022,19 @@ public class AffineTransform
    /**
     * Packs the rotation part of this affine transform.
     *
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
-    *           Modified.
+    * @param rotationScaleMatrixToPack the matrix in which the rotation-scale part of this transform is
+    *           stored. Modified.
     */
-   public void getRotationScale(Matrix3DBasics rotationMatrixToPack)
+   public void getRotationScale(Matrix3DBasics rotationScaleMatrixToPack)
    {
-      rotationMatrixToPack.set(rotationScaleMatrix);
+      rotationScaleMatrixToPack.set(rotationScaleMatrix);
    }
 
    /**
     * Packs the rotation part of this affine transform.
     *
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
-    *           Modified.
+    * @param rotationScaleMatrixToPack the matrix in which the rotation-scale part of this transform is
+    *           stored. Modified.
     */
    public void getRotationScale(RotationScaleMatrix rotationScaleMatrixToPack)
    {
@@ -2057,8 +2044,8 @@ public class AffineTransform
    /**
     * Packs the rotation part of this affine transform.
     *
-    * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
-    *           Modified.
+    * @param rotationScaleMatrixToPack the matrix in which the rotation-scale part of this transform is
+    *           stored. Modified.
     */
    public void getRotationScale(DenseMatrix64F rotationScaleMatrixToPack)
    {
@@ -2348,9 +2335,9 @@ public class AffineTransform
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(AffineTransform)}, it returns {@code false} otherwise or if the
-    * {@code object} is {@code null}.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method returns
+    * {@link #equals(AffineTransform)}, it returns {@code false} otherwise or if the {@code object} is
+    * {@code null}.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -2387,8 +2374,8 @@ public class AffineTransform
    }
 
    /**
-    * Two affine transforms are considered geometrically equal if both the rotation-scale matrices
-    * and translation vectors are equal.
+    * Two affine transforms are considered geometrically equal if both the rotation-scale matrices and
+    * translation vectors are equal.
     *
     * @param other the other affine transform to compare against this. Not modified.
     * @param epsilon the tolerance to use when comparing each component.

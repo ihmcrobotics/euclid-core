@@ -7,7 +7,7 @@ import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
  * when an orientation refers to a complete 3D operation making impossible the operation with a 2D
  * object restricted to the xy-plane.
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public class NotAnOrientation2DException extends RuntimeException
 {

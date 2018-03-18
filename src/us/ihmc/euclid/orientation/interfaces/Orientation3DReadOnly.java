@@ -30,10 +30,14 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * provide, such as transformation functions.
  * </p>
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public interface Orientation3DReadOnly
 {
+   /**
+    * Default tolerance to use when testing if this orientation represents an orientation in the
+    * XY-plane.
+    */
    static final double ORIENTATION_2D_EPSILON = 1.0e-8;
 
    /**
@@ -42,8 +46,8 @@ public interface Orientation3DReadOnly
     * This is commonly used to test if this orientation can be used to transform 2D geometry object.
     * </p>
     * <p>
-    * This test uses the default tolerance {@link #ORIENTATION_2D_EPSILON}, to specify explicitly
-    * the tolerance to be use, see {@link #isOrientation2D(double)}.
+    * This test uses the default tolerance {@link #ORIENTATION_2D_EPSILON}, to specify explicitly the
+    * tolerance to be use, see {@link #isOrientation2D(double)}.
     * </p>
     *
     * @return {@code true} if this orientation represents a 2D orientation in the XY-plane,
@@ -60,8 +64,7 @@ public interface Orientation3DReadOnly
     * This is commonly used to test if this orientation can be used to transform 2D geometry object.
     * </p>
     * <p>
-    * The implementation of this test depends on the type of representation used for this
-    * orientation.
+    * The implementation of this test depends on the type of representation used for this orientation.
     * </p>
     *
     * @param epsilon the tolerance to use.
@@ -125,9 +128,9 @@ public interface Orientation3DReadOnly
    /**
     * Converts and packs this orientation in a 3D rotation vector.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVectorToPack the rotation vector in which this orientation is to be stored.
@@ -142,8 +145,8 @@ public interface Orientation3DReadOnly
     * sometimes undefined.
     * </p>
     * <p>
-    * The yaw-pitch-roll representation describes a 3D orientation as a succession of three
-    * rotations around three axes:
+    * The yaw-pitch-roll representation describes a 3D orientation as a succession of three rotations
+    * around three axes:
     * <ol>
     * <li>yaw: rotation around the z-axis,
     * <li>pitch: rotation around the y-axis,
@@ -151,8 +154,7 @@ public interface Orientation3DReadOnly
     * </ol>
     * </p>
     * <p>
-    * As an example, a rotation matrix can be computed from a yaw-pitch-roll representation as
-    * follows:
+    * As an example, a rotation matrix can be computed from a yaw-pitch-roll representation as follows:
     *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
@@ -177,8 +179,7 @@ public interface Orientation3DReadOnly
    double getYaw();
 
    /**
-    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this
-    * orientation.
+    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this orientation.
     * <p>
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
@@ -189,8 +190,7 @@ public interface Orientation3DReadOnly
    double getPitch();
 
    /**
-    * Computes and returns the roll angle from the yaw-pitch-roll representation of this
-    * orientation.
+    * Computes and returns the roll angle from the yaw-pitch-roll representation of this orientation.
     * <p>
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
@@ -203,9 +203,9 @@ public interface Orientation3DReadOnly
    /**
     * Transforms the given tuple by this orientation.
     * <p>
-    * If the given tuple is expressed in the local frame described by this orientation, then the
-    * tuple is transformed such that it is, after this method is called, expressed in the base frame
-    * in which this orientation is expressed.
+    * If the given tuple is expressed in the local frame described by this orientation, then the tuple
+    * is transformed such that it is, after this method is called, expressed in the base frame in which
+    * this orientation is expressed.
     * </p>
     *
     * @param tupleToTransform the 3D tuple to be transformed. Modified.
@@ -219,9 +219,9 @@ public interface Orientation3DReadOnly
     * Transforms the tuple {@code tupleOriginal} by this orientation and stores the result in
     * {@code tupleTransformed}.
     * <p>
-    * If the given tuple is expressed in the local frame described by this orientation, then the
-    * tuple is transformed such that it is, after this method is called, expressed in the base frame
-    * in which this orientation is expressed.
+    * If the given tuple is expressed in the local frame described by this orientation, then the tuple
+    * is transformed such that it is, after this method is called, expressed in the base frame in which
+    * this orientation is expressed.
     * </p>
     *
     * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
@@ -232,9 +232,9 @@ public interface Orientation3DReadOnly
    /**
     * Transforms the given tuple by this orientation and adds the result to the tuple.
     * <p>
-    * If the given tuple is expressed in the local frame described by this orientation, then the
-    * tuple is transformed such that it is, after this method is called, expressed in the base frame
-    * in which this orientation is expressed.
+    * If the given tuple is expressed in the local frame described by this orientation, then the tuple
+    * is transformed such that it is, after this method is called, expressed in the base frame in which
+    * this orientation is expressed.
     * </p>
     *
     * @param tupleToTransform the 3D tuple to be transformed. Modified.
@@ -248,9 +248,9 @@ public interface Orientation3DReadOnly
     * Transforms the tuple {@code tupleOriginal} by this orientation and <b>adds</b> the result to
     * {@code tupleTransformed}.
     * <p>
-    * If the given tuple is expressed in the local frame described by this orientation, then the
-    * tuple is transformed such that it is, after this method is called, expressed in the base frame
-    * in which this orientation is expressed.
+    * If the given tuple is expressed in the local frame described by this orientation, then the tuple
+    * is transformed such that it is, after this method is called, expressed in the base frame in which
+    * this orientation is expressed.
     * </p>
     *
     * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
@@ -261,9 +261,9 @@ public interface Orientation3DReadOnly
    /**
     * Transforms the given tuple by this orientation.
     * <p>
-    * If the given tuple is expressed in the local frame described by this orientation, then the
-    * tuple is transformed such that it is, after this method is called, expressed in the base frame
-    * in which this orientation is expressed.
+    * If the given tuple is expressed in the local frame described by this orientation, then the tuple
+    * is transformed such that it is, after this method is called, expressed in the base frame in which
+    * this orientation is expressed.
     * </p>
     *
     * @param tupleToTransform the 2D tuple to be transformed. Modified.
@@ -278,9 +278,9 @@ public interface Orientation3DReadOnly
     * Transforms the tuple {@code tupleOriginal} by this orientation and stores the result in
     * {@code tupleTransformed}.
     * <p>
-    * If the given tuple is expressed in the local frame described by this orientation, then the
-    * tuple is transformed such that it is, after this method is called, expressed in the base frame
-    * in which this orientation is expressed.
+    * If the given tuple is expressed in the local frame described by this orientation, then the tuple
+    * is transformed such that it is, after this method is called, expressed in the base frame in which
+    * this orientation is expressed.
     * </p>
     *
     * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
@@ -295,13 +295,13 @@ public interface Orientation3DReadOnly
    /**
     * Transforms the given tuple by this orientation.
     * <p>
-    * If the given tuple is expressed in the local frame described by this orientation, then the
-    * tuple is transformed such that it is, after this method is called, expressed in the base frame
-    * in which this orientation is expressed.
+    * If the given tuple is expressed in the local frame described by this orientation, then the tuple
+    * is transformed such that it is, after this method is called, expressed in the base frame in which
+    * this orientation is expressed.
     * </p>
     *
-    * @param checkIfOrientation2D whether this method should assert that this orientation represents
-    *           a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this orientation represents a
+    *           transformation in the XY plane.
     * @param tupleToTransform the 2D tuple to be transformed. Modified.
     * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
     */
@@ -314,13 +314,13 @@ public interface Orientation3DReadOnly
     * Transforms the tuple {@code tupleOriginal} by this orientation and stores the result in
     * {@code tupleTransformed}.
     * <p>
-    * If the given tuple is expressed in the local frame described by this orientation, then the
-    * tuple is transformed such that it is, after this method is called, expressed in the base frame
-    * in which this orientation is expressed.
+    * If the given tuple is expressed in the local frame described by this orientation, then the tuple
+    * is transformed such that it is, after this method is called, expressed in the base frame in which
+    * this orientation is expressed.
     * </p>
     *
-    * @param checkIfOrientation2D whether this method should assert that this orientation represents
-    *           a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this orientation represents a
+    *           transformation in the XY plane.
     * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
     * @param tupleTransformed the result of the original tuple after transformation. Modified.
     * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
@@ -331,8 +331,8 @@ public interface Orientation3DReadOnly
     * Transforms the given matrix by this orientation.
     * <p>
     * If the given matrix is expressed in the local frame described by this orientation, then the
-    * matrix is transformed such that it is, after this method is called, expressed in the base
-    * frame in which this orientation is expressed.
+    * matrix is transformed such that it is, after this method is called, expressed in the base frame
+    * in which this orientation is expressed.
     * </p>
     *
     * @param matrixToTransform the 3D matrix to be transformed. Modified.
@@ -347,8 +347,8 @@ public interface Orientation3DReadOnly
     * {@code matrixTransformed}.
     * <p>
     * If the given matrix is expressed in the local frame described by this orientation, then the
-    * matrix is transformed such that it is, after this method is called, expressed in the base
-    * frame in which this orientation is expressed.
+    * matrix is transformed such that it is, after this method is called, expressed in the base frame
+    * in which this orientation is expressed.
     * </p>
     *
     * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
@@ -357,12 +357,12 @@ public interface Orientation3DReadOnly
    void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
 
    /**
-    * Transforms the vector part, i.e. the {@code x}, {@code y}, and {@code z} components, of the
-    * given 4D vector, its scalar component {@code s} remains unaffected by this operation.
+    * Transforms the vector part, i.e. the {@code x}, {@code y}, and {@code z} components, of the given
+    * 4D vector, its scalar component {@code s} remains unaffected by this operation.
     * <p>
-    * If the given vector part is expressed in the local frame described by this orientation, then
-    * the vector part is transformed such that it is, after this method is called, expressed in the
-    * base frame in which this orientation is expressed.
+    * If the given vector part is expressed in the local frame described by this orientation, then the
+    * vector part is transformed such that it is, after this method is called, expressed in the base
+    * frame in which this orientation is expressed.
     * </p>
     *
     * @param vectorToTransform the 4D tuple to be transformed. Modified.
@@ -373,15 +373,15 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Transforms the vector part, i.e. the {@code x}, {@code y}, and {@code z} components, of the
-    * given {@code vectorOriginal} and stores the result in {@code vectorTransformed}.
+    * Transforms the vector part, i.e. the {@code x}, {@code y}, and {@code z} components, of the given
+    * {@code vectorOriginal} and stores the result in {@code vectorTransformed}.
     * <p>
     * The scalar component {@code s} remains unaffected by this operation and is simply copied over.
     * </p>
     * <p>
-    * If the given vector part is expressed in the local frame described by this orientation, then
-    * the vector part is transformed such that it is, after this method is called, expressed in the
-    * base frame in which this orientation is expressed.
+    * If the given vector part is expressed in the local frame described by this orientation, then the
+    * vector part is transformed such that it is, after this method is called, expressed in the base
+    * frame in which this orientation is expressed.
     * </p>
     *
     * @param vectorOriginal the original value of the vector to be transformed. Not modified.
@@ -403,11 +403,10 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Transforms the given {@code matrixOriginal} and stores the result in
-    * {@code matrixTransformed}.
+    * Transforms the given {@code matrixOriginal} and stores the result in {@code matrixTransformed}.
     * <p>
-    * The operation is equivalent to prepend this orientation to the {@code matrixOriginal} and
-    * store the result in {@code matrixTransformed}.
+    * The operation is equivalent to prepend this orientation to the {@code matrixOriginal} and store
+    * the result in {@code matrixTransformed}.
     * </p>
     *
     * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
@@ -433,8 +432,7 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Transforms the given {@code matrixOriginal} and stores the result in
-    * {@code matrixTransformed}.
+    * Transforms the given {@code matrixOriginal} and stores the result in {@code matrixTransformed}.
     * <p>
     * The operation is equivalent to prepend this orientation to the rotation part of
     * {@code matrixOriginal} and store the result in {@code matrixTransformed}.
@@ -470,8 +468,7 @@ public interface Orientation3DReadOnly
     * store the result in {@code quaternionTransformed}.
     * </p>
     *
-    * @param quaternionOriginal the original value of the quaternion to be transformed. Not
-    *           modified.
+    * @param quaternionOriginal the original value of the quaternion to be transformed. Not modified.
     * @param quaternionTransformed the result of the original quaternion after transformation.
     *           Modified.
     */
@@ -496,8 +493,8 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation
-    * and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation and
+    * stores the result in {@code tupleTransformed}.
     * <p>
     * If the given tuple is expressed in the base frame in which this orientation is expressed, then
     * the tuple is transformed such that it is, after this method is called, expressed in the local
@@ -526,8 +523,8 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation
-    * and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation and
+    * stores the result in {@code tupleTransformed}.
     * <p>
     * If the given tuple is expressed in the base frame in which this orientation is expressed, then
     * the tuple is transformed such that it is, after this method is called, expressed in the local
@@ -551,8 +548,8 @@ public interface Orientation3DReadOnly
     * frame described by this orientation.
     * </p>
     *
-    * @param checkIfOrientation2D whether this method should assert that this orientation represents
-    *           a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this orientation represents a
+    *           transformation in the XY plane.
     * @param tupleToTransform the 2D tuple to be transformed. Modified.
     * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
     */
@@ -562,16 +559,16 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation
-    * and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform to the tuple {@code tupleOriginal} by this orientation and
+    * stores the result in {@code tupleTransformed}.
     * <p>
     * If the given tuple is expressed in the base frame in which this orientation is expressed, then
     * the tuple is transformed such that it is, after this method is called, expressed in the local
     * frame described by this orientation.
     * </p>
     *
-    * @param checkIfOrientation2D whether this method should assert that this orientation represents
-    *           a transformation in the XY plane.
+    * @param checkIfOrientation2D whether this method should assert that this orientation represents a
+    *           transformation in the XY plane.
     * @param tupleOriginal the original value of the tuple to be transformed. Not modified.
     * @param tupleTransformed the result of the original tuple after transformation. Modified.
     * @throws NotAnOrientation2DException if this orientation is not a 2D orientation.
@@ -581,9 +578,9 @@ public interface Orientation3DReadOnly
    /**
     * Performs the inverse of the transform to the given matrix by this orientation.
     * <p>
-    * If the given matrix is expressed in the base frame in which this orientation is expressed,
-    * then the matrix is transformed such that it is, after this method is called, expressed in the
-    * local frame described by this orientation.
+    * If the given matrix is expressed in the base frame in which this orientation is expressed, then
+    * the matrix is transformed such that it is, after this method is called, expressed in the local
+    * frame described by this orientation.
     * </p>
     *
     * @param matrixToTransform the 3D matrix to be transformed. Modified.
@@ -597,9 +594,9 @@ public interface Orientation3DReadOnly
     * Performs the inverse of the transform to the matrix {@code matrixOriginal} by this orientation
     * and stores the result in {@code matrixTransformed}.
     * <p>
-    * If the given matrix is expressed in the base frame in which this orientation is expressed,
-    * then the matrix is transformed such that it is, after this method is called, expressed in the
-    * local frame described by this orientation.
+    * If the given matrix is expressed in the base frame in which this orientation is expressed, then
+    * the matrix is transformed such that it is, after this method is called, expressed in the local
+    * frame described by this orientation.
     * </p>
     *
     * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
@@ -609,12 +606,12 @@ public interface Orientation3DReadOnly
 
    /**
     * Performs the inverse of the transform to the vector part, i.e. the {@code x}, {@code y}, and
-    * {@code z} components, of the given 4D vector, its scalar component {@code s} remains
-    * unaffected by this operation.
+    * {@code z} components, of the given 4D vector, its scalar component {@code s} remains unaffected
+    * by this operation.
     * <p>
-    * If the given vector part is expressed in the base frame in which this orientation is
-    * expressed, then the vector part is transformed such that it is, after this method is called,
-    * expressed in the local frame described by this orientation.
+    * If the given vector part is expressed in the base frame in which this orientation is expressed,
+    * then the vector part is transformed such that it is, after this method is called, expressed in
+    * the local frame described by this orientation.
     * </p>
     *
     * @param vectorToTransform the 4D tuple to be transformed. Modified.
@@ -632,9 +629,9 @@ public interface Orientation3DReadOnly
     * The scalar component {@code s} remains unaffected by this operation and is simply copied over.
     * </p>
     * <p>
-    * If the given vector part is expressed in the local frame described by this orientation, then
-    * the vector part is transformed such that it is, after this method is called, expressed in the
-    * base frame in which this orientation is expressed.
+    * If the given vector part is expressed in the local frame described by this orientation, then the
+    * vector part is transformed such that it is, after this method is called, expressed in the base
+    * frame in which this orientation is expressed.
     * </p>
     *
     * @param vectorOriginal the original value of the vector to be transformed. Not modified.
@@ -657,8 +654,8 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given {@code matrixOriginal} and stores the
-    * result in {@code matrixTransformed}.
+    * Performs the inverse of the transform to the given {@code matrixOriginal} and stores the result
+    * in {@code matrixTransformed}.
     * <p>
     * The operation is equivalent to prepend the inverse of this orientation to the
     * {@code matrixOriginal} and store the result in {@code matrixTransformed}.
@@ -687,8 +684,8 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given {@code matrixOriginal} and stores the
-    * result in {@code matrixTransformed}.
+    * Performs the inverse of the transform to the given {@code matrixOriginal} and stores the result
+    * in {@code matrixTransformed}.
     * <p>
     * The operation is equivalent to prepend the inverse of this orientation to the rotation part of
     * {@code matrixOriginal} and store the result in {@code matrixTransformed}.
@@ -706,8 +703,7 @@ public interface Orientation3DReadOnly
    /**
     * Performs the inverse of the transform to the given quaternion by this orientation.
     * <p>
-    * The operation is equivalent to prepend the inverse of this orientation to the given
-    * quaternion.
+    * The operation is equivalent to prepend the inverse of this orientation to the given quaternion.
     * </p>
     *
     * @param quaternionToTransform the quaternion to be transformed. Modified.
@@ -725,8 +721,7 @@ public interface Orientation3DReadOnly
     * {@code quaternionOriginal} and store the result in {@code quaternionTransformed}.
     * </p>
     *
-    * @param quaternionOriginal the original value of the quaternion to be transformed. Not
-    *           modified.
+    * @param quaternionOriginal the original value of the quaternion to be transformed. Not modified.
     * @param quaternionTransformed the result of the original quaternion after transformation.
     *           Modified.
     */
@@ -736,8 +731,8 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Provides a {@code String} representation of this orientation converted to yaw-pitch-roll
-    * angles as follows: yaw-pitch-roll: (yaw, pitch, roll).
+    * Provides a {@code String} representation of this orientation converted to yaw-pitch-roll angles
+    * as follows: yaw-pitch-roll: (yaw, pitch, roll).
     *
     * @return a string representation of this orientation 3D.
     */

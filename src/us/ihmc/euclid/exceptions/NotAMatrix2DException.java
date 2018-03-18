@@ -8,7 +8,7 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
  * transformation matrix refers to a complete 3D operation making impossible the operation with a 2D
  * object restricted to the xy-plane.
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public class NotAMatrix2DException extends RuntimeException
 {

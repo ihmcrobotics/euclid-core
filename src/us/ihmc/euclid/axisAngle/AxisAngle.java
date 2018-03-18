@@ -18,7 +18,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  * is meant for garbage free usage.
  * </p>
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public class AxisAngle implements AxisAngleBasics, EpsilonComparable<AxisAngle>, Settable<AxisAngle>, GeometricallyComparable<AxisAngle>
 {

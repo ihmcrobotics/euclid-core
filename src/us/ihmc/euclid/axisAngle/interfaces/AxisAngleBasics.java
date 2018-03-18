@@ -14,8 +14,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  * an angle of rotation usually expressed in radians.
  * </p>
  *
- * @author Sylvain
- * @param T the final type of the axis-angle used.
+ * @author Sylvain Bertrand
  */
 public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics, Clearable
 {

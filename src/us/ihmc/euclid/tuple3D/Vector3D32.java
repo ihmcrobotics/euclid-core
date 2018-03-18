@@ -51,7 +51,7 @@ public class Vector3D32 implements Vector3DBasics, GeometryObject<Vector3D32>
     * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z} in order
     * from the given array.
     *
-    * @param pointArray the array containing this vector's components. Not modified.
+    * @param vectorArray the array containing this vector's components. Not modified.
     */
    public Vector3D32(float[] vectorArray)
    {
@@ -63,9 +63,9 @@ public class Vector3D32 implements Vector3DBasics, GeometryObject<Vector3D32>
     *
     * @param other the tuple to copy the components from. Not modified.
     */
-   public Vector3D32(Tuple3DReadOnly tuple)
+   public Vector3D32(Tuple3DReadOnly other)
    {
-      set(tuple);
+      set(other);
    }
 
    /**

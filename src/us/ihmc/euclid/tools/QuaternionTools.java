@@ -101,6 +101,23 @@ public abstract class QuaternionTools
       multiplyImpl(q1, true, q2, true, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code quaternionToPack}.
+    * <p>
+    * More precisely, {@code orientation1} and {@code orientation2} are first converted to quaternions,
+    * then a quaternion multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiply(Orientation3DReadOnly orientation1, boolean inverse1, Orientation3DReadOnly orientation2, boolean inverse2,
                                QuaternionBasics quaternionToPack)
    {
@@ -137,6 +154,23 @@ public abstract class QuaternionTools
       multiplyImpl(q1x, q1y, q1z, q1s, inverse1, q2x, q2y, q2z, q2s, inverse2, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code quaternionToPack}.
+    * <p>
+    * More precisely, {@code orientation1} is first converted to a quaternion, then a quaternion
+    * multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiply(Orientation3DReadOnly orientation1, boolean inverse1, QuaternionReadOnly orientation2, boolean inverse2,
                                QuaternionBasics quaternionToPack)
    {
@@ -160,6 +194,23 @@ public abstract class QuaternionTools
       multiplyImpl(q1x, q1y, q1z, q1s, inverse1, q2x, q2y, q2z, q2s, inverse2, quaternionToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code quaternionToPack}.
+    * <p>
+    * More precisely, {@code orientation2} is first converted to a quaternion, then a quaternion
+    * multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param quaternionToPack the quaternion in which the result is stored. Modified.
+    */
    public static void multiply(QuaternionReadOnly orientation1, boolean inverse1, Orientation3DReadOnly orientation2, boolean inverse2,
                                QuaternionBasics quaternionToPack)
    {
@@ -277,8 +328,8 @@ public abstract class QuaternionTools
    }
 
    /**
-    * Performs the multiplication, in the sense of quaternion multiplication, of {@code t1}
-    * conjugated and {@code t2} and stores the result in {@code vectorToPack}.
+    * Performs the multiplication, in the sense of quaternion multiplication, of {@code t1} conjugated
+    * and {@code t2} and stores the result in {@code vectorToPack}.
     * <p>
     * vectorToPack = t1* * t2
     * </p>
@@ -410,8 +461,8 @@ public abstract class QuaternionTools
    }
 
    /**
-    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using
-    * {@code quaternion} and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using {@code quaternion}
+    * and stores the result in {@code tupleTransformed}.
     * <p>
     * This is equivalent to calling
     * {@link #transform(QuaternionReadOnly, Tuple3DReadOnly, Tuple3DBasics)} with the inverse of the
@@ -518,8 +569,8 @@ public abstract class QuaternionTools
    }
 
    /**
-    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and subtracts the result
-    * to {@code tupleTransformed}.
+    * Transforms the tuple {@code tupleOriginal} using {@code quaternion} and subtracts the result to
+    * {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in place transformation.
     * </p>
@@ -624,8 +675,8 @@ public abstract class QuaternionTools
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion
-    *           represents a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
     *            does not represent a transformation in the XY plane.
     */
@@ -635,12 +686,12 @@ public abstract class QuaternionTools
    }
 
    /**
-    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using
-    * {@code quaternion} and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using {@code quaternion}
+    * and stores the result in {@code tupleTransformed}.
     * <p>
     * This is equivalent to calling
-    * {@link #transform(QuaternionReadOnly, Tuple2DReadOnly, Tuple2DBasics, boolean)} with the
-    * inverse of the given quaternion.
+    * {@link #transform(QuaternionReadOnly, Tuple2DReadOnly, Tuple2DBasics, boolean)} with the inverse
+    * of the given quaternion.
     * </p>
     * <p>
     * Both tuples can be the same object for performing in place transformation.
@@ -652,8 +703,8 @@ public abstract class QuaternionTools
     * @param quaternion the quaternion used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion
-    *           represents a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
     *            does not represent a transformation in the XY plane.
     */
@@ -680,8 +731,8 @@ public abstract class QuaternionTools
     * @param conjugateQuaternion whether to conjugate the quaternion or not.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion
-    *           represents a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the quaternion represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the quaternion
     *            does not represent a transformation in the XY plane.
     */
@@ -755,8 +806,8 @@ public abstract class QuaternionTools
     * {@code quaternion} and stores the result in {@code quaternionTransformed}.
     * <p>
     * This is equivalent to calling
-    * {@link #transform(QuaternionReadOnly, QuaternionReadOnly, QuaternionBasics)} with the inverse
-    * of the given quaternion.
+    * {@link #transform(QuaternionReadOnly, QuaternionReadOnly, QuaternionBasics)} with the inverse of
+    * the given quaternion.
     * </p>
     * <p>
     * Both {@code quaternionOriginal} and {@code quaternionTransformed} can be the same object for
@@ -913,9 +964,8 @@ public abstract class QuaternionTools
     * Performs the inverse of the transform of the matrix {@code matrixOriginal} using
     * {@code quaternion} and stores the result in {@code matrixTransformed}.
     * <p>
-    * This is equivalent to calling
-    * {@link #transform(QuaternionReadOnly, Matrix3DReadOnly, Matrix3D)} with the inverse of the
-    * given quaternion.
+    * This is equivalent to calling {@link #transform(QuaternionReadOnly, Matrix3DReadOnly, Matrix3D)}
+    * with the inverse of the given quaternion.
     * </p>
     * <p>
     * Both matrices can be the same object for performing in place transformation.
@@ -1054,8 +1104,8 @@ public abstract class QuaternionTools
    }
 
    /**
-    * Transforms the rotation matrix {@code rotationMatrixOriginal} using {@code quaternion} and
-    * stores the result in {@code rotationMatrixTransformed}.
+    * Transforms the rotation matrix {@code rotationMatrixOriginal} using {@code quaternion} and stores
+    * the result in {@code rotationMatrixTransformed}.
     * <p>
     * Both rotation matrices can be the same object for performing in place transformation.
     * </p>
@@ -1078,12 +1128,12 @@ public abstract class QuaternionTools
    }
 
    /**
-    * Performs the inverse of the transform of the rotation matrix {@code rotationMatrixOriginal}
-    * using {@code quaternion} and stores the result in {@code rotationMatrixTransformed}.
+    * Performs the inverse of the transform of the rotation matrix {@code rotationMatrixOriginal} using
+    * {@code quaternion} and stores the result in {@code rotationMatrixTransformed}.
     * <p>
     * This is equivalent to calling
-    * {@link #transform(QuaternionReadOnly, RotationMatrixReadOnly, RotationMatrix)} with the
-    * inverse of the given quaternion.
+    * {@link #transform(QuaternionReadOnly, RotationMatrixReadOnly, RotationMatrix)} with the inverse
+    * of the given quaternion.
     * </p>
     * <p>
     * Both rotation matrices can be the same object for performing in place transformation.
@@ -1191,8 +1241,7 @@ public abstract class QuaternionTools
     * </pre>
     *
     * @param pitch the angle to rotate about the y-axis.
-    * @param quaternionOriginal the quaternion on which the pitch rotation is prepended. Not
-    *           modified.
+    * @param quaternionOriginal the quaternion on which the pitch rotation is prepended. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
    public static void prependPitchRotation(double pitch, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionToPack)
@@ -1226,8 +1275,7 @@ public abstract class QuaternionTools
     *                                         \ qs = cos(pitch/2) /
     * </pre>
     *
-    * @param quaternionOriginal the quaternion on which the pitch rotation is appended. Not
-    *           modified.
+    * @param quaternionOriginal the quaternion on which the pitch rotation is appended. Not modified.
     * @param pitch the angle to rotate about the y-axis.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
@@ -1263,8 +1311,7 @@ public abstract class QuaternionTools
     * </pre>
     *
     * @param roll the angle to rotate about the x-axis.
-    * @param quaternionOriginal the quaternion on which the roll rotation is prepended. Not
-    *           modified.
+    * @param quaternionOriginal the quaternion on which the roll rotation is prepended. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
     */
    public static void prependRollRotation(double roll, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionToPack)
@@ -1324,8 +1371,8 @@ public abstract class QuaternionTools
     *
     * @param q1 the quaternion to be used in the comparison. Not modified.
     * @param q2 the quaternion to be used in the comparison. Not modified.
-    * @return the angle representing the distance between the two quaternions. It is contained in
-    *         [0, 2<i>pi</i>]
+    * @return the angle representing the distance between the two quaternions. It is contained in [0,
+    *         2<i>pi</i>]
     */
    public static double distancePrecise(QuaternionReadOnly q1, QuaternionReadOnly q2)
    {

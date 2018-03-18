@@ -5,7 +5,7 @@ import us.ihmc.euclid.transform.interfaces.Transform;
 /**
  * Base interface for any object that can be transformed with a {@link Transform}.
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public interface Transformable
 {

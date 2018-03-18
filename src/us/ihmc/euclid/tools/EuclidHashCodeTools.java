@@ -1,16 +1,24 @@
 package us.ihmc.euclid.tools;
 
+import us.ihmc.euclid.tuple3D.Point3D;
+
+/**
+ * Generic operations on hash-code used throughout this library for computing hash-codes of object
+ * as {@link Point3D}.
+ * 
+ * @author Sylvain Bertrand
+ */
 public class EuclidHashCodeTools
 {
    /**
     * Long used for the multiplication factor in each step of the hash.
     */
-   private final static long MULTIPLIER = 31L;
+   public final static long MULTIPLIER = 31L;
 
    /**
     * Returns a hash bit stream as an integer hash value.
     *
-    * @param bits the bits to turn into int hash code.
+    * @param bits the bits to turn into integer hash code.
     * @return final integer hash value.
     */
    public static int toIntHashCode(long bits)
@@ -47,7 +55,7 @@ public class EuclidHashCodeTools
     *
     * @param hashCode1 first hash code to combine.
     * @param hashCode2 second hash code to combine.
-    * @return combined hash code, {@code hashCode1} + {@link MULTIPLIER} * {@code hashCode2}
+    * @return combined hash code, {@code hashCode1} + {@link #MULTIPLIER} * {@code hashCode2}
     */
    public static long combineHashCode(long hashCode1, long hashCode2)
    {

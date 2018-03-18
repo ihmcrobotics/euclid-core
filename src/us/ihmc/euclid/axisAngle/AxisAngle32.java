@@ -17,7 +17,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  * situations where heap memory is limited. When memory is not a constraint, the use of
  * {@link AxisAngle} is preferable.
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public class AxisAngle32 implements AxisAngleBasics, Settable<AxisAngle32>, EpsilonComparable<AxisAngle32>, GeometricallyComparable<AxisAngle32>
 {

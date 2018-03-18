@@ -23,7 +23,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 public abstract class EuclidCoreIOTools
 {
    /** Default format used to print decimal numbers. */
-   private static final String DEFAULT_FORMAT = getStringFormat(6, 3);
+   public static final String DEFAULT_FORMAT = getStringFormat(6, 3);
 
    /**
     * Gets a representative {@code String} of {@code rigidBodyTransform} as follows:
@@ -88,8 +88,7 @@ public abstract class EuclidCoreIOTools
    }
 
    /**
-    * Gets a representative {@code String} of {@code affineTransform} given a specific format to
-    * use.
+    * Gets a representative {@code String} of {@code affineTransform} given a specific format to use.
     * <p>
     * Using the default format {@link #DEFAULT_FORMAT}, this provides a {@code String} as follows:
     *
@@ -146,8 +145,8 @@ public abstract class EuclidCoreIOTools
    }
 
    /**
-    * Gets a representative {@code String} of {@code quaternionBasedTransform} given a specific
-    * format to use.
+    * Gets a representative {@code String} of {@code quaternionBasedTransform} given a specific format
+    * to use.
     * <p>
     * Using the default format {@link #DEFAULT_FORMAT}, this provides a {@code String} as follows:
     *
@@ -429,6 +428,24 @@ public abstract class EuclidCoreIOTools
       return ret;
    }
 
+   /**
+    * Gets a representative {@code String} of a series of doubles given specific prefix, suffix, and
+    * separator.
+    * <p>
+    * Using {@code prefix = "("}, {@code suffix = ")"}, and {@code separator = ", "}, this provides a
+    * {@code String} as follows:
+    *
+    * <pre>
+    * ( 0.123, -0.480,  1.457)
+    * </pre>
+    * </p>
+    *
+    * @param prefix the {@code String} to prepend to the result.
+    * @param suffix the {@code String} to append to the result.
+    * @param separator the {@code String} to insert between two values.
+    * @param values the values to get the {@code String} of.
+    * @return the representative {@code String}.
+    */
    public static String getStringOf(String prefix, String suffix, String separator, double... values)
    {
       return getStringOf(prefix, suffix, separator, DEFAULT_FORMAT, values);
@@ -438,8 +455,8 @@ public abstract class EuclidCoreIOTools
     * Gets a representative {@code String} of a series of doubles given specific prefix, suffix,
     * separator, and format to use.
     * <p>
-    * Using the default format {@link #DEFAULT_FORMAT}, {@code prefix = "("}, {@code suffix = ")"},
-    * and {@code separator = ", "}, this provides a {@code String} as follows:
+    * Using the default format {@link #DEFAULT_FORMAT}, {@code prefix = "("}, {@code suffix = ")"}, and
+    * {@code separator = ", "}, this provides a {@code String} as follows:
     *
     * <pre>
     * ( 0.123, -0.480,  1.457)
@@ -450,7 +467,7 @@ public abstract class EuclidCoreIOTools
     * @param suffix the {@code String} to append to the result.
     * @param separator the {@code String} to insert between two values.
     * @param format the format to use for each number.
-    * @param matrix the object to get the {@code String} of. Not modified.
+    * @param values the values to get the {@code String} of.
     * @return the representative {@code String}.
     */
    public static String getStringOf(String prefix, String suffix, String separator, String format, double... values)
@@ -481,11 +498,9 @@ public abstract class EuclidCoreIOTools
     * </pre>
     * </p>
     *
-    * @param prefix the {@code String} to prepend to the result.
-    * @param suffix the {@code String} to append to the result.
     * @param separator the {@code String} to insert between two values.
     * @param format the format to use for each number.
-    * @param matrix the object to get the {@code String} of. Not modified.
+    * @param values the values to get the {@code String} of.
     * @return the representative {@code String}.
     */
    public static String getStringOf(String separator, String format, double... values)

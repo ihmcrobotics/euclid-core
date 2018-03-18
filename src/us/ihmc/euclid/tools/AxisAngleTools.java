@@ -1,5 +1,6 @@
 package us.ihmc.euclid.tools;
 
+import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
@@ -17,8 +18,22 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
+/**
+ * This class provides a collection of static tools to perform operations on axis-angles.
+ * <p>
+ * This class is mostly used to centralize operations on axis-angles, these operations are available
+ * in classes such as {@link AxisAngle} and the user should always using this classes instead of
+ * using tools classes. The API of these tools classes is more likely to change over time.
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ */
 public abstract class AxisAngleTools
 {
+   /**
+    * Tolerance used to identify edge cases, such as when the axis part of an axis-angle can not be
+    * normalized.
+    */
    public static final double EPS = 1.0e-12;
 
    /**
@@ -38,12 +53,12 @@ public abstract class AxisAngleTools
    }
 
    /**
-    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using
-    * {@code axisAngle} and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using {@code axisAngle}
+    * and stores the result in {@code tupleTransformed}.
     * <p>
     * This is equivalent to calling
-    * {@link #transform(AxisAngleReadOnly, Tuple3DReadOnly, Tuple3DBasics)} with an axis-angle that
-    * has an angle of opposite value compared to the given one.
+    * {@link #transform(AxisAngleReadOnly, Tuple3DReadOnly, Tuple3DBasics)} with an axis-angle that has
+    * an angle of opposite value compared to the given one.
     * </p>
     * <p>
     * Both tuples can be the same object for performing in place transformation.
@@ -69,8 +84,8 @@ public abstract class AxisAngleTools
     * </p>
     *
     * @param axisAngle the axis-angle used to transform the tuple. Not modified.
-    * @param negateAngle whether to negate the angle of the axis-angle to perform an inverse
-    *           transform or not.
+    * @param negateAngle whether to negate the angle of the axis-angle to perform an inverse transform
+    *           or not.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
     */
@@ -145,8 +160,8 @@ public abstract class AxisAngleTools
     * @param axisAngle the axis-angle used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the axis-angle
-    *           represents a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the axis-angle represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the axis-angle
     *            does not represent a transformation in the XY plane.
     */
@@ -156,12 +171,12 @@ public abstract class AxisAngleTools
    }
 
    /**
-    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using
-    * {@code axisAngle} and stores the result in {@code tupleTransformed}.
+    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using {@code axisAngle}
+    * and stores the result in {@code tupleTransformed}.
     * <p>
     * This is equivalent to calling
-    * {@link #transform(AxisAngleReadOnly, Tuple2DReadOnly, Tuple2DBasics)} with an axis-angle that
-    * has an angle of opposite value compared to the given one.
+    * {@link #transform(AxisAngleReadOnly, Tuple2DReadOnly, Tuple2DBasics, boolean)} with an axis-angle
+    * that has an angle of opposite value compared to the given one.
     * </p>
     * <p>
     * Both tuples can be the same object for performing in place transformation.
@@ -170,8 +185,8 @@ public abstract class AxisAngleTools
     * @param axisAngle the axis-angle used to transform the tuple. Not modified.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the axis-angle
-    *           represents a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the axis-angle represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the axis-angle
     *            does not represent a transformation in the XY plane.
     */
@@ -192,12 +207,12 @@ public abstract class AxisAngleTools
     * </p>
     *
     * @param axisAngle the axis-angle used to transform the tuple. Not modified.
-    * @param negateAngle whether to negate the angle of the axis-angle to perform an inverse
-    *           transform or not.
+    * @param negateAngle whether to negate the angle of the axis-angle to perform an inverse transform
+    *           or not.
     * @param tupleOriginal the tuple to transform. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the axis-angle
-    *           represents a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the axis-angle represents
+    *           a transformation in the XY plane.
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the axis-angle
     */
    private static void transformImpl(AxisAngleReadOnly axisAngle, boolean negateAngle, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
@@ -262,9 +277,8 @@ public abstract class AxisAngleTools
     * Performs the inverse of the transform of the matrix {@code matrixOriginal} using
     * {@code axisAngle} and stores the result in {@code matrixTransformed}.
     * <p>
-    * This is equivalent to calling
-    * {@link #transform(AxisAngleReadOnly, Matrix3DReadOnly, Matrix3D)} with an axis-angle that has
-    * an angle of opposite value compared to the given one.
+    * This is equivalent to calling {@link #transform(AxisAngleReadOnly, Matrix3DReadOnly, Matrix3D)}
+    * with an axis-angle that has an angle of opposite value compared to the given one.
     * </p>
     * <p>
     * Both matrices can be the same object for performing in place transformation.
@@ -299,8 +313,8 @@ public abstract class AxisAngleTools
     * </p>
     *
     * @param axisAngle the axis-angle used to transform the matrix. Not modified.
-    * @param negateAngle whether to negate the angle of the axis-angle to perform an inverse
-    *           transform or not.
+    * @param negateAngle whether to negate the angle of the axis-angle to perform an inverse transform
+    *           or not.
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
@@ -390,8 +404,8 @@ public abstract class AxisAngleTools
     * {@code axisAngle} and stores the result in {@code vectorTransformed}.
     * <p>
     * This is equivalent to calling
-    * {@link #transform(AxisAngleReadOnly, Vector4DReadOnly, Vector4DBasics)} with an axis-angle
-    * that has an angle of opposite value compared to the given one.
+    * {@link #transform(AxisAngleReadOnly, Vector4DReadOnly, Vector4DBasics)} with an axis-angle that
+    * has an angle of opposite value compared to the given one.
     * </p>
     * <p>
     * Both vectors can be the same object for performing in place transformation.
@@ -417,8 +431,8 @@ public abstract class AxisAngleTools
     * </p>
     *
     * @param axisAngle the axis-angle used to transform the tuple. Not modified.
-    * @param negateAngle whether to negate the angle of the axis-angle to perform an inverse
-    *           transform or not.
+    * @param negateAngle whether to negate the angle of the axis-angle to perform an inverse transform
+    *           or not.
     * @param vectorOriginal the vector to transform. Not modified.
     * @param vectorTransformed the vector in which the result is stored. Modified.
     */
@@ -464,8 +478,8 @@ public abstract class AxisAngleTools
    }
 
    /**
-    * Transforms the rotation matrix {@code rotationMatrixOriginal} using {@code axisAngle} and
-    * stores the result in {@code rotationMatrixTransformed}.
+    * Transforms the rotation matrix {@code rotationMatrixOriginal} using {@code axisAngle} and stores
+    * the result in {@code rotationMatrixTransformed}.
     * <p>
     * Both rotation matrices can be the same object for performing in place transformation.
     * </p>
@@ -488,12 +502,12 @@ public abstract class AxisAngleTools
    }
 
    /**
-    * Performs the inverse of the transform of the rotation matrix {@code rotationMatrixOriginal}
-    * using {@code axisAngle} and stores the result in {@code rotationMatrixTransformed}.
+    * Performs the inverse of the transform of the rotation matrix {@code rotationMatrixOriginal} using
+    * {@code axisAngle} and stores the result in {@code rotationMatrixTransformed}.
     * <p>
     * This is equivalent to calling
-    * {@link #transform(AxisAngleReadOnly, RotationMatrixReadOnly, RotationMatrix)} with an
-    * axis-angle that has an angle of opposite value compared to the given one.
+    * {@link #transform(AxisAngleReadOnly, RotationMatrixReadOnly, RotationMatrix)} with an axis-angle
+    * that has an angle of opposite value compared to the given one.
     * </p>
     * <p>
     * Both rotation matrices can be the same object for performing in place transformation.
@@ -526,13 +540,30 @@ public abstract class AxisAngleTools
     *
     * @param aa1 the first axis-angle in the multiplication. Not modified.
     * @param aa2 the second axis-angle in the multiplication. Not modified.
-    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
    public static void multiply(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
    {
       multiplyImpl(aa1, false, aa2, false, axisAngleToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code axisAngleToPack}.
+    * <p>
+    * More precisely, {@code orientation1} and {@code orientation2} are first converted to axis-angles,
+    * then an axis-angle multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
    public static void multiply(Orientation3DReadOnly orientation1, boolean inverse1, Orientation3DReadOnly orientation2, boolean inverse2,
                                AxisAngleBasics axisAngleToPack)
    {
@@ -569,6 +600,23 @@ public abstract class AxisAngleTools
       multiplyImpl(alpha, u1x, u1y, u1z, inverse1, beta, u2x, u2y, u2z, inverse2, axisAngleToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code axisAngleToPack}.
+    * <p>
+    * More precisely, {@code orientation1} is first converted to an axis-angle, then an axis-angle
+    * multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
    public static void multiply(Orientation3DReadOnly orientation1, boolean inverse1, AxisAngleReadOnly orientation2, boolean inverse2,
                                AxisAngleBasics axisAngleToPack)
    {
@@ -592,6 +640,23 @@ public abstract class AxisAngleTools
       multiplyImpl(alpha, u1x, u1y, u1z, inverse1, beta, u2x, u2y, u2z, inverse2, axisAngleToPack);
    }
 
+   /**
+    * Performs the multiplication of {@code orientation1} and {@code orientation2} and stores the
+    * result in {@code axisAngleToPack}.
+    * <p>
+    * More precisely, {@code orientation2} is first converted to an axis-angle, then an axis-angle
+    * multiplication is performed using the two first arguments as entry.
+    * </p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    * 
+    * @param orientation1 the first orientation in the multiplication. Not modified.
+    * @param inverse1 whether the first orientation should be inverted in the multiplication.
+    * @param orientation2 the second orientation in the multiplication. Not modified.
+    * @param inverse2 whether the second orientation should be inverted in the multiplication.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
    public static void multiply(AxisAngleReadOnly orientation1, boolean inverse1, Orientation3DReadOnly orientation2, boolean inverse2,
                                AxisAngleBasics axisAngleToPack)
    {
@@ -616,8 +681,8 @@ public abstract class AxisAngleTools
    }
 
    /**
-    * Performs the multiplication of the inverse of {@code aa1} and {@code aa2} and stores the
-    * result in {@code axisAngleToPack}.
+    * Performs the multiplication of the inverse of {@code aa1} and {@code aa2} and stores the result
+    * in {@code axisAngleToPack}.
     * <p>
     * <p>
     * All three arguments can be the same object for in place operations.
@@ -625,7 +690,7 @@ public abstract class AxisAngleTools
     *
     * @param aa1 the first axis-angle in the multiplication. Not modified.
     * @param aa2 the second axis-angle in the multiplication. Not modified.
-    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
    public static void multiplyInvertLeft(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
    {
@@ -633,8 +698,8 @@ public abstract class AxisAngleTools
    }
 
    /**
-    * Performs the multiplication of {@code aa1} and the inverse of {@code aa2} and stores the
-    * result in {@code axisAngleToPack}.
+    * Performs the multiplication of {@code aa1} and the inverse of {@code aa2} and stores the result
+    * in {@code axisAngleToPack}.
     * <p>
     * <p>
     * All three arguments can be the same object for in place operations.
@@ -642,7 +707,7 @@ public abstract class AxisAngleTools
     *
     * @param aa1 the first axis-angle in the multiplication. Not modified.
     * @param aa2 the second axis-angle in the multiplication. Not modified.
-    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
    public static void multiplyInvertRight(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
    {
@@ -659,7 +724,7 @@ public abstract class AxisAngleTools
     *
     * @param aa1 the first axis-angle in the multiplication. Not modified.
     * @param aa2 the second axis-angle in the multiplication. Not modified.
-    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
    public static void multiplyInvertBoth(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
    {
@@ -685,7 +750,7 @@ public abstract class AxisAngleTools
     * @param inverse1 whether to inverse {@code aa1} or not.
     * @param aa2 the second axis-angle in the multiplication. Not modified.
     * @param inverse2 whether to inverse {@code aa2} or not.
-    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
     */
    private static void multiplyImpl(AxisAngleReadOnly aa1, boolean inverse1, AxisAngleReadOnly aa2, boolean inverse2, AxisAngleBasics axisAngleToPack)
    {
@@ -766,11 +831,6 @@ public abstract class AxisAngleTools
          double uz = sinHalfGammaUz * sinHalfGammaInv;
          axisAngleToPack.set(ux, uy, uz, gamma);
       }
-   }
-
-   public static void main(String[] args)
-   {
-      System.out.println(Math.atan2(0.0, -1.0));
    }
 
    /**
@@ -1102,8 +1162,8 @@ public abstract class AxisAngleTools
     *
     * @param aa1 the first axis-angle to measure the distance. Not modified.
     * @param aa2 the second axis-angle to measure the distance. Not modified.
-    * @return the angle representing the distance between the two axis-angles. It is contained in
-    *         [0, 2<i>pi</i>]
+    * @return the angle representing the distance between the two axis-angles. It is contained in [0,
+    *         2<i>pi</i>]
     */
    public static double distance(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2)
    {

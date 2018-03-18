@@ -48,7 +48,7 @@ public class Vector2D implements Vector2DBasics, GeometryObject<Vector2D>
     * Creates a new vector and initializes its component {@code x}, {@code y} in order from the
     * given array.
     *
-    * @param pointArray the array containing this vector's components. Not modified.
+    * @param vectorArray the array containing this vector's components. Not modified.
     */
    public Vector2D(double[] vectorArray)
    {

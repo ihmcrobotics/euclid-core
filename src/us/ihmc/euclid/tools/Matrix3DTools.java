@@ -14,6 +14,12 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
+/**
+ * Tools for performing operations on 3D matrices.
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public abstract class Matrix3DTools
 {
    static final double EPS_INVERT = 1.0e-16;
@@ -202,8 +208,8 @@ public abstract class Matrix3DTools
     * Performs the multiplication: {@code m1}<sup>-1</sup> * {@code m2} and stores the result in
     * {@code matrixToPack}.
     * <p>
-    * {@code m2} and {@code matrixToPack} can be the same object. {@code m1} and {@code m2} can be
-    * the same object.
+    * {@code m2} and {@code matrixToPack} can be the same object. {@code m1} and {@code m2} can be the
+    * same object.
     * <p>
     * <p>
     * This operation uses the property: <br>
@@ -224,8 +230,8 @@ public abstract class Matrix3DTools
     * Performs the multiplication: {@code m1}<sup>-1</sup> * {@code m2} and stores the result in
     * {@code matrixToPack}.
     * <p>
-    * {@code m2} and {@code matrixToPack} can be the same object. {@code m1} and {@code m2} can be
-    * the same object.
+    * {@code m2} and {@code matrixToPack} can be the same object. {@code m1} and {@code m2} can be the
+    * same object.
     * <p>
     * <p>
     * This operation uses the property: <br>
@@ -313,8 +319,8 @@ public abstract class Matrix3DTools
     * Performs the multiplication: {@code m1} * {@code m2}<sup>-1</sup> and stores the result in
     * {@code matrixToPack}.
     * <p>
-    * {@code m1} and {@code matrixToPack} can be the same object. {@code m1} and {@code m2} can be
-    * the same object.
+    * {@code m1} and {@code matrixToPack} can be the same object. {@code m1} and {@code m2} can be the
+    * same object.
     * <p>
     * <p>
     * This operation uses the property: <br>
@@ -335,8 +341,8 @@ public abstract class Matrix3DTools
     * Performs the multiplication: {@code m1} * {@code m2}<sup>-1</sup> and stores the result in
     * {@code matrixToPack}.
     * <p>
-    * {@code m1} and {@code matrixToPack} can be the same object. {@code m1} and {@code m2} can be
-    * the same object.
+    * {@code m1} and {@code matrixToPack} can be the same object. {@code m1} and {@code m2} can be the
+    * same object.
     * <p>
     * <p>
     * This operation uses the property: <br>
@@ -410,8 +416,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the
-    * result in {@code tupleTransformed}:
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the result
+    * in {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code matrix} * {@code tupleOriginal}.
     * </p>
@@ -432,8 +438,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of {@code tupleOriginal} using the given matrix and add the result
-    * to {@code tupleTransformed}:
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and add the result to
+    * {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code tupleTransformed} + {@code matrix} * {@code tupleOriginal}.
     * </p>
@@ -455,8 +461,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of {@code tupleOriginal} using the given matrix and subtract the
-    * result to {@code tupleTransformed}:
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and subtract the result
+    * to {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code tupleTransformed} - {@code matrix} * {@code tupleOriginal}.
     * </p>
@@ -478,8 +484,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the
-    * result in {@code tupleTransformed}:
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and stores the result
+    * in {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code matrix} * {@code tupleOriginal}.
     * </p>
@@ -495,9 +501,8 @@ public abstract class Matrix3DTools
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple used to stored the result of the transformation. Modified.
-    * @param checkIfTransformInXYPlane whether
-    *           {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)} needs to be called on the
-    *           matrix.
+    * @param checkIfTransformInXYPlane whether {@link Matrix3DReadOnly#checkIfMatrix2D()} needs to be
+    *           called on the matrix.
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and
     *            {@code checkIfTransformInXYPlane} is {@code true}.
     */
@@ -511,8 +516,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation on the vector part of {@code vectorOriginal} using the given matrix
-    * and stores the result in {@code vectorTransformed}:
+    * Performs a transformation on the vector part of {@code vectorOriginal} using the given matrix and
+    * stores the result in {@code vectorTransformed}:
     * <p>
     * {@code vectorTransformed.s} = {@code vectorOriginal.s}. {@code vectorTransformed.xyz} =
     * {@code matrix} * {@code vectorOriginal.xyz}.
@@ -536,8 +541,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of {@code matrixOriginal} using {@code matrix} and stores the result
-    * in {@code matrixTransformed}:
+    * Performs a transformation of {@code matrixOriginal} using {@code matrix} and stores the result in
+    * {@code matrixTransformed}:
     * <p>
     * {@code matrixTransformed} = {@code matrix} * {@code matrixOriginal} *
     * {@code matrix}<sup>-1</sup>.
@@ -546,8 +551,8 @@ public abstract class Matrix3DTools
     * WARNING: <b> This is different from concatenating orientations.</b>
     * </p>
     * <p>
-    * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform
-    * in-place transformation.
+    * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform in-place
+    * transformation.
     * </p>
     *
     * @param matrix the matrix used to transform {@code matrixOriginal}. Not modified.
@@ -561,8 +566,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Undoes the transformation of {@code tupleOriginal} using the given matrix and stores the
-    * result in {@code tupleTransformed}:
+    * Undoes the transformation of {@code tupleOriginal} using the given matrix and stores the result
+    * in {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code matrix}<sup>-1</sup> * {@code tupleOriginal}.
     * </p>
@@ -599,8 +604,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Undoes the transformation of {@code tupleOriginal} using the given matrix and stores the
-    * result in {@code tupleTransformed}:
+    * Undoes the transformation of {@code tupleOriginal} using the given matrix and stores the result
+    * in {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code matrix}<sup>-1</sup> * {@code tupleOriginal}.
     * </p>
@@ -616,9 +621,8 @@ public abstract class Matrix3DTools
     * @param matrix the matrix used to transform {@code tupleOriginal}. Not modified.
     * @param tupleOriginal the original tuple to use for the transformation. Not modified.
     * @param tupleTransformed the tuple used to stored the result of the transformation. Modified.
-    * @param checkIfTransformInXYPlane whether
-    *           {@link Matrix3DFeatures#checkIfMatrix2D(Matrix3DReadOnly)} needs to be called on the
-    *           matrix.
+    * @param checkIfTransformInXYPlane whether {@link Matrix3DReadOnly#checkIfMatrix2D()} needs to be
+    *           called on the matrix.
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and
     *            {@code checkIfTransformInXYPlane} is {@code true}.
     * @throws SingularMatrixException if {@code matrix} is not invertible.
@@ -667,8 +671,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Undoes the transformation on the vector part of {@code vectorOriginal} using the given matrix
-    * and stores the result in {@code vectorTransformed}:
+    * Undoes the transformation on the vector part of {@code vectorOriginal} using the given matrix and
+    * stores the result in {@code vectorTransformed}:
     * <p>
     * {@code vectorTransformed.s} = {@code vectorOriginal.s}. {@code vectorTransformed.xyz} =
     * {@code matrix}<sup>-1</sup> * {@code vectorOriginal.xyz}.
@@ -708,8 +712,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Undoes the transformation on {@code matrixOriginal} using {@code matrix} and stores the result
-    * in {@code matrixTransformed}:
+    * Undoes the transformation on {@code matrixOriginal} using {@code matrix} and stores the result in
+    * {@code matrixTransformed}:
     * <p>
     * {@code matrixTransformed} = {@code matrix}<sup>-1</sup> * {@code matrixOriginal} *
     * {@code matrix}.
@@ -718,8 +722,8 @@ public abstract class Matrix3DTools
     * WARNING: <b> This is different from concatenating orientations.</b>
     * </p>
     * <p>
-    * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform
-    * in-place transformation.
+    * {@code matrixOriginal} and {@code matrixTransformed} can be the same instance to perform in-place
+    * transformation.
     * </p>
     *
     * @param matrix the matrix used to transform {@code matrixOriginal}. Not modified.
@@ -735,6 +739,7 @@ public abstract class Matrix3DTools
    /**
     * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad column index.
     *
+    * @param maxColumnIndex maximum column index allowed.
     * @param column the bad column index.
     * @return the exception
     */
@@ -746,6 +751,7 @@ public abstract class Matrix3DTools
    /**
     * Create an {@linkplain ArrayIndexOutOfBoundsException} for a bad row index.
     *
+    * @param maxRowIndex the maximum row index allowed.
     * @param row the bad row index.
     * @return the exception
     */

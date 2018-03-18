@@ -2,6 +2,17 @@ package us.ihmc.euclid.orientation.interfaces;
 
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
+/**
+ * Write and read interface for a 3D orientation.
+ * <p>
+ * Even though the representation used is unknown at this level of abstraction, this interface
+ * allows to enforce a minimum set of features that all representations of an orientation should
+ * provide, such as appending and prepending orientations to each other.
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ *
+ */
 public interface Orientation3DBasics extends Orientation3DReadOnly
 {
    /**

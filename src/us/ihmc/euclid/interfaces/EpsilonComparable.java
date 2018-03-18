@@ -3,7 +3,7 @@ package us.ihmc.euclid.interfaces;
 /**
  * This interface is used for any object that can be compared with a tolerance {@code epsilon}.
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  * @param <T> the final type of the implementation of this interface.
  */
 public interface EpsilonComparable<T>

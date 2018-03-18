@@ -62,7 +62,7 @@ public class Quaternion32 implements QuaternionBasics, GeometryObject<Quaternion
     * The quaternion is immediately normalized.
     * </p>
     *
-    * @param pointArray the array containing this vector's components. Not modified.
+    * @param quaternionArray the array containing this quaternion's components. Not modified.
     */
    public Quaternion32(float[] quaternionArray)
    {

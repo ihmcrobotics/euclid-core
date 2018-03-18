@@ -55,7 +55,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * </ul>
  * </p>
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public class QuaternionBasedTransform implements Transform, EpsilonComparable<QuaternionBasedTransform>, GeometricallyComparable<QuaternionBasedTransform>,
       Settable<QuaternionBasedTransform>, Clearable
@@ -118,8 +118,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * </pre>
     * </p>
     *
-    * @param matrix the column vector containing the values of the 7 components of this transform.
-    *           Not modified.
+    * @param matrix the column vector containing the values of the 7 components of this transform. Not
+    *           modified.
     */
    public QuaternionBasedTransform(DenseMatrix64F matrix)
    {
@@ -148,8 +148,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * </pre>
     * </p>
     *
-    * @param array the array containing the values of the 7 components of this transform. Not
-    *           modified.
+    * @param array the array containing the values of the 7 components of this transform. Not modified.
     */
    public QuaternionBasedTransform(double[] array)
    {
@@ -305,8 +304,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Sets the 7 components of this transform.
     * <p>
-    * Prefer using the method {@link #set(double, double, double, double, double, double, double)}
-    * as it normalizes the quaternion part.
+    * Prefer using the method {@link #set(double, double, double, double, double, double, double)} as
+    * it normalizes the quaternion part.
     * </p>
     *
     * @param qx the x-component of the quaternion's vector part.
@@ -367,8 +366,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * </pre>
     * </p>
     *
-    * @param matrix the column vector containing the values of the 7 components of this transform.
-    *           Not modified.
+    * @param matrix the column vector containing the values of the 7 components of this transform. Not
+    *           modified.
     */
    public void set(DenseMatrix64F matrix)
    {
@@ -397,8 +396,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * </pre>
     * </p>
     *
-    * @param array the array containing the values of the 7 components of this transform. Not
-    *           modified.
+    * @param array the array containing the values of the 7 components of this transform. Not modified.
     */
    public void set(double[] array)
    {
@@ -489,9 +487,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * This method does not affect the translation part of this transform.
     * </p>
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVector the rotation vector used to set the quaternion of this transform. Not
@@ -756,9 +754,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * </p>
     *
     * @param other the other transform used for the interpolation. Not modified.
-    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
-    *           modifying this transform, while a value of 1 is equivalent to setting this transform
-    *           to {@code other}.
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not modifying
+    *           this transform, while a value of 1 is equivalent to setting this transform to
+    *           {@code other}.
     */
    public void interpolate(QuaternionBasedTransform other, double alpha)
    {
@@ -766,8 +764,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Performs a linear interpolation from {@code firstTransform} to {@code secondTransform} given
-    * the percentage {@code alpha}.
+    * Performs a linear interpolation from {@code firstTransform} to {@code secondTransform} given the
+    * percentage {@code alpha}.
     * <p>
     * The interpolation is done on the rotation part and translation part separately.
     * </p>
@@ -805,8 +803,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * Performs the multiplication of this transform with {@code rigidBodyTransform}.
     * <p>
     * this = this * Q(rigidBodyTransform) <br>
-    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
-    * a quaternion-based transform.
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
     * </p>
     *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
@@ -820,9 +818,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Performs the multiplication of this transform with {@code affineTransform}.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
-    * a translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper quaternion-based transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = this * Q(affineTransform) <br>
@@ -871,8 +868,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * Performs the multiplication of the inverse of this transform with {@code rigidBodyTransform}.
     * <p>
     * this = this<sup>-1</sup> * Q(rigidBodyTransform) <br>
-    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
-    * a quaternion-based transform.
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
     * </p>
     *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
@@ -888,8 +885,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * Performs the multiplication of this transform with the inverse of {@code rigidBodyTransform}.
     * <p>
     * this = this * Q(rigidBodyTransform)<sup>-1</sup> <br>
-    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
-    * a quaternion-based transform.
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
     * </p>
     *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
@@ -903,9 +900,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Performs the multiplication of the inverse of this transform with {@code affineTransform}.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
-    * a translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper quaternion-based transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = this<sup>-1</sup> * Q(affineTransform) <br>
@@ -925,9 +921,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Performs the multiplication of this transform with the inverse of {@code affineTransform}.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
-    * a translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper quaternion-based transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = this * Q(affineTransform)<sup>-1</sup> <br>
@@ -1061,8 +1056,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * Performs the multiplication of {@code rigidBodyTransform} with this transform.
     * <p>
     * this = Q(rigidBodyTransform) * this <br>
-    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
-    * a quaternion-based transform.
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
     * </p>
     *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
@@ -1077,9 +1072,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Performs the multiplication of {@code affineTransform} with this transform.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
-    * a translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper quaternion-based transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = Q(affineTransform) * this <br>
@@ -1130,8 +1124,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * Performs the multiplication of {@code rigidBodyTransform} with the inverse of this transform.
     * <p>
     * this = Q(rigidBodyTransform) * this<sup>-1</sup> <br>
-    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
-    * a quaternion-based transform.
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
     * </p>
     *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
@@ -1147,8 +1141,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * Performs the multiplication of the inverse of {@code rigidBodyTransform} with this transform.
     * <p>
     * this = Q(rigidBodyTransform)<sup>-1</sup> * this <br>
-    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into
-    * a quaternion-based transform.
+    * where Q(rigidBodyTransform) is the function that converts a 4-by-4 transformation matrix into a
+    * quaternion-based transform.
     * </p>
     *
     * @param rigidBodyTransform the rigid-body transform to multiply this with. Not modified.
@@ -1163,9 +1157,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Performs the multiplication of {@code affineTransform} with the inverse of this transform.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
-    * a translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper quaternion-based transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = Q(affineTransform) * this<sup>-1</sup> <br>
@@ -1186,9 +1179,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Performs the multiplication of the inverse of {@code affineTransform} with this transform.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper quaternion-based transform describing only a rotation and
-    * a translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper quaternion-based transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = Q(affineTransform)<sup>-1</sup> * this <br>
@@ -1546,8 +1538,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * where (qx, qy, qz, qs) is the quaternion and (tx, ty, tz) the translation of this transform.
     *
     * @param startRow the first row index to start writing in {@code matrixToPack}.
+    * @param column the column index to write in {@code matrixToPack}.
     * @param matrixToPack the column vector in which this transform is stored. Modified.
-    * @param startColumn the first column index to start writing in {@code matrixToPack}.
     */
    public void get(int startRow, int column, DenseMatrix64F matrixToPack)
    {
@@ -1555,6 +1547,24 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
       translationVector.get(startRow + 4, column, matrixToPack);
    }
 
+   /**
+    * Packs this quaternion-based transform in an array.
+    *
+    * <pre>
+    *     / qx \
+    *     | qy |
+    *     | qz |
+    * H = | qs |
+    *     | tx |
+    *     | ty |
+    *     \ tz /
+    * </pre>
+    *
+    * where (qx, qy, qz, qs) is the quaternion and (tx, ty, tz) the translation of this transform.
+    * 
+    * 
+    * @param transformArrayToPack the array in which this transform is packed. Modified.
+    */
    public void get(double[] transformArrayToPack)
    {
       quaternion.get(transformArrayToPack);
@@ -1564,8 +1574,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Packs the quaternion and translation of this quaternion-based transform.
     *
-    * @param quaternionToPack the quaternion in which this transform's quaternion is stored.
-    *           Modified.
+    * @param quaternionToPack the quaternion in which this transform's quaternion is stored. Modified.
     * @param translationToPack the tuple in which this transform's translation is stored. Modified.
     */
    public void get(QuaternionBasics quaternionToPack, Tuple3DBasics translationToPack)
@@ -1590,8 +1599,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Packs the quaternion and translation of this quaternion-based transform.
     *
-    * @param rotationMarixToPack the rotation-scale matrix that is set to this transform's
-    *           quaternion. The scale part is reset. Modified.
+    * @param rotationMarixToPack the rotation-scale matrix that is set to this transform's quaternion.
+    *           The scale part is reset. Modified.
     * @param translationToPack the tuple in which this transform's translation is stored. Modified.
     */
    public void get(RotationScaleMatrix rotationMarixToPack, Tuple3DBasics translationToPack)
@@ -1646,9 +1655,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /**
     * Packs the rotation part of this affine transform as a rotation vector.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVectorToPack the rotation vector that is set to the rotation part of this
@@ -1675,8 +1684,8 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Computes and packs the orientation described by the rotation part of this transform as the
-    * Euler angles.
+    * Computes and packs the orientation described by the rotation part of this transform as the Euler
+    * angles.
     * <p>
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
@@ -1684,9 +1693,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *
     * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
     */
-   public void getRotationEuler(Vector3DBasics eulerAngles)
+   public void getRotationEuler(Vector3DBasics eulerAnglesToPack)
    {
-      quaternion.getEuler(eulerAngles);
+      quaternion.getEuler(eulerAnglesToPack);
    }
 
    /**
@@ -1753,9 +1762,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(QuaternionBasedTransform)}, it returns {@code false} otherwise or if
-    * the {@code object} is {@code null}.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method returns
+    * {@link #equals(QuaternionBasedTransform)}, it returns {@code false} otherwise or if the
+    * {@code object} is {@code null}.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -1797,8 +1806,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *
     * @param other the other quaternion based transform to compare against this. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
-    * @return {@code true} if the two quaternion based transforms are equal, {@code false}
-    *         otherwise.
+    * @return {@code true} if the two quaternion based transforms are equal, {@code false} otherwise.
     */
    @Override
    public boolean geometricallyEquals(QuaternionBasedTransform other, double epsilon)

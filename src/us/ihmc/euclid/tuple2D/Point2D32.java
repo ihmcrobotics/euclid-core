@@ -58,9 +58,9 @@ public class Point2D32 implements Point2DBasics, GeometryObject<Point2D32>
     *
     * @param other the tuple to copy the coordinates from. Not modified.
     */
-   public Point2D32(Tuple2DReadOnly tuple)
+   public Point2D32(Tuple2DReadOnly other)
    {
-      set(tuple);
+      set(other);
    }
 
    /**
