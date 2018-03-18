@@ -676,7 +676,7 @@ public class AffineTransform
     *
     * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     */
-   public void setRotation(RotationMatrix rotationMatrix)
+   public void setRotation(RotationMatrixReadOnly rotationMatrix)
    {
       rotationScaleMatrix.setRotation(rotationMatrix);
    }

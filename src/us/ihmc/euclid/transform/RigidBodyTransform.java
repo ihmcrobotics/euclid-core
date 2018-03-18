@@ -14,6 +14,7 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
@@ -687,7 +688,7 @@ public class RigidBodyTransform
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
+   public void set(RotationMatrixReadOnly rotationMatrix, Tuple3DReadOnly translation)
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
@@ -704,9 +705,9 @@ public class RigidBodyTransform
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(RotationScaleMatrix rotationScaleMatrix, Tuple3DReadOnly translation)
+   public void set(RotationScaleMatrixReadOnly rotationScaleMatrix, Tuple3DReadOnly translation)
    {
-      rotationScaleMatrix.getRotation(rotationMatrix);
+      rotationMatrix.set(rotationScaleMatrix.getRotationMatrix());
       translationVector.set(translation);
    }
 

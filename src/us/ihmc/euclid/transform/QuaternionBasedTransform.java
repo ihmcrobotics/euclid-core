@@ -164,7 +164,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * @param translation the tuple used to initialize the translation part of this transform. Not
     *           modified.
     */
-   public QuaternionBasedTransform(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
+   public QuaternionBasedTransform(RotationMatrixReadOnly rotationMatrix, Tuple3DReadOnly translation)
    {
       set(rotationMatrix, translation);
    }
@@ -411,7 +411,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
+   public void set(RotationMatrixReadOnly rotationMatrix, Tuple3DReadOnly translation)
    {
       quaternion.set(rotationMatrix);
       translationVector.set(translation);
