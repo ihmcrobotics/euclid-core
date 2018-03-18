@@ -1336,7 +1336,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       RotationScaleMatrix expected = new RotationScaleMatrix();
       RotationScaleMatrix actual = new RotationScaleMatrix();
 
@@ -1387,7 +1387,7 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
    public void testPrependYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       RotationScaleMatrix expected = new RotationScaleMatrix();
       RotationScaleMatrix actual = new RotationScaleMatrix();
 
@@ -2432,7 +2432,8 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
+   public void testGeometricallyEquals() throws Exception
+   {
       Random random = new Random(54321L);
 
       RotationScaleMatrix rsmA;
@@ -2442,7 +2443,8 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
       Vector3D scaleA;
       Vector3D scaleB;
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
          double angleEps = epsilon * 0.99;
 
@@ -2463,7 +2465,8 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          assertTrue(rsmB.geometricallyEquals(rsmA, epsilon));
       }
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
          double angleEps = epsilon * 1.01;
 
@@ -2484,7 +2487,8 @@ public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMat
          assertFalse(rsmB.geometricallyEquals(rsmA, epsilon));
       }
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
 
          rmA = EuclidCoreRandomTools.nextRotationMatrix(random);

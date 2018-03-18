@@ -1,8 +1,17 @@
 package us.ihmc.euclid.matrix;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Random;
+
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Assert;
 import org.junit.Test;
+
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -10,7 +19,11 @@ import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
-import us.ihmc.euclid.tools.*;
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tools.EuclidCoreTestTools;
+import us.ihmc.euclid.tools.Matrix3DTools;
+import us.ihmc.euclid.tools.QuaternionTools;
+import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
@@ -26,10 +39,6 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
-
-import java.util.Random;
-
-import static org.junit.Assert.*;
 
 public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
 {
@@ -1989,7 +1998,8 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
       AxisAngle axisAngleA;
       AxisAngle axisAngleB;
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
          rotationMatrixA = EuclidCoreRandomTools.nextRotationMatrix(random);
          double angleDiff = 0.99 * epsilon;
@@ -2011,7 +2021,8 @@ public class RotationMatrixTest extends Matrix3DBasicsTest<RotationMatrix>
          assertTrue(axisAngleA.geometricallyEquals(axisAngleB, epsilon));
       }
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
          rotationMatrixA = EuclidCoreRandomTools.nextRotationMatrix(random);
          double angleDiff = 1.01 * epsilon;

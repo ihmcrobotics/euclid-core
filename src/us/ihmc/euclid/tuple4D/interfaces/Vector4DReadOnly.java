@@ -22,7 +22,6 @@ import us.ihmc.euclid.tools.EuclidCoreTools;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  * @param <T> The final type of the vector used.
  */
 public interface Vector4DReadOnly extends Tuple4DReadOnly

@@ -15,9 +15,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
  * meant for garbage free usage.
  * </p>
  *
- *
  * @author Sylvain Bertrand
- *
  */
 public class Vector4D implements Vector4DBasics, GeometryObject<Vector4D>
 {

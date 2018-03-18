@@ -28,7 +28,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  * @param <T> The final type of the vector used.
  */
 public interface Vector4DBasics extends Vector4DReadOnly, Tuple4DBasics

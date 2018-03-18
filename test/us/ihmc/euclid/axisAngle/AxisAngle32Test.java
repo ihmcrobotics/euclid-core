@@ -1,7 +1,15 @@
 package us.ihmc.euclid.axisAngle;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Random;
+
 import org.junit.Assert;
 import org.junit.Test;
+
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
@@ -9,10 +17,6 @@ import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple4D.Quaternion;
-
-import java.util.Random;
-
-import static org.junit.Assert.*;
 
 public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
 {
@@ -178,8 +182,7 @@ public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
       }
    }
 
-
-
+   @Override
    @Test
    public void testGeometricallyEquals() throws Exception
    {
@@ -199,9 +202,12 @@ public class AxisAngle32Test extends AxisAngleBasicsTest<AxisAngle32>
          aabB = new AxisAngle32(aa);
          aabB.preMultiply(aabA);
 
-         if (((AxisAngleReadOnly) aabA).geometricallyEquals(aabB, epsilon)) {
+         if (((AxisAngleReadOnly) aabA).geometricallyEquals(aabB, epsilon))
+         {
             assertTrue(aabA.geometricallyEquals(aabB, epsilon));
-         } else {
+         }
+         else
+         {
             assertFalse(aabA.geometricallyEquals(aabB, epsilon));
          }
       }

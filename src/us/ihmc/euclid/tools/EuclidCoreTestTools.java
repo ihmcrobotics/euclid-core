@@ -276,13 +276,13 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertRotationVectorGeometricallyEquals(Vector3DReadOnly, Vector3DReadOnly, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param expected the expected rotation vector. Not modified.
     * @param actual the actual rotation vector. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two rotation vectors are not equal. If only one of the arguments
     *            is equal to {@code null}.
     */
+   @Deprecated
    public static void assertRotationVectorEquals(Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon)
    {
       assertRotationVectorEquals(null, expected, actual, epsilon);
@@ -302,7 +302,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertRotationVectorGeometricallyEquals(String, Vector3DReadOnly, Vector3DReadOnly, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected rotation vector. Not modified.
     * @param actual the actual rotation vector. Not modified.
@@ -310,6 +309,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two rotation vectors are not equal. If only one of the arguments
     *            is equal to {@code null}.
     */
+   @Deprecated
    public static void assertRotationVectorEquals(String messagePrefix, Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon)
    {
       assertRotationVectorEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
@@ -329,7 +329,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertRotationVectorGeometricallyEquals(String, Vector3DReadOnly, Vector3DReadOnly, double, String)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected rotation vector. Not modified.
     * @param actual the actual rotation vector. Not modified.
@@ -339,6 +338,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two rotation vectors are not equal. If only one of the arguments
     *            is equal to {@code null}.
     */
+   @Deprecated
    public static void assertRotationVectorEquals(String messagePrefix, Vector3DReadOnly expected, Vector3DReadOnly actual, double epsilon, String format)
    {
       if (expected == null && actual == null)
@@ -1520,13 +1520,13 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionGeometricallyEquals(QuaternionReadOnly, QuaternionReadOnly, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
     *            equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionEqualsSmart(QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
       assertQuaternionEqualsSmart(null, expected, actual, epsilon);
@@ -1545,7 +1545,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionGeometricallyEquals(String, QuaternionReadOnly, QuaternionReadOnly, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
@@ -1553,6 +1552,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
     *            equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionEqualsSmart(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
       assertQuaternionEqualsSmart(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
@@ -1571,7 +1571,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionGeometricallyEquals(String, QuaternionReadOnly, QuaternionReadOnly, double, String)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
@@ -1581,6 +1580,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two quaternions are not equal. If only one of the arguments is
     *            equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionEqualsSmart(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon, String format)
    {
       if (expected == null && actual == null)
@@ -1608,13 +1608,13 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionGeometricallyEquals(QuaternionReadOnly, QuaternionReadOnly, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
     * @param epsilon the tolerance to use.
     * @throws AssertionError if the two quaternions do not represent the same orientation. If only
     *            one of the arguments is equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionEqualsUsingDifference(QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
       assertQuaternionEqualsUsingDifference(null, expected, actual, epsilon);
@@ -1630,7 +1630,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionGeometricallyEquals(String, QuaternionReadOnly, QuaternionReadOnly, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
@@ -1638,6 +1637,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two quaternions do not represent the same orientation. If only
     *            one of the arguments is equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionEqualsUsingDifference(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon)
    {
       assertQuaternionEqualsUsingDifference(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
@@ -1653,7 +1653,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionGeometricallyEquals(String, QuaternionReadOnly, QuaternionReadOnly, double, String)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion. Not modified.
     * @param actual the actual quaternion. Not modified.
@@ -1663,6 +1662,7 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two quaternions do not represent the same orientation. If only
     *            one of the arguments is equal to {@code null}.
     */
+   @Deprecated
    public static void assertQuaternionEqualsUsingDifference(String messagePrefix, QuaternionReadOnly expected, QuaternionReadOnly actual, double epsilon,
                                                             String format)
    {
@@ -1830,7 +1830,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertAxisAngleGeometricallyEquals(AxisAngleReadOnly, AxisAngleReadOnly, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param expected the expected axis-angle. Not modified.
     * @param actual the actual axis-angle. Not modified.
     * @param epsilon the tolerance to use.
@@ -1856,7 +1855,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertAxisAngleGeometricallyEquals(String, AxisAngleReadOnly, AxisAngleReadOnly, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected axis-angle. Not modified.
     * @param actual the actual axis-angle. Not modified.
@@ -1883,7 +1881,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertAxisAngleGeometricallyEquals(String, AxisAngleReadOnly, AxisAngleReadOnly, double, String)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected axis-angle. Not modified.
     * @param actual the actual axis-angle. Not modified.
@@ -2641,7 +2638,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionBasedTransformGeometryEquals(QuaternionBasedTransform, QuaternionBasedTransform, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
     * @param epsilon the tolerance to use.
@@ -2668,7 +2664,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionBasedTransformGeometryEquals(String, QuaternionBasedTransform, QuaternionBasedTransform, double)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.
@@ -2697,7 +2692,6 @@ public abstract class EuclidCoreTestTools
     * @deprecated Use
     *             {@link #assertQuaternionBasedTransformGeometricallyEquals(String, QuaternionBasedTransform, QuaternionBasedTransform, double, String)}
     *             instead. This method will be removed in a future version.
-    *
     * @param messagePrefix prefix to add to the error message.
     * @param expected the expected quaternion-based transform. Not modified.
     * @param actual the actual quaternion-based transform. Not modified.

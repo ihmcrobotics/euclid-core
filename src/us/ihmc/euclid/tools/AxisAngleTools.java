@@ -707,14 +707,14 @@ public abstract class AxisAngleTools
     * <p>
     * All the quaternions can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                   / ux    =  0  \
     * axisAngleToPack = | uy    =  0  | * axisAngleOriginal
     *                   | uz    =  1  |
     *                   \ angle = yaw /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param axisAngleOriginal the axis-angle on which the yaw rotation is prepended. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
@@ -761,14 +761,14 @@ public abstract class AxisAngleTools
     * <p>
     * All the axis-angles can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                       / ux    =  0  \
     * axisAngleToPack = axisAngleOriginal * | uy    =  0  |
     *                                       | uz    =  1  |
     *                                       \ angle = yaw /
     * </pre>
-    * 
+    *
     * @param axisAngleOriginal the axis-angle on which the yaw rotation is appended. Not modified.
     * @param yaw the angle to rotate about the z-axis.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
@@ -815,14 +815,14 @@ public abstract class AxisAngleTools
     * <p>
     * All the axis-angles can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                   / ux    =  0    \
     * axisAngleToPack = | uy    =  1    | * axisAngleOriginal
     *                   | uz    =  0    |
     *                   \ angle = pitch /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     * @param axisAngleOriginal the axis-angle on which the yaw rotation is prepended. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
@@ -869,14 +869,14 @@ public abstract class AxisAngleTools
     * <p>
     * All the axis-angles can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                       / ux    =  0    \
     * axisAngleToPack = axisAngleOriginal * | uy    =  1    |
     *                                       | uz    =  0    |
     *                                       \ angle = pitch /
     * </pre>
-    * 
+    *
     * @param axisAngleOriginal the axis-angle on which the yaw rotation is appended. Not modified.
     * @param pitch the angle to rotate about the y-axis.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
@@ -923,14 +923,14 @@ public abstract class AxisAngleTools
     * <p>
     * All the axis-angles can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                   / ux    =  1   \
     * axisAngleToPack = | uy    =  0   | * axisAngleOriginal
     *                   | uz    =  0   |
     *                   \ angle = roll /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     * @param axisAngleOriginal the axis-angle on which the yaw rotation is prepended. Not modified.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
@@ -977,14 +977,14 @@ public abstract class AxisAngleTools
     * <p>
     * All the axis-angles can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                       / ux    =  1   \
     * axisAngleToPack = axisAngleOriginal * | uy    =  0   |
     *                                       | uz    =  0   |
     *                                       \ angle = roll /
     * </pre>
-    * 
+    *
     * @param axisAngleOriginal the axis-angle on which the yaw rotation is appended. Not modified.
     * @param roll the angle to rotate about the x-axis.
     * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
@@ -1027,7 +1027,7 @@ public abstract class AxisAngleTools
 
    /**
     * Computes and returns the distance between the two axis-angles {@code aa1} and {@code aa2}.
-    * 
+    *
     * @param aa1 the first axis-angle to measure the distance. Not modified.
     * @param aa2 the second axis-angle to measure the distance. Not modified.
     * @return the angle representing the distance between the two axis-angles. It is contained in

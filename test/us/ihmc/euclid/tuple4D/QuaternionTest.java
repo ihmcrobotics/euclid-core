@@ -1,17 +1,19 @@
 package us.ihmc.euclid.tuple4D;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+import java.util.Arrays;
+import java.util.Random;
+
 import org.junit.Test;
+
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tuple3D.Vector3D;
-
-import static org.junit.Assert.*;
-
-import java.util.Arrays;
-import java.util.Random;
 
 public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
 {
@@ -168,7 +170,7 @@ public class QuaternionTest extends QuaternionBasicsTest<Quaternion>
    public void testSingularitiesYawPitchRoll() throws Exception
    {
       Quaternion quaternion = new Quaternion();
-      quaternion.setYawPitchRoll(0.5 * Math.PI, 0.0, 1e-9-0.5 * Math.PI);
+      quaternion.setYawPitchRoll(0.5 * Math.PI, 0.0, 1e-9 - 0.5 * Math.PI);
       System.out.println(quaternion);
       double[] yawPitchRoll = new double[3];
       quaternion.getYawPitchRoll(yawPitchRoll);

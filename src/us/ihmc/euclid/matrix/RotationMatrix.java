@@ -9,7 +9,11 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
-import us.ihmc.euclid.tools.*;
+import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
+import us.ihmc.euclid.tools.Matrix3DTools;
+import us.ihmc.euclid.tools.QuaternionTools;
+import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
@@ -35,7 +39,6 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, GeometryObject<RotationMatrix>
 {
@@ -195,7 +198,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
 
    /**
     * Transposes this matrix: m = m<sup>T</sup>.
-    *
     */
    public void transpose()
    {

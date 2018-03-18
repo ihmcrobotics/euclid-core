@@ -1,16 +1,20 @@
 package us.ihmc.euclid.tuple4D;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Random;
+
 import org.junit.Test;
+
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
-
-import java.util.Random;
-
-import static org.junit.Assert.*;
 
 public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
 {
@@ -104,6 +108,7 @@ public class Vector4D32Test extends Vector4DBasicsTest<Vector4D32>
       }
    }
 
+   @Override
    @Test
    public void testGeometricallyEquals() throws Exception
    {

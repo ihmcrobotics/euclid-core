@@ -31,7 +31,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public interface Transform
 {

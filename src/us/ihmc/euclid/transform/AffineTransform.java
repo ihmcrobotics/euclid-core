@@ -70,7 +70,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public class AffineTransform
       implements Transform, EpsilonComparable<AffineTransform>, GeometricallyComparable<AffineTransform>, Settable<AffineTransform>, Clearable
@@ -996,8 +995,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of this with the given {@code rigidBodyTransform}.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = this * rigidBodyTransform
@@ -1014,8 +1013,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of this with the given {@code quaternionBasedTransform}.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = this * H(quaternionBasedTransform) <br>
@@ -1072,8 +1071,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of the inverse of this with the given {@code rigidBodyTransform}.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = this<sup>-1</sup> * rigidBodyTransform
@@ -1091,8 +1090,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of this with the inverse of the given {@code rigidBodyTransform}.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = this * rigidBodyTransform<sup>-1</sup>
@@ -1110,8 +1109,8 @@ public class AffineTransform
     * Performs the multiplication of the inverse of this transform with
     * {@code quaternionBasedTransform}.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = this<sup>-1</sup> * H(quaternionBasedTransform) <br>
@@ -1133,8 +1132,8 @@ public class AffineTransform
     * Performs the multiplication of this transform with the inverse of
     * {@code quaternionBasedTransform}.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = this * H(quaternionBasedTransform)<sup>-1</sup> <br>
@@ -1154,8 +1153,7 @@ public class AffineTransform
    /**
     * Append a translation transform to this transform.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
     * </p>
     *
     * <pre>
@@ -1178,8 +1176,7 @@ public class AffineTransform
    /**
     * Append a translation transform to this transform.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
     * </p>
     *
     * <pre>
@@ -1312,7 +1309,8 @@ public class AffineTransform
     * transformation matrix.
     * </p>
     *
-    * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not modified.
+    * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
+    *           modified.
     */
    public void preMultiply(QuaternionBasedTransform quaternionBasedTransform)
    {
@@ -1362,8 +1360,8 @@ public class AffineTransform
    /**
     * Performs the multiplication of {@code rigidBodyTransform} with the inverse of this transform.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = rigidBodyTransform * this<sup>-1</sup>
@@ -1400,8 +1398,8 @@ public class AffineTransform
     * Performs the multiplication of {@code quaternionBasedTransform} with the inverse of this
     * transform.
     * <p>
-    * Note: the scale part of this affine transform is not used when performing the
-    * multiplication. This operation does not affect the scale of this transform.
+    * Note: the scale part of this affine transform is not used when performing the multiplication.
+    * This operation does not affect the scale of this transform.
     * </p>
     * <p>
     * this = H(quaternionBasedTransform) * this<sup>-1</sup> <br>
@@ -1445,10 +1443,10 @@ public class AffineTransform
     * Prepend a translation transform to this transform.
     *
     * <pre>
-    *        / 1 0 0 translation.x \ 
+    *        / 1 0 0 translation.x \
     * this = | 0 1 0 translation.y | * this
-    *        | 0 0 1 translation.z | 
-    *        \ 0 0 0      1        / 
+    *        | 0 0 1 translation.z |
+    *        \ 0 0 0      1        /
     * </pre>
     * <p>
     * This method does not affect the rotation part nor the scale part of this transform.
@@ -1465,10 +1463,10 @@ public class AffineTransform
     * Prepend a translation transform to this transform.
     *
     * <pre>
-    *        / 1 0 0 x \ 
+    *        / 1 0 0 x \
     * this = | 0 1 0 y | * this
-    *        | 0 0 1 z | 
-    *        \ 0 0 0 1 / 
+    *        | 0 0 1 z |
+    *        \ 0 0 0 1 /
     * </pre>
     * <p>
     * This method does not affect the rotation part nor the scale part of this transform.
@@ -1494,7 +1492,7 @@ public class AffineTransform
     * </p>
     *
     * <pre>
-    *        / cos(yaw) -sin(yaw)  0   0 \ 
+    *        / cos(yaw) -sin(yaw)  0   0 \
     * this = | sin(yaw)  cos(yaw)  0   0 | * this
     *        |    0         0      1   0 |
     *        \    0         0      0   1 /
@@ -1519,7 +1517,7 @@ public class AffineTransform
     * </p>
     *
     * <pre>
-    *        /  cos(pitch) 0 sin(pitch)  0 \ 
+    *        /  cos(pitch) 0 sin(pitch)  0 \
     * this = |      0      1     0       0 | * this
     *        | -sin(pitch) 0 cos(pitch)  0 |
     *        \      0      0     0       1 /
@@ -1544,10 +1542,10 @@ public class AffineTransform
     * </p>
     *
     * <pre>
-    *        / 1     0          0     0 \ 
+    *        / 1     0          0     0 \
     * this = | 0 cos(roll) -sin(roll) 0 | * this
     *        | 0 sin(roll)  cos(roll) 0 |
-    *        \ 0     0          0     1 / 
+    *        \ 0     0          0     1 /
     * </pre>
     *
     * @param roll the angle to rotate about the x-axis.
@@ -2399,8 +2397,8 @@ public class AffineTransform
    @Override
    public boolean geometricallyEquals(AffineTransform other, double epsilon)
    {
-      return other.rotationScaleMatrix.geometricallyEquals(this.rotationScaleMatrix, epsilon) && other.translationVector
-            .geometricallyEquals(this.translationVector, epsilon);
+      return other.rotationScaleMatrix.geometricallyEquals(rotationScaleMatrix, epsilon)
+            && other.translationVector.geometricallyEquals(translationVector, epsilon);
    }
 
    /**

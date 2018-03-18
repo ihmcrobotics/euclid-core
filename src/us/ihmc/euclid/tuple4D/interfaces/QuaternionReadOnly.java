@@ -36,7 +36,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  * @param <T> The final type of the quaternion used.
  */
 public interface QuaternionReadOnly extends Tuple4DReadOnly

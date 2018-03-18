@@ -56,10 +56,8 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
-public class RotationScaleMatrix
-      implements Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
+public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
       GeometricallyComparable<RotationScaleMatrix>
 {
    /** The rotation part of this rotation-scale matrix. */
@@ -1323,7 +1321,7 @@ public class RotationScaleMatrix
     * Prepend a rotation about the z-axis to the rotation part of this rotation-scale matrix.
     *
     * <pre>
-    *     / cos(yaw) -sin(yaw) 0 \ 
+    *     / cos(yaw) -sin(yaw) 0 \
     * R = | sin(yaw)  cos(yaw) 0 | * R
     *     \    0         0     1 /
     * </pre>
@@ -1342,7 +1340,7 @@ public class RotationScaleMatrix
     * Prepend a rotation about the y-axis to the rotation part of this rotation-scale matrix.
     *
     * <pre>
-    *     /  cos(pitch) 0 sin(pitch) \ 
+    *     /  cos(pitch) 0 sin(pitch) \
     * R = |      0      1     0      | * R
     *     \ -sin(pitch) 0 cos(pitch) /
     * </pre>
@@ -1361,7 +1359,7 @@ public class RotationScaleMatrix
     * Prepend a rotation about the x-axis to the rotation part of this rotation-scale matrix.
     *
     * <pre>
-    *     /  cos(pitch) 0 sin(pitch) \ 
+    *     /  cos(pitch) 0 sin(pitch) \
     * R = |      0      1     0      | * R
     *     \ -sin(pitch) 0 cos(pitch) /
     * </pre>
@@ -1731,6 +1729,7 @@ public class RotationScaleMatrix
     * @return {@code true} if the two rotation-scale matrices represent the same geometry,
     *         {@code false} otherwise.
     */
+   @Override
    public boolean geometricallyEquals(RotationScaleMatrix other, double epsilon)
    {
       return RotationScaleMatrixReadOnly.super.geometricallyEquals(other, epsilon);

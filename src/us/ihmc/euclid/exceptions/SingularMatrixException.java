@@ -9,7 +9,6 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
  * impossible to compute its inverse.
  *
  * @author Sylvain
- *
  */
 public class SingularMatrixException extends RuntimeException
 {

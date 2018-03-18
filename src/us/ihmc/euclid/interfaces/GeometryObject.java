@@ -5,7 +5,6 @@ package us.ihmc.euclid.interfaces;
  * {@code EpsilonComparable}, and {@code Settable}.
  *
  * @author Sylvain
- *
  * @param <T> the final type of the implementation of this interface.
  */
 public interface GeometryObject<T extends GeometryObject<T>> extends Transformable, EpsilonComparable<T>, Settable<T>, Clearable, GeometricallyComparable<T>

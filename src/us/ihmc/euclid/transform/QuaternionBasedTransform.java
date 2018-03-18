@@ -56,11 +56,9 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * </p>
  *
  * @author Sylvain
- *
  */
-public class QuaternionBasedTransform
-      implements Transform, EpsilonComparable<QuaternionBasedTransform>, GeometricallyComparable<QuaternionBasedTransform>, Settable<QuaternionBasedTransform>,
-      Clearable
+public class QuaternionBasedTransform implements Transform, EpsilonComparable<QuaternionBasedTransform>, GeometricallyComparable<QuaternionBasedTransform>,
+      Settable<QuaternionBasedTransform>, Clearable
 {
    /** The rotation part of this transform. */
    private final Quaternion quaternion = new Quaternion();
@@ -380,7 +378,6 @@ public class QuaternionBasedTransform
 
    /**
     * Sets the value of this transform's 7 components.
-    *
     * <p>
     * The quaternion q is set as follows:
     *
@@ -1212,9 +1209,9 @@ public class QuaternionBasedTransform
     * Prepend a translation transform to this transform.
     *
     * <pre>
-    *        / 1 0 0 translation.x \ 
+    *        / 1 0 0 translation.x \
     * this = | 0 1 0 translation.y | * this
-    *        | 0 0 1 translation.z | 
+    *        | 0 0 1 translation.z |
     *        \ 0 0 0      1        /
     * </pre>
     * <p>
@@ -1232,9 +1229,9 @@ public class QuaternionBasedTransform
     * Prepend a translation transform to this transform.
     *
     * <pre>
-    *        / 1 0 0 x \ 
+    *        / 1 0 0 x \
     * this = | 0 1 0 y | * this
-    *        | 0 0 1 z | 
+    *        | 0 0 1 z |
     *        \ 0 0 0 1 /
     * </pre>
     * <p>
@@ -1299,7 +1296,6 @@ public class QuaternionBasedTransform
     *            | qz =      0       |
     *            \ qs = cos(pitch/2) /
     * </pre>
-    *
     *
     * @param pitch the angle to rotate about the y-axis.
     */
@@ -1801,12 +1797,13 @@ public class QuaternionBasedTransform
     *
     * @param other the other quaternion based transform to compare against this. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
-    * @return {@code true} if the two quaternion based transforms are equal, {@code false} otherwise.
+    * @return {@code true} if the two quaternion based transforms are equal, {@code false}
+    *         otherwise.
     */
    @Override
    public boolean geometricallyEquals(QuaternionBasedTransform other, double epsilon)
    {
-      return other.quaternion.geometricallyEquals(this.quaternion, epsilon) && other.translationVector.geometricallyEquals(this.translationVector, epsilon);
+      return other.quaternion.geometricallyEquals(quaternion, epsilon) && other.translationVector.geometricallyEquals(translationVector, epsilon);
    }
 
    /**

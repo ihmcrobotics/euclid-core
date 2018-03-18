@@ -1,6 +1,9 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
@@ -245,21 +248,29 @@ public abstract class Point2DBasicsTest<T extends Point2DBasics> extends Tuple2D
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
+   public void testGeometricallyEquals() throws Exception
+   {
       Point2DBasics pointA;
       Point2DBasics pointB;
       Random random = new Random(621541L);
 
-      for (int i = 0; i < 100; ++i) {
+      for (int i = 0; i < 100; ++i)
+      {
          pointA = EuclidCoreRandomTools.nextPoint2D(random);
          pointB = EuclidCoreRandomTools.nextPoint2D(random);
 
-         if (pointA.epsilonEquals(pointB, getEpsilon())) {
-            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
-         } else {
-            if (Math.sqrt(EuclidCoreTools.normSquared(pointA.getX() - pointB.getX(), pointA.getY() - pointB.getY())) <= getEpsilon()) {
+         if (pointA.epsilonEquals(pointB, getEpsilon()))
+         {
+            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3) * getEpsilon()));
+         }
+         else
+         {
+            if (Math.sqrt(EuclidCoreTools.normSquared(pointA.getX() - pointB.getX(), pointA.getY() - pointB.getY())) <= getEpsilon())
+            {
                assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
-            } else {
+            }
+            else
+            {
                assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
             }
          }

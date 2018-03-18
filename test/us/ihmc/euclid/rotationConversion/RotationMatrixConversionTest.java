@@ -11,9 +11,6 @@ import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.matrix.RotationMatrix;
-import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
-import us.ihmc.euclid.rotationConversion.QuaternionConversion;
-import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;

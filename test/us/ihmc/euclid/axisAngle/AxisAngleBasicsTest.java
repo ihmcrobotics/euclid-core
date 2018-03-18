@@ -1,13 +1,14 @@
 package us.ihmc.euclid.axisAngle;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
@@ -193,14 +194,14 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
       assertFalse(Double.isNaN(axisAngle.getY()));
       assertFalse(Double.isNaN(axisAngle.getZ()));
       assertFalse(Double.isNaN(axisAngle.getAngle()));
-      
+
       axisAngle = createAxisAngle(0.0, Double.NaN, 0.0, 0.0);
       axisAngle.normalizeAxis();
       assertFalse(Double.isNaN(axisAngle.getX()));
       assertTrue(Double.isNaN(axisAngle.getY()));
       assertFalse(Double.isNaN(axisAngle.getZ()));
       assertFalse(Double.isNaN(axisAngle.getAngle()));
-      
+
       axisAngle = createAxisAngle(0.0, 0.0, Double.NaN, 0.0);
       axisAngle.normalizeAxis();
       assertFalse(Double.isNaN(axisAngle.getX()));
@@ -290,7 +291,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             expectedAxisAngle = createRandomAxisAngle(random);
-            actualAxisAngle.set((AxisAngleReadOnly) expectedAxisAngle);
+            actualAxisAngle.set(expectedAxisAngle);
             EuclidCoreTestTools.assertAxisAngleEquals(actualAxisAngle, expectedAxisAngle, getEpsilon());
          }
       }
@@ -601,7 +602,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       T expected = createEmptyAxisAngle();
       T actual = createEmptyAxisAngle();
       double scale = 0.5 + random.nextDouble();
@@ -677,7 +678,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
    public void testPrependYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       T expected = createEmptyAxisAngle();
       T actual = createEmptyAxisAngle();
       double scale = 0.5 + random.nextDouble();

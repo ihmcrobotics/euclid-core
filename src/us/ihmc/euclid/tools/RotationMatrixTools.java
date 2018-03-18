@@ -118,13 +118,13 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * </p>
-    * 
+    *
     * <pre>
-    *                / cos(yaw) -sin(yaw) 0 \              
+    *                / cos(yaw) -sin(yaw) 0 \
     * matrixToPack = | sin(yaw)  cos(yaw) 0 | * matrixOriginal
     *                \    0         0     1 /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param matrixOriginal the matrix on which the yaw rotation is appended. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -152,13 +152,13 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                 / cos(yaw) -sin(yaw) 0 \
     * matrixToPack = matrixOriginal * | sin(yaw)  cos(yaw) 0 |
     *                                 \    0         0     1 /
     * </pre>
-    * 
+    *
     * @param matrixOriginal the matrix on which the yaw rotation is appended. Not modified.
     * @param yaw the angle to rotate about the z-axis.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -186,13 +186,13 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * </p>
-    * 
+    *
     * <pre>
-    *                /  cos(pitch) 0 sin(pitch) \              
+    *                /  cos(pitch) 0 sin(pitch) \
     * matrixToPack = |      0      1     0      | * matrixOriginal
     *                \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     * @param matrixOriginal the matrix on which the pitch rotation is appended. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -220,13 +220,13 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                 /  cos(pitch) 0 sin(pitch) \
     * matrixToPack = matrixOriginal * |      0      1     0      |
     *                                 \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-    * 
+    *
     * @param matrixOriginal the matrix on which the pitch rotation is appended. Not modified.
     * @param pitch the angle to rotate about the y-axis.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -254,13 +254,13 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * </p>
-    * 
+    *
     * <pre>
-    *                / 1     0          0     \               
+    *                / 1     0          0     \
     * matrixToPack = | 0 cos(roll) -sin(roll) | * matrixOriginal
     *                \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     * @param matrixOriginal the matrix on which the roll rotation is appended. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -288,13 +288,13 @@ public abstract class RotationMatrixTools
     * <p>
     * All the matrices can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                 / 1     0          0     \
     * matrixToPack = matrixOriginal * | 0 cos(roll) -sin(roll) |
     *                                 \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param matrixOriginal the matrix on which the roll rotation is appended. Not modified.
     * @param roll the angle to rotate about the x-axis.
     * @param matrixToPack the matrix in which the result is stored. Modified.
@@ -322,13 +322,13 @@ public abstract class RotationMatrixTools
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
-    * 
+    *
     * <pre>
     *                    / cos(yaw) -sin(yaw) 0 \
     * tupleTransformed = | sin(yaw)  cos(yaw) 0 | * tupleOriginal
     *                    \    0         0     1 /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param tupleOriginal the tuple to be transformed. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -350,12 +350,12 @@ public abstract class RotationMatrixTools
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
-    * 
+    *
     * <pre>
     * tupleTransformed = / cos(yaw) -sin(yaw) \ * tupleOriginal
     *                    \ sin(yaw)  cos(yaw) /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param tupleOriginal the tuple to be transformed. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -376,13 +376,13 @@ public abstract class RotationMatrixTools
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
-    * 
+    *
     * <pre>
     *                    /  cos(pitch) 0 sin(pitch) \
     * tupleTransformed = |      0      1     0      | * tupleOriginal
     *                    \ -sin(pitch) 0 cos(pitch) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     * @param tupleOriginal the tuple to be transformed. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -404,13 +404,13 @@ public abstract class RotationMatrixTools
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
-    * 
+    *
     * <pre>
     *                    / 1     0          0     \
     * tupleTransformed = | 0 cos(roll) -sin(roll) | * tupleOriginal
     *                    \ 0 sin(roll)  cos(roll) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     * @param tupleOriginal the tuple to be transformed. Not modified.
     * @param tupleTransformed the tuple in which the result is stored. Modified.
@@ -434,7 +434,7 @@ public abstract class RotationMatrixTools
     * Interpolation</i> performed with quaternions, see
     * {@link QuaternionBasics#interpolate(QuaternionReadOnly, QuaternionReadOnly, double)}.
     * </p>
-    * 
+    *
     * @param r0 the first rotation matrix used in the interpolation. Not modified.
     * @param rf the second rotation matrix used in the interpolation. Not modified.
     * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
@@ -550,7 +550,7 @@ public abstract class RotationMatrixTools
 
    /**
     * Computes and returns the distance from the rotation matrix {@code m1} to {@code m2}.
-    * 
+    *
     * @param m1 the first rotation matrix. Not modified.
     * @param m2 the second rotation matrix. Not modified.
     * @return the angle representing the distance between the two rotation matrices. It is contained

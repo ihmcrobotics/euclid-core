@@ -11,15 +11,14 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 
 /**
- * {@code EuclidCoreIOTools} is intended to gather the input & output tools for printing,
- * saving, and loading geometry objects.
+ * {@code EuclidCoreIOTools} is intended to gather the input & output tools for printing, saving,
+ * and loading geometry objects.
  * <p>
  * At this time, only a few print tools are offered, additional features will come in future
  * releases.
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public abstract class EuclidCoreIOTools
 {
@@ -474,7 +473,8 @@ public abstract class EuclidCoreIOTools
     * Gets a representative {@code String} of a series of doubles given specific prefix, suffix,
     * separator, and format to use.
     * <p>
-    * Using the default format {@link #DEFAULT_FORMAT} and {@code separator = ", "}, this provides a {@code String} as follows:
+    * Using the default format {@link #DEFAULT_FORMAT} and {@code separator = ", "}, this provides a
+    * {@code String} as follows:
     *
     * <pre>
     *  0.123, -0.480,  1.457
@@ -503,7 +503,7 @@ public abstract class EuclidCoreIOTools
 
    /**
     * Gets the {@code String} for formatting decimal numbers.
-    * 
+    *
     * @param numberOfChar the number of character to print.
     * @param precision the precision of the output.
     * @return the formatting {@code String}.

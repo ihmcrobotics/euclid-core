@@ -86,6 +86,7 @@ public abstract class TupleTools
     * @return the interpolated value.
     * @deprecated Use {@link EuclidCoreTools#interpolate(double,double,double)} instead
     */
+   @Deprecated
    public static double interpolate(double a, double b, double alpha)
    {
       return EuclidCoreTools.interpolate(a, b, alpha);

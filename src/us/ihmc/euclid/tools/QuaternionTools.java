@@ -20,7 +20,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * This gathers common mathematical operations involving quaternions.
  *
  * @author Sylvain Bertrand
- *
  */
 public abstract class QuaternionTools
 {
@@ -1636,14 +1635,14 @@ public abstract class QuaternionTools
     * <p>
     * All the quaternions can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                    / qx =     0      \
     * quaternionToPack = | qy =     0      | * quaternionOriginal
     *                    | qz = sin(yaw/2) |
     *                    \ qs = cos(yaw/2) /
     * </pre>
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param quaternionOriginal the quaternion on which the yaw rotation is prepended. Not modified.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1671,14 +1670,14 @@ public abstract class QuaternionTools
     * <p>
     * All the quaternions can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                         / qx =     0      \
     * quaternionToPack = quaternionOriginal * | qy =     0      |
     *                                         | qz = sin(yaw/2) |
     *                                         \ qs = cos(yaw/2) /
     * </pre>
-    * 
+    *
     * @param quaternionOriginal the quaternion on which the yaw rotation is appended. Not modified.
     * @param yaw the angle to rotate about the z-axis.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1706,14 +1705,14 @@ public abstract class QuaternionTools
     * <p>
     * All the quaternions can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                    / qx =      0       \
     * quaternionToPack = | qy = sin(pitch/2) | * quaternionOriginal
     *                    | qz =      0       |
     *                    \ qs = cos(pitch/2) /
     * </pre>
-    * 
+    *
     * @param pitch the angle to rotate about the y-axis.
     * @param quaternionOriginal the quaternion on which the pitch rotation is prepended. Not
     *           modified.
@@ -1742,14 +1741,14 @@ public abstract class QuaternionTools
     * <p>
     * All the quaternions can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                         / qx =      0       \
     * quaternionToPack = quaternionOriginal * | qy = sin(pitch/2) |
     *                                         | qz =      0       |
     *                                         \ qs = cos(pitch/2) /
     * </pre>
-    * 
+    *
     * @param quaternionOriginal the quaternion on which the pitch rotation is appended. Not
     *           modified.
     * @param pitch the angle to rotate about the y-axis.
@@ -1778,14 +1777,14 @@ public abstract class QuaternionTools
     * <p>
     * All the quaternions can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                    / qx = sin(roll/2) \
     * quaternionToPack = | qy =      0      | * quaternionOriginal
     *                    | qz =      0      |
     *                    \ qs = cos(roll/2) /
     * </pre>
-    * 
+    *
     * @param roll the angle to rotate about the x-axis.
     * @param quaternionOriginal the quaternion on which the roll rotation is prepended. Not
     *           modified.
@@ -1814,14 +1813,14 @@ public abstract class QuaternionTools
     * <p>
     * All the quaternions can be the same object.
     * </p>
-    * 
+    *
     * <pre>
     *                                         / qx = sin(roll/2) \
     * quaternionToPack = quaternionOriginal * | qy =      0      |
     *                                         | qz =      0      |
     *                                         \ qs = cos(roll/2) /
     * </pre>
-    * 
+    *
     * @param quaternionOriginal the quaternion on which the roll rotation is appended. Not modified.
     * @param roll the angle to rotate about the x-axis.
     * @param quaternionToPack the quaternion in which the result is stored. Modified.
@@ -1845,7 +1844,7 @@ public abstract class QuaternionTools
 
    /**
     * Computes the distance between the two given quaternions.
-    * 
+    *
     * @param q1 the quaternion to be used in the comparison. Not modified.
     * @param q2 the quaternion to be used in the comparison. Not modified.
     * @return the angle representing the distance between the two quaternions. It is contained in

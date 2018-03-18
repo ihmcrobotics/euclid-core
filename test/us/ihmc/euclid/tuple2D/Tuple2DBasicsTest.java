@@ -1,6 +1,8 @@
 package us.ihmc.euclid.tuple2D;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
@@ -11,9 +13,7 @@ import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
-import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
 public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2DReadOnlyTest<T>
 {
@@ -101,7 +101,7 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
          tuple2.setX(random.nextDouble());
          tuple2.setY(random.nextDouble());
 
-         tuple1.set((Tuple2DReadOnly) tuple2);
+         tuple1.set(tuple2);
          EuclidCoreTestTools.assertTuple2DEquals(tuple1, tuple2, getEpsilon());
       }
 
@@ -109,7 +109,7 @@ public abstract class Tuple2DBasicsTest<T extends Tuple2DBasics> extends Tuple2D
       { // Test set(Tuple3DReadOnly tupleReadOnly)
          Tuple3DBasics tuple3D = EuclidCoreRandomTools.nextPoint3D(random);
 
-         tuple1.set((Tuple3DReadOnly) tuple3D);
+         tuple1.set(tuple3D);
          assertEquals(tuple3D.getX(), tuple1.getX(), getEpsilon());
          assertEquals(tuple3D.getY(), tuple1.getY(), getEpsilon());
       }

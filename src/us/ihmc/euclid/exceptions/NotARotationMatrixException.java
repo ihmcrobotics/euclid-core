@@ -7,7 +7,6 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
  * {@code RuntimeException} dedicated to operations expecting a rotation matrix.
  *
  * @author Sylvain
- *
  */
 public class NotARotationMatrixException extends RuntimeException
 {

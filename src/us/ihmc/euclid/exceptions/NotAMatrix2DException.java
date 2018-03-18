@@ -9,7 +9,6 @@ import us.ihmc.euclid.tools.EuclidCoreIOTools;
  * object restricted to the xy-plane.
  *
  * @author Sylvain
- *
  */
 public class NotAMatrix2DException extends RuntimeException
 {

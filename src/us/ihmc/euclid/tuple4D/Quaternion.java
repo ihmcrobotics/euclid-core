@@ -20,7 +20,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
 {
@@ -147,7 +146,7 @@ public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
    /**
     * Creates and new quaternion and initializes such that it represents the same orientation as the
     * given yaw-pitch-roll {@code yaw}, {@code pitch}, and {@code roll}.
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.

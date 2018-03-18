@@ -487,7 +487,6 @@ public interface Matrix3DReadOnly
 
    /**
     * Tests if this matrix describes transformation in the XY plane.
-    *
     * <p>
     * This matrix is considered to be a 2D transformation in the XY plane if:
     * <ul>
@@ -508,7 +507,6 @@ public interface Matrix3DReadOnly
 
    /**
     * Tests if this matrix describes transformation in the XY plane.
-    *
     * <p>
     * This matrix is considered to be a 2D transformation in the XY plane if:
     * <ul>
@@ -535,7 +533,6 @@ public interface Matrix3DReadOnly
     * m = |  z  0 -x |
     *     | -y  x  0 |
     * </pre>
-    *
     * <p>
     * This matrix is considered to be skew symmetric if:
     * <ul>
@@ -561,7 +558,6 @@ public interface Matrix3DReadOnly
     * m = |  z  0 -x |
     *     | -y  x  0 |
     * </pre>
-    *
     * <p>
     * This matrix is considered to be skew symmetric if:
     * <ul>

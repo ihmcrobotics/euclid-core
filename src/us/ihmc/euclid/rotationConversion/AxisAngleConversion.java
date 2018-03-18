@@ -21,7 +21,6 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public class AxisAngleConversion
 {

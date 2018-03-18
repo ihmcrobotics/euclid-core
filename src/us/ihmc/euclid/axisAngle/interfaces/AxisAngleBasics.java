@@ -15,7 +15,6 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  *
  * @author Sylvain
- *
  * @param T the final type of the axis-angle used.
  */
 public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable

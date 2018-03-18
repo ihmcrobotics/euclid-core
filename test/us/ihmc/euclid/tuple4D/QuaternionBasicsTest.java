@@ -1,6 +1,10 @@
 package us.ihmc.euclid.tuple4D;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 
@@ -30,8 +34,6 @@ import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
-import us.ihmc.euclid.tuple4D.Quaternion;
-import us.ihmc.euclid.tuple4D.Vector4D;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
@@ -173,7 +175,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          QuaternionReadOnly q1 = createRandomTuple(random);
-         
+
          for (int j = 0; j < NUMBER_OF_ITERATIONS; j++)
          {
             QuaternionReadOnly q2 = createRandomTuple(random);
@@ -1291,7 +1293,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       T expected = createEmptyTuple();
       T actual = createEmptyTuple();
 
@@ -1345,7 +1347,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    public void testPrependYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       T expected = createEmptyTuple();
       T actual = createEmptyTuple();
 

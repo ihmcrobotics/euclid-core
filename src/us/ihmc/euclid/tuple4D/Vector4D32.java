@@ -17,9 +17,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
  * a constraint, the use of {@link Vector2D32} is preferable.
  * </p>
  *
- *
  * @author Sylvain Bertrand
- *
  */
 public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
 {

@@ -24,9 +24,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * meant for garbage free usage.
  * </p>
  *
- *
  * @author Sylvain Bertrand
- *
  */
 public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
 {
@@ -111,7 +109,6 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
 
    /**
     * Transposes this matrix: m = m<sup>T</sup>.
-    *
     */
    public void transpose()
    {

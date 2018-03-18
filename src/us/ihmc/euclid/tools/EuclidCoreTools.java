@@ -354,7 +354,7 @@ public class EuclidCoreTools
     * If any of the two values is equal to {@link Double#NaN}, this method fails and returns
     * {@code false}.
     * </p>
-    * 
+    *
     * @param expectedValue the first value to compare.
     * @param actualValue the second value to compare.
     * @param epsilon the tolerance to use for the test.
@@ -395,12 +395,12 @@ public class EuclidCoreTools
     */
    public static double clamp(double value, double min, double max)
    {
-      if (min > (max + CLAMP_EPS))
+      if (min > max + CLAMP_EPS)
       {
          throw new RuntimeException(EuclidCoreTools.class.getSimpleName() + ".clamp(double, double, double): min > max (" + min + " > " + max + ")");
       }
 
-      return (Math.min(max, Math.max(value, min)));
+      return Math.min(max, Math.max(value, min));
    }
 
    /**

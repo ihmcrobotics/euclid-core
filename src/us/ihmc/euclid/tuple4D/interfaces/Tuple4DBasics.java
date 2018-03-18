@@ -36,7 +36,6 @@ import us.ihmc.euclid.interfaces.Transformable;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  * @param <T> The final type of the tuple used.
  */
 public interface Tuple4DBasics extends Tuple4DReadOnly, Clearable, Transformable

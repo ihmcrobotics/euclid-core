@@ -455,8 +455,8 @@ public abstract class Matrix3DTools
    }
 
    /**
-    * Performs a transformation of {@code tupleOriginal} using the given matrix and subtract the result
-    * to {@code tupleTransformed}:
+    * Performs a transformation of {@code tupleOriginal} using the given matrix and subtract the
+    * result to {@code tupleTransformed}:
     * <p>
     * {@code tupleTransformed} = {@code tupleTransformed} - {@code matrix} * {@code tupleOriginal}.
     * </p>
@@ -501,8 +501,7 @@ public abstract class Matrix3DTools
     * @throws NotAMatrix2DException if the matrix is not a 2D matrix and
     *            {@code checkIfTransformInXYPlane} is {@code true}.
     */
-   public static void transform(Matrix3DReadOnly matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed,
-                                boolean checkIfTransformInXYPlane)
+   public static void transform(Matrix3DReadOnly matrix, Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
          matrix.checkIfMatrix2D();

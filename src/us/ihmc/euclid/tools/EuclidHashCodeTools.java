@@ -3,11 +3,10 @@ package us.ihmc.euclid.tools;
 public class EuclidHashCodeTools
 {
    /**
-    * Long used for the multiplication factor in each step
-    * of the hash.
+    * Long used for the multiplication factor in each step of the hash.
     */
    private final static long MULTIPLIER = 31L;
-   
+
    /**
     * Returns a hash bit stream as an integer hash value.
     *
@@ -45,13 +44,13 @@ public class EuclidHashCodeTools
 
    /**
     * Combine the two hash code bit streams.
-    * 
+    *
     * @param hashCode1 first hash code to combine.
     * @param hashCode2 second hash code to combine.
     * @return combined hash code, {@code hashCode1} + {@link MULTIPLIER} * {@code hashCode2}
     */
    public static long combineHashCode(long hashCode1, long hashCode2)
-   {      
+   {
       return hashCode1 + MULTIPLIER * hashCode2;
    }
 }

@@ -99,6 +99,7 @@ public class Point3DTest extends Point3DBasicsTest<Point3D>
       }
    }
 
+   @Override
    @Test
    public void testGeometricallyEquals() throws Exception
    {

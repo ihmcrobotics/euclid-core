@@ -13,11 +13,10 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
  * An {@code AxisAngle} is used to represent a 3D orientation by a unitary axis of components (x, y,
- * z) and an angle of rotation usually expressed in radians.
- *
- * This version of axis-angle uses single precision fields to save the value of each component. It
- * is meant for garbage free usage and for situations where heap memory is limited. When memory is
- * not a constraint, the use of {@link AxisAngle} is preferable.
+ * z) and an angle of rotation usually expressed in radians. This version of axis-angle uses single
+ * precision fields to save the value of each component. It is meant for garbage free usage and for
+ * situations where heap memory is limited. When memory is not a constraint, the use of
+ * {@link AxisAngle} is preferable.
  *
  * @author Sylvain
  */

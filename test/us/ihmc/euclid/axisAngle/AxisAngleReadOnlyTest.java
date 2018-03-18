@@ -1,7 +1,15 @@
 package us.ihmc.euclid.axisAngle;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Random;
+
 import org.junit.Assert;
 import org.junit.Test;
+
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
@@ -26,10 +34,6 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
-
-import java.util.Random;
-
-import static org.junit.Assert.*;
 
 public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 {

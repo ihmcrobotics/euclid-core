@@ -32,7 +32,6 @@ import us.ihmc.euclid.tools.TupleTools;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  * @param <T> The final type of the tuple used.
  */
 public interface Tuple4DReadOnly

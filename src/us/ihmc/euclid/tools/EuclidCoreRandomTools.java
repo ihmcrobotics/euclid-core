@@ -37,7 +37,6 @@ import us.ihmc.euclid.tuple4D.Vector4D32;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public abstract class EuclidCoreRandomTools
 {
@@ -55,6 +54,7 @@ public abstract class EuclidCoreRandomTools
     * @return an array containing the random yaw-pitch-roll angles.
     * @deprecated Use {@link #nextYawPitchRoll(Random)} instead
     */
+   @Deprecated
    public static double[] generateRandomYawPitchRoll(Random random)
    {
       return nextYawPitchRoll(random);
@@ -97,6 +97,7 @@ public abstract class EuclidCoreRandomTools
     *            {@code minMaxRoll < 0}.
     * @deprecated Use {@link #nextYawPitchRoll(Random,double,double,double)} instead
     */
+   @Deprecated
    public static double[] generateRandomYawPitchRoll(Random random, double minMaxYaw, double minMaxPitch, double minMaxRoll)
    {
       return nextYawPitchRoll(random, minMaxYaw, minMaxPitch, minMaxRoll);
@@ -139,6 +140,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random rotation vector.
     * @deprecated Use {@link #nextRotationVector(Random)} instead
     */
+   @Deprecated
    public static Vector3D generateRandomRotationVector(Random random)
    {
       return nextRotationVector(random);
@@ -170,6 +172,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     * @deprecated Use {@link #nextRotationVector(Random,double)} instead
     */
+   @Deprecated
    public static Vector3D generateRandomRotationVector(Random random, double minMaxAngle)
    {
       return nextRotationVector(random, minMaxAngle);
@@ -209,6 +212,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random axis-angle.
     * @deprecated Use {@link #nextAxisAngle(Random)} instead
     */
+   @Deprecated
    public static AxisAngle generateRandomAxisAngle(Random random)
    {
       return nextAxisAngle(random);
@@ -252,6 +256,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     * @deprecated Use {@link #nextAxisAngle(Random,double)} instead
     */
+   @Deprecated
    public static AxisAngle generateRandomAxisAngle(Random random, double minMaxAngle)
    {
       return nextAxisAngle(random, minMaxAngle);
@@ -295,6 +300,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random axis-angle.
     * @deprecated Use {@link #nextAxisAngle32(Random)} instead
     */
+   @Deprecated
    public static AxisAngle32 generateRandomAxisAngle32(Random random)
    {
       return nextAxisAngle32(random);
@@ -338,6 +344,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     * @deprecated Use {@link #nextAxisAngle32(Random,double)} instead
     */
+   @Deprecated
    public static AxisAngle32 generateRandomAxisAngle32(Random random, double minMaxAngle)
    {
       return nextAxisAngle32(random, minMaxAngle);
@@ -380,6 +387,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random diagonal matrix.
     * @deprecated Use {@link #nextDiagonalMatrix3D(Random)} instead
     */
+   @Deprecated
    public static Matrix3D generateRandomDiagonalMatrix3D(Random random)
    {
       return nextDiagonalMatrix3D(random);
@@ -419,6 +427,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMaxValue < 0}.
     * @deprecated Use {@link #nextDiagonalMatrix3D(Random,double)} instead
     */
+   @Deprecated
    public static Matrix3D generateRandomDiagonalMatrix3D(Random random, double minMaxValue)
    {
       return nextDiagonalMatrix3D(random, minMaxValue);
@@ -461,6 +470,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minValue > maxValue}.
     * @deprecated Use {@link #nextDiagonalMatrix3D(Random,double,double)} instead
     */
+   @Deprecated
    public static Matrix3D generateRandomDiagonalMatrix3D(Random random, double minValue, double maxValue)
    {
       return nextDiagonalMatrix3D(random, minValue, maxValue);
@@ -497,6 +507,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random double.
     * @deprecated Use {@link #nextDouble(Random)} instead
     */
+   @Deprecated
    public static double generateRandomDouble(Random random)
    {
       return nextDouble(random);
@@ -522,6 +533,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMaxValue < 0}.
     * @deprecated Use {@link #nextDouble(Random,double)} instead
     */
+   @Deprecated
    public static double generateRandomDouble(Random random, double minMaxValue)
    {
       return nextDouble(random, minMaxValue);
@@ -550,6 +562,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minValue > maxValue}.
     * @deprecated Use {@link #nextDouble(Random,double,double)} instead
     */
+   @Deprecated
    public static double generateRandomDouble(Random random, double minValue, double maxValue)
    {
       return nextDouble(random, minValue, maxValue);
@@ -582,6 +595,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random matrix.
     * @deprecated Use {@link #nextMatrix3D(Random)} instead
     */
+   @Deprecated
    public static Matrix3D generateRandomMatrix3D(Random random)
    {
       return nextMatrix3D(random);
@@ -613,6 +627,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMaxValue < 0}.
     * @deprecated Use {@link #nextMatrix3D(Random,double)} instead
     */
+   @Deprecated
    public static Matrix3D generateRandomMatrix3D(Random random, double minMaxValue)
    {
       return nextMatrix3D(random, minMaxValue);
@@ -647,6 +662,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minValue > maxValue}.
     * @deprecated Use {@link #nextMatrix3D(Random,double,double)} instead
     */
+   @Deprecated
    public static Matrix3D generateRandomMatrix3D(Random random, double minValue, double maxValue)
    {
       return nextMatrix3D(random, minValue, maxValue);
@@ -687,6 +703,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random quaternion.
     * @deprecated Use {@link #nextQuaternion(Random)} instead
     */
+   @Deprecated
    public static Quaternion generateRandomQuaternion(Random random)
    {
       return nextQuaternion(random);
@@ -719,6 +736,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     * @deprecated Use {@link #nextQuaternion(Random,double)} instead
     */
+   @Deprecated
    public static Quaternion generateRandomQuaternion(Random random, double minMaxAngle)
    {
       return nextQuaternion(random, minMaxAngle);
@@ -751,6 +769,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random quaternion.
     * @deprecated Use {@link #nextQuaternion32(Random)} instead
     */
+   @Deprecated
    public static Quaternion32 generateRandomQuaternion32(Random random)
    {
       return nextQuaternion32(random);
@@ -783,6 +802,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMaxAngle < 0}.
     * @deprecated Use {@link #nextQuaternion32(Random,double)} instead
     */
+   @Deprecated
    public static Quaternion32 generateRandomQuaternion32(Random random, double minMaxAngleRange)
    {
       return nextQuaternion32(random, minMaxAngleRange);
@@ -819,6 +839,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random rigid-body transform.
     * @deprecated Use {@link #nextRigidBodyTransform(Random)} instead
     */
+   @Deprecated
    public static RigidBodyTransform generateRandomRigidBodyTransform(Random random)
    {
       return nextRigidBodyTransform(random);
@@ -850,6 +871,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random rigid-body transform.
     * @deprecated Use {@link #nextRigidBodyTransform2D(Random)} instead
     */
+   @Deprecated
    public static RigidBodyTransform generateRandomRigidBodyTransform2D(Random random)
    {
       return nextRigidBodyTransform2D(random);
@@ -884,6 +906,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random quaternion-based transform.
     * @deprecated Use {@link #nextQuaternionBasedTransform(Random)} instead
     */
+   @Deprecated
    public static QuaternionBasedTransform generateRandomQuaternionBasedTransform(Random random)
    {
       return nextQuaternionBasedTransform(random);
@@ -922,6 +945,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random affine transform.
     * @deprecated Use {@link #nextAffineTransform(Random)} instead
     */
+   @Deprecated
    public static AffineTransform generateRandomAffineTransform(Random random)
    {
       return nextAffineTransform(random);
@@ -954,6 +978,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random rotation matrix.
     * @deprecated Use {@link #nextRotationMatrix(Random)} instead
     */
+   @Deprecated
    public static RotationMatrix generateRandomRotationMatrix(Random random)
    {
       return nextRotationMatrix(random);
@@ -980,6 +1005,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random rotation matrix.
     * @deprecated Use {@link #nextRotationMatrix(Random,double)} instead
     */
+   @Deprecated
    public static RotationMatrix generateRandomRotationMatrix(Random random, double minMaxAngle)
    {
       return nextRotationMatrix(random, minMaxAngle);
@@ -1015,6 +1041,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code maxScale < 0}.
     * @deprecated Use {@link #nextRotationScaleMatrix(Random,double)} instead
     */
+   @Deprecated
    public static RotationScaleMatrix generateRandomRotationScaleMatrix(Random random, double maxScale)
    {
       return nextRotationScaleMatrix(random, maxScale);
@@ -1059,6 +1086,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code maxScale < 0}.
     * @deprecated Use {@link #nextRotationScaleMatrix(Random,double,double)} instead
     */
+   @Deprecated
    public static RotationScaleMatrix generateRandomRotationScaleMatrix(Random random, double minMaxAngle, double maxScale)
    {
       return nextRotationScaleMatrix(random, minMaxAngle, maxScale);
@@ -1099,6 +1127,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random point.
     * @deprecated Use {@link #nextPoint3D(Random)} instead
     */
+   @Deprecated
    public static Point3D generateRandomPoint3D(Random random)
    {
       return nextPoint3D(random);
@@ -1127,13 +1156,14 @@ public abstract class EuclidCoreRandomTools
     * {@code point.y} &in; [-minMax; minMax]. <br>
     * {@code point.z} &in; [-minMax; minMax]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMax the maximum absolute value for each coordinate.
     * @return the random point.
     * @throws RuntimeException if {@code minMax < 0}.
     * @deprecated Use {@link #nextPoint3D(Random,double)} instead
     */
+   @Deprecated
    public static Point3D generateRandomPoint3D(Random random, double minMax)
    {
       return nextPoint3D(random, minMax);
@@ -1146,7 +1176,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.y} &in; [-minMax; minMax]. <br>
     * {@code point.z} &in; [-minMax; minMax]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minMax the maximum absolute value for each coordinate.
     * @return the random point.
@@ -1168,7 +1198,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.y} &in; [min; max]. <br>
     * {@code point.z} &in; [min; max]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min the minimum value for each coordinate.
     * @param max the maximum value for each coordinate.
@@ -1176,6 +1206,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code min > max}.
     * @deprecated Use {@link #nextPoint3D(Random,double,double)} instead
     */
+   @Deprecated
    public static Point3D generateRandomPoint3D(Random random, double min, double max)
    {
       return nextPoint3D(random, min, max);
@@ -1188,7 +1219,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.y} &in; [min; max]. <br>
     * {@code point.z} &in; [min; max]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min the minimum value for each coordinate.
     * @param max the maximum value for each coordinate.
@@ -1211,7 +1242,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.y} &in; [-maxAbsoluteY; maxAbsoluteY]. <br>
     * {@code point.z} &in; [-maxAbsoluteZ; maxAbsoluteZ]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param maxAbsoluteX the maximum absolute value for the x-coordinate.
     * @param maxAbsoluteY the maximum absolute value for the y-coordinate.
@@ -1221,6 +1252,7 @@ public abstract class EuclidCoreRandomTools
     *            {@code maxAbsoluteZ < 0}.
     * @deprecated Use {@link #nextPoint3D(Random,double,double,double)} instead
     */
+   @Deprecated
    public static Point3D generateRandomPoint3D(Random random, double maxAbsoluteX, double maxAbsoluteY, double maxAbsoluteZ)
    {
       return nextPoint3D(random, maxAbsoluteX, maxAbsoluteY, maxAbsoluteZ);
@@ -1233,7 +1265,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.y} &in; [-maxAbsoluteY; maxAbsoluteY]. <br>
     * {@code point.z} &in; [-maxAbsoluteZ; maxAbsoluteZ]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param maxAbsoluteX the maximum absolute value for the x-coordinate.
     * @param maxAbsoluteY the maximum absolute value for the y-coordinate.
@@ -1258,7 +1290,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.y} &in; [minY; maxY]. <br>
     * {@code point.z} &in; [minZ; maxZ]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minX the minimum value for the x-coordinate.
     * @param maxX the maximum value for the x-coordinate.
@@ -1270,6 +1302,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code maxX < minX}, {@code maxY < minY}, {@code maxZ < minZ}.
     * @deprecated Use {@link #nextPoint3D(Random,double,double,double,double,double,double)} instead
     */
+   @Deprecated
    public static Point3D generateRandomPoint3D(Random random, double minX, double maxX, double minY, double maxY, double minZ, double maxZ)
    {
       return nextPoint3D(random, minX, maxX, minY, maxY, minZ, maxZ);
@@ -1282,7 +1315,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.y} &in; [minY; maxY]. <br>
     * {@code point.z} &in; [minZ; maxZ]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minX the minimum value for the x-coordinate.
     * @param maxX the maximum value for the x-coordinate.
@@ -1312,6 +1345,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random vector.
     * @deprecated Use {@link #nextVector3D(Random)} instead
     */
+   @Deprecated
    public static Vector3D generateRandomVector3D(Random random)
    {
       return nextVector3D(random);
@@ -1346,6 +1380,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if any component of {@code minMax} is negative.
     * @deprecated Use {@link #nextVector3D(Random,Tuple3DReadOnly)} instead
     */
+   @Deprecated
    public static Vector3D generateRandomVector3D(Random random, Tuple3DReadOnly minMax)
    {
       return nextVector3D(random, minMax);
@@ -1383,6 +1418,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     * @deprecated Use {@link #nextVector3D(Random,Tuple3DReadOnly,Tuple3DReadOnly)} instead
     */
+   @Deprecated
    public static Vector3D generateRandomVector3D(Random random, Tuple3DReadOnly min, Tuple3DReadOnly max)
    {
       return nextVector3D(random, min, max);
@@ -1420,6 +1456,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code min > max}.
     * @deprecated Use {@link #nextVector3D(Random,double,double)} instead
     */
+   @Deprecated
    public static Vector3D generateRandomVector3D(Random random, double min, double max)
    {
       return nextVector3D(random, min, max);
@@ -1451,7 +1488,7 @@ public abstract class EuclidCoreRandomTools
     * {@code vector.y} &in; [minY; maxY]. <br>
     * {@code vector.z} &in; [minZ; maxZ]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minX the minimum value for the x-component.
     * @param maxX the maximum value for the x-component.
@@ -1461,8 +1498,10 @@ public abstract class EuclidCoreRandomTools
     * @param maxZ the maximum value for the z-component.
     * @return the random vector.
     * @throws RuntimeException if {@code maxX < minX}, {@code maxY < minY}, {@code maxZ < minZ}.
-    * @deprecated Use {@link #nextVector3D(Random,double,double,double,double,double,double)} instead
+    * @deprecated Use {@link #nextVector3D(Random,double,double,double,double,double,double)}
+    *             instead
     */
+   @Deprecated
    public static Vector3D generateRandomVector3D(Random random, double minX, double maxX, double minY, double maxY, double minZ, double maxZ)
    {
       return nextVector3D(random, minX, maxX, minY, maxY, minZ, maxZ);
@@ -1475,7 +1514,7 @@ public abstract class EuclidCoreRandomTools
     * {@code vector.y} &in; [minY; maxY]. <br>
     * {@code vector.z} &in; [minZ; maxZ]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minX the minimum value for the x-component.
     * @param maxX the maximum value for the x-component.
@@ -1503,6 +1542,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random vector.
     * @deprecated Use {@link #nextVector3DWithFixedLength(Random,double)} instead
     */
+   @Deprecated
    public static Vector3D generateRandomVector3DWithFixedLength(Random random, double length)
    {
       return nextVector3DWithFixedLength(random, length);
@@ -1532,6 +1572,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random vector.
     * @deprecated Use {@link #nextOrthogonalVector3D(Random,Vector3DReadOnly,boolean)} instead
     */
+   @Deprecated
    public static Vector3D generateRandomOrthogonalVector3D(Random random, Vector3DReadOnly vectorToBeOrthogonalTo, boolean normalize)
    {
       return nextOrthogonalVector3D(random, vectorToBeOrthogonalTo, normalize);
@@ -1572,6 +1613,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random 2D point.
     * @deprecated Use {@link #nextPoint2D(Random)} instead
     */
+   @Deprecated
    public static Point2D generateRandomPoint2D(Random random)
    {
       return nextPoint2D(random);
@@ -1604,6 +1646,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minMax < 0}.
     * @deprecated Use {@link #nextPoint2D(Random,double)} instead
     */
+   @Deprecated
    public static Point2D generateRandomPoint2D(Random random, double minMax)
    {
       return nextPoint2D(random, minMax);
@@ -1632,7 +1675,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.x} &in; [min; max]. <br>
     * {@code point.y} &in; [min; max]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min the minimum value for each coordinate.
     * @param max the maximum value for each coordinate.
@@ -1640,6 +1683,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code min > max}.
     * @deprecated Use {@link #nextPoint2D(Random,double,double)} instead
     */
+   @Deprecated
    public static Point2D generateRandomPoint2D(Random random, double min, double max)
    {
       return nextPoint2D(random, min, max);
@@ -1651,7 +1695,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.x} &in; [min; max]. <br>
     * {@code point.y} &in; [min; max]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param min the minimum value for each coordinate.
     * @param max the maximum value for each coordinate.
@@ -1672,7 +1716,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.x} &in; [minX; maxX]. <br>
     * {@code point.y} &in; [minY; maxY]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minX the minimum value for the x-coordinate.
     * @param maxX the maximum value for the x-coordinate.
@@ -1682,6 +1726,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code minX > maxX} or {@code minY > maxY}.
     * @deprecated Use {@link #nextPoint2D(Random,double,double,double,double)} instead
     */
+   @Deprecated
    public static Point2D generateRandomPoint2D(Random random, double minX, double maxX, double minY, double maxY)
    {
       return nextPoint2D(random, minX, maxX, minY, maxY);
@@ -1693,7 +1738,7 @@ public abstract class EuclidCoreRandomTools
     * {@code point.x} &in; [minX; maxX]. <br>
     * {@code point.y} &in; [minY; maxY]. <br>
     * </p>
-    * 
+    *
     * @param random the random generator to use.
     * @param minX the minimum value for the x-coordinate.
     * @param maxX the maximum value for the x-coordinate.
@@ -1720,6 +1765,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random 2D vector.
     * @deprecated Use {@link #nextVector2D(Random)} instead
     */
+   @Deprecated
    public static Vector2D generateRandomVector2D(Random random)
    {
       return nextVector2D(random);
@@ -1754,6 +1800,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code min > max}.
     * @deprecated Use {@link #nextVector2D(Random,double,double)} instead
     */
+   @Deprecated
    public static Vector2D generateRandomVector2D(Random random, double min, double max)
    {
       return nextVector2D(random, min, max);
@@ -1786,6 +1833,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random 2D vector.
     * @deprecated Use {@link #nextVector2DWithFixedLength(Random,double)} instead
     */
+   @Deprecated
    public static Vector2D generateRandomVector2DWithFixedLength(Random random, double length)
    {
       return nextVector2DWithFixedLength(random, length);
@@ -1819,6 +1867,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if any component of {@code minMax} is negative.
     * @deprecated Use {@link #nextVector2D(Random,Tuple2DReadOnly)} instead
     */
+   @Deprecated
    public static Vector2D generateRandomVector2D(Random random, Tuple2DReadOnly minMax)
    {
       return nextVector2D(random, minMax);
@@ -1858,6 +1907,7 @@ public abstract class EuclidCoreRandomTools
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     * @deprecated Use {@link #nextVector2D(Random,Tuple2DReadOnly,Tuple2DReadOnly)} instead
     */
+   @Deprecated
    public static Vector2D generateRandomVector2D(Random random, Tuple2DReadOnly min, Tuple2DReadOnly max)
    {
       return nextVector2D(random, min, max);
@@ -1894,6 +1944,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random 4D vector.
     * @deprecated Use {@link #nextVector4D(Random)} instead
     */
+   @Deprecated
    public static Vector4D generateRandomVector4D(Random random)
    {
       return nextVector4D(random);
@@ -1926,6 +1977,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random vector.
     * @deprecated Use {@link #nextVector3D32(Random)} instead
     */
+   @Deprecated
    public static Vector3D32 generateRandomVector3D32(Random random)
    {
       return nextVector3D32(random);
@@ -1957,6 +2009,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random point.
     * @deprecated Use {@link #nextPoint3D32(Random)} instead
     */
+   @Deprecated
    public static Point3D32 generateRandomPoint3D32(Random random)
    {
       return nextPoint3D32(random);
@@ -1988,6 +2041,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random 2D vector.
     * @deprecated Use {@link #nextVector2D32(Random)} instead
     */
+   @Deprecated
    public static Vector2D32 generateRandomVector2D32(Random random)
    {
       return nextVector2D32(random);
@@ -2019,6 +2073,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random 2D point.
     * @deprecated Use {@link #nextPoint2D32(Random)} instead
     */
+   @Deprecated
    public static Point2D32 generateRandomPoint2D32(Random random)
    {
       return nextPoint2D32(random);
@@ -2050,6 +2105,7 @@ public abstract class EuclidCoreRandomTools
     * @return the random 4D vector.
     * @deprecated Use {@link #nextVector4D32(Random)} instead
     */
+   @Deprecated
    public static Vector4D32 generateRandomVector4D32(Random random)
    {
       return nextVector4D32(random);

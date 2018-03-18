@@ -206,7 +206,8 @@ public class Point2D32 implements Point2DBasics, GeometryObject<Point2D32>
     * </p>
     *
     * @param other the other point 2D to compare against this. Not modified.
-    * @param epsilon the maximum distance that the two points can be spaced and still considered equal.
+    * @param epsilon the maximum distance that the two points can be spaced and still considered
+    *           equal.
     * @return {@code true} if the two points represent the same geometry, {@code false} otherwise.
     */
    @Override

@@ -28,7 +28,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * </p>
  *
  * @author Sylvain
- *
  * @param T the final type of the axis-angle used.
  */
 public interface AxisAngleReadOnly
@@ -148,7 +147,7 @@ public interface AxisAngleReadOnly
     */
    default boolean isZOnly(double epsilon)
    {
-      return Math.abs(getAngle()) < epsilon || (Math.abs(getX()) < epsilon && Math.abs(getY()) < epsilon);
+      return Math.abs(getAngle()) < epsilon || Math.abs(getX()) < epsilon && Math.abs(getY()) < epsilon;
    }
 
    /**
@@ -169,7 +168,7 @@ public interface AxisAngleReadOnly
 
    /**
     * Computes and returns the distance from this axis-angle to {@code other}.
-    * 
+    *
     * @param other the other axis-angle to measure the distance. Not modified.
     * @return the angle representing the distance between the two axis-angles. It is contained in
     *         [0, 2<i>pi</i>]

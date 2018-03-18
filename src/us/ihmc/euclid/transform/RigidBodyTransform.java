@@ -16,7 +16,12 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
-import us.ihmc.euclid.tools.*;
+import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
+import us.ihmc.euclid.tools.Matrix3DFeatures;
+import us.ihmc.euclid.tools.Matrix3DTools;
+import us.ihmc.euclid.tools.QuaternionTools;
+import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
@@ -35,7 +40,8 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
 /**
- * A {@code RigidBodyTransform} represents a 4-by-4 transformation matrix that can rotate and translate.
+ * A {@code RigidBodyTransform} represents a 4-by-4 transformation matrix that can rotate and
+ * translate.
  * <p>
  * For efficiency and readability, the transform is never stored in a 4-by-4 matrix.
  * </p>
@@ -59,7 +65,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public class RigidBodyTransform
       implements Transform, EpsilonComparable<RigidBodyTransform>, GeometricallyComparable<RigidBodyTransform>, Settable<RigidBodyTransform>, Clearable
@@ -305,7 +310,6 @@ public class RigidBodyTransform
 
    /**
     * Tests if the rotation part of this transform describes a transformation in the XY plane.
-    *
     * <p>
     * The rotation part is considered to be a 2D transformation in the XY plane if:
     * <ul>
@@ -1807,9 +1811,9 @@ public class RigidBodyTransform
     * Prepend a translation transform to this transform.
     *
     * <pre>
-    *        / 1 0 0 translation.x \ 
+    *        / 1 0 0 translation.x \
     * this = | 0 1 0 translation.y | * this
-    *        | 0 0 1 translation.z | 
+    *        | 0 0 1 translation.z |
     *        \ 0 0 0      1        /
     * </pre>
     * <p>
@@ -1827,9 +1831,9 @@ public class RigidBodyTransform
     * Prepend a translation transform to this transform.
     *
     * <pre>
-    *        / 1 0 0 x \ 
+    *        / 1 0 0 x \
     * this = | 0 1 0 y | * this
-    *        | 0 0 1 z | 
+    *        | 0 0 1 z |
     *        \ 0 0 0 1 /
     * </pre>
     * <p>
@@ -1853,7 +1857,7 @@ public class RigidBodyTransform
     * </p>
     *
     * <pre>
-    *        / cos(yaw) -sin(yaw)  0   0 \ 
+    *        / cos(yaw) -sin(yaw)  0   0 \
     * this = | sin(yaw)  cos(yaw)  0   0 | * this
     *        |    0         0      1   0 |
     *        \    0         0      0   1 /
@@ -1875,7 +1879,7 @@ public class RigidBodyTransform
     * </p>
     *
     * <pre>
-    *        /  cos(pitch) 0 sin(pitch)  0 \ 
+    *        /  cos(pitch) 0 sin(pitch)  0 \
     * this = |      0      1     0       0 | * this
     *        | -sin(pitch) 0 cos(pitch)  0 |
     *        \      0      0     0       1 /
@@ -1897,10 +1901,10 @@ public class RigidBodyTransform
     * </p>
     *
     * <pre>
-    *        / 1     0          0     0 \ 
+    *        / 1     0          0     0 \
     * this = | 0 cos(roll) -sin(roll) 0 | * this
     *        | 0 sin(roll)  cos(roll) 0 |
-    *        \ 0     0          0     1 / 
+    *        \ 0     0          0     1 /
     * </pre>
     *
     * @param roll the angle to rotate about the x-axis.
@@ -2741,17 +2745,17 @@ public class RigidBodyTransform
    }
 
    /**
-    * Two rigid body transforms are considered geometrically equal if both the rotation matrices
-    * and translation vectors are equal.
+    * Two rigid body transforms are considered geometrically equal if both the rotation matrices and
+    * translation vectors are equal.
     *
     * @param other the other rigid body transform to compare against this. Not modified.
     * @param epsilon the tolerance to use when comparing each component.
     * @return {@code true} if the two rigid body transforms are equal, {@code false} otherwise.
     */
+   @Override
    public boolean geometricallyEquals(RigidBodyTransform other, double epsilon)
    {
-      return other.rotationMatrix.geometricallyEquals(this.rotationMatrix, epsilon) && other.translationVector
-            .geometricallyEquals(this.translationVector, epsilon);
+      return other.rotationMatrix.geometricallyEquals(rotationMatrix, epsilon) && other.translationVector.geometricallyEquals(translationVector, epsilon);
    }
 
    /**

@@ -20,7 +20,6 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public abstract class QuaternionConversion
 {
