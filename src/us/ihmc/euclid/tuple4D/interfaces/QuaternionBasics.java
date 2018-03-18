@@ -1,7 +1,7 @@
 package us.ihmc.euclid.tuple4D.interfaces;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.QuaternionTools;
@@ -9,7 +9,6 @@ import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.transform.interfaces.Transform;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 /**
  * Write and read interface for unit-quaternion used to represent 3D orientations.
@@ -33,7 +32,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  * @author Sylvain Bertrand
  * @param <T> The final type of the quaternion used.
  */
-public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
+public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasics, Tuple4DBasics
 {
    public static final double EPS_POW = 1.0e-12;
 
@@ -89,6 +88,12 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
       setUnsafe(-getX(), -getY(), -getZ(), getS());
    }
 
+   @Override
+   default void invert()
+   {
+      conjugate();
+   }
+
    /**
     * Sets this quaternion to its inverse.
     * <p>
@@ -101,7 +106,15 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
       normalize();
    }
 
-   /** {@inheritDoc} */
+   /**
+    * Recomputes this quaternion's components to ensure its norm is equal to 1.
+    * <p>
+    * Edge cases:
+    * <ul>
+    * <li>if this axis-angle contains {@link Double#NaN}, this method is ineffective.
+    * </ul>
+    * </p>
+    */
    @Override
    default void normalize()
    {
@@ -183,6 +196,12 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
       normalize();
    }
 
+   @Override
+   default void set(Orientation3DReadOnly orientation3DReadOnly)
+   {
+      orientation3DReadOnly.get(this);
+   }
+
    /**
     * Sets this quaternion to {@code other}.
     *
@@ -198,6 +217,13 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    default void setAndNormalize(Tuple4DReadOnly other)
    {
       set(other);
+   }
+
+   /** {@inheritDoc} */
+   default void setAndNormalize(QuaternionReadOnly other)
+   {
+      set(other);
+      normalize();
    }
 
    /**
@@ -240,96 +266,34 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
       inverse();
    }
 
-   /**
-    * Sets this quaternion to the same orientation described by the given {@code axisAngle}.
-    *
-    * @param axisAngle the axis-angle used to set this quaternion. Not modified.
-    */
-   default void set(AxisAngleReadOnly axisAngle)
+   @Override
+   default void setAxisAngle(double x, double y, double z, double angle)
    {
-      QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, this);
+      QuaternionConversion.convertAxisAngleToQuaternion(x, y, z, angle, this);
    }
 
-   /**
-    * Sets this quaternion to the same orientation described by the given {@code rotationMatrix}.
-    *
-    * @param rotationMatrix the rotation matrix used to set this quaternion. Not modified.
-    */
-   default void set(RotationMatrixReadOnly rotationMatrix)
+   @Override
+   default void setQuaternion(double x, double y, double z, double s)
    {
-      QuaternionConversion.convertMatrixToQuaternion(rotationMatrix, this);
+      setUnsafe(x, y, z, s);
    }
 
-   /**
-    * Sets this quaternion to the same orientation described by the given rotation vector
-    * {@code rotationVector}.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
-    * </p>
-    *
-    * @param rotation vector the rotation vector used to set this quaternion. Not modified.
-    */
-   default void set(Vector3DReadOnly rotationVector)
+   @Override
+   default void setRotationVector(double x, double y, double z)
    {
-      QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, this);
+      QuaternionConversion.convertRotationVectorToQuaternion(x, y, z, this);
    }
 
-   /**
-    * Sets this quaternion to represent the same orientation as the given yaw-pitch-roll
-    * {@code yawPitchRoll}.
-    *
-    * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
-    *           modified.
-    */
-   default void setYawPitchRoll(double[] yawPitchRoll)
-   {
-      QuaternionConversion.convertYawPitchRollToQuaternion(yawPitchRoll, this);
-   }
-
-   /**
-    * Sets this quaternion to represent the same orientation as the given yaw-pitch-roll
-    * {@code yaw}, {@code pitch}, and {@code roll}.
-    *
-    * @param yaw the angle to rotate about the z-axis.
-    * @param pitch the angle to rotate about the y-axis.
-    * @param roll the angle to rotate about the x-axis.
-    */
+   @Override
    default void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, this);
    }
 
-   /**
-    * Sets this quaternion to represent the same orientation as the given Euler angles
-    * {@code eulerAngles}.
-    * <p>
-    * This is equivalent to
-    * {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
-    * </p>
-    *
-    * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
-    */
-   default void setEuler(Vector3DReadOnly eulerAngles)
+   @Override
+   default void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
-      QuaternionConversion.convertYawPitchRollToQuaternion(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX(), this);
-   }
-
-   /**
-    * Sets this quaternion to represent the same orientation as the given Euler angles {@code rotX},
-    * {@code rotY}, and {@code rotZ}.
-    * <p>
-    * This is equivalent to {@code this.setYawPitchRoll(rotZ, rotY, rotX)}.
-    * </p>
-    *
-    * @param rotX the angle to rotate about the x-axis.
-    * @param rotY the angle to rotate about the y-axis.
-    * @param rotZ the angle to rotate about the z-axis.
-    */
-   default void setEuler(double rotX, double rotY, double rotZ)
-   {
-      QuaternionConversion.convertYawPitchRollToQuaternion(rotZ, rotY, rotX, this);
+      QuaternionConversion.convertMatrixToQuaternion(m00, m01, m02, m10, m11, m12, m20, m21, m22, this);
    }
 
    /**
@@ -406,18 +370,10 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
       QuaternionTools.multiply(q1, q2, this);
    }
 
-   /**
-    * Multiplies this quaternion by {@code matrix}.
-    * <p>
-    * this = this * Q(matrix)<br>
-    * where Q(matrix) is the equivalent quaternion for the given rotation matrix.
-    * </p>
-    *
-    * @param matrix the rotation matrix to multiply this with. Not modified.
-    */
-   default void multiply(RotationMatrixReadOnly matrix)
+   @Override
+   default void append(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiply(this, matrix, this);
+      QuaternionTools.multiply(this, false, orientation, false, this);
    }
 
    /**
@@ -431,6 +387,12 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    default void multiplyConjugateOther(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateRight(this, other, this);
+   }
+
+   @Override
+   default void appendInvertOther(Orientation3DReadOnly orientation)
+   {
+      QuaternionTools.multiply(this, false, orientation, true, this);
    }
 
    /**
@@ -447,33 +409,16 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    }
 
    /**
-    * Sets this quaternion to the multiplication of {@code this} and the transpose of
-    * {@code rotationMatrix}.
+    * Sets this quaternion to the multiplication of the conjugate of {@code this} and {@code other}.
     * <p>
-    * this = this * Q(rotationMatrix<sup>T</sup>)<br>
-    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
+    * this = this* * other
     * </p>
     *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
-   default void multiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
+   default void multiplyConjugateBoth(QuaternionReadOnly other)
    {
-      QuaternionTools.multiplyTransposeMatrix(this, rotationMatrix, this);
-   }
-
-   /**
-    * Sets this quaternion to the multiplication of the conjugate of {@code this} and
-    * {@code rotationMatrix}.
-    * <p>
-    * this = this* * Q(rotationMatrix)<br>
-    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
-    */
-   default void multiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
-   {
-      QuaternionTools.multiplyConjugateQuaternion(this, rotationMatrix, this);
+      QuaternionTools.multiplyConjugateBoth(this, other, this);
    }
 
    /**
@@ -488,6 +433,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    default void appendYawRotation(double yaw)
    {
       QuaternionTools.appendYawRotation(this, yaw, this);
@@ -505,6 +451,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    default void appendPitchRotation(double pitch)
    {
       QuaternionTools.appendPitchRotation(this, pitch, this);
@@ -522,6 +469,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    default void appendRollRotation(double roll)
    {
       QuaternionTools.appendRollRotation(this, roll, this);
@@ -540,18 +488,10 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
       QuaternionTools.multiply(other, this, this);
    }
 
-   /**
-    * Pre-multiplies this quaternion by {@code matrix}.
-    * <p>
-    * this = Q(matrix) * this<br>
-    * where Q(matrix) is the equivalent quaternion for the given rotation matrix.
-    * </p>
-    *
-    * @param matrix the rotation matrix to multiply this with. Not modified.
-    */
-   default void preMultiply(RotationMatrixReadOnly matrix)
+   @Override
+   default void prepend(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiply(matrix, this, this);
+      QuaternionTools.multiply(orientation, false, this, false, this);
    }
 
    /**
@@ -565,6 +505,12 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    default void preMultiplyConjugateOther(QuaternionReadOnly other)
    {
       QuaternionTools.multiplyConjugateLeft(other, this, this);
+   }
+
+   @Override
+   default void prependInvertOther(Orientation3DReadOnly orientation)
+   {
+      QuaternionTools.multiply(orientation, true, this, false, this);
    }
 
    /**
@@ -581,33 +527,17 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
    }
 
    /**
-    * Sets this quaternion to the multiplication of the transpose of {@code rotationMatrix} and
-    * {@code this}.
+    * Sets this quaternion to the multiplication of the conjugate of {@code other} and the conjugate
+    * of {@code this}.
     * <p>
-    * this = Q(rotationMatrix<sup>T</sup>) * this<br>
-    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
+    * this = other* * this*
     * </p>
     *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
+    * @param other the other quaternion to multiply this with. Not modified.
     */
-   default void preMultiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
+   default void preMultiplyConjugateBoth(QuaternionReadOnly other)
    {
-      QuaternionTools.multiplyTransposeMatrix(rotationMatrix, this, this);
-   }
-
-   /**
-    * Sets this quaternion to the multiplication of {@code rotationMatrix} and the conjugate of
-    * {@code this}.
-    * <p>
-    * this = Q(rotationMatrix) * this*<br>
-    * where Q(rotationMatrix) is the equivalent quaternion for the given rotation matrix.
-    * </p>
-    *
-    * @param rotationMatrix the rotation matrix to multiply this with. Not modified.
-    */
-   default void preMultiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
-   {
-      QuaternionTools.multiplyConjugateQuaternion(rotationMatrix, this, this);
+      QuaternionTools.multiplyConjugateBoth(other, this, this);
    }
 
    /**
@@ -622,6 +552,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    default void prependYawRotation(double yaw)
    {
       QuaternionTools.prependYawRotation(yaw, this, this);
@@ -639,6 +570,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    default void prependPitchRotation(double pitch)
    {
       QuaternionTools.prependPitchRotation(pitch, this, this);
@@ -656,6 +588,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Tuple4DBasics
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    default void prependRollRotation(double roll)
    {
       QuaternionTools.prependRollRotation(roll, this, this);

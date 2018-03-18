@@ -818,7 +818,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          RigidBodyTransform transform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          transform.getTranslation(translation);
          transform.setRotation(rotationVector);
-         rotationMatrix.set(rotationVector);
+         rotationMatrix.setRotationVector(rotationVector);
 
          for (int row = 0; row < 3; row++)
          {
@@ -1317,7 +1317,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          Vector3D rotationVector = EuclidCoreRandomTools.nextRotationVector(random);
          RigidBodyTransform transform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          transform.setRotationAndZeroTranslation(rotationVector);
-         rotationMatrix.set(rotationVector);
+         rotationMatrix.setRotationVector(rotationVector);
 
          for (int row = 0; row < 3; row++)
          {
@@ -1527,7 +1527,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
          RigidBodyTransform transform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
          Vector3DBasics rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
-         rotationMatrix.set(rotationVector);
+         rotationMatrix.setRotationVector(rotationVector);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertEquals(rotationMatrix.getElement(row, column), transform.getElement(row, column), EPS);

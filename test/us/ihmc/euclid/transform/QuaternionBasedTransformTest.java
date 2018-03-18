@@ -370,7 +370,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       { // Test setRotation(VectorReadOnly rotationVector)
          Quaternion quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          Vector3D rotationVector = new Vector3D();
-         quaternion.get(rotationVector);
+         quaternion.getRotationVector(rotationVector);
          actualTransform.setRotation(rotationVector);
          EuclidCoreTestTools.assertQuaternionEquals(quaternion, actualTransform.getQuaternion(), EPS);
          EuclidCoreTestTools.assertTuple3DEquals(expectedTranslation, actualTransform.getTranslationVector(), EPS);
@@ -571,7 +571,7 @@ public class QuaternionBasedTransformTest extends TransformTest<QuaternionBasedT
       { // Test getRotation(Vector3DBasics rotationVectorToPack)
          Vector3D rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
-         actualQuaternion.set(rotationVector);
+         actualQuaternion.setRotationVector(rotationVector);
          EuclidCoreTestTools.assertQuaternionGeometricallyEquals(expectedQuaternion, actualQuaternion, EPS);
       }
 

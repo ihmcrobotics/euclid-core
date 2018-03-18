@@ -10,7 +10,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
-import us.ihmc.euclid.exceptions.NotAMatrix2DException;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
@@ -746,58 +746,58 @@ public class QuaternionToolsTest
       try
       {
          QuaternionTools.transform(quaternion, tupleActual, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, false);
       try
       {
          QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       quaternion.set(0.0, 1.0, 0.0, 0.0);
       QuaternionTools.transform(quaternion, tupleActual, tupleActual, false);
       try
       {
          QuaternionTools.transform(quaternion, tupleActual, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, false);
       try
       {
          QuaternionTools.transform(quaternion, tupleOriginal, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -843,58 +843,58 @@ public class QuaternionToolsTest
       try
       {
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, true);
-         fail("Should have thrown a RuntimeException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a RuntimeException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual, false);
       try
       {
          QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       quaternion.set(0.0, 1.0, 0.0, 0.0);
       QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, false);
       try
       {
          QuaternionTools.inverseTransform(quaternion, tupleActual, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual, false);
       try
       {
          QuaternionTools.inverseTransform(quaternion, tupleOriginal, tupleActual, true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       // Simply check that inverseTransform(transform(tuple2D)) == tuple2D and that transform(inverseTransform(tuple2D)) == tuple2D
@@ -1103,52 +1103,52 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiply(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+      { // multiply(QuaternionReadOnly quaternion, false, RotationMatrixReadOnly matrix, false, QuaternionBasics quaternionToPack)
          quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          RotationMatrix matrixCopy = new RotationMatrix(matrix);
 
          QuaternionTools.multiply(quaternion, new Quaternion(matrix), quaternionExpected);
-         QuaternionTools.multiply(quaternion, matrix, quaternionActual);
+         QuaternionTools.multiply(quaternion, false, matrix, false, quaternionActual);
          EuclidCoreTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
          assertTrue(matrix.equals(matrixCopy));
 
          // Check that is works even the two quaternion arguments are the same object
          quaternionActual.set(quaternion);
-         QuaternionTools.multiply(quaternionActual, matrix, quaternionActual);
+         QuaternionTools.multiply(quaternionActual, false, matrix, false, quaternionActual);
          EuclidCoreTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
          assertTrue(matrix.equals(matrixCopy));
       }
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+      { // multiply(QuaternionReadOnly quaternion, true, RotationMatrixReadOnly matrix, false, QuaternionBasics quaternionToPack)
          quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
          matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
 
          QuaternionTools.multiply(conjugate, new Quaternion(matrix), quaternionExpected);
-         QuaternionTools.multiplyConjugateQuaternion(quaternion, matrix, quaternionActual);
+         QuaternionTools.multiply(quaternion, true, matrix, false, quaternionActual);
          EuclidCoreTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
       }
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+      { // multiply(QuaternionReadOnly quaternion, false, RotationMatrixReadOnly matrix, true, QuaternionBasics quaternionToPack)
          quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          RotationMatrix transposed = new RotationMatrix(matrix);
          transposed.transpose();
 
          QuaternionTools.multiply(quaternion, new Quaternion(transposed), quaternionExpected);
-         QuaternionTools.multiplyTransposeMatrix(quaternion, matrix, quaternionActual);
+         QuaternionTools.multiply(quaternion, false, matrix, true, quaternionActual);
          EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternionExpected, quaternionActual, EPSILON);
       }
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+      { // multiply(QuaternionReadOnly quaternion, true, RotationMatrixReadOnly matrix, true, QuaternionBasics quaternionToPack)
          quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1157,7 +1157,7 @@ public class QuaternionToolsTest
          transposed.transpose();
 
          QuaternionTools.multiply(conjugate, new Quaternion(transposed), quaternionExpected);
-         QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, matrix, quaternionActual);
+         QuaternionTools.multiply(quaternion, true, matrix, true, quaternionActual);
          EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternionExpected, quaternionActual, EPSILON);
       }
    }
@@ -1174,52 +1174,52 @@ public class QuaternionToolsTest
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiply(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, QuaternionBasics quaternionToPack)
+      { // multiply(RotationMatrixReadOnly matrix, false, QuaternionReadOnly quaternion, false, QuaternionBasics quaternionToPack)
          quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          RotationMatrix matrixCopy = new RotationMatrix(matrix);
 
          QuaternionTools.multiply(new Quaternion(matrix), quaternion, quaternionExpected);
-         QuaternionTools.multiply(matrix, quaternion, quaternionActual);
+         QuaternionTools.multiply(matrix, false, quaternion, false, quaternionActual);
          EuclidCoreTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
          assertTrue(matrix.equals(matrixCopy));
 
          // Check that is works even the two quaternion arguments are the same object
          quaternionActual.set(quaternion);
-         QuaternionTools.multiply(matrix, quaternionActual, quaternionActual);
+         QuaternionTools.multiply(matrix, false, quaternionActual, false, quaternionActual);
          EuclidCoreTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
          assertTrue(matrix.equals(matrixCopy));
       }
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+      { // multiply(RotationMatrixReadOnly matrix, false, QuaternionReadOnly quaternion, true, QuaternionBasics quaternionToPack)
          quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
          matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
 
          QuaternionTools.multiply(new Quaternion(matrix), conjugate, quaternionExpected);
-         QuaternionTools.multiplyConjugateQuaternion(matrix, quaternion, quaternionActual);
+         QuaternionTools.multiply(matrix, false, quaternion, true, quaternionActual);
          EuclidCoreTestTools.assertQuaternionEquals(quaternionExpected, quaternionActual, EPSILON);
       }
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+      { // multiply(RotationMatrixReadOnly matrix, true, QuaternionReadOnly quaternion, false, QuaternionBasics quaternionToPack)
          quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          RotationMatrix transposed = new RotationMatrix(matrix);
          transposed.transpose();
 
          QuaternionTools.multiply(new Quaternion(transposed), quaternion, quaternionExpected);
-         QuaternionTools.multiplyTransposeMatrix(matrix, quaternion, quaternionActual);
+         QuaternionTools.multiply(matrix, true, quaternion, false, quaternionActual);
          EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternionExpected, quaternionActual, EPSILON);
       }
 
       // Simply test against the multiply(quaternion, quaternion, quaternion)
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, QuaternionBasics quaternionToPack)
+      { // multiply(RotationMatrixReadOnly matrix, true, QuaternionReadOnly quaternion, true, QuaternionBasics quaternionToPack)
          quaternion = EuclidCoreRandomTools.nextQuaternion(random);
          Quaternion conjugate = new Quaternion(quaternion);
          conjugate.conjugate();
@@ -1228,162 +1228,8 @@ public class QuaternionToolsTest
          transposed.transpose();
 
          QuaternionTools.multiply(new Quaternion(transposed), conjugate, quaternionExpected);
-         QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, quaternionActual);
+         QuaternionTools.multiply(matrix, true, quaternion, true, quaternionActual);
          EuclidCoreTestTools.assertQuaternionGeometricallyEquals(quaternionExpected, quaternionActual, EPSILON);
       }
-   }
-
-   @Test
-   public void testMultiplyQuaternionMatrixResultPutInMatrix() throws Exception
-   {
-      Random random = new Random(3466L);
-      Quaternion quaternion = new Quaternion();
-      RotationMatrix matrix = new RotationMatrix();
-
-      Matrix3D matrixExpected = new Matrix3D();
-      RotationMatrix matrixActual = new RotationMatrix();
-
-      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { //multiply(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
-         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-
-         Matrix3DTools.multiply(new RotationMatrix(quaternion), matrix, matrixExpected);
-         QuaternionTools.multiply(quaternion, matrix, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-
-         // Check that is works even the two matrix arguments are the same object
-         matrixActual.set(matrix);
-         QuaternionTools.multiply(quaternion, matrixActual, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-      }
-
-      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternion(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
-         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         Quaternion conjugate = new Quaternion(quaternion);
-         conjugate.conjugate();
-         matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-
-         Matrix3DTools.multiply(new RotationMatrix(quaternion), matrix, matrixExpected);
-         QuaternionTools.multiplyConjugateQuaternion(conjugate, matrix, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-      }
-
-      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
-         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-         RotationMatrix transposed = new RotationMatrix(matrix);
-         transposed.transpose();
-
-         Matrix3DTools.multiply(new RotationMatrix(quaternion), matrix, matrixExpected);
-         QuaternionTools.multiplyTransposeMatrix(quaternion, transposed, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-      }
-
-      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternionTransposeMatrix(QuaternionReadOnly quaternion, RotationMatrixReadOnly matrix, RotationMatrix matrixToPack)
-         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         Quaternion conjugate = new Quaternion(quaternion);
-         conjugate.conjugate();
-         matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-         RotationMatrix transposed = new RotationMatrix(matrix);
-         transposed.transpose();
-
-         Matrix3DTools.multiply(new RotationMatrix(quaternion), matrix, matrixExpected);
-         QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(conjugate, transposed, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-      }
-
-      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
-      matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-      QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, matrix, matrixActual);
-      EuclidCoreTestTools.assertMatrix3DEquals(matrix, matrixActual, EPSILON);
-   }
-
-   @Test
-   public void testMultiplyMatrixQuaternionResultPutInMatrix() throws Exception
-   {
-      Random random = new Random(3466L);
-      Quaternion quaternion = new Quaternion();
-      RotationMatrix matrix = new RotationMatrix();
-
-      Matrix3D matrixExpected = new Matrix3D();
-      RotationMatrix matrixActual = new RotationMatrix();
-
-      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiply(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
-         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-
-         Matrix3DTools.multiply(matrix, new RotationMatrix(quaternion), matrixExpected);
-
-         double corrupt = random.nextDouble() + 0.5;
-         double qx = corrupt * quaternion.getX();
-         double qy = corrupt * quaternion.getY();
-         double qz = corrupt * quaternion.getZ();
-         double qs = corrupt * quaternion.getS();
-         quaternion.setUnsafe(qx, qy, qz, qs);
-
-         QuaternionTools.multiply(matrix, quaternion, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-
-         // Check that is works even the two matrix arguments are the same object
-         matrixActual.set(matrix);
-         QuaternionTools.multiply(matrixActual, quaternion, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-      }
-
-      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
-         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         Quaternion conjugate = new Quaternion(quaternion);
-         conjugate.conjugate();
-         matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-
-         Matrix3DTools.multiply(matrix, new RotationMatrix(conjugate), matrixExpected);
-         QuaternionTools.multiplyConjugateQuaternion(matrix, quaternion, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-      }
-
-      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrix(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
-         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-         RotationMatrix transposed = new RotationMatrix(matrix);
-         transposed.transpose();
-
-         Matrix3DTools.multiply(transposed, new RotationMatrix(quaternion), matrixExpected);
-         QuaternionTools.multiplyTransposeMatrix(matrix, quaternion, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-      }
-
-      // Simply test against Matrix3DTools.multiply(Matrix3DBasics, Matrix3DBasics, Matrix3DBasics)
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // multiplyTransposeMatrixConjugateQuaternion(RotationMatrixReadOnly matrix, QuaternionReadOnly quaternion, RotationMatrix matrixToPack)
-         quaternion = EuclidCoreRandomTools.nextQuaternion(random);
-         Quaternion conjugate = new Quaternion(quaternion);
-         conjugate.conjugate();
-         matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-         RotationMatrix transposed = new RotationMatrix(matrix);
-         transposed.transpose();
-
-         Matrix3DTools.multiply(transposed, new RotationMatrix(conjugate), matrixExpected);
-         QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, matrixActual);
-         EuclidCoreTestTools.assertMatrix3DEquals(matrixExpected, matrixActual, EPSILON);
-      }
-
-      quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
-      matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-      QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(matrix, quaternion, matrixActual);
-      EuclidCoreTestTools.assertMatrix3DEquals(matrix, matrixActual, EPSILON);
    }
 }

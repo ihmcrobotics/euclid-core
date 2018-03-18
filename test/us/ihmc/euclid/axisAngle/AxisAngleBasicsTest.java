@@ -4,12 +4,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Random;
 
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasicsTest;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
@@ -182,35 +187,35 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          double randomAngle = EuclidCoreRandomTools.nextDouble(random);
 
          T actualAxisAngle = createAxisAngle(randomAxis.getX(), randomAxis.getY(), randomAxis.getZ(), randomAngle);
-         actualAxisAngle.normalizeAxis();
+         actualAxisAngle.normalize();
          randomAxis.normalize();
          T expectedAxisAngle = createAxisAngle(randomAxis.getX(), randomAxis.getY(), randomAxis.getZ(), randomAngle);
          EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
       }
 
       T axisAngle = createAxisAngle(Double.NaN, 0.0, 0.0, 0.0);
-      axisAngle.normalizeAxis();
+      axisAngle.normalize();
       assertTrue(Double.isNaN(axisAngle.getX()));
       assertFalse(Double.isNaN(axisAngle.getY()));
       assertFalse(Double.isNaN(axisAngle.getZ()));
       assertFalse(Double.isNaN(axisAngle.getAngle()));
 
       axisAngle = createAxisAngle(0.0, Double.NaN, 0.0, 0.0);
-      axisAngle.normalizeAxis();
+      axisAngle.normalize();
       assertFalse(Double.isNaN(axisAngle.getX()));
       assertTrue(Double.isNaN(axisAngle.getY()));
       assertFalse(Double.isNaN(axisAngle.getZ()));
       assertFalse(Double.isNaN(axisAngle.getAngle()));
 
       axisAngle = createAxisAngle(0.0, 0.0, Double.NaN, 0.0);
-      axisAngle.normalizeAxis();
+      axisAngle.normalize();
       assertFalse(Double.isNaN(axisAngle.getX()));
       assertFalse(Double.isNaN(axisAngle.getY()));
       assertTrue(Double.isNaN(axisAngle.getZ()));
       assertFalse(Double.isNaN(axisAngle.getAngle()));
 
       axisAngle = createAxisAngle(0.0, 0.0, 0.0, Double.NaN);
-      axisAngle.normalizeAxis();
+      axisAngle.normalize();
       assertFalse(Double.isNaN(axisAngle.getX()));
       assertFalse(Double.isNaN(axisAngle.getY()));
       assertFalse(Double.isNaN(axisAngle.getZ()));
@@ -218,7 +223,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
    }
 
    @Test
-   public void testInverse() throws Exception
+   public void testInvert() throws Exception
    {
       Random random = new Random(23423L);
 
@@ -227,7 +232,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          T axisAngle = createRandomAxisAngle(random);
          T inverseAxisAngle = createEmptyAxisAngle();
          inverseAxisAngle.set(axisAngle);
-         inverseAxisAngle.inverse();
+         inverseAxisAngle.invert();
 
          RotationMatrix rotationMatrix = new RotationMatrix(axisAngle);
          RotationMatrix inverseRotationMatrix = new RotationMatrix(inverseAxisAngle);
@@ -371,7 +376,7 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
             Vector3D rotationVector = EuclidCoreRandomTools.nextRotationVector(random);
-            actualAxisAngle.set(rotationVector);
+            actualAxisAngle.setRotationVector(rotationVector);
             AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, expectedAxisAngle);
             EuclidCoreTestTools.assertAxisAngleEquals(expectedAxisAngle, actualAxisAngle, getEpsilon());
          }
@@ -422,61 +427,145 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
-         T aaOther1 = createRandomAxisAngle(random);
-         T aaOther2 = createRandomAxisAngle(random);
-         T aaActual = createRandomAxisAngle(random);
-         T aaExpected = createEmptyAxisAngle();
+         {
+            T aaOther1 = createRandomAxisAngle(random);
+            T aaOther2 = createRandomAxisAngle(random);
+            T aaActual = createRandomAxisAngle(random);
+            T aaExpected = createEmptyAxisAngle();
 
-         Quaternion qOther1 = new Quaternion(aaOther1);
-         Quaternion qOther2 = new Quaternion(aaOther2);
-         Quaternion qExpected = new Quaternion();
+            Quaternion qOther1 = new Quaternion(aaOther1);
+            Quaternion qOther2 = new Quaternion(aaOther2);
+            Quaternion qExpected = new Quaternion();
 
-         { // Test multiplyConjugateThis(AxisAngleReadOnly other)
-            aaActual.set(aaOther1);
-            qExpected.set(aaOther1);
-            aaActual.multiply(aaOther2);
+            { // Test multiplyConjugateThis(AxisAngleReadOnly other)
+               aaActual.set(aaOther1);
+               qExpected.set(aaOther1);
+               aaActual.multiply(aaOther2);
 
-            AxisAngleTools.multiply(aaOther1, aaOther2, aaExpected);
-            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+               AxisAngleTools.multiply(aaOther1, aaOther2, aaExpected);
+               EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
-            QuaternionTools.multiply(qOther1, qOther2, qExpected);
+               QuaternionTools.multiply(qOther1, qOther2, qExpected);
+               aaExpected.set(qExpected);
+               EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+
+               // Corrupt axis of aaActual
+               aaActual.set(aaOther1);
+               qExpected.set(aaOther1);
+               double scale = 0.5 + random.nextDouble();
+               aaActual.setX(scale * aaActual.getX());
+               aaActual.setY(scale * aaActual.getY());
+               aaActual.setZ(scale * aaActual.getZ());
+
+               aaActual.multiply(aaOther2);
+               QuaternionTools.multiply(qOther1, qOther2, qExpected);
+               aaExpected.set(qExpected);
+               EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+
+               // Corrupt axis of aaOther2
+               aaActual.set(aaOther1);
+               qExpected.set(aaOther1);
+               QuaternionTools.multiply(qOther1, qOther2, qExpected);
+
+               aaOther2.setX(scale * aaOther2.getX());
+               aaOther2.setY(scale * aaOther2.getY());
+               aaOther2.setZ(scale * aaOther2.getZ());
+
+               aaActual.multiply(aaOther2);
+               aaExpected.set(qExpected);
+               EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+
+               // Check that it doesn't anything for bad axis-angles
+               aaActual.multiply(createAxisAngle(0.0, 0.0, 0.0, random.nextDouble()));
+               EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+
+               aaExpected.set(0.0, 0.0, 0.0, random.nextDouble());
+               aaActual.set(aaExpected);
+               aaActual.multiply(aaOther2);
+               EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            }
+         }
+
+         { // Test some edge cases: aa2 = aa1.negate()
+            T aaOther1 = createRandomAxisAngle(random);
+            T aaOther2 = createEmptyAxisAngle();
+            aaOther2.set(aaOther1);
+            aaOther2.negate();
+
+            T aaActual = createEmptyAxisAngle();
+            aaActual.multiply(aaOther1, aaOther2);
+
+            Quaternion qOther1 = new Quaternion(aaOther1);
+            Quaternion qOther2 = new Quaternion(aaOther2);
+
+            Quaternion qExpected = new Quaternion();
+            qExpected.multiply(qOther1, qOther2);
+            T aaExpected = createEmptyAxisAngle();
             aaExpected.set(qExpected);
-            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
-            // Corrupt axis of aaActual
-            aaActual.set(aaOther1);
-            qExpected.set(aaOther1);
-            double scale = 0.5 + random.nextDouble();
-            aaActual.setX(scale * aaActual.getX());
-            aaActual.setY(scale * aaActual.getY());
-            aaActual.setZ(scale * aaActual.getZ());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaExpected, aaActual, getEpsilon());
+         }
 
-            aaActual.multiply(aaOther2);
-            QuaternionTools.multiply(qOther1, qOther2, qExpected);
+         { // Test some edge cases: aa2 = aa1.invert()
+            T aaOther1 = createRandomAxisAngle(random);
+            T aaOther2 = createEmptyAxisAngle();
+            aaOther2.set(aaOther1);
+            aaOther2.invert();
+
+            T aaActual = createEmptyAxisAngle();
+            aaActual.multiply(aaOther1, aaOther2);
+
+            Quaternion qOther1 = new Quaternion(aaOther1);
+            Quaternion qOther2 = new Quaternion(aaOther2);
+
+            Quaternion qExpected = new Quaternion();
+            qExpected.multiply(qOther1, qOther2);
+            T aaExpected = createEmptyAxisAngle();
             aaExpected.set(qExpected);
-            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
-            // Corrupt axis of aaOther2
-            aaActual.set(aaOther1);
-            qExpected.set(aaOther1);
-            QuaternionTools.multiply(qOther1, qOther2, qExpected);
+            EuclidCoreTestTools.assertAxisAngleEquals(aaExpected, aaActual, getEpsilon());
+         }
 
-            aaOther2.setX(scale * aaOther2.getX());
-            aaOther2.setY(scale * aaOther2.getY());
-            aaOther2.setZ(scale * aaOther2.getZ());
+         { // Test some edge cases: aa2.distance(aa1) = Pi
+            T aaOther1 = createRandomAxisAngle(random);
+            T aaOther2 = createEmptyAxisAngle();
+            aaOther2.set(aaOther1);
+            aaOther2.append(new AxisAngle(EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0), Math.PI));
 
-            aaActual.multiply(aaOther2);
+            T aaActual = createEmptyAxisAngle();
+            aaActual.multiply(aaOther1, aaOther2);
+
+            Quaternion qOther1 = new Quaternion(aaOther1);
+            Quaternion qOther2 = new Quaternion(aaOther2);
+
+            Quaternion qExpected = new Quaternion();
+            qExpected.multiply(qOther1, qOther2);
+            T aaExpected = createEmptyAxisAngle();
             aaExpected.set(qExpected);
-            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
 
-            // Check that it doesn't anything for bad axis-angles
-            aaActual.multiply(createAxisAngle(0.0, 0.0, 0.0, random.nextDouble()));
-            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+            EuclidCoreTestTools.assertAxisAngleEquals(aaExpected, aaActual, getEpsilon());
+         }
 
-            aaExpected.set(0.0, 0.0, 0.0, random.nextDouble());
-            aaActual.set(aaExpected);
-            aaActual.multiply(aaOther2);
-            EuclidCoreTestTools.assertAxisAngleEquals(aaActual, aaExpected, getEpsilon());
+         { // Test some edge cases: aa2.getAngle() + aa1.getAngle() = Pi and same axes
+            double alpha = EuclidCoreRandomTools.nextDouble(random, 0.0, 1.0);
+            Vector3D axis = EuclidCoreRandomTools.nextVector3DWithFixedLength(random, 1.0);
+            T aaOther1 = createEmptyAxisAngle();
+            T aaOther2 = createEmptyAxisAngle();
+            aaOther1.set(axis, alpha * Math.PI);
+            aaOther2.set(axis, (1.0 - alpha) * Math.PI);
+
+            T aaActual = createEmptyAxisAngle();
+            aaActual.multiply(aaOther1, aaOther2);
+
+            Quaternion qOther1 = new Quaternion(aaOther1);
+            Quaternion qOther2 = new Quaternion(aaOther2);
+
+            Quaternion qExpected = new Quaternion();
+            qExpected.multiply(qOther1, qOther2);
+            T aaExpected = createEmptyAxisAngle();
+            aaExpected.set(qExpected);
+
+            EuclidCoreTestTools.assertAxisAngleEquals(aaExpected, aaActual, getEpsilon());
          }
       }
    }
@@ -747,6 +836,43 @@ public abstract class AxisAngleBasicsTest<T extends AxisAngleBasics> extends Axi
          actual.set(expected);
          actual.prependRollRotation(roll);
          EuclidCoreTestTools.assertAxisAngleEquals(expected, actual, getEpsilon());
+      }
+   }
+
+   @Test
+   public void testOrientation3DBasicsFeatures() throws Throwable
+   {
+      Orientation3DBasicsTest test = new Orientation3DBasicsTest()
+      {
+         @Override
+         public Orientation3DBasics createEmptyOrientation3DBasics()
+         {
+            return createEmptyAxisAngle();
+         }
+
+         @Override
+         public double getEpsilon()
+         {
+            return AxisAngleBasicsTest.this.getEpsilon();
+         }
+      };
+      for (Method testMethod : test.getClass().getMethods())
+      {
+         if (!testMethod.getName().startsWith("test"))
+            continue;
+         if (!Modifier.isPublic(testMethod.getModifiers()))
+            continue;
+         if (Modifier.isStatic(testMethod.getModifiers()))
+            continue;
+
+         try
+         {
+            testMethod.invoke(test);
+         }
+         catch (InvocationTargetException e)
+         {
+            throw e.getTargetException();
+         }
       }
    }
 }

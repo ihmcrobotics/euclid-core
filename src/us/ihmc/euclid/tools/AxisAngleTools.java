@@ -7,6 +7,7 @@ import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
@@ -115,6 +116,26 @@ public abstract class AxisAngleTools
    }
 
    /**
+    * Transforms the tuple {@code tupleOriginal} using {@code axisAngle} and adds the result to
+    * {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    *
+    * @param axisAngle the axis-angle used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
+   public static void addTransform(AxisAngleReadOnly axisAngle, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+   {
+      double x = tupleTransformed.getX();
+      double y = tupleTransformed.getY();
+      double z = tupleTransformed.getZ();
+      transform(axisAngle, tupleOriginal, tupleTransformed);
+      tupleTransformed.add(x, y, z);
+   }
+
+   /**
     * Transforms the tuple {@code tupleOriginal} using {@code axisAngle} and stores the result in
     * {@code tupleTransformed}.
     * <p>
@@ -183,7 +204,7 @@ public abstract class AxisAngleTools
                                      boolean checkIfTransformInXYPlane)
    {
       if (checkIfTransformInXYPlane)
-         axisAngle.checkIfIsZOnly(EPS);
+         axisAngle.checkIfOrientation2D(EPS);
 
       double axisNorm = axisAngle.axisNorm();
 
@@ -322,7 +343,7 @@ public abstract class AxisAngleTools
     */
    public static void transform(AxisAngleReadOnly axisAngle, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
-      multiplyImpl(axisAngle, false, quaternionOriginal, false, quaternionTransformed);
+      QuaternionTools.multiply(axisAngle, false, quaternionOriginal, false, quaternionTransformed);
    }
 
    /**
@@ -344,7 +365,8 @@ public abstract class AxisAngleTools
     */
    public static void inverseTransform(AxisAngleReadOnly axisAngle, QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
    {
-      multiplyImpl(axisAngle, true, quaternionOriginal, false, quaternionTransformed);
+      quaternionTransformed.set(quaternionOriginal);
+      quaternionTransformed.prependInvertOther(axisAngle);
    }
 
    /**
@@ -462,7 +484,7 @@ public abstract class AxisAngleTools
     */
    public static void transform(AxisAngleReadOnly axisAngle, RotationMatrixReadOnly rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
    {
-      multiplyImpl(axisAngle, false, rotationMatrixOriginal, false, rotationMatrixTransformed);
+      RotationMatrixTools.multiply(axisAngle, false, rotationMatrixOriginal, false, rotationMatrixTransformed);
    }
 
    /**
@@ -491,87 +513,7 @@ public abstract class AxisAngleTools
     */
    public static void inverseTransform(AxisAngleReadOnly axisAngle, RotationMatrixReadOnly rotationMatrixOriginal, RotationMatrix rotationMatrixTransformed)
    {
-      multiplyImpl(axisAngle, true, rotationMatrixOriginal, false, rotationMatrixTransformed);
-   }
-
-   /**
-    * Performs the multiplication of {@code axisAngle} and {@code quaternion} and stores the result
-    * in {@code quaternionToPack}.
-    * <p>
-    * <b> This method is for internal use only. </b>
-    * </p>
-    * <p>
-    * Both quaternions can be the same object for in place operations.
-    * </p>
-    *
-    * @param axisAngle the axis-angle, first term in the multiplication. Not modified.
-    * @param negateAngle whether to negate the angle of the axis-angle.
-    * @param quaternion the quaternion, second term in the multiplication. Not modified.
-    * @param conjugateQuaternion whether to conjugate the quaternion or not.
-    * @param quaternionToPack the quaternion in which the result is stores. Modified.
-    */
-   private static void multiplyImpl(AxisAngleReadOnly axisAngle, boolean negateAngle, QuaternionReadOnly quaternion, boolean conjugateQuaternion,
-                                    QuaternionBasics quaternionTransformed)
-   {
-      double axisNorm = axisAngle.axisNorm();
-
-      if (axisNorm < EPS)
-      {
-         quaternionTransformed.set(quaternion);
-         return;
-      }
-
-      double cos = Math.cos(0.5 * axisAngle.getAngle());
-      double sin = Math.sin(0.5 * axisAngle.getAngle()) / axisNorm;
-
-      double q1x = axisAngle.getX() * sin;
-      double q1y = axisAngle.getY() * sin;
-      double q1z = axisAngle.getZ() * sin;
-      double q1s = cos;
-
-      double q2x = quaternion.getX();
-      double q2y = quaternion.getY();
-      double q2z = quaternion.getZ();
-      double q2s = quaternion.getS();
-      QuaternionTools.multiplyImpl(q1x, q1y, q1z, q1s, negateAngle, q2x, q2y, q2z, q2s, conjugateQuaternion, quaternionTransformed);
-   }
-
-   /**
-    * Performs the multiplication of {@code axisAngle} and {@code matrix} and stores the result in
-    * {@code matrixToPack}.
-    * <p>
-    * <b> This method is for internal use only. </b>
-    * </p>
-    * <p>
-    * Both quaternions can be the same object for in place operations.
-    * </p>
-    *
-    * @param axisAngle the axis-angle used to transform the rotation matrix. Not modified.
-    * @param negateAngle whether to negate the angle of the axis-angle.
-    * @param matrix the rotation matrix to be multiplied. Not modified.
-    * @param transposeMatrix whether to conjugate the quaternion or not.
-    * @param matrixToPack the rotation matrix in which the result is stores. Modified.
-    */
-   private static void multiplyImpl(AxisAngleReadOnly axisAngle, boolean negateAngle, RotationMatrixReadOnly matrix, boolean transposeMatrix,
-                                    RotationMatrix matrixToPack)
-   {
-      double axisNorm = axisAngle.axisNorm();
-
-      if (axisNorm < EPS)
-      {
-         matrixToPack.set(matrix);
-         return;
-      }
-
-      double cos = Math.cos(0.5 * axisAngle.getAngle());
-      double sin = Math.sin(0.5 * axisAngle.getAngle()) / axisNorm;
-
-      double q1x = axisAngle.getX() * sin;
-      double q1y = axisAngle.getY() * sin;
-      double q1z = axisAngle.getZ() * sin;
-      double q1s = cos;
-
-      QuaternionTools.multiplyImpl(q1x, q1y, q1z, q1s, negateAngle, matrix, transposeMatrix, matrixToPack);
+      RotationMatrixTools.multiply(axisAngle, true, rotationMatrixOriginal, false, rotationMatrixTransformed);
    }
 
    /**
@@ -589,6 +531,88 @@ public abstract class AxisAngleTools
    public static void multiply(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
    {
       multiplyImpl(aa1, false, aa2, false, axisAngleToPack);
+   }
+
+   public static void multiply(Orientation3DReadOnly orientation1, boolean inverse1, Orientation3DReadOnly orientation2, boolean inverse2,
+                               AxisAngleBasics axisAngleToPack)
+   {
+      if (orientation1 instanceof AxisAngleReadOnly)
+      {
+         multiply((AxisAngleReadOnly) orientation1, inverse1, orientation2, inverse2, axisAngleToPack);
+         return;
+      }
+
+      double beta, u2x, u2y, u2z;
+      if (orientation2 instanceof AxisAngleReadOnly)
+      { // In this case orientation2 might be the same object as axisAngleToPack, so let's save its components first.
+         AxisAngleReadOnly aa2 = (AxisAngleReadOnly) orientation2;
+         beta = aa2.getAngle();
+         u2x = aa2.getX();
+         u2y = aa2.getY();
+         u2z = aa2.getZ();
+      }
+      else
+      {
+         axisAngleToPack.set(orientation2);
+         beta = axisAngleToPack.getAngle();
+         u2x = axisAngleToPack.getX();
+         u2y = axisAngleToPack.getY();
+         u2z = axisAngleToPack.getZ();
+      }
+
+      // Now we can safely use the axisAngleToPack argument to convert the orientation1.
+      axisAngleToPack.set(orientation1);
+      double alpha = axisAngleToPack.getAngle();
+      double u1x = axisAngleToPack.getX();
+      double u1y = axisAngleToPack.getY();
+      double u1z = axisAngleToPack.getZ();
+      multiplyImpl(alpha, u1x, u1y, u1z, inverse1, beta, u2x, u2y, u2z, inverse2, axisAngleToPack);
+   }
+
+   public static void multiply(Orientation3DReadOnly orientation1, boolean inverse1, AxisAngleReadOnly orientation2, boolean inverse2,
+                               AxisAngleBasics axisAngleToPack)
+   {
+      if (orientation1 instanceof AxisAngleReadOnly)
+      {
+         multiplyImpl((AxisAngleReadOnly) orientation1, inverse1, orientation2, inverse2, axisAngleToPack);
+         return;
+      }
+
+      // In this case orientation2 might be the same object as axisAngleToPack, so let's save its components first.
+      double beta = orientation2.getAngle();
+      double u2x = orientation2.getX();
+      double u2y = orientation2.getY();
+      double u2z = orientation2.getZ();
+      // Now we can safely use the axisAngleToPack argument to convert the orientation1.
+      axisAngleToPack.set(orientation1);
+      double alpha = axisAngleToPack.getAngle();
+      double u1x = axisAngleToPack.getX();
+      double u1y = axisAngleToPack.getY();
+      double u1z = axisAngleToPack.getZ();
+      multiplyImpl(alpha, u1x, u1y, u1z, inverse1, beta, u2x, u2y, u2z, inverse2, axisAngleToPack);
+   }
+
+   public static void multiply(AxisAngleReadOnly orientation1, boolean inverse1, Orientation3DReadOnly orientation2, boolean inverse2,
+                               AxisAngleBasics axisAngleToPack)
+   {
+      if (orientation2 instanceof AxisAngleReadOnly)
+      {
+         multiplyImpl(orientation1, inverse1, (AxisAngleReadOnly) orientation2, inverse2, axisAngleToPack);
+         return;
+      }
+
+      // In this case orientation1 might be the same object as axisAngleToPack, so let's save its components first.
+      double alpha = orientation1.getAngle();
+      double u1x = orientation1.getX();
+      double u1y = orientation1.getY();
+      double u1z = orientation1.getZ();
+      // Now we can safely use the axisAngleToPack argument to convert the orientation2.
+      axisAngleToPack.set(orientation2);
+      double beta = axisAngleToPack.getAngle();
+      double u2x = axisAngleToPack.getX();
+      double u2y = axisAngleToPack.getY();
+      double u2z = axisAngleToPack.getZ();
+      multiplyImpl(alpha, u1x, u1y, u1z, inverse1, beta, u2x, u2y, u2z, inverse2, axisAngleToPack);
    }
 
    /**
@@ -626,6 +650,23 @@ public abstract class AxisAngleTools
    }
 
    /**
+    * Performs the multiplication of the inverse of {@code aa1} and the inverse of {@code aa2} and
+    * stores the result in {@code axisAngleToPack}.
+    * <p>
+    * <p>
+    * All three arguments can be the same object for in place operations.
+    * </p>
+    *
+    * @param aa1 the first axis-angle in the multiplication. Not modified.
+    * @param aa2 the second axis-angle in the multiplication. Not modified.
+    * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
+    */
+   public static void multiplyInvertBoth(AxisAngleReadOnly aa1, AxisAngleReadOnly aa2, AxisAngleBasics axisAngleToPack)
+   {
+      multiplyImpl(aa1, true, aa2, true, axisAngleToPack);
+   }
+
+   /**
     * Performs the multiplication of {@code aa1} and {@code aa2} and stores the result in
     * {@code axisAngleToPack}.
     * <p>
@@ -641,34 +682,51 @@ public abstract class AxisAngleTools
     * </p>
     *
     * @param aa1 the first axis-angle in the multiplication. Not modified.
-    * @param inverseAA1 whether to inverse {@code aa1} or not.
+    * @param inverse1 whether to inverse {@code aa1} or not.
     * @param aa2 the second axis-angle in the multiplication. Not modified.
-    * @param inverseAA2 whether to inverse {@code aa2} or not.
+    * @param inverse2 whether to inverse {@code aa2} or not.
     * @param axisAngleToPack the axis-angle in which the result is stores. Modified.
     */
-   private static void multiplyImpl(AxisAngleReadOnly aa1, boolean inverseAA1, AxisAngleReadOnly aa2, boolean inverseAA2, AxisAngleBasics axisAngleToPack)
+   private static void multiplyImpl(AxisAngleReadOnly aa1, boolean inverse1, AxisAngleReadOnly aa2, boolean inverse2, AxisAngleBasics axisAngleToPack)
    {
-      double axisNorm1 = aa1.axisNorm();
+      double alpha = aa1.getAngle();
+      double u1x = aa1.getX();
+      double u1y = aa1.getY();
+      double u1z = aa1.getZ();
+      double beta = aa2.getAngle();
+      double u2x = aa2.getX();
+      double u2y = aa2.getY();
+      double u2z = aa2.getZ();
 
+      multiplyImpl(alpha, u1x, u1y, u1z, inverse1, beta, u2x, u2y, u2z, inverse2, axisAngleToPack);
+   }
+
+   private static void multiplyImpl(double alpha, double u1x, double u1y, double u1z, boolean inverse1, double beta, double u2x, double u2y, double u2z,
+                                    boolean inverse2, AxisAngleBasics axisAngleToPack)
+   {
+      double axisNorm1 = EuclidCoreTools.norm(u1x, u1y, u1z);
       if (axisNorm1 < EPS)
          return;
-      axisNorm1 = 1.0 / axisNorm1;
 
-      double alpha = inverseAA1 ? -aa1.getAngle() : aa1.getAngle();
-      double u1x = aa1.getX() * axisNorm1;
-      double u1y = aa1.getY() * axisNorm1;
-      double u1z = aa1.getZ() * axisNorm1;
-
-      double axisNorm2 = aa2.axisNorm();
-
+      double axisNorm2 = EuclidCoreTools.norm(u2x, u2y, u2z);
       if (axisNorm2 < EPS)
          return;
+
+      axisNorm1 = 1.0 / axisNorm1;
+
+      if (inverse1)
+         alpha = -alpha;
+      u1x *= axisNorm1;
+      u1y *= axisNorm1;
+      u1z *= axisNorm1;
+
       axisNorm2 = 1.0 / axisNorm2;
 
-      double beta = inverseAA2 ? -aa2.getAngle() : aa2.getAngle();
-      double u2x = aa2.getX() * axisNorm2;
-      double u2y = aa2.getY() * axisNorm2;
-      double u2z = aa2.getZ() * axisNorm2;
+      if (inverse2)
+         beta = -beta;
+      u2x *= axisNorm2;
+      u2y *= axisNorm2;
+      u2z *= axisNorm2;
 
       double cosHalfAlpha = Math.cos(0.5 * alpha);
       double sinHalfAlpha = Math.sin(0.5 * alpha);
@@ -691,14 +749,28 @@ public abstract class AxisAngleTools
       double sinHalfGammaUy = sinCos * u1y + cosSin * u2y + sinSin * crossY;
       double sinHalfGammaUz = sinCos * u1z + cosSin * u2z + sinSin * crossZ;
 
-      double sinHalfGamma = Math.sqrt(EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz));
+      double sinHalfGammaSquared = EuclidCoreTools.normSquared(sinHalfGammaUx, sinHalfGammaUy, sinHalfGammaUz);
 
-      double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
-      double sinHalfGammaInv = 1.0 / sinHalfGamma;
-      double ux = sinHalfGammaUx * sinHalfGammaInv;
-      double uy = sinHalfGammaUy * sinHalfGammaInv;
-      double uz = sinHalfGammaUz * sinHalfGammaInv;
-      axisAngleToPack.set(ux, uy, uz, gamma);
+      if (sinHalfGammaSquared < EPS)
+      {
+         axisAngleToPack.set(1.0, 0.0, 0.0, 0.0);
+      }
+      else
+      {
+         double sinHalfGamma = Math.sqrt(sinHalfGammaSquared);
+
+         double gamma = 2.0 * Math.atan2(sinHalfGamma, cosHalfGamma);
+         double sinHalfGammaInv = 1.0 / sinHalfGamma;
+         double ux = sinHalfGammaUx * sinHalfGammaInv;
+         double uy = sinHalfGammaUy * sinHalfGammaInv;
+         double uz = sinHalfGammaUz * sinHalfGammaInv;
+         axisAngleToPack.set(ux, uy, uz, gamma);
+      }
+   }
+
+   public static void main(String[] args)
+   {
+      System.out.println(Math.atan2(0.0, -1.0));
    }
 
    /**

@@ -2,9 +2,8 @@ package us.ihmc.euclid.tuple4D;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.GeometryObject;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
@@ -86,6 +85,17 @@ public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
    }
 
    /**
+    * Creates a new quaternion and initializes such that it represents the same orientation as the
+    * given one.
+    *
+    * @param orientation the orientation to initialize this quaternion. Not modified.
+    */
+   public Quaternion(Orientation3DReadOnly orientation)
+   {
+      set(orientation);
+   }
+
+   /**
     * Creates a new quaternion and initializes it to {@code other}.
     *
     * @param other the quaternion to copy the components from. Not modified.
@@ -107,28 +117,6 @@ public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
 
    /**
     * Creates a new quaternion and initializes such that it represents the same orientation as the
-    * given {@code rotationMatrix}.
-    *
-    * @param rotationMatrix the rotation matrix to initialize this quaternion. Not modified.
-    */
-   public Quaternion(RotationMatrixReadOnly rotationMatrix)
-   {
-      set(rotationMatrix);
-   }
-
-   /**
-    * Creates a new quaternion and initializes such that it represents the same orientation as the
-    * given {@code axisAngle}.
-    *
-    * @param axisAngle the axis-angle to initialize this quaternion. Not modified.
-    */
-   public Quaternion(AxisAngleReadOnly axisAngle)
-   {
-      set(axisAngle);
-   }
-
-   /**
-    * Creates a new quaternion and initializes such that it represents the same orientation as the
     * given {@code rotationVector}.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
@@ -140,7 +128,7 @@ public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
     */
    public Quaternion(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**

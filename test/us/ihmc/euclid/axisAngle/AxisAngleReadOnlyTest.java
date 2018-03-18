@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.euclid.exceptions.NotAMatrix2DException;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -239,7 +239,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
    }
 
    @Test
-   public void testIsZOnly() throws Exception
+   public void testIsOrientation2D() throws Exception
    {
       Random random = new Random(23905872L);
 
@@ -250,27 +250,27 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double uz = random.nextDouble();
          double angle = random.nextDouble();
          T axisAngle = createEmptyAxisAngle();
-         assertTrue(axisAngle.isZOnly(getEpsilon()));
+         assertTrue(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(ux, uy, uz, 0.0);
-         assertTrue(axisAngle.isZOnly(getEpsilon()));
+         assertTrue(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(ux, uy, uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(0.0, uy, uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(ux, 0.0, uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(0.0, 0.0, uz, angle);
-         assertTrue(axisAngle.isZOnly(getEpsilon()));
+         assertTrue(axisAngle.isOrientation2D(getEpsilon()));
 
          axisAngle = createAxisAngle(2.0 * getEpsilon(), 0.0, uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
          axisAngle = createAxisAngle(0.0, 2.0 * getEpsilon(), uz, angle);
-         assertFalse(axisAngle.isZOnly(getEpsilon()));
+         assertFalse(axisAngle.isOrientation2D(getEpsilon()));
       }
    }
 
@@ -286,16 +286,16 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          double uz = random.nextDouble();
          double angle = random.nextDouble();
          T axisAngle = createEmptyAxisAngle();
-         axisAngle.checkIfIsZOnly(getEpsilon());
+         axisAngle.checkIfOrientation2D(getEpsilon());
 
          axisAngle = createAxisAngle(ux, uy, uz, 0.0);
-         axisAngle.checkIfIsZOnly(getEpsilon());
+         axisAngle.checkIfOrientation2D(getEpsilon());
 
          axisAngle = createAxisAngle(ux, uy, uz, angle);
 
          try
          {
-            axisAngle.checkIfIsZOnly(getEpsilon());
+            axisAngle.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -310,7 +310,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          axisAngle = createAxisAngle(0.0, uy, uz, angle);
          try
          {
-            axisAngle.checkIfIsZOnly(getEpsilon());
+            axisAngle.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -326,7 +326,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          try
          {
-            axisAngle.checkIfIsZOnly(getEpsilon());
+            axisAngle.checkIfOrientation2D(getEpsilon());
             fail("Should have thrown a RuntimeException");
          }
          catch (RuntimeException e)
@@ -339,7 +339,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
          }
 
          axisAngle = createAxisAngle(0.0, 0.0, uz, angle);
-         axisAngle.checkIfIsZOnly(getEpsilon());
+         axisAngle.checkIfOrientation2D(getEpsilon());
       }
    }
 
@@ -524,7 +524,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       Quaternion quaternion = new Quaternion();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(TupleBasics tupleToTransform)
+      { // Test transform(Tuple3DBasics tupleToTransform)
          Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
          Tuple3DBasics expectedTuple = EuclidCoreRandomTools.nextVector3D(random);
@@ -544,7 +544,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+      { // Test transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
          Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
          Tuple3DBasics expectedTuple = EuclidCoreRandomTools.nextVector3D(random);
@@ -555,6 +555,47 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
 
          QuaternionTools.transform(quaternion, tuple, expectedTuple);
          axisAngle.transform(tuple, actualTuple);
+
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+
+         actualTuple = new Vector3D();
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(tuple, actualTuple);
+         EuclidCoreTestTools.assertTuple3DEquals(tuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test addTransform(Tuple3DBasics tupleToTransform)
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
+         Tuple3DBasics actualTuple = new Vector3D(tuple);
+         Tuple3DBasics expectedTuple = new Vector3D(tuple);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.addTransform(quaternion, tuple, expectedTuple);
+         axisAngle.addTransform(actualTuple);
+
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+
+         axisAngle = createAxisAngle(0.0, 0.0, 0.0, 0.0);
+         axisAngle.transform(actualTuple);
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
+         Tuple3DBasics actualTuple = EuclidCoreRandomTools.nextVector3D(random);
+         Tuple3DBasics expectedTuple = new Vector3D(actualTuple);
+         axisAngle = createRandomAxisAngle(random);
+         double scale = 0.5 + random.nextDouble();
+         axisAngle = createAxisAngle(scale * axisAngle.getX(), scale * axisAngle.getY(), scale * axisAngle.getZ(), axisAngle.getAngle());
+         quaternion.set(axisAngle);
+
+         QuaternionTools.addTransform(quaternion, tuple, expectedTuple);
+         axisAngle.addTransform(tuple, actualTuple);
 
          EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
 
@@ -620,59 +661,59 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.transform(new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.transform(new Vector2D(), new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.transform(new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.transform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -800,7 +841,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       Quaternion quaternion = new Quaternion();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(TupleBasics tupleToTransform)
+      { // Test transform(Tuple3DBasics tupleToTransform)
          Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
          Tuple3DBasics expectedTuple = EuclidCoreRandomTools.nextVector3D(random);
@@ -816,7 +857,7 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+      { // Test transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
          Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
          Tuple3DBasics expectedTuple = EuclidCoreRandomTools.nextVector3D(random);
@@ -878,59 +919,59 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.inverseTransform(new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.inverseTransform(new Vector2D(), new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.inverseTransform(new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          axisAngle = createRandomAxisAngle(random);
          axisAngle.inverseTransform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)

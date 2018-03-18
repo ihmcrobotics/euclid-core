@@ -2,8 +2,6 @@ package us.ihmc.euclid.transform;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.interfaces.Clearable;
@@ -16,11 +14,12 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DFeatures;
 import us.ihmc.euclid.tools.Matrix3DTools;
-import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
@@ -164,40 +163,15 @@ public class RigidBodyTransform
    }
 
    /**
-    * Creates a new rigid-body transform and sets it to the given {@code rotationMatrix} and
+    * Creates a new rigid-body transform and sets it to the given {@code orientation} and
     * {@code translation}.
     *
-    * @param rotationMatrix the rotation matrix used to set this transform's rotation part. Not
-    *           modified.
+    * @param orientation the orientation used to set this transform's rotation part. Not modified.
     * @param translation the tuple used to set this transform's translation part. Not modified.
     */
-   public RigidBodyTransform(RotationMatrix rotationMatrix, Tuple3DReadOnly translation)
+   public RigidBodyTransform(Orientation3DReadOnly orientation, Tuple3DReadOnly translation)
    {
-      set(rotationMatrix, translation);
-   }
-
-   /**
-    * Creates a new rigid-body transform and sets it to the given {@code quaternion} and
-    * {@code translation}.
-    *
-    * @param quaternion the quaternion used to set this transform's rotation part. Not modified.
-    * @param translation the tuple used to set this transform's translation part. Not modified.
-    */
-   public RigidBodyTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
-   {
-      set(quaternion, translation);
-   }
-
-   /**
-    * Creates a new rigid-body transform and sets it to the given {@code axisAngle} and
-    * {@code translation}.
-    *
-    * @param axisAngle the axis-angle used to set this transform's rotation part. Not modified.
-    * @param translation the tuple used to set this transform's translation part. Not modified.
-    */
-   public RigidBodyTransform(AxisAngleReadOnly axisAngle, Tuple3DReadOnly translation)
-   {
-      set(axisAngle, translation);
+      set(orientation, translation);
    }
 
    /**
@@ -739,25 +713,13 @@ public class RigidBodyTransform
    /**
     * Sets the rotation and translation parts of this transform separately.
     *
-    * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
-    * @param translation the tuple used to set the translation part of this transform. Not modified.
-    */
-   public void set(AxisAngleReadOnly axisAngle, Tuple3DReadOnly translation)
-   {
-      rotationMatrix.set(axisAngle);
-      translationVector.set(translation);
-   }
-
-   /**
-    * Sets the rotation and translation parts of this transform separately.
-    *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not
+    * @param orientation the orientation used to set the rotation part of this transform. Not
     *           modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
+   public void set(Orientation3DReadOnly orientation, Tuple3DReadOnly translation)
    {
-      rotationMatrix.set(quaternion);
+      rotationMatrix.set(orientation);
       translationVector.set(translation);
    }
 
@@ -810,11 +772,12 @@ public class RigidBodyTransform
     * This method does not affect the translation part of this transform.
     * </p>
     *
-    * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not
+    *           modified.
     */
-   public void setRotation(AxisAngleReadOnly axisAngle)
+   public void setRotation(Orientation3DReadOnly orientation)
    {
-      rotationMatrix.set(axisAngle);
+      rotationMatrix.set(orientation);
    }
 
    /**
@@ -833,7 +796,7 @@ public class RigidBodyTransform
     */
    public void setRotation(Vector3DReadOnly rotationVector)
    {
-      rotationMatrix.set(rotationVector);
+      rotationMatrix.setRotationVector(rotationVector);
    }
 
    /**
@@ -850,20 +813,6 @@ public class RigidBodyTransform
    public void setRotation(DenseMatrix64F rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
-   }
-
-   /**
-    * Sets the rotation part of this transform to the given quaternion.
-    * <p>
-    * This method does not affect the translation part of this transform.
-    * </p>
-    *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not
-    *           modified.
-    */
-   public void setRotation(QuaternionReadOnly quaternion)
-   {
-      rotationMatrix.set(quaternion);
    }
 
    /**
@@ -1050,14 +999,28 @@ public class RigidBodyTransform
    }
 
    /**
-    * Sets the rotation part of this transform to the given axis-angle and sets the translation part
-    * to zero.
+    * Sets the rotation part of this transform to the given orientation and sets the translation
+    * part to zero.
     *
-    * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not
+    *           modified.
     */
-   public void setRotationAndZeroTranslation(AxisAngleReadOnly axisAngle)
+   public void setRotationAndZeroTranslation(Orientation3DReadOnly orientation)
    {
-      setRotation(axisAngle);
+      setRotation(orientation);
+      translationVector.setToZero();
+   }
+
+   /**
+    * Sets the rotation part of this transform to the given orientation and sets the translation
+    * part to zero.
+    *
+    * @param rotationMatrix the rotation matrix used to set the rotation part of this transform. Not
+    *           modified.
+    */
+   public void setRotationAndZeroTranslation(RotationMatrixReadOnly rotationMatrix)
+   {
+      setRotation(rotationMatrix);
       translationVector.setToZero();
    }
 
@@ -1075,7 +1038,7 @@ public class RigidBodyTransform
     */
    public void setRotationAndZeroTranslation(Vector3DReadOnly rotationVector)
    {
-      rotationMatrix.set(rotationVector);
+      rotationMatrix.setRotationVector(rotationVector);
       translationVector.setToZero();
    }
 
@@ -1091,22 +1054,6 @@ public class RigidBodyTransform
    public void setRotationAndZeroTranslation(DenseMatrix64F matrix)
    {
       setRotation(matrix);
-      translationVector.setToZero();
-   }
-
-   /**
-    * Sets the rotation part of this transform to the given quaternion and sets the translation part
-    * to zero.
-    * <p>
-    * This method does not affect the translation part of this transform.
-    * </p>
-    *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not
-    *           modified.
-    */
-   public void setRotationAndZeroTranslation(QuaternionReadOnly quaternion)
-   {
-      setRotation(quaternion);
       translationVector.setToZero();
    }
 
@@ -1402,7 +1349,7 @@ public class RigidBodyTransform
    public void multiply(QuaternionBasedTransform quaternionBasedTransform)
    {
       Matrix3DTools.addTransform(rotationMatrix, quaternionBasedTransform.getTranslationVector(), translationVector);
-      rotationMatrix.multiply(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.append(quaternionBasedTransform.getQuaternion());
    }
 
    /**
@@ -1471,7 +1418,7 @@ public class RigidBodyTransform
    {
       translationVector.sub(quaternionBasedTransform.getTranslationVector(), translationVector);
       rotationMatrix.inverseTransform(translationVector, translationVector);
-      QuaternionTools.multiplyTransposeMatrix(rotationMatrix, quaternionBasedTransform.getQuaternion(), rotationMatrix);
+      rotationMatrix.appendInvertThis(quaternionBasedTransform.getQuaternion());
    }
 
    /**
@@ -1488,7 +1435,7 @@ public class RigidBodyTransform
     */
    public void multiplyInvertOther(QuaternionBasedTransform quaternionBasedTransform)
    {
-      rotationMatrix.multiplyConjugateQuaternion(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.appendInvertOther(quaternionBasedTransform.getQuaternion());
       Matrix3DTools.subTransform(rotationMatrix, quaternionBasedTransform.getTranslationVector(), translationVector);
    }
 
@@ -1625,15 +1572,15 @@ public class RigidBodyTransform
     * Append a rotation about the x-axis to the rotation part of this transform.
     *
     * <pre>
-    *         /  cos(pitch) 0 sin(pitch) \
-    * R = R * |      0      1     0      |
-    *         \ -sin(pitch) 0 cos(pitch) /
+    *         / 1     0          0     \
+    * R = R * | 0 cos(roll) -sin(roll) |
+    *         \ 0 sin(roll)  cos(roll) /
     * </pre>
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
     *
-    * @param yaw the angle to rotate about the x-axis.
+    * @param roll the angle to rotate about the x-axis.
     */
    public void appendRollRotation(double roll)
    {
@@ -1670,7 +1617,7 @@ public class RigidBodyTransform
    {
       quaternionBasedTransform.getQuaternion().transform(translationVector);
       translationVector.add(quaternionBasedTransform.getTranslationVector());
-      rotationMatrix.preMultiply(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.prepend(quaternionBasedTransform.getQuaternion());
    }
 
    /**
@@ -1739,7 +1686,7 @@ public class RigidBodyTransform
     */
    public void preMultiplyInvertThis(QuaternionBasedTransform quaternionBasedTransform)
    {
-      rotationMatrix.preMultiplyTransposeThis(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.prependInvertThis(quaternionBasedTransform.getQuaternion());
       rotationMatrix.transform(translationVector);
       translationVector.sub(quaternionBasedTransform.getTranslationVector(), translationVector);
    }
@@ -1760,7 +1707,7 @@ public class RigidBodyTransform
    {
       translationVector.sub(quaternionBasedTransform.getTranslationVector());
       quaternionBasedTransform.getQuaternion().inverseTransform(translationVector);
-      rotationMatrix.preMultiplyConjugateQuaternion(quaternionBasedTransform.getQuaternion());
+      rotationMatrix.prependInvertOther(quaternionBasedTransform.getQuaternion());
    }
 
    /**
@@ -2214,24 +2161,12 @@ public class RigidBodyTransform
    /**
     * Packs the rotation matrix and translation vector of this rigid-body transform.
     *
-    * @param quaternionToPack the quaternion to set to the rotation of this transform. Modified.
+    * @param orientationToPack the orientation to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(QuaternionBasics quaternionToPack, Tuple3DBasics translationToPack)
+   public void get(Orientation3DBasics orientationToPack, Tuple3DBasics translationToPack)
    {
-      quaternionToPack.set(rotationMatrix);
-      translationToPack.set(translationVector);
-   }
-
-   /**
-    * Packs the rotation matrix and translation vector of this rigid-body transform.
-    *
-    * @param axisAngleToPack the axis-angle to set to the rotation of this transform. Modified.
-    * @param translationToPack the tuple to set to the translation of this transform. Modified.
-    */
-   public void get(AxisAngleBasics axisAngleToPack, Tuple3DBasics translationToPack)
-   {
-      axisAngleToPack.set(rotationMatrix);
+      orientationToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
    }
 
@@ -2249,7 +2184,7 @@ public class RigidBodyTransform
     */
    public void get(Vector3DBasics rotationVectorToPack, Tuple3DBasics translationToPack)
    {
-      rotationMatrix.get(rotationVectorToPack);
+      rotationMatrix.getRotationVector(rotationVectorToPack);
       translationToPack.set(translationVector);
    }
 
@@ -2358,23 +2293,12 @@ public class RigidBodyTransform
    /**
     * Packs the rotation part of this rigid-body transform as a quaternion.
     *
-    * @param quaternionToPack the quaternion that is set to the rotation part of this transform.
+    * @param orientationToPack the orientation that is set to the rotation part of this transform.
     *           Modified.
     */
-   public void getRotation(QuaternionBasics quaternionToPack)
+   public void getRotation(Orientation3DBasics orientationToPack)
    {
-      quaternionToPack.set(rotationMatrix);
-   }
-
-   /**
-    * Packs the rotation part of this rigid-body transform as an axis-angle.
-    *
-    * @param axisAngleToPack the axis-angle that is set to the rotation part of this transform.
-    *           Modified.
-    */
-   public void getRotation(AxisAngleBasics axisAngleToPack)
-   {
-      axisAngleToPack.set(rotationMatrix);
+      orientationToPack.set(rotationMatrix);
    }
 
    /**
@@ -2390,7 +2314,7 @@ public class RigidBodyTransform
     */
    public void getRotation(Vector3DBasics rotationVectorToPack)
    {
-      rotationMatrix.get(rotationVectorToPack);
+      rotationMatrix.getRotationVector(rotationVectorToPack);
    }
 
    /**

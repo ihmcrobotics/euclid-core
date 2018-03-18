@@ -2,22 +2,21 @@ package us.ihmc.euclid.matrix;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationMatrixConversion;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
-import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
  * A {@code RotationMatrix} is a 3-by-3 matrix used to represent 3d orientations.
@@ -40,7 +39,7 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  *
  * @author Sylvain Bertrand
  */
-public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, GeometryObject<RotationMatrix>
+public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, Orientation3DBasics, GeometryObject<RotationMatrix>
 {
    /** The 1st row 1st column coefficient of this matrix. */
    private double m00;
@@ -138,25 +137,13 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
    }
 
    /**
-    * Creates a new rotation matrix representing the same orientation as the given
-    * {@code axisAngle}.
+    * Creates a new rotation matrix that represents the same orientation as the given one.
     *
-    * @param axisAngle the axis-angle used to initialize this rotation matrix. Not modified.
+    * @param orientation the orientation used to initialize this rotation matrix. Not modified.
     */
-   public RotationMatrix(AxisAngleReadOnly axisAngle)
+   public RotationMatrix(Orientation3DReadOnly orientation)
    {
-      set(axisAngle);
-   }
-
-   /**
-    * Creates a new rotation matrix representing the same orientation as the given
-    * {@code quaternion}.
-    *
-    * @param quaternion the quaternion used to initialize this rotation matrix. Not modified.
-    */
-   public RotationMatrix(QuaternionReadOnly quaternion)
-   {
-      set(quaternion);
+      set(orientation);
    }
 
    /**
@@ -173,7 +160,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     */
    public RotationMatrix(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**
@@ -191,6 +178,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     *
     * @throws NotARotationMatrixException if the orthonormalization failed.
     */
+   @Override
    public void normalize()
    {
       Matrix3DTools.normalize(this);
@@ -373,6 +361,12 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
       m22 = other.getM22();
    }
 
+   @Override
+   public void set(Orientation3DReadOnly orientation3DReadOnly)
+   {
+      orientation3DReadOnly.get(this);
+   }
+
    /**
     * Sets this rotation matrix to equal the 3D matrix {@code matrix} and then normalizes
     * {@code this}.
@@ -380,7 +374,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
     */
-   public final void setAndNormalize(Matrix3DReadOnly matrix)
+   public void setAndNormalize(Matrix3DReadOnly matrix)
    {
       m00 = matrix.getM00();
       m01 = matrix.getM01();
@@ -394,17 +388,9 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
       normalize();
    }
 
-   /**
-    * Sets this rotation matrix to equal the other given one {@code other} and then normalizes
-    * {@code this}.
-    *
-    * @param other the matrix to copy the values from. Not modified.
-    * @throws NotARotationMatrixException if the normalization failed.
-    */
    public void setAndNormalize(RotationMatrixReadOnly other)
    {
-      set(other);
-      normalize();
+      setAndNormalize((Matrix3DReadOnly) other);
    }
 
    /**
@@ -461,40 +447,34 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
       transpose();
    }
 
-   /**
-    * Sets this rotation matrix to the same orientation described by the given {@code axisAngle}.
-    *
-    * @param axisAngle the axis-angle used to set this matrix. Not modified.
-    */
-   public void set(AxisAngleReadOnly axisAngle)
+   @Override
+   public void setAxisAngle(double x, double y, double z, double angle)
    {
-      RotationMatrixConversion.convertAxisAngleToMatrix(axisAngle, this);
+      RotationMatrixConversion.convertAxisAngleToMatrix(x, y, z, angle, this);
    }
 
-   /**
-    * Sets this rotation matrix to the same orientation described by the given {@code quaternion}.
-    *
-    * @param quaternion the quaternion used to set this matrix. Not modified.
-    */
-   public void set(QuaternionReadOnly quaternion)
+   @Override
+   public void setRotationVector(double x, double y, double z)
    {
-      RotationMatrixConversion.convertQuaternionToMatrix(quaternion, this);
+      RotationMatrixConversion.convertRotationVectorToMatrix(x, y, z, this);
    }
 
-   /**
-    * Sets this rotation matrix to the same orientation described by the given rotation vector
-    * {@code rotationVector}.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
-    * </p>
-    *
-    * @param rotation vector the rotation vector used to set this matrix. Not modified.
-    */
-   public void set(Vector3DReadOnly rotationVector)
+   @Override
+   public void setQuaternion(double x, double y, double z, double s)
    {
-      RotationMatrixConversion.convertRotationVectorToMatrix(rotationVector, this);
+      RotationMatrixConversion.convertQuaternionToMatrix(x, y, z, s, this);
+   }
+
+   @Override
+   public void setYawPitchRoll(double yaw, double pitch, double roll)
+   {
+      RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitch, roll, this);
+   }
+
+   @Override
+   public void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -549,86 +529,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
    }
 
    /**
-    * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
-    * {@code yawPitchRoll}.
-    *
-    * <pre>
-    *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
-    * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
-    *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
-    * </pre>
-    *
-    * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not
-    *           modified.
-    */
-   public void setYawPitchRoll(double[] yawPitchRoll)
-   {
-      setYawPitchRoll(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
-   }
-
-   /**
-    * Sets this rotation matrix to represent the same orientation as the given yaw-pitch-roll
-    * {@code yaw}, {@code pitch}, and {@code roll}.
-    *
-    * <pre>
-    *        / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
-    * this = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
-    *        \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
-    * </pre>
-    *
-    * @param yaw the angle to rotate about the z-axis.
-    * @param pitch the angle to rotate about the y-axis.
-    * @param roll the angle to rotate about the x-axis.
-    */
-   public void setYawPitchRoll(double yaw, double pitch, double roll)
-   {
-      RotationMatrixConversion.convertYawPitchRollToMatrix(yaw, pitch, roll, this);
-   }
-
-   /**
-    * Sets this rotation matrix to represent the same orientation as the given Euler angles
-    * {@code eulerAngles}.
-    *
-    * <pre>
-    *        / cos(eulerAngles.z) -sin(eulerAngles.z) 0 \   /  cos(eulerAngles.y) 0 sin(eulerAngles.y) \   / 1         0                   0          \
-    * this = | sin(eulerAngles.z)  cos(eulerAngles.z) 0 | * |          0          1         0          | * | 0 cos(eulerAngles.x) -sin(eulerAngles.x) |
-    *        \         0                   0          1 /   \ -sin(eulerAngles.y) 0 cos(eulerAngles.y) /   \ 0 sin(eulerAngles.x)  cos(eulerAngles.x) /
-    * </pre>
-    * <p>
-    * This is equivalent to
-    * {@code this.setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX())}.
-    * </p>
-    *
-    * @param eulerAngles the Euler angles to copy the orientation from. Not modified.
-    */
-   public void setEuler(Vector3DReadOnly eulerAngles)
-   {
-      setYawPitchRoll(eulerAngles.getZ(), eulerAngles.getY(), eulerAngles.getX());
-   }
-
-   /**
-    * Sets this rotation matrix to represent the same orientation as the given Euler angles
-    * {@code rotX}, {@code rotY}, and {@code rotZ}.
-    *
-    * <pre>
-    *        / cos(rotZ) -sin(rotZ) 0 \   /  cos(rotY) 0 sin(rotY) \   / 1     0          0     \
-    * this = | sin(rotZ)  cos(rotZ) 0 | * |      0     1     0     | * | 0 cos(rotX) -sin(rotX) |
-    *        \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
-    * </pre>
-    * <p>
-    * This is equivalent to {@code this.setYawPitchRoll(rotZ, rotY, rotX)}.
-    * </p>
-    *
-    * @param rotX the angle to rotate about the x-axis.
-    * @param rotY the angle to rotate about the y-axis.
-    * @param rotZ the angle to rotate about the z-axis.
-    */
-   public void setEuler(double rotX, double rotY, double rotZ)
-   {
-      setYawPitchRoll(rotZ, rotY, rotX);
-   }
-
-   /**
     * Inverts this rotation matrix.
     * <p>
     * This operation uses the property: <br>
@@ -639,6 +539,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     * This is equivalent to {@code this.transpose()}.
     * </p>
     */
+   @Override
    public void invert()
    {
       transpose();
@@ -657,18 +558,10 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
       RotationMatrixTools.multiply(this, other, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = this * R(quaternion) <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void multiply(QuaternionReadOnly quaternion)
+   @Override
+   public void append(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiply(this, quaternion, this);
+      RotationMatrixTools.multiply(this, false, orientation, false, this);
    }
 
    /**
@@ -685,20 +578,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
    }
 
    /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = this<sup>T</sup> * R(quaternion) <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void multiplyTransposeThis(QuaternionReadOnly quaternion)
-   {
-      QuaternionTools.multiplyTransposeMatrix(this, quaternion, this);
-   }
-
-   /**
     * Performs a matrix multiplication on this.
     * <p>
     * this = this * other<sup>T</sup>
@@ -711,18 +590,10 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
       RotationMatrixTools.multiplyTransposeRight(this, other, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = this * R(quaternion*) <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void multiplyConjugateQuaternion(QuaternionReadOnly quaternion)
+   @Override
+   public void appendInvertOther(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyConjugateQuaternion(this, quaternion, this);
+      RotationMatrixTools.multiply(this, false, orientation, true, this);
    }
 
    /**
@@ -739,20 +610,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
    }
 
    /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = this<sup>T</sup> * R(quaternion*) <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void multiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
-   {
-      QuaternionTools.multiplyTransposeMatrixConjugateQuaternion(this, quaternion, this);
-   }
-
-   /**
     * Append a rotation about the z-axis to this rotation matrix.
     *
     * <pre>
@@ -763,6 +620,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    public void appendYawRotation(double yaw)
    {
       RotationMatrixTools.appendYawRotation(this, yaw, this);
@@ -779,6 +637,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    public void appendPitchRotation(double pitch)
    {
       RotationMatrixTools.appendPitchRotation(this, pitch, this);
@@ -795,6 +654,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    public void appendRollRotation(double roll)
    {
       RotationMatrixTools.appendRollRotation(this, roll, this);
@@ -813,18 +673,10 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
       RotationMatrixTools.multiply(other, this, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = R(quaternion) * this <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void preMultiply(QuaternionReadOnly quaternion)
+   @Override
+   public void prepend(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiply(quaternion, this, this);
+      RotationMatrixTools.multiply(orientation, false, this, false, this);
    }
 
    /**
@@ -841,20 +693,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
    }
 
    /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = R(quaternion) * this<sup>T</sup> <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void preMultiplyTransposeThis(QuaternionReadOnly quaternion)
-   {
-      QuaternionTools.multiplyTransposeMatrix(quaternion, this, this);
-   }
-
-   /**
     * Performs a matrix multiplication on this.
     * <p>
     * this = other<sup>T</sup> * this
@@ -867,18 +705,10 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
       RotationMatrixTools.multiplyTransposeLeft(other, this, this);
    }
 
-   /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = R(quaternion*) * this <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void preMultiplyConjugateQuaternion(QuaternionReadOnly quaternion)
+   @Override
+   public void prependInvertOther(Orientation3DReadOnly orientation)
    {
-      QuaternionTools.multiplyConjugateQuaternion(quaternion, this, this);
+      RotationMatrixTools.multiply(orientation, true, this, false, this);
    }
 
    /**
@@ -895,20 +725,6 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
    }
 
    /**
-    * Performs a multiplication on this.
-    * <p>
-    * this = R(quaternion*) * this<sup>T</sup> <br>
-    * where R(quaternion) is the function to convert a quaternion into a rotation matrix.
-    * </p>
-    *
-    * @param quaternion the quaternion to multiply this. Not modified.
-    */
-   public void preMultiplyTransposeThisConjugateQuaternion(QuaternionReadOnly quaternion)
-   {
-      QuaternionTools.multiplyConjugateQuaternionTransposeMatrix(quaternion, this, this);
-   }
-
-   /**
     * Prepend a rotation about the z-axis to this rotation matrix.
     *
     * <pre>
@@ -919,6 +735,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    public void prependYawRotation(double yaw)
    {
       RotationMatrixTools.prependYawRotation(yaw, this, this);
@@ -935,6 +752,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    public void prependPitchRotation(double pitch)
    {
       RotationMatrixTools.prependPitchRotation(pitch, this, this);
@@ -951,6 +769,7 @@ public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, G
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    public void prependRollRotation(double roll)
    {
       RotationMatrixTools.prependRollRotation(roll, this, this);

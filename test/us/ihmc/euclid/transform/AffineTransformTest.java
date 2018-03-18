@@ -237,7 +237,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       double m21 = rotationScaleMatrix.getRotationMatrix().getM21() + 1.0e-5;
       double m22 = rotationScaleMatrix.getRotationMatrix().getM22() + 1.0e-5;
 
-      ((RotationMatrix) rotationScaleMatrix.getRotationMatrix()).setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      rotationScaleMatrix.getRotationMatrix().setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       ((RotationMatrix) affineTransform.getRotationMatrix()).setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
 
       rotationScaleMatrix.normalizeRotationMatrix();
@@ -2033,7 +2033,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          AffineTransform transform = EuclidCoreRandomTools.nextAffineTransform(random);
          Vector3D rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
-         rotationMatrix.set(rotationVector);
+         rotationMatrix.setRotationVector(rotationVector);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertEquals(rotationMatrix.getElement(row, column), transform.getRotationMatrix().getElement(row, column), EPS);

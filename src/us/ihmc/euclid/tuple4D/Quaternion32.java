@@ -1,14 +1,12 @@
 package us.ihmc.euclid.tuple4D;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.GeometryObject;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple2D.Vector2D32;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 
 /**
@@ -72,35 +70,14 @@ public class Quaternion32 implements QuaternionBasics, GeometryObject<Quaternion
    }
 
    /**
-    * Creates a new quaternion and initializes it to {@code other}
-    *
-    * @param other the quaternion to copy the components from. Not modified.
-    */
-   public Quaternion32(QuaternionReadOnly other)
-   {
-      set(other);
-   }
-
-   /**
     * Creates a new quaternion and initializes such that it represents the same orientation as the
-    * given {@code rotationMatrix}.
+    * given one.
     *
-    * @param rotationMatrix the rotation matrix to initialize this quaternion. Not modified.
+    * @param orientation the orientation used to initialize this quaternion. Not modified.
     */
-   public Quaternion32(RotationMatrixReadOnly rotationMatrix)
+   public Quaternion32(Orientation3DReadOnly orientation)
    {
-      set(rotationMatrix);
-   }
-
-   /**
-    * Creates a new quaternion and initializes such that it represents the same orientation as the
-    * given {@code axisAngle}.
-    *
-    * @param axisAngle the axis-angle to initialize this quaternion. Not modified.
-    */
-   public Quaternion32(AxisAngleReadOnly axisAngle)
-   {
-      set(axisAngle);
+      set(orientation);
    }
 
    /**
@@ -116,7 +93,7 @@ public class Quaternion32 implements QuaternionBasics, GeometryObject<Quaternion
     */
    public Quaternion32(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**
