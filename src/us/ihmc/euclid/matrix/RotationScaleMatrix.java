@@ -11,16 +11,12 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
-import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
-import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DFeatures;
 import us.ihmc.euclid.tuple3D.Vector3D;
-import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 /**
@@ -1140,142 +1136,6 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
    }
 
    /**
-    * Retrieves the scale factor with the maximum value and returns it.
-    *
-    * @return the maximum value among the scale factors.
-    */
-   public double getMaxScale()
-   {
-      return EuclidCoreTools.max(scale.getX(), scale.getY(), scale.getZ());
-   }
-
-   /**
-    * Packs the rotation part.
-    *
-    * @param orientationToPack the orientation in which the rotation part is stored. Modified.
-    */
-   public void getRotation(Orientation3DBasics orientationToPack)
-   {
-      orientationToPack.set(rotationMatrix);
-   }
-
-   /**
-    * Packs the rotation part as a rotation matrix and stores it into a row-major 1D array.
-    *
-    * @param rotationMatrixArrayToPack the array in which the coefficients of the rotation part are
-    *           stored. Modified.
-    */
-   public void getRotation(double[] rotationMatrixArrayToPack)
-   {
-      rotationMatrix.get(rotationMatrixArrayToPack);
-   }
-
-   /**
-    * Packs the rotation part as a rotation matrix.
-    *
-    * @param rotationMatrixToPack the rotation matrix in which the rotation part is stored. Modified.
-    */
-   public void getRotation(DenseMatrix64F rotationMatrixToPack)
-   {
-      rotationMatrix.get(rotationMatrixToPack);
-   }
-
-   /**
-    * Packs the rotation part as an rotation vector.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
-    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
-    * same axis-angle.
-    * </p>
-    *
-    * @param rotationVectorToPack the rotation vector in which the rotation part is stored. Modified.
-    */
-   public void getRotation(Vector3DBasics rotationVectorToPack)
-   {
-      rotationMatrix.getRotationVector(rotationVectorToPack);
-   }
-
-   /**
-    * Packs the orientation described by the rotation part as the Euler angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
-    */
-   public void getRotationEuler(Tuple3DBasics eulerAnglesToPack)
-   {
-      rotationMatrix.getEuler(eulerAnglesToPack);
-   }
-
-   /**
-    * Packs the orientation described by the rotation part as the yaw-pitch-roll angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
-    */
-   public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
-   {
-      rotationMatrix.getYawPitchRoll(yawPitchRollToPack);
-   }
-
-   /**
-    * Computes and returns the yaw angle from the yaw-pitch-roll representation of the rotation part.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the yaw angle around the z-axis.
-    */
-   public double getRotationYaw()
-   {
-      return rotationMatrix.getYaw();
-   }
-
-   /**
-    * Computes and returns the pitch angle from the yaw-pitch-roll representation of the rotation part.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the pitch angle around the y-axis.
-    */
-   public double getRotationPitch()
-   {
-      return rotationMatrix.getPitch();
-   }
-
-   /**
-    * Computes and returns the roll angle from the yaw-pitch-roll representation of the rotation part.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the roll angle around the x-axis.
-    */
-   public double getRotationRoll()
-   {
-      return rotationMatrix.getRoll();
-   }
-
-   /**
-    * Packs the scale factors in a tuple.
-    *
-    * @param scaleToPack the tuple in which the scale factors are stored. Modified.
-    */
-   public void getScale(Tuple3DBasics scaleToPack)
-   {
-      scaleToPack.set(scale);
-   }
-
-   /**
     * Returns the reference to the rotation matrix used to compose this rotation-scale matrix.
     *
     * @return the reference to the rotation matrix.
@@ -1291,90 +1151,6 @@ public class RotationScaleMatrix implements Matrix3DBasics, RotationScaleMatrixR
    public Vector3DReadOnly getScale()
    {
       return scale;
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM00()
-   {
-      return rotationMatrix.getM00() * scale.getX();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM01()
-   {
-      return rotationMatrix.getM01() * scale.getY();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM02()
-   {
-      return rotationMatrix.getM02() * scale.getZ();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM10()
-   {
-      return rotationMatrix.getM10() * scale.getX();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM11()
-   {
-      return rotationMatrix.getM11() * scale.getY();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM12()
-   {
-      return rotationMatrix.getM12() * scale.getZ();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM20()
-   {
-      return rotationMatrix.getM20() * scale.getX();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM21()
-   {
-      return rotationMatrix.getM21() * scale.getY();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getM22()
-   {
-      return rotationMatrix.getM22() * scale.getZ();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getScaleX()
-   {
-      return scale.getX();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getScaleY()
-   {
-      return scale.getY();
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public double getScaleZ()
-   {
-      return scale.getZ();
    }
 
    /**
