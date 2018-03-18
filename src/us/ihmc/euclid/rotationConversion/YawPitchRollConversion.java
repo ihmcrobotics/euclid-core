@@ -601,7 +601,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, Vector3DBasics eulerAnglesToPack)
+   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, Tuple3DBasics eulerAnglesToPack)
    {
       if (quaternion.containsNaN())
       {

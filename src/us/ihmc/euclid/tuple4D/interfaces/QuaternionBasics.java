@@ -91,6 +91,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       setUnsafe(-getX(), -getY(), -getZ(), getS());
    }
 
+   /** {@inheritDoc} */
    @Override
    default void invert()
    {
@@ -199,6 +200,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       normalize();
    }
 
+   /** {@inheritDoc} */
    @Override
    default void set(Orientation3DReadOnly orientation3DReadOnly)
    {
@@ -273,30 +275,35 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       inverse();
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setAxisAngle(double x, double y, double z, double angle)
    {
       QuaternionConversion.convertAxisAngleToQuaternion(x, y, z, angle, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setQuaternion(double x, double y, double z, double s)
    {
       setUnsafe(x, y, z, s);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setRotationVector(double x, double y, double z)
    {
       QuaternionConversion.convertRotationVectorToQuaternion(x, y, z, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       QuaternionConversion.convertYawPitchRollToQuaternion(yaw, pitch, roll, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
@@ -377,6 +384,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiply(q1, q2, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void append(Orientation3DReadOnly orientation)
    {
@@ -396,6 +404,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiplyConjugateRight(this, other, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void appendInvertOther(Orientation3DReadOnly orientation)
    {
@@ -495,6 +504,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiply(other, this, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void prepend(Orientation3DReadOnly orientation)
    {
@@ -514,6 +524,7 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       QuaternionTools.multiplyConjugateLeft(other, this, this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void prependInvertOther(Orientation3DReadOnly orientation)
    {

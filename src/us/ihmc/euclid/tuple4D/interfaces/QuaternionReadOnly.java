@@ -181,269 +181,126 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
       return 2.0 * Math.atan2(sinHalfTheta, getS());
    }
 
-   /**
-    * Computes and packs the orientation described by this quaternion as a rotation vector.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
-    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
-    * same axis-angle.
-    * </p>
-    *
-    * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
-    * @deprecated Use {@link #getRotationVector(Vector3DBasics)} instead
-    */
-   @Deprecated
-   default void get(Vector3DBasics rotationVectorToPack)
-   {
-      getRotationVector(rotationVectorToPack);
-   }
-
+   /** {@inheritDoc} */
    @Override
    default void get(RotationMatrix rotationMatrixToPack)
    {
       rotationMatrixToPack.setQuaternion(getX(), getY(), getZ(), getS());
    }
 
+   /** {@inheritDoc} */
    @Override
    default void get(AxisAngleBasics axisAngleToPack)
    {
       axisAngleToPack.setQuaternion(getX(), getY(), getZ(), getS());
    }
 
+   /** {@inheritDoc} */
    @Override
    default void get(QuaternionBasics quaternionToPack)
    {
       quaternionToPack.setQuaternion(getX(), getY(), getZ(), getS());
    }
 
-   /**
-    * Computes and packs the orientation described by this quaternion as a rotation vector.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
-    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
-    * same axis-angle.
-    * </p>
-    *
-    * @param rotationVectorToPack the vector in which the rotation vector is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertQuaternionToRotationVector(this, rotationVectorToPack);
    }
 
-   /**
-    * Computes and packs the orientation described by this quaternion as the yaw-pitch-roll angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {
       YawPitchRollConversion.convertQuaternionToYawPitchRoll(this, yawPitchRollToPack);
    }
 
-   /**
-    * Computes and packs the orientation described by this quaternion as the Euler angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
-    */
-   default void getEuler(Vector3DBasics eulerAnglesToPack)
+   /** {@inheritDoc} */
+   @Override
+   default void getEuler(Tuple3DBasics eulerAnglesToPack)
    {
       YawPitchRollConversion.convertQuaternionToYawPitchRoll(this, eulerAnglesToPack);
    }
 
-   /**
-    * Computes and returns the yaw angle from the yaw-pitch-roll representation of this quaternion.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the yaw angle around the z-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getYaw()
    {
       return YawPitchRollConversion.computeYaw(this);
    }
 
-   /**
-    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this quaternion.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the pitch angle around the y-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getPitch()
    {
       return YawPitchRollConversion.computePitch(this);
    }
 
-   /**
-    * Computes and returns the roll angle from the yaw-pitch-roll representation of this quaternion.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the roll angle around the x-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getRoll()
    {
       return YawPitchRollConversion.computeRoll(this);
    }
 
-   /**
-    * Transforms the given tuple {@code tupleOriginal} by this quaternion and stores the result in
-    * {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple to store the result. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       QuaternionTools.addTransform(this, tupleOriginal, tupleTransformed);
    }
 
-   /**
-    * Transforms the given tuple {@code tupleOriginal} by this quaternion and stores the result in
-    * {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = quaternion * tupleOriginal * quaternion<sup>-1</sup>
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple to store the result. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this quaternion represents a
-    *           transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this matrix does
-    *            not represent a transformation in the XY plane.
-    */
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
       QuaternionTools.transform(this, tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
-   /**
-    * Transforms the given 3D matrix {@code matrixOriginal} by this quaternion and stores the result in
-    * {@code matrixTransformed}.
-    * <p>
-    * matrixTransformed = this * matrixOriginal * this<sup>-1</sup>
-    * </p>
-    *
-    * @param matrixOriginal the matrix to transform. Not modified.
-    * @param matrixTransformed the matrix in which the result is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {
       QuaternionTools.transform(this, matrixOriginal, matrixTransformed);
    }
 
-   /**
-    * Transforms the vector part of the given 4D vector {@code vectorOriginal} and stores the result
-    * into {@code vectorTransformed}.
-    * <p>
-    * vectorTransformed.s = vectorOriginal.s <br>
-    * vectorTransformed.xyz = this * vectorOriginal.xyz * this<sup>-1</sup>
-    * </p>
-    *
-    * @param vectorOriginal the vector to transform. Not modified.
-    * @param vectorTransformed the vector in which the result is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       QuaternionTools.transform(this, vectorOriginal, vectorTransformed);
    }
 
-   /**
-    * Performs the inverse of the transform to the given tuple by this quaternion.
-    * <p>
-    * tupleToTransform = this<sup>-1</sup> * tupleToTransform * this
-    * </p>
-    *
-    * @param tupleToTransform the tuple to transform. Modified.
-    * @throws NotAMatrix2DException if this quaternion does not represent a transformation in the XY
-    *            plane.
-    */
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed);
    }
 
-   /**
-    * Performs the inverse of the transform to the given tuple {@code tupleOriginal} by this quaternion
-    * and stores the result in {@code tupleTransformed}.
-    * <p>
-    * tupleTransformed = this<sup>-1</sup> * tupleOriginal * this
-    * </p>
-    *
-    * @param tupleOriginal the tuple to transform. Not modified.
-    * @param tupleTransformed the tuple in which the result is stored. Modified.
-    * @param checkIfOrientation2D whether this method should assert that this quaternion represents a
-    *           transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and this quaternion
-    *            does not represent a transformation in the XY plane.
-    */
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
       QuaternionTools.inverseTransform(this, tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
-   /**
-    * Performs the inverse of the transform to the vector part the given 4D vector
-    * {@code vectorOriginal} by this quaternion and stores the result in {@code vectorTransformed}.
-    * <p>
-    * vectorTransformed.s = vectorOriginal.s <br>
-    * vectorTransformed.xyz = this<sup>-1</sup> * vectorOriginal.xyz * this
-    * </p>
-    *
-    * @param vectorOriginal the vector to transform. Not modified.
-    * @param vectorTransformed the vector in which the result is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       QuaternionTools.inverseTransform(this, vectorOriginal, vectorTransformed);
    }
 
-   /**
-    * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal} by this
-    * quaternion and stores the result in {@code matrixTransformed}.
-    * <p>
-    * s matrixTransformed = this<sup>-1</sup> * matrixOriginal * this
-    * </p>
-    *
-    * @param matrixOriginal the matrix to transform. Not modified.
-    * @param matrixTransformed the matrix in which the result is stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
    {

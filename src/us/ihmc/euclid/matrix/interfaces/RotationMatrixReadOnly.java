@@ -42,8 +42,8 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * This rotation matrix is considered to be an orientation 2D if:
     * <ul>
     * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@code epsilon},
-    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
-    * +/- {@code epsilon}.
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/-
+    * {@code epsilon}.
     * </ul>
     * </p>
     */
@@ -57,8 +57,8 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
     * Computes and returns the distance between this rotation matrix and the {@code other}.
     *
     * @param other the other rotation matrix to compute the distance. Not modified.
-    * @return the angle representing the distance between the two rotation matrices. It is contained
-    *         in [0, <i>pi</i>].
+    * @return the angle representing the distance between the two rotation matrices. It is contained in
+    *         [0, <i>pi</i>].
     */
    default double distance(RotationMatrixReadOnly other)
    {
@@ -68,9 +68,9 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    /**
     * Computes and packs the orientation described by this rotation matrix as a rotation vector.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVectorToPack the rotation vector representing the same orientation as this.
@@ -83,179 +83,139 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       getRotationVector(rotationVectorToPack);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void get(RotationMatrix rotationMatrixToPack)
    {
       rotationMatrixToPack.setRotationMatrix(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
    }
 
+   /** {@inheritDoc} */
    @Override
    default void get(AxisAngleBasics axisAngleToPack)
    {
       axisAngleToPack.setRotationMatrix(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
    }
 
+   /** {@inheritDoc} */
    @Override
    default void get(QuaternionBasics quaternionToPack)
    {
       quaternionToPack.setRotationMatrix(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
    }
 
-   /**
-    * Computes and packs the orientation described by this rotation matrix as a rotation vector.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
-    * </p>
-    *
-    * @param rotationVectorToPack the rotation vector representing the same orientation as this.
-    *           Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertMatrixToRotationVector(this, rotationVectorToPack);
    }
 
-   /**
-    * Computes and packs the orientation described by this rotation matrix as the Euler angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
-    */
+   /** {@inheritDoc} */
    default void getEuler(Tuple3DBasics eulerAnglesToPack)
    {
       YawPitchRollConversion.convertMatrixToYawPitchRoll(this, eulerAnglesToPack);
    }
 
-   /**
-    * Computes and packs the orientation described by this rotation matrix as the yaw-pitch-roll
-    * angles.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
-    */
+   /** {@inheritDoc} */
    @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {
       YawPitchRollConversion.convertMatrixToYawPitchRoll(this, yawPitchRollToPack);
    }
 
-   /**
-    * Computes and returns the yaw angle from the yaw-pitch-roll representation of this rotation
-    * matrix.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the yaw angle around the z-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getYaw()
    {
       return YawPitchRollConversion.computeYaw(this);
    }
 
-   /**
-    * Computes and returns the pitch angle from the yaw-pitch-roll representation of this rotation
-    * matrix.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the pitch angle around the y-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getPitch()
    {
       return YawPitchRollConversion.computePitch(this);
    }
 
-   /**
-    * Computes and returns the roll angle from the yaw-pitch-roll representation of this rotation
-    * matrix.
-    * <p>
-    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
-    * sometimes undefined.
-    * </p>
-    *
-    * @return the roll angle around the x-axis.
-    */
+   /** {@inheritDoc} */
    @Override
    default double getRoll()
    {
       return YawPitchRollConversion.computeRoll(this);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void addTransform(Tuple3DBasics tupleToTransform)
    {
       Matrix3DReadOnly.super.addTransform(tupleToTransform);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void addTransform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DReadOnly.super.addTransform(tupleOriginal, tupleTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple3DBasics tupleToTransform)
    {
       Matrix3DReadOnly.super.transform(tupleToTransform);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       Matrix3DReadOnly.super.transform(tupleOriginal, tupleTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple2DBasics tupleToTransform)
    {
       Matrix3DReadOnly.super.transform(tupleToTransform);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
    {
       Matrix3DReadOnly.super.transform(tupleOriginal, tupleTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple2DBasics tupleToTransform, boolean checkIfOrientation2D)
    {
       Matrix3DReadOnly.super.transform(tupleToTransform, checkIfOrientation2D);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed, boolean checkIfOrientation2D)
    {
       Matrix3DReadOnly.super.transform(tupleOriginal, tupleTransformed, checkIfOrientation2D);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Vector4DBasics vectorToTransform)
    {
       Matrix3DReadOnly.super.transform(vectorToTransform);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
       Matrix3DReadOnly.super.transform(vectorOriginal, vectorTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void transform(Matrix3D matrixToTransform)
    {
@@ -270,6 +230,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       Matrix3DTools.multiplyTransposeRight(matrixTransformed, this, matrixTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple3DBasics tupleToTransform)
    {
@@ -286,18 +247,21 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       tupleTransformed.set(x, y, z);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple2DBasics tupleToTransform)
    {
       Matrix3DReadOnly.super.inverseTransform(tupleToTransform);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
    {
       Matrix3DReadOnly.super.inverseTransform(tupleOriginal, tupleTransformed);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Tuple2DBasics tupleToTransform, boolean checkIfOrientation2D)
    {
@@ -316,6 +280,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       tupleTransformed.set(x, y);
    }
 
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Vector4DBasics vectorToTransform)
    {
@@ -332,6 +297,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       vectorTransformed.set(x, y, z, vectorOriginal.getS());
    }
 
+   /** {@inheritDoc} */
    @Override
    default void inverseTransform(Matrix3D matrixToTransform)
    {
@@ -349,8 +315,8 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    /**
     * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
     * <p>
-    * Two rotation matrices are considered geometrically equal if the magnitude of their difference
-    * is less than or equal to {@code epsilon}.
+    * Two rotation matrices are considered geometrically equal if the magnitude of their difference is
+    * less than or equal to {@code epsilon}.
     * </p>
     * <p>
     * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply

@@ -168,6 +168,17 @@ public interface Orientation3DReadOnly
    void getYawPitchRoll(double[] yawPitchRollToPack);
 
    /**
+    * Computes and packs the orientation described by this orientation as the Euler angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
+    */
+   void getEuler(Tuple3DBasics eulerAnglesToPack);
+
+   /**
     * Computes and returns the yaw angle from the yaw-pitch-roll representation of this orientation.
     * <p>
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
