@@ -942,7 +942,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       T qOriginal = createRandomTuple(random);
       qExpected.set(qOriginal);
       qExpected.inverse();
-      qActual.setAndInverse(qOriginal);
+      qActual.setAndInvert(qOriginal);
       EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
    }
 
