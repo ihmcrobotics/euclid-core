@@ -2,10 +2,10 @@ package us.ihmc.euclid.tuple4D;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.GeometryObject;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
@@ -19,7 +19,6 @@ import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
 {
@@ -86,6 +85,17 @@ public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
    }
 
    /**
+    * Creates a new quaternion and initializes such that it represents the same orientation as the
+    * given one.
+    *
+    * @param orientation the orientation to initialize this quaternion. Not modified.
+    */
+   public Quaternion(Orientation3DReadOnly orientation)
+   {
+      set(orientation);
+   }
+
+   /**
     * Creates a new quaternion and initializes it to {@code other}.
     *
     * @param other the quaternion to copy the components from. Not modified.
@@ -107,28 +117,6 @@ public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
 
    /**
     * Creates a new quaternion and initializes such that it represents the same orientation as the
-    * given {@code rotationMatrix}.
-    *
-    * @param rotationMatrix the rotation matrix to initialize this quaternion. Not modified.
-    */
-   public Quaternion(RotationMatrixReadOnly rotationMatrix)
-   {
-      set(rotationMatrix);
-   }
-
-   /**
-    * Creates a new quaternion and initializes such that it represents the same orientation as the
-    * given {@code axisAngle}.
-    *
-    * @param axisAngle the axis-angle to initialize this quaternion. Not modified.
-    */
-   public Quaternion(AxisAngleReadOnly axisAngle)
-   {
-      set(axisAngle);
-   }
-
-   /**
-    * Creates a new quaternion and initializes such that it represents the same orientation as the
     * given {@code rotationVector}.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
@@ -140,13 +128,13 @@ public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
     */
    public Quaternion(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**
     * Creates and new quaternion and initializes such that it represents the same orientation as the
     * given yaw-pitch-roll {@code yaw}, {@code pitch}, and {@code roll}.
-    * 
+    *
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
@@ -287,10 +275,10 @@ public class Quaternion implements QuaternionBasics, GeometryObject<Quaternion>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Double.doubleToLongBits(x);
-      bits = 31L * bits + Double.doubleToLongBits(y);
-      bits = 31L * bits + Double.doubleToLongBits(z);
-      bits = 31L * bits + Double.doubleToLongBits(s);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, x);
+      bits = EuclidHashCodeTools.addToHashCode(bits, y);
+      bits = EuclidHashCodeTools.addToHashCode(bits, z);
+      bits = EuclidHashCodeTools.addToHashCode(bits, s);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

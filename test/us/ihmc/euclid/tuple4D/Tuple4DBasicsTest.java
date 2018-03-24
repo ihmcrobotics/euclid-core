@@ -11,7 +11,6 @@ import org.junit.Test;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DBasics;
-import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 
 public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4DReadOnlyTest<T>
 {
@@ -190,7 +189,7 @@ public abstract class Tuple4DBasicsTest<T extends Tuple4DBasics> extends Tuple4D
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test set(Tuple3DReadOnly tupleReadOnly)
          tuple2 = createRandomTuple(random);
-         tuple1.set((Tuple4DReadOnly) tuple2);
+         tuple1.set(tuple2);
          EuclidCoreTestTools.assertTuple4DEquals(tuple1, tuple2, getEpsilon());
       }
 

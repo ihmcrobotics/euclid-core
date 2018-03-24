@@ -175,7 +175,8 @@ public interface Point3DReadOnly extends Tuple3DReadOnly
     * </p>
     *
     * @param other the other point 3D to compare against this. Not modified.
-    * @param epsilon the maximum distance that the two points can be spaced and still considered equal.
+    * @param epsilon the maximum distance that the two points can be spaced and still considered
+    *           equal.
     * @return {@code true} if the two points represent the same geometry, {@code false} otherwise.
     */
    default boolean geometricallyEquals(Point3DReadOnly other, double epsilon)

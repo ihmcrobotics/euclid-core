@@ -2,6 +2,7 @@ package us.ihmc.euclid.tuple3D;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 
@@ -251,7 +252,8 @@ public class Point3D32 implements Point3DBasics, GeometryObject<Point3D32>
     * </p>
     *
     * @param other the other point 3D to compare against this. Not modified.
-    * @param epsilon the maximum distance that the two points can be spaced and still considered equal.
+    * @param epsilon the maximum distance that the two points can be spaced and still considered
+    *           equal.
     * @return {@code true} if the two points represent the same geometry, {@code false} otherwise.
     */
    @Override
@@ -280,9 +282,9 @@ public class Point3D32 implements Point3DBasics, GeometryObject<Point3D32>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Float.floatToIntBits(x);
-      bits = 31L * bits + Float.floatToIntBits(y);
-      bits = 31L * bits + Float.floatToIntBits(z);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, x);
+      bits = EuclidHashCodeTools.addToHashCode(bits, y);
+      bits = EuclidHashCodeTools.addToHashCode(bits, z);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

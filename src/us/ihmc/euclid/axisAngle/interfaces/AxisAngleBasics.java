@@ -1,11 +1,11 @@
 package us.ihmc.euclid.axisAngle.interfaces;
 
 import us.ihmc.euclid.interfaces.Clearable;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.AxisAngleTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
  * Write and read interface for an axis-angle object.
@@ -14,11 +14,9 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * an angle of rotation usually expressed in radians.
  * </p>
  *
- * @author Sylvain
- *
- * @param T the final type of the axis-angle used.
+ * @author Sylvain Bertrand
  */
-public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
+public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics, Clearable
 {
    /**
     * Sets a new angle to this axis-angle.
@@ -97,8 +95,18 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
 
    /**
     * Sets this axis-angle to its inverse.
+    *
+    * @deprecated Use {@link #invert()} instead.
     */
+   @Deprecated
    default void inverse()
+   {
+      invert();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default void invert()
    {
       setAngle(-getAngle());
    }
@@ -112,8 +120,27 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     * <li>if this axis-angle contains {@link Double#NaN}, this method is ineffective.
     * </ul>
     * </p>
+    *
+    * @deprecated Use {@link #normalize()} instead
     */
+   @Deprecated
    default void normalizeAxis()
+   {
+      normalize();
+   }
+
+   /**
+    * Normalizes the axis of this axis-angle such that its norm is equal to 1 after calling this
+    * method and its direction remains unchanged.
+    * <p>
+    * Edge cases:
+    * <ul>
+    * <li>if this axis-angle contains {@link Double#NaN}, this method is ineffective.
+    * </ul>
+    * </p>
+    */
+   @Override
+   default void normalize()
    {
       if (containsNaN())
          return;
@@ -159,6 +186,13 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
       setX(x);
       setY(y);
       setZ(z);
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default void set(Orientation3DReadOnly orientation3DReadOnly)
+   {
+      orientation3DReadOnly.get(this);
    }
 
    /**
@@ -265,71 +299,39 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
       setAngle(axisAngleArray[startIndex]);
    }
 
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given {@code quaternion}. See
-    * {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
-    *
-    * @param quaternion the quaternion to convert. Not modified.
-    */
-   default void set(QuaternionReadOnly quaternion)
+   /** {@inheritDoc} */
+   @Override
+   default void setAxisAngle(double x, double y, double z, double angle)
    {
-      AxisAngleConversion.convertQuaternionToAxisAngle(quaternion, this);
+      set(x, y, z, angle);
    }
 
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given {@code rotationMatrix}. See
-    * {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
-    *
-    * @param rotationMatrix the rotation matrix to convert. Not modified.
-    */
-   default void set(RotationMatrixReadOnly rotationMatrix)
+   /** {@inheritDoc} */
+   @Override
+   default void setQuaternion(double x, double y, double z, double s)
    {
-      AxisAngleConversion.convertMatrixToAxisAngle(rotationMatrix, this);
+      AxisAngleConversion.convertQuaternionToAxisAngle(x, y, z, s, this);
    }
 
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given {@code rotationVector}. See
-    * {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
-    * </p>
-    *
-    * @param rotationVector the rotation vector to convert. Not modified.
-    */
-   default void set(Vector3DReadOnly rotationVector)
+   /** {@inheritDoc} */
+   @Override
+   default void setRotationVector(double x, double y, double z)
    {
-      AxisAngleConversion.convertRotationVectorToAxisAngle(rotationVector, this);
+      AxisAngleConversion.convertRotationVectorToAxisAngle(x, y, z, this);
    }
 
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given yaw-pitch-roll angles. See
-    * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double[], AxisAngleBasics)}.
-    *
-    * @param yawPitchRoll array containing the yaw, pitch, and roll angles. Not modified.
-    */
-   default void setYawPitchRoll(double[] yawPitchRoll)
-   {
-      AxisAngleConversion.convertYawPitchRollToAxisAngle(yawPitchRoll, this);
-   }
-
-   /**
-    * Sets the components of this axis-angle such that it represents the same orientation as the
-    * given yaw-pitch-roll angles. See
-    * {@link AxisAngleConversion#convertYawPitchRollToAxisAngle(double, double, double, AxisAngleBasics)}.
-    *
-    * @param yaw the angle to rotate about the z-axis.
-    * @param pitch the angle to rotate about the y-axis.
-    * @param roll the angle to rotate about the x-axis.
-    */
+   /** {@inheritDoc} */
+   @Override
    default void setYawPitchRoll(double yaw, double pitch, double roll)
    {
       AxisAngleConversion.convertYawPitchRollToAxisAngle(yaw, pitch, roll, this);
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
+   {
+      AxisAngleConversion.convertMatrixToAxisAngle(m00, m01, m02, m10, m11, m12, m20, m21, m22, this);
    }
 
    /**
@@ -377,6 +379,13 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
       AxisAngleTools.multiply(this, other, this);
    }
 
+   /** {@inheritDoc} */
+   @Override
+   default void append(Orientation3DReadOnly other)
+   {
+      AxisAngleTools.multiply(this, false, other, false, this);
+   }
+
    /**
     * Sets this axis-angle to the multiplication of {@code aa1} and {@code aa2}.
     * <p>
@@ -404,6 +413,13 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
       AxisAngleTools.multiplyInvertRight(this, other, this);
    }
 
+   /** {@inheritDoc} */
+   @Override
+   default void appendInvertOther(Orientation3DReadOnly orientation)
+   {
+      AxisAngleTools.multiply(this, false, orientation, true, this);
+   }
+
    /**
     * Sets this axis-angle to the multiplication of the inverse of {@code this} and {@code other}.
     * <p>
@@ -418,6 +434,20 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
    }
 
    /**
+    * Sets this axis-angle to the multiplication of the inverse of {@code this} and the inverse of
+    * {@code other}.
+    * <p>
+    * this = this<sup>-1</sup> * other<sup>-1</sup>
+    * </p>
+    *
+    * @param other the other axis-angle to multiply this. Not modified.
+    */
+   default void multiplyInvertBoth(AxisAngleReadOnly other)
+   {
+      AxisAngleTools.multiplyInvertBoth(this, other, this);
+   }
+
+   /**
     * Append a rotation about the z-axis to this axis-angle.
     *
     * <pre>
@@ -429,6 +459,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    default void appendYawRotation(double yaw)
    {
       AxisAngleTools.appendYawRotation(this, yaw, this);
@@ -446,6 +477,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    default void appendPitchRotation(double pitch)
    {
       AxisAngleTools.appendPitchRotation(this, pitch, this);
@@ -463,6 +495,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    default void appendRollRotation(double roll)
    {
       AxisAngleTools.appendRollRotation(this, roll, this);
@@ -481,6 +514,13 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
       AxisAngleTools.multiply(other, this, this);
    }
 
+   /** {@inheritDoc} */
+   @Override
+   default void prepend(Orientation3DReadOnly orientation)
+   {
+      AxisAngleTools.multiply(orientation, false, this, false, this);
+   }
+
    /**
     * Sets this axis-angle to the multiplication of the inverse of {@code other} and {@code this}.
     * <p>
@@ -492,6 +532,13 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
    default void preMultiplyInvertOther(AxisAngleReadOnly other)
    {
       AxisAngleTools.multiplyInvertLeft(other, this, this);
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default void prependInvertOther(Orientation3DReadOnly orientation)
+   {
+      AxisAngleTools.multiply(orientation, true, this, false, this);
    }
 
    /**
@@ -508,6 +555,20 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
    }
 
    /**
+    * Sets this axis-angle to the multiplication of the inverse of {@code other} and the inverse of
+    * {@code this}.
+    * <p>
+    * this = other<sup>-1</sup> * this<sup>-1</sup>
+    * </p>
+    *
+    * @param other the other axis-angle to multiply this. Not modified.
+    */
+   default void preMultiplyInvertBoth(AxisAngleReadOnly other)
+   {
+      AxisAngleTools.multiplyInvertBoth(other, this, this);
+   }
+
+   /**
     * Prepend a rotation about the z-axis to this axis-angle.
     *
     * <pre>
@@ -519,6 +580,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     *
     * @param yaw the angle to rotate about the z-axis.
     */
+   @Override
    default void prependYawRotation(double yaw)
    {
       AxisAngleTools.prependYawRotation(yaw, this, this);
@@ -536,6 +598,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     *
     * @param pitch the angle to rotate about the y-axis.
     */
+   @Override
    default void prependPitchRotation(double pitch)
    {
       AxisAngleTools.prependPitchRotation(pitch, this, this);
@@ -553,6 +616,7 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Clearable
     *
     * @param roll the angle to rotate about the x-axis.
     */
+   @Override
    default void prependRollRotation(double roll)
    {
       AxisAngleTools.prependRollRotation(roll, this, this);

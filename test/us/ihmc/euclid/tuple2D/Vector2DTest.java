@@ -94,6 +94,7 @@ public class Vector2DTest extends Vector2DBasicsTest<Vector2D>
       }
    }
 
+   @Override
    @Test
    public void testGeometricallyEquals() throws Exception
    {

@@ -1,6 +1,8 @@
 package us.ihmc.euclid.tuple3D;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
@@ -245,22 +247,31 @@ public abstract class Point3DBasicsTest<T extends Point3DBasics> extends Tuple3D
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
+   public void testGeometricallyEquals() throws Exception
+   {
       Point3DBasics pointA;
       Point3DBasics pointB;
       Random random = new Random(621541L);
 
-      for (int i = 0; i < 100; ++i) {
+      for (int i = 0; i < 100; ++i)
+      {
          double epsilon = random.nextDouble();
          pointA = EuclidCoreRandomTools.nextPoint3D(random);
          pointB = EuclidCoreRandomTools.nextPoint3D(random);
 
-         if (pointA.epsilonEquals(pointB, getEpsilon())) {
-            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3)*getEpsilon()));
-         } else {
-            if (Math.sqrt((pointA.getX() - pointB.getX()) * (pointA.getX() - pointB.getX()) + (pointA.getY() - pointB.getY()) * (pointA.getY() - pointB.getY()) + (pointA.getZ() - pointB.getZ()) * (pointA.getZ() - pointB.getZ())) <= getEpsilon()) {
+         if (pointA.epsilonEquals(pointB, getEpsilon()))
+         {
+            assertTrue(pointA.geometricallyEquals(pointB, Math.sqrt(3) * getEpsilon()));
+         }
+         else
+         {
+            if (Math.sqrt((pointA.getX() - pointB.getX()) * (pointA.getX() - pointB.getX()) + (pointA.getY() - pointB.getY()) * (pointA.getY() - pointB.getY())
+                  + (pointA.getZ() - pointB.getZ()) * (pointA.getZ() - pointB.getZ())) <= getEpsilon())
+            {
                assertTrue(pointA.geometricallyEquals(pointB, getEpsilon()));
-            } else {
+            }
+            else
+            {
                assertFalse(pointA.geometricallyEquals(pointB, getEpsilon()));
             }
          }

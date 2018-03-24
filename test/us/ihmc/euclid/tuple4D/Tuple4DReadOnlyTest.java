@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.QuaternionTools;
-import us.ihmc.euclid.tuple4D.Vector4D;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 
 public abstract class Tuple4DReadOnlyTest<T extends Tuple4DReadOnly>

@@ -1,7 +1,16 @@
 package us.ihmc.euclid.tuple2D;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Random;
+
 import org.junit.Test;
+
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tools.EuclidCoreTools;
@@ -10,10 +19,6 @@ import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
-
-import java.util.Random;
-
-import static org.junit.Assert.*;
 
 public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple2DBasicsTest<T>
 {
@@ -310,29 +315,29 @@ public abstract class Vector2DBasicsTest<T extends Vector2DBasics> extends Tuple
          try
          {
             actual.applyInverseTransform(rigidBodyTransform);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAnOrientation2DException e)
          {
             // good
          }
          catch (Exception e)
          {
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException.");
          }
 
          try
          {
             actual.applyInverseTransform(rigidBodyTransform, true);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAnOrientation2DException e)
          {
             // good
          }
          catch (Exception e)
          {
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException.");
          }
          actual.applyInverseTransform(rigidBodyTransform, false);
       }

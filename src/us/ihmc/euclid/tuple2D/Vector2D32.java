@@ -2,6 +2,7 @@ package us.ihmc.euclid.tuple2D;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Vector2DBasics;
 
@@ -47,7 +48,7 @@ public class Vector2D32 implements Vector2DBasics, GeometryObject<Vector2D32>
     * Creates a new vector and initializes its component {@code x}, {@code y} in order from the
     * given array.
     *
-    * @param pointArray the array containing this vector's components. Not modified.
+    * @param vectorArray the array containing this vector's components. Not modified.
     */
    public Vector2D32(float[] vectorArray)
    {
@@ -237,8 +238,8 @@ public class Vector2D32 implements Vector2DBasics, GeometryObject<Vector2D32>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Float.floatToIntBits(x);
-      bits = 31L * bits + Float.floatToIntBits(y);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, x);
+      bits = EuclidHashCodeTools.addToHashCode(bits, y);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

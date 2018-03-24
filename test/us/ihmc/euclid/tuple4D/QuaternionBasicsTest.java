@@ -1,18 +1,28 @@
 package us.ihmc.euclid.tuple4D;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Random;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
-import us.ihmc.euclid.exceptions.NotAMatrix2DException;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasicsTest;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
 import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
@@ -30,8 +40,6 @@ import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
-import us.ihmc.euclid.tuple4D.Quaternion;
-import us.ihmc.euclid.tuple4D.Vector4D;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
@@ -69,7 +77,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    }
 
    @Test
-   public void testIsQuaternionZOnly() throws Exception
+   public void testIsOrientation2D() throws Exception
    {
       Random random = new Random(23905872L);
 
@@ -82,26 +90,26 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T quaternion = createEmptyTuple();
 
          quaternion.set(qx, qy, qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
 
          quaternion.set(0.0, qy, qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
 
          quaternion.set(qx, 0.0, qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
 
          quaternion.set(0.0, 0.0, qz, qs);
-         assertTrue(quaternion.isZOnly(getEpsilon()));
+         assertTrue(quaternion.isOrientation2D(getEpsilon()));
 
          quaternion.set(2.0 * getEpsilon(), 0.0, qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
          quaternion.set(0.0, 2.0 * getEpsilon(), qz, qs);
-         assertFalse(quaternion.isZOnly(getEpsilon()));
+         assertFalse(quaternion.isOrientation2D(getEpsilon()));
       }
    }
 
    @Test
-   public void testCheckIfIsZOnly() throws Exception
+   public void testCheckIfOrientation2D() throws Exception
    {
       Random random = new Random(23905872L);
 
@@ -117,50 +125,50 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          try
          {
-            quaternion.checkIfIsZOnly(getEpsilon());
-            fail("Should have thrown a RuntimeException");
+            quaternion.checkIfOrientation2D(getEpsilon());
+            fail("Should have thrown a NotAnOrientation2DException");
          }
-         catch (RuntimeException e)
+         catch (NotAnOrientation2DException e)
          {
             // good
          }
          catch (Exception e)
          {
-            fail("Should have thrown a RuntimeException");
+            fail("Should have thrown a NotAnOrientation2DException");
          }
 
          quaternion.set(0.0, qy, qz, qs);
          try
          {
-            quaternion.checkIfIsZOnly(getEpsilon());
-            fail("Should have thrown a RuntimeException");
+            quaternion.checkIfOrientation2D(getEpsilon());
+            fail("Should have thrown a NotAnOrientation2DException");
          }
-         catch (RuntimeException e)
+         catch (NotAnOrientation2DException e)
          {
             // good
          }
          catch (Exception e)
          {
-            fail("Should have thrown a RuntimeException");
+            fail("Should have thrown a NotAnOrientation2DException");
          }
 
          quaternion.set(qx, 0.0, qz, qs);
          try
          {
-            quaternion.checkIfIsZOnly(getEpsilon());
-            fail("Should have thrown a RuntimeException");
+            quaternion.checkIfOrientation2D(getEpsilon());
+            fail("Should have thrown a NotAnOrientation2DException");
          }
-         catch (RuntimeException e)
+         catch (NotAnOrientation2DException e)
          {
             // good
          }
          catch (Exception e)
          {
-            fail("Should have thrown a RuntimeException");
+            fail("Should have thrown a NotAnOrientation2DException");
          }
 
          quaternion.set(0.0, 0.0, qz, qs);
-         quaternion.checkIfIsZOnly(getEpsilon());
+         quaternion.checkIfOrientation2D(getEpsilon());
       }
    }
 
@@ -173,7 +181,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
          QuaternionReadOnly q1 = createRandomTuple(random);
-         
+
          for (int j = 0; j < NUMBER_OF_ITERATIONS; j++)
          {
             QuaternionReadOnly q2 = createRandomTuple(random);
@@ -255,7 +263,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          Vector3D actualRotationVector = new Vector3D();
 
          RotationVectorConversion.convertQuaternionToRotationVector(quaternion, expectedRotationVector);
-         quaternion.get(actualRotationVector);
+         quaternion.getRotationVector(actualRotationVector);
          EuclidCoreTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, getEpsilon());
       }
    }
@@ -314,7 +322,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       T quaternion = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(TupleBasics tupleToTransform)
+      { // Test transform(Tuple3DBasics tupleToTransform)
          Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
          Tuple3DBasics expectedTuple = EuclidCoreRandomTools.nextVector3D(random);
@@ -327,7 +335,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+      { // Test transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
          Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
          Tuple3DBasics expectedTuple = EuclidCoreRandomTools.nextVector3D(random);
@@ -335,6 +343,32 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          QuaternionTools.transform(quaternion, tuple, expectedTuple);
          quaternion.transform(tuple, actualTuple);
+
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test addTransform(Tuple3DBasics tupleToTransform)
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
+         Tuple3DBasics actualTuple = new Vector3D(tuple);
+         Tuple3DBasics expectedTuple = new Vector3D(tuple);
+         quaternion = createRandomTuple(random);
+
+         QuaternionTools.addTransform(quaternion, tuple, expectedTuple);
+         quaternion.addTransform(actualTuple);
+
+         EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
+         Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
+         Tuple3DBasics actualTuple = EuclidCoreRandomTools.nextVector3D(random);
+         Tuple3DBasics expectedTuple = new Vector3D(actualTuple);
+         quaternion = createRandomTuple(random);
+
+         QuaternionTools.addTransform(quaternion, tuple, expectedTuple);
+         quaternion.addTransform(tuple, actualTuple);
 
          EuclidCoreTestTools.assertTuple3DEquals(expectedTuple, actualTuple, getEpsilon());
       }
@@ -361,7 +395,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(Tuple2DBasics tupleOriginal, Tuple2DBasics tupleTransformed)
+      { // Test transform(Tuple2DReadOnly tupleOriginal, Tuple2DBasics tupleTransformed)
          Tuple2DReadOnly tuple = EuclidCoreRandomTools.nextVector2D(random);
          Tuple2DBasics actualTuple = new Vector2D(tuple);
          Tuple2DBasics expectedTuple = EuclidCoreRandomTools.nextVector2D(random);
@@ -384,59 +418,59 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       {
          quaternion = createRandomTuple(random);
          quaternion.transform(new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.transform(new Vector2D(), new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.transform(new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.transform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -519,7 +553,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       T quaternion = createEmptyTuple();
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(TupleBasics tupleToTransform)
+      { // Test transform(Tuple3DBasics tupleToTransform)
          Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
          Tuple3DBasics expectedTuple = EuclidCoreRandomTools.nextVector3D(random);
@@ -532,7 +566,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      { // Test transform(TupleBasics tupleOriginal, TupleBasics tupleTransformed)
+      { // Test transform(Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
          Tuple3DReadOnly tuple = EuclidCoreRandomTools.nextVector3D(random);
          Tuple3DBasics actualTuple = new Vector3D(tuple);
          Tuple3DBasics expectedTuple = EuclidCoreRandomTools.nextVector3D(random);
@@ -589,59 +623,59 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       {
          quaternion = createRandomTuple(random);
          quaternion.inverseTransform(new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.inverseTransform(new Vector2D(), new Vector2D());
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.inverseTransform(new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       try
       {
          quaternion = createRandomTuple(random);
          quaternion.inverseTransform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAnOrientation2DException e)
       {
          // good
       }
       catch (Exception e)
       {
-         fail("Should have thrown a NotAMatrix2DException.");
+         fail("Should have thrown a NotAnOrientation2DException.");
       }
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -802,6 +836,15 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       actual.setUnsafe(0.0, 0.0, 0.0, 0.0);
       actual.normalize();
       EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
+
+      Quaternion q = new Quaternion();
+      q.setUnsafe(1.0, 1.0, 1.0, 1.0);
+      actual.setAndNormalize(q);
+      assertTrue(actual.isUnitary(getEpsilon()));
+
+      q.setUnsafe(1.0, 1.0, 1.0, 1.0);
+      actual.setAndNormalize((Orientation3DReadOnly) q);
+      assertTrue(actual.isUnitary(getEpsilon()));
    }
 
    @Test
@@ -899,7 +942,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
       T qOriginal = createRandomTuple(random);
       qExpected.set(qOriginal);
       qExpected.inverse();
-      qActual.setAndInverse(qOriginal);
+      qActual.setAndInvert(qOriginal);
       EuclidCoreTestTools.assertQuaternionEquals(qExpected, qActual, getEpsilon());
    }
 
@@ -1067,7 +1110,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
          QuaternionConversion.convertRotationVectorToQuaternion(rotationVector, expectedQuaternion);
 
-         actualQuaternion.set(rotationVector);
+         actualQuaternion.setRotationVector(rotationVector);
          EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, getEpsilon());
       }
    }
@@ -1215,18 +1258,6 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
          }
-
-         { // Test multiply(RotationMatrixReadOnly matrix)
-            RotationMatrix matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-
-            qActual.set(qOther1);
-            qExpected.set(qOther1);
-
-            qActual.multiply(matrix);
-            QuaternionTools.multiply(qExpected, matrix, qExpected);
-
-            EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
-         }
       }
    }
 
@@ -1264,26 +1295,6 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
          }
-
-         { // Test multiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
-            qExpected.set(qOther1);
-            qExpected.multiplyConjugateThis(qOther2);
-
-            qActual.set(qOther1);
-            qActual.multiplyConjugateThis(new RotationMatrix(qOther2));
-
-            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
-         }
-
-         { // Test multiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
-            qExpected.set(qOther1);
-            qExpected.multiplyConjugateOther(qOther2);
-
-            qActual.set(qOther1);
-            qActual.multiplyTransposeMatrix(new RotationMatrix(qOther2));
-
-            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
-         }
       }
    }
 
@@ -1291,7 +1302,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    public void testAppendYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       T expected = createEmptyTuple();
       T actual = createEmptyTuple();
 
@@ -1345,7 +1356,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
    public void testPrependYawPitchRoll() throws Exception
    {
       Random random = new Random(35454L);
-      
+
       T expected = createEmptyTuple();
       T actual = createEmptyTuple();
 
@@ -1415,17 +1426,6 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
          }
-
-         { // Test preMultiply(RotationMatrixReadOnly matrix)
-            RotationMatrix matrix = EuclidCoreRandomTools.nextRotationMatrix(random);
-
-            qActual.set(qOther1);
-            qExpected.set(qOther1);
-            qActual.preMultiply(matrix);
-            QuaternionTools.multiply(matrix, qExpected, qExpected);
-
-            EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
-         }
       }
    }
 
@@ -1462,26 +1462,6 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
             qActual.preMultiplyConjugateOther(qOther2);
 
             EuclidCoreTestTools.assertQuaternionEquals(qActual, qExpected, getEpsilon());
-         }
-
-         { // Test preMultiplyConjugateThis(RotationMatrixReadOnly rotationMatrix)
-            qExpected.set(qOther1);
-            qExpected.preMultiplyConjugateThis(qOther2);
-
-            qActual.set(qOther1);
-            qActual.preMultiplyConjugateThis(new RotationMatrix(qOther2));
-
-            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
-         }
-
-         { // Test preMultiplyTransposeMatrix(RotationMatrixReadOnly rotationMatrix)
-            qExpected.set(qOther1);
-            qExpected.preMultiplyConjugateOther(qOther2);
-
-            qActual.set(qOther1);
-            qActual.preMultiplyTransposeMatrix(new RotationMatrix(qOther2));
-
-            EuclidCoreTestTools.assertQuaternionGeometricallyEquals(qActual, qExpected, getEpsilon());
          }
       }
    }
@@ -1612,7 +1592,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T actual = createEmptyTuple();
 
          expected.set(original);
-         expected.preMultiply(transform.getRotationMatrix());
+         expected.prepend(transform.getRotationMatrix());
          actual.set(original);
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
@@ -1640,7 +1620,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          T actual = createEmptyTuple();
 
          expected.set(original);
-         expected.preMultiply(transform.getRotationMatrix());
+         expected.prepend(transform.getRotationMatrix());
          actual.set(original);
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertTuple4DEquals(expected, actual, getEpsilon());
@@ -1807,6 +1787,43 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
          assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
          quaternionB.negate();
          assertTrue("Epsilon = " + epsilon, quaternionA.geometricallyEquals(quaternionB, epsilon));
+      }
+   }
+
+   @Test
+   public void testOrientation3DBasicsFeatures() throws Throwable
+   {
+      Orientation3DBasicsTest test = new Orientation3DBasicsTest()
+      {
+         @Override
+         public Orientation3DBasics createEmptyOrientation3DBasics()
+         {
+            return createEmptyTuple();
+         }
+
+         @Override
+         public double getEpsilon()
+         {
+            return QuaternionBasicsTest.this.getEpsilon();
+         }
+      };
+      for (Method testMethod : test.getClass().getMethods())
+      {
+         if (!testMethod.getName().startsWith("test"))
+            continue;
+         if (!Modifier.isPublic(testMethod.getModifiers()))
+            continue;
+         if (Modifier.isStatic(testMethod.getModifiers()))
+            continue;
+
+         try
+         {
+            testMethod.invoke(test);
+         }
+         catch (InvocationTargetException e)
+         {
+            throw e.getTargetException();
+         }
       }
    }
 }

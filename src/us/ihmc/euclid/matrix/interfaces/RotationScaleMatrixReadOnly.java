@@ -1,11 +1,16 @@
 package us.ihmc.euclid.matrix.interfaces;
 
+import org.ejml.data.DenseMatrix64F;
+
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
@@ -42,36 +47,243 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
     *
     * @return the read-only reference to the rotation matrix.
     */
-   public RotationMatrixReadOnly getRotationMatrix();
+   RotationMatrixReadOnly getRotationMatrix();
 
    /**
-    * Returns the read-only reference to the scale factors used to compose this rotation-scale
-    * matrix.
+    * Returns the read-only reference to the scale factors used to compose this rotation-scale matrix.
     *
     * @return the read-only reference to the scale factors.
     */
-   public Vector3DReadOnly getScale();
+   Vector3DReadOnly getScale();
 
    /**
     * Returns the current value of the first scale factor of this rotation-scale matrix.
     *
     * @return the value of the first scale factor.
     */
-   public double getScaleX();
+   default double getScaleX()
+   {
+      return getScale().getX();
+   }
 
    /**
     * Returns the current value of the second scale factor of this rotation-scale matrix.
     *
     * @return the value of the second scale factor.
     */
-   public double getScaleY();
+   default double getScaleY()
+   {
+      return getScale().getY();
+   }
 
    /**
     * Returns the current value of the third scale factor of this rotation-scale matrix.
     *
     * @return the value of the third scale factor.
     */
-   public double getScaleZ();
+   default double getScaleZ()
+   {
+      return getScale().getZ();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM00()
+   {
+      return getRotationMatrix().getM00() * getScaleX();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM01()
+   {
+      return getRotationMatrix().getM01() * getScaleY();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM02()
+   {
+      return getRotationMatrix().getM02() * getScaleZ();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM10()
+   {
+      return getRotationMatrix().getM10() * getScaleX();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM11()
+   {
+      return getRotationMatrix().getM11() * getScaleY();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM12()
+   {
+      return getRotationMatrix().getM12() * getScaleZ();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM20()
+   {
+      return getRotationMatrix().getM20() * getScaleX();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM21()
+   {
+      return getRotationMatrix().getM21() * getScaleY();
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   default double getM22()
+   {
+      return getRotationMatrix().getM22() * getScaleZ();
+   }
+
+   /**
+    * Retrieves the scale factor with the maximum value and returns it.
+    *
+    * @return the maximum value among the scale factors.
+    */
+   default double getMaxScale()
+   {
+      return EuclidCoreTools.max(getScaleX(), getScaleY(), getScaleZ());
+   }
+
+   /**
+    * Packs the rotation part.
+    *
+    * @param orientationToPack the orientation in which the rotation part is stored. Modified.
+    */
+   default void getRotation(Orientation3DBasics orientationToPack)
+   {
+      orientationToPack.set(getRotationMatrix());
+   }
+
+   /**
+    * Packs the rotation part as a rotation matrix and stores it into a row-major 1D array.
+    *
+    * @param rotationMatrixArrayToPack the array in which the coefficients of the rotation part are
+    *           stored. Modified.
+    */
+   default void getRotation(double[] rotationMatrixArrayToPack)
+   {
+      getRotationMatrix().get(rotationMatrixArrayToPack);
+   }
+
+   /**
+    * Packs the rotation part as a rotation matrix.
+    *
+    * @param rotationMatrixToPack the rotation matrix in which the rotation part is stored. Modified.
+    */
+   default void getRotation(DenseMatrix64F rotationMatrixToPack)
+   {
+      getRotationMatrix().get(rotationMatrixToPack);
+   }
+
+   /**
+    * Packs the rotation part as an rotation vector.
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
+    * </p>
+    *
+    * @param rotationVectorToPack the rotation vector in which the rotation part is stored. Modified.
+    */
+   default void getRotation(Vector3DBasics rotationVectorToPack)
+   {
+      getRotationMatrix().getRotationVector(rotationVectorToPack);
+   }
+
+   /**
+    * Packs the orientation described by the rotation part as the Euler angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param eulerAnglesToPack the tuple in which the Euler angles are stored. Modified.
+    */
+   default void getRotationEuler(Tuple3DBasics eulerAnglesToPack)
+   {
+      getRotationMatrix().getEuler(eulerAnglesToPack);
+   }
+
+   /**
+    * Packs the orientation described by the rotation part as the yaw-pitch-roll angles.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    */
+   default void getRotationYawPitchRoll(double[] yawPitchRollToPack)
+   {
+      getRotationMatrix().getYawPitchRoll(yawPitchRollToPack);
+   }
+
+   /**
+    * Computes and returns the yaw angle from the yaw-pitch-roll representation of the rotation part.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the yaw angle around the z-axis.
+    */
+   default double getRotationYaw()
+   {
+      return getRotationMatrix().getYaw();
+   }
+
+   /**
+    * Computes and returns the pitch angle from the yaw-pitch-roll representation of the rotation part.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the pitch angle around the y-axis.
+    */
+   default double getRotationPitch()
+   {
+      return getRotationMatrix().getPitch();
+   }
+
+   /**
+    * Computes and returns the roll angle from the yaw-pitch-roll representation of the rotation part.
+    * <p>
+    * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
+    * sometimes undefined.
+    * </p>
+    *
+    * @return the roll angle around the x-axis.
+    */
+   default double getRotationRoll()
+   {
+      return getRotationMatrix().getRoll();
+   }
+
+   /**
+    * Packs the scale factors in a tuple.
+    *
+    * @param scaleToPack the tuple in which the scale factors are stored. Modified.
+    */
+   default void getScale(Tuple3DBasics scaleToPack)
+   {
+      scaleToPack.set(getScale());
+   }
 
    /** {@inheritDoc} */
    @Override
@@ -265,8 +477,8 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given rotation matrix by the rotation part of
-    * this rotation-scale matrix.
+    * Performs the inverse of the transform to the given rotation matrix by the rotation part of this
+    * rotation-scale matrix.
     * <p>
     * matrixToTransform = this.getRotationMatrix()<sup>-1</sup> * matrixToTransform
     * </p>
@@ -327,11 +539,10 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
    }
 
    /**
-    * Tests if {@code this} and {@code other} represent the same rotation-scale to an
-    * {@code epsilon}.
+    * Tests if {@code this} and {@code other} represent the same rotation-scale to an {@code epsilon}.
     * <p>
-    * Two rotation-scale matrices are considered geometrically equal if the their respective
-    * rotation matrices and scale vectors are geometrically equal.
+    * Two rotation-scale matrices are considered geometrically equal if the their respective rotation
+    * matrices and scale vectors are geometrically equal.
     * </p>
     * <p>
     * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply

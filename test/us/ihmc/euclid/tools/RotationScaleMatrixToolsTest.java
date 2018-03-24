@@ -8,11 +8,10 @@ import java.util.Random;
 import org.junit.Test;
 
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tools.EuclidCoreTestTools;
 import us.ihmc.euclid.tuple2D.Vector2D;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple4D.Quaternion;
@@ -179,7 +178,7 @@ public class RotationScaleMatrixToolsTest
          randomRotationScaleMatrix.inverseTransform(originalVector, actualVector, true);
          fail("Should have thrown an excetpion");
       }
-      catch (NotAMatrix2DException e)
+      catch (NotAMatrix2DException | NotAnOrientation2DException e)
       {
          // good
       }

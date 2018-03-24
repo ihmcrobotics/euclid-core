@@ -4,6 +4,11 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 
+/**
+ * Tools for generic operations on tuples.
+ * 
+ * @author Sylvain Bertrand
+ */
 public abstract class TupleTools
 {
    /**
@@ -73,8 +78,7 @@ public abstract class TupleTools
    }
 
    /**
-    * Performs a linear interpolation from {@code a} to {@code b} given the percentage
-    * {@code alpha}.
+    * Performs a linear interpolation from {@code a} to {@code b} given the percentage {@code alpha}.
     * <p>
     * result = (1.0 - alpha) * a + alpha * b
     * </p>
@@ -86,6 +90,7 @@ public abstract class TupleTools
     * @return the interpolated value.
     * @deprecated Use {@link EuclidCoreTools#interpolate(double,double,double)} instead
     */
+   @Deprecated
    public static double interpolate(double a, double b, double alpha)
    {
       return EuclidCoreTools.interpolate(a, b, alpha);

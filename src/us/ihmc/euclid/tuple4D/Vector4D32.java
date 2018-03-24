@@ -2,6 +2,7 @@ package us.ihmc.euclid.tuple4D;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple2D.Vector2D32;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
@@ -16,9 +17,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
  * a constraint, the use of {@link Vector2D32} is preferable.
  * </p>
  *
- *
  * @author Sylvain Bertrand
- *
  */
 public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
 {
@@ -53,10 +52,10 @@ public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
    }
 
    /**
-    * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z}, {@code s}
-    * in order from the given array.
+    * Creates a new vector and initializes its component {@code x}, {@code y}, {@code z}, {@code s} in
+    * order from the given array.
     *
-    * @param pointArray the array containing this vector's components. Not modified.
+    * @param vectorArray the array containing this vector's components. Not modified.
     */
    public Vector4D32(float[] vectorArray)
    {
@@ -197,8 +196,8 @@ public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Tuple4DReadOnly)}, it returns {@code false} otherwise.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method returns
+    * {@link #equals(Tuple4DReadOnly)}, it returns {@code false} otherwise.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -233,8 +232,8 @@ public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
    /**
     * Tests if {@code this} and {@code other} represent the same vector 4D to an {@code epsilon}.
     * <p>
-    * Two vectors are considered geometrically equal if the length of their difference is less than
-    * or equal to {@code epsilon}.
+    * Two vectors are considered geometrically equal if the length of their difference is less than or
+    * equal to {@code epsilon}.
     * </p>
     * <p>
     * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
@@ -272,10 +271,10 @@ public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Float.floatToIntBits(x);
-      bits = 31L * bits + Float.floatToIntBits(y);
-      bits = 31L * bits + Float.floatToIntBits(z);
-      bits = 31L * bits + Float.floatToIntBits(s);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, x);
+      bits = EuclidHashCodeTools.addToHashCode(bits, y);
+      bits = EuclidHashCodeTools.addToHashCode(bits, z);
+      bits = EuclidHashCodeTools.addToHashCode(bits, s);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

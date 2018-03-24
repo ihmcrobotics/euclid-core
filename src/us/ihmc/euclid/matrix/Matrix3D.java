@@ -7,6 +7,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
@@ -23,9 +24,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * meant for garbage free usage.
  * </p>
  *
- *
  * @author Sylvain Bertrand
- *
  */
 public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
 {
@@ -110,7 +109,6 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
 
    /**
     * Transposes this matrix: m = m<sup>T</sup>.
-    *
     */
    public void transpose()
    {
@@ -184,6 +182,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
     * <p>
     * this = other * other<sup>T<sup>
     * </p>
+    * 
+    * @param other the other matrix used for this operation. Not modified.
     */
    public void setAndMultiplyOuter(Matrix3DReadOnly other)
    {
@@ -243,8 +243,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
-    * Sets this matrix to represent to represent a counter clockwise rotation around the z-axis of
-    * an angle {@code yaw}.
+    * Sets this matrix to represent to represent a counter clockwise rotation around the z-axis of an
+    * angle {@code yaw}.
     *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \
@@ -489,8 +489,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
     *        \ scalarColumn0 * m20 scalarColumn1 * m21 scalarColumn2 * m22 /
     * </pre>
     * <p>
-    * This operation is equivalent to multiplying this matrix, i.e. this = this * D, by the
-    * following diagonal matrix D:
+    * This operation is equivalent to multiplying this matrix, i.e. this = this * D, by the following
+    * diagonal matrix D:
     *
     * <pre>
     *     / scalarColumn0       0             0       \
@@ -935,8 +935,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
-    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given
-    * array {@code columnArray}.
+    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given array
+    * {@code columnArray}.
     *
     * @param column the index of the column to set the values of.
     * @param columnArray the array containing the new values for the column. Not modified.
@@ -948,8 +948,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
-    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given
-    * tuple {@code columnValues}.
+    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given tuple
+    * {@code columnValues}.
     *
     * @param column the index of the column to set the values of.
     * @param columnValues the tuple containing the new values for the column. Not modified.
@@ -1374,9 +1374,9 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the
-    * {@code object} is {@code null}.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method returns
+    * {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the {@code object} is
+    * {@code null}.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -1447,15 +1447,15 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Double.doubleToLongBits(m00);
-      bits = 31L * bits + Double.doubleToLongBits(m01);
-      bits = 31L * bits + Double.doubleToLongBits(m02);
-      bits = 31L * bits + Double.doubleToLongBits(m10);
-      bits = 31L * bits + Double.doubleToLongBits(m11);
-      bits = 31L * bits + Double.doubleToLongBits(m12);
-      bits = 31L * bits + Double.doubleToLongBits(m20);
-      bits = 31L * bits + Double.doubleToLongBits(m21);
-      bits = 31L * bits + Double.doubleToLongBits(m22);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m00);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m01);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m02);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m10);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m11);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m12);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m20);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m21);
+      bits = EuclidHashCodeTools.addToHashCode(bits, m22);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

@@ -5,11 +5,10 @@ import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
 import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
-import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.AxisAngleConversion;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 
 /**
  * An {@code AxisAngle} is used to represent a 3D orientation by a unitary axis of components (x, y,
@@ -19,7 +18,7 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * is meant for garbage free usage.
  * </p>
  *
- * @author Sylvain
+ * @author Sylvain Bertrand
  */
 public class AxisAngle implements AxisAngleBasics, EpsilonComparable<AxisAngle>, Settable<AxisAngle>, GeometricallyComparable<AxisAngle>
 {
@@ -42,13 +41,13 @@ public class AxisAngle implements AxisAngleBasics, EpsilonComparable<AxisAngle>,
    }
 
    /**
-    * Creates an axis-angle that is the same as {@code other}.
+    * Creates an axis-angle that represents the same orientation as the given one.
     *
-    * @param other the other axis-angle to copy the values from. Not modified.
+    * @param orientation the orientation to initialize this axis-angle. Not modified.
     */
-   public AxisAngle(AxisAngleReadOnly other)
+   public AxisAngle(Orientation3DReadOnly orientation)
    {
-      set(other);
+      set(orientation);
    }
 
    /**
@@ -93,30 +92,6 @@ public class AxisAngle implements AxisAngleBasics, EpsilonComparable<AxisAngle>,
    }
 
    /**
-    * Creates an axis-angle such that it represents the same orientation the quaternion represents.
-    * See
-    * {@link AxisAngleConversion#convertQuaternionToAxisAngle(QuaternionReadOnly, AxisAngleBasics)}.
-    *
-    * @param quaternion the quaternion used to create this axis-angle. Not modified.
-    */
-   public AxisAngle(QuaternionReadOnly quaternion)
-   {
-      set(quaternion);
-   }
-
-   /**
-    * Creates an axis-angle such that it represents the same orientation the rotation matrix
-    * represents. See
-    * {@link AxisAngleConversion#convertMatrixToAxisAngle(RotationMatrixReadOnly, AxisAngleBasics)}.
-    *
-    * @param rotationMatrix the rotation matrix used to create this axis-angle. Not modified.
-    */
-   public AxisAngle(RotationMatrixReadOnly rotationMatrix)
-   {
-      set(rotationMatrix);
-   }
-
-   /**
     * Creates an axis-angle such that it represents the same orientation the rotation vector
     * represents. See
     * {@link AxisAngleConversion#convertRotationVectorToAxisAngle(Vector3DReadOnly, AxisAngleBasics)}.
@@ -130,7 +105,7 @@ public class AxisAngle implements AxisAngleBasics, EpsilonComparable<AxisAngle>,
     */
    public AxisAngle(Vector3DReadOnly rotationVector)
    {
-      set(rotationVector);
+      setRotationVector(rotationVector);
    }
 
    /**

@@ -1,11 +1,32 @@
 package us.ihmc.euclid.tools;
 
+/**
+ * This class provides a variety of generic tools such as fast square-root algorithm
+ * {@link #fastSquareRoot(double)}, or also an linear interpolation algorithm
+ * {@link #interpolate(double, double, double)}.
+ * 
+ * @author Sylvain Bertrand
+ */
 public class EuclidCoreTools
 {
+   /**
+    * This field is used to save unnecessary computation and represents the number
+    * {@code 2.0 * Math.PI}.
+    */
    public static final double TwoPI = 2.0 * Math.PI;
 
+   /**
+    * Magic number used as a tolerance for switching to the fast square-root formula.
+    */
    public static final double EPS_NORM_FAST_SQRT = 2.107342e-08;
+   /**
+    * An epsilon that is just slightly bigger than numerical inaccuracies used in
+    * {@link #shiftAngleInRange(double, double)}.
+    */
    public static final double EPS_ANGLE_SHIFT = 1.0e-12;
+   /**
+    * Tolerance used in {@link #clamp(double, double, double)} to verify the bounds are sane.
+    */
    public static final double CLAMP_EPS = 1.0e-10;
 
    /**
@@ -167,8 +188,8 @@ public class EuclidCoreTools
     * </p>
     * <p>
     * This method is optimized for calculating norms closed to 1 by using
-    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
-    * the usual {@link Math#sqrt(double)} on the norm squared.
+    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using the
+    * usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
     *
     * @param x the first element.
@@ -187,8 +208,8 @@ public class EuclidCoreTools
     * </p>
     * <p>
     * This method is optimized for calculating norms closed to 1 by using
-    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
-    * the usual {@link Math#sqrt(double)} on the norm squared.
+    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using the
+    * usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
     *
     * @param x the first element.
@@ -208,8 +229,8 @@ public class EuclidCoreTools
     * </p>
     * <p>
     * This method is optimized for calculating norms closed to 1 by using
-    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using
-    * the usual {@link Math#sqrt(double)} on the norm squared.
+    * {@link #fastSquareRoot(double)}. For computing norms that are not closed to 1, prefer using the
+    * usual {@link Math#sqrt(double)} on the norm squared.
     * </p>
     *
     * @param x the first element.
@@ -229,15 +250,14 @@ public class EuclidCoreTools
     * <p>
     * Edge cases:
     * <ul>
-    * <li>if {@code Math.abs(angleToShift + Math.PI) <} {@link #EPS_ANGLE_SHIFT}, the returned angle
-    * is {@code -Math.PI}.
-    * <li>if {@code Math.abs(angleToShift - Math.PI) <} {@link #EPS_ANGLE_SHIFT}, the returned angle
-    * is {@code -Math.PI}.
+    * <li>if {@code Math.abs(angleToShift + Math.PI) <} {@link #EPS_ANGLE_SHIFT}, the returned angle is
+    * {@code -Math.PI}.
+    * <li>if {@code Math.abs(angleToShift - Math.PI) <} {@link #EPS_ANGLE_SHIFT}, the returned angle is
+    * {@code -Math.PI}.
     * </ul>
     * </p>
     *
     * @param angleToShift the angle to shift.
-    * @param angleStart the lowest admissible angle value.
     * @return the result that is in [ -<i>pi</i>, <i>pi</i> [
     */
    public static double trimAngleMinusPiToPi(double angleToShift)
@@ -260,14 +280,14 @@ public class EuclidCoreTools
    }
 
    /**
-    * Recomputes the angle value {@code angleToShift} such that the result is in
-    * [{@code angleStart}, {@code angleStart} + 2<i>pi</i>[ and still represent the same physical
-    * angle as {@code angleToShift}.
+    * Recomputes the angle value {@code angleToShift} such that the result is in [{@code angleStart},
+    * {@code angleStart} + 2<i>pi</i>[ and still represent the same physical angle as
+    * {@code angleToShift}.
     * <p>
     * Edge cases:
     * <ul>
-    * <li>if {@code Math.abs(angleToShift - angleStart) <} {@link #EPS_ANGLE_SHIFT}, the returned
-    * angle is {@code angleStart}.
+    * <li>if {@code Math.abs(angleToShift - angleStart) <} {@link #EPS_ANGLE_SHIFT}, the returned angle
+    * is {@code angleStart}.
     * <li>if {@code Math.abs(angleToShift - angleStart + 2.0 * Math.PI) <} {@link #EPS_ANGLE_SHIFT},
     * the returned angle is {@code angleStart}.
     * </ul>
@@ -354,7 +374,7 @@ public class EuclidCoreTools
     * If any of the two values is equal to {@link Double#NaN}, this method fails and returns
     * {@code false}.
     * </p>
-    * 
+    *
     * @param expectedValue the first value to compare.
     * @param actualValue the second value to compare.
     * @param epsilon the tolerance to use for the test.
@@ -395,17 +415,16 @@ public class EuclidCoreTools
     */
    public static double clamp(double value, double min, double max)
    {
-      if (min > (max + CLAMP_EPS))
+      if (min > max + CLAMP_EPS)
       {
          throw new RuntimeException(EuclidCoreTools.class.getSimpleName() + ".clamp(double, double, double): min > max (" + min + " > " + max + ")");
       }
 
-      return (Math.min(max, Math.max(value, min)));
+      return Math.min(max, Math.max(value, min));
    }
 
    /**
-    * Performs a linear interpolation from {@code a} to {@code b} given the percentage
-    * {@code alpha}.
+    * Performs a linear interpolation from {@code a} to {@code b} given the percentage {@code alpha}.
     * <p>
     * result = (1.0 - alpha) * a + alpha * b
     * </p>

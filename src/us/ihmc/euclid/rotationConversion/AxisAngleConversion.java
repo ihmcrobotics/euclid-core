@@ -21,17 +21,20 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public class AxisAngleConversion
 {
+   /**
+    * Tolerance used to identify various edge cases, such as to identify when a quaternion is a neutral
+    * quaternion.
+    */
    public static final double EPS = 1.0e-12;
 
    /**
     * Converts the rotation part of the given rotation-scale matrix into an axis-angle.
     * <p>
-    * After calling this method, the orientation represented by the axis-angle is the same as the
-    * given rotation part of the rotation-scale matrix.
+    * After calling this method, the orientation represented by the axis-angle is the same as the given
+    * rotation part of the rotation-scale matrix.
     * </p>
     * <p>
     * Edge case:
@@ -53,8 +56,8 @@ public class AxisAngleConversion
    /**
     * Converts the given rotation matrix into an axis-angle.
     * <p>
-    * After calling this method, the orientation represented by the axis-angle is the same as the
-    * given rotation matrix.
+    * After calling this method, the orientation represented by the axis-angle is the same as the given
+    * rotation matrix.
     * </p>
     * <p>
     * Edge case:
@@ -79,7 +82,38 @@ public class AxisAngleConversion
       double m21 = rotationMatrix.getM21();
       double m22 = rotationMatrix.getM22();
 
-      if (rotationMatrix.containsNaN())
+      convertMatrixToAxisAngle(m00, m01, m02, m10, m11, m12, m20, m21, m22, axisAngleToPack);
+   }
+
+   /**
+    * Converts the given rotation matrix into an axis-angle.
+    * <p>
+    * After calling this method, the orientation represented by the axis-angle is the same as the given
+    * rotation matrix.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the axis-angle is set to
+    * {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * 
+    * @param m00 the 1st row 1st column coefficient of the rotation matrix.
+    * @param m01 the 1st row 2nd column coefficient of the rotation matrix.
+    * @param m02 the 1st row 3rd column coefficient of the rotation matrix.
+    * @param m10 the 2nd row 1st column coefficient of the rotation matrix.
+    * @param m11 the 2nd row 2nd column coefficient of the rotation matrix.
+    * @param m12 the 2nd row 3rd column coefficient of the rotation matrix.
+    * @param m20 the 3rd row 1st column coefficient of the rotation matrix.
+    * @param m21 the 3rd row 2nd column coefficient of the rotation matrix.
+    * @param m22 the 3rd row 3rd column coefficient of the rotation matrix.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertMatrixToAxisAngle(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
+                                               AxisAngleBasics axisAngleToPack)
+   {
+      if (EuclidCoreTools.containsNaN(m00, m01, m02, m10, m11, m12, m20, m21, m22))
       {
          axisAngleToPack.setToNaN();
          return;
@@ -150,8 +184,8 @@ public class AxisAngleConversion
     * <ul>
     * <li>if the quaternion contains at least one {@link Double#NaN}, the axis-angle is set to
     * {@link Double#NaN}.
-    * <li>if the norm of the vector part of the quaternion is less than {@value #EPS}, the
-    * axis-angle is set to zero via {@link AxisAngleBasics#setToZero()}.
+    * <li>if the norm of the vector part of the quaternion is less than {@value #EPS}, the axis-angle
+    * is set to zero via {@link AxisAngleBasics#setToZero()}.
     * </ul>
     * </p>
     *
@@ -160,18 +194,44 @@ public class AxisAngleConversion
     */
    public static void convertQuaternionToAxisAngle(QuaternionReadOnly quaternion, AxisAngleBasics axisAngleToPack)
    {
-      if (quaternion.containsNaN())
-      {
-         axisAngleToPack.setToNaN();
-         return;
-      }
-
       double qx = quaternion.getX();
       double qy = quaternion.getY();
       double qz = quaternion.getZ();
       double qs = quaternion.getS();
 
-      double uNorm = Math.sqrt(qx * qx + qy * qy + qz * qz);
+      convertQuaternionToAxisAngle(qx, qy, qz, qs, axisAngleToPack);
+   }
+
+   /**
+    * Converts the given quaternion into an axis-angle.
+    * <p>
+    * After calling this method, the quaternion and the axis-angle represent the same orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if the quaternion contains at least one {@link Double#NaN}, the axis-angle is set to
+    * {@link Double#NaN}.
+    * <li>if the norm of the vector part of the quaternion is less than {@value #EPS}, the axis-angle
+    * is set to zero via {@link AxisAngleBasics#setToZero()}.
+    * </ul>
+    * </p>
+    *
+    * @param qx the x-component of the quaternion.
+    * @param qy the y-component of the quaternion.
+    * @param qz the z-component of the quaternion.
+    * @param qs the s-component of the quaternion.
+    * @param axisAngleToPack the axis-angle in which the result is stored. Modified.
+    */
+   public static void convertQuaternionToAxisAngle(double qx, double qy, double qz, double qs, AxisAngleBasics axisAngleToPack)
+   {
+      if (EuclidCoreTools.containsNaN(qx, qy, qz, qs))
+      {
+         axisAngleToPack.setToNaN();
+         return;
+      }
+
+      double uNorm = Math.sqrt(EuclidCoreTools.normSquared(qx, qy, qz));
 
       if (uNorm > EPS)
       {
@@ -190,8 +250,7 @@ public class AxisAngleConversion
    /**
     * Converts the rotation vector into an axis-angle.
     * <p>
-    * After calling this method, the rotation vector and the axis-angle represent the same
-    * orientation.
+    * After calling this method, the rotation vector and the axis-angle represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -201,9 +260,9 @@ public class AxisAngleConversion
     * </ul>
     * </p>
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVector the rotation vector to use in the conversion. Not modified.
@@ -217,8 +276,7 @@ public class AxisAngleConversion
    /**
     * Converts the rotation vector into an axis-angle.
     * <p>
-    * After calling this method, the rotation vector and the axis-angle represent the same
-    * orientation.
+    * After calling this method, the rotation vector and the axis-angle represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -228,9 +286,9 @@ public class AxisAngleConversion
     * </ul>
     * </p>
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rx the x-component of the rotation vector to use in the conversion.
@@ -265,8 +323,7 @@ public class AxisAngleConversion
    /**
     * Converts the given yaw-pitch-roll angles into an axis-angle.
     * <p>
-    * After calling this method, the yaw-pitch-roll and the axis-angle represent the same
-    * orientation.
+    * After calling this method, the yaw-pitch-roll and the axis-angle represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -277,9 +334,9 @@ public class AxisAngleConversion
     * </p>
     * <p>
     * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
-    * representation of an orientation by decomposing it by three successive rotations around the
-    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
-    * representation is: <br>
+    * representation of an orientation by decomposing it by three successive rotations around the three
+    * axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such representation is:
+    * <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
     *
@@ -294,8 +351,7 @@ public class AxisAngleConversion
    /**
     * Converts the given yaw-pitch-roll angles into an axis-angle.
     * <p>
-    * After calling this method, the yaw-pitch-roll and the axis-angle represent the same
-    * orientation.
+    * After calling this method, the yaw-pitch-roll and the axis-angle represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -306,9 +362,9 @@ public class AxisAngleConversion
     * </p>
     * <p>
     * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
-    * representation of an orientation by decomposing it by three successive rotations around the
-    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
-    * representation is: <br>
+    * representation of an orientation by decomposing it by three successive rotations around the three
+    * axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such representation is:
+    * <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
     *

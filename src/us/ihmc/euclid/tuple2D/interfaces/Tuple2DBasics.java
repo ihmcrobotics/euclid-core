@@ -439,7 +439,7 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     * this = this - other
     * </p>
     *
-    * @param other the other tuple to add to this tuple.
+    * @param tupleReadOnly the other tuple to add to this tuple.
     */
    default void sub(Tuple2DReadOnly tupleReadOnly)
    {
@@ -621,7 +621,7 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     *            part of {@code transform} is not a transformation in the XY plane.
     */
-   void applyTransform(Transform transform, boolean checkIfTransformInXYplane);
+   void applyTransform(Transform transform, boolean checkIfTransformInXYPlane);
 
    /**
     * Transforms this tuple by the inverse of the given {@code transform}.
@@ -654,5 +654,5 @@ public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
     * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
     *            part of {@code transform} is not a transformation in the XY plane.
     */
-   void applyInverseTransform(Transform transform, boolean checkIfTransformInXYplane);
+   void applyInverseTransform(Transform transform, boolean checkIfTransformInXYPlane);
 }

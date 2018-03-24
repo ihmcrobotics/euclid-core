@@ -66,12 +66,13 @@ public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
    /**
     * Limits the magnitude of this vector to {@code maxLength}.
     * <p>
-    * If the length of this vector is less than {@code maxLength}, this method does nothing. When it
-    * is greater than {@code maxLength}, this vector is scaled such that it length is equal to
+    * If the length of this vector is less than {@code maxLength}, this method does nothing. When it is
+    * greater than {@code maxLength}, this vector is scaled such that it length is equal to
     * {@code maxLength} and its direction is preserved.
     * </p>
     * <p>
-    * Edge case: if {@code maxLength <} {@value #EPS_MAX_LENGTH}, this vector is set to zero.
+    * Edge case: if {@code maxLength <} {@value Vector3DBasics#EPS_MAX_LENGTH}, this vector is set to
+    * zero.
     * </p>
     *
     * @param maxLength the maximum allowed length for this vector.
@@ -106,8 +107,8 @@ public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
     * </p>
     *
     * @param transform the geometric transform to apply on this vector. Not modified.
-    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
-    *            transformation in the XY plane.
+    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a transformation
+    *            in the XY plane.
     */
    @Override
    default void applyTransform(Transform transform)
@@ -131,10 +132,10 @@ public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
     * </p>
     *
     * @param transform the geometric transform to apply on this vector. Not modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
-    *           the given transform represents a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
-    *            part of {@code transform} is not a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of the
+    *           given transform represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation part
+    *            of {@code transform} is not a transformation in the XY plane.
     */
    @Override
    default void applyTransform(Transform transform, boolean checkIfTransformInXYPlane)
@@ -154,8 +155,8 @@ public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
     * </p>
     *
     * @param transform the geometric transform to apply on this vector. Not modified.
-    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a
-    *            transformation in the XY plane.
+    * @throws NotAMatrix2DException if the rotation part of {@code transform} is not a transformation
+    *            in the XY plane.
     */
    @Override
    default void applyInverseTransform(Transform transform)
@@ -179,10 +180,10 @@ public interface Vector2DBasics extends Tuple2DBasics, Vector2DReadOnly
     * </p>
     *
     * @param transform the geometric transform to apply on this vector. Not modified.
-    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of
-    *           the given transform represents a transformation in the XY plane.
-    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation
-    *            part of {@code transform} is not a transformation in the XY plane.
+    * @param checkIfTransformInXYPlane whether this method should assert that the rotation part of the
+    *           given transform represents a transformation in the XY plane.
+    * @throws NotAMatrix2DException if {@code checkIfTransformInXYPlane == true} and the rotation part
+    *            of {@code transform} is not a transformation in the XY plane.
     */
    @Override
    default void applyInverseTransform(Transform transform, boolean checkIfTransformInXYplane)

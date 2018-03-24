@@ -2,6 +2,7 @@ package us.ihmc.euclid.tuple2D;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
@@ -173,7 +174,8 @@ public class Point2D implements Point2DBasics, GeometryObject<Point2D>
     * </p>
     *
     * @param other the other point 2D to compare against this. Not modified.
-    * @param epsilon the maximum distance that the two points can be spaced and still considered equal.
+    * @param epsilon the maximum distance that the two points can be spaced and still considered
+    *           equal.
     * @return {@code true} if the two points represent the same geometry, {@code false} otherwise.
     */
    @Override
@@ -202,8 +204,8 @@ public class Point2D implements Point2DBasics, GeometryObject<Point2D>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Double.doubleToLongBits(x);
-      bits = 31L * bits + Double.doubleToLongBits(y);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, x);
+      bits = EuclidHashCodeTools.addToHashCode(bits, y);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }

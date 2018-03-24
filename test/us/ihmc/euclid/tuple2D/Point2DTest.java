@@ -1,14 +1,18 @@
 package us.ihmc.euclid.tuple2D;
 
-import org.junit.Assert;
-import org.junit.Test;
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
-import us.ihmc.euclid.tuple3D.Point3D;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
+
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tuple2D.interfaces.Point2DReadOnly;
+import us.ihmc.euclid.tuple3D.Point3D;
 
 public class Point2DTest extends Point2DBasicsTest<Point2D>
 {
@@ -83,6 +87,7 @@ public class Point2DTest extends Point2DBasicsTest<Point2D>
       }
    }
 
+   @Override
    @Test
    public void testGeometricallyEquals() throws Exception
    {

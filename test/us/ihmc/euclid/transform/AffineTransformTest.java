@@ -1,9 +1,18 @@
 package us.ihmc.euclid.transform;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Random;
+
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.ejml.ops.RandomMatrices;
 import org.junit.Test;
+
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
@@ -22,10 +31,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.Quaternion;
 import us.ihmc.euclid.tuple4D.Vector4D;
-
-import java.util.Random;
-
-import static org.junit.Assert.*;
 
 public class AffineTransformTest extends TransformTest<AffineTransform>
 {
@@ -232,7 +237,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       double m21 = rotationScaleMatrix.getRotationMatrix().getM21() + 1.0e-5;
       double m22 = rotationScaleMatrix.getRotationMatrix().getM22() + 1.0e-5;
 
-      ((RotationMatrix) rotationScaleMatrix.getRotationMatrix()).setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      rotationScaleMatrix.getRotationMatrix().setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
       ((RotationMatrix) affineTransform.getRotationMatrix()).setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
 
       rotationScaleMatrix.normalizeRotationMatrix();
@@ -2028,7 +2033,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          AffineTransform transform = EuclidCoreRandomTools.nextAffineTransform(random);
          Vector3D rotationVector = new Vector3D();
          transform.getRotation(rotationVector);
-         rotationMatrix.set(rotationVector);
+         rotationMatrix.setRotationVector(rotationVector);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertEquals(rotationMatrix.getElement(row, column), transform.getRotationMatrix().getElement(row, column), EPS);
@@ -2343,7 +2348,8 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
    }
 
    @Test
-   public void testGeometricallyEquals() throws Exception {
+   public void testGeometricallyEquals() throws Exception
+   {
       Random random = new Random(54321L);
 
       AffineTransform affA;
@@ -2355,7 +2361,8 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
       Vector3D translationA;
       Vector3D translationB;
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
          double angleEps = epsilon * 0.99;
 
@@ -2379,7 +2386,8 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          assertTrue(affB.geometricallyEquals(affA, epsilon));
       }
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
          double angleEps = epsilon * 1.01;
 
@@ -2403,7 +2411,8 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          assertFalse(affB.geometricallyEquals(affA, epsilon));
       }
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
 
          rmA = EuclidCoreRandomTools.nextRotationMatrix(random);
@@ -2456,7 +2465,8 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
          assertFalse(affB.geometricallyEquals(affA, epsilon));
       }
 
-      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i) {
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
          double epsilon = random.nextDouble();
 
          rmA = EuclidCoreRandomTools.nextRotationMatrix(random);
@@ -2506,6 +2516,58 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
 
          assertFalse(affA.geometricallyEquals(affB, epsilon));
          assertFalse(affB.geometricallyEquals(affA, epsilon));
+      }
+   }
+
+   @Test
+   public void testHashCode() throws Exception
+   {
+      Random random = new Random(12345L);
+
+      RotationScaleMatrix rsm;
+      Vector3D translation;
+      AffineTransform affine = EuclidCoreRandomTools.nextAffineTransform(random);
+
+      int newHashCode, previousHashCode;
+      newHashCode = affine.hashCode();
+      assertEquals(newHashCode, affine.hashCode());
+
+      previousHashCode = affine.hashCode();
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         rsm = EuclidCoreRandomTools.nextRotationScaleMatrix(random, 2.0);
+         translation = EuclidCoreRandomTools.nextVector3D(random);
+         affine = new AffineTransform(rsm, translation);
+         newHashCode = affine.hashCode();
+         assertNotEquals(previousHashCode, newHashCode);
+
+         previousHashCode = newHashCode;
+      }
+   }
+
+   @Test
+   public void testToString() throws Exception
+   {
+      Random random = new Random(12345L);
+
+      AffineTransform affA;
+      AffineTransform affB;
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         affA = EuclidCoreRandomTools.nextAffineTransform(random);
+         affB = EuclidCoreRandomTools.nextAffineTransform(random);
+
+         assertNotEquals(affA.toString(), affB.toString());
+      }
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; ++i)
+      {
+         affA = EuclidCoreRandomTools.nextAffineTransform(random);
+         affB = new AffineTransform(affA);
+
+         assertEquals(affA.toString(), affB.toString());
       }
    }
 

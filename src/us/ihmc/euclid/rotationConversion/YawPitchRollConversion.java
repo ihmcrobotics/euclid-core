@@ -49,10 +49,12 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public abstract class YawPitchRollConversion
 {
+   /**
+    * Represents the safety margin that 
+    */
    public static final double SAFE_THRESHOLD_PITCH = Math.toRadians(1.82);
    /**
     * Pitch angle that defines the upper bound of the safe region in which the resulting pitch angle
@@ -599,7 +601,7 @@ public abstract class YawPitchRollConversion
     * @param eulerAnglesToPack the tuple in which the yaw-pitch-roll angles are stored, i.e.
     *           {@code eulerAnglesToPack.set(roll, pitch, yaw)}. Modified.
     */
-   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, Vector3DBasics eulerAnglesToPack)
+   public static void convertQuaternionToYawPitchRoll(QuaternionReadOnly quaternion, Tuple3DBasics eulerAnglesToPack)
    {
       if (quaternion.containsNaN())
       {

@@ -1,13 +1,17 @@
 package us.ihmc.euclid.tuple3D;
 
-import org.junit.Assert;
-import org.junit.Test;
-import us.ihmc.euclid.tools.EuclidCoreRandomTools;
-import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
+
+import us.ihmc.euclid.tools.EuclidCoreRandomTools;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
 {
@@ -118,6 +122,7 @@ public class Vector3D32Test extends Vector3DBasicsTest<Vector3D32>
       }
    }
 
+   @Override
    @Test
    public void testGeometricallyEquals() throws Exception
    {

@@ -27,17 +27,19 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
  * </p>
  *
  * @author Sylvain Bertrand
- *
  */
 public abstract class RotationVectorConversion
 {
-   private static final double EPS = 1.0e-12;
+   /**
+    * Tolerance used to identify various edge cases, such as to identify when an axis-angle represents
+    * a zero orientation.
+    */
+   public static final double EPS = 1.0e-12;
 
    /**
     * Converts the given axis-angle into a rotation vector.
     * <p>
-    * After calling this method, the axis-angle and the rotation vector represent the same
-    * orientation.
+    * After calling this method, the axis-angle and the rotation vector represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -59,8 +61,7 @@ public abstract class RotationVectorConversion
    /**
     * Converts the given axis-angle into a rotation vector.
     * <p>
-    * After calling this method, the axis-angle and the rotation vector represent the same
-    * orientation.
+    * After calling this method, the axis-angle and the rotation vector represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -103,8 +104,7 @@ public abstract class RotationVectorConversion
    /**
     * Converts the given quaternion into a rotation vector.
     * <p>
-    * After calling this method, the quaternion and the rotation vector represent the same
-    * orientation.
+    * After calling this method, the quaternion and the rotation vector represent the same orientation.
     * </p>
     * <p>
     * Edge case:
@@ -155,8 +155,8 @@ public abstract class RotationVectorConversion
     * <p>
     * Edge case:
     * <ul>
-    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is
-    * set to {@link Double#NaN}.
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is set
+    * to {@link Double#NaN}.
     * </ul>
     * </p>
     *
@@ -178,8 +178,8 @@ public abstract class RotationVectorConversion
     * <p>
     * Edge case:
     * <ul>
-    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is
-    * set to {@link Double#NaN}.
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is set
+    * to {@link Double#NaN}.
     * </ul>
     * </p>
     *
@@ -206,8 +206,7 @@ public abstract class RotationVectorConversion
     * <p>
     * <b> This method is for internal use. Use
     * {@link #convertMatrixToRotationVector(RotationMatrixReadOnly, Vector3DBasics)} or
-    * {@link #convertMatrixToRotationVector(RotationScaleMatrixReadOnly, Vector3DBasics)} instead.
-    * </b>
+    * {@link #convertMatrixToRotationVector(RotationScaleMatrixReadOnly, Vector3DBasics)} instead. </b>
     * </p>
     * <p>
     * After calling this method, the rotation matrix and the rotation vector represent the same
@@ -216,8 +215,8 @@ public abstract class RotationVectorConversion
     * <p>
     * Edge case:
     * <ul>
-    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is
-    * set to {@link Double#NaN}.
+    * <li>if the rotation matrix contains at least one {@link Double#NaN}, the rotation vector is set
+    * to {@link Double#NaN}.
     * </ul>
     * </p>
     *
@@ -308,15 +307,15 @@ public abstract class RotationVectorConversion
     * <p>
     * Edge case:
     * <ul>
-    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is
-    * set to {@link Double#NaN}.
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is set
+    * to {@link Double#NaN}.
     * </ul>
     * </p>
     * <p>
     * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
-    * representation of an orientation by decomposing it by three successive rotations around the
-    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
-    * representation is: <br>
+    * representation of an orientation by decomposing it by three successive rotations around the three
+    * axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such representation is:
+    * <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
     *
@@ -337,15 +336,15 @@ public abstract class RotationVectorConversion
     * <p>
     * Edge case:
     * <ul>
-    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is
-    * set to {@link Double#NaN}.
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation vector is set
+    * to {@link Double#NaN}.
     * </ul>
     * </p>
     * <p>
     * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
-    * representation of an orientation by decomposing it by three successive rotations around the
-    * three axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such
-    * representation is: <br>
+    * representation of an orientation by decomposing it by three successive rotations around the three
+    * axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such representation is:
+    * <br>
     * R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll) </br>
     * </p>
     *

@@ -1,6 +1,13 @@
 package us.ihmc.euclid.tuple3D;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Random;
+
 import org.junit.Test;
+
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
@@ -9,10 +16,6 @@ import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
-
-import java.util.Random;
-
-import static org.junit.Assert.*;
 
 public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple3DBasicsTest<T>
 {
@@ -358,8 +361,9 @@ public abstract class Vector3DBasicsTest<T extends Vector3DBasics> extends Tuple
          }
          else
          {
-            if (Math.sqrt((vectorA.getX() - vectorB.getX()) * (vectorA.getX() - vectorB.getX()) + (vectorA.getY() - vectorB.getY()) * (vectorA.getY() - vectorB
-                  .getY()) + (vectorA.getZ() - vectorB.getZ()) * (vectorA.getZ() - vectorB.getZ())) <= getEpsilon())
+            if (Math.sqrt((vectorA.getX() - vectorB.getX()) * (vectorA.getX() - vectorB.getX())
+                  + (vectorA.getY() - vectorB.getY()) * (vectorA.getY() - vectorB.getY())
+                  + (vectorA.getZ() - vectorB.getZ()) * (vectorA.getZ() - vectorB.getZ())) <= getEpsilon())
             {
                assertTrue(vectorA.geometricallyEquals(vectorB, getEpsilon()));
             }

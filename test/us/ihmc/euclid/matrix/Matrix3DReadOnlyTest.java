@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
-import us.ihmc.euclid.matrix.Matrix3D;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
@@ -582,9 +582,9 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          try
          {
             matrix.transform(actual);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException or NotAMatrix2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAMatrix2DException | NotAnOrientation2DException e)
          {
             // good
          }
@@ -610,9 +610,9 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          try
          {
             matrix.transform(original, actual);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException or NotAMatrix2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAMatrix2DException | NotAnOrientation2DException e)
          {
             // good
          }
@@ -639,9 +639,9 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          try
          {
             matrix.transform(actual, true);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException or NotAMatrix2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAMatrix2DException | NotAnOrientation2DException e)
          {
             // good
          }
@@ -672,9 +672,9 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          try
          {
             matrix.transform(original, actual, true);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAnOrientation2DException or NotAMatrix2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAMatrix2DException | NotAnOrientation2DException e)
          {
             // good
          }
@@ -809,9 +809,9 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          try
          {
             matrix.inverseTransform(actual);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAMatrix2DException or NotAnOrientation2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAMatrix2DException | NotAnOrientation2DException e)
          {
             // good
          }
@@ -842,9 +842,9 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          try
          {
             matrix.inverseTransform(original, actual);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAMatrix2DException or NotAnOrientation2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAMatrix2DException | NotAnOrientation2DException e)
          {
             // good
          }
@@ -876,9 +876,9 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          try
          {
             matrix.inverseTransform(actual, true);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAMatrix2DException or NotAnOrientation2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAMatrix2DException | NotAnOrientation2DException e)
          {
             // good
          }
@@ -914,9 +914,9 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
          try
          {
             matrix.inverseTransform(original, actual, true);
-            fail("Should have thrown a NotAMatrix2DException.");
+            fail("Should have thrown a NotAMatrix2DException or NotAnOrientation2DException.");
          }
-         catch (NotAMatrix2DException e)
+         catch (NotAMatrix2DException | NotAnOrientation2DException e)
          {
             // good
          }

@@ -2,6 +2,7 @@ package us.ihmc.euclid.tuple2D;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tuple2D.interfaces.Point2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 
@@ -57,9 +58,9 @@ public class Point2D32 implements Point2DBasics, GeometryObject<Point2D32>
     *
     * @param other the tuple to copy the coordinates from. Not modified.
     */
-   public Point2D32(Tuple2DReadOnly tuple)
+   public Point2D32(Tuple2DReadOnly other)
    {
-      set(tuple);
+      set(other);
    }
 
    /**
@@ -205,7 +206,8 @@ public class Point2D32 implements Point2DBasics, GeometryObject<Point2D32>
     * </p>
     *
     * @param other the other point 2D to compare against this. Not modified.
-    * @param epsilon the maximum distance that the two points can be spaced and still considered equal.
+    * @param epsilon the maximum distance that the two points can be spaced and still considered
+    *           equal.
     * @return {@code true} if the two points represent the same geometry, {@code false} otherwise.
     */
    @Override
@@ -234,8 +236,8 @@ public class Point2D32 implements Point2DBasics, GeometryObject<Point2D32>
    public int hashCode()
    {
       long bits = 1L;
-      bits = 31L * bits + Float.floatToIntBits(x);
-      bits = 31L * bits + Float.floatToIntBits(y);
-      return (int) (bits ^ bits >> 32);
+      bits = EuclidHashCodeTools.addToHashCode(bits, x);
+      bits = EuclidHashCodeTools.addToHashCode(bits, y);
+      return EuclidHashCodeTools.toIntHashCode(bits);
    }
 }
