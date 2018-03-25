@@ -3,6 +3,7 @@ package us.ihmc.euclid.tuple3D.interfaces;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.interfaces.Clearable;
+import us.ihmc.euclid.interfaces.Transformable;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 
@@ -31,8 +32,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
  *
  * @author Sylvain Bertrand
  */
-//TODO Think about renaming this interface to Tuple3D
-public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable
+public interface Tuple3DBasics extends Tuple3DReadOnly, Clearable, Transformable
 {
    /**
     * Sets the x-component of this tuple.

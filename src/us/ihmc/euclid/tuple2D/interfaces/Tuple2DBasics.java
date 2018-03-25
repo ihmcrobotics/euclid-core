@@ -34,7 +34,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
  *
  * @author Sylvain Bertrand
  */
-// TODO Think about renaming this interface to Tuple2D
 public interface Tuple2DBasics extends Tuple2DReadOnly, Clearable, Transformable
 {
    /**
