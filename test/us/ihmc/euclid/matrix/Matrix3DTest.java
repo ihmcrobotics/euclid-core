@@ -1,10 +1,6 @@
 package us.ihmc.euclid.matrix;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -210,6 +206,37 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
             }
          }
       }
+   }
+
+   @Test
+   public void testSetToDiagonal() throws Exception
+   {
+      Random random = new Random(23423);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double m00 = random.nextDouble();
+         double m11 = random.nextDouble();
+         double m22 = random.nextDouble();
+
+         Matrix3D matrix = EuclidCoreRandomTools.nextMatrix3D(random);
+
+         matrix.setToDiagonal(m00, m11, m22);
+
+         assertTrue(matrix.getM00() == m00);
+         assertTrue(matrix.getM11() == m11);
+         assertTrue(matrix.getM22() == m22);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int col = 0; col < 3; col++)
+            {
+               if (row != col)
+                  assertTrue(matrix.getElement(row, col) == 0.0);
+            }
+         }
+      }
+
    }
 
    @Test

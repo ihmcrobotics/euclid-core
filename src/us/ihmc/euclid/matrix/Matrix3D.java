@@ -997,6 +997,23 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
+    * Sets this matrix to be a diagonal matrix as follows:
+    * <pre>
+    *        / m00  0   0  \
+    * this = |  0  m11  0  |
+    *        \  0   0  m22 /
+    * </pre>
+    * 
+    * @param m00 the first diagonal element.
+    * @param m11 the second diagonal element.
+    * @param m22 the third diagonal element.
+    */
+   public void setToDiagonal(double m00, double m11, double m22)
+   {
+      set(m00, 0.0, 0.0, 0.0, m11, 0.0, 0.0, 0.0, m22);
+   }
+
+   /**
     * Scales the components of the {@code row}<sup>th</sup> row of this matrix.
     *
     * @param row the index of the row to scale.
