@@ -848,7 +848,7 @@ public interface Matrix3DReadOnly
     * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal} by this
     * matrix.
     * <p>
-    * matrixToTransform = this<sup>-1</sup> * matrixToTransform * this<sup>-1</sup>
+    * matrixToTransform = this<sup>-1</sup> * matrixToTransform * this
     * </p>
     *
     * @param matrixToTransform the matrix to transform. Not modified.
@@ -863,7 +863,7 @@ public interface Matrix3DReadOnly
     * Performs the inverse of the transforms to the given 3D matrix {@code matrixOriginal} by this
     * matrix and stores the result in {@code matrixTransformed}.
     * <p>
-    * matrixTransformed = this<sup>-1</sup> * matrixOriginal * this<sup>-1</sup>
+    * matrixTransformed = this<sup>-1</sup> * matrixOriginal * this
     * </p>
     *
     * @param matrixOriginal the matrix to transform. Not modified.
