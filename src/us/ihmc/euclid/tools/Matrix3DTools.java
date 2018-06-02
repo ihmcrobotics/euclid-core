@@ -2,8 +2,8 @@ package us.ihmc.euclid.tools;
 
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.exceptions.SingularMatrixException;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -30,7 +30,7 @@ public abstract class Matrix3DTools
     * @param matrixToInvert the matrix to invert. Modified.
     * @return {@code true} if the inversion succeeds, {@code false} if the matrix is singular.
     */
-   public static boolean invert(Matrix3D matrixToInvert)
+   public static boolean invert(Matrix3DBasics matrixToInvert)
    {
       return invert(matrixToInvert, matrixToInvert);
    }
@@ -45,7 +45,7 @@ public abstract class Matrix3DTools
     * @param inverseToPack the result to pack. Modified.
     * @return {@code true} if the inversion succeeds, {@code false} if the matrix is singular.
     */
-   public static boolean invert(Matrix3DReadOnly matrix, Matrix3D inverseToPack)
+   public static boolean invert(Matrix3DReadOnly matrix, Matrix3DBasics inverseToPack)
    {
       double det = matrix.determinant();
 
@@ -79,7 +79,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiply(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiply(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM10() + m1.getM02() * m2.getM20();
       double m01 = m1.getM00() * m2.getM01() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM21();
@@ -104,7 +104,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeBoth(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyTransposeBoth(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM01() + m1.getM20() * m2.getM02();
       double m01 = m1.getM00() * m2.getM10() + m1.getM10() * m2.getM11() + m1.getM20() * m2.getM12();
@@ -130,7 +130,7 @@ public abstract class Matrix3DTools
     * @param matrixToPack the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if the matrix {@code m2} * {@code m1} is not invertible.
     */
-   public static void multiplyInvertBoth(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertBoth(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       multiply(m2, m1, matrixToPack);
       boolean success = invert(matrixToPack);
@@ -149,7 +149,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeLeft(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyTransposeLeft(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM10() * m2.getM10() + m1.getM20() * m2.getM20();
       double m01 = m1.getM00() * m2.getM01() + m1.getM10() * m2.getM11() + m1.getM20() * m2.getM21();
@@ -175,7 +175,7 @@ public abstract class Matrix3DTools
     * @param matrixToPack the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if {@code m1} is not invertible.
     */
-   public static void multiplyInvertLeft(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeft(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       double det = m1.determinant();
       if (Math.abs(det) < EPS_INVERT)
@@ -221,7 +221,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyInvertLeft(RotationMatrixReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeft(RotationMatrixReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       multiplyTransposeLeft(m1, m2, matrixToPack);
    }
@@ -243,7 +243,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyInvertLeft(RotationScaleMatrixReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertLeft(RotationScaleMatrixReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       multiplyInvertLeft(m1.getRotationMatrix(), m2, matrixToPack);
       matrixToPack.scaleRows(1.0 / m1.getScaleX(), 1.0 / m1.getScaleY(), 1.0 / m1.getScaleZ());
@@ -260,7 +260,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyTransposeRight(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyTransposeRight(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       double m00 = m1.getM00() * m2.getM00() + m1.getM01() * m2.getM01() + m1.getM02() * m2.getM02();
       double m01 = m1.getM00() * m2.getM10() + m1.getM01() * m2.getM11() + m1.getM02() * m2.getM12();
@@ -286,7 +286,7 @@ public abstract class Matrix3DTools
     * @param matrixToPack the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if {@code m2} is not invertible.
     */
-   public static void multiplyInvertRight(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertRight(Matrix3DReadOnly m1, Matrix3DReadOnly m2, Matrix3DBasics matrixToPack)
    {
       double det = m2.determinant();
       if (Math.abs(det) < EPS_INVERT)
@@ -332,7 +332,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationMatrixReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationMatrixReadOnly m2, Matrix3DBasics matrixToPack)
    {
       multiplyTransposeRight(m1, m2, matrixToPack);
    }
@@ -354,7 +354,7 @@ public abstract class Matrix3DTools
     * @param m2 the second matrix. Not modified.
     * @param matrixToPack the matrix in which the result is stored. Modified.
     */
-   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationScaleMatrixReadOnly m2, Matrix3D matrixToPack)
+   public static void multiplyInvertRight(Matrix3DReadOnly m1, RotationScaleMatrixReadOnly m2, Matrix3DBasics matrixToPack)
    {
       matrixToPack.set(m1);
       matrixToPack.scaleColumns(1.0 / m2.getScaleX(), 1.0 / m2.getScaleY(), 1.0 / m2.getScaleZ());
@@ -559,7 +559,7 @@ public abstract class Matrix3DTools
     * @param matrixOriginal the original matrix to use for the transformation. Not modified.
     * @param matrixTransformed the matrix used to stored the result of the transformation. Modified.
     */
-   public static void transform(Matrix3DReadOnly matrix, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void transform(Matrix3DReadOnly matrix, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       multiply(matrix, matrixOriginal, matrixTransformed);
       multiplyInvertRight(matrixTransformed, matrix, matrixTransformed);
@@ -730,7 +730,7 @@ public abstract class Matrix3DTools
     * @param matrixOriginal the original matrix to use for the transformation. Not modified.
     * @param matrixTransformed the matrix used to stored the result of the transformation. Modified.
     */
-   public static void inverseTransform(Matrix3DReadOnly matrix, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void inverseTransform(Matrix3DReadOnly matrix, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       multiplyInvertLeft(matrix, matrixOriginal, matrixTransformed);
       multiply(matrixTransformed, matrix, matrixTransformed);

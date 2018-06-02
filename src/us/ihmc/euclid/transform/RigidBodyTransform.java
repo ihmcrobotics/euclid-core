@@ -8,10 +8,10 @@ import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
 import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -1919,7 +1919,7 @@ public class RigidBodyTransform
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       rotationMatrix.transform(matrixOriginal, matrixTransformed);
    }
@@ -2007,7 +2007,7 @@ public class RigidBodyTransform
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
    }

@@ -1,15 +1,6 @@
 package us.ihmc.euclid.tools;
 
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getAffineTransformString;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getAxisAngleString;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getMatrixString;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getQuaternionBasedTransformString;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getRigidBodyTransformString;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getStringFormat;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getStringOf;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getTuple2DString;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getTuple3DString;
-import static us.ihmc.euclid.tools.EuclidCoreIOTools.getTuple4DString;
+import static us.ihmc.euclid.tools.EuclidCoreIOTools.*;
 
 import java.util.Arrays;
 

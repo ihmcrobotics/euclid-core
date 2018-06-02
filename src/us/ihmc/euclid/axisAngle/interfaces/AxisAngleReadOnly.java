@@ -1,8 +1,8 @@
 package us.ihmc.euclid.axisAngle.interfaces;
 
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
@@ -389,7 +389,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       AxisAngleTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -424,7 +424,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       AxisAngleTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }
