@@ -37,7 +37,7 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
-public class RotationScaleMatrixTest extends Matrix3DBasicsTest<RotationScaleMatrix>
+public class RotationScaleMatrixTest extends CommonMatrix3DBasicsTest<RotationScaleMatrix>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
    public static final double EPS = 1.0e-10;

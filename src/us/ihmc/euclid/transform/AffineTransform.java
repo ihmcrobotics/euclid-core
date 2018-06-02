@@ -13,7 +13,7 @@ import us.ihmc.euclid.interfaces.Settable;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
-import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -1819,7 +1819,7 @@ public class AffineTransform
     * @param translationToPack tuple in which the translation vector of this affine transform is
     *           stored. Modified.
     */
-   public void get(Matrix3DBasics rotationScaleMarixToPack, Tuple3DBasics translationToPack)
+   public void get(CommonMatrix3DBasics rotationScaleMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationScaleMarixToPack.set(rotationScaleMatrix);
       translationToPack.set(translationVector);
@@ -1855,7 +1855,7 @@ public class AffineTransform
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
-   public void getRotation(Matrix3DBasics rotationMatrixToPack)
+   public void getRotation(CommonMatrix3DBasics rotationMatrixToPack)
    {
       rotationMatrixToPack.set(rotationScaleMatrix.getRotationMatrix());
    }
@@ -2025,7 +2025,7 @@ public class AffineTransform
     * @param rotationScaleMatrixToPack the matrix in which the rotation-scale part of this transform is
     *           stored. Modified.
     */
-   public void getRotationScale(Matrix3DBasics rotationScaleMatrixToPack)
+   public void getRotationScale(CommonMatrix3DBasics rotationScaleMatrixToPack)
    {
       rotationScaleMatrixToPack.set(rotationScaleMatrix);
    }

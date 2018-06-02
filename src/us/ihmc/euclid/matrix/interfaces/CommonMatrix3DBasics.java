@@ -5,7 +5,7 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.euclid.interfaces.Clearable;
 
 /**
- * Write and read interface for a 3-by-3 matrix object.
+ * Read interface for a 3-by-3 matrix object with a restricted writing interface.
  * <p>
  * In this interface, the matrix is assumed to be generic purpose. Therefore, the algorithms used
  * here are limited to generic applications without violating potential constraints of more specific
@@ -14,7 +14,7 @@ import us.ihmc.euclid.interfaces.Clearable;
  *
  * @author Sylvain Bertrand
  */
-public interface Matrix3DBasics extends Matrix3DReadOnly, Clearable
+public interface CommonMatrix3DBasics extends Matrix3DReadOnly, Clearable
 {
    /**
     * Sets the 9 coefficients of this matrix to the given ones.

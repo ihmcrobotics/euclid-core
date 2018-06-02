@@ -19,7 +19,7 @@ import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
-import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
@@ -1462,7 +1462,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
 
       { // Test getRotation(Matrix3DBasics rotationMatrixToPack)
          RigidBodyTransform transform = EuclidCoreRandomTools.nextRigidBodyTransform(random);
-         transform.getRotation((Matrix3DBasics) rotationMatrix);
+         transform.getRotation((CommonMatrix3DBasics) rotationMatrix);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));

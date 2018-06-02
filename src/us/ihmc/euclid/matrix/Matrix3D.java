@@ -2,7 +2,7 @@ package us.ihmc.euclid.matrix;
 
 import us.ihmc.euclid.exceptions.SingularMatrixException;
 import us.ihmc.euclid.interfaces.GeometryObject;
-import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -26,7 +26,7 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  *
  * @author Sylvain Bertrand
  */
-public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
+public class Matrix3D implements CommonMatrix3DBasics, GeometryObject<Matrix3D>
 {
    /** The 1st row 1st column coefficient of this matrix. */
    private double m00;
@@ -1441,7 +1441,7 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    @Override
    public boolean epsilonEquals(Matrix3D other, double epsilon)
    {
-      return Matrix3DBasics.super.epsilonEquals(other, epsilon);
+      return CommonMatrix3DBasics.super.epsilonEquals(other, epsilon);
    }
 
    /**

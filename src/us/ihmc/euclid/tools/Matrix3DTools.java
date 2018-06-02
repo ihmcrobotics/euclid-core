@@ -3,7 +3,7 @@ package us.ihmc.euclid.tools;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.exceptions.SingularMatrixException;
 import us.ihmc.euclid.matrix.Matrix3D;
-import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -367,7 +367,7 @@ public abstract class Matrix3DTools
     *
     * @param matrixToNormalize the matrix to normalize. Modified.
     */
-   public static void normalize(Matrix3DBasics matrixToNormalize)
+   public static void normalize(CommonMatrix3DBasics matrixToNormalize)
    {
       double m00 = matrixToNormalize.getM00();
       double m01 = matrixToNormalize.getM01();

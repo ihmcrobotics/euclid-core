@@ -17,7 +17,7 @@ import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
-import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -1986,7 +1986,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
 
       { // Test getRotation(Matrix3DBasics rotationMatrixToPack)
          AffineTransform transform = EuclidCoreRandomTools.nextAffineTransform(random);
-         transform.getRotation((Matrix3DBasics) rotationMatrix);
+         transform.getRotation((CommonMatrix3DBasics) rotationMatrix);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getRotationMatrix().getElement(row, column));
@@ -2068,7 +2068,7 @@ public class AffineTransformTest extends TransformTest<AffineTransform>
 
       { // Test getRotationScale(Matrix3DBasics rotationMatrixToPack)
          AffineTransform transform = EuclidCoreRandomTools.nextAffineTransform(random);
-         transform.getRotationScale((Matrix3DBasics) rotationMatrix);
+         transform.getRotationScale((CommonMatrix3DBasics) rotationMatrix);
          for (int row = 0; row < 3; row++)
             for (int column = 0; column < 3; column++)
                assertTrue(rotationMatrix.getElement(row, column) == transform.getElement(row, column));

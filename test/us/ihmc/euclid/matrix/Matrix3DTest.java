@@ -21,7 +21,7 @@ import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.tuple3D.Point3D;
 import us.ihmc.euclid.tuple3D.Vector3D;
 
-public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
+public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
    public static final double EPS = 1.0e-10;

@@ -4,7 +4,7 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.interfaces.GeometryObject;
-import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
@@ -39,7 +39,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  *
  * @author Sylvain Bertrand
  */
-public class RotationMatrix implements Matrix3DBasics, RotationMatrixReadOnly, Orientation3DBasics, GeometryObject<RotationMatrix>
+public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadOnly, Orientation3DBasics, GeometryObject<RotationMatrix>
 {
    /** The 1st row 1st column coefficient of this matrix. */
    private double m00;
