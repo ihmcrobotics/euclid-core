@@ -12,6 +12,16 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
+/**
+ * Write and read interface for generic matrix 3D.
+ * <p>
+ * In contrast to {@link CommonMatrix3DBasics}, this interface implements the features and algebra
+ * tools for a general matrix 3D. A matrix 3D implementing this interface cannot guarantee any
+ * properties, e.g. each individual element is accessible and modifiable by user.
+ * </p>
+ * 
+ * @author Sylvain Bertrand
+ */
 public interface Matrix3DBasics extends CommonMatrix3DBasics, Transformable
 {
    /**
@@ -583,46 +593,91 @@ public interface Matrix3DBasics extends CommonMatrix3DBasics, Transformable
       }
    }
 
+   /**
+    * Adds the given value to the 1st row 1st column component.
+    *
+    * @param m00 the value to be added.
+    */
    default void addM00(double m00)
    {
       setM00(getM00() + m00);
    }
 
+   /**
+    * Adds the given value to the 1st row 2nd column component.
+    *
+    * @param m01 the value to be added.
+    */
    default void addM01(double m01)
    {
       setM01(getM01() + m01);
    }
 
+   /**
+    * Adds the given value to the 1st row 3rd column component.
+    *
+    * @param m02 the value to be added.
+    */
    default void addM02(double m02)
    {
       setM02(getM02() + m02);
    }
 
+   /**
+    * Adds the given value to the 2nd row 1st column component.
+    *
+    * @param m10 the value to be added.
+    */
    default void addM10(double m10)
    {
       setM10(getM10() + m10);
    }
 
+   /**
+    * Adds the given value to the 2nd row 2nd column component.
+    *
+    * @param m11 the value to be added.
+    */
    default void addM11(double m11)
    {
       setM11(getM11() + m11);
    }
 
+   /**
+    * Adds the given value to the 2nd row 3rd column component.
+    *
+    * @param m12 the value to be added.
+    */
    default void addM12(double m12)
    {
       setM12(getM12() + m12);
    }
 
+   /**
+    * Adds the given value to the 3rd row 1st column component.
+    *
+    * @param m20 the value to be added.
+    */
    default void addM20(double m20)
    {
       setM20(getM20() + m20);
    }
 
+   /**
+    * Adds the given value to the 3rd row 2nd column component.
+    *
+    * @param m21 the value to be added.
+    */
    default void addM21(double m21)
    {
       setM21(getM21() + m21);
    }
 
+   /**
+    * Adds the given value to the 3rd row 3rd column component.
+    *
+    * @param m22 the value to be added.
+    */
    default void addM22(double m22)
    {
       setM22(getM22() + m22);
@@ -675,46 +730,91 @@ public interface Matrix3DBasics extends CommonMatrix3DBasics, Transformable
       setM22(matrix1.getM22() + matrix2.getM22());
    }
 
+   /**
+    * Subtracts the given value to the 1st row 1st column component.
+    *
+    * @param m00 the value to be subtracted.
+    */
    default void subM00(double m00)
    {
       setM00(getM00() - m00);
    }
 
+   /**
+    * Subtracts the given value to the 1st row 2nd column component.
+    *
+    * @param m01 the value to be subtracted.
+    */
    default void subM01(double m01)
    {
       setM01(getM01() - m01);
    }
 
+   /**
+    * Subtracts the given value to the 1st row 3rd column component.
+    *
+    * @param m02 the value to be subtracted.
+    */
    default void subM02(double m02)
    {
       setM02(getM02() - m02);
    }
 
+   /**
+    * Subtracts the given value to the 2nd row 1st column component.
+    *
+    * @param m10 the value to be subtracted.
+    */
    default void subM10(double m10)
    {
       setM10(getM10() - m10);
    }
 
+   /**
+    * Subtracts the given value to the 2nd row 2nd column component.
+    *
+    * @param m11 the value to be subtracted.
+    */
    default void subM11(double m11)
    {
       setM11(getM11() - m11);
    }
 
+   /**
+    * Subtracts the given value to the 2nd row 3rd column component.
+    *
+    * @param m12 the value to be subtracted.
+    */
    default void subM12(double m12)
    {
       setM12(getM12() - m12);
    }
 
+   /**
+    * Subtracts the given value to the 3rd row 1st column component.
+    *
+    * @param m20 the value to be subtracted.
+    */
    default void subM20(double m20)
    {
       setM20(getM20() - m20);
    }
 
+   /**
+    * Subtracts the given value to the 3rd row 2nd column component.
+    *
+    * @param m21 the value to be subtracted.
+    */
    default void subM21(double m21)
    {
       setM21(getM21() - m21);
    }
 
+   /**
+    * Subtracts the given value to the 3rd row 3rd column component.
+    *
+    * @param m22 the value to be subtracted.
+    */
    default void subM22(double m22)
    {
       setM22(getM22() - m22);
