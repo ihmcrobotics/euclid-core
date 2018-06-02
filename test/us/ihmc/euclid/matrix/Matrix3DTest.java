@@ -18,6 +18,7 @@ import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
+import us.ihmc.euclid.tuple3D.Point3D;
 import us.ihmc.euclid.tuple3D.Vector3D;
 
 public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
@@ -214,7 +215,7 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
       Random random = new Random(23423);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-      {
+      { // Test setToDiagonal(double m00, double m11, double m22)
          double m00 = random.nextDouble();
          double m11 = random.nextDouble();
          double m22 = random.nextDouble();
@@ -237,6 +238,30 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
          }
       }
 
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // setToDiagonal(Tuple3DReadOnly tuple)
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         double z = random.nextDouble();
+
+         Matrix3D matrix = EuclidCoreRandomTools.nextMatrix3D(random);
+
+         matrix.setToDiagonal(new Point3D(x, y, z));
+
+         assertTrue(matrix.getM00() == x);
+         assertTrue(matrix.getM11() == y);
+         assertTrue(matrix.getM22() == z);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int col = 0; col < 3; col++)
+            {
+               if (row != col)
+                  assertTrue(matrix.getElement(row, col) == 0.0);
+            }
+         }
+      }
    }
 
    @Test

@@ -243,8 +243,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
-    * Sets this matrix to represent to represent a counter clockwise rotation around the z-axis of an
-    * angle {@code yaw}.
+    * Sets this matrix to represent to represent a counter clockwise rotation around the z-axis of
+    * an angle {@code yaw}.
     *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \
@@ -489,8 +489,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
     *        \ scalarColumn0 * m20 scalarColumn1 * m21 scalarColumn2 * m22 /
     * </pre>
     * <p>
-    * This operation is equivalent to multiplying this matrix, i.e. this = this * D, by the following
-    * diagonal matrix D:
+    * This operation is equivalent to multiplying this matrix, i.e. this = this * D, by the
+    * following diagonal matrix D:
     *
     * <pre>
     *     / scalarColumn0       0             0       \
@@ -935,8 +935,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
-    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given array
-    * {@code columnArray}.
+    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given
+    * array {@code columnArray}.
     *
     * @param column the index of the column to set the values of.
     * @param columnArray the array containing the new values for the column. Not modified.
@@ -948,8 +948,8 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
-    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given tuple
-    * {@code columnValues}.
+    * Sets the {@code column}<sup>th</sup> column components to the values contained in the given
+    * tuple {@code columnValues}.
     *
     * @param column the index of the column to set the values of.
     * @param columnValues the tuple containing the new values for the column. Not modified.
@@ -998,6 +998,7 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
 
    /**
     * Sets this matrix to be a diagonal matrix as follows:
+    * 
     * <pre>
     *        / m00  0   0  \
     * this = |  0  m11  0  |
@@ -1011,6 +1012,24 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    public void setToDiagonal(double m00, double m11, double m22)
    {
       set(m00, 0.0, 0.0, 0.0, m11, 0.0, 0.0, 0.0, m22);
+   }
+
+   /**
+    * Sets this matrix to be a diagonal matrix as follows:
+    * 
+    * <pre>
+    *        / x 0 0 \
+    * this = | 0 y 0 |
+    *        \ 0 0 z /
+    * </pre>
+    * 
+    * where x, y, and z are the components of the given tuple.
+    * 
+    * @param tuple the tuple used to set this matrix diagonal elements. Not modified.
+    */
+   public void setToDiagonal(Tuple3DReadOnly tuple)
+   {
+      setToDiagonal(tuple.getX(), tuple.getY(), tuple.getZ());
    }
 
    /**
@@ -1391,9 +1410,9 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this, in which case the method returns
-    * {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the {@code object} is
-    * {@code null}.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method
+    * returns {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the
+    * {@code object} is {@code null}.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
