@@ -64,24 +64,6 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
       return RotationMatrixTools.distance(this, other);
    }
 
-   /**
-    * Computes and packs the orientation described by this rotation matrix as a rotation vector.
-    * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
-    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
-    * same axis-angle.
-    * </p>
-    *
-    * @param rotationVectorToPack the rotation vector representing the same orientation as this.
-    *           Modified.
-    * @deprecated Use {@link #getRotationVector(Vector3DBasics)} instead
-    */
-   @Deprecated
-   default void get(Vector3DBasics rotationVectorToPack)
-   {
-      getRotationVector(rotationVectorToPack);
-   }
-
    /** {@inheritDoc} */
    @Override
    default void get(RotationMatrix rotationMatrixToPack)
