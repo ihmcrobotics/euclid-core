@@ -408,7 +408,7 @@ public abstract class EuclidCoreRandomTools
     */
    public static Matrix3D nextDiagonalMatrix3D(Random random)
    {
-      return nextMatrix3D(random, 1.0);
+      return nextDiagonalMatrix3D(random, 1.0);
    }
 
    /**
@@ -450,7 +450,7 @@ public abstract class EuclidCoreRandomTools
     */
    public static Matrix3D nextDiagonalMatrix3D(Random random, double minMaxValue)
    {
-      return nextMatrix3D(random, -minMaxValue, minMaxValue);
+      return nextDiagonalMatrix3D(random, -minMaxValue, minMaxValue);
    }
 
    /**

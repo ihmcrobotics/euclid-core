@@ -1,26 +1,26 @@
 package us.ihmc.euclid.tools;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
 import org.junit.Test;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
+import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.tuple3D.Point3D;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 
 public class EuclidCoreRandomToolsTest
 {
+   private static final int INTERATIONS = 10000;
    private static final double EPSILON = 1.0e-12;
 
    @Test
    public void testNextVector3D()
    {
-      for (int i = 0; i < 10000; i++)
+      for (int i = 0; i < INTERATIONS; i++)
       {
          Random random = new Random(16451L);
 
@@ -61,7 +61,7 @@ public class EuclidCoreRandomToolsTest
          Tuple3DBasics previousValue = new Point3D();
          previousValue.setToNaN();
 
-         for (int i = 0; i < 10000; i++)
+         for (int i = 0; i < INTERATIONS; i++)
          {
             EuclidCoreRandomTools.randomizeTuple3D(random, tupleToRandomize);
 
@@ -77,7 +77,7 @@ public class EuclidCoreRandomToolsTest
          }
       }
 
-      for (int i = 0; i < 10000; i++)
+      for (int i = 0; i < INTERATIONS; i++)
       { // Test randomize(Random random, TupleBasics minMax, TupleBasics tupleToRandomize)
          Tuple3DBasics minMax = new Point3D();
 
@@ -99,7 +99,7 @@ public class EuclidCoreRandomToolsTest
          Tuple3DBasics min = new Point3D();
          Tuple3DBasics max = new Point3D();
 
-         for (int i = 0; i < 10000; i++)
+         for (int i = 0; i < INTERATIONS; i++)
          {
             min.setX(random.nextDouble());
             min.setY(random.nextDouble());
@@ -133,7 +133,7 @@ public class EuclidCoreRandomToolsTest
 
       axisAnglePrevious.setToNaN();
 
-      for (int i = 0; i < 100000; i++)
+      for (int i = 0; i < INTERATIONS; i++)
       {
          EuclidCoreRandomTools.randomizeAxisAngle(random, minMax, axisAngle);
          assertTrue(Math.abs(axisAngle.getAngle()) < minMax);
@@ -159,7 +159,7 @@ public class EuclidCoreRandomToolsTest
 
       axisAnglePrevious.setToNaN();
 
-      for (int i = 0; i < 100000; i++)
+      for (int i = 0; i < INTERATIONS; i++)
       {
          EuclidCoreRandomTools.randomizeAxisAngle(random, axisAngle);
          assertTrue(Math.abs(axisAngle.getAngle()) < Math.PI);
@@ -175,6 +175,197 @@ public class EuclidCoreRandomToolsTest
          axisAnglePrevious.setY(axisAngle.getY());
          axisAnglePrevious.setZ(axisAngle.getZ());
          axisAnglePrevious.setAngle(axisAngle.getAngle());
+      }
+   }
+
+   @Test
+   public void testNextMatrix3D() throws Exception
+   {
+      Random random = new Random(23452);
+
+      for (int i = 0; i < INTERATIONS; i++)
+      { // Test nextMatrix3D(Random random)
+         Matrix3D matrix3D = EuclidCoreRandomTools.nextMatrix3D(random);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               assertTrue(matrix3D.getElement(row, column) <= 1.0);
+               assertTrue(matrix3D.getElement(row, column) >= -1.0);
+               assertTrue(matrix3D.getElement(row, column) != 0.0);
+               assertTrue(Double.isFinite(matrix3D.getElement(row, column)));
+            }
+         }
+      }
+
+      for (int i = 0; i < INTERATIONS; i++)
+      { // Test nextMatrix3D(Random random, double minMaxValue)
+         double minMaxValue = EuclidCoreRandomTools.nextDouble(random, 0.0, 100.0);
+         Matrix3D matrix3D = EuclidCoreRandomTools.nextMatrix3D(random, minMaxValue);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               assertTrue(matrix3D.getElement(row, column) <= minMaxValue);
+               assertTrue(matrix3D.getElement(row, column) >= -minMaxValue);
+               assertTrue(matrix3D.getElement(row, column) != 0.0);
+               assertTrue(Double.isFinite(matrix3D.getElement(row, column)));
+            }
+         }
+      }
+
+      for (int i = 0; i < INTERATIONS; i++)
+      { // Test nextMatrix3D(Random random, double minValue, double maxValue)
+         double minValue = EuclidCoreRandomTools.nextDouble(random, 100.0);
+         double maxValue = EuclidCoreRandomTools.nextDouble(random, minValue, 100.0);
+         Matrix3D matrix3D = EuclidCoreRandomTools.nextMatrix3D(random, minValue, maxValue);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               assertTrue(matrix3D.getElement(row, column) <= maxValue);
+               assertTrue(matrix3D.getElement(row, column) >= minValue);
+               assertTrue(matrix3D.getElement(row, column) != 0.0);
+               assertTrue(Double.isFinite(matrix3D.getElement(row, column)));
+            }
+         }
+      }
+
+      // Test exceptions:
+      try
+      {
+         EuclidCoreRandomTools.nextMatrix3D(random, -0.1);
+         fail("Should have thrown an exception.");
+      }
+      catch (RuntimeException e)
+      {
+         // Good
+      }
+
+      try
+      {
+         EuclidCoreRandomTools.nextMatrix3D(random, 0.1, 0.05);
+         fail("Should have thrown an exception.");
+      }
+      catch (RuntimeException e)
+      {
+         // Good
+      }
+
+      try
+      {
+         EuclidCoreRandomTools.nextMatrix3D(random, -0.1, -0.15);
+         fail("Should have thrown an exception.");
+      }
+      catch (RuntimeException e)
+      {
+         // Good
+      }
+   }
+
+   @Test
+   public void testNextDiagonalMatrix3D() throws Exception
+   {
+      Random random = new Random(23452);
+
+      for (int i = 0; i < INTERATIONS; i++)
+      { // Test nextDiagonalMatrix3D(Random random)
+         Matrix3D matrix3D = EuclidCoreRandomTools.nextDiagonalMatrix3D(random);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               if (row != column)
+                  assertTrue(matrix3D.getElement(row, column) == 0.0);
+               else
+               {
+                  assertTrue(matrix3D.getElement(row, column) <= 1.0);
+                  assertTrue(matrix3D.getElement(row, column) >= -1.0);
+                  assertTrue(matrix3D.getElement(row, column) != 0.0);
+                  assertTrue(Double.isFinite(matrix3D.getElement(row, column)));
+               }
+            }
+         }
+      }
+
+      for (int i = 0; i < INTERATIONS; i++)
+      { // Test nextDiagonalMatrix3D(Random random, double minMaxValue)
+         double minMaxValue = EuclidCoreRandomTools.nextDouble(random, 0.0, 100.0);
+         Matrix3D matrix3D = EuclidCoreRandomTools.nextDiagonalMatrix3D(random, minMaxValue);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               if (row != column)
+                  assertTrue(matrix3D.getElement(row, column) == 0.0);
+               else
+               {
+                  assertTrue(matrix3D.getElement(row, column) <= minMaxValue);
+                  assertTrue(matrix3D.getElement(row, column) >= -minMaxValue);
+                  assertTrue(matrix3D.getElement(row, column) != 0.0);
+                  assertTrue(Double.isFinite(matrix3D.getElement(row, column)));
+               }
+            }
+         }
+      }
+
+      for (int i = 0; i < INTERATIONS; i++)
+      { // Test nextDiagonalMatrix3D(Random random, double minValue, double maxValue)
+         double minValue = EuclidCoreRandomTools.nextDouble(random, 100.0);
+         double maxValue = EuclidCoreRandomTools.nextDouble(random, minValue, 100.0);
+         Matrix3D matrix3D = EuclidCoreRandomTools.nextDiagonalMatrix3D(random, minValue, maxValue);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int column = 0; column < 3; column++)
+            {
+               if (row != column)
+                  assertTrue(matrix3D.getElement(row, column) == 0.0);
+               else
+               {
+                  assertTrue(matrix3D.getElement(row, column) <= maxValue);
+                  assertTrue(matrix3D.getElement(row, column) >= minValue);
+                  assertTrue(matrix3D.getElement(row, column) != 0.0);
+                  assertTrue(Double.isFinite(matrix3D.getElement(row, column)));
+               }
+            }
+         }
+      }
+
+      // Test exceptions:
+      try
+      {
+         EuclidCoreRandomTools.nextDiagonalMatrix3D(random, -0.1);
+         fail("Should have thrown an exception.");
+      }
+      catch (RuntimeException e)
+      {
+         // Good
+      }
+
+      try
+      {
+         EuclidCoreRandomTools.nextDiagonalMatrix3D(random, 0.1, 0.05);
+         fail("Should have thrown an exception.");
+      }
+      catch (RuntimeException e)
+      {
+         // Good
+      }
+
+      try
+      {
+         EuclidCoreRandomTools.nextDiagonalMatrix3D(random, -0.1, -0.15);
+         fail("Should have thrown an exception.");
+      }
+      catch (RuntimeException e)
+      {
+         // Good
       }
    }
 }
