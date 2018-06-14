@@ -342,8 +342,9 @@ public abstract class QuaternionConversion
 
       if (norm < EPS)
       {
-         // Use a small angle approximation for sine and cosine:
-         quaternionToPack.setUnsafe(rx / 2.0, ry / 2.0, rz / 2.0, 1.0);
+         // Small angle approximation
+         // "A Primer on the Differential Calculus of 3D Orientations" M. Bloesh et al
+         quaternionToPack.setUnsafe(0.5 * rx, 0.5 * ry, 0.5 * rz, 1.0);
       }
       else
       {
