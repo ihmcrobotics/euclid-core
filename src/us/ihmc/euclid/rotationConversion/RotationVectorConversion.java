@@ -142,7 +142,10 @@ public abstract class RotationVectorConversion
       }
       else
       {
-         rotationVectorToPack.setToZero();
+         double sign = Math.signum(qs);
+         rotationVectorToPack.setX(sign * qx);
+         rotationVectorToPack.setY(sign * qy);
+         rotationVectorToPack.setZ(sign * qz);
       }
    }
 

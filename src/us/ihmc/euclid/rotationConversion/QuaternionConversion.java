@@ -342,7 +342,8 @@ public abstract class QuaternionConversion
 
       if (norm < EPS)
       {
-         quaternionToPack.setToZero();
+         // Use a small angle approximation for sine and cosine:
+         quaternionToPack.setUnsafe(rx / 2.0, ry / 2.0, rz / 2.0, 1.0);
       }
       else
       {
