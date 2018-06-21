@@ -1,7 +1,6 @@
 package us.ihmc.euclid.matrix.interfaces;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
@@ -217,14 +216,14 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Matrix3D matrixToTransform)
+   default void transform(Matrix3DBasics matrixToTransform)
    {
       Matrix3DReadOnly.super.transform(matrixToTransform);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       Matrix3DTools.multiply(this, matrixOriginal, matrixTransformed);
       Matrix3DTools.multiplyTransposeRight(matrixTransformed, this, matrixTransformed);
@@ -299,14 +298,14 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Matrix3D matrixToTransform)
+   default void inverseTransform(Matrix3DBasics matrixToTransform)
    {
       Matrix3DReadOnly.super.inverseTransform(matrixToTransform);
    }
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       Matrix3DTools.multiplyTransposeLeft(this, matrixOriginal, matrixTransformed);
       Matrix3DTools.multiply(matrixTransformed, this, matrixTransformed);

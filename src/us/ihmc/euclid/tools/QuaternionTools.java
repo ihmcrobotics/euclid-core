@@ -1,8 +1,8 @@
 package us.ihmc.euclid.tools;
 
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
@@ -955,7 +955,7 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   public static void transform(QuaternionReadOnly quaternion, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void transform(QuaternionReadOnly quaternion, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       transformImpl(quaternion, false, matrixOriginal, matrixTransformed);
    }
@@ -964,7 +964,7 @@ public abstract class QuaternionTools
     * Performs the inverse of the transform of the matrix {@code matrixOriginal} using
     * {@code quaternion} and stores the result in {@code matrixTransformed}.
     * <p>
-    * This is equivalent to calling {@link #transform(QuaternionReadOnly, Matrix3DReadOnly, Matrix3D)}
+    * This is equivalent to calling {@link #transform(QuaternionReadOnly, Matrix3DReadOnly, Matrix3DBasics)}
     * with the inverse of the given quaternion.
     * </p>
     * <p>
@@ -979,7 +979,7 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   public static void inverseTransform(QuaternionReadOnly quaternion, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void inverseTransform(QuaternionReadOnly quaternion, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       transformImpl(quaternion, true, matrixOriginal, matrixTransformed);
    }
@@ -1004,7 +1004,7 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
@@ -1037,7 +1037,7 @@ public abstract class QuaternionTools
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
    static void transformImpl(double qx, double qy, double qz, double qs, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal,
-                             Matrix3D matrixTransformed)
+                             Matrix3DBasics matrixTransformed)
    {
       double norm = EuclidCoreTools.norm(qx, qy, qz, qs);
 

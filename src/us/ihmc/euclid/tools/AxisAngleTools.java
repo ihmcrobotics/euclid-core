@@ -4,8 +4,8 @@ import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
@@ -268,7 +268,7 @@ public abstract class AxisAngleTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   public static void transform(AxisAngleReadOnly axisAngle, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void transform(AxisAngleReadOnly axisAngle, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       transformImpl(axisAngle, false, matrixOriginal, matrixTransformed);
    }
@@ -277,7 +277,7 @@ public abstract class AxisAngleTools
     * Performs the inverse of the transform of the matrix {@code matrixOriginal} using
     * {@code axisAngle} and stores the result in {@code matrixTransformed}.
     * <p>
-    * This is equivalent to calling {@link #transform(AxisAngleReadOnly, Matrix3DReadOnly, Matrix3D)}
+    * This is equivalent to calling {@link #transform(AxisAngleReadOnly, Matrix3DReadOnly, Matrix3DBasics)}
     * with an axis-angle that has an angle of opposite value compared to the given one.
     * </p>
     * <p>
@@ -292,7 +292,7 @@ public abstract class AxisAngleTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   public static void inverseTransform(AxisAngleReadOnly axisAngle, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public static void inverseTransform(AxisAngleReadOnly axisAngle, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       transformImpl(axisAngle, true, matrixOriginal, matrixTransformed);
    }
@@ -318,7 +318,7 @@ public abstract class AxisAngleTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   private static void transformImpl(AxisAngleReadOnly axisAngle, boolean negateAngle, Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   private static void transformImpl(AxisAngleReadOnly axisAngle, boolean negateAngle, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       double axisNorm = axisAngle.axisNorm();
 

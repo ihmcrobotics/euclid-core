@@ -5,7 +5,6 @@ import org.ejml.data.DenseMatrix64F;
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.exceptions.SingularMatrixException;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.Matrix3DFeatures;
 import us.ihmc.euclid.tools.Matrix3DTools;
@@ -702,7 +701,7 @@ public interface Matrix3DReadOnly
     * @param matrixToTransform the matrix to transform. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
-   default void transform(Matrix3D matrixToTransform)
+   default void transform(Matrix3DBasics matrixToTransform)
    {
       transform(matrixToTransform, matrixToTransform);
    }
@@ -718,7 +717,7 @@ public interface Matrix3DReadOnly
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
-   void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
+   void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed);
 
    /**
     * Transforms the vector part of the given 4D vector.
@@ -854,7 +853,7 @@ public interface Matrix3DReadOnly
     * @param matrixToTransform the matrix to transform. Not modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
-   default void inverseTransform(Matrix3D matrixToTransform)
+   default void inverseTransform(Matrix3DBasics matrixToTransform)
    {
       inverseTransform(matrixToTransform, matrixToTransform);
    }
@@ -870,7 +869,7 @@ public interface Matrix3DReadOnly
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     * @throws SingularMatrixException if this matrix is not invertible.
     */
-   void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
+   void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed);
 
    /**
     * Performs the inverse of the transform to the vector part the given 4D vector by this matrix.

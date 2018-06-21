@@ -8,9 +8,9 @@ import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
 import us.ihmc.euclid.interfaces.GeometricallyComparable;
 import us.ihmc.euclid.interfaces.Settable;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
+import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
@@ -1919,7 +1919,7 @@ public class RigidBodyTransform
 
    /** {@inheritDoc} */
    @Override
-   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       rotationMatrix.transform(matrixOriginal, matrixTransformed);
    }
@@ -2007,7 +2007,7 @@ public class RigidBodyTransform
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
    }
@@ -2195,7 +2195,7 @@ public class RigidBodyTransform
     * @param rotationMarixToPack the matrix to set to the rotation of this transform. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
-   public void get(Matrix3DBasics rotationMarixToPack, Tuple3DBasics translationToPack)
+   public void get(CommonMatrix3DBasics rotationMarixToPack, Tuple3DBasics translationToPack)
    {
       rotationMarixToPack.set(rotationMatrix);
       translationToPack.set(translationVector);
@@ -2242,7 +2242,7 @@ public class RigidBodyTransform
     * @param rotationMatrixToPack the matrix in which the rotation part of this transform is stored.
     *           Modified.
     */
-   public void getRotation(Matrix3DBasics rotationMatrixToPack)
+   public void getRotation(CommonMatrix3DBasics rotationMatrixToPack)
    {
       rotationMatrixToPack.set(rotationMatrix);
    }
