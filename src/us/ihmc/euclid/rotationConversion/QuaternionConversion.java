@@ -342,7 +342,9 @@ public abstract class QuaternionConversion
 
       if (norm < EPS)
       {
-         quaternionToPack.setToZero();
+         // Small angle approximation
+         // "A Primer on the Differential Calculus of 3D Orientations" M. Bloesh et al
+         quaternionToPack.setUnsafe(0.5 * rx, 0.5 * ry, 0.5 * rz, 1.0);
       }
       else
       {

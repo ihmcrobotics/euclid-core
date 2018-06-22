@@ -116,6 +116,29 @@ public class RotationVectorConversionTest
          EuclidCoreTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
       }
 
+      // test some very small angles
+      minMaxAngleRange = 1.0e-8;
+      for (int i = 0; i < 10000; i++)
+      {
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
+         double ux = axisAngle.getX();
+         double uy = axisAngle.getY();
+         double uz = axisAngle.getZ();
+         double angle = axisAngle.getAngle();
+         expectedRotationVector.setX(ux * angle);
+         expectedRotationVector.setY(uy * angle);
+         expectedRotationVector.setZ(uz * angle);
+
+         double qs = Math.cos(angle / 2.0);
+         double qx = ux * Math.sin(angle / 2.0);
+         double qy = uy * Math.sin(angle / 2.0);
+         double qz = uz * Math.sin(angle / 2.0);
+
+         quaternion.setUnsafe(qx, qy, qz, qs);
+         RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
+         EuclidCoreTestTools.assertTuple3DEquals(expectedRotationVector, actualRotationVector, EPSILON);
+      }
+
       quaternion.setUnsafe(0.0, 0.0, 0.0, 0.0);
       RotationVectorConversion.convertQuaternionToRotationVector(quaternion, actualRotationVector);
       EuclidCoreTestTools.assertTuple3DIsSetToZero(actualRotationVector);

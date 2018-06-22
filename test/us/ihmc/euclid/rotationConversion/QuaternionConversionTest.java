@@ -476,5 +476,20 @@ public class QuaternionConversionTest
          // Assert that the parameter does not get modified
          assertTrue(rotationVector.equals(rotationVectorCopy));
       }
+
+      // test some very small angles
+      minMaxAngleRange = 1.0e-8;
+      for (int i = 0; i < 10000; i++)
+      {
+         AxisAngle axisAngle = EuclidCoreRandomTools.nextAxisAngle(random, minMaxAngleRange);
+         double rx = axisAngle.getX() * axisAngle.getAngle();
+         double ry = axisAngle.getY() * axisAngle.getAngle();
+         double rz = axisAngle.getZ() * axisAngle.getAngle();
+         // The axisangle->quaternion conversion is safe here as it is tested separately in testAxisAngleToQuaternion().
+         QuaternionConversion.convertAxisAngleToQuaternion(axisAngle, expectedQuaternion);
+         QuaternionConversion.convertRotationVectorToQuaternion(rx, ry, rz, actualQuaternion);
+         EuclidCoreTestTools.assertQuaternionEquals(expectedQuaternion, actualQuaternion, EPSILON);
+         EuclidCoreTestTools.assertQuaternionIsUnitary(actualQuaternion, EPSILON);
+      }
    }
 }

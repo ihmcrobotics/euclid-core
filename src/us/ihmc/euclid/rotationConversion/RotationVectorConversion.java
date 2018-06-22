@@ -142,7 +142,12 @@ public abstract class RotationVectorConversion
       }
       else
       {
-         rotationVectorToPack.setToZero();
+         // Small angle approximation
+         // "A Primer on the Differential Calculus of 3D Orientations" M. Bloesh et al
+         double sign = Math.signum(qs);
+         rotationVectorToPack.setX(sign * qx);
+         rotationVectorToPack.setY(sign * qy);
+         rotationVectorToPack.setZ(sign * qz);
       }
    }
 
