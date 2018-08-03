@@ -1,0 +1,17 @@
+us.ihmc.euclid.axisAngle
+us.ihmc.euclid.axisAngle.interfaces
+us.ihmc.euclid.exceptions
+us.ihmc.euclid.interfaces
+us.ihmc.euclid.matrix
+us.ihmc.euclid.matrix.interfaces
+us.ihmc.euclid.orientation.interfaces
+us.ihmc.euclid.rotationConversion
+us.ihmc.euclid.tools
+us.ihmc.euclid.transform
+us.ihmc.euclid.transform.interfaces
+us.ihmc.euclid.tuple2D
+us.ihmc.euclid.tuple2D.interfaces
+us.ihmc.euclid.tuple3D
+us.ihmc.euclid.tuple3D.interfaces
+us.ihmc.euclid.tuple4D
+us.ihmc.euclid.tuple4D.interfaces
