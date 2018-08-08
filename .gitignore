@@ -26,7 +26,6 @@
 **/CVS
 **/tmp
 **/.idea_modules
-**/node_modules
 **/.directory
 **/.Trash-*
 **/$RECYCLE.BIN
