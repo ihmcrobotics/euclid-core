@@ -685,7 +685,7 @@ public abstract class RotationMatrixTools
       y = m02 - m20;
       z = m10 - m01;
 
-      double s = Math.sqrt(x * x + y * y + z * z);
+      double s = Math.sqrt(EuclidCoreTools.normSquared(x, y, z));
 
       if (s > AxisAngleConversion.EPS)
       {

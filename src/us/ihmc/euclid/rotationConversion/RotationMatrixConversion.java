@@ -418,7 +418,7 @@ public abstract class RotationMatrixConversion
          return;
       }
 
-      double norm = Math.sqrt(rx * rx + ry * ry + rz * rz);
+      double norm = Math.sqrt(EuclidCoreTools.normSquared(rx, ry, rz));
 
       if (norm < EPS)
       {
