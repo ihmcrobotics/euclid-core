@@ -316,7 +316,7 @@ public abstract class RotationMatrixTools
             c22 = a20 * b02 + a21 * b12 + a22 * b22;
          }
       }
-      matrixToPack.setAndNormalize(c00, c01, c02, c10, c11, c12, c20, c21, c22);
+      matrixToPack.set(c00, c01, c02, c10, c11, c12, c20, c21, c22);
    }
 
    /**
@@ -350,7 +350,7 @@ public abstract class RotationMatrixTools
       double m20 = matrixOriginal.getM20();
       double m21 = matrixOriginal.getM21();
       double m22 = matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -384,7 +384,7 @@ public abstract class RotationMatrixTools
       double m20 = cYaw * matrixOriginal.getM20() + sYaw * matrixOriginal.getM21();
       double m21 = -sYaw * matrixOriginal.getM20() + cYaw * matrixOriginal.getM21();
       double m22 = matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -418,7 +418,7 @@ public abstract class RotationMatrixTools
       double m20 = -sPitch * matrixOriginal.getM00() + cPitch * matrixOriginal.getM20();
       double m21 = -sPitch * matrixOriginal.getM01() + cPitch * matrixOriginal.getM21();
       double m22 = -sPitch * matrixOriginal.getM02() + cPitch * matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -452,7 +452,7 @@ public abstract class RotationMatrixTools
       double m20 = cPitch * matrixOriginal.getM20() - sPitch * matrixOriginal.getM22();
       double m21 = matrixOriginal.getM21();
       double m22 = sPitch * matrixOriginal.getM20() + cPitch * matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -486,7 +486,7 @@ public abstract class RotationMatrixTools
       double m20 = sRoll * matrixOriginal.getM10() + cRoll * matrixOriginal.getM20();
       double m21 = sRoll * matrixOriginal.getM11() + cRoll * matrixOriginal.getM21();
       double m22 = sRoll * matrixOriginal.getM12() + cRoll * matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -520,7 +520,7 @@ public abstract class RotationMatrixTools
       double m20 = matrixOriginal.getM20();
       double m21 = cRoll * matrixOriginal.getM21() + sRoll * matrixOriginal.getM22();
       double m22 = -sRoll * matrixOriginal.getM21() + cRoll * matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**

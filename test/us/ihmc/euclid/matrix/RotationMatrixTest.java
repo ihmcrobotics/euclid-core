@@ -898,16 +898,15 @@ public class RotationMatrixTest extends CommonMatrix3DBasicsTest<RotationMatrix>
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
 
-         double scale = random.nextDouble();
-         double m00 = scale * original.getM00();
-         double m01 = scale * original.getM01();
-         double m02 = scale * original.getM02();
-         double m10 = scale * original.getM10();
-         double m11 = scale * original.getM11();
-         double m12 = scale * original.getM12();
-         double m20 = scale * original.getM20();
-         double m21 = scale * original.getM21();
-         double m22 = scale * original.getM22();
+         double m00 = original.getM00();
+         double m01 = original.getM01();
+         double m02 = original.getM02();
+         double m10 = original.getM10();
+         double m11 = original.getM11();
+         double m12 = original.getM12();
+         double m20 = original.getM20();
+         double m21 = original.getM21();
+         double m22 = original.getM22();
          actual.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
