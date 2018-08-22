@@ -139,7 +139,7 @@ public abstract class RotationMatrixConversion
          return;
       }
 
-      double uNorm = Math.sqrt(ux * ux + uy * uy + uz * uz);
+      double uNorm = EuclidCoreTools.norm(ux, uy, uz);
 
       if (uNorm < EPS)
       {
