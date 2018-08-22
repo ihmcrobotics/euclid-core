@@ -1863,6 +1863,48 @@ public class RigidBodyTransform
       rotationMatrix.prependRollRotation(roll);
    }
 
+   /**
+    * Performs a linear interpolation from {@code this} to {@code other} given the percentage
+    * {@code alpha}.
+    * 
+    * <pre>
+    * this.translationVector = (1.0 - alpha) * this.translationVector + alpha * other.translationVector
+    * this.rotationMatrix = (1.0 - alpha) * this.rotationMatrix + alpha * other.rotationMatrix
+    * </pre>
+    *
+    * @param other the other transform used in the interpolation. Not modified.
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
+    *           modifying {@code this}, while a value of 1 is equivalent to setting {@code this} to
+    *           {@code other}.
+    */
+   public void interpolate(RigidBodyTransform other, double alpha)
+   {
+      interpolate(this, other, alpha);
+   }
+
+   /**
+    * Performs a linear interpolation from {@code transform1} to {@code transform2} given the
+    * percentage {@code alpha}.
+    * 
+    * <pre>
+    * this.translationVector = (1.0 - alpha) * transform1.translationVector + alpha *
+    * transform2.translationVector
+    * this.rotationMatrix = (1.0 - alpha) * transform1.rotationMatrix + alpha *
+    * transform2.rotationMatrix
+    * </pre>
+    *
+    * @param transform1 the first transform used in the interpolation. Not modified.
+    * @param transform2 the second transform used in the interpolation. Not modified.
+    * @param alpha the percentage to use for the interpolation. A value of 0 will result in setting
+    *           {@code this} to {@code transform1}, while a value of 1 is equivalent to setting
+    *           {@code this} to {@code transform2}.
+    */
+   public void interpolate(RigidBodyTransform transform1, RigidBodyTransform transform2, double alpha)
+   {
+      rotationMatrix.interpolate(transform1.rotationMatrix, transform2.rotationMatrix, alpha);
+      translationVector.interpolate(transform1.translationVector, transform2.translationVector, alpha);
+   }
+
    /** {@inheritDoc} */
    @Override
    public void transform(Point3DReadOnly pointOriginal, Point3DBasics pointTransformed)
@@ -2261,8 +2303,8 @@ public class RigidBodyTransform
    /**
     * Packs the rotation part of this rigid-body transform.
     *
-    * @param rotationMatrixToPack the rotation-scale matrix that is set to this transform's rotation.
-    *           The scale part is reset. Modified.
+    * @param rotationMatrixToPack the rotation-scale matrix that is set to this transform's
+    *           rotation. The scale part is reset. Modified.
     */
    public void getRotation(RotationScaleMatrix rotationMatrixToPack)
    {
