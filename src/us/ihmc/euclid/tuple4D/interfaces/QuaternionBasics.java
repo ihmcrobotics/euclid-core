@@ -264,17 +264,6 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       negate();
    }
 
-   /**
-    * Sets this quaternion to the inverse of {@code other}.
-    *
-    * @param other the other quaternion to copy the values from. Not modified.
-    * @deprecated Use {@link Orientation3DBasics#setAndInvert(Orientation3DReadOnly)} instead
-    */
-   default void setAndInverse(QuaternionReadOnly other)
-   {
-      setAndInvert(other);
-   }
-
    /** {@inheritDoc} */
    @Override
    default void setAxisAngle(double x, double y, double z, double angle)

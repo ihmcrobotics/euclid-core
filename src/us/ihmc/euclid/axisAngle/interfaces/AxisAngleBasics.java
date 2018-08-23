@@ -93,40 +93,11 @@ public interface AxisAngleBasics extends AxisAngleReadOnly, Orientation3DBasics,
       set(-getX(), -getY(), -getZ(), -getAngle());
    }
 
-   /**
-    * Sets this axis-angle to its inverse.
-    *
-    * @deprecated Use {@link #invert()} instead.
-    */
-   @Deprecated
-   default void inverse()
-   {
-      invert();
-   }
-
    /** {@inheritDoc} */
    @Override
    default void invert()
    {
       setAngle(-getAngle());
-   }
-
-   /**
-    * Normalizes the axis of this axis-angle such that its norm is equal to 1 after calling this
-    * method and its direction remains unchanged.
-    * <p>
-    * Edge cases:
-    * <ul>
-    * <li>if this axis-angle contains {@link Double#NaN}, this method is ineffective.
-    * </ul>
-    * </p>
-    *
-    * @deprecated Use {@link #normalize()} instead
-    */
-   @Deprecated
-   default void normalizeAxis()
-   {
-      normalize();
    }
 
    /**

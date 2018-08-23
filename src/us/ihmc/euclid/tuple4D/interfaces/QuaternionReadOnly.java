@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tuple4D.interfaces;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.euclid.exceptions.NotAMatrix2DException;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -56,23 +55,6 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    }
 
    /**
-    * Tests if this quaternion represents a rotation around the z-axis.
-    * <p>
-    * This is commonly used to test if the quaternion can be used to transform 2D geometry object.
-    * </p>
-    *
-    * @param epsilon the tolerance to use.
-    * @return {@code true} if this quaternion represents a rotation around the z-axis, {@code false}
-    *         otherwise.
-    * @deprecated Use {@link #isOrientation2D(double)} instead
-    */
-   @Deprecated
-   default boolean isZOnly(double epsilon)
-   {
-      return isOrientation2D(epsilon);
-   }
-
-   /**
     * {@inheritDoc}
     * <p>
     * A quaternion is an orientation 2D if:
@@ -109,22 +91,6 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
    {
       if (!isUnitary(epsilon))
          throw new RuntimeException("This quaternion is not a unit-quaternion.");
-   }
-
-   /**
-    * Asserts that this quaternion represents a rotation around the z-axis.
-    * <p>
-    * This is commonly used to test if the quaternion can be used to transform 2D geometry object.
-    * </p>
-    *
-    * @param epsilon the tolerance to use.
-    * @throws NotAMatrix2DException if this quaternion does not represent a rotation around the z-axis.
-    * @deprecated Use {@link #checkIfOrientation2D(double)} instead
-    */
-   @Deprecated
-   default void checkIfIsZOnly(double epsilon)
-   {
-      checkIfOrientation2D(epsilon);
    }
 
    /**
