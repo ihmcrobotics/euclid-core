@@ -1,5 +1,7 @@
 package us.ihmc.euclid.transform;
 
+import java.util.Arrays;
+
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.exceptions.NotAMatrix2DException;
@@ -364,6 +366,8 @@ public class RigidBodyTransform
    {
       if (hasRotation)
          rotationMatrix.normalize();
+      else
+         rotationMatrix.setIdentity();
    }
 
    /**
@@ -735,7 +739,7 @@ public class RigidBodyTransform
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
-      hasRotation = !this.rotationMatrix.isIdentity(EPS_CHECK_IDENTITY);
+      hasRotation = !isRotationZero(this.rotationMatrix);
       hasTranslation = !isTupleZero(translationVector);
    }
 
@@ -750,7 +754,7 @@ public class RigidBodyTransform
    {
       this.rotationMatrix.set(rotationMatrix);
       translationVector.set(translation);
-      hasRotation = !this.rotationMatrix.isIdentity(EPS_CHECK_IDENTITY);
+      hasRotation = !isRotationZero(this.rotationMatrix);
       hasTranslation = !isTupleZero(translationVector);
    }
 
@@ -882,7 +886,7 @@ public class RigidBodyTransform
    public void setRotation(DenseMatrix64F rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
-      hasRotation = !this.rotationMatrix.isIdentity(EPS_CHECK_IDENTITY);
+      hasRotation = !isRotationZero(this.rotationMatrix);
    }
 
    /**
@@ -899,7 +903,7 @@ public class RigidBodyTransform
    public void setRotation(Matrix3DReadOnly rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
-      hasRotation = !this.rotationMatrix.isIdentity(EPS_CHECK_IDENTITY);
+      hasRotation = !isRotationZero(this.rotationMatrix);
    }
 
    /**
@@ -916,7 +920,7 @@ public class RigidBodyTransform
    public void setRotation(RotationMatrixReadOnly rotationMatrix)
    {
       this.rotationMatrix.set(rotationMatrix);
-      hasRotation = !this.rotationMatrix.isIdentity(EPS_CHECK_IDENTITY);
+      hasRotation = !isRotationZero(this.rotationMatrix);
    }
 
    /**
@@ -1300,7 +1304,7 @@ public class RigidBodyTransform
    public void setTranslationX(double x)
    {
       translationVector.setX(x);
-      hasTranslation = hasTranslation || !isZero(x);
+      hasTranslation = !isTupleZero(translationVector);
    }
 
    /**
@@ -1314,7 +1318,7 @@ public class RigidBodyTransform
    public void setTranslationY(double y)
    {
       translationVector.setY(y);
-      hasTranslation = hasTranslation || !isZero(y);
+      hasTranslation = !isTupleZero(translationVector);
    }
 
    /**
@@ -1328,7 +1332,7 @@ public class RigidBodyTransform
    public void setTranslationZ(double z)
    {
       translationVector.setZ(z);
-      hasTranslation = hasTranslation || !isZero(z);
+      hasTranslation = !isTupleZero(translationVector);
    }
 
    /**
@@ -1544,7 +1548,7 @@ public class RigidBodyTransform
          if (hasRotation)
             Matrix3DTools.subTransform(rotationMatrix, other.getTranslationVector(), translationVector);
          else
-            translationVector.sub(translationVector);
+            translationVector.sub(other.translationVector);
          hasTranslation = !hasTranslation || !isTupleZero(translationVector);
       }
    }
@@ -1766,6 +1770,11 @@ public class RigidBodyTransform
             translationVector.add(other.translationVector);
             hasTranslation = !isTupleZero(translationVector);
          }
+      }
+      else if (other.hasTranslation)
+      {
+         translationVector.set(other.translationVector);
+         hasTranslation = true;
       }
 
       if (other.hasRotation)
@@ -2136,8 +2145,14 @@ public class RigidBodyTransform
     */
    public void interpolate(RigidBodyTransform transform1, RigidBodyTransform transform2, double alpha)
    {
-      rotationMatrix.interpolate(transform1.rotationMatrix, transform2.rotationMatrix, alpha);
-      translationVector.interpolate(transform1.translationVector, transform2.translationVector, alpha);
+      if (transform1.hasRotation || transform2.hasRotation)
+         rotationMatrix.interpolate(transform1.rotationMatrix, transform2.rotationMatrix, alpha);
+      else
+         rotationMatrix.setToZero();
+      if (transform1.hasTranslation || transform2.hasTranslation)
+         translationVector.interpolate(transform1.translationVector, transform2.translationVector, alpha);
+      else
+         translationVector.setToZero();
    }
 
    /** {@inheritDoc} */
@@ -2630,7 +2645,10 @@ public class RigidBodyTransform
     */
    public void getRotation(Orientation3DBasics orientationToPack)
    {
-      orientationToPack.set(rotationMatrix);
+      if (hasRotation)
+         orientationToPack.set(rotationMatrix);
+      else
+         orientationToPack.setToZero();
    }
 
    /**
@@ -2646,7 +2664,10 @@ public class RigidBodyTransform
     */
    public void getRotation(Vector3DBasics rotationVectorToPack)
    {
-      rotationMatrix.getRotationVector(rotationVectorToPack);
+      if (hasRotation)
+         rotationMatrix.getRotationVector(rotationVectorToPack);
+      else
+         rotationVectorToPack.setToZero();
    }
 
    /**
@@ -2661,7 +2682,10 @@ public class RigidBodyTransform
     */
    public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
    {
-      rotationMatrix.getYawPitchRoll(yawPitchRollToPack);
+      if (hasRotation)
+         rotationMatrix.getYawPitchRoll(yawPitchRollToPack);
+      else
+         Arrays.fill(yawPitchRollToPack, 0, 3, 0.0);
    }
 
    /**
@@ -2676,7 +2700,10 @@ public class RigidBodyTransform
     */
    public void getRotationEuler(Vector3DBasics eulerAnglesToPack)
    {
-      rotationMatrix.getEuler(eulerAnglesToPack);
+      if (hasRotation)
+         rotationMatrix.getEuler(eulerAnglesToPack);
+      else
+         eulerAnglesToPack.setToZero();
    }
 
    /**
