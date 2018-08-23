@@ -125,7 +125,7 @@ public class AxisAngleConversion
       y = m02 - m20;
       z = m10 - m01;
 
-      double s = Math.sqrt(x * x + y * y + z * z);
+      double s = Math.sqrt(EuclidCoreTools.normSquared(x, y, z));
 
       if (s > EPS)
       {
@@ -304,7 +304,7 @@ public class AxisAngleConversion
          return;
       }
 
-      double norm = Math.sqrt(rx * rx + ry * ry + rz * rz);
+      double norm = Math.sqrt(EuclidCoreTools.normSquared(rx, ry, rz));
 
       if (norm > EPS)
       {
@@ -398,7 +398,7 @@ public class AxisAngleConversion
       double qy = sYaw * cPitch * sRoll + cYaw * sPitch * cRoll;
       double qz = sYaw * cPitch * cRoll - cYaw * sPitch * sRoll;
 
-      double uNorm = EuclidCoreTools.fastSquareRoot(qx * qx + qy * qy + qz * qz);
+      double uNorm = Math.sqrt(EuclidCoreTools.normSquared(qx, qy, qz));
 
       if (uNorm > EPS)
       {

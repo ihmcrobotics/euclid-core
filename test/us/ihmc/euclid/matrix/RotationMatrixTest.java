@@ -1,10 +1,6 @@
 package us.ihmc.euclid.matrix;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -898,16 +894,15 @@ public class RotationMatrixTest extends CommonMatrix3DBasicsTest<RotationMatrix>
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
 
-         double scale = random.nextDouble();
-         double m00 = scale * original.getM00();
-         double m01 = scale * original.getM01();
-         double m02 = scale * original.getM02();
-         double m10 = scale * original.getM10();
-         double m11 = scale * original.getM11();
-         double m12 = scale * original.getM12();
-         double m20 = scale * original.getM20();
-         double m21 = scale * original.getM21();
-         double m22 = scale * original.getM22();
+         double m00 = original.getM00();
+         double m01 = original.getM01();
+         double m02 = original.getM02();
+         double m10 = original.getM10();
+         double m11 = original.getM11();
+         double m12 = original.getM12();
+         double m20 = original.getM20();
+         double m21 = original.getM21();
+         double m22 = original.getM22();
          actual.setUnsafe(m00, m01, m02, m10, m11, m12, m20, m21, m22);
          actual.applyTransform(transform);
          EuclidCoreTestTools.assertMatrix3DEquals(expected, actual, SMALL_EPS);
@@ -1089,6 +1084,57 @@ public class RotationMatrixTest extends CommonMatrix3DBasicsTest<RotationMatrix>
          EuclidCoreTestTools.assertMatrix3DEquals(multiplied, expected, EPS);
 
          assertEquals(1.0, multiplied.determinant(), 1.0e-10);
+      }
+   }
+
+   @Test
+   public void testNumericalError() throws Exception
+   {
+      Random random = new Random(53463);
+
+      { // Chain multiplication to control numerical errors.
+         RotationMatrix unnormalized = new RotationMatrix();
+         RotationMatrix normalized = new RotationMatrix();
+
+         for (int i = 0; i < 125000; i++)
+         {
+            RotationMatrixReadOnly multiplyWith = EuclidCoreRandomTools.nextRotationMatrix(random);
+            unnormalized.multiply(multiplyWith);
+            normalized.multiply(multiplyWith);
+            normalized.normalize();
+            EuclidCoreTestTools.assertMatrix3DEquals(normalized, unnormalized, EPS);
+            assertTrue("At multiplication #" + i + ".", unnormalized.isRotationMatrix(1.0e-11));
+         }
+      }
+
+      { // Chain multiplication with quaternion to control numerical errors.
+         RotationMatrix unnormalized = new RotationMatrix();
+         RotationMatrix normalized = new RotationMatrix();
+
+         for (int i = 0; i < 80000; i++)
+         {
+            Quaternion multiplyWith = EuclidCoreRandomTools.nextQuaternion(random);
+            unnormalized.append(multiplyWith);
+            normalized.append(multiplyWith);
+            normalized.normalize();
+            EuclidCoreTestTools.assertMatrix3DEquals(normalized, unnormalized, EPS);
+            assertTrue("At multiplication #" + i + ".", unnormalized.isRotationMatrix(1.0e-11));
+         }
+      }
+
+      { // Chain multiplication with axis-angle to control numerical errors.
+         RotationMatrix unnormalized = new RotationMatrix();
+         RotationMatrix normalized = new RotationMatrix();
+
+         for (int i = 0; i < 125000; i++)
+         {
+            AxisAngle multiplyWith = EuclidCoreRandomTools.nextAxisAngle(random);
+            unnormalized.append(multiplyWith);
+            normalized.append(multiplyWith);
+            normalized.normalize();
+            EuclidCoreTestTools.assertMatrix3DEquals(normalized, unnormalized, EPS);
+            assertTrue("At multiplication #" + i + ".", unnormalized.isRotationMatrix(1.0e-11));
+         }
       }
    }
 

@@ -272,9 +272,10 @@ public abstract class RotationMatrixTools
             c10 = a01 * b00 + a11 * b01 + a21 * b02;
             c11 = a01 * b10 + a11 * b11 + a21 * b12;
             c12 = a01 * b20 + a11 * b21 + a21 * b22;
-            c20 = a02 * b00 + a12 * b01 + a22 * b02;
-            c21 = a02 * b10 + a12 * b11 + a22 * b12;
-            c22 = a02 * b20 + a12 * b21 + a22 * b22;
+            // The 3rd column is computed by the cross-product of the 2 other
+            // c20 = a02 * b00 + a12 * b01 + a22 * b02;
+            // c21 = a02 * b10 + a12 * b11 + a22 * b12;
+            // c22 = a02 * b20 + a12 * b21 + a22 * b22;
          }
          else
          {
@@ -284,9 +285,10 @@ public abstract class RotationMatrixTools
             c10 = a01 * b00 + a11 * b10 + a21 * b20;
             c11 = a01 * b01 + a11 * b11 + a21 * b21;
             c12 = a01 * b02 + a11 * b12 + a21 * b22;
-            c20 = a02 * b00 + a12 * b10 + a22 * b20;
-            c21 = a02 * b01 + a12 * b11 + a22 * b21;
-            c22 = a02 * b02 + a12 * b12 + a22 * b22;
+            // The 3rd column is computed by the cross-product of the 2 other
+            // c20 = a02 * b00 + a12 * b10 + a22 * b20;
+            // c21 = a02 * b01 + a12 * b11 + a22 * b21;
+            // c22 = a02 * b02 + a12 * b12 + a22 * b22;
          }
       }
       else
@@ -299,9 +301,10 @@ public abstract class RotationMatrixTools
             c10 = a10 * b00 + a11 * b01 + a12 * b02;
             c11 = a10 * b10 + a11 * b11 + a12 * b12;
             c12 = a10 * b20 + a11 * b21 + a12 * b22;
-            c20 = a20 * b00 + a21 * b01 + a22 * b02;
-            c21 = a20 * b10 + a21 * b11 + a22 * b12;
-            c22 = a20 * b20 + a21 * b21 + a22 * b22;
+            // The 3rd column is computed by the cross-product of the 2 other
+            // c20 = a20 * b00 + a21 * b01 + a22 * b02;
+            // c21 = a20 * b10 + a21 * b11 + a22 * b12;
+            // c22 = a20 * b20 + a21 * b21 + a22 * b22;
          }
          else
          {
@@ -311,12 +314,21 @@ public abstract class RotationMatrixTools
             c10 = a10 * b00 + a11 * b10 + a12 * b20;
             c11 = a10 * b01 + a11 * b11 + a12 * b21;
             c12 = a10 * b02 + a11 * b12 + a12 * b22;
-            c20 = a20 * b00 + a21 * b10 + a22 * b20;
-            c21 = a20 * b01 + a21 * b11 + a22 * b21;
-            c22 = a20 * b02 + a21 * b12 + a22 * b22;
+            // The 3rd column is computed by the cross-product of the 2 other
+            // c20 = a20 * b00 + a21 * b10 + a22 * b20;
+            // c21 = a20 * b01 + a21 * b11 + a22 * b21;
+            // c22 = a20 * b02 + a21 * b12 + a22 * b22;
          }
       }
-      matrixToPack.setAndNormalize(c00, c01, c02, c10, c11, c12, c20, c21, c22);
+
+      // The 3rd column is computed by the cross-product of the 2 other
+      // So it is 6M and 3A instead of 9M and 6A
+      // The accuracy is controlled in the test RotationMatrixTest.testNumericalErrors()
+      c20 = c01 * c12 - c02 * c11;
+      c21 = c02 * c10 - c00 * c12;
+      c22 = c00 * c11 - c01 * c10;
+
+      matrixToPack.set(c00, c01, c02, c10, c11, c12, c20, c21, c22);
    }
 
    /**
@@ -350,7 +362,7 @@ public abstract class RotationMatrixTools
       double m20 = matrixOriginal.getM20();
       double m21 = matrixOriginal.getM21();
       double m22 = matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -384,7 +396,7 @@ public abstract class RotationMatrixTools
       double m20 = cYaw * matrixOriginal.getM20() + sYaw * matrixOriginal.getM21();
       double m21 = -sYaw * matrixOriginal.getM20() + cYaw * matrixOriginal.getM21();
       double m22 = matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -418,7 +430,7 @@ public abstract class RotationMatrixTools
       double m20 = -sPitch * matrixOriginal.getM00() + cPitch * matrixOriginal.getM20();
       double m21 = -sPitch * matrixOriginal.getM01() + cPitch * matrixOriginal.getM21();
       double m22 = -sPitch * matrixOriginal.getM02() + cPitch * matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -452,7 +464,7 @@ public abstract class RotationMatrixTools
       double m20 = cPitch * matrixOriginal.getM20() - sPitch * matrixOriginal.getM22();
       double m21 = matrixOriginal.getM21();
       double m22 = sPitch * matrixOriginal.getM20() + cPitch * matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -486,7 +498,7 @@ public abstract class RotationMatrixTools
       double m20 = sRoll * matrixOriginal.getM10() + cRoll * matrixOriginal.getM20();
       double m21 = sRoll * matrixOriginal.getM11() + cRoll * matrixOriginal.getM21();
       double m22 = sRoll * matrixOriginal.getM12() + cRoll * matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
@@ -520,12 +532,12 @@ public abstract class RotationMatrixTools
       double m20 = matrixOriginal.getM20();
       double m21 = cRoll * matrixOriginal.getM21() + sRoll * matrixOriginal.getM22();
       double m22 = -sRoll * matrixOriginal.getM21() + cRoll * matrixOriginal.getM22();
-      matrixToPack.setAndNormalize(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+      matrixToPack.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
    }
 
    /**
-    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result in
-    * {@code tupleTransformed}.
+    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result
+    * in {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
@@ -552,8 +564,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result in
-    * {@code tupleTransformed}.
+    * Rotates the given {@code tupleOriginal} by a rotation about the z-axis and stores the result
+    * in {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
@@ -578,8 +590,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Rotates the given {@code tupleOriginal} by a rotation about the y-axis and stores the result in
-    * {@code tupleTransformed}.
+    * Rotates the given {@code tupleOriginal} by a rotation about the y-axis and stores the result
+    * in {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
@@ -606,8 +618,8 @@ public abstract class RotationMatrixTools
    }
 
    /**
-    * Rotates the given {@code tupleOriginal} by a rotation about the x-axis and stores the result in
-    * {@code tupleTransformed}.
+    * Rotates the given {@code tupleOriginal} by a rotation about the x-axis and stores the result
+    * in {@code tupleTransformed}.
     * <p>
     * Both tuples can be the same object for performing in-place transformation.
     * </p>
@@ -680,7 +692,7 @@ public abstract class RotationMatrixTools
       y = m02 - m20;
       z = m10 - m01;
 
-      double s = Math.sqrt(x * x + y * y + z * z);
+      double s = Math.sqrt(EuclidCoreTools.normSquared(x, y, z));
 
       if (s > AxisAngleConversion.EPS)
       {
@@ -760,8 +772,8 @@ public abstract class RotationMatrixTools
     *
     * @param m1 the first rotation matrix. Not modified.
     * @param m2 the second rotation matrix. Not modified.
-    * @return the angle representing the distance between the two rotation matrices. It is contained in
-    *         [0, <i>pi</i>].
+    * @return the angle representing the distance between the two rotation matrices. It is contained
+    *         in [0, <i>pi</i>].
     */
    public static double distance(RotationMatrixReadOnly m1, RotationMatrixReadOnly m2)
    {

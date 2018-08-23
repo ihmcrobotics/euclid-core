@@ -834,7 +834,6 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    public void applyTransform(Transform transform)
    {
       transform.transform(this);
-      normalize();
    }
 
    /**
@@ -852,7 +851,6 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    public void applyInverseTransform(Transform transform)
    {
       transform.inverseTransform(this);
-      normalize();
    }
 
    /** {@inheritDoc} */
