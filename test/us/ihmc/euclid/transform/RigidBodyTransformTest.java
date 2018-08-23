@@ -2185,6 +2185,45 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
    }
 
    @Test
+   public void testInterpolate() throws Exception
+   {
+      Random random = new Random(23542342L);
+
+      RigidBodyTransform actual = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+      RigidBodyTransform expected = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+      RigidBodyTransform t0 = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+      RigidBodyTransform tf = EuclidCoreRandomTools.nextRigidBodyTransform(random);
+
+      actual.interpolate(t0, tf, 0.0);
+      EuclidCoreTestTools.assertRigidBodyTransformEquals(t0, actual, EPS);
+      actual.interpolate(tf, 0.0);
+      EuclidCoreTestTools.assertRigidBodyTransformEquals(t0, actual, EPS);
+      actual.interpolate(tf, 1.0);
+      EuclidCoreTestTools.assertRigidBodyTransformEquals(tf, actual, EPS);
+
+      actual.interpolate(t0, tf, 1.0);
+      EuclidCoreTestTools.assertRigidBodyTransformEquals(tf, actual, EPS);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      {
+         double alpha = EuclidCoreRandomTools.nextDouble(random, 10.0);
+         Vector3D interpolatedVector = new Vector3D();
+         RotationMatrix interpolatedRotation = new RotationMatrix();
+
+         interpolatedVector.interpolate(t0.getTranslationVector(), tf.getTranslationVector(), alpha);
+         interpolatedRotation.interpolate(t0.getRotationMatrix(), tf.getRotationMatrix(), alpha);
+
+         expected.set(interpolatedRotation, interpolatedVector);
+         actual.interpolate(t0, tf, alpha);
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+
+         actual.set(t0);
+         actual.interpolate(tf, alpha);
+         EuclidCoreTestTools.assertRigidBodyTransformEquals(expected, actual, EPS);
+      }
+   }
+
+   @Test
    public void testPreMultiplyInvertOtherWithAffineTransform() throws Exception
    {
       Random random = new Random(465416L);
