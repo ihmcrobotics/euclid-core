@@ -2,7 +2,6 @@ package us.ihmc.euclid.matrix.interfaces;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.tools.EuclidCoreTools;
@@ -391,7 +390,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       matrixTransformed.set(matrixOriginal);
       // Equivalent to: M = S * M
@@ -517,7 +516,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       getRotationMatrix().inverseTransform(matrixOriginal, matrixTransformed);
       // Equivalent to: M = S^-1 * M

@@ -1,5 +1,6 @@
 package us.ihmc.euclid.orientation.interfaces;
 
+import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 /**
@@ -13,7 +14,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public interface Orientation3DBasics extends Orientation3DReadOnly
+public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
 {
    /**
     * For representations of orientations with more variables than degrees of freedom, some or all

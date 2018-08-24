@@ -8,11 +8,11 @@ import java.util.Random;
 import org.ejml.data.DenseMatrix64F;
 import org.junit.Test;
 
-import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
+import us.ihmc.euclid.matrix.interfaces.CommonMatrix3DBasics;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
 
-public abstract class Matrix3DBasicsTest<T extends Matrix3DBasics> extends Matrix3DReadOnlyTest<T>
+public abstract class CommonMatrix3DBasicsTest<T extends CommonMatrix3DBasics> extends Matrix3DReadOnlyTest<T>
 {
    @Test
    public void testSetDoubles()

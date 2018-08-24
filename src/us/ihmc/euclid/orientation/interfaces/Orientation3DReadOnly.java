@@ -2,9 +2,9 @@ package us.ihmc.euclid.orientation.interfaces;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.RotationScaleMatrix;
+import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
@@ -348,7 +348,7 @@ public interface Orientation3DReadOnly
     *
     * @param matrixToTransform the 3D matrix to be transformed. Modified.
     */
-   default void transform(Matrix3D matrixToTransform)
+   default void transform(Matrix3DBasics matrixToTransform)
    {
       transform(matrixToTransform, matrixToTransform);
    }
@@ -365,7 +365,7 @@ public interface Orientation3DReadOnly
     * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
     * @param matrixTransformed the result of the original matrix after transformation. Modified.
     */
-   void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
+   void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed);
 
    /**
     * Transforms the vector part, i.e. the {@code x}, {@code y}, and {@code z} components, of the given
@@ -596,7 +596,7 @@ public interface Orientation3DReadOnly
     *
     * @param matrixToTransform the 3D matrix to be transformed. Modified.
     */
-   default void inverseTransform(Matrix3D matrixToTransform)
+   default void inverseTransform(Matrix3DBasics matrixToTransform)
    {
       inverseTransform(matrixToTransform, matrixToTransform);
    }
@@ -613,7 +613,7 @@ public interface Orientation3DReadOnly
     * @param matrixOriginal the original value of the matrix to be transformed. Not modified.
     * @param matrixTransformed the result of the original matrix after transformation. Modified.
     */
-   void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed);
+   void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed);
 
    /**
     * Performs the inverse of the transform to the vector part, i.e. the {@code x}, {@code y}, and

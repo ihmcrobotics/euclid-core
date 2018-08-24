@@ -76,23 +76,4 @@ public abstract class TupleTools
 
       return true;
    }
-
-   /**
-    * Performs a linear interpolation from {@code a} to {@code b} given the percentage {@code alpha}.
-    * <p>
-    * result = (1.0 - alpha) * a + alpha * b
-    * </p>
-    *
-    * @param a the first value used in the interpolation.
-    * @param b the second value used in the interpolation.
-    * @param alpha the percentage to use for the interpolation. A value of 0 will return {@code a},
-    *           while a value of 1 will return {@code b}.
-    * @return the interpolated value.
-    * @deprecated Use {@link EuclidCoreTools#interpolate(double,double,double)} instead
-    */
-   @Deprecated
-   public static double interpolate(double a, double b, double alpha)
-   {
-      return EuclidCoreTools.interpolate(a, b, alpha);
-   }
 }

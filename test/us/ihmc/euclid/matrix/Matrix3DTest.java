@@ -1,10 +1,6 @@
 package us.ihmc.euclid.matrix;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -22,9 +18,10 @@ import us.ihmc.euclid.tools.Matrix3DTools;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
+import us.ihmc.euclid.tuple3D.Point3D;
 import us.ihmc.euclid.tuple3D.Vector3D;
 
-public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
+public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
 {
    public static final int NUMBER_OF_ITERATIONS = 100;
    public static final double EPS = 1.0e-10;
@@ -207,6 +204,61 @@ public class Matrix3DTest extends Matrix3DBasicsTest<Matrix3D>
             for (int column = 0; column < 3; column++)
             {
                assertTrue(actualMatrix.getElement(row, column) == denseMatrix.get(row + startRow, column + startColumn));
+            }
+         }
+      }
+   }
+
+   @Test
+   public void testSetToDiagonal() throws Exception
+   {
+      Random random = new Random(23423);
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // Test setToDiagonal(double m00, double m11, double m22)
+         double m00 = random.nextDouble();
+         double m11 = random.nextDouble();
+         double m22 = random.nextDouble();
+
+         Matrix3D matrix = EuclidCoreRandomTools.nextMatrix3D(random);
+
+         matrix.setToDiagonal(m00, m11, m22);
+
+         assertTrue(matrix.getM00() == m00);
+         assertTrue(matrix.getM11() == m11);
+         assertTrue(matrix.getM22() == m22);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int col = 0; col < 3; col++)
+            {
+               if (row != col)
+                  assertTrue(matrix.getElement(row, col) == 0.0);
+            }
+         }
+      }
+
+
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
+      { // setToDiagonal(Tuple3DReadOnly tuple)
+         double x = random.nextDouble();
+         double y = random.nextDouble();
+         double z = random.nextDouble();
+
+         Matrix3D matrix = EuclidCoreRandomTools.nextMatrix3D(random);
+
+         matrix.setToDiagonal(new Point3D(x, y, z));
+
+         assertTrue(matrix.getM00() == x);
+         assertTrue(matrix.getM11() == y);
+         assertTrue(matrix.getM22() == z);
+
+         for (int row = 0; row < 3; row++)
+         {
+            for (int col = 0; col < 3; col++)
+            {
+               if (row != col)
+                  assertTrue(matrix.getElement(row, col) == 0.0);
             }
          }
       }

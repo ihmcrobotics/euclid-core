@@ -338,11 +338,13 @@ public abstract class QuaternionConversion
          return;
       }
 
-      double norm = Math.sqrt(rx * rx + ry * ry + rz * rz);
+      double norm = Math.sqrt(EuclidCoreTools.normSquared(rx, ry, rz));
 
       if (norm < EPS)
       {
-         quaternionToPack.setToZero();
+         // Small angle approximation
+         // "A Primer on the Differential Calculus of 3D Orientations" M. Bloesh et al
+         quaternionToPack.setUnsafe(0.5 * rx, 0.5 * ry, 0.5 * rz, 1.0);
       }
       else
       {

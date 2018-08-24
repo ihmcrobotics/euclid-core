@@ -1,8 +1,7 @@
 package us.ihmc.euclid.axisAngle.interfaces;
 
-import us.ihmc.euclid.exceptions.NotAMatrix2DException;
-import us.ihmc.euclid.matrix.Matrix3D;
 import us.ihmc.euclid.matrix.RotationMatrix;
+import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.RotationVectorConversion;
@@ -130,40 +129,6 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    default boolean isAxisUnitary(double epsilon)
    {
       return Math.abs(1.0 - axisNorm()) < epsilon;
-   }
-
-   /**
-    * Tests if this axis-angle represents a rotation around the z-axis.
-    * <p>
-    * This is commonly used to test if the axis-angle can be used to transform 2D geometry object.
-    * </p>
-    *
-    * @param epsilon the tolerance to use.
-    * @return {@code true} if this axis-angle represents a rotation around the z-axis, {@code false}
-    *         otherwise.
-    * @deprecated Use {@link #isOrientation2D(double)} instead
-    */
-   @Deprecated
-   default boolean isZOnly(double epsilon)
-   {
-      return isOrientation2D(epsilon);
-   }
-
-   /**
-    * Asserts that this axis-angle represents a rotation around the z-axis.
-    * <p>
-    * This is commonly used to test if the axis-angle can be used to transform 2D geometry object.
-    * </p>
-    *
-    * @param epsilon the tolerance to use.
-    * @throws NotAMatrix2DException if this axis-angle does not represent a rotation around the
-    *            z-axis.
-    * @deprecated Use {@link #checkIfOrientation2D(double)} instead
-    */
-   @Deprecated
-   default void checkIfIsZOnly(double epsilon)
-   {
-      checkIfOrientation2D(epsilon);
    }
 
    /**
@@ -389,7 +354,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   default void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       AxisAngleTools.transform(this, matrixOriginal, matrixTransformed);
    }
@@ -424,7 +389,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
 
    /** {@inheritDoc} */
    @Override
-   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3D matrixTransformed)
+   default void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
       AxisAngleTools.inverseTransform(this, matrixOriginal, matrixTransformed);
    }
