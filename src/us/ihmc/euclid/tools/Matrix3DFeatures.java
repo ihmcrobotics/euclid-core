@@ -198,7 +198,6 @@ public abstract class Matrix3DFeatures
             if (Math.abs(m10) <= epsilon && Math.abs(m20) <= epsilon && Math.abs(m21) <= epsilon)
                return true;
          }
-         return false;
       }
       return false;
    }
