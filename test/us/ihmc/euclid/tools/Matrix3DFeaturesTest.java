@@ -53,7 +53,14 @@ public class Matrix3DFeaturesTest
    public void testCheckIfRotationMatrixAndIsRotationMatrix() throws Exception
    {
       Random random = new Random(93486534L);
-      Matrix3D matrix;
+      Matrix3D matrix = new Matrix3D();
+
+      matrix.setIdentity();
+      testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, true);
+      matrix.setToZero();
+      testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, false);
+      matrix.setToNaN();
+      testAllCheckIfRotationMatrixAndIsRotationMatrixMethods(matrix, false);
 
       // Let's first test that it returns true for an actual rotation matrix
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -251,11 +258,11 @@ public class Matrix3DFeaturesTest
       }
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
-            assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
+            assertTrue(Double.compare(matrix.getElement(row, column), matrixCopy.getElement(row, column)) == 0);
       assertTrue(matrix.isRotationMatrix() == isRotationMatrix);
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
-            assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
+            assertTrue(Double.compare(matrix.getElement(row, column), matrixCopy.getElement(row, column)) == 0);
 
       try
       {
@@ -271,7 +278,7 @@ public class Matrix3DFeaturesTest
          assertTrue(e.getMessage().contains("The matrix is not a rotation matrix: \n" + matrix));
       }
       for (int index = 0; index < denseMatrix.getNumElements(); index++)
-         assertTrue(denseMatrix.get(index) == denseMatrixCopy.get(index));
+         assertTrue(Double.compare(denseMatrix.get(index), denseMatrixCopy.get(index)) == 0);
       assertTrue(Matrix3DFeatures.isRotationMatrix(denseMatrix) == isRotationMatrix);
 
       try
@@ -288,16 +295,25 @@ public class Matrix3DFeaturesTest
          assertTrue(e.getMessage().contains("The matrix is not a rotation matrix: \n" + matrix));
       }
       for (int index = 0; index < 9; index++)
-         assertTrue(matrixArray[index] == matrixArrayCopy[index]);
+         assertTrue(Double.compare(matrixArray[index], matrixArrayCopy[index]) == 0);
       assertTrue(Matrix3DFeatures.isRotationMatrix(matrixArray) == isRotationMatrix);
       for (int index = 0; index < 9; index++)
-         assertTrue(matrixArray[index] == matrixArrayCopy[index]);
+         assertTrue(Double.compare(matrixArray[index], matrixArrayCopy[index]) == 0);
    }
 
    @Test
    public void testCheckIfMatrix2DAndIsMatrix2D() throws Exception
    {
       Random random = new Random(93486534L);
+
+      Matrix3D matrix = new Matrix3D();
+
+      matrix.setIdentity();
+      testCheckIfMatrix2DAndIsMatrix2DMethods(matrix, true);
+      matrix.setToZero();
+      testCheckIfMatrix2DAndIsMatrix2DMethods(matrix, false);
+      matrix.setToNaN();
+      testCheckIfMatrix2DAndIsMatrix2DMethods(matrix, false);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       {
@@ -373,13 +389,13 @@ public class Matrix3DFeaturesTest
       }
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
-            assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
+            assertTrue(Double.compare(matrix.getElement(row, column), matrixCopy.getElement(row, column)) == 0);
 
       assertTrue(matrix.isMatrix2D() == isMatrix2D);
 
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
-            assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
+            assertTrue(Double.compare(matrix.getElement(row, column), matrixCopy.getElement(row, column)) == 0);
    }
 
    @Test
@@ -633,6 +649,9 @@ public class Matrix3DFeaturesTest
       // Test with a zero matrix
       matrix.setToZero();
       testAllIsIdentityMethods(matrix, false);
+      // Test with a NaN matrix
+      matrix.setToNaN();
+      testAllIsIdentityMethods(matrix, false);
 
       // Test with identity
       matrix.setIdentity();
@@ -693,7 +712,7 @@ public class Matrix3DFeaturesTest
 
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
-            assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
+            assertTrue(Double.compare(matrix.getElement(row, column), matrixCopy.getElement(row, column)) == 0);
    }
 
    @Test
@@ -708,6 +727,10 @@ public class Matrix3DFeaturesTest
 
       // Test with identity
       matrix.setIdentity();
+      testAllIsMatrixSkewSymmetrixMethods(matrix, false);
+
+      // Test with NaN
+      matrix.setToNaN();
       testAllIsMatrixSkewSymmetrixMethods(matrix, false);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
@@ -784,7 +807,7 @@ public class Matrix3DFeaturesTest
 
       for (int row = 0; row < 3; row++)
          for (int column = 0; column < 3; column++)
-            assertTrue(matrix.getElement(row, column) == matrixCopy.getElement(row, column));
+            assertTrue(Double.compare(matrix.getElement(row, column), matrixCopy.getElement(row, column)) == 0);
    }
 
    @Test
