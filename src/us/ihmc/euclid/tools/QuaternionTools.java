@@ -5,6 +5,7 @@ import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
@@ -280,10 +281,10 @@ public abstract class QuaternionTools
     * @param q2z the z-component of the second quaternion in the multiplication. Not modified.
     * @param q2s the s-component of the second quaternion in the multiplication. Not modified.
     * @param conjugateQ2 whether to conjugate {@code q2} or not.
-    * @param quaternionToPack the quaternion in which the result is stores. Modified.
+    * @param orientationToPack the orientation in which the result is stored. Modified.
     */
    static void multiplyImpl(double q1x, double q1y, double q1z, double q1s, boolean conjugateQ1, double q2x, double q2y, double q2z, double q2s,
-                            boolean conjugateQ2, QuaternionBasics quaternionToPack)
+                            boolean conjugateQ2, Orientation3DBasics orientationToPack)
    {
       if (conjugateQ1)
       {
@@ -303,7 +304,7 @@ public abstract class QuaternionTools
       double y = q1s * q2y - q1x * q2z + q1y * q2s + q1z * q2x;
       double z = q1s * q2z + q1x * q2y - q1y * q2x + q1z * q2s;
       double s = q1s * q2s - q1x * q2x - q1y * q2y - q1z * q2z;
-      quaternionToPack.setUnsafe(x, y, z, s);
+      orientationToPack.setQuaternion(x, y, z, s);
    }
 
    /**
@@ -964,8 +965,9 @@ public abstract class QuaternionTools
     * Performs the inverse of the transform of the matrix {@code matrixOriginal} using
     * {@code quaternion} and stores the result in {@code matrixTransformed}.
     * <p>
-    * This is equivalent to calling {@link #transform(QuaternionReadOnly, Matrix3DReadOnly, Matrix3DBasics)}
-    * with the inverse of the given quaternion.
+    * This is equivalent to calling
+    * {@link #transform(QuaternionReadOnly, Matrix3DReadOnly, Matrix3DBasics)} with the inverse of the
+    * given quaternion.
     * </p>
     * <p>
     * Both matrices can be the same object for performing in place transformation.
@@ -1004,7 +1006,8 @@ public abstract class QuaternionTools
     * @param matrixOriginal the matrix to transform. Not modified.
     * @param matrixTransformed the matrix in which the result is stored. Modified.
     */
-   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
+   private static void transformImpl(QuaternionReadOnly quaternion, boolean conjugateQuaternion, Matrix3DReadOnly matrixOriginal,
+                                     Matrix3DBasics matrixTransformed)
    {
       double qx = quaternion.getX();
       double qy = quaternion.getY();
@@ -1181,8 +1184,9 @@ public abstract class QuaternionTools
       double qz = quaternionOriginal.getZ();
       double qs = quaternionOriginal.getS();
 
-      double cYaw = Math.cos(0.5 * yaw);
-      double sYaw = Math.sin(0.5 * yaw);
+      double halfYaw = 0.5 * yaw;
+      double cYaw = Math.cos(halfYaw);
+      double sYaw = Math.sin(halfYaw);
 
       double x = cYaw * qx - sYaw * qy;
       double y = cYaw * qy + sYaw * qx;
@@ -1216,8 +1220,9 @@ public abstract class QuaternionTools
       double qz = quaternionOriginal.getZ();
       double qs = quaternionOriginal.getS();
 
-      double cYaw = Math.cos(0.5 * yaw);
-      double sYaw = Math.sin(0.5 * yaw);
+      double halfYaw = 0.5 * yaw;
+      double cYaw = Math.cos(halfYaw);
+      double sYaw = Math.sin(halfYaw);
 
       double x = qx * cYaw + qy * sYaw;
       double y = -qx * sYaw + qy * cYaw;
@@ -1251,8 +1256,9 @@ public abstract class QuaternionTools
       double qz = quaternionOriginal.getZ();
       double qs = quaternionOriginal.getS();
 
-      double cPitch = Math.cos(0.5 * pitch);
-      double sPitch = Math.sin(0.5 * pitch);
+      double halfPitch = 0.5 * pitch;
+      double cPitch = Math.cos(halfPitch);
+      double sPitch = Math.sin(halfPitch);
 
       double x = cPitch * qx + sPitch * qz;
       double y = cPitch * qy + sPitch * qs;
@@ -1286,8 +1292,9 @@ public abstract class QuaternionTools
       double qz = quaternionOriginal.getZ();
       double qs = quaternionOriginal.getS();
 
-      double cPitch = Math.cos(0.5 * pitch);
-      double sPitch = Math.sin(0.5 * pitch);
+      double halfPitch = 0.5 * pitch;
+      double cPitch = Math.cos(halfPitch);
+      double sPitch = Math.sin(halfPitch);
 
       double x = qx * cPitch - qz * sPitch;
       double y = qs * sPitch + qy * cPitch;
@@ -1321,8 +1328,9 @@ public abstract class QuaternionTools
       double qz = quaternionOriginal.getZ();
       double qs = quaternionOriginal.getS();
 
-      double cRoll = Math.cos(0.5 * roll);
-      double sRoll = Math.sin(0.5 * roll);
+      double halfRoll = 0.5 * roll;
+      double cRoll = Math.cos(halfRoll);
+      double sRoll = Math.sin(halfRoll);
 
       double x = cRoll * qx + sRoll * qs;
       double y = cRoll * qy - sRoll * qz;
@@ -1356,8 +1364,9 @@ public abstract class QuaternionTools
       double qz = quaternionOriginal.getZ();
       double qs = quaternionOriginal.getS();
 
-      double cRoll = Math.cos(0.5 * roll);
-      double sRoll = Math.sin(0.5 * roll);
+      double halfRoll = 0.5 * roll;
+      double cRoll = Math.cos(halfRoll);
+      double sRoll = Math.sin(halfRoll);
 
       double x = qs * sRoll + qx * cRoll;
       double y = qy * cRoll + qz * sRoll;

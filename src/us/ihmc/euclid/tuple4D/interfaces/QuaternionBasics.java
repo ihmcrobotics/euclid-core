@@ -5,10 +5,6 @@ import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.rotationConversion.QuaternionConversion;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tools.QuaternionTools;
-import us.ihmc.euclid.transform.AffineTransform;
-import us.ihmc.euclid.transform.QuaternionBasedTransform;
-import us.ihmc.euclid.transform.RigidBodyTransform;
-import us.ihmc.euclid.transform.interfaces.Transform;
 
 /**
  * Write and read interface for unit-quaternion used to represent 3D orientations.
@@ -34,7 +30,7 @@ import us.ihmc.euclid.transform.interfaces.Transform;
 public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasics, Tuple4DBasics
 {
    /**
-    * Tolerance used in {@link #pow(double)} to determine if this quaternion is equal to the neurtral
+    * Tolerance used in {@link #pow(double)} to determine if this quaternion is equal to the neutral
     * quaternion.
     */
    public static final double EPS_POW = 1.0e-12;
@@ -660,37 +656,5 @@ public interface QuaternionBasics extends QuaternionReadOnly, Orientation3DBasic
       double qz = alpha0 * q0.getZ() + sign * alphaf * qf.getZ();
       double qs = alpha0 * q0.getS() + sign * alphaf * qf.getS();
       set(qx, qy, qz, qs);
-   }
-
-   /**
-    * Transforms this quaternion using the given {@code transform}.
-    * <p>
-    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform} prepend
-    * their rotation part the given quaternion. No scale or translation is applied to the quaternion
-    * such that the output of this method is still a unit-quaternion.
-    * </p>
-    *
-    * @param transform the geometric transform to apply on this vector. Not modified.
-    */
-   @Override
-   default void applyTransform(Transform transform)
-   {
-      transform.transform(this);
-   }
-
-   /**
-    * Transforms this quaternion using the inverse of the given {@code transform}.
-    * <p>
-    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform} prepend
-    * their rotation part the given quaternion. No scale or translation is applied to the quaternion
-    * such that the output of this method is still a unit-quaternion.
-    * </p>
-    *
-    * @param transform the geometric transform to apply on this vector. Not modified.
-    */
-   @Override
-   default void applyInverseTransform(Transform transform)
-   {
-      transform.inverseTransform(this);
    }
 }

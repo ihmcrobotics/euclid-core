@@ -13,6 +13,8 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.QuaternionTools;
@@ -1343,9 +1345,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void transform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      quaternion.transform(quaternionOriginal, quaternionTransformed);
+      quaternion.transform(orientationOriginal, orientationTransformed);
    }
 
    /** {@inheritDoc} */
@@ -1361,13 +1363,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /** {@inheritDoc} */
    @Override
    public void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
-   {
-      quaternion.transform(matrixOriginal, matrixTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       quaternion.transform(matrixOriginal, matrixTransformed);
    }
@@ -1429,9 +1424,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void inverseTransform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      quaternion.inverseTransform(quaternionOriginal, quaternionTransformed);
+      quaternion.inverseTransform(orientationOriginal, orientationTransformed);
    }
 
    /** {@inheritDoc} */
@@ -1448,13 +1443,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /** {@inheritDoc} */
    @Override
    public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
-   {
-      quaternion.inverseTransform(matrixOriginal, matrixTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       quaternion.inverseTransform(matrixOriginal, matrixTransformed);
    }

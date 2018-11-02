@@ -9,6 +9,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
 /**
  * {@code EuclidCoreIOTools} is intended to gather the input & output tools for printing, saving,
@@ -426,6 +427,29 @@ public abstract class EuclidCoreIOTools
       ret += getStringOf("|", " |\n", ", ", format, m10, m11, m12);
       ret += getStringOf("\\", " /", ", ", format, m20, m21, m22);
       return ret;
+   }
+
+   public static String getYawPitchRollString(YawPitchRollReadOnly yawPitchRoll)
+   {
+      return getYawPitchRollString(DEFAULT_FORMAT, yawPitchRoll);
+   }
+   
+   public static String getYawPitchRollString(String format, YawPitchRollReadOnly yawPitchRoll)
+   {
+      if (yawPitchRoll == null)
+         return "null";
+      else
+         return getYawPitchRollString(format, yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll());
+   }
+
+   public static String getYawPitchRollString(double yaw, double pitch, double roll)
+   {
+      return getYawPitchRollString(DEFAULT_FORMAT, yaw, pitch, roll);
+   }
+
+   public static String getYawPitchRollString(String format, double yaw, double pitch, double roll)
+   {
+      return getStringOf("yaw-pitch-roll: (", ")", ", ", yaw, pitch, roll);
    }
 
    /**

@@ -1,6 +1,11 @@
 package us.ihmc.euclid.orientation.interfaces;
 
 import us.ihmc.euclid.interfaces.Clearable;
+import us.ihmc.euclid.interfaces.Transformable;
+import us.ihmc.euclid.transform.AffineTransform;
+import us.ihmc.euclid.transform.QuaternionBasedTransform;
+import us.ihmc.euclid.transform.RigidBodyTransform;
+import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 
 /**
@@ -14,12 +19,11 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  * @author Sylvain Bertrand
  *
  */
-public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
+public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable, Transformable
 {
    /**
-    * For representations of orientations with more variables than degrees of freedom, some or all
-    * of the variables are constrained. This method updates the variables considering this
-    * constraint.
+    * For representations of orientations with more variables than degrees of freedom, some or all of
+    * the variables are constrained. This method updates the variables considering this constraint.
     * <p>
     * The actual implementation of this function strongly depends on the type of orientation.
     * </p>
@@ -30,8 +34,8 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * Inverses this orientation.
     * <p>
     * If this orientation describes the orientation of a coordinate system A with respect to a
-    * coordinate system B, after this method, the orientation will describe the orientation of B
-    * with respect to A.
+    * coordinate system B, after this method, the orientation will describe the orientation of B with
+    * respect to A.
     * </p>
     * <p>
     * Note that appending or prepending an orientation with its inverse will result into a "zero"
@@ -57,8 +61,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
    void setRotationMatrix(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22);
 
    /**
-    * Sets this orientation to represents the same orientation as an axis-angle given its 4
-    * components.
+    * Sets this orientation to represents the same orientation as an axis-angle given its 4 components.
     *
     * @param x x-component of the axis part of the axis-angle.
     * @param y y-component of the axis part of the axis-angle.
@@ -68,8 +71,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
    void setAxisAngle(double x, double y, double z, double angle);
 
    /**
-    * Sets this orientation to represents the same orientation as a quaternion given its 4
-    * components.
+    * Sets this orientation to represents the same orientation as a quaternion given its 4 components.
     *
     * @param x the x-component of the quaternion.
     * @param y the y-component of the quaternion.
@@ -82,9 +84,9 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * Sets this orientation to represents the same orientation as a rotation vector given its 3
     * components.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param x the x-component of the rotation vector.
@@ -100,8 +102,8 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * sometimes undefined.
     * </p>
     * <p>
-    * The yaw-pitch-roll representation describes a 3D orientation as a succession of three
-    * rotations around three axes:
+    * The yaw-pitch-roll representation describes a 3D orientation as a succession of three rotations
+    * around three axes:
     * <ol>
     * <li>yaw: rotation around the z-axis,
     * <li>pitch: rotation around the y-axis,
@@ -109,8 +111,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * </ol>
     * </p>
     * <p>
-    * As an example, a rotation matrix can be computed from a yaw-pitch-roll representation as
-    * follows:
+    * As an example, a rotation matrix can be computed from a yaw-pitch-roll representation as follows:
     *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
@@ -132,8 +133,8 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * sometimes undefined.
     * </p>
     * <p>
-    * The yaw-pitch-roll representation describes a 3D orientation as a succession of three
-    * rotations around three axes:
+    * The yaw-pitch-roll representation describes a 3D orientation as a succession of three rotations
+    * around three axes:
     * <ol>
     * <li>yaw: rotation around the z-axis,
     * <li>pitch: rotation around the y-axis,
@@ -141,8 +142,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * </ol>
     * </p>
     * <p>
-    * As an example, a rotation matrix can be computed from a yaw-pitch-roll representation as
-    * follows:
+    * As an example, a rotation matrix can be computed from a yaw-pitch-roll representation as follows:
     *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
@@ -161,9 +161,9 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
    /**
     * Sets this orientation to represent the same orientation as the given {@code rotationVector}.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVector the rotation vector to set this orientation. Not modified.
@@ -192,8 +192,8 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
    /**
     * Sets this orientation to represent the same orientation as the given Euler angles.
     * <p>
-    * This is equivalent to {@link #setYawPitchRoll(double, double, double)} with
-    * {@code yaw = rotZ}, {@code pitch = rotY}, and {@code roll = rotX}.
+    * This is equivalent to {@link #setYawPitchRoll(double, double, double)} with {@code yaw = rotZ},
+    * {@code pitch = rotY}, and {@code roll = rotX}.
     * </p>
     *
     * @param rotX the angle to rotate about the x-axis.
@@ -251,8 +251,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * <p>
     * Appending orientations is in some way similar to summing translations. However, while the
     * addition for translation is commutative, the "append" operation on orientation is NOT
-    * commutative. Such that: {@code this.append(orientation)} &ne;
-    * {@code orientation.append(this)}.
+    * commutative. Such that: {@code this.append(orientation)} &ne; {@code orientation.append(this)}.
     * </p>
     *
     * @param orientation the orientation to append to this orientation. Not modified.
@@ -276,8 +275,8 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * seen as subtracting {@code orientation} to {@code this}.
     * </p>
     *
-    * @param orientation the orientation which the inverse is to be appended to this orientation.
-    *           Not modified.
+    * @param orientation the orientation which the inverse is to be appended to this orientation. Not
+    *           modified.
     */
    void appendInvertOther(Orientation3DReadOnly orientation);
 
@@ -307,8 +306,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
    }
 
    /**
-    * Inverts {@code this} and then appends the inverse of the given orientation to this
-    * orientation.
+    * Inverts {@code this} and then appends the inverse of the given orientation to this orientation.
     * <p>
     * Let's consider the following:
     * <ul>
@@ -324,8 +322,8 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * seen as subtracting {@code orientation} to {@code this}.
     * </p>
     *
-    * @param orientation the orientation which the inverse is to be appended to this orientation.
-    *           Not modified.
+    * @param orientation the orientation which the inverse is to be appended to this orientation. Not
+    *           modified.
     */
    default void appendInvertBoth(Orientation3DReadOnly orientation)
    {
@@ -396,8 +394,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * <p>
     * Prepending orientations is in some way similar to summing translations. However, while the
     * addition for translation is commutative, the "prepend" operation on orientation is NOT
-    * commutative. Such that: {@code this.prepend(orientation)} &ne;
-    * {@code orientation.prepend(this)}.
+    * commutative. Such that: {@code this.prepend(orientation)} &ne; {@code orientation.prepend(this)}.
     * </p>
     *
     * @param orientation the orientation to prepend to this orientation. Not modified.
@@ -421,8 +418,8 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * seen as subtracting {@code orientation} to {@code this}.
     * </p>
     *
-    * @param orientation the orientation which the inverse is to be appended to this orientation.
-    *           Not modified.
+    * @param orientation the orientation which the inverse is to be appended to this orientation. Not
+    *           modified.
     */
    void prependInvertOther(Orientation3DReadOnly orientation);
 
@@ -452,8 +449,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
    }
 
    /**
-    * Inverts {@code this} and then prepends the inverse of the given orientation to this
-    * orientation.
+    * Inverts {@code this} and then prepends the inverse of the given orientation to this orientation.
     * <p>
     * Let's consider the following:
     * <ul>
@@ -469,8 +465,8 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     * seen as subtracting {@code orientation} to {@code this}.
     * </p>
     *
-    * @param orientation the orientation which the inverse is to be appended to this orientation.
-    *           Not modified.
+    * @param orientation the orientation which the inverse is to be appended to this orientation. Not
+    *           modified.
     */
    default void prependInvertBoth(Orientation3DReadOnly orientation)
    {
@@ -487,8 +483,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     *          \    0         0     1 /
     * </pre>
     * <p>
-    * Note that the z-axis refers to the base coordinate system in which this orientation is
-    * expressed.
+    * Note that the z-axis refers to the base coordinate system in which this orientation is expressed.
     * </p>
     *
     * @param yaw the angle to rotate about the z-axis.
@@ -504,8 +499,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     *            \ -sin(pitch) 0 cos(pitch) /
     * </pre>
     * <p>
-    * Note that the y-axis refers to the base coordinate system in which this orientation is
-    * expressed.
+    * Note that the y-axis refers to the base coordinate system in which this orientation is expressed.
     * </p>
     *
     * @param pitch the angle to rotate about the y-axis.
@@ -521,11 +515,42 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable
     *           \ 0 sin(roll)  cos(roll) /
     * </pre>
     * <p>
-    * Note that the x-axis refers to the base coordinate system in which this orientation is
-    * expressed.
+    * Note that the x-axis refers to the base coordinate system in which this orientation is expressed.
     * </p>
     *
     * @param roll the angle to rotate about the x-axis.
     */
    void prependRollRotation(double roll);
+
+   /**
+    * Transforms this orientation using the given {@code transform}.
+    * <p>
+    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform} prepend
+    * their rotation part to this. No scale or translation is applied such that the output of this
+    * method is still a pure rotation.
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this orientation. Not modified.
+    */
+   @Override
+   default void applyTransform(Transform transform)
+   {
+      transform.transform(this);
+   }
+
+   /**
+    * Transforms this orientation using the inverse of the given {@code transform}.
+    * <p>
+    * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform} prepend
+    * their rotation part to this. No scale or translation is applied to such that the output of this
+    * method is still a pure rotation.
+    * </p>
+    *
+    * @param transform the geometric transform to apply on this orientation. Not modified.
+    */
+   @Override
+   default void applyInverseTransform(Transform transform)
+   {
+      transform.inverseTransform(this);
+   }
 }

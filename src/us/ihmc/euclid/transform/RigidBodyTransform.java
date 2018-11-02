@@ -37,7 +37,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
@@ -2180,12 +2179,12 @@ public class RigidBodyTransform
 
    /** {@inheritDoc} */
    @Override
-   public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void transform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
       if (hasRotation)
-         rotationMatrix.transform(quaternionOriginal, quaternionTransformed);
+         rotationMatrix.transform(orientationOriginal, orientationTransformed);
       else
-         quaternionTransformed.set(quaternionOriginal);
+         orientationTransformed.set(orientationOriginal);
    }
 
    /** {@inheritDoc} */
@@ -2225,16 +2224,6 @@ public class RigidBodyTransform
          rotationMatrix.transform(vector2DOriginal, vector2DTransformed, checkIfTransformInXYPlane);
       else
          vector2DTransformed.set(vector2DOriginal);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
-   {
-      if (hasRotation)
-         rotationMatrix.transform(matrixOriginal, matrixTransformed);
-      else
-         matrixTransformed.set(matrixOriginal);
    }
 
    /** {@inheritDoc} */
@@ -2294,12 +2283,12 @@ public class RigidBodyTransform
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void inverseTransform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
       if (hasRotation)
-         rotationMatrix.inverseTransform(quaternionOriginal, quaternionTransformed);
+         rotationMatrix.inverseTransform(orientationOriginal, orientationTransformed);
       else
-         quaternionTransformed.set(quaternionOriginal);
+         orientationTransformed.set(orientationOriginal);
    }
 
    /** {@inheritDoc} */
@@ -2336,16 +2325,6 @@ public class RigidBodyTransform
          rotationMatrix.inverseTransform(vector2DOriginal, vector2DTransformed, checkIfTransformInXYPlane);
       else
          vector2DTransformed.set(vector2DOriginal);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
-   {
-      if (hasRotation)
-         rotationMatrix.inverseTransform(matrixOriginal, matrixTransformed);
-      else
-         matrixTransformed.set(matrixOriginal);
    }
 
    /** {@inheritDoc} */

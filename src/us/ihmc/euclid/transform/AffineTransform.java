@@ -3,7 +3,6 @@ package us.ihmc.euclid.transform;
 import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.euclid.interfaces.Clearable;
@@ -17,6 +16,8 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.Matrix3DTools;
@@ -34,9 +35,9 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
 /**
  * An {@code AffineTransform} represents a 4-by-4 transformation matrix that can scale, rotate, and
@@ -510,102 +511,58 @@ public class AffineTransform
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not modified.
     * @param scale the scalar used to set the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
     */
-   public void set(AxisAngleReadOnly axisAngle, double scale, Tuple3DReadOnly translation)
+   public void set(Orientation3DReadOnly orientation, double scale, Tuple3DReadOnly translation)
    {
-      rotationScaleMatrix.set(axisAngle, scale);
+      rotationScaleMatrix.set(orientation, scale);
       translationVector.set(translation);
    }
 
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not modified.
     * @param scaleX the new x-component of the scale part of this transform.
     * @param scaleY the new y-component of the scale part of this transform.
     * @param scaleZ the new z-component of the scale part of this transform.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(AxisAngleReadOnly axisAngle, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly translation)
+   public void set(Orientation3DReadOnly orientation, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly translation)
    {
-      rotationScaleMatrix.set(axisAngle, scaleX, scaleY, scaleZ);
+      rotationScaleMatrix.set(orientation, scaleX, scaleY, scaleZ);
       translationVector.set(translation);
    }
 
    /**
     * Sets the rotation, scale, and translation parts of this transform separately.
     *
-    * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not modified.
     * @param scales the tuple used to set the scale part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
     */
-   public void set(AxisAngleReadOnly axisAngle, Tuple3DReadOnly scales, Tuple3DReadOnly translation)
+   public void set(Orientation3DReadOnly orientation, Tuple3DReadOnly scales, Tuple3DReadOnly translation)
    {
-      rotationScaleMatrix.set(axisAngle, scales);
+      rotationScaleMatrix.set(orientation, scales);
       translationVector.set(translation);
    }
 
    /**
-    * Sets the rotation, scale, and translation parts of this transform separately.
-    *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
-    * @param scale the scalar used to set the scale part of this transform.
-    * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationScaleMatrixException if {@code scale <= 0.0}.
-    */
-   public void set(QuaternionReadOnly quaternion, double scale, Tuple3DReadOnly translation)
-   {
-      rotationScaleMatrix.set(quaternion, scale);
-      translationVector.set(translation);
-   }
-
-   /**
-    * Sets the rotation, scale, and translation parts of this transform separately.
-    *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
-    * @param scaleX the new x-component of the scale part of this transform.
-    * @param scaleY the new y-component of the scale part of this transform.
-    * @param scaleZ the new z-component of the scale part of this transform.
-    * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
-    */
-   public void set(QuaternionReadOnly quaternion, double scaleX, double scaleY, double scaleZ, Tuple3DReadOnly translation)
-   {
-      rotationScaleMatrix.set(quaternion, scaleX, scaleY, scaleZ);
-      translationVector.set(translation);
-   }
-
-   /**
-    * Sets the rotation, scale, and translation parts of this transform separately.
-    *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
-    * @param scales the tuple used to set the scale part of this transform. Not modified.
-    * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationScaleMatrixException if any of the scale factors is less or equal to zero.
-    */
-   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly scales, Tuple3DReadOnly translation)
-   {
-      rotationScaleMatrix.set(quaternion, scales);
-      translationVector.set(translation);
-   }
-
-   /**
-    * Sets the rotation part of this transform to the given axis-angle.
+    * Sets the rotation part of this transform to the given orientation.
     * <p>
     * This method does not affect the scale part nor the translation part of this transform.
     * </p>
     *
-    * @param axisAngle the axis-angle used to set the rotation part of this transform. Not modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not modified.
     */
-   public void setRotation(AxisAngleReadOnly axisAngle)
+   public void setRotation(Orientation3DReadOnly orientation)
    {
-      rotationScaleMatrix.setRotation(axisAngle);
+      rotationScaleMatrix.setRotation(orientation);
    }
 
    /**
@@ -639,19 +596,6 @@ public class AffineTransform
    public void setRotation(DenseMatrix64F rotationMatrix)
    {
       rotationScaleMatrix.setRotation(rotationMatrix);
-   }
-
-   /**
-    * Sets the rotation part of this transform to the given quaternion.
-    * <p>
-    * This method does not affect the scale part nor the translation part of this transform.
-    * </p>
-    *
-    * @param quaternion the quaternion used to set the rotation part of this transform. Not modified.
-    */
-   public void setRotation(QuaternionReadOnly quaternion)
-   {
-      rotationScaleMatrix.setRotation(quaternion);
    }
 
    /**
@@ -755,6 +699,8 @@ public class AffineTransform
     * </p>
     *
     * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
+    * @deprecated Use {@link #setRotation(Orientation3DReadOnly)} instead using
+    *             {@link YawPitchRollReadOnly}.
     */
    public void setRotationYawPitchRoll(double[] yawPitchRoll)
    {
@@ -777,6 +723,8 @@ public class AffineTransform
     * @param yaw the angle to rotate about the z-axis.
     * @param pitch the angle to rotate about the y-axis.
     * @param roll the angle to rotate about the x-axis.
+    * @deprecated Use {@link #setRotation(Orientation3DReadOnly)} instead using
+    *             {@link YawPitchRollReadOnly}.
     */
    public void setRotationYawPitchRoll(double yaw, double pitch, double roll)
    {
@@ -1555,9 +1503,9 @@ public class AffineTransform
 
    /** {@inheritDoc} */
    @Override
-   public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void transform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      rotationScaleMatrix.transform(quaternionOriginal, quaternionTransformed);
+      rotationScaleMatrix.transform(orientationOriginal, orientationTransformed);
    }
 
    /** {@inheritDoc} */
@@ -1568,13 +1516,6 @@ public class AffineTransform
       vectorTransformed.addX(vectorTransformed.getS() * translationVector.getX());
       vectorTransformed.addY(vectorTransformed.getS() * translationVector.getY());
       vectorTransformed.addZ(vectorTransformed.getS() * translationVector.getZ());
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
-   {
-      rotationScaleMatrix.transform(matrixOriginal, matrixTransformed);
    }
 
    /** {@inheritDoc} */
@@ -1641,9 +1582,9 @@ public class AffineTransform
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void inverseTransform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      rotationScaleMatrix.inverseTransform(quaternionOriginal, quaternionTransformed);
+      rotationScaleMatrix.inverseTransform(orientationOriginal, orientationTransformed);
    }
 
    /** {@inheritDoc} */
@@ -1655,13 +1596,6 @@ public class AffineTransform
       vectorTransformed.subY(vectorTransformed.getS() * translationVector.getY());
       vectorTransformed.subZ(vectorTransformed.getS() * translationVector.getZ());
       rotationScaleMatrix.inverseTransform(vectorTransformed, vectorTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
-   {
-      rotationScaleMatrix.inverseTransform(matrixOriginal, matrixTransformed);
    }
 
    /** {@inheritDoc} */
