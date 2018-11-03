@@ -2,7 +2,6 @@ package us.ihmc.euclid.transform;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
 import us.ihmc.euclid.exceptions.NotARotationMatrixException;
 import us.ihmc.euclid.exceptions.NotARotationScaleMatrixException;
 import us.ihmc.euclid.interfaces.Clearable;
@@ -37,6 +36,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
 /**
@@ -1828,25 +1828,14 @@ public class AffineTransform
    }
 
    /**
-    * Packs the rotation part of this affine transform as a quaternion.
+    * Packs the rotation part of this affine transform.
     *
-    * @param quaternionToPack the quaternion that is set to the rotation part of this transform.
+    * @param orientationToPack the orientation that is set to the rotation part of this transform.
     *           Modified.
     */
-   public void getRotation(QuaternionBasics quaternionToPack)
+   public void getRotation(Orientation3DBasics orientationToPack)
    {
-      rotationScaleMatrix.getRotation(quaternionToPack);
-   }
-
-   /**
-    * Packs the rotation part of this affine transform as an axis-angle.
-    *
-    * @param axisAngleToPack the axis-angle that is set to the rotation part of this transform.
-    *           Modified.
-    */
-   public void getRotation(AxisAngleBasics axisAngleToPack)
-   {
-      rotationScaleMatrix.getRotation(axisAngleToPack);
+      rotationScaleMatrix.getRotation(orientationToPack);
    }
 
    /**
@@ -1887,6 +1876,7 @@ public class AffineTransform
     * </p>
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #getRotation(Orientation3DBasics)}.
     */
    public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
    {

@@ -39,6 +39,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 
 /**
  * A {@code RigidBodyTransform} represents a 4-by-4 transformation matrix that can rotate and
@@ -301,10 +302,9 @@ public class RigidBodyTransform
     * <p>
     * The rotation part is considered to be a 2D transformation in the XY plane if:
     * <ul>
-    * <li>the last diagonal coefficient m22 is equal to 1.0 +/-
-    * {@link Matrix3DFeatures#EPS_CHECK_2D},
-    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
-    * +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
+    * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D},
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/-
+    * {@link Matrix3DFeatures#EPS_CHECK_2D}.
     * </ul>
     * </p>
     *
@@ -319,8 +319,8 @@ public class RigidBodyTransform
    /**
     * Requests whether this transform has a non-zero rotation or not.
     * 
-    * @return {@code true} if the rotation part is not zero, {@code false} if the rotation part is
-    *         zero and can be ignore when transforming an object.
+    * @return {@code true} if the rotation part is not zero, {@code false} if the rotation part is zero
+    *         and can be ignore when transforming an object.
     */
    public boolean hasRotation()
    {
@@ -330,8 +330,8 @@ public class RigidBodyTransform
    /**
     * Requests whether this transform has a non-zero translation or not.
     * 
-    * @return {@code true} if the translation part is not zero, {@code false} if the translation
-    *         part is zero and can be ignore when transforming an object.
+    * @return {@code true} if the translation part is not zero, {@code false} if the translation part
+    *         is zero and can be ignore when transforming an object.
     */
    public boolean hasTranslation()
    {
@@ -343,10 +343,9 @@ public class RigidBodyTransform
     * <p>
     * The rotation part is considered to be a 2D transformation in the XY plane if:
     * <ul>
-    * <li>the last diagonal coefficient m22 is equal to 1.0 +/-
-    * {@link Matrix3DFeatures#EPS_CHECK_2D},
-    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0
-    * +/- {@link Matrix3DFeatures#EPS_CHECK_2D}.
+    * <li>the last diagonal coefficient m22 is equal to 1.0 +/- {@link Matrix3DFeatures#EPS_CHECK_2D},
+    * <li>the coefficients {@code m20}, {@code m02}, {@code m21}, and {@code m12} are equal to 0.0 +/-
+    * {@link Matrix3DFeatures#EPS_CHECK_2D}.
     * </ul>
     * </p>
     *
@@ -728,11 +727,9 @@ public class RigidBodyTransform
    /**
     * Sets the rotation and translation parts of this transform separately.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
    public void set(Matrix3DReadOnly rotationMatrix, Tuple3DReadOnly translation)
    {
@@ -745,8 +742,7 @@ public class RigidBodyTransform
    /**
     * Sets the rotation and translation parts of this transform separately.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
    public void set(RotationMatrixReadOnly rotationMatrix, Tuple3DReadOnly translation)
@@ -779,8 +775,7 @@ public class RigidBodyTransform
    /**
     * Sets the rotation and translation parts of this transform separately.
     *
-    * @param orientation the orientation used to set the rotation part of this transform. Not
-    *           modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
    public void set(Orientation3DReadOnly orientation, Tuple3DReadOnly translation)
@@ -803,8 +798,7 @@ public class RigidBodyTransform
     * @param m20 the 3rd row 1st column component of the rotation part of this transform.
     * @param m21 the 3rd row 2nd column component of the rotation part of this transform.
     * @param m22 the 3rd row 3rd column component of the rotation part of this transform.
-    * @throws NotARotationMatrixException if the resulting matrix does not represent a rotation
-    *            matrix.
+    * @throws NotARotationMatrixException if the resulting matrix does not represent a rotation matrix.
     */
    public void setRotation(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)
    {
@@ -816,8 +810,8 @@ public class RigidBodyTransform
     * Sets the rotation part of this transform from the given 9 coefficients.
     * <p>
     * Prefer using the method
-    * {@link #setRotation(double, double, double, double, double, double, double, double, double)}
-    * as it asserts that the coefficients 0represent a rotation matrix.
+    * {@link #setRotation(double, double, double, double, double, double, double, double, double)} as
+    * it asserts that the coefficients 0represent a rotation matrix.
     * </p>
     *
     * @param m00 the 1st row 1st column component of the rotation part of this transform.
@@ -842,8 +836,7 @@ public class RigidBodyTransform
     * This method does not affect the translation part of this transform.
     * </p>
     *
-    * @param orientation the orientation used to set the rotation part of this transform. Not
-    *           modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not modified.
     */
    public void setRotation(Orientation3DReadOnly orientation)
    {
@@ -857,9 +850,9 @@ public class RigidBodyTransform
     * This method does not affect the translation part of this transform.
     * </p>
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVector the rotation vector used to set the rotation part of this transform. Not
@@ -877,10 +870,8 @@ public class RigidBodyTransform
     * This method does not affect the translation part of this transform.
     * </p>
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
    public void setRotation(DenseMatrix64F rotationMatrix)
    {
@@ -894,10 +885,8 @@ public class RigidBodyTransform
     * This method does not affect the translation part of this transform.
     * </p>
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
    public void setRotation(Matrix3DReadOnly rotationMatrix)
    {
@@ -911,10 +900,8 @@ public class RigidBodyTransform
     * This method does not affect the translation part of this transform.
     * </p>
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
    public void setRotation(RotationMatrixReadOnly rotationMatrix)
    {
@@ -999,6 +986,7 @@ public class RigidBodyTransform
     * </p>
     *
     * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #setRotation(Orientation3DReadOnly)}.
     */
    public void setRotationYawPitchRoll(double[] yawPitchRoll)
    {
@@ -1079,11 +1067,10 @@ public class RigidBodyTransform
    }
 
    /**
-    * Sets the rotation part of this transform to the given orientation and sets the translation
-    * part to zero.
+    * Sets the rotation part of this transform to the given orientation and sets the translation part
+    * to zero.
     *
-    * @param orientation the orientation used to set the rotation part of this transform. Not
-    *           modified.
+    * @param orientation the orientation used to set the rotation part of this transform. Not modified.
     */
    public void setRotationAndZeroTranslation(Orientation3DReadOnly orientation)
    {
@@ -1092,8 +1079,8 @@ public class RigidBodyTransform
    }
 
    /**
-    * Sets the rotation part of this transform to the given orientation and sets the translation
-    * part to zero.
+    * Sets the rotation part of this transform to the given orientation and sets the translation part
+    * to zero.
     *
     * @param rotationMatrix the rotation matrix used to set the rotation part of this transform. Not
     *           modified.
@@ -1108,9 +1095,9 @@ public class RigidBodyTransform
     * Sets the rotation part of this transform to the given rotation vector and sets the translation
     * part to zero.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVector the rotation vector used to set the rotation part of this transform. Not
@@ -1126,10 +1113,8 @@ public class RigidBodyTransform
     * Sets the rotation part of this transform to the given matrix and sets the translation part to
     * zero.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
    public void setRotationAndZeroTranslation(DenseMatrix64F rotationMatrix)
    {
@@ -1141,10 +1126,8 @@ public class RigidBodyTransform
     * Sets the rotation part of this transform to the given matrix and sets the translation part to
     * zero.
     *
-    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not
-    *           modified.
-    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation
-    *            matrix.
+    * @param rotationMatrix the matrix used to set the rotation part of this transform. Not modified.
+    * @throws NotARotationMatrixException if the given {@code rotationMatrix} is not a rotation matrix.
     */
    public void setRotationAndZeroTranslation(Matrix3DReadOnly rotationMatrix)
    {
@@ -1208,8 +1191,8 @@ public class RigidBodyTransform
 
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given
-    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll} and sets the translation
-    * part to zero.
+    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll} and sets the translation part
+    * to zero.
     *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
@@ -1218,6 +1201,7 @@ public class RigidBodyTransform
     * </pre>
     *
     * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #setRotationAndZeroTranslation(Orientation3DReadOnly)}.
     */
    public void setRotationYawPitchRollAndZeroTranslation(double[] yawPitchRoll)
    {
@@ -1227,8 +1211,8 @@ public class RigidBodyTransform
 
    /**
     * Sets the rotation part of this transform to represent the same orientation as the given
-    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll} and sets the translation
-    * part to zero.
+    * yaw-pitch-roll angles {@code yaw}, {@code pitch}, and {@code roll} and sets the translation part
+    * to zero.
     *
     * <pre>
     *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
@@ -1278,8 +1262,7 @@ public class RigidBodyTransform
     *     \     0          0     1 /   \ -sin(rotY) 0 cos(rotY) /   \ 0 sin(rotX)  cos(rotX) /
     * </pre>
     * <p>
-    * This is equivalent to
-    * {@code this.setRotationYawPitchRollAndZeroTranslation(rotZ, rotY, rotX)}.
+    * This is equivalent to {@code this.setRotationYawPitchRollAndZeroTranslation(rotZ, rotY, rotX)}.
     * </p>
     *
     * @param rotX the angle to rotate about the x-axis.
@@ -1449,8 +1432,8 @@ public class RigidBodyTransform
     * Performs the multiplication of this transform with {@code quaternionBasedTransform}.
     * <p>
     * this = this * H(quaternionBasedTransform) <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1467,14 +1450,13 @@ public class RigidBodyTransform
    /**
     * Performs the multiplication of this transform with {@code affineTransform}.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
-    * translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper rigid-body transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = this * S(affineTransform) <br>
-    * where S(affineTransform) is the function selecting only the rotation and translation parts of
-    * the affine transform.
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of the
+    * affine transform.
     * </p>
     *
     * @param affineTransform the affine transform to multiply this with. Not modified.
@@ -1557,8 +1539,8 @@ public class RigidBodyTransform
     * {@code quaternionBasedTransform}.
     * <p>
     * this = this<sup>-1</sup> * H(quaternionBasedTransform) <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1578,8 +1560,8 @@ public class RigidBodyTransform
     * {@code quaternionBasedTransform}.
     * <p>
     * this = this * H(quaternionBasedTransform)<sup>-1</sup> <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1596,14 +1578,13 @@ public class RigidBodyTransform
    /**
     * Performs the multiplication of the inverse of this transform with {@code affineTransform}.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
-    * translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper rigid-body transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = this<sup>-1</sup> * S(affineTransform) <br>
-    * where S(affineTransform) is the function selecting only the rotation and translation parts of
-    * the affine transform.
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of the
+    * affine transform.
     * </p>
     *
     * @param affineTransform the affine transform to multiply this with. Not modified.
@@ -1620,14 +1601,13 @@ public class RigidBodyTransform
    /**
     * Performs the multiplication of this transform with the inverse of {@code affineTransform}.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
-    * translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper rigid-body transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = this * S(affineTransform)<sup>-1</sup> <br>
-    * where S(affineTransform) is the function selecting only the rotation and translation parts of
-    * the affine transform.
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of the
+    * affine transform.
     * </p>
     *
     * @param affineTransform the affine transform to multiply this with. Not modified.
@@ -1795,8 +1775,8 @@ public class RigidBodyTransform
     * Performs the multiplication of {@code quaternionBasedTransform} with this transform.
     * <p>
     * this = H(quaternionBasedTransform) * this <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1814,14 +1794,13 @@ public class RigidBodyTransform
    /**
     * Performs the multiplication of {@code affineTransform} with this transform.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
-    * translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper rigid-body transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = S(affineTransform) * this <br>
-    * where S(affineTransform) is the function selecting only the rotation and translation parts of
-    * the affine transform.
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of the
+    * affine transform.
     * </p>
     *
     * @param affineTransform the affine transform to multiply this with. Not modified.
@@ -1908,8 +1887,8 @@ public class RigidBodyTransform
     * transform.
     * <p>
     * this = H(quaternionBasedTransform) * this<sup>-1</sup> <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1929,8 +1908,8 @@ public class RigidBodyTransform
     * transform.
     * <p>
     * this = H(quaternionBasedTransform)<sup>-1</sup> * this <br>
-    * where H(q) is the function converting a quaternion-based transform into a 4-by-4
-    * transformation matrix.
+    * where H(q) is the function converting a quaternion-based transform into a 4-by-4 transformation
+    * matrix.
     * </p>
     *
     * @param quaternionBasedTransform the quaternion-based transform to multiply this with. Not
@@ -1948,14 +1927,13 @@ public class RigidBodyTransform
    /**
     * Performs the multiplication of {@code affineTransform} with the inverse of this transform.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
-    * translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper rigid-body transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = S(affineTransform) * this<sup>-1</sup> <br>
-    * where S(affineTransform) is the function selecting only the rotation and translation parts of
-    * the affine transform.
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of the
+    * affine transform.
     * </p>
     *
     * @param affineTransform the affine transform to multiply this with. Not modified.
@@ -1972,14 +1950,13 @@ public class RigidBodyTransform
    /**
     * Performs the multiplication of the inverse of {@code affineTransform} with this transform.
     * <p>
-    * Note: the scale part of the given affine transform is not used when performing the
-    * multiplication to conserve a proper rigid-body transform describing only a rotation and a
-    * translation.
+    * Note: the scale part of the given affine transform is not used when performing the multiplication
+    * to conserve a proper rigid-body transform describing only a rotation and a translation.
     * </p>
     * <p>
     * this = S(affineTransform)<sup>-1</sup> * this <br>
-    * where S(affineTransform) is the function selecting only the rotation and translation parts of
-    * the affine transform.
+    * where S(affineTransform) is the function selecting only the rotation and translation parts of the
+    * affine transform.
     * </p>
     *
     * @param affineTransform the affine transform to multiply this with. Not modified.
@@ -2040,8 +2017,8 @@ public class RigidBodyTransform
    /**
     * Prepend a rotation about the z-axis to this transform.
     * <p>
-    * This method first rotates the translation part and then prepend the yaw-rotation to the
-    * rotation part of this transform.
+    * This method first rotates the translation part and then prepend the yaw-rotation to the rotation
+    * part of this transform.
     * </p>
     *
     * <pre>
@@ -2086,8 +2063,8 @@ public class RigidBodyTransform
    /**
     * Prepend a rotation about the x-axis to this transform.
     * <p>
-    * This method first rotates the translation part and then prepend the roll-rotation to the
-    * rotation part of this transform.
+    * This method first rotates the translation part and then prepend the roll-rotation to the rotation
+    * part of this transform.
     * </p>
     *
     * <pre>
@@ -2116,8 +2093,8 @@ public class RigidBodyTransform
     * </pre>
     *
     * @param other the other transform used in the interpolation. Not modified.
-    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
-    *           modifying {@code this}, while a value of 1 is equivalent to setting {@code this} to
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not modifying
+    *           {@code this}, while a value of 1 is equivalent to setting {@code this} to
     *           {@code other}.
     */
    public void interpolate(RigidBodyTransform other, double alpha)
@@ -2371,8 +2348,7 @@ public class RigidBodyTransform
     *     \    0       0       0     1 /
     * </pre>
     *
-    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this
-    * transform.
+    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this transform.
     *
     * @param matrixToPack the matrix in which this transform is stored. Modified.
     */
@@ -2396,8 +2372,7 @@ public class RigidBodyTransform
     *     \    0       0       0     1 /
     * </pre>
     *
-    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this
-    * transform.
+    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this transform.
     *
     * @param startRow the first row index to start writing in {@code matrixToPack}.
     * @param startColumn the first column index to start writing in {@code matrixToPack}.
@@ -2424,8 +2399,7 @@ public class RigidBodyTransform
     *     \    0       0       0     1 /
     * </pre>
     *
-    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this
-    * transform.
+    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this transform.
     *
     * @param transformArrayToPack the array in which this transform is stored. Modified.
     */
@@ -2459,8 +2433,7 @@ public class RigidBodyTransform
     *     \    0       0       0     1 /
     * </pre>
     *
-    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this
-    * transform.
+    * where R is the 3-by-3 rotation matrix and (Tx, Ty, Tz) is the translation part of this transform.
     *
     * @param transformArrayToPack the array in which this transform is stored. Modified.
     */
@@ -2499,9 +2472,9 @@ public class RigidBodyTransform
    /**
     * Packs the rotation matrix and translation vector of this rigid-body transform.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVectorToPack the rotation vector to set to the rotation of this transform.
@@ -2541,8 +2514,8 @@ public class RigidBodyTransform
    /**
     * Packs the rotation matrix and translation vector of this rigid-body transform.
     *
-    * @param rotationMarixToPack the matrix to set to the rotation of this transform. The scale part
-    *           is reset. Modified.
+    * @param rotationMarixToPack the matrix to set to the rotation of this transform. The scale part is
+    *           reset. Modified.
     * @param translationToPack the tuple to set to the translation of this transform. Modified.
     */
    public void get(RotationScaleMatrix rotationMarixToPack, Tuple3DBasics translationToPack)
@@ -2586,8 +2559,8 @@ public class RigidBodyTransform
    /**
     * Packs the rotation part of this rigid-body transform.
     *
-    * @param rotationMatrixToPack the rotation-scale matrix that is set to this transform's
-    *           rotation. The scale part is reset. Modified.
+    * @param rotationMatrixToPack the rotation-scale matrix that is set to this transform's rotation.
+    *           The scale part is reset. Modified.
     */
    public void getRotation(RotationScaleMatrix rotationMatrixToPack)
    {
@@ -2633,9 +2606,9 @@ public class RigidBodyTransform
    /**
     * Packs the rotation part of this rigid-body transform as a rotation vector.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
     * @param rotationVectorToPack the rotation vector that is set to the rotation part of this
@@ -2658,6 +2631,7 @@ public class RigidBodyTransform
     * </p>
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #getRotation(Orientation3DBasics)}.
     */
    public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
    {
@@ -2668,8 +2642,8 @@ public class RigidBodyTransform
    }
 
    /**
-    * Computes and packs the orientation described by the rotation part of this transform as the
-    * Euler angles.
+    * Computes and packs the orientation described by the rotation part of this transform as the Euler
+    * angles.
     * <p>
     * WARNING: the Euler angles or yaw-pitch-roll representation is sensitive to gimbal lock and is
     * sometimes undefined.
@@ -2988,9 +2962,9 @@ public class RigidBodyTransform
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(RigidBodyTransform)}, it returns {@code false} otherwise or if the
-    * {@code object} is {@code null}.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method returns
+    * {@link #equals(RigidBodyTransform)}, it returns {@code false} otherwise or if the {@code object}
+    * is {@code null}.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.

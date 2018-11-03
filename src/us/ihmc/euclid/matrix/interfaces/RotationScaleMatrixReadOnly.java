@@ -14,6 +14,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 
 /**
  * Read interface for 3-by-3 rotation-scale matrices.
@@ -225,6 +226,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
     * </p>
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #getRotationMatrix()}.
     */
    default void getRotationYawPitchRoll(double[] yawPitchRollToPack)
    {

@@ -7,6 +7,7 @@ import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
 import us.ihmc.euclid.transform.interfaces.Transform;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 
 /**
  * Write and read interface for a 3D orientation.
@@ -152,6 +153,7 @@ public interface Orientation3DBasics extends Orientation3DReadOnly, Clearable, T
     * </p>
     *
     * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
+    * @deprecated Use {@link #set(Orientation3DReadOnly)} with {@link YawPitchRoll} instead.
     */
    default void setYawPitchRoll(double[] yawPitchRoll)
    {
