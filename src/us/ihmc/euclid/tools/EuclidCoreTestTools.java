@@ -1,6 +1,5 @@
 package us.ihmc.euclid.tools;
 
-import static org.junit.Assert.*;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.*;
 
 import java.util.Arrays;
@@ -2550,9 +2549,10 @@ public abstract class EuclidCoreTestTools
                   + exceptionCaught.getClass().getSimpleName()));
          }
 
-         if (expectedMessageContent != null)
+         if (expectedMessageContent != null && !expectedMessageContent.equals(exceptionCaught.getMessage()))
          {
-            assertEquals(messagePrefix, expectedMessageContent, exceptionCaught.getMessage());
+            throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected exception message: expected " + expectedMessageContent + ", actual = "
+                  + exceptionCaught.getMessage()));
          }
       }
    }
