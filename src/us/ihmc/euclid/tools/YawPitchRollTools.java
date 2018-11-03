@@ -1,6 +1,7 @@
 package us.ihmc.euclid.tools;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
+import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -212,7 +213,7 @@ public class YawPitchRollTools
     */
    public static void inverseTransform(YawPitchRollReadOnly yawPitchRoll, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
-      transform(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), tupleOriginal, tupleTransformed);
+      inverseTransform(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), tupleOriginal, tupleTransformed);
    }
 
    private static void transformImpl(double yaw, double pitch, double roll, boolean inverseTransform, Tuple3DReadOnly tupleOriginal,
@@ -325,6 +326,9 @@ public class YawPitchRollTools
          tupleTransformed.setToNaN();
          return;
       }
+
+      if (checkIfTransformInXYPlane && !isOrientation2D(yaw, pitch, roll, ZERO_EPS))
+         throw new NotAnOrientation2DException("The orientation is not in XY plane: \n" + EuclidCoreIOTools.getYawPitchRollString(yaw, pitch, roll));
 
       double cosc = Math.cos(yaw);
       double sinc = Math.sin(yaw);
@@ -550,7 +554,7 @@ public class YawPitchRollTools
 
    public static void inverseTransform(YawPitchRollReadOnly yawPitchRoll, Vector4DReadOnly vectorOriginal, Vector4DBasics vectorTransformed)
    {
-      transform(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), vectorOriginal, vectorTransformed);
+      inverseTransform(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), vectorOriginal, vectorTransformed);
    }
 
    private static void transformImpl(double yaw, double pitch, double roll, boolean inverseTransform, Vector4DReadOnly vectorOriginal,
@@ -651,7 +655,7 @@ public class YawPitchRollTools
 
       if (orientation2 instanceof QuaternionReadOnly)
       {
-         QuaternionReadOnly quaternion2 = (QuaternionReadOnly) orientation1;
+         QuaternionReadOnly quaternion2 = (QuaternionReadOnly) orientation2;
          q2s = quaternion2.getS();
          q2x = quaternion2.getX();
          q2y = quaternion2.getY();
@@ -659,7 +663,7 @@ public class YawPitchRollTools
       }
       else if (orientation2 instanceof AxisAngleReadOnly)
       {
-         AxisAngleReadOnly axisAngle2 = (AxisAngleReadOnly) orientation1;
+         AxisAngleReadOnly axisAngle2 = (AxisAngleReadOnly) orientation2;
          double halfTheta = 0.5 * axisAngle2.getAngle();
          double sinHalfTheta = Math.sin(halfTheta) / axisAngle2.axisNorm();
          q2x = axisAngle2.getX() * sinHalfTheta;
@@ -692,7 +696,7 @@ public class YawPitchRollTools
 
    public static void prependYawRotation(YawPitchRollReadOnly yawPitchRollOriginal, double yaw, YawPitchRollBasics yawPitchRollToPack)
    {
-      yaw += yawPitchRollOriginal.getYaw();
+      yaw = EuclidCoreTools.trimAngleMinusPiToPi(yawPitchRollOriginal.getYaw());
       double pitch = yawPitchRollOriginal.getPitch();
       double roll = yawPitchRollOriginal.getRoll();
       yawPitchRollToPack.set(yaw, pitch, roll);

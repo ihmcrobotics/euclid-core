@@ -1,8 +1,12 @@
 package us.ihmc.euclid.tools;
 
+import static org.junit.Assert.*;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.*;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
@@ -2487,6 +2491,69 @@ public abstract class EuclidCoreTestTools
       if (!expected.geometricallyEquals(actual, epsilon))
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+      }
+   }
+
+   /**
+    * Asserts that when executing the given runnable, an specific exception is thrown.
+    * 
+    * @param runnable the code to be executed and to be throwing an exception.
+    * @param expectedExceptionType the expected type of the exception to catch when executing the
+    *           runnable.
+    * @throws AssertionError if the no exception is thrown or if the thrown exception is not equal to
+    *            {@code expectedExceptionType}.
+    */
+   public static void assertExceptionIsThrown(Runnable runnable, Class<?>... expectedExceptionType)
+   {
+      assertExceptionIsThrown(null, runnable, expectedExceptionType);
+   }
+
+   public static void assertExceptionIsThrown(String messagePrefix, Runnable runnable, Class<?>... expectedExceptionType)
+   {
+      assertExceptionIsThrown(messagePrefix, runnable, null, expectedExceptionType);
+   }
+
+   public static void assertExceptionIsThrown(Runnable runnable, String expectedMessageContent, Class<?>... expectedExceptionType)
+   {
+      assertExceptionIsThrown(null, runnable, expectedMessageContent, expectedExceptionType);
+   }
+
+   public static void assertExceptionIsThrown(String messagePrefix, Runnable runnable, String expectedMessageContent, Class<?>... expectedExceptionTypes)
+   {
+      Exception exceptionCaught = null;
+
+      try
+      {
+         runnable.run();
+      }
+      catch (Exception e)
+      {
+         exceptionCaught = e;
+      } finally
+      {
+         if (exceptionCaught == null)
+            throw new AssertionError(addPrefixToMessage(messagePrefix, "The operation should have thrown an exception."));
+
+         boolean isExceptionUnexpected = true;
+         for (Class<?> expectedExceptionType : expectedExceptionTypes)
+         {
+            if (exceptionCaught.getClass().equals(expectedExceptionType))
+            {
+               isExceptionUnexpected = false;
+            }
+         }
+
+         if (isExceptionUnexpected)
+         {
+            List<String> expectedExceptionSimpleNames = Stream.of(expectedExceptionTypes).map(e -> e.getSimpleName()).collect(Collectors.toList());
+            throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected exception: expected any of " + expectedExceptionSimpleNames + ", actual = "
+                  + exceptionCaught.getClass().getSimpleName()));
+         }
+
+         if (expectedMessageContent != null)
+         {
+            assertEquals(messagePrefix, expectedMessageContent, exceptionCaught.getMessage());
+         }
       }
    }
 
