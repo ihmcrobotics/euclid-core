@@ -7,6 +7,7 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
+import us.ihmc.euclid.rotationConversion.YawPitchRollConversion;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
@@ -135,6 +136,27 @@ public class YawPitchRollTools
 
       double sinHalfTheta = Math.sqrt(EuclidCoreTools.normSquared(x, y, z));
       return 2.0 * Math.atan2(sinHalfTheta, s);
+   }
+
+   public static void invert(double yaw, double pitch, double roll, YawPitchRollBasics yawPitchRollToPack)
+   {
+      double halfYaw = 0.5 * yaw;
+      double cYaw = Math.cos(halfYaw);
+      double sYaw = Math.sin(halfYaw);
+
+      double halfPitch = 0.5 * pitch;
+      double cPitch = Math.cos(halfPitch);
+      double sPitch = Math.sin(halfPitch);
+
+      double halfRoll = 0.5 * roll;
+      double cRoll = Math.cos(halfRoll);
+      double sRoll = Math.sin(halfRoll);
+
+      double qs = cYaw * cPitch * cRoll + sYaw * sPitch * sRoll;
+      double qx = cYaw * cPitch * sRoll - sYaw * sPitch * cRoll;
+      double qy = sYaw * cPitch * sRoll + cYaw * sPitch * cRoll;
+      double qz = sYaw * cPitch * cRoll - cYaw * sPitch * sRoll;
+      YawPitchRollConversion.convertQuaternionToYawPitchRoll(-qx, -qy, -qz, qs, yawPitchRollToPack);
    }
 
    /**
@@ -696,7 +718,7 @@ public class YawPitchRollTools
 
    public static void prependYawRotation(YawPitchRollReadOnly yawPitchRollOriginal, double yaw, YawPitchRollBasics yawPitchRollToPack)
    {
-      yaw = EuclidCoreTools.trimAngleMinusPiToPi(yawPitchRollOriginal.getYaw());
+      yaw = EuclidCoreTools.trimAngleMinusPiToPi(yawPitchRollOriginal.getYaw() + yaw);
       double pitch = yawPitchRollOriginal.getPitch();
       double roll = yawPitchRollOriginal.getRoll();
       yawPitchRollToPack.set(yaw, pitch, roll);

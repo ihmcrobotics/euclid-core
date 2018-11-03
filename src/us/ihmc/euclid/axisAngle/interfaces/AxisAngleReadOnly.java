@@ -197,6 +197,7 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
    }
 
    /** {@inheritDoc} */
+   @Deprecated
    @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {

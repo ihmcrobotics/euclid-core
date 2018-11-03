@@ -184,20 +184,23 @@ public interface YawPitchRollReadOnly extends Orientation3DReadOnly
       RotationVectorConversion.convertYawPitchRollToRotationVector(getYaw(), getPitch(), getRoll(), rotationVectorToPack);
    }
 
-   /** {@inheritDoc} */
+   /**
+    * {@inheritDoc}
+    * 
+    * @deprecated Use {@link #get(double[])} instead.
+    */
+   @Deprecated
    @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {
-      yawPitchRollToPack[0] = getYaw();
-      yawPitchRollToPack[1] = getPitch();
-      yawPitchRollToPack[2] = getRoll();
+      get(yawPitchRollToPack);
    }
 
    /** {@inheritDoc} */
    @Override
    default void getEuler(Tuple3DBasics eulerAnglesToPack)
    {
-      eulerAnglesToPack.set(getRoll(), getPitch(), getRoll());
+      eulerAnglesToPack.set(getRoll(), getPitch(), getYaw());
    }
 
    /**

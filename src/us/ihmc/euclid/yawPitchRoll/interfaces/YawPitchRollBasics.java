@@ -86,11 +86,19 @@ public interface YawPitchRollBasics extends YawPitchRollReadOnly, Orientation3DB
       set(-getYaw(), -getPitch(), -getRoll());
    }
 
+   /**
+    * Sets each component of this yaw-pitch-roll to its absolute value.
+    */
+   default void absolute()
+   {
+      set(Math.abs(getYaw()), Math.abs(getPitch()), Math.abs(getRoll()));
+   }
+
    /** {@inheritDoc} */
    @Override
    default void invert()
    {
-      negate();
+      YawPitchRollTools.invert(getYaw(), getPitch(), getRoll(), this);
    }
 
    /**

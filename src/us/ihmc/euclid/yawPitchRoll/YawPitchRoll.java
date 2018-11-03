@@ -2,6 +2,7 @@ package us.ihmc.euclid.yawPitchRoll;
 
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
+import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollBasics;
 import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
@@ -207,5 +208,17 @@ public class YawPitchRoll implements YawPitchRollBasics, GeometryObject<YawPitch
       bits = 31L * bits + Double.doubleToLongBits(pitch);
       bits = 31L * bits + Double.doubleToLongBits(roll);
       return (int) (bits ^ bits >> 32);
+   }
+
+   /**
+    * Provides a {@code String} representation of this yaw-pitch-roll as follows: yaw-pitch-roll: (yaw,
+    * pitch, roll).
+    *
+    * @return the {@code String} representing this yaw-pitch-roll.
+    */
+   @Override
+   public String toString()
+   {
+      return EuclidCoreIOTools.getYawPitchRollString(this);
    }
 }
