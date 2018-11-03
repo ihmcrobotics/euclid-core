@@ -865,7 +865,7 @@ public class RotationMatrixTest extends CommonMatrix3DBasicsTest<RotationMatrix>
       {
          rotationMatrix = EuclidCoreRandomTools.nextRotationMatrix(random);
          expectedMatrix.set(rotationMatrix);
-         yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          yawPitchRollCopy = yawPitchRoll;
 
          rotationMatrix.getYawPitchRoll(yawPitchRoll);

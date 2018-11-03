@@ -12,11 +12,12 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreRandomTools;
 import us.ihmc.euclid.tools.EuclidCoreTestTools;
-import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.Quaternion;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
 public class CyclingConversionTest
 {
@@ -61,7 +62,7 @@ public class CyclingConversionTest
          AxisAngleReadOnly originalAxisAngle = null;
          QuaternionReadOnly originalQuaternion = null;
          Vector3DReadOnly originalRotationVector = null;
-         double[] originalYawPitchRoll = null;
+         YawPitchRollReadOnly originalYawPitchRoll = null;
 
          switch (initialRotationType)
          {
@@ -101,7 +102,7 @@ public class CyclingConversionTest
          if (originalYawPitchRoll == null)
             originalYawPitchRoll = initialRotationType.convertToYawPitchRoll();
 
-         boolean isYawPitchRollNaN = EuclidCoreTools.containsNaN(originalYawPitchRoll);
+         boolean isYawPitchRollNaN = originalYawPitchRoll.containsNaN();
 
          AllRotations previousRotationType = initialRotationType;
 
@@ -120,7 +121,7 @@ public class CyclingConversionTest
             System.out.println(AllRotations.VECTOR);
             System.out.println(originalRotationVector);
             System.out.println(AllRotations.YAW_PITCH_ROLL);
-            System.out.println(Arrays.toString(originalYawPitchRoll));
+            System.out.println(originalYawPitchRoll);
          }
 
          for (int i = 0; i < numberOfConversionsPerCycle; i++)
@@ -161,7 +162,7 @@ public class CyclingConversionTest
                EuclidCoreTestTools.assertRotationVectorGeometricallyEquals(originalRotationVector, (Vector3DReadOnly) nextRotationType.rotationHolder, epsilon);
                break;
             case YAW_PITCH_ROLL:
-               EuclidCoreTestTools.assertYawPitchRollEquals(originalYawPitchRoll, (double[]) nextRotationType.rotationHolder, epsilon);
+               EuclidCoreTestTools.assertYawPitchRollEquals(originalYawPitchRoll, (YawPitchRollReadOnly) nextRotationType.rotationHolder, epsilon);
             default:
                break;
             }
@@ -173,7 +174,7 @@ public class CyclingConversionTest
 
    private enum AllRotations
    {
-      MATRIX(new RotationMatrix()), AXISANGLE(new AxisAngle()), QUATERNION(new Quaternion()), VECTOR(new Vector3D()), YAW_PITCH_ROLL(new double[3]);
+      MATRIX(new RotationMatrix()), AXISANGLE(new AxisAngle()), QUATERNION(new Quaternion()), VECTOR(new Vector3D()), YAW_PITCH_ROLL(new YawPitchRoll());
 
       Object rotationHolder;
 
@@ -305,9 +306,9 @@ public class CyclingConversionTest
          return rotationVector;
       }
 
-      double[] convertToYawPitchRoll()
+      YawPitchRollReadOnly convertToYawPitchRoll()
       {
-         double[] yawPitchRoll = new double[3];
+         YawPitchRoll yawPitchRoll = new YawPitchRoll();
          switch (this)
          {
          case MATRIX:

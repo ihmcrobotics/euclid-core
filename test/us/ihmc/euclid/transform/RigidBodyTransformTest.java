@@ -1615,7 +1615,7 @@ public class RigidBodyTransformTest extends TransformTest<RigidBodyTransform>
       Random random = new Random(234L);
       RotationMatrix expectedRotation = new RotationMatrix();
       RigidBodyTransform actualTransform = new RigidBodyTransform();
-      double[] yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRoll(random);
+      double[] yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRollArray(random);
 
       { // Test setRotationYawPitchRoll(double yaw, double pitch, double roll)
          expectedRotation.setYawPitchRoll(yawPitchRoll);
