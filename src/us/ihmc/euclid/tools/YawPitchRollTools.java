@@ -22,18 +22,6 @@ public class YawPitchRollTools
    public static final double ZERO_EPS = 1.0e-12;
 
    /**
-    * Tests whether the three angles of the given yaw-pitch-roll are equal to zero.
-    * 
-    * @param yawPitchRoll the query. Not modified.
-    * @param epsilon the tolerance to use for the comparison.
-    * @return {@code true} if the three angles are equal to zero, {@code false} otherwise.
-    */
-   public static boolean isZero(YawPitchRollReadOnly yawPitchRoll, double epsilon)
-   {
-      return isZero(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), epsilon);
-   }
-
-   /**
     * Tests whether the three given angles yaw, pitch, and roll are equal to zero.
     * 
     * @param yaw the first angle representing the rotation around the z-axis.
@@ -44,7 +32,7 @@ public class YawPitchRollTools
     */
    public static boolean isZero(double yaw, double pitch, double roll, double epsilon)
    {
-      return Math.abs(yaw) < epsilon && Math.abs(pitch) < epsilon && Math.abs(roll) < epsilon;
+      return Math.abs(yaw) <= epsilon && Math.abs(pitch) <= epsilon && Math.abs(roll) <= epsilon;
    }
 
    /**
@@ -59,7 +47,7 @@ public class YawPitchRollTools
     */
    public static boolean isOrientation2D(double yaw, double pitch, double roll, double epsilon)
    {
-      return Math.abs(pitch) < epsilon && Math.abs(roll) < epsilon;
+      return Math.abs(pitch) <= epsilon && Math.abs(roll) <= epsilon;
    }
 
    /**
@@ -374,7 +362,7 @@ public class YawPitchRollTools
 
    public static void transform(YawPitchRollReadOnly yawPitchRoll, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
-      transform(yawPitchRoll, matrixOriginal, matrixTransformed);
+      transform(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), matrixOriginal, matrixTransformed);
    }
 
    public static void inverseTransform(double yaw, double pitch, double roll, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
@@ -384,7 +372,7 @@ public class YawPitchRollTools
 
    public static void inverseTransform(YawPitchRollReadOnly yawPitchRoll, Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
    {
-      inverseTransform(yawPitchRoll, matrixOriginal, matrixTransformed);
+      inverseTransform(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), matrixOriginal, matrixTransformed);
    }
 
    private static void transformImpl(double yaw, double pitch, double roll, boolean inverseTransform, Matrix3DReadOnly matrixOriginal,

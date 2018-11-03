@@ -36,28 +36,29 @@ import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
  * </p>
  * <p>
  * Equivalent representation of yaw-pitch-roll as 3-by-3 rotation matrix:
- * 
+ *
  * <pre>
  *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
  * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
  *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
  * </pre>
  * </p>
- * 
+ *
  * @author Sylvain Bertrand
  */
 public interface YawPitchRollReadOnly extends Orientation3DReadOnly
 {
    /**
     * Returns the yaw component of this yaw-pitch-roll orientation.
-    * 
+    *
     * @return the yaw angle.
     */
+   @Override
    double getYaw();
 
    /**
     * Returns the yaw component of this yaw-pitch-roll orientation.
-    * 
+    *
     * @return the yaw angle.
     */
    default float getYaw32()
@@ -67,14 +68,15 @@ public interface YawPitchRollReadOnly extends Orientation3DReadOnly
 
    /**
     * Returns the pitch component of this yaw-pitch-roll orientation.
-    * 
+    *
     * @return the pitch angle.
     */
+   @Override
    double getPitch();
 
    /**
     * Returns the pitch component of this yaw-pitch-roll orientation.
-    * 
+    *
     * @return the pitch angle.
     */
    default float getPitch32()
@@ -84,14 +86,15 @@ public interface YawPitchRollReadOnly extends Orientation3DReadOnly
 
    /**
     * Returns the roll component of this yaw-pitch-roll orientation.
-    * 
+    *
     * @return the roll angle.
     */
+   @Override
    double getRoll();
 
    /**
     * Returns the roll component of this yaw-pitch-roll orientation.
-    * 
+    *
     * @return the roll angle.
     */
    default float getRoll32()
@@ -112,13 +115,13 @@ public interface YawPitchRollReadOnly extends Orientation3DReadOnly
 
    /**
     * Tests whether the three angles of this yaw-pitch-roll are equal to zero.
-    * 
+    *
     * @param epsilon the tolerance to use for the comparison.
     * @return {@code true} if the three angles are equal to zero, {@code false} otherwise.
     */
    default boolean isZero(double epsilon)
    {
-      return YawPitchRollTools.isZero(this, epsilon);
+      return YawPitchRollTools.isZero(getYaw(), getPitch(), getRoll(), epsilon);
    }
 
    /**
