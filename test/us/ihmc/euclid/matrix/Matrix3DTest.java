@@ -606,8 +606,8 @@ public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
 
       // Test some exceptions
       double scalarFinal = scalar;
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> scaledMatrix.scaleRow(3, scalarFinal), IndexOutOfBoundsException.class);
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> scaledMatrix.scaleColumn(3, scalarFinal), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> scaledMatrix.scaleRow(3, scalarFinal), ArrayIndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> scaledMatrix.scaleColumn(3, scalarFinal), ArrayIndexOutOfBoundsException.class);
    }
 
    @Test
@@ -1056,7 +1056,7 @@ public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
       assertTrue(matrix.getM21() == rowArray[1]);
       assertTrue(matrix.getM22() == rowArray[2]);
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setRow(3, rowArray), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setRow(3, rowArray), ArrayIndexOutOfBoundsException.class);
 
       double x = random.nextDouble();
       double y = random.nextDouble();
@@ -1076,7 +1076,7 @@ public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
       assertTrue(matrix.getM21() == y);
       assertTrue(matrix.getM22() == z);
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setRow(3, x, y, z), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setRow(3, x, y, z), ArrayIndexOutOfBoundsException.class);
 
       Vector3D rowVector = new Vector3D(random.nextDouble(), random.nextDouble(), random.nextDouble());
       matrix.setRow(0, rowVector);
@@ -1094,7 +1094,7 @@ public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
       assertTrue(matrix.getM21() == rowVector.getElement(1));
       assertTrue(matrix.getM22() == rowVector.getElement(2));
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setRow(3, rowVector), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setRow(3, rowVector), ArrayIndexOutOfBoundsException.class);
    }
 
    @Test
@@ -1119,7 +1119,7 @@ public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
       assertTrue(matrix.getM12() == columnArray[1]);
       assertTrue(matrix.getM22() == columnArray[2]);
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setColumn(3, columnArray), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setColumn(3, columnArray), ArrayIndexOutOfBoundsException.class);
 
       double x = random.nextDouble();
       double y = random.nextDouble();
@@ -1139,7 +1139,7 @@ public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
       assertTrue(matrix.getM12() == y);
       assertTrue(matrix.getM22() == z);
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setColumn(3, x, y, z), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setColumn(3, x, y, z), ArrayIndexOutOfBoundsException.class);
 
       Vector3D columnVector = new Vector3D(random.nextDouble(), random.nextDouble(), random.nextDouble());
       matrix.setColumn(0, columnVector);
@@ -1157,7 +1157,7 @@ public class Matrix3DTest extends CommonMatrix3DBasicsTest<Matrix3D>
       assertTrue(matrix.getM12() == columnVector.getElement(1));
       assertTrue(matrix.getM22() == columnVector.getElement(2));
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setColumn(3, columnVector), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.setColumn(3, columnVector), ArrayIndexOutOfBoundsException.class);
    }
 
    @Test

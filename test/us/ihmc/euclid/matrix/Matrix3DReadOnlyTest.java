@@ -71,8 +71,8 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       for (int j = 0; j < 3; j++)
       {
          final int jFinal = j;
-         EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getElement(jFinal, 3), IndexOutOfBoundsException.class);
-         EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getElement(3, jFinal), IndexOutOfBoundsException.class);
+         EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getElement(jFinal, 3), ArrayIndexOutOfBoundsException.class);
+         EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getElement(3, jFinal), ArrayIndexOutOfBoundsException.class);
       }
    }
 
@@ -158,8 +158,8 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       assertTrue(matrix.getM12() == columnArray[1]);
       assertTrue(matrix.getM22() == columnArray[2]);
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getColumn(-1, columnArray), IndexOutOfBoundsException.class);
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getColumn(3, columnArray), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getColumn(-1, columnArray), ArrayIndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getColumn(3, columnArray), ArrayIndexOutOfBoundsException.class);
 
       Vector3D columnVector = new Vector3D();
       matrix.getColumn(0, columnVector);
@@ -177,8 +177,8 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       assertTrue(matrix.getM12() == columnVector.getElement(1));
       assertTrue(matrix.getM22() == columnVector.getElement(2));
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getColumn(-1, columnVector), IndexOutOfBoundsException.class);
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getColumn(3, columnVector), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getColumn(-1, columnVector), ArrayIndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getColumn(3, columnVector), ArrayIndexOutOfBoundsException.class);
    }
 
    @Test
@@ -203,8 +203,8 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       assertTrue(matrix.getM21() == rowArray[1]);
       assertTrue(matrix.getM22() == rowArray[2]);
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getRow(-1, rowArray), IndexOutOfBoundsException.class);
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getRow(3, rowArray), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getRow(-1, rowArray), ArrayIndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getRow(3, rowArray), ArrayIndexOutOfBoundsException.class);
 
       Vector3D rowVector = new Vector3D();
       matrix.getRow(0, rowVector);
@@ -222,8 +222,8 @@ public abstract class Matrix3DReadOnlyTest<T extends Matrix3DReadOnly>
       assertTrue(matrix.getM21() == rowVector.getElement(1));
       assertTrue(matrix.getM22() == rowVector.getElement(2));
 
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getRow(-1, rowVector), IndexOutOfBoundsException.class);
-      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getRow(3, rowVector), IndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getRow(-1, rowVector), ArrayIndexOutOfBoundsException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> matrix.getRow(3, rowVector), ArrayIndexOutOfBoundsException.class);
    }
 
    @Test

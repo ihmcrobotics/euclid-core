@@ -36,6 +36,7 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 
 /**
  * A {@code QuaternionBasedTransform} represents a 4-by-4 transformation matrix that can rotate and
@@ -849,7 +850,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    {
       translationVector.sub(other.getTranslationVector(), translationVector);
       quaternion.inverseTransform(translationVector, translationVector);
-      quaternion.inverseTransform(other.getQuaternion(), quaternion);
+      quaternion.multiplyConjugateThis(other.quaternion);
    }
 
    /**
@@ -1665,6 +1666,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * </p>
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #getQuaternion()}.
     */
    public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
    {

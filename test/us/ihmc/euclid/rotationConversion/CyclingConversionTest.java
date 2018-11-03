@@ -84,8 +84,7 @@ public class CyclingConversionTest
             break;
          case YAW_PITCH_ROLL:
             originalYawPitchRoll = EuclidCoreRandomTools.nextYawPitchRoll(random);
-            initialRotationType.rotationHolder = new double[3];
-            System.arraycopy(originalYawPitchRoll, 0, initialRotationType.rotationHolder, 0, 3);
+            initialRotationType.rotationHolder = new YawPitchRoll(originalYawPitchRoll);
             break;
          default:
             throw AllRotations.exception(initialRotationType);
@@ -220,7 +219,7 @@ public class CyclingConversionTest
             RotationMatrixConversion.convertRotationVectorToMatrix((Vector3DReadOnly) rotationHolder, matrix);
             break;
          case YAW_PITCH_ROLL:
-            RotationMatrixConversion.convertYawPitchRollToMatrix((double[]) rotationHolder, matrix);
+            RotationMatrixConversion.convertYawPitchRollToMatrix((YawPitchRollReadOnly) rotationHolder, matrix);
             break;
          default:
             throw exception(this);
@@ -246,7 +245,7 @@ public class CyclingConversionTest
             AxisAngleConversion.convertRotationVectorToAxisAngle((Vector3DReadOnly) rotationHolder, axisAngle);
             break;
          case YAW_PITCH_ROLL:
-            AxisAngleConversion.convertYawPitchRollToAxisAngle((double[]) rotationHolder, axisAngle);
+            AxisAngleConversion.convertYawPitchRollToAxisAngle((YawPitchRollReadOnly) rotationHolder, axisAngle);
             break;
          default:
             throw exception(this);
@@ -272,7 +271,7 @@ public class CyclingConversionTest
             QuaternionConversion.convertRotationVectorToQuaternion((Vector3DReadOnly) rotationHolder, quaternion);
             break;
          case YAW_PITCH_ROLL:
-            QuaternionConversion.convertYawPitchRollToQuaternion((double[]) rotationHolder, quaternion);
+            QuaternionConversion.convertYawPitchRollToQuaternion((YawPitchRollReadOnly) rotationHolder, quaternion);
             break;
          default:
             throw exception(this);
@@ -298,7 +297,7 @@ public class CyclingConversionTest
             rotationVector.set((Vector3DReadOnly) rotationHolder);
             break;
          case YAW_PITCH_ROLL:
-            RotationVectorConversion.convertYawPitchRollToRotationVector((double[]) rotationHolder, rotationVector);
+            RotationVectorConversion.convertYawPitchRollToRotationVector((YawPitchRollReadOnly) rotationHolder, rotationVector);
             break;
          default:
             throw exception(this);
