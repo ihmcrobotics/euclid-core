@@ -144,7 +144,7 @@ public class YawPitchRoll implements YawPitchRollBasics, GeometryObject<YawPitch
     * failing test does not necessarily mean that the two yaw-pitch-rolls represent two different
     * orientations.
     *
-    * @param other the other yaw-pitch-roll to compare against this. Not modified.
+    * @param object the other yaw-pitch-roll to compare against this. Not modified.
     * @return {@code true} if the two yaw-pitch-rolls are exactly equal component-wise, {@code false}
     *         otherwise.
     */

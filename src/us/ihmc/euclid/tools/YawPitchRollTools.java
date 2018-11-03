@@ -1,7 +1,6 @@
 package us.ihmc.euclid.tools;
 
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
-import us.ihmc.euclid.exceptions.NotAnOrientation2DException;
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
@@ -19,40 +18,83 @@ import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
 public class YawPitchRollTools
 {
-   public static final double ZERO_EPS = 1.0 - 12;
+   /** Tolerance used to test if a yaw-pitch-roll is equal to zero. */
+   public static final double ZERO_EPS = 1.0e-12;
 
+   /**
+    * Tests whether the three angles of the given yaw-pitch-roll are equal to zero.
+    * 
+    * @param yawPitchRoll the query. Not modified.
+    * @param epsilon the tolerance to use for the comparison.
+    * @return {@code true} if the three angles are equal to zero, {@code false} otherwise.
+    */
    public static boolean isZero(YawPitchRollReadOnly yawPitchRoll, double epsilon)
    {
       return isZero(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), epsilon);
    }
 
+   /**
+    * Tests whether the three given angles yaw, pitch, and roll are equal to zero.
+    * 
+    * @param yaw the first angle representing the rotation around the z-axis.
+    * @param pitch the second angle representing the rotation around the y-axis.
+    * @param roll the third angle representing the rotation around the x-axis.
+    * @param epsilon the tolerance to use for the comparison.
+    * @return {@code true} if the three angles are equal to zero, {@code false} otherwise.
+    */
    public static boolean isZero(double yaw, double pitch, double roll, double epsilon)
    {
       return Math.abs(yaw) < epsilon && Math.abs(pitch) < epsilon && Math.abs(roll) < epsilon;
    }
 
+   /**
+    * Tests whether the orientation represented by the given three angles yaw, pitch, and roll
+    * represent an orientation 2D, i.e. only the yaw angle is non-zero.
+    * 
+    * @param yaw the first angle representing the rotation around the z-axis.
+    * @param pitch the second angle representing the rotation around the y-axis.
+    * @param roll the third angle representing the rotation around the x-axis.
+    * @param epsilon the tolerance to use for the comparison.
+    * @return {@code true} if the query is considered a 2D orientation, {@code false} otherwise.
+    */
    public static boolean isOrientation2D(double yaw, double pitch, double roll, double epsilon)
    {
       return Math.abs(pitch) < epsilon && Math.abs(roll) < epsilon;
    }
 
-   public static void checkIfOrientation2D(YawPitchRollReadOnly yawPitchRoll, double epsilon)
-   {
-      checkIfOrientation2D(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), epsilon);
-   }
-
-   public static void checkIfOrientation2D(double yaw, double pitch, double roll, double epsilon)
-   {
-      if (!isOrientation2D(yaw, pitch, roll, epsilon))
-         throw new NotAnOrientation2DException(EuclidCoreIOTools.getYawPitchRollString(yaw, pitch, roll));
-   }
-
+   /**
+    * Computes and returns the distance between the two yaw-pitch-rolls {@code yawPitchRoll1} and
+    * {@code yawPitchRoll2}.
+    *
+    * @param yawPitchRoll1 the first yaw-pitch-roll to measure the distance. Not modified.
+    * @param yawPitchRoll2 the second yaw-pitch-roll to measure the distance. Not modified.
+    * @return the angle representing the distance between the two yaw-pitch-roll. It is contained in
+    *         [0, 2<i>pi</i>]
+    */
    public static double distance(YawPitchRollReadOnly yawPitchRoll1, YawPitchRollReadOnly yawPitchRoll2)
    {
       return distance(yawPitchRoll1.getYaw(), yawPitchRoll1.getPitch(), yawPitchRoll1.getRoll(), yawPitchRoll2.getYaw(), yawPitchRoll2.getPitch(),
                       yawPitchRoll2.getRoll());
    }
 
+   /**
+    * Computes and returns the distance between the two yaw-pitch-rolls {@code yawPitchRoll1} and
+    * {@code yawPitchRoll2}.
+    *
+    * @param yaw1 the first angle of the first orientation representing the rotation around the z-axis.
+    * @param pitch1 the second angle of the first orientation representing the rotation around the
+    *           y-axis.
+    * @param roll1 the third angle of the first orientation representing the rotation around the
+    *           x-axis.
+    * @param yaw2 the first angle of the second orientation representing the rotation around the
+    *           z-axis.
+    * @param pitch2 the second angle of the second orientation representing the rotation around the
+    *           y-axis.
+    * @param roll2 the third angle of the second orientation representing the rotation around the
+    *           x-axis.
+    * @return the angle representing the distance between the two yaw-pitch-roll. It is contained in
+    *         [0, 2<i>pi</i>]
+    */
    public static double distance(double yaw1, double pitch1, double roll1, double yaw2, double pitch2, double roll2)
    {
       double q1s, q1x, q1y, q1z;
@@ -106,21 +148,80 @@ public class YawPitchRollTools
       return 2.0 * Math.atan2(sinHalfTheta, s);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} using the orientation represented by the given yaw,
+    * pitch, and roll angles and stores the result in {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    *
+    * @param yaw the first angle representing the rotation around the z-axis.
+    * @param pitch the second angle representing the rotation around the y-axis.
+    * @param roll the third angle representing the rotation around the x-axis.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    public static void transform(double yaw, double pitch, double roll, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       transformImpl(yaw, pitch, roll, false, tupleOriginal, tupleTransformed);
    }
 
+   /**
+    * Transforms the tuple {@code tupleOriginal} using {@code yawPitchRoll} and stores the result in
+    * {@code tupleTransformed}.
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    *
+    * @param yawPitchRoll the yaw-pitch-roll used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    public static void transform(YawPitchRollReadOnly yawPitchRoll, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       transform(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), tupleOriginal, tupleTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using the orientation
+    * represented by the given angles yaw, pitch, and roll and stores the result in
+    * {@code tupleTransformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(YawPitchRollReadOnly, Tuple3DReadOnly, Tuple3DBasics)} with an yaw-pitch-roll
+    * that has been inverted.
+    * </p>
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    *
+    * @param yaw the first angle representing the rotation around the z-axis.
+    * @param pitch the second angle representing the rotation around the y-axis.
+    * @param roll the third angle representing the rotation around the x-axis.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    public static void inverseTransform(double yaw, double pitch, double roll, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       transformImpl(yaw, pitch, roll, true, tupleOriginal, tupleTransformed);
    }
 
+   /**
+    * Performs the inverse of the transform of the tuple {@code tupleOriginal} using
+    * {@code yawPitchRoll} and stores the result in {@code tupleTransformed}.
+    * <p>
+    * This is equivalent to calling
+    * {@link #transform(YawPitchRollReadOnly, Tuple3DReadOnly, Tuple3DBasics)} with an yaw-pitch-roll
+    * that has an angle of opposite value compared to the given one.
+    * </p>
+    * <p>
+    * Both tuples can be the same object for performing in place transformation.
+    * </p>
+    *
+    * @param yawPitchRoll the yaw-pitch-roll used to transform the tuple. Not modified.
+    * @param tupleOriginal the tuple to transform. Not modified.
+    * @param tupleTransformed the tuple in which the result is stored. Modified.
+    */
    public static void inverseTransform(YawPitchRollReadOnly yawPitchRoll, Tuple3DReadOnly tupleOriginal, Tuple3DBasics tupleTransformed)
    {
       transform(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), tupleOriginal, tupleTransformed);
