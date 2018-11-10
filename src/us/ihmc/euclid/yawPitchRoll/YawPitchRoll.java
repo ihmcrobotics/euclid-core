@@ -3,6 +3,7 @@ package us.ihmc.euclid.yawPitchRoll;
 import us.ihmc.euclid.interfaces.GeometryObject;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
+import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollBasics;
 import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
@@ -61,7 +62,22 @@ public class YawPitchRoll implements YawPitchRollBasics, GeometryObject<YawPitch
    }
 
    /**
-    * Creates a yzw-pitch-roll with the given angles.
+    * Creates a yaw-pitch-roll that represents the same orientation as the given rotation vector.
+    * <p>
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
+    * </p>
+    * 
+    * @param orientation the rotation vector used to initialized this. Not modified.
+    */
+   public YawPitchRoll(Vector3DReadOnly rotationVector)
+   {
+      setRotationVector(rotationVector);
+   }
+
+   /**
+    * Creates a yaw-pitch-roll with the given angles.
     * 
     * @param yaw the angle representing the first rotation around the z-axis.
     * @param pitch the angle representing the second rotation around the y-axis.
