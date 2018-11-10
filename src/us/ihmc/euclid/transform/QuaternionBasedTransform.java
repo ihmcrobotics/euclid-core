@@ -2,8 +2,6 @@ package us.ihmc.euclid.transform;
 
 import org.ejml.data.DenseMatrix64F;
 
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
-import us.ihmc.euclid.axisAngle.interfaces.AxisAngleReadOnly;
 import us.ihmc.euclid.interfaces.Clearable;
 import us.ihmc.euclid.interfaces.EpsilonComparable;
 import us.ihmc.euclid.interfaces.GeometricallyComparable;
@@ -13,6 +11,8 @@ import us.ihmc.euclid.matrix.RotationScaleMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
 import us.ihmc.euclid.tools.EuclidHashCodeTools;
 import us.ihmc.euclid.tools.QuaternionTools;
@@ -30,10 +30,10 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.Quaternion;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 
 /**
  * A {@code QuaternionBasedTransform} represents a 4-by-4 transformation matrix that can rotate and
@@ -170,31 +170,17 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Creates a new quaternion-based transform and initializes it to the given quaternion and
+    * Creates a new quaternion-based transform and initializes it to the given orientation and
     * translation.
     *
-    * @param quaternion the quaternion used to initialize the quaternion of this transform. Not
+    * @param orientation the orientation used to initialize the quaternion of this transform. Not
     *           modified.
     * @param translation the tuple used to initialize the translation part of this transform. Not
     *           modified.
     */
-   public QuaternionBasedTransform(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
+   public QuaternionBasedTransform(Orientation3DReadOnly orientation, Tuple3DReadOnly translation)
    {
-      set(quaternion, translation);
-   }
-
-   /**
-    * Creates a new quaternion-based transform and initializes it to the given axis-angle and
-    * translation.
-    *
-    * @param axisAngle the axis-angle used to initialize the quaternion of this transform. Not
-    *           modified.
-    * @param translation the tuple used to initialize the translation part of this transform. Not
-    *           modified.
-    */
-   public QuaternionBasedTransform(AxisAngleReadOnly axisAngle, Tuple3DReadOnly translation)
-   {
-      set(axisAngle, translation);
+      set(orientation, translation);
    }
 
    /**
@@ -418,53 +404,28 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Sets this quaternion-based transform to the given quaternion and translation.
+    * Sets this quaternion-based transform to the given orientation and translation.
     *
-    * @param quaternion the quaternion used to set the quaternion of this transform. Not modified.
+    * @param orientation the orientation used to set the quaternion of this transform. Not modified.
     * @param translation the tuple used to set the translation part of this transform. Not modified.
     */
-   public void set(QuaternionReadOnly quaternion, Tuple3DReadOnly translation)
+   public void set(Orientation3DReadOnly orientation, Tuple3DReadOnly translation)
    {
-      this.quaternion.set(quaternion);
+      quaternion.set(orientation);
       translationVector.set(translation);
    }
 
    /**
-    * Sets this quaternion-based transform to the given axis-angle and translation.
-    *
-    * @param axisAngle the axis-angle used to set the quaternion of this transform. Not modified.
-    * @param translation the tuple used to set the translation part of this transform. Not modified.
-    */
-   public void set(AxisAngleReadOnly axisAngle, Tuple3DReadOnly translation)
-   {
-      quaternion.set(axisAngle);
-      translationVector.set(translation);
-   }
-
-   /**
-    * Sets the rotation part of this transform to the given axis-angle.
+    * Sets the rotation part of this transform to the given orientation.
     * <p>
     * This method does not affect the translation part of this transform.
     * </p>
     *
-    * @param axisAngle the axis-angle used to set the quaternion of this transform. Not modified.
+    * @param orientation the orientation used to set the quaternion of this transform. Not modified.
     */
-   public void setRotation(AxisAngleReadOnly axisAngle)
+   public void setRotation(Orientation3DReadOnly orientation)
    {
-      quaternion.set(axisAngle);
-   }
-
-   /**
-    * Sets the rotation part of this transform to the given quaternion.
-    * <p>
-    * This method does not affect the translation part of this transform.
-    * </p>
-    *
-    * @param quaternion the quaternion used to set the quaternion of this transform. Not modified.
-    */
-   public void setRotation(QuaternionReadOnly quaternion)
-   {
-      this.quaternion.set(quaternion);
+      quaternion.set(orientation);
    }
 
    /**
@@ -578,6 +539,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * </p>
     *
     * @param yawPitchRoll array containing the yaw-pitch-roll angles. Not modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #setRotation(Orientation3DReadOnly)}
     */
    public void setRotationYawPitchRoll(double[] yawPitchRoll)
    {
@@ -847,7 +809,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    {
       translationVector.sub(other.getTranslationVector(), translationVector);
       quaternion.inverseTransform(translationVector, translationVector);
-      quaternion.inverseTransform(other.getQuaternion(), quaternion);
+      quaternion.multiplyConjugateThis(other.quaternion);
    }
 
    /**
@@ -1343,9 +1305,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void transform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      quaternion.transform(quaternionOriginal, quaternionTransformed);
+      quaternion.transform(orientationOriginal, orientationTransformed);
    }
 
    /** {@inheritDoc} */
@@ -1361,13 +1323,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /** {@inheritDoc} */
    @Override
    public void transform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
-   {
-      quaternion.transform(matrixOriginal, matrixTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       quaternion.transform(matrixOriginal, matrixTransformed);
    }
@@ -1429,9 +1384,9 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
 
    /** {@inheritDoc} */
    @Override
-   public void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   public void inverseTransform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      quaternion.inverseTransform(quaternionOriginal, quaternionTransformed);
+      quaternion.inverseTransform(orientationOriginal, orientationTransformed);
    }
 
    /** {@inheritDoc} */
@@ -1448,13 +1403,6 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    /** {@inheritDoc} */
    @Override
    public void inverseTransform(Matrix3DReadOnly matrixOriginal, Matrix3DBasics matrixTransformed)
-   {
-      quaternion.inverseTransform(matrixOriginal, matrixTransformed);
-   }
-
-   /** {@inheritDoc} */
-   @Override
-   public void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
    {
       quaternion.inverseTransform(matrixOriginal, matrixTransformed);
    }
@@ -1572,14 +1520,14 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Packs the quaternion and translation of this quaternion-based transform.
+    * Packs the orientation and translation of this quaternion-based transform.
     *
-    * @param quaternionToPack the quaternion in which this transform's quaternion is stored. Modified.
+    * @param orientationToPack the orientation in which this transform's quaternion is stored. Modified.
     * @param translationToPack the tuple in which this transform's translation is stored. Modified.
     */
-   public void get(QuaternionBasics quaternionToPack, Tuple3DBasics translationToPack)
+   public void get(Orientation3DBasics orientationToPack, Tuple3DBasics translationToPack)
    {
-      quaternionToPack.set(quaternion);
+      orientationToPack.set(quaternion);
       translationToPack.set(translationVector);
    }
 
@@ -1631,25 +1579,14 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    }
 
    /**
-    * Packs the rotation part of this affine transform as a quaternion.
+    * Packs the rotation part of this affine transform.
     *
-    * @param quaternionToPack the quaternion that is set to the rotation part of this transform.
+    * @param orientationToPack the orientation that is set to the rotation part of this transform.
     *           Modified.
     */
-   public void getRotation(QuaternionBasics quaternionToPack)
+   public void getRotation(Orientation3DBasics orientationToPack)
    {
-      quaternionToPack.set(quaternion);
-   }
-
-   /**
-    * Packs the rotation part of this affine transform as an axis-angle.
-    *
-    * @param axisAngleToPack the axis-angle that is set to the rotation part of this transform.
-    *           Modified.
-    */
-   public void getRotation(AxisAngleBasics axisAngleToPack)
-   {
-      axisAngleToPack.set(quaternion);
+      orientationToPack.set(quaternion);
    }
 
    /**
@@ -1677,6 +1614,7 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
     * </p>
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #getRotation(Orientation3DBasics)}.
     */
    public void getRotationYawPitchRoll(double[] yawPitchRollToPack)
    {

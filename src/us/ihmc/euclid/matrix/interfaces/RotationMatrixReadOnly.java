@@ -15,6 +15,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollBasics;
 
 /**
  * Read interface used for 3-by-3 rotation matrices.
@@ -87,6 +88,13 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
 
    /** {@inheritDoc} */
    @Override
+   default void get(YawPitchRollBasics yawPitchRollToPack)
+   {
+      yawPitchRollToPack.setRotationMatrix(getM00(), getM01(), getM02(), getM10(), getM11(), getM12(), getM20(), getM21(), getM22());
+   }
+
+   /** {@inheritDoc} */
+   @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertMatrixToRotationVector(this, rotationVectorToPack);
@@ -99,6 +107,7 @@ public interface RotationMatrixReadOnly extends Matrix3DReadOnly, Orientation3DR
    }
 
    /** {@inheritDoc} */
+   @Deprecated
    @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {

@@ -837,7 +837,7 @@ public abstract class AxisAngleTools
     * Prepend a rotation about the z-axis to {@code axisAngleOriginal} and stores the result in
     * {@code axisAngleToPack}.
     * <p>
-    * All the quaternions can be the same object.
+    * All the axis-angles can be the same object.
     * </p>
     *
     * <pre>

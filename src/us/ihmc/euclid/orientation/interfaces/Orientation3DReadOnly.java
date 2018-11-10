@@ -9,7 +9,6 @@ import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationScaleMatrixReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreIOTools;
-import us.ihmc.euclid.tools.QuaternionTools;
 import us.ihmc.euclid.tools.RotationMatrixTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
@@ -17,9 +16,9 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollBasics;
 
 /**
  * Base interface to easily identify implementations that represent a physical orientation in 3
@@ -126,6 +125,14 @@ public interface Orientation3DReadOnly
    void get(QuaternionBasics quaternionToPack);
 
    /**
+    * Converts, if necessary, and packs this orientation in a yaw-pitch-roll.
+    *
+    * @param yawPitchRollToPack the yaw-pitch-roll into which this orientation is to be stored.
+    *           Modified.
+    */
+   void get(YawPitchRollBasics yawPitchRollToPack);
+
+   /**
     * Converts and packs this orientation in a 3D rotation vector.
     * <p>
     * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
@@ -164,6 +171,7 @@ public interface Orientation3DReadOnly
     * </p>
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    * @deprecated Use {@link #get(YawPitchRollBasics)} instead.
     */
    void getYawPitchRoll(double[] yawPitchRollToPack);
 
@@ -479,13 +487,15 @@ public interface Orientation3DReadOnly
     * store the result in {@code quaternionTransformed}.
     * </p>
     *
-    * @param quaternionOriginal the original value of the quaternion to be transformed. Not modified.
-    * @param quaternionTransformed the result of the original quaternion after transformation.
+    * @param orientationOriginal the original value of the quaternion to be transformed. Not modified.
+    * @param orientationTransformed the result of the original quaternion after transformation.
     *           Modified.
     */
-   default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   default void transform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      QuaternionTools.multiply(this, false, quaternionOriginal, false, quaternionTransformed);
+      if (orientationTransformed != orientationOriginal)
+         orientationTransformed.set(orientationOriginal);
+      orientationTransformed.prepend(this);
    }
 
    /**
@@ -712,33 +722,35 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion by this orientation.
+    * Performs the inverse of the transform to the given orientation by this orientation.
     * <p>
-    * The operation is equivalent to prepend the inverse of this orientation to the given quaternion.
+    * The operation is equivalent to prepend the inverse of this orientation to the given orientation.
     * </p>
     *
-    * @param quaternionToTransform the quaternion to be transformed. Modified.
+    * @param orientationToTransform the orientation to be transformed. Modified.
     */
-   default void inverseTransform(QuaternionBasics quaternionToTransform)
+   default void inverseTransform(Orientation3DBasics orientationToTransform)
    {
-      inverseTransform(quaternionToTransform, quaternionToTransform);
+      inverseTransform(orientationToTransform, orientationToTransform);
    }
 
    /**
-    * Performs the inverse of the transform to the given {@code quaternionOriginal} and stores the
-    * result in {@code quaternionTransformed}.
+    * Performs the inverse of the transform to the given {@code orientationOriginal} and stores the
+    * result in {@code orientationTransformed}.
     * <p>
     * The operation is equivalent to prepend the inverse of this orientation to the
-    * {@code quaternionOriginal} and store the result in {@code quaternionTransformed}.
+    * {@code orientationOriginal} and store the result in {@code orientationTransformed}.
     * </p>
     *
-    * @param quaternionOriginal the original value of the quaternion to be transformed. Not modified.
-    * @param quaternionTransformed the result of the original quaternion after transformation.
+    * @param orientationOriginal the original value of the orientation to be transformed. Not modified.
+    * @param orientationTransformed the result of the original orientation after transformation.
     *           Modified.
     */
-   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   default void inverseTransform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      QuaternionTools.multiply(this, true, quaternionOriginal, false, quaternionTransformed);
+      if (orientationTransformed != orientationOriginal)
+         orientationTransformed.set(orientationOriginal);
+      orientationTransformed.prependInvertOther(this);
    }
 
    /**

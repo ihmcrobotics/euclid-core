@@ -53,25 +53,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          double[] actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          double[] expected = null;
-         double[] actual = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] actual = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
-         double[] actual = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRollArray(random);
+         double[] actual = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          double[] actual = expected.clone();
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }
@@ -91,25 +91,25 @@ public class EuclidCoreTestToolsTest
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          double[] actual = null;
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
          double[] expected = null;
-         double[] actual = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] actual = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
-         double[] actual = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRollArray(random);
+         double[] actual = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          assertAssertionMethodsBehaveProperly(true, methodName, argumentsClass, expected, actual, EPSILON);
       }
 
       {
-         double[] expected = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         double[] expected = EuclidCoreRandomTools.nextYawPitchRollArray(random);
          double[] actual = expected.clone();
          assertAssertionMethodsBehaveProperly(false, methodName, argumentsClass, expected, actual, EPSILON);
       }

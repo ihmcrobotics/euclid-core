@@ -16,6 +16,7 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollBasics;
 
 /**
  * Read-only interface for an axis-angle object.
@@ -183,12 +184,20 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
 
    /** {@inheritDoc} */
    @Override
+   default void get(YawPitchRollBasics yawPitchRollToPack)
+   {
+      yawPitchRollToPack.setAxisAngle(getX(), getY(), getZ(), getAngle());
+   }
+
+   /** {@inheritDoc} */
+   @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertAxisAngleToRotationVector(this, rotationVectorToPack);
    }
 
    /** {@inheritDoc} */
+   @Deprecated
    @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {

@@ -150,7 +150,7 @@ public class AxisAngleTest extends AxisAngleBasicsTest<AxisAngle>
       { // Test AxisAngle(double yaw, double pitch, double roll)
          for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
          {
-            double[] yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRoll(random);
+            double[] yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRollArray(random);
 
             axisAngle = new AxisAngle(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2]);
             AxisAngle expectedAxisAngle = new AxisAngle();
