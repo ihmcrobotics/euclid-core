@@ -2497,27 +2497,64 @@ public abstract class EuclidCoreTestTools
     * Asserts that when executing the given runnable, an specific exception is thrown.
     * 
     * @param runnable the code to be executed and to be throwing an exception.
-    * @param expectedExceptionType the expected type of the exception to catch when executing the
-    *           runnable.
-    * @throws AssertionError if the no exception is thrown or if the thrown exception is not equal to
-    *            {@code expectedExceptionType}.
+    * @param acceptableExceptionTypes the different types of acceptable exception to the runnable to
+    *           throw.
+    * @throws AssertionError if the no exception is thrown, if the type of the thrown exception is not
+    *            contained in {@code accepetableExceptionType}, or if {@code expectedMessageContent} is
+    *            not {@code null} and the detail message is different.
     */
-   public static void assertExceptionIsThrown(Runnable runnable, Class<?>... expectedExceptionType)
+   public static void assertExceptionIsThrown(Runnable runnable, Class<?>... acceptableExceptionTypes)
    {
-      assertExceptionIsThrown(null, runnable, expectedExceptionType);
+      assertExceptionIsThrown(null, runnable, acceptableExceptionTypes);
    }
 
-   public static void assertExceptionIsThrown(String messagePrefix, Runnable runnable, Class<?>... expectedExceptionType)
+   /**
+    * Asserts that when executing the given runnable, an specific exception is thrown.
+    * 
+    * @param messagePrefix prefix to add to the error message.
+    * @param runnable the code to be executed and to be throwing an exception.
+    * @param acceptableExceptionTypes the different types of acceptable exception to the runnable to
+    *           throw.
+    * @throws AssertionError if the no exception is thrown, if the type of the thrown exception is not
+    *            contained in {@code accepetableExceptionType}, or if {@code expectedMessageContent} is
+    *            not {@code null} and the detail message is different.
+    */
+   public static void assertExceptionIsThrown(String messagePrefix, Runnable runnable, Class<?>... acceptableExceptionTypes)
    {
-      assertExceptionIsThrown(messagePrefix, runnable, null, expectedExceptionType);
+      assertExceptionIsThrown(messagePrefix, runnable, null, acceptableExceptionTypes);
    }
 
-   public static void assertExceptionIsThrown(Runnable runnable, String expectedMessageContent, Class<?>... expectedExceptionType)
+   /**
+    * Asserts that when executing the given runnable, an specific exception is thrown.
+    * 
+    * @param runnable the code to be executed and to be throwing an exception.
+    * @param expectedMessageContent the detail message the thrown should be carrying. The detail
+    *           message is not tested when the argument is {@code null}.
+    * @param acceptableExceptionTypes the different types of acceptable exception to the runnable to
+    *           throw.
+    * @throws AssertionError if the no exception is thrown, if the type of the thrown exception is not
+    *            contained in {@code accepetableExceptionType}, or if {@code expectedMessageContent} is
+    *            not {@code null} and the detail message is different.
+    */
+   public static void assertExceptionIsThrown(Runnable runnable, String expectedMessageContent, Class<?>... acceptableExceptionTypes)
    {
-      assertExceptionIsThrown(null, runnable, expectedMessageContent, expectedExceptionType);
+      assertExceptionIsThrown(null, runnable, expectedMessageContent, acceptableExceptionTypes);
    }
 
-   public static void assertExceptionIsThrown(String messagePrefix, Runnable runnable, String expectedMessageContent, Class<?>... expectedExceptionTypes)
+   /**
+    * Asserts that when executing the given runnable, an specific exception is thrown.
+    * 
+    * @param messagePrefix prefix to add to the error message.
+    * @param runnable the code to be executed and to be throwing an exception.
+    * @param expectedMessageContent the detail message the thrown should be carrying. The detail
+    *           message is not tested when the argument is {@code null}.
+    * @param acceptableExceptionTypes the different types of acceptable exception to the runnable to
+    *           throw.
+    * @throws AssertionError if the no exception is thrown, if the type of the thrown exception is not
+    *            contained in {@code accepetableExceptionType}, or if {@code expectedMessageContent} is
+    *            not {@code null} and the detail message is different.
+    */
+   public static void assertExceptionIsThrown(String messagePrefix, Runnable runnable, String expectedMessageContent, Class<?>... acceptableExceptionTypes)
    {
       Exception exceptionCaught = null;
 
@@ -2534,7 +2571,7 @@ public abstract class EuclidCoreTestTools
             throw new AssertionError(addPrefixToMessage(messagePrefix, "The operation should have thrown an exception."));
 
          boolean isExceptionUnexpected = true;
-         for (Class<?> expectedExceptionType : expectedExceptionTypes)
+         for (Class<?> expectedExceptionType : acceptableExceptionTypes)
          {
             if (exceptionCaught.getClass().equals(expectedExceptionType))
             {
@@ -2544,7 +2581,7 @@ public abstract class EuclidCoreTestTools
 
          if (isExceptionUnexpected)
          {
-            List<String> expectedExceptionSimpleNames = Stream.of(expectedExceptionTypes).map(e -> e.getSimpleName()).collect(Collectors.toList());
+            List<String> expectedExceptionSimpleNames = Stream.of(acceptableExceptionTypes).map(e -> e.getSimpleName()).collect(Collectors.toList());
             throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected exception: expected any of " + expectedExceptionSimpleNames + ", actual = "
                   + exceptionCaught.getClass().getSimpleName()));
          }

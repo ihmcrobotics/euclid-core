@@ -429,11 +429,35 @@ public abstract class EuclidCoreIOTools
       return ret;
    }
 
+   /**
+    * Gets a representative {@code String} of {@code yawPitchRoll} as follows:
+    *
+    * <pre>
+    * ( 0.674,  0.455,  0.582 )
+    * </pre>
+    *
+    * @param yawPitchRoll the object to get the {@code String} of. Not modified.
+    * @return the representative {@code String}.
+    */
    public static String getYawPitchRollString(YawPitchRollReadOnly yawPitchRoll)
    {
       return getYawPitchRollString(DEFAULT_FORMAT, yawPitchRoll);
    }
-   
+
+   /**
+    * Gets a representative {@code String} of {@code yawPitchRoll} given a specific format to use.
+    * <p>
+    * Using the default format {@link #DEFAULT_FORMAT}, this provides a {@code String} as follows:
+    *
+    * <pre>
+    * ( 0.674,  0.455,  0.582 )
+    * </pre>
+    * </p>
+    *
+    * @param format the format to use for each number.
+    * @param yawPitchRoll the object to get the {@code String} of. Not modified.
+    * @return the representative {@code String}.
+    */
    public static String getYawPitchRollString(String format, YawPitchRollReadOnly yawPitchRoll)
    {
       if (yawPitchRoll == null)
@@ -442,11 +466,39 @@ public abstract class EuclidCoreIOTools
          return getYawPitchRollString(format, yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll());
    }
 
+   /**
+    * Gets a representative {@code String} of {@code yawPitchRoll} as follows:
+    *
+    * <pre>
+    * ( 0.674,  0.455,  0.582 )
+    * </pre>
+    *
+    * @param yaw the first angle representing the rotation around the z-axis.
+    * @param pitch the second angle representing the rotation around the y-axis.
+    * @param roll the third angle representing the rotation around the x-axis.
+    * @return the representative {@code String}.
+    */
    public static String getYawPitchRollString(double yaw, double pitch, double roll)
    {
       return getYawPitchRollString(DEFAULT_FORMAT, yaw, pitch, roll);
    }
 
+   /**
+    * Gets a representative {@code String} of {@code yawPitchRoll} given a specific format to use.
+    * <p>
+    * Using the default format {@link #DEFAULT_FORMAT}, this provides a {@code String} as follows:
+    *
+    * <pre>
+    * ( 0.674,  0.455,  0.582 )
+    * </pre>
+    * </p>
+    *
+    * @param format the format to use for each number.
+    * @param yaw the first angle representing the rotation around the z-axis.
+    * @param pitch the second angle representing the rotation around the y-axis.
+    * @param roll the third angle representing the rotation around the x-axis.
+    * @return the representative {@code String}.
+    */
    public static String getYawPitchRollString(String format, double yaw, double pitch, double roll)
    {
       return getStringOf("yaw-pitch-roll: (", ")", ", ", yaw, pitch, roll);
