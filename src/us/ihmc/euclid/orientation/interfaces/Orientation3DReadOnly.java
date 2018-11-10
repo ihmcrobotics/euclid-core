@@ -467,28 +467,29 @@ public interface Orientation3DReadOnly
    }
 
    /**
-    * Transforms the given quaternion by this orientation.
+    * Transforms the given {@code orientationToTransform} by this orientation.
     * <p>
-    * The operation is equivalent to prepend this orientation to the given quaternion.
+    * The operation is equivalent to prepend this orientation to the given
+    * {@code orientationToTransform}.
     * </p>
     *
-    * @param quaternionToTransform the quaternion to be transformed. Modified.
+    * @param orientationToTransform the orientation to be transformed. Modified.
     */
-   default void transform(QuaternionBasics quaternionToTransform)
+   default void transform(Orientation3DBasics orientationToTransform)
    {
-      transform(quaternionToTransform, quaternionToTransform);
+      transform(orientationToTransform, orientationToTransform);
    }
 
    /**
-    * Transforms the given {@code quaternionOriginal} and stores the result in
-    * {@code quaternionTransformed}.
+    * Transforms the given {@code orientationOriginal} and stores the result in
+    * {@code orientationTransformed}.
     * <p>
-    * The operation is equivalent to prepend this orientation to the {@code quaternionOriginal} and
-    * store the result in {@code quaternionTransformed}.
+    * The operation is equivalent to prepend this orientation to the {@code orientationOriginal} and
+    * store the result in {@code orientationTransformed}.
     * </p>
     *
-    * @param orientationOriginal the original value of the quaternion to be transformed. Not modified.
-    * @param orientationTransformed the result of the original quaternion after transformation.
+    * @param orientationOriginal the original value of the orientation to be transformed. Not modified.
+    * @param orientationTransformed the result of the original orientation after transformation.
     *           Modified.
     */
    default void transform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
