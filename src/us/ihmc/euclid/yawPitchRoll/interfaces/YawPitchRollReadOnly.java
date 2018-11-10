@@ -412,17 +412,18 @@ public interface YawPitchRollReadOnly extends Orientation3DReadOnly
    /**
     * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
     * <p>
-    * Two axis-angle are considered geometrically equal if the magnitude of their difference is less
-    * than or equal to {@code epsilon}.
+    * Two yaw-pitch-roll are considered geometrically equal if the magnitude of their difference is
+    * less than or equal to {@code epsilon}.
     * </p>
     * <p>
     * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply
     * {@code this.epsilonEquals(other, epsilon)} and vice versa.
     * </p>
     *
-    * @param other the other axis-angle to compare against this. Not modified.
+    * @param other the other yaw-pitch-roll to compare against this. Not modified.
     * @param epsilon the maximum angle for the two quaternions to be considered equal.
-    * @return {@code true} if the two axis-angle represent the same geometry, {@code false} otherwise.
+    * @return {@code true} if the two yaw-pitch-roll represent the same geometry, {@code false}
+    *         otherwise.
     */
    default boolean geometricallyEquals(YawPitchRollReadOnly other, double epsilon)
    {
