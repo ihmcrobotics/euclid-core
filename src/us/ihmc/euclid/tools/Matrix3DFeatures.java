@@ -490,7 +490,7 @@ public abstract class Matrix3DFeatures
     * Tests on a per coefficient basis if the two matrices {@code m1} and {@code m2} are <b>exactly</b>
     * equal.
     * <p>
-    * If any of the two matrices is {@code null}, this methods returns {@code false}.
+    * If any of the two matrices are {@code null}, this methods returns {@code false}.
     * </p>
     *
     * @param m1 the first matrix. Not modified.
@@ -500,7 +500,11 @@ public abstract class Matrix3DFeatures
     */
    public static boolean equals(Matrix3DReadOnly m1, Matrix3DReadOnly m2)
    {
-      try
+      if (m1 == null || m2 == null)
+      {
+         return false;
+      }
+      else
       {
          if (!m1.getClass().equals(m2.getClass()))
             return false;
@@ -511,10 +515,6 @@ public abstract class Matrix3DFeatures
          if (m1.getM20() != m2.getM20() || m1.getM21() != m2.getM21() || m1.getM22() != m2.getM22())
             return false;
          return true;
-      }
-      catch (NullPointerException e)
-      {
-         return false;
       }
    }
 }

@@ -2269,14 +2269,10 @@ public class AffineTransform
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof AffineTransform)
          return equals((AffineTransform) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

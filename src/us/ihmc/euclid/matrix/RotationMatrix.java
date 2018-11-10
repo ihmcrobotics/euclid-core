@@ -937,14 +937,10 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Matrix3DReadOnly)
          return equals((Matrix3DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

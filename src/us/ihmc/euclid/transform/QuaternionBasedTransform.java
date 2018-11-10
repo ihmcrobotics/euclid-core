@@ -1710,14 +1710,10 @@ public class QuaternionBasedTransform implements Transform, EpsilonComparable<Qu
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof QuaternionBasedTransform)
          return equals((QuaternionBasedTransform) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

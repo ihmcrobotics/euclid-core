@@ -196,14 +196,10 @@ public class Quaternion32 implements QuaternionBasics, GeometryObject<Quaternion
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Tuple4DReadOnly)
          return equals((Tuple4DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

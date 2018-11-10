@@ -172,14 +172,10 @@ public class Vector2D32 implements Vector2DBasics, GeometryObject<Vector2D32>
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Tuple2DReadOnly)
          return equals((Tuple2DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

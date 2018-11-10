@@ -414,14 +414,10 @@ public interface AxisAngleReadOnly extends Orientation3DReadOnly
     */
    default boolean equals(AxisAngleReadOnly other)
    {
-      try
-      {
-         return getX() == other.getX() && getY() == other.getY() && getZ() == other.getZ() && getAngle() == other.getAngle();
-      }
-      catch (NullPointerException e)
-      {
+      if (other == null)
          return false;
-      }
+      else
+         return getX() == other.getX() && getY() == other.getY() && getZ() == other.getZ() && getAngle() == other.getAngle();
    }
 
    /**

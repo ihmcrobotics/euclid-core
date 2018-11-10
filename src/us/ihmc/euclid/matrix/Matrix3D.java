@@ -231,14 +231,10 @@ public class Matrix3D implements Matrix3DBasics, GeometryObject<Matrix3D>
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Matrix3DReadOnly)
          return equals((Matrix3DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

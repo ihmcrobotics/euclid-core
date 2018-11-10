@@ -2972,14 +2972,10 @@ public class RigidBodyTransform
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof RigidBodyTransform)
          return equals((RigidBodyTransform) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

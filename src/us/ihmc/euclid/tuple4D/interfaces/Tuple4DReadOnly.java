@@ -327,13 +327,9 @@ public interface Tuple4DReadOnly
     */
    default boolean equals(Tuple4DReadOnly other)
    {
-      try
-      {
-         return getX() == other.getX() && getY() == other.getY() && getZ() == other.getZ() && getS() == other.getS();
-      }
-      catch (NullPointerException e)
-      {
+      if (other == null)
          return false;
-      }
+      else
+         return getX() == other.getX() && getY() == other.getY() && getZ() == other.getZ() && getS() == other.getS();
    }
 }

@@ -52,8 +52,8 @@ import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
  *
  * @author Sylvain Bertrand
  */
-public class RotationScaleMatrix implements CommonMatrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
-      GeometricallyComparable<RotationScaleMatrix>
+public class RotationScaleMatrix implements CommonMatrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>,
+      EpsilonComparable<RotationScaleMatrix>, GeometricallyComparable<RotationScaleMatrix>
 {
    /** The rotation part of this rotation-scale matrix. */
    private final RotationMatrix rotationMatrix = new RotationMatrix();
@@ -1167,14 +1167,10 @@ public class RotationScaleMatrix implements CommonMatrix3DBasics, RotationScaleM
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
-         return equals((RotationScaleMatrix) object);
-      }
-      catch (ClassCastException e)
-      {
+      if (object instanceof Matrix3DReadOnly)
+         return equals((Matrix3DReadOnly) object);
+      else
          return false;
-      }
    }
 
    /**

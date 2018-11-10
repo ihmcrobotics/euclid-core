@@ -205,14 +205,10 @@ public class Vector4D32 implements Vector4DBasics, GeometryObject<Vector4D32>
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Tuple4DReadOnly)
          return equals((Tuple4DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**
