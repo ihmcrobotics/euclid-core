@@ -29,6 +29,7 @@ import us.ihmc.euclid.tuple4D.Quaternion;
 import us.ihmc.euclid.tuple4D.Quaternion32;
 import us.ihmc.euclid.tuple4D.Vector4D;
 import us.ihmc.euclid.tuple4D.Vector4D32;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 
 /**
  * This class provides random generators to generate random geometry objects.
@@ -53,9 +54,9 @@ public abstract class EuclidCoreRandomTools
     * @param random the random generator to use.
     * @return an array containing the random yaw-pitch-roll angles.
     */
-   public static double[] nextYawPitchRoll(Random random)
+   public static double[] nextYawPitchRollArray(Random random)
    {
-      return nextYawPitchRoll(random, Math.PI, YawPitchRollConversion.MAX_SAFE_PITCH_ANGLE, Math.PI);
+      return nextYawPitchRollArray(random, Math.PI, YawPitchRollConversion.MAX_SAFE_PITCH_ANGLE, Math.PI);
    }
 
    /**
@@ -75,14 +76,76 @@ public abstract class EuclidCoreRandomTools
     * @return an array containing the random yaw-pitch-roll angles.
     * @throws RuntimeException if {@code minMaxYaw < 0}, {@code minMaxPitch < 0},
     *            {@code minMaxRoll < 0}.
+    * @deprecated Use {@link #nextYawPitchRoll(Random, double, double, double)} instead.
     */
-   public static double[] nextYawPitchRoll(Random random, double minMaxYaw, double minMaxPitch, double minMaxRoll)
+   public static double[] nextYawPitchRollArray(Random random, double minMaxYaw, double minMaxPitch, double minMaxRoll)
    {
       double yaw = nextDouble(random, minMaxYaw);
       double pitch = nextDouble(random, minMaxPitch);
       double roll = nextDouble(random, minMaxRoll);
       double[] yawPitchRoll = {yaw, pitch, roll};
       return yawPitchRoll;
+   }
+
+   /**
+    * Generates random a yaw-pitch-roll orientation.
+    * <p>
+    * <ul>
+    * <li>yaw &in; [-<i>pi</i>; <i>pi</i>],
+    * <li>pitch &in; [-<i>pi</i>/2.0; <i>pi</i>/2.0],
+    * <li>roll &in; [-<i>pi</i>; <i>pi</i>],
+    * </ul>
+    * </p>
+    *
+    * @param random the random generator to use.
+    * @return the random yaw-pitch-roll orientation.
+    */
+   public static YawPitchRoll nextYawPitchRoll(Random random)
+   {
+      return nextYawPitchRoll(random, Math.PI, YawPitchRollConversion.MAX_SAFE_PITCH_ANGLE, Math.PI);
+   }
+
+   /**
+    * Generates random a yaw-pitch-roll orientation.
+    * <p>
+    * <ul>
+    * <li>yaw &in; [-{@code minMaxYaw}; {@code minMaxYaw}],
+    * <li>pitch &in; [-{@code minMaxPitch}; {@code minMaxPitch}],
+    * <li>roll &in; [-{@code minMaxRoll}; {@code minMaxRoll}],
+    * </ul>
+    * </p>
+    *
+    * @param random the random generator to use.
+    * @param minMaxYaw the maximum absolute angle for the generated yaw angle.
+    * @param minMaxPitch the maximum absolute angle for the generated pitch angle.
+    * @param minMaxRoll the maximum absolute angle for the generated roll angle.
+    * @return the random yaw-pitch-roll orientation.
+    * @throws RuntimeException if {@code minMaxYaw < 0}, {@code minMaxPitch < 0},
+    *            {@code minMaxRoll < 0}.
+    */
+   public static YawPitchRoll nextYawPitchRoll(Random random, double minMaxYaw, double minMaxPitch, double minMaxRoll)
+   {
+      double yaw = nextDouble(random, minMaxYaw);
+      double pitch = nextDouble(random, minMaxPitch);
+      double roll = nextDouble(random, minMaxRoll);
+      return new YawPitchRoll(yaw, pitch, roll);
+   }
+
+   /**
+    * Generates a random yaw-pitch-roll orientation uniformly distributed on the unit-sphere.
+    * <p>
+    * The rotation magnitude described by the generated orientation is in [-{@code minMaxAngle};
+    * {@code minMaxAngle}].
+    * </p>
+    *
+    * @param random the random generator to use.
+    * @param minMaxAngle the maximum absolute angle described by the generated orientation.
+    * @return the random yaw-pitch-roll orientation.
+    * @throws RuntimeException if {@code minMaxAngle < 0}.
+    */
+   public static YawPitchRoll nextYawPitchRollUniform(Random random, double minMaxAngle)
+   {
+      return new YawPitchRoll(nextAxisAngle(random, minMaxAngle));
    }
 
    /**
@@ -430,8 +493,8 @@ public abstract class EuclidCoreRandomTools
     * Generates a random rigid-body transform.
     * <p>
     * <ul>
-    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
-    * angle in [-<i>pi</i>; <i>pi</i>].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation angle
+    * in [-<i>pi</i>; <i>pi</i>].
     * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
     * </p>
@@ -445,8 +508,7 @@ public abstract class EuclidCoreRandomTools
    }
 
    /**
-    * Generates a random rigid-body transform with the rotation part being a transform in the XY
-    * plane.
+    * Generates a random rigid-body transform with the rotation part being a transform in the XY plane.
     *
     * @param random the random generator to use.
     * @return the random rigid-body transform.
@@ -463,8 +525,8 @@ public abstract class EuclidCoreRandomTools
     * Generates a random quaternion-based transform.
     * <p>
     * <ul>
-    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
-    * angle in [-<i>pi</i>; <i>pi</i>].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation angle
+    * in [-<i>pi</i>; <i>pi</i>].
     * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
     * </p>
@@ -481,8 +543,8 @@ public abstract class EuclidCoreRandomTools
     * Generates a random affine transform.
     * <p>
     * <ul>
-    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
-    * angle in [-<i>pi</i>; <i>pi</i>].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation angle
+    * in [-<i>pi</i>; <i>pi</i>].
     * <li>Each scale factor is in ]0.0; 10.0].
     * <li>Each component of the translation part is in [-1.0; 1.0].
     * </ul>
@@ -526,8 +588,8 @@ public abstract class EuclidCoreRandomTools
     * Generates a random rotation-scale matrix.
     * <p>
     * <ul>
-    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
-    * angle in [-<i>pi</i>; <i>pi</i>].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation angle
+    * in [-<i>pi</i>; <i>pi</i>].
     * <li>Each scale factor is in ]0.0; {@code maxScale}].
     * </ul>
     * </p>
@@ -546,15 +608,15 @@ public abstract class EuclidCoreRandomTools
     * Generates a random rotation-scale matrix.
     * <p>
     * <ul>
-    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation
-    * angle in [-{@code minMaxAngle}; {@code minMaxAngle}].
+    * <li>The rotation part is uniformly distributed on the unit sphere and describes an rotation angle
+    * in [-{@code minMaxAngle}; {@code minMaxAngle}].
     * <li>Each scale factor is in ]0.0; {@code maxScale}].
     * </ul>
     * </p>
     *
     * @param random the random generator to use.
-    * @param minMaxAngle the maximum absolute angle value that describes the generated
-    *           rotation-scale matrix.
+    * @param minMaxAngle the maximum absolute angle value that describes the generated rotation-scale
+    *           matrix.
     * @param maxScale the maximum scale value used for each scale factor.
     * @return the random rotation-scale matrix.
     * @throws RuntimeException if {@code minMaxAngle < 0}.
@@ -703,8 +765,8 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
-    * @param minMax tuple used to bound the maximum absolute value of each component of the
-    *           generated vector. Not modified.
+    * @param minMax tuple used to bound the maximum absolute value of each component of the generated
+    *           vector. Not modified.
     * @return the random vector.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
@@ -955,8 +1017,8 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
-    * @param minMax tuple used to bound the maximum absolute value of each component of the
-    *           generated 2D vector. Not modified.
+    * @param minMax tuple used to bound the maximum absolute value of each component of the generated
+    *           2D vector. Not modified.
     * @return the random 2D vector.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
@@ -974,10 +1036,8 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
-    * @param min tuple used as upper-bound for each component of the generated 2D vector. Not
-    *           modified.
-    * @param max tuple used as lower-bound for each component of the generated 2D vector. Not
-    *           modified.
+    * @param min tuple used as upper-bound for each component of the generated 2D vector. Not modified.
+    * @param max tuple used as lower-bound for each component of the generated 2D vector. Not modified.
     * @return the random 2D vector.
     * @throws RuntimeException if {@code min}<sub>i</sub> > {@code max}<sub>i</sub>.
     */
@@ -1151,8 +1211,8 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
-    * @param minMax tuple used to bound the maximum absolute value of each component of the
-    *           generated vector. Not modified.
+    * @param minMax tuple used to bound the maximum absolute value of each component of the generated
+    *           vector. Not modified.
     * @param tupleToRandomize the tuple to randomize. Modified.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */
@@ -1201,8 +1261,8 @@ public abstract class EuclidCoreRandomTools
     * </p>
     *
     * @param random the random generator to use.
-    * @param minMax tuple used to bound the maximum absolute value of each component of the
-    *           generated vector. Not modified.
+    * @param minMax tuple used to bound the maximum absolute value of each component of the generated
+    *           vector. Not modified.
     * @param tupleToRandomize the 2D tuple to randomize. Modified.
     * @throws RuntimeException if any component of {@code minMax} is negative.
     */

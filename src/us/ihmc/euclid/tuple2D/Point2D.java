@@ -138,14 +138,10 @@ public class Point2D implements Point2DBasics, GeometryObject<Point2D>
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Tuple2DReadOnly)
          return equals((Tuple2DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

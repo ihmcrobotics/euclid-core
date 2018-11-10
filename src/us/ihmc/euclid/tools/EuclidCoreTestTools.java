@@ -3,6 +3,9 @@ package us.ihmc.euclid.tools;
 import static us.ihmc.euclid.tools.EuclidCoreIOTools.*;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import us.ihmc.euclid.axisAngle.AxisAngle;
 import us.ihmc.euclid.axisAngle.interfaces.AxisAngleBasics;
@@ -28,6 +31,7 @@ import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Tuple4DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
 /**
  * This class provides the tools to perform a variety of assertions on Euclid Core's types.
@@ -94,6 +98,9 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal. If only one of the
     *            arguments is equal to {@code null}. If at least one of the arguments has a length
     *            different than 3.
+    * @deprecated Use
+    *             {@link #assertYawPitchRollEquals(YawPitchRollReadOnly, YawPitchRollReadOnly, double)}
+    *             instead.
     */
    public static void assertYawPitchRollEquals(double[] expected, double[] actual, double epsilon)
    {
@@ -118,6 +125,9 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal. If only one of the
     *            arguments is equal to {@code null}. If at least one of the arguments has a length
     *            different than 3.
+    * @deprecated Use
+    *             {@link #assertYawPitchRollEquals(String, YawPitchRollReadOnly, YawPitchRollReadOnly, double)}
+    *             instead.
     */
    public static void assertYawPitchRollEquals(String messagePrefix, double[] expected, double[] actual, double epsilon)
    {
@@ -144,6 +154,9 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two sets of yaw-pitch-roll angles are not equal. If only one of the
     *            arguments is equal to {@code null}. If at least one of the arguments has a length
     *            different than 3.
+    * @deprecated Use
+    *             {@link #assertYawPitchRollEquals(String, YawPitchRollReadOnly, YawPitchRollReadOnly, double, String)}
+    *             instead.
     */
    public static void assertYawPitchRollEquals(String messagePrefix, double[] expected, double[] actual, double epsilon, String format)
    {
@@ -172,6 +185,85 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
+    * Asserts on a per component basis that the yaw-pitch-roll orientations are equal to an
+    * {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected yaw-pitch-roll orientation. Not modified.
+    * @param actual the actual yaw-pitch-roll orientation. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two yaw-pitch-rolls are not equal. If only one of the arguments is
+    *            equal to {@code null}.
+    */
+   public static void assertYawPitchRollEquals(YawPitchRollReadOnly expected, YawPitchRollReadOnly actual, double epsilon)
+   {
+      assertYawPitchRollEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts on a per component basis that the yaw-pitch-roll orientations are equal to an
+    * {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected yaw-pitch-roll orientation. Not modified.
+    * @param actual the actual yaw-pitch-roll orientation. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two yaw-pitch-rolls are not equal. If only one of the arguments is
+    *            equal to {@code null}.
+    */
+   public static void assertYawPitchRollEquals(String messagePrefix, YawPitchRollReadOnly expected, YawPitchRollReadOnly actual, double epsilon)
+   {
+      assertYawPitchRollEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts on a per component basis that the yaw-pitch-roll orientations are equal to an
+    * {@code epsilon}.
+    * <p>
+    * The method returns {@code true} for angles such as:
+    * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
+    * </p>
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected yaw-pitch-roll orientation. Not modified.
+    * @param actual the actual yaw-pitch-roll orientation. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two yaw-pitch-rolls are not equal. If only one of the arguments is
+    *            equal to {@code null}.
+    */
+   public static void assertYawPitchRollEquals(String messagePrefix, YawPitchRollReadOnly expected, YawPitchRollReadOnly actual, double epsilon, String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.epsilonEquals(actual, epsilon))
+      {
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+      }
+   }
+
+   /**
     * Asserts on a per component basis that the two sets of yaw-pitch-roll angles represent the same
     * geometry to an {@code epsilon}.
     * <p>
@@ -184,6 +276,9 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two sets of yaw-pitch-roll angles do not represent the same
     *            geometry. If only one of the arguments is equal to {@code null}. If at least one of
     *            the arguments has a length different than 3.
+    * @deprecated Use
+    *             {@link #assertYawPitchRollGeometricallyEquals(YawPitchRollReadOnly, YawPitchRollReadOnly, double)}
+    *             instead.
     */
    public static void assertYawPitchRollGeometricallyEquals(double[] expected, double[] actual, double epsilon)
    {
@@ -204,6 +299,9 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two sets of yaw-pitch-roll angles do not represent the same
     *            geometry. If only one of the arguments is equal to {@code null}. If at least one of
     *            the arguments has a length different than 3.
+    * @deprecated Use
+    *             {@link #assertYawPitchRollGeometricallyEquals(String, YawPitchRollReadOnly, YawPitchRollReadOnly, double)}
+    *             instead.
     */
    public static void assertYawPitchRollGeometricallyEquals(String messagePrefix, double[] expected, double[] actual, double epsilon)
    {
@@ -226,6 +324,9 @@ public abstract class EuclidCoreTestTools
     * @throws AssertionError if the two sets of yaw-pitch-roll angles do not represent the same
     *            geometry. If only one of the arguments is equal to {@code null}. If at least one of
     *            the arguments has a length different than 3.
+    * @deprecated Use
+    *             {@link #assertYawPitchRollGeometricallyEquals(String, YawPitchRollReadOnly, YawPitchRollReadOnly, double, String)}
+    *             instead.
     */
    public static void assertYawPitchRollGeometricallyEquals(String messagePrefix, double[] expected, double[] actual, double epsilon, String format)
    {
@@ -259,8 +360,74 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two rotation vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts the yaw-pitch-roll orientations are geometrically equivalent to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param expected the expected yaw-pitch-roll orientation. Not modified.
+    * @param actual the actual yaw-pitch-roll orientation. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two yaw-pitch-roll do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertYawPitchRollGeometricallyEquals(YawPitchRollReadOnly expected, YawPitchRollReadOnly actual, double epsilon)
+   {
+      assertYawPitchRollGeometricallyEquals(null, expected, actual, epsilon);
+   }
+
+   /**
+    * Asserts the yaw-pitch-roll orientations are geometrically equivalent to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected yaw-pitch-roll orientation. Not modified.
+    * @param actual the actual yaw-pitch-roll orientation. Not modified.
+    * @param epsilon the tolerance to use.
+    * @throws AssertionError if the two yaw-pitch-roll do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertYawPitchRollGeometricallyEquals(String messagePrefix, YawPitchRollReadOnly expected, YawPitchRollReadOnly actual, double epsilon)
+   {
+      assertYawPitchRollGeometricallyEquals(messagePrefix, expected, actual, epsilon, DEFAULT_FORMAT);
+   }
+
+   /**
+    * Asserts the yaw-pitch-roll orientations are geometrically equivalent to an {@code epsilon}.
+    * <p>
+    * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
+    * </p>
+    *
+    * @param messagePrefix prefix to add to the error message.
+    * @param expected the expected yaw-pitch-roll orientation. Not modified.
+    * @param actual the actual yaw-pitch-roll orientation. Not modified.
+    * @param epsilon the tolerance to use.
+    * @param format the format to use for printing each component when an {@code AssertionError} is
+    *           thrown.
+    * @throws AssertionError if the two yaw-pitch-roll do not represent the same geometry. If only one
+    *            of the arguments is equal to {@code null}.
+    */
+   public static void assertYawPitchRollGeometricallyEquals(String messagePrefix, YawPitchRollReadOnly expected, YawPitchRollReadOnly actual, double epsilon,
+                                                            String format)
+   {
+      if (expected == null && actual == null)
+         return;
+
+      if (!(expected != null && actual != null))
+         throwNotEqualAssertionError(messagePrefix, expected, actual, format);
+
+      if (!expected.geometricallyEquals(actual, epsilon))
+      {
+         double difference = expected.distance(actual);
+         difference = Math.abs(EuclidCoreTools.trimAngleMinusPiToPi(difference));
+         throwNotEqualAssertionError(messagePrefix, expected, actual, difference, format);
+      }
+   }
+
+   /**
+    * Asserts that the two rotation vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
@@ -281,8 +448,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two rotation vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two rotation vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
@@ -304,8 +470,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two rotation vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two rotation vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * The method returns {@code true} for angles such as:
     * {@code actualAngle = expectedAngle +/- 2.0 * Math.PI}.
@@ -414,8 +579,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two points represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two points represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -432,8 +596,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two points represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two points represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -451,8 +614,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two points represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two points represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -481,8 +643,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -499,8 +660,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -518,8 +678,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -616,8 +775,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two points represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two points represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -634,8 +792,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two points represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two points represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -653,8 +810,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two points represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two points represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -683,8 +839,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -701,8 +856,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -720,8 +874,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -818,8 +971,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -836,8 +988,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -855,8 +1006,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two vectors represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two vectors represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -951,8 +1101,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two rotation matrices represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two rotation matrices represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -969,8 +1118,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two rotation matrices represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two rotation matrices represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -989,8 +1137,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two rotation matrices represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two rotation matrices represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -1326,8 +1473,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two quaternions represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two quaternions represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -1344,8 +1490,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two quaternions represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two quaternions represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -1363,8 +1508,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two quaternions represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two quaternions represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -1458,8 +1602,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis if the two axis-angles represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two axis-angles represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -1476,8 +1619,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis if the two axis-angles represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two axis-angles represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -1495,8 +1637,7 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis if the two axis-angles represent the same geometry to an
-    * {@code epsilon}.
+    * Asserts that the two axis-angles represent the same geometry to an {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -2015,8 +2156,8 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two given rigid-body transform represent the same
-    * geometry to an {@code epsilon}.
+    * Asserts that the two given rigid-body transform represent the same geometry to an
+    * {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -2033,8 +2174,8 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two given rigid-body transform represent the same
-    * geometry to an {@code epsilon}.
+    * Asserts that the two given rigid-body transform represent the same geometry to an
+    * {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -2052,8 +2193,8 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two given rigid-body transform represent the same
-    * geometry to an {@code epsilon}.
+    * Asserts that the two given rigid-body transform represent the same geometry to an
+    * {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -2152,8 +2293,8 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two quaternion-based transforms represent the same
-    * geometry to an {@code epsilon}.
+    * Asserts that the two quaternion-based transforms represent the same geometry to an
+    * {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -2170,8 +2311,8 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two quaternion-based transforms represent the same
-    * geometry to an {@code epsilon}.
+    * Asserts that the two quaternion-based transforms represent the same geometry to an
+    * {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -2190,8 +2331,8 @@ public abstract class EuclidCoreTestTools
    }
 
    /**
-    * Asserts on a per component basis that the two quaternion-based transforms represent the same
-    * geometry to an {@code epsilon}.
+    * Asserts that the two quaternion-based transforms represent the same geometry to an
+    * {@code epsilon}.
     * <p>
     * Note: the two arguments are considered to be equal if they are both equal to {@code null}.
     * </p>
@@ -2350,6 +2491,122 @@ public abstract class EuclidCoreTestTools
       {
          throwNotEqualAssertionError(messagePrefix, expected, actual, format);
       }
+   }
+
+   /**
+    * Asserts that when executing the given runnable, an specific exception is thrown.
+    * 
+    * @param runnable the code to be executed and to be throwing an exception.
+    * @param acceptableExceptionTypes the different types of acceptable exception to the runnable to
+    *           throw.
+    * @throws AssertionError if the no exception is thrown, if the type of the thrown exception is not
+    *            contained in {@code accepetableExceptionType}, or if {@code expectedMessageContent} is
+    *            not {@code null} and the detail message is different.
+    */
+   public static void assertExceptionIsThrown(Runnable runnable, Class<?>... acceptableExceptionTypes)
+   {
+      assertExceptionIsThrown(null, runnable, acceptableExceptionTypes);
+   }
+
+   /**
+    * Asserts that when executing the given runnable, an specific exception is thrown.
+    * 
+    * @param messagePrefix prefix to add to the error message.
+    * @param runnable the code to be executed and to be throwing an exception.
+    * @param acceptableExceptionTypes the different types of acceptable exception to the runnable to
+    *           throw.
+    * @throws AssertionError if the no exception is thrown, if the type of the thrown exception is not
+    *            contained in {@code accepetableExceptionType}, or if {@code expectedMessageContent} is
+    *            not {@code null} and the detail message is different.
+    */
+   public static void assertExceptionIsThrown(String messagePrefix, Runnable runnable, Class<?>... acceptableExceptionTypes)
+   {
+      assertExceptionIsThrown(messagePrefix, runnable, null, acceptableExceptionTypes);
+   }
+
+   /**
+    * Asserts that when executing the given runnable, an specific exception is thrown.
+    * 
+    * @param runnable the code to be executed and to be throwing an exception.
+    * @param expectedMessageContent the detail message the thrown should be carrying. The detail
+    *           message is not tested when the argument is {@code null}.
+    * @param acceptableExceptionTypes the different types of acceptable exception to the runnable to
+    *           throw.
+    * @throws AssertionError if the no exception is thrown, if the type of the thrown exception is not
+    *            contained in {@code accepetableExceptionType}, or if {@code expectedMessageContent} is
+    *            not {@code null} and the detail message is different.
+    */
+   public static void assertExceptionIsThrown(Runnable runnable, String expectedMessageContent, Class<?>... acceptableExceptionTypes)
+   {
+      assertExceptionIsThrown(null, runnable, expectedMessageContent, acceptableExceptionTypes);
+   }
+
+   /**
+    * Asserts that when executing the given runnable, an specific exception is thrown.
+    * 
+    * @param messagePrefix prefix to add to the error message.
+    * @param runnable the code to be executed and to be throwing an exception.
+    * @param expectedMessageContent the detail message the thrown should be carrying. The detail
+    *           message is not tested when the argument is {@code null}.
+    * @param acceptableExceptionTypes the different types of acceptable exception to the runnable to
+    *           throw.
+    * @throws AssertionError if the no exception is thrown, if the type of the thrown exception is not
+    *            contained in {@code accepetableExceptionType}, or if {@code expectedMessageContent} is
+    *            not {@code null} and the detail message is different.
+    */
+   public static void assertExceptionIsThrown(String messagePrefix, Runnable runnable, String expectedMessageContent, Class<?>... acceptableExceptionTypes)
+   {
+      Exception exceptionCaught = null;
+
+      try
+      {
+         runnable.run();
+      }
+      catch (Exception e)
+      {
+         exceptionCaught = e;
+      } finally
+      {
+         if (exceptionCaught == null)
+            throw new AssertionError(addPrefixToMessage(messagePrefix, "The operation should have thrown an exception."));
+
+         boolean isExceptionUnexpected = true;
+         for (Class<?> expectedExceptionType : acceptableExceptionTypes)
+         {
+            if (exceptionCaught.getClass().equals(expectedExceptionType))
+            {
+               isExceptionUnexpected = false;
+            }
+         }
+
+         if (isExceptionUnexpected)
+         {
+            List<String> expectedExceptionSimpleNames = Stream.of(acceptableExceptionTypes).map(e -> e.getSimpleName()).collect(Collectors.toList());
+            throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected exception: expected any of " + expectedExceptionSimpleNames + ", actual = "
+                  + exceptionCaught.getClass().getSimpleName()));
+         }
+
+         if (expectedMessageContent != null && !expectedMessageContent.equals(exceptionCaught.getMessage()))
+         {
+            throw new AssertionError(addPrefixToMessage(messagePrefix, "Unexpected exception message: expected " + expectedMessageContent + ", actual = "
+                  + exceptionCaught.getMessage()));
+         }
+      }
+   }
+
+   private static void throwNotEqualAssertionError(String messagePrefix, YawPitchRollReadOnly expected, YawPitchRollReadOnly actual, String format)
+   {
+      String expectedAsString = getYawPitchRollString(format, expected);
+      String actualAsString = getYawPitchRollString(format, actual);
+      throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString);
+   }
+
+   private static void throwNotEqualAssertionError(String messagePrefix, YawPitchRollReadOnly expected, YawPitchRollReadOnly actual, double difference,
+                                                   String format)
+   {
+      String expectedAsString = getYawPitchRollString(format, expected);
+      String actualAsString = getYawPitchRollString(format, actual);
+      throwNotEqualAssertionError(messagePrefix, expectedAsString, actualAsString, Double.toString(difference));
    }
 
    private static void throwNotEqualAssertionError(String messagePrefix, Tuple2DReadOnly expected, Tuple2DReadOnly actual, String format)

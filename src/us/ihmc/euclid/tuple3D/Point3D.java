@@ -163,14 +163,10 @@ public class Point3D implements Point3DBasics, GeometryObject<Point3D>
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Tuple3DReadOnly)
          return equals((Tuple3DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

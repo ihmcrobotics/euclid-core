@@ -5,6 +5,8 @@ import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DBasics;
 import us.ihmc.euclid.matrix.interfaces.Matrix3DReadOnly;
 import us.ihmc.euclid.matrix.interfaces.RotationMatrixReadOnly;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.transform.AffineTransform;
 import us.ihmc.euclid.transform.QuaternionBasedTransform;
 import us.ihmc.euclid.transform.RigidBodyTransform;
@@ -17,8 +19,6 @@ import us.ihmc.euclid.tuple3D.interfaces.Point3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Point3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
 
@@ -121,33 +121,33 @@ public interface Transform
    void transform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
 
    /**
-    * Transforms the given {@code quaternionToTransform} by this transform.
+    * Transforms the given {@code orientationToTransform} by this transform.
     * <p>
     * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform}
     * prepend their rotation part the given quaternion. No scale or translation is applied to the
     * quaternion such that the output of this method is still a unit-quaternion.
     * </p>
     *
-    * @param quaternionToTransform the quaternion to transform. Modified.
+    * @param orientationToTransform the orientation to transform. Modified.
     */
-   default void transform(QuaternionBasics quaternionToTransform)
+   default void transform(Orientation3DBasics orientationToTransform)
    {
-      transform(quaternionToTransform, quaternionToTransform);
+      transform(orientationToTransform, orientationToTransform);
    }
 
    /**
-    * Transforms the given {@code quaternionOriginal} by this transform and stores the result in
-    * {@code quaternionTransformed}.
+    * Transforms the given {@code orientationOriginal} by this transform and stores the result in
+    * {@code orientationTransformed}.
     * <p>
     * {@link RigidBodyTransform}, {@link QuaternionBasedTransform}, and {@link AffineTransform}
     * prepend their rotation part the given quaternion. No scale or translation is applied to the
     * quaternion such that the output of this method is still a unit-quaternion.
     * </p>
     *
-    * @param quaternionOriginal the quaternion to transform. Not modified.
-    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
+    * @param orientationOriginal the orientation to transform. Not modified.
+    * @param orientationTransformed the orientation in which the result is stored. Modified.
     */
-   void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed);
+   void transform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed);
 
    /**
     * Transforms the vector part (x, y, z) of the given {@code vector4DToTransform} as a 3D vector
@@ -459,7 +459,10 @@ public interface Transform
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed);
+   default void transform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      transform((Orientation3DReadOnly) matrixOriginal, (Orientation3DBasics) matrixTransformed);
+   }
 
    /**
     * Transforms the given {@code rigidBodyTransformToTransform} by this transform.
@@ -592,31 +595,31 @@ public interface Transform
    void inverseTransform(Vector3DReadOnly vectorOriginal, Vector3DBasics vectorTransformed);
 
    /**
-    * Performs the inverse of the transform on the given quaternion {@code quaternionToTransform}.
+    * Performs the inverse of the transform on the given orientation {@code orientationToTransform}.
     * <p>
-    * This is equivalent to calling {@link #transform(QuaternionBasics)} with the inverse of this
+    * This is equivalent to calling {@link #transform(Orientation3DBasics)} with the inverse of this
     * transform.
     * </p>
     *
-    * @param quaternionToTransform the quaternion to transform. Modified.
+    * @param orientationToTransform the orientation to transform. Modified.
     */
-   default void inverseTransform(QuaternionBasics quaternionToTransform)
+   default void inverseTransform(Orientation3DBasics orientationToTransform)
    {
-      inverseTransform(quaternionToTransform, quaternionToTransform);
+      inverseTransform(orientationToTransform, orientationToTransform);
    }
 
    /**
-    * Performs the inverse of the transform on the given quaternion {@code quaternionOriginal} and
-    * stores the result in {@code quaternionTransformed}.
+    * Performs the inverse of the transform on the given orientation {@code orientationOriginal} and
+    * stores the result in {@code orientationTransformed}.
     * <p>
-    * This is equivalent to calling {@link #transform(QuaternionReadOnly, QuaternionBasics)} with
+    * This is equivalent to calling {@link #transform(Orientation3DReadOnly, Orientation3DBasics)} with
     * the inverse of this transform.
     * </p>
     *
-    * @param quaternionOriginal the quaternion to transform. Not modified.
-    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
+    * @param orientationOriginal the orientation to transform. Not modified.
+    * @param orientationTransformed the orientation in which the result is stored. Modified.
     */
-   void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed);
+   void inverseTransform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed);
 
    /**
     * Performs the inverse of the transform on the given vector {@code vectorToTransform}.
@@ -834,7 +837,10 @@ public interface Transform
     * @param matrixOriginal the rotation matrix to transform. Not modified.
     * @param matrixTransformed the rotation matrix in which the result is stored. Modified.
     */
-   void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed);
+   default void inverseTransform(RotationMatrixReadOnly matrixOriginal, RotationMatrix matrixTransformed)
+   {
+      inverseTransform((Orientation3DReadOnly) matrixOriginal, (Orientation3DBasics) matrixTransformed);
+   }
 
    /**
     * Performs the inverse of the transform on the given {@code rigidBodyTransformToTransform}.

@@ -8,12 +8,12 @@ repositories {
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: "java"
+apply plugin: "maven-publish"
+apply plugin: "com.jfrog.bintray"
 
 sourceCompatibility = 1.8
-version = '0.6.1'
+version = "0.7.0"
 group = "us.ihmc"
 
 project.ext.fullVersion = version
@@ -39,12 +39,12 @@ jar {
 }
 
 task sourceJar(type: Jar, dependsOn: classes) {
-   classifier = 'sources'
+   classifier = "sources"
    from sourceSets.main.allJava
 }
 
 task testJar(type: Jar, dependsOn: [classes, testClasses]) {
-   classifier = 'test'
+   classifier = "test"
    from sourceSets.test.output
 }
 
@@ -52,7 +52,7 @@ task testJar(type: Jar, dependsOn: [classes, testClasses]) {
 task genJavadocs(type: Javadoc, dependsOn: sourceJar) {
 	source = sourceSets.main.allJava
 	classpath = configurations.compile
-	destinationDir = file('websitedocs/website/static/javadocs')
+	destinationDir = file("websitedocs/website/static/javadocs")
 	setFailOnError(false)
 }
 
@@ -60,13 +60,13 @@ task genJavadocs(type: Javadoc, dependsOn: sourceJar) {
 
 // Task to rename the javadocs directory with the version number
 task javadocsVersion (dependsOn: genJavadocs) {
-	file('websitedocs/website/static/javadocs').renameTo(file('websitedocs/website/static/javadocs' + '-' + version))
+	file("websitedocs/website/static/javadocs").renameTo(file("websitedocs/website/static/javadocs" + "-" + version))
 }
 
 //Task to create a new version in docusaurus
 task docsVersion (type: Exec, dependsOn: javadocsVersion) {
-	workingDir 'websitedocs/website'
-	commandLine 'yarn', 'run', 'version', version
+	workingDir "websitedocs/website"
+	commandLine "yarn", "run", "version", version
 }
 
 publishing {
@@ -81,25 +81,25 @@ publishing {
              asNode().children().last() + {
                  resolveStrategy = Closure.DELEGATE_FIRST
                  name project.name
-                 description 'Euclid Core is library providing the common tools useful for geometric applications and vectorial math.'
+                 description "Euclid Core is library providing the common tools useful for geometric applications and vectorial math."
                  url project.ext.vcsUrl
                  licenses {
                      license {
                          name project.ext.licenseName
                          url project.ext.licenseURL
-                         distribution 'repo'
+                         distribution "repo"
                      }
                  }
                  developers {
                      developer {
-                         id 'sbertrand'
-                         name 'Sylvain Bertrand'
-                         email 'sbertrand@ihmc.us'
+                         id "sbertrand"
+                         name "Sylvain Bertrand"
+                         email "sbertrand@ihmc.us"
                      }
                      developer {
-                         id 'dcalvert'
-                         name 'Duncan Calvert'
-                         email 'dcalvert@ihmc.us'
+                         id "dcalvert"
+                         name "Duncan Calvert"
+                         email "dcalvert@ihmc.us"
                      }
                  }
              }
@@ -131,7 +131,7 @@ bintray {
    pkg {
       repo = "maven-release"
       name = project.ext.publicationName
-      userOrg = 'ihmcrobotics'
+      userOrg = "ihmcrobotics"
       desc = "IHMC Open Robotics Software Project ${project.name}"
 
       websiteUrl = project.ext.vcsUrl
@@ -139,7 +139,7 @@ bintray {
       vcsUrl = "${project.ext.vcsUrl}.git"
 
       licenses = [project.ext.bintrayLicenseName]
-      labels = ['ihmc', 'java', 'geometry', 'vector', 'math']
+      labels = ["ihmc", "java", "geometry", "vector", "math"]
       publicDownloadNumbers = true
 
       version {
@@ -159,9 +159,8 @@ repositories {
 
 dependencies {
     testCompile group: "junit", name: "junit", version: "4.12"
-    testCompile group: 'org.pitest', name: 'pitest', version: '1.2.0'
-    testCompile group: 'org.pitest', name: 'pitest-command-line', version: '1.2.0'
-    testCompile group: 'us.ihmc', name: 'ihmc-continuous-integration-framework', version: '0.9.4'
+    testCompile group: "org.pitest", name: "pitest", version: "1.2.0"
+    testCompile group: "org.pitest", name: "pitest-command-line", version: "1.2.0"
 
-    compile group: 'org.ejml', name: 'dense64', version: '0.30'
+    compile group: "org.ejml", name: "dense64", version: "0.30"
 }

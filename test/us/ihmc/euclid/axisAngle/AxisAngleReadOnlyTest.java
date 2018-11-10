@@ -1,9 +1,6 @@
 package us.ihmc.euclid.axisAngle;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -465,39 +462,35 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       Random random = new Random(3513515L);
       T axisAngle;
 
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test get(float[] axisAngleArray)
-         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-         {
-            float[] axisAngleArray = new float[4];
-            axisAngle = createRandomAxisAngle(random);
-            axisAngle.get(axisAngleArray);
+         float[] axisAngleArray = new float[4];
+         axisAngle = createRandomAxisAngle(random);
+         axisAngle.get(axisAngleArray);
 
-            assertTrue(axisAngle.getX32() == axisAngleArray[0]);
-            assertTrue(axisAngle.getY32() == axisAngleArray[1]);
-            assertTrue(axisAngle.getZ32() == axisAngleArray[2]);
-            assertTrue(axisAngle.getAngle32() == axisAngleArray[3]);
-         }
+         assertTrue(axisAngle.getX32() == axisAngleArray[0]);
+         assertTrue(axisAngle.getY32() == axisAngleArray[1]);
+         assertTrue(axisAngle.getZ32() == axisAngleArray[2]);
+         assertTrue(axisAngle.getAngle32() == axisAngleArray[3]);
       }
 
+      for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test get(float[] axisAngleArray, int startIndex)
-         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
-         {
-            int startIndex = random.nextInt(20);
-            float[] axisAngleArray = new float[startIndex + 4 + random.nextInt(10)];
-            axisAngle = createRandomAxisAngle(random);
+         int startIndex = random.nextInt(20);
+         float[] axisAngleArray = new float[startIndex + 4 + random.nextInt(10)];
+         axisAngle = createRandomAxisAngle(random);
 
-            axisAngle.get(startIndex, axisAngleArray);
+         axisAngle.get(startIndex, axisAngleArray);
 
-            assertTrue(axisAngle.getX32() == axisAngleArray[startIndex + 0]);
-            assertTrue(axisAngle.getY32() == axisAngleArray[startIndex + 1]);
-            assertTrue(axisAngle.getZ32() == axisAngleArray[startIndex + 2]);
-            assertTrue(axisAngle.getAngle32() == axisAngleArray[startIndex + 3]);
-         }
+         assertTrue(axisAngle.getX32() == axisAngleArray[startIndex + 0]);
+         assertTrue(axisAngle.getY32() == axisAngleArray[startIndex + 1]);
+         assertTrue(axisAngle.getZ32() == axisAngleArray[startIndex + 2]);
+         assertTrue(axisAngle.getAngle32() == axisAngleArray[startIndex + 3]);
       }
    }
 
    @Test
-   public void testGetWithIndex() throws Exception
+   public void testGetElement() throws Exception
    {
       Random random = new Random(324234L);
 
@@ -657,64 +650,12 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       }
 
       // Test exceptions
-      try
-      {
-         axisAngle = createRandomAxisAngle(random);
-         axisAngle.transform(new Vector2D());
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      catch (NotAnOrientation2DException e)
-      {
-         // good
-      }
-      catch (Exception e)
-      {
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-
-      try
-      {
-         axisAngle = createRandomAxisAngle(random);
-         axisAngle.transform(new Vector2D(), new Vector2D());
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      catch (NotAnOrientation2DException e)
-      {
-         // good
-      }
-      catch (Exception e)
-      {
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      try
-      {
-         axisAngle = createRandomAxisAngle(random);
-         axisAngle.transform(new Vector2D(), true);
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      catch (NotAnOrientation2DException e)
-      {
-         // good
-      }
-      catch (Exception e)
-      {
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-
-      try
-      {
-         axisAngle = createRandomAxisAngle(random);
-         axisAngle.transform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      catch (NotAnOrientation2DException e)
-      {
-         // good
-      }
-      catch (Exception e)
-      {
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> createRandomAxisAngle(random).transform(new Vector2D()), NotAnOrientation2DException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> createRandomAxisAngle(random).transform(new Vector2D(), new Vector2D()),
+                                                  NotAnOrientation2DException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> createRandomAxisAngle(random).transform(new Vector2D(), true), NotAnOrientation2DException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> createRandomAxisAngle(random).transform(new Vector2D(), new Vector2D(), true),
+                                                  NotAnOrientation2DException.class);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test transform Matrix3D
@@ -915,64 +856,13 @@ public abstract class AxisAngleReadOnlyTest<T extends AxisAngleReadOnly>
       }
 
       // Test exceptions
-      try
-      {
-         axisAngle = createRandomAxisAngle(random);
-         axisAngle.inverseTransform(new Vector2D());
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      catch (NotAnOrientation2DException e)
-      {
-         // good
-      }
-      catch (Exception e)
-      {
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-
-      try
-      {
-         axisAngle = createRandomAxisAngle(random);
-         axisAngle.inverseTransform(new Vector2D(), new Vector2D());
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      catch (NotAnOrientation2DException e)
-      {
-         // good
-      }
-      catch (Exception e)
-      {
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      try
-      {
-         axisAngle = createRandomAxisAngle(random);
-         axisAngle.inverseTransform(new Vector2D(), true);
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      catch (NotAnOrientation2DException e)
-      {
-         // good
-      }
-      catch (Exception e)
-      {
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-
-      try
-      {
-         axisAngle = createRandomAxisAngle(random);
-         axisAngle.inverseTransform(new Vector2D(), new Vector2D(), true);
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
-      catch (NotAnOrientation2DException e)
-      {
-         // good
-      }
-      catch (Exception e)
-      {
-         fail("Should have thrown a NotAnOrientation2DException.");
-      }
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> createRandomAxisAngle(random).inverseTransform(new Vector2D()), NotAnOrientation2DException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> createRandomAxisAngle(random).inverseTransform(new Vector2D(), new Vector2D()),
+                                                  NotAnOrientation2DException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> createRandomAxisAngle(random).inverseTransform(new Vector2D(), true),
+                                                  NotAnOrientation2DException.class);
+      EuclidCoreTestTools.assertExceptionIsThrown(() -> createRandomAxisAngle(random).inverseTransform(new Vector2D(), new Vector2D(), true),
+                                                  NotAnOrientation2DException.class);
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test inverseTransform(QuaternionBasics quaternionToTransform)

@@ -18,6 +18,7 @@ import us.ihmc.euclid.tools.Matrix3DFeatures;
 import us.ihmc.euclid.tuple3D.Vector3D;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 
 /**
  * A {@code RotationScaleMatrix} is a 3-by-3 matrix that represents a 3D orientation times a
@@ -51,8 +52,8 @@ import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
  *
  * @author Sylvain Bertrand
  */
-public class RotationScaleMatrix implements CommonMatrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>, EpsilonComparable<RotationScaleMatrix>,
-      GeometricallyComparable<RotationScaleMatrix>
+public class RotationScaleMatrix implements CommonMatrix3DBasics, RotationScaleMatrixReadOnly, Settable<RotationScaleMatrix>,
+      EpsilonComparable<RotationScaleMatrix>, GeometricallyComparable<RotationScaleMatrix>
 {
    /** The rotation part of this rotation-scale matrix. */
    private final RotationMatrix rotationMatrix = new RotationMatrix();
@@ -713,6 +714,7 @@ public class RotationScaleMatrix implements CommonMatrix3DBasics, RotationScaleM
     * </pre>
     *
     * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not modified.
+    * @deprecated Use {@link #setRotation(Orientation3DReadOnly)} with {@link YawPitchRoll}.
     */
    public void setRotationYawPitchRoll(double[] yawPitchRoll)
    {
@@ -890,6 +892,7 @@ public class RotationScaleMatrix implements CommonMatrix3DBasics, RotationScaleM
     * </pre>
     *
     * @param yawPitchRoll the yaw-pitch-roll Euler angles to copy the orientation from. Not modified.
+    * @deprecated Use {@link #set(Orientation3DReadOnly, double)} with {@link YawPitchRoll}.
     */
    public void setYawPitchRoll(double[] yawPitchRoll)
    {
@@ -1164,14 +1167,10 @@ public class RotationScaleMatrix implements CommonMatrix3DBasics, RotationScaleM
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
-         return equals((RotationScaleMatrix) object);
-      }
-      catch (ClassCastException e)
-      {
+      if (object instanceof Matrix3DReadOnly)
+         return equals((Matrix3DReadOnly) object);
+      else
          return false;
-      }
    }
 
    /**

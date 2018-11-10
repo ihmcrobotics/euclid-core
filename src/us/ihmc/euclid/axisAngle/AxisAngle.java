@@ -199,14 +199,10 @@ public class AxisAngle implements AxisAngleBasics, EpsilonComparable<AxisAngle>,
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
-         return equals((AxisAngle) object);
-      }
-      catch (ClassCastException e)
-      {
+      if (object instanceof AxisAngleReadOnly)
+         return equals((AxisAngleReadOnly) object);
+      else
          return false;
-      }
    }
 
    /**

@@ -218,14 +218,10 @@ public class Vector3D32 implements Vector3DBasics, GeometryObject<Vector3D32>
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Tuple3DReadOnly)
          return equals((Tuple3DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

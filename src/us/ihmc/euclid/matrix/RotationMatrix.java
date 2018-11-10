@@ -151,13 +151,12 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
     * Creates a new rotation matrix representing the same orientation as the given rotation vector
     * {@code rotationVector}.
     * <p>
-    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation.
-    * A rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle
-    * of the same axis-angle.
+    * WARNING: a rotation vector is different from a yaw-pitch-roll or Euler angles representation. A
+    * rotation vector is equivalent to the axis of an axis-angle that is multiplied by the angle of the
+    * same axis-angle.
     * </p>
     *
-    * @param rotationVector the rotation vector used to initialize this rotation matrix. Not
-    *           modified.
+    * @param rotationVector the rotation vector used to initialize this rotation matrix. Not modified.
     */
    public RotationMatrix(Vector3DReadOnly rotationVector)
    {
@@ -171,6 +170,18 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    public void setToZero()
    {
       setIdentity();
+   }
+
+   /**
+    * {@inheritDoc}
+    * <p>
+    * Note that this rotation matrix becomes invalid and has to be updated before being usable again.
+    * </p>
+    */
+   @Override
+   public void setToNaN()
+   {
+      setUnsafe(Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN);
    }
 
    /**
@@ -369,8 +380,7 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    }
 
    /**
-    * Sets this rotation matrix to equal the 3D matrix {@code matrix} and then normalizes
-    * {@code this}.
+    * Sets this rotation matrix to equal the 3D matrix {@code matrix} and then normalizes {@code this}.
     *
     * @param matrix the matrix to copy the values from. Not modified.
     * @throws NotARotationMatrixException if the normalization failed.
@@ -485,8 +495,8 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    }
 
    /**
-    * Sets this rotation matrix to represent a counter clockwise rotation around the z-axis of an
-    * angle {@code yaw}.
+    * Sets this rotation matrix to represent a counter clockwise rotation around the z-axis of an angle
+    * {@code yaw}.
     *
     * <pre>
     *        / cos(yaw) -sin(yaw) 0 \
@@ -502,8 +512,8 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    }
 
    /**
-    * Sets this rotation matrix to represent a counter clockwise rotation around the y-axis of an
-    * angle {@code pitch}.
+    * Sets this rotation matrix to represent a counter clockwise rotation around the y-axis of an angle
+    * {@code pitch}.
     *
     * <pre>
     *        /  cos(pitch) 0 sin(pitch) \
@@ -519,8 +529,8 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    }
 
    /**
-    * Sets this rotation matrix to represent a counter clockwise rotation around the x-axis of an
-    * angle {@code roll}.
+    * Sets this rotation matrix to represent a counter clockwise rotation around the x-axis of an angle
+    * {@code roll}.
     *
     * <pre>
     *        / 1     0          0     \
@@ -791,9 +801,9 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
     * </p>
     *
     * @param rf the other rotation matrix used for the interpolation. Not modified.
-    * @param alpha the percentage used for the interpolation. A value of 0 will result in not
-    *           modifying this rotation matrix, while a value of 1 is equivalent to setting this
-    *           rotation matrix to {@code rf}.
+    * @param alpha the percentage used for the interpolation. A value of 0 will result in not modifying
+    *           this rotation matrix, while a value of 1 is equivalent to setting this rotation matrix
+    *           to {@code rf}.
     */
    public void interpolate(RotationMatrixReadOnly rf, double alpha)
    {
@@ -826,8 +836,8 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
     * {@code transform}.
     * </p>
     * <p>
-    * Note: the transformation of a {@code RotationMatrix} strongly differs from the transformation
-    * of a {@link Matrix3DBasics}.
+    * Note: the transformation of a {@code RotationMatrix} strongly differs from the transformation of
+    * a {@link Matrix3DBasics}.
     * </p>
     */
    @Override
@@ -839,12 +849,12 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    /**
     * {@inheritDoc}
     * <p>
-    * this = R<sup>T</sup> * this where 'R' is the 3-by-3 matrix representing the rotation part of
-    * the {@code transform}.
+    * this = R<sup>T</sup> * this where 'R' is the 3-by-3 matrix representing the rotation part of the
+    * {@code transform}.
     * </p>
     * <p>
-    * Note: the transformation of a {@code RotationMatrix} strongly differs from the transformation
-    * of a {@link Matrix3DBasics}.
+    * Note: the transformation of a {@code RotationMatrix} strongly differs from the transformation of
+    * a {@link Matrix3DBasics}.
     * </p>
     */
    @Override
@@ -917,9 +927,9 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    }
 
    /**
-    * Tests if the given {@code object}'s class is the same as this, in which case the method
-    * returns {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the
-    * {@code object} is {@code null}.
+    * Tests if the given {@code object}'s class is the same as this, in which case the method returns
+    * {@link #equals(Matrix3DReadOnly)}, it returns {@code false} otherwise or if the {@code object} is
+    * {@code null}.
     *
     * @param object the object to compare against this. Not modified.
     * @return {@code true} if {@code object} and this are exactly equal, {@code false} otherwise.
@@ -927,14 +937,10 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof Matrix3DReadOnly)
          return equals((Matrix3DReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**
@@ -954,8 +960,8 @@ public class RotationMatrix implements CommonMatrix3DBasics, RotationMatrixReadO
    /**
     * Tests if {@code this} and {@code other} represent the same orientation to an {@code epsilon}.
     * <p>
-    * Two rotation matrices are considered geometrically equal if the magnitude of their difference
-    * is less than or equal to {@code epsilon}.
+    * Two rotation matrices are considered geometrically equal if the magnitude of their difference is
+    * less than or equal to {@code epsilon}.
     * </p>
     * <p>
     * Note that {@code this.geometricallyEquals(other, epsilon) == true} does not necessarily imply

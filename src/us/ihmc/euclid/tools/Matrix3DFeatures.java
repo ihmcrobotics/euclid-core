@@ -191,13 +191,15 @@ public abstract class Matrix3DFeatures
     */
    public static boolean isIdentity(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22, double epsilon)
    {
-      if (Math.abs(m00 - 1.0) > epsilon || Math.abs(m11 - 1.0) > epsilon || Math.abs(m22 - 1.0) > epsilon)
-         return false;
-      if (Math.abs(m01) > epsilon || Math.abs(m02) > epsilon || Math.abs(m12) > epsilon)
-         return false;
-      if (Math.abs(m10) > epsilon || Math.abs(m20) > epsilon || Math.abs(m21) > epsilon)
-         return false;
-      return true;
+      if (Math.abs(m00 - 1.0) <= epsilon && Math.abs(m11 - 1.0) <= epsilon && Math.abs(m22 - 1.0) <= epsilon)
+      {
+         if (Math.abs(m01) <= epsilon && Math.abs(m02) <= epsilon && Math.abs(m12) <= epsilon)
+         {
+            if (Math.abs(m10) <= epsilon && Math.abs(m20) <= epsilon && Math.abs(m21) <= epsilon)
+               return true;
+         }
+      }
+      return false;
    }
 
    /**
@@ -295,33 +297,40 @@ public abstract class Matrix3DFeatures
                                           double epsilon)
    {
       double xyDot = m00 * m10 + m01 * m11 + m02 * m12;
-      if (Math.abs(xyDot) > epsilon)
-         return false;
+      if (Math.abs(xyDot) <= epsilon)
+      {
+         double xzDot = m00 * m20 + m01 * m21 + m02 * m22;
+         if (Math.abs(xzDot) <= epsilon)
+         {
+            /*
+             * Either one of the two previous conditions will fail if any of the matrix coefficient is
+             * Double.NaN, so the following conditions can assume safely that there is Double.NaN.
+             */
+            double yzDot = m10 * m20 + m11 * m21 + m12 * m22;
+            if (Math.abs(yzDot) > epsilon)
+               return false;
 
-      double xzDot = m00 * m20 + m01 * m21 + m02 * m22;
-      if (Math.abs(xzDot) > epsilon)
-         return false;
+            double xNormSquared = m00 * m00 + m01 * m01 + m02 * m02;
+            if (Math.abs(xNormSquared - 1.0) > epsilon)
+               return false;
 
-      double yzDot = m10 * m20 + m11 * m21 + m12 * m22;
-      if (Math.abs(yzDot) > epsilon)
-         return false;
+            double yNormSquared = m10 * m10 + m11 * m11 + m12 * m12;
+            if (Math.abs(yNormSquared - 1.0) > epsilon)
+               return false;
 
-      double xNormSquared = m00 * m00 + m01 * m01 + m02 * m02;
-      if (Math.abs(xNormSquared - 1.0) > epsilon)
-         return false;
+            double zNormSquared = m20 * m20 + m21 * m21 + m22 * m22;
+            if (Math.abs(zNormSquared - 1.0) > epsilon)
+               return false;
 
-      double yNormSquared = m10 * m10 + m11 * m11 + m12 * m12;
-      if (Math.abs(yNormSquared - 1.0) > epsilon)
-         return false;
+            double determinant = Matrix3DFeatures.determinant(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+            if (Math.abs(determinant - 1.0) > epsilon)
+               return false;
 
-      double zNormSquared = m20 * m20 + m21 * m21 + m22 * m22;
-      if (Math.abs(zNormSquared - 1.0) > epsilon)
-         return false;
+            return true;
+         }
+      }
 
-      double determinant = Matrix3DFeatures.determinant(m00, m01, m02, m10, m11, m12, m20, m21, m22);
-      if (Math.abs(determinant - 1.0) > epsilon)
-         return false;
-      return true;
+      return false;
    }
 
    /**
@@ -350,17 +359,7 @@ public abstract class Matrix3DFeatures
     */
    public static boolean isMatrix2D(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22, double epsilon)
    {
-      if (Math.abs(m20) > epsilon)
-         return false;
-      if (Math.abs(m02) > epsilon)
-         return false;
-      if (Math.abs(m21) > epsilon)
-         return false;
-      if (Math.abs(m12) > epsilon)
-         return false;
-      if (Math.abs(m22 - 1.0) > epsilon)
-         return false;
-      return true;
+      return Math.abs(m20) <= epsilon && Math.abs(m02) <= epsilon && Math.abs(m21) <= epsilon && Math.abs(m12) <= epsilon && Math.abs(m22 - 1.0) <= epsilon;
    }
 
    /**
@@ -428,11 +427,12 @@ public abstract class Matrix3DFeatures
    public static boolean isMatrixSkewSymmetric(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22,
                                                double epsilon)
    {
-      if (Math.abs(m00) > epsilon || Math.abs(m11) > epsilon || Math.abs(m22) > epsilon)
-         return false;
-      if (Math.abs(m01 + m10) > epsilon || Math.abs(m02 + m20) > epsilon || Math.abs(m12 + m21) > epsilon)
-         return false;
-      return true;
+      if (Math.abs(m00) <= epsilon && Math.abs(m11) <= epsilon && Math.abs(m22) <= epsilon)
+      {
+         if (Math.abs(m01 + m10) <= epsilon && Math.abs(m02 + m20) <= epsilon && Math.abs(m12 + m21) <= epsilon)
+            return true;
+      }
+      return false;
    }
 
    /**
@@ -490,7 +490,7 @@ public abstract class Matrix3DFeatures
     * Tests on a per coefficient basis if the two matrices {@code m1} and {@code m2} are <b>exactly</b>
     * equal.
     * <p>
-    * If any of the two matrices is {@code null}, this methods returns {@code false}.
+    * If any of the two matrices are {@code null}, this methods returns {@code false}.
     * </p>
     *
     * @param m1 the first matrix. Not modified.
@@ -500,7 +500,11 @@ public abstract class Matrix3DFeatures
     */
    public static boolean equals(Matrix3DReadOnly m1, Matrix3DReadOnly m2)
    {
-      try
+      if (m1 == null || m2 == null)
+      {
+         return false;
+      }
+      else
       {
          if (!m1.getClass().equals(m2.getClass()))
             return false;
@@ -511,10 +515,6 @@ public abstract class Matrix3DFeatures
          if (m1.getM20() != m2.getM20() || m1.getM21() != m2.getM21() || m1.getM22() != m2.getM22())
             return false;
          return true;
-      }
-      catch (NullPointerException e)
-      {
-         return false;
       }
    }
 }

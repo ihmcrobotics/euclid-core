@@ -255,13 +255,9 @@ public interface Tuple3DReadOnly
     */
    default boolean equals(Tuple3DReadOnly other)
    {
-      try
-      {
-         return getX() == other.getX() && getY() == other.getY() && getZ() == other.getZ();
-      }
-      catch (NullPointerException e)
-      {
+      if (other == null)
          return false;
-      }
+      else
+         return getX() == other.getX() && getY() == other.getY() && getZ() == other.getZ();
    }
 }

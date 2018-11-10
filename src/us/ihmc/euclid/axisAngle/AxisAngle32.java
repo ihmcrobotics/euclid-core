@@ -238,14 +238,10 @@ public class AxisAngle32 implements AxisAngleBasics, Settable<AxisAngle32>, Epsi
    @Override
    public boolean equals(Object object)
    {
-      try
-      {
+      if (object instanceof AxisAngleReadOnly)
          return equals((AxisAngleReadOnly) object);
-      }
-      catch (ClassCastException e)
-      {
+      else
          return false;
-      }
    }
 
    /**

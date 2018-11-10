@@ -14,6 +14,7 @@ import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollBasics;
 
 /**
  * Read-only interface for unit-quaternion used to represent 3D orientations.
@@ -170,12 +171,20 @@ public interface QuaternionReadOnly extends Tuple4DReadOnly, Orientation3DReadOn
 
    /** {@inheritDoc} */
    @Override
+   default void get(YawPitchRollBasics yawPitchRollToPack)
+   {
+      yawPitchRollToPack.setQuaternion(getX(), getY(), getZ(), getS());
+   }
+
+   /** {@inheritDoc} */
+   @Override
    default void getRotationVector(Vector3DBasics rotationVectorToPack)
    {
       RotationVectorConversion.convertQuaternionToRotationVector(this, rotationVectorToPack);
    }
 
    /** {@inheritDoc} */
+   @Deprecated
    @Override
    default void getYawPitchRoll(double[] yawPitchRollToPack)
    {

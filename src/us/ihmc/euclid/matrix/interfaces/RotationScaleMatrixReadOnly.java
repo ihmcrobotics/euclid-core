@@ -4,6 +4,7 @@ import org.ejml.data.DenseMatrix64F;
 
 import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.orientation.interfaces.Orientation3DBasics;
+import us.ihmc.euclid.orientation.interfaces.Orientation3DReadOnly;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DBasics;
 import us.ihmc.euclid.tuple2D.interfaces.Tuple2DReadOnly;
@@ -11,10 +12,9 @@ import us.ihmc.euclid.tuple3D.interfaces.Tuple3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Tuple3DReadOnly;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DBasics;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionBasics;
-import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DBasics;
 import us.ihmc.euclid.tuple4D.interfaces.Vector4DReadOnly;
+import us.ihmc.euclid.yawPitchRoll.YawPitchRoll;
 
 /**
  * Read interface for 3-by-3 rotation-scale matrices.
@@ -226,6 +226,7 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
     * </p>
     *
     * @param yawPitchRollToPack the array in which the yaw-pitch-roll angles are stored. Modified.
+    * @deprecated Use {@link YawPitchRoll} with {@link #getRotationMatrix()}.
     */
    default void getRotationYawPitchRoll(double[] yawPitchRollToPack)
    {
@@ -317,35 +318,31 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
    }
 
    /**
-    * Transforms the given quaternion by the rotation part of this rotation-scale matrix.
+    * Transforms the given orientation by the rotation part of this rotation-scale matrix.
     * <p>
-    * quaternionToTransform = Q(this.getRotationMatrix()) * quaternionToTransform <br>
-    * where Q(this.getRotationMatrix()) is the equivalent quaternion for the rotation part of this
-    * rotation-scale matrix.
+    * orientationToTransform = this.getRotationMatrix() * orientationToTransform <br>
     * </p>
     *
-    * @param quaternionToTransform the quaternion to transform. Modified.
+    * @param orientationToTransform the orientation to transform. Modified.
     */
-   default void transform(QuaternionBasics quaternionToTransform)
+   default void transform(Orientation3DBasics orientationToTransform)
    {
-      transform(quaternionToTransform, quaternionToTransform);
+      transform(orientationToTransform, orientationToTransform);
    }
 
    /**
-    * Transforms the given quaternion {@code quaternionOriginal} and stores the result into
-    * {@code quaternionTransformed}.
+    * Transforms the given orientation {@code orientationOriginal} and stores the result into
+    * {@code orientationTransformed}.
     * <p>
-    * quaternionToTransform = Q(this.getRotationMatrix()) * quaternionToTransform <br>
-    * where Q(this.getRotationMatrix()) is the equivalent quaternion for the rotation part of this
-    * rotation-scale matrix.
+    * orientationToTransform = this.getRotationMatrix() * orientationOriginal <br>
     * </p>
     *
-    * @param quaternionOriginal the quaternion to transform. Not modified.
-    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
+    * @param orientationOriginal the orientation to transform. Not modified.
+    * @param orientationTransformed the orientation in which the result is stored. Modified.
     */
-   default void transform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   default void transform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      getRotationMatrix().transform(quaternionOriginal, quaternionTransformed);
+      getRotationMatrix().transform(orientationOriginal, orientationTransformed);
    }
 
    /** {@inheritDoc} */
@@ -422,46 +419,32 @@ public interface RotationScaleMatrixReadOnly extends Matrix3DReadOnly
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion by the rotation part of this
+    * Performs the inverse of the transform to the given orientation by the rotation part of this
     * rotation-scale matrix.
     * <p>
-    * quaternionToTransform = Q(this.getRotationMatrix()<sup>-1</sup>) * quaternionToTransform <br>
-    * where Q(this.getRotationMatrix()<sup>-1</sup>) is the equivalent quaternion for the inverse of
-    * the rotation part of this rotation-scale matrix.
-    * </p>
-    * <p>
-    * This operation uses the property: <br>
-    * q<sup>-1</sup> = conjugate(q) </br>
-    * of a quaternion preventing to actually compute the inverse of the matrix.
+    * orientationToTransform = this.getRotationMatrix()<sup>-1</sup> * orientationToTransform <br>
     * </p>
     *
-    * @param quaternionToTransform the quaternion to transform. Modified.
+    * @param orientationToTransform the orientation to transform. Modified.
     */
-   default void inverseTransform(QuaternionBasics quaternionToTransform)
+   default void inverseTransform(Orientation3DBasics orientationToTransform)
    {
-      inverseTransform(quaternionToTransform, quaternionToTransform);
+      inverseTransform(orientationToTransform, orientationToTransform);
    }
 
    /**
-    * Performs the inverse of the transform to the given quaternion {@code quaternionOriginal} and
-    * stores the result into {@code quaternionTransformed}.
+    * Performs the inverse of the transform to the given orientation {@code orientationOriginal} and
+    * stores the result into {@code orientationTransformed}.
     * <p>
-    * quaternionToTransform = Q(this.getRotationMatrix()<sup>-1</sup>) * quaternionToTransform <br>
-    * where Q(this.getRotationMatrix()<sup>-1</sup>) is the equivalent quaternion for the inverse of
-    * the rotation part of this rotation-scale matrix.
-    * </p>
-    * <p>
-    * This operation uses the property: <br>
-    * q<sup>-1</sup> = conjugate(q) </br>
-    * of a quaternion preventing to actually compute the inverse of the matrix.
+    * orientationTransformed = this.getRotationMatrix()<sup>-1</sup> * orientationOriginal <br>
     * </p>
     *
-    * @param quaternionOriginal the quaternion to transform. Not modified.
-    * @param quaternionTransformed the quaternion in which the result is stored. Modified.
+    * @param orientationOriginal the orientation to transform. Not modified.
+    * @param orientationTransformed the orientation in which the result is stored. Modified.
     */
-   default void inverseTransform(QuaternionReadOnly quaternionOriginal, QuaternionBasics quaternionTransformed)
+   default void inverseTransform(Orientation3DReadOnly orientationOriginal, Orientation3DBasics orientationTransformed)
    {
-      getRotationMatrix().inverseTransform(quaternionOriginal, quaternionTransformed);
+      getRotationMatrix().inverseTransform(orientationOriginal, orientationTransformed);
    }
 
    /** {@inheritDoc} */

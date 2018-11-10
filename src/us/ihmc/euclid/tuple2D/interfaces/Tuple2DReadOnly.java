@@ -226,13 +226,9 @@ public interface Tuple2DReadOnly
     */
    default boolean equals(Tuple2DReadOnly other)
    {
-      try
-      {
-         return getX() == other.getX() && getY() == other.getY();
-      }
-      catch (NullPointerException e)
-      {
+      if (other == null)
          return false;
-      }
+      else
+         return getX() == other.getX() && getY() == other.getY();
    }
 }

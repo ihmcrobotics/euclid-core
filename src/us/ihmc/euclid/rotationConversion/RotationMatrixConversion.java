@@ -5,6 +5,7 @@ import us.ihmc.euclid.matrix.RotationMatrix;
 import us.ihmc.euclid.tools.EuclidCoreTools;
 import us.ihmc.euclid.tuple3D.interfaces.Vector3DReadOnly;
 import us.ihmc.euclid.tuple4D.interfaces.QuaternionReadOnly;
+import us.ihmc.euclid.yawPitchRoll.interfaces.YawPitchRollReadOnly;
 
 /**
  * This class gathers all the methods necessary to converts any type of rotation into a rotation
@@ -295,10 +296,49 @@ public abstract class RotationMatrixConversion
     *
     * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
     * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    * @deprecated Use {@link #convertYawPitchRollToMatrix(YawPitchRollReadOnly, RotationMatrix)}
+    *             instead.
     */
    public static void convertYawPitchRollToMatrix(double[] yawPitchRoll, RotationMatrix matrixToPack)
    {
       convertYawPitchRollToMatrix(yawPitchRoll[0], yawPitchRoll[1], yawPitchRoll[2], matrixToPack);
+   }
+
+   /**
+    * Converts the given yaw-pitch-roll angles into a rotation matrix.
+    * <p>
+    * After calling this method, the yaw-pitch-roll angles and the rotation matrix represent the same
+    * orientation.
+    * </p>
+    * <p>
+    * Edge case:
+    * <ul>
+    * <li>if either of the yaw, pitch, or roll angle is {@link Double#NaN}, the rotation matrix is set
+    * to {@link Double#NaN}.
+    * </ul>
+    * </p>
+    * <p>
+    * Note: the yaw-pitch-roll representation, also called Euler angles, corresponds to the
+    * representation of an orientation by decomposing it by three successive rotations around the three
+    * axes: Z (yaw), Y (pitch), and X (roll). The equivalent rotation matrix of such representation is:
+    *
+    * <pre>
+    *  R = R<sub>Z</sub>(yaw) * R<sub>Y</sub>(pitch) * R<sub>X</sub>(roll)
+    * </pre>
+    *
+    * <pre>
+    *     / cos(yaw) -sin(yaw) 0 \   /  cos(pitch) 0 sin(pitch) \   / 1     0          0     \
+    * R = | sin(yaw)  cos(yaw) 0 | * |      0      1     0      | * | 0 cos(roll) -sin(roll) |
+    *     \    0         0     1 /   \ -sin(pitch) 0 cos(pitch) /   \ 0 sin(roll)  cos(roll) /
+    * </pre>
+    * </p>
+    *
+    * @param yawPitchRoll the yaw-pitch-roll angles to use in the conversion. Not modified.
+    * @param matrixToPack the rotation matrix in which the result is stored. Modified.
+    */
+   public static void convertYawPitchRollToMatrix(YawPitchRollReadOnly yawPitchRoll, RotationMatrix matrixToPack)
+   {
+      convertYawPitchRollToMatrix(yawPitchRoll.getYaw(), yawPitchRoll.getPitch(), yawPitchRoll.getRoll(), matrixToPack);
    }
 
    /**

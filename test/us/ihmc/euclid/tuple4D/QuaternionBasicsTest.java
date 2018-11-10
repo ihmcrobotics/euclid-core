@@ -1,10 +1,6 @@
 package us.ihmc.euclid.tuple4D;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -1125,7 +1121,7 @@ public abstract class QuaternionBasicsTest<T extends QuaternionBasics> extends T
 
       for (int i = 0; i < NUMBER_OF_ITERATIONS; i++)
       { // Test setYawPitchRoll(double[] yawPitchRoll)
-         yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRoll(random);
+         yawPitchRoll = EuclidCoreRandomTools.nextYawPitchRollArray(random);
 
          QuaternionConversion.convertYawPitchRollToQuaternion(yawPitchRoll, expectedQuaternion);
 
