@@ -1,4 +1,5 @@
 # Euclid Core
+# !!! Euclid-core is being merged with [Euclid](https://github.com/ihmcrobotics/euclid) starting at Euclid 0.11.0+. Only minor bugfixes will be carried on this repo. !!!
 
 ## Minutiae
 
